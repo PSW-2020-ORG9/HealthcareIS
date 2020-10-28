@@ -3,17 +3,15 @@
 // Created: 02 June 2020 10:45:48
 // Purpose: Definition of Class ConsiderPatientsProceduresCalculator
 
+using System.Linq;
 using Model.Schedule.Procedures;
 using Model.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Service.ScheduleService.AvailabilityCalculators
 {
     public class ConsiderPatientsProceduresCalculator : PatientAvailabilityCalculatorDecorator
     {
-        private Procedure procedure;
+        private readonly Procedure procedure;
 
         public ConsiderPatientsProceduresCalculator(Procedure procedure,
             PatientAvailabilityCalculator calculator) : base(calculator)
@@ -36,21 +34,21 @@ namespace Service.ScheduleService.AvailabilityCalculators
 
         public new PatientAvailabilityDTO Calculate(PatientAvailabilityDTO patient, CurrentScheduleContext context)
         {
-            TimeIntervalCollection newIntervals = new TimeIntervalCollection(patient.Availability.Intervals);
+            var newIntervals = new TimeIntervalCollection(patient.Availability.Intervals);
 
-            foreach (TimeInterval timeInterval in patient.Availability.Intervals)
+            foreach (var timeInterval in patient.Availability.Intervals)
             {
-                List<Procedure> conflictingProcedures =
+                var conflictingProcedures =
                     context.ProcedureService.GetByPatientAndTime(patient.Patient, timeInterval).ToList();
                 if (procedure != null)
                     conflictingProcedures.Remove(procedure);
 
-                foreach (Procedure procedure in conflictingProcedures)
+                foreach (var procedure in conflictingProcedures)
                     newIntervals.SubtractInterval(procedure.TimeInterval);
             }
 
-            return base.Calculate(new PatientAvailabilityDTO { Patient = patient.Patient, Availability = newIntervals }, context);
+            return base.Calculate(new PatientAvailabilityDTO {Patient = patient.Patient, Availability = newIntervals},
+                context);
         }
-
     }
 }

@@ -3,21 +3,21 @@
 // Created: 02 June 2020 01:11:59
 // Purpose: Definition of Class RequestNotificationFileRepository
 
+using System.Collections.Generic;
 using Model.Notifications;
 using Model.Requests;
 using Model.Users.UserAccounts;
 using Model.Utilities;
 using Repository.Generics;
-using System;
-using System.Collections.Generic;
 
 namespace Repository.NotificationRepository
 {
-    public class RequestNotificationFileRepository : GenericFileRepository<RequestNotification, int>, RequestNotificationRepository
+    public class RequestNotificationFileRepository : GenericFileRepository<RequestNotification, int>,
+        RequestNotificationRepository
     {
-        private IntegerKeyGenerator keyGenerator;
+        private readonly IntegerKeyGenerator keyGenerator;
 
-        public RequestNotificationFileRepository(String filePath) : base(filePath)
+        public RequestNotificationFileRepository(string filePath) : base(filePath)
         {
             keyGenerator = new IntegerKeyGenerator(GetAllKeys());
         }

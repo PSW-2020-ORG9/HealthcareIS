@@ -3,22 +3,21 @@
 // Created: 02 June 2020 03:12:41
 // Purpose: Definition of Class ProcedureScheduleFittingService
 
-using Model.HospitalResources;
-using Model.Schedule.Procedures;
-using Model.Users.Employee;
-using Model.Utilities;
-using Service.ScheduleService.AvailabilityCalculators;
 using System;
 using System.Collections.Generic;
+using Model.Schedule.Procedures;
+using Model.Utilities;
+using Service.ScheduleService.AvailabilityCalculators;
 
 namespace Service.ScheduleService.ScheduleFittingService
 {
     public class ProcedureScheduleFittingService
     {
-        private CurrentScheduleContext context;
-        private PreferenceToResourceConverter preferenceToResourceConverter;
+        private readonly CurrentScheduleContext context;
+        private readonly PreferenceToResourceConverter preferenceToResourceConverter;
 
-        public ProcedureScheduleFittingService(CurrentScheduleContext context, PreferenceToResourceConverter preferenceToResourceConverter)
+        public ProcedureScheduleFittingService(CurrentScheduleContext context,
+            PreferenceToResourceConverter preferenceToResourceConverter)
         {
             this.context = context;
             this.preferenceToResourceConverter = preferenceToResourceConverter;
@@ -26,14 +25,14 @@ namespace Service.ScheduleService.ScheduleFittingService
 
         public IEnumerable<Procedure> FitForScheduling(ProcedurePreferenceDTO preference)
         {
-            ProcedureResourcesDTO resources =
+            var resources =
                 preferenceToResourceConverter.ConvertProcedurePreference(preference);
 
-            PatientAvailabilityDTO patientAvailability =
+            var patientAvailability =
                 CalculatePatientAvailability(resources, MakePatientCalculator(null));
-            IEnumerable<RoomAvailabilityDTO> roomAvailabilities =
+            var roomAvailabilities =
                 CalculateRoomAvailabilites(resources, MakeRoomCalculator(null));
-            IEnumerable<DoctorAvailabilityDTO> doctorAvailabilities =
+            var doctorAvailabilities =
                 CalculateDoctorAvailabilities(resources, MakeDoctorCalculator(null));
 
             return GenerateProcedures(resources, roomAvailabilities, patientAvailability, doctorAvailabilities);
@@ -41,14 +40,14 @@ namespace Service.ScheduleService.ScheduleFittingService
 
         public IEnumerable<Procedure> FitForRescheduling(ProcedurePreferenceDTO preference, Procedure procedure)
         {
-            ProcedureResourcesDTO resources =
+            var resources =
                 preferenceToResourceConverter.ConvertProcedurePreference(preference);
 
-            PatientAvailabilityDTO patientAvailability =
+            var patientAvailability =
                 CalculatePatientAvailability(resources, MakePatientCalculator(procedure));
-            IEnumerable<RoomAvailabilityDTO> roomAvailabilities =
+            var roomAvailabilities =
                 CalculateRoomAvailabilites(resources, MakeRoomCalculator(procedure));
-            IEnumerable<DoctorAvailabilityDTO> doctorAvailabilities =
+            var doctorAvailabilities =
                 CalculateDoctorAvailabilities(resources, MakeDoctorCalculator(procedure));
 
             return GenerateProcedures(resources, roomAvailabilities, patientAvailability, doctorAvailabilities);
@@ -72,12 +71,13 @@ namespace Service.ScheduleService.ScheduleFittingService
                 new ConsiderDoctorsShiftsCalculator());
         }
 
-        private IEnumerable<DoctorAvailabilityDTO> CalculateDoctorAvailabilities(ProcedureResourcesDTO resources, DoctorAvailabilityCalculator calculator)
+        private IEnumerable<DoctorAvailabilityDTO> CalculateDoctorAvailabilities(ProcedureResourcesDTO resources,
+            DoctorAvailabilityCalculator calculator)
         {
-            List<DoctorAvailabilityDTO> doctorAvailabilities = new List<DoctorAvailabilityDTO>();
-            foreach (Doctor doctor in resources.Doctors)
+            var doctorAvailabilities = new List<DoctorAvailabilityDTO>();
+            foreach (var doctor in resources.Doctors)
             {
-                DoctorAvailabilityDTO initialDoctorAvailability = new DoctorAvailabilityDTO()
+                var initialDoctorAvailability = new DoctorAvailabilityDTO
                 {
                     Doctor = doctor,
                     Availability = new TimeIntervalCollection(resources.Timing.Intervals)
@@ -89,12 +89,13 @@ namespace Service.ScheduleService.ScheduleFittingService
             return doctorAvailabilities;
         }
 
-        private IEnumerable<RoomAvailabilityDTO> CalculateRoomAvailabilites(ProcedureResourcesDTO resources, RoomAvailabilityCalculator calculator)
+        private IEnumerable<RoomAvailabilityDTO> CalculateRoomAvailabilites(ProcedureResourcesDTO resources,
+            RoomAvailabilityCalculator calculator)
         {
-            List<RoomAvailabilityDTO> roomAvailabilities = new List<RoomAvailabilityDTO>();
-            foreach (Room room in resources.Rooms)
+            var roomAvailabilities = new List<RoomAvailabilityDTO>();
+            foreach (var room in resources.Rooms)
             {
-                RoomAvailabilityDTO initialRoomAvailability = new RoomAvailabilityDTO()
+                var initialRoomAvailability = new RoomAvailabilityDTO
                 {
                     Room = room,
                     Availability = new TimeIntervalCollection(resources.Timing.Intervals)
@@ -102,12 +103,14 @@ namespace Service.ScheduleService.ScheduleFittingService
 
                 roomAvailabilities.Add(calculator.Calculate(initialRoomAvailability, context));
             }
+
             return roomAvailabilities;
         }
 
-        private PatientAvailabilityDTO CalculatePatientAvailability(ProcedureResourcesDTO resources, PatientAvailabilityCalculator calculator)
+        private PatientAvailabilityDTO CalculatePatientAvailability(ProcedureResourcesDTO resources,
+            PatientAvailabilityCalculator calculator)
         {
-            PatientAvailabilityDTO initialPatientAvailability = new PatientAvailabilityDTO()
+            var initialPatientAvailability = new PatientAvailabilityDTO
             {
                 Patient = resources.Patient,
                 Availability = new TimeIntervalCollection(resources.Timing.Intervals)
@@ -120,23 +123,21 @@ namespace Service.ScheduleService.ScheduleFittingService
             ProcedureResourcesDTO resources, IEnumerable<RoomAvailabilityDTO> rooms,
             PatientAvailabilityDTO patient, IEnumerable<DoctorAvailabilityDTO> doctors)
         {
-            List<Procedure> hospitalizations = new List<Procedure>();
-            TimeSpan duration = resources.Type.Duration;
+            var hospitalizations = new List<Procedure>();
+            var duration = resources.Type.Duration;
 
-            foreach (RoomAvailabilityDTO room in rooms)
+            foreach (var room in rooms)
+            foreach (var doctor in doctors)
             {
-                foreach (DoctorAvailabilityDTO doctor in doctors)
+                var matched =
+                    patient.Availability.Overlap(room.Availability).Overlap(doctor.Availability);
+                foreach (var slot in MakeSlots(matched.Intervals, duration))
                 {
-                    TimeIntervalCollection matched =
-                        patient.Availability.Overlap(room.Availability).Overlap(doctor.Availability);
-                    foreach (TimeInterval slot in MakeSlots(matched.Intervals, duration))
-                    {
-                        Procedure toAdd = CreateProcedure(resources.Type);
-                        toAdd.TimeInterval = slot;
-                        toAdd.Patient = patient.Patient;
-                        toAdd.Doctor = doctor.Doctor;
-                        toAdd.Room = room.Room;
-                    }
+                    var toAdd = CreateProcedure(resources.Type);
+                    toAdd.TimeInterval = slot;
+                    toAdd.Patient = patient.Patient;
+                    toAdd.Doctor = doctor.Doctor;
+                    toAdd.Room = room.Room;
                 }
             }
 
@@ -147,27 +148,26 @@ namespace Service.ScheduleService.ScheduleFittingService
         {
             if (type.Kind.Equals(ProcedureKind.Examination))
                 return new Examination();
-            else
-                return new Surgery();
+            return new Surgery();
         }
 
         private IEnumerable<TimeInterval> MakeSlots(IEnumerable<TimeInterval> availableTimes, TimeSpan duration)
         {
-            List<TimeInterval> slots = new List<TimeInterval>();
-            foreach (TimeInterval available in availableTimes)
+            var slots = new List<TimeInterval>();
+            foreach (var available in availableTimes)
             {
-                DateTime slotStart = available.Start;
-                DateTime slotEnd = slotStart + duration;
+                var slotStart = available.Start;
+                var slotEnd = slotStart + duration;
 
                 while (slotEnd <= available.End)
                 {
-                    slots.Add(new TimeInterval() { Start = slotStart, End = slotEnd });
+                    slots.Add(new TimeInterval {Start = slotStart, End = slotEnd});
                     slotStart = slotEnd;
                     slotEnd = slotStart + duration;
                 }
             }
+
             return slots;
         }
-
     }
 }

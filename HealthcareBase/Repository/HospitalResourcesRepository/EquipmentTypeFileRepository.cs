@@ -6,15 +6,14 @@
 using Model.HospitalResources;
 using Model.Utilities;
 using Repository.Generics;
-using System;
 
 namespace Repository.HospitalResourcesRepository
 {
     public class EquipmentTypeFileRepository : GenericFileRepository<EquipmentType, int>, EquipmentTypeRepository
     {
-        private IntegerKeyGenerator keyGenerator;
+        private readonly IntegerKeyGenerator keyGenerator;
 
-        public EquipmentTypeFileRepository(String filePath) : base(filePath)
+        public EquipmentTypeFileRepository(string filePath) : base(filePath)
         {
             keyGenerator = new IntegerKeyGenerator(GetAllKeys());
         }

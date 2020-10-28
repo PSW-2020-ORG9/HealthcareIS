@@ -3,54 +3,51 @@
 // Created: 18 April 2020 17:49:09
 // Purpose: Definition of Class MedicalConsumable
 
-using System;
+using Repository.Generics;
 
 namespace Model.HospitalResources
 {
-    public class MedicalConsumable : Repository.Generics.Entity<int>
+    public class MedicalConsumable : Entity<int>
     {
-        private String manufacutrer;
-        private String description;
-        private MedicalConsumableType consumableType;
-        private int id;
-
         public MedicalConsumable(string manufacutrer, string description, MedicalConsumableType consumableType)
         {
-            this.manufacutrer = manufacutrer;
-            this.description = description;
-            this.consumableType = consumableType;
+            Manufacutrer = manufacutrer;
+            Description = description;
+            ConsumableType = consumableType;
         }
 
         public MedicalConsumable()
         {
-            consumableType = new MedicalConsumableType();
+            ConsumableType = new MedicalConsumableType();
         }
 
-        public string Manufacutrer { get => manufacutrer; set => manufacutrer = value; }
-        public string Description { get => description; set => description = value; }
-        public MedicalConsumableType ConsumableType { get => consumableType; set => consumableType = value; }
+        public string Manufacutrer { get; set; }
 
-        public int Id { get => id; set => id = value; }
+        public string Description { get; set; }
+
+        public MedicalConsumableType ConsumableType { get; set; }
+
+        public int Id { get; set; }
 
         public int GetKey()
         {
-            return id;
+            return Id;
         }
 
         public void SetKey(int id)
         {
-            this.id = id;
+            Id = id;
         }
 
         public override bool Equals(object obj)
         {
             return obj is MedicalConsumable consumable &&
-                   id == consumable.id;
+                   Id == consumable.Id;
         }
 
         public override int GetHashCode()
         {
-            return 1877310944 + id.GetHashCode();
+            return 1877310944 + Id.GetHashCode();
         }
     }
 }

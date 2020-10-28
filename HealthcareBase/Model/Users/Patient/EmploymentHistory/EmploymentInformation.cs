@@ -3,17 +3,15 @@
 // Created: 20 April 2020 17:55:19
 // Purpose: Definition of Class EmploymentInformation
 
-using System;
 using System.Collections.Generic;
 
 namespace Model.Users.Patient.EmploymentHistory
 {
     public class EmploymentInformation
     {
-        private EmploymentStatus employmentStatus;
         private List<Employment> employmentHistory;
 
-        public EmploymentStatus EmploymentStatus { get => employmentStatus; set => employmentStatus = value; }
+        public EmploymentStatus EmploymentStatus { get; set; }
 
         public IEnumerable<Employment> EmploymentHistory
         {
@@ -27,10 +25,8 @@ namespace Model.Users.Patient.EmploymentHistory
             {
                 RemoveAllEmployments();
                 if (value != null)
-                {
-                    foreach (Employment employment in value)
+                    foreach (var employment in value)
                         AddEmployment(employment);
-                }
             }
         }
 

@@ -1,21 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Model.CustomExceptions
+﻿namespace Model.CustomExceptions
 {
-    class TimingException : ValidationException
+    internal class TimingException : ValidationException
     {
-        public TimingException() : base()
+        public TimingException()
         {
-
         }
 
-        public TimingException(String message) : base(message)
+        public TimingException(string message) : base(message)
         {
-
         }
     }
 }

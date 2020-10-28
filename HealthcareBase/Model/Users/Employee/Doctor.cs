@@ -3,18 +3,16 @@
 // Created: 13 April 2020 18:32:18
 // Purpose: Definition of Class Doctor
 
-using Model.HospitalResources;
-using System;
 using System.Collections.Generic;
+using Model.HospitalResources;
 
 namespace Model.Users.Employee
 {
     public class Doctor : Employee
     {
-        private Model.HospitalResources.Department department;
         private List<Specialty> specialties;
 
-        public Department Department { get => department; set => department = value; }
+        public Department Department { get; set; }
 
         public IEnumerable<Specialty> Specialties
         {
@@ -28,10 +26,8 @@ namespace Model.Users.Employee
             {
                 RemoveAllSpecialties();
                 if (value != null)
-                {
-                    foreach (Specialty oSpecialty in value)
+                    foreach (var oSpecialty in value)
                         AddSpecialties(oSpecialty);
-                }
             }
         }
 
@@ -70,6 +66,5 @@ namespace Model.Users.Employee
         {
             return 2070159828 + employeeID.GetHashCode();
         }
-
     }
 }

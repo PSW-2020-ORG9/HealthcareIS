@@ -3,16 +3,15 @@
 // Created: 28 May 2020 12:04:05
 // Purpose: Definition of Class CountryService
 
+using System.Collections.Generic;
 using Model.Users.Generalities;
 using Repository.UsersRepository.GeneralitiesRepository;
-using System;
-using System.Collections.Generic;
 
 namespace Service.MiscellaneousService
 {
     public class CountryService
     {
-        private CountryRepository countryRepository;
+        private readonly CountryRepository countryRepository;
 
         public CountryService(CountryRepository countryRepository)
         {
@@ -28,6 +27,5 @@ namespace Service.MiscellaneousService
         {
             return countryRepository.GetAll();
         }
-
     }
 }

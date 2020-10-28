@@ -3,6 +3,9 @@
 // Created: 04 May 2020 13:58:09
 // Purpose: Definition of Class ExaminationFileRepository
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Model.CustomExceptions;
 using Model.HospitalResources;
 using Model.Medication;
@@ -15,26 +18,24 @@ using Repository.HospitalResourcesRepository;
 using Repository.MedicationRepository;
 using Repository.MiscellaneousRepository;
 using Repository.UsersRepository.EmployeesAndPatientsRepository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Repository.ScheduleRepository.ProceduresRepository
 {
     public class ExaminationFileRepository : GenericFileRepository<Examination, int>, ExaminationRepository
     {
-        private DiagnosisRepository diagnosisRepository;
-        private DoctorRepository doctorRepository;
-        private RoomRepository roomRepository;
-        private PatientRepository patientRepository;
-        private ProcedureTypeRepository procedureTypeRepository;
-        private MedicationPrescriptionRepository medicinePrescriptionRepository;
-        private IntegerKeyGenerator keyGenerator;
+        private readonly DiagnosisRepository diagnosisRepository;
+        private readonly DoctorRepository doctorRepository;
+        private readonly IntegerKeyGenerator keyGenerator;
+        private readonly MedicationPrescriptionRepository medicinePrescriptionRepository;
+        private readonly PatientRepository patientRepository;
+        private readonly ProcedureTypeRepository procedureTypeRepository;
+        private readonly RoomRepository roomRepository;
 
-        public ExaminationFileRepository(DiagnosisRepository diagnosisRepository, DoctorRepository doctorRepository, 
-            RoomRepository roomRepository, PatientRepository patientRepository, 
-            ProcedureTypeRepository procedureTypeRepository, MedicationPrescriptionRepository medicinePrescriptionRepository,
-            String filePath) : base(filePath)
+        public ExaminationFileRepository(DiagnosisRepository diagnosisRepository, DoctorRepository doctorRepository,
+            RoomRepository roomRepository, PatientRepository patientRepository,
+            ProcedureTypeRepository procedureTypeRepository,
+            MedicationPrescriptionRepository medicinePrescriptionRepository,
+            string filePath) : base(filePath)
         {
             this.diagnosisRepository = diagnosisRepository;
             this.doctorRepository = doctorRepository;
@@ -50,19 +51,16 @@ namespace Repository.ScheduleRepository.ProceduresRepository
             var examinations = new List<Examination>();
 
             foreach (var examination in GetAll())
-            {
                 if (examination.Doctor.Equals(doctor) && dates.Contains(examination.TimeInterval.Start.Date))
-                {
                     examinations.Add(examination);
-                }
-            }
 
             return examinations;
         }
 
         public IEnumerable<Examination> GetByDoctorAndTime(Doctor doctor, TimeInterval time)
         {
-            return GetMatching(examination => examination.Doctor.Equals(doctor) && examination.TimeInterval.Overlaps(time));
+            return GetMatching(examination =>
+                examination.Doctor.Equals(doctor) && examination.TimeInterval.Overlaps(time));
         }
 
         public IEnumerable<Examination> GetByRoomAndTime(Room room, TimeInterval time)
@@ -72,22 +70,21 @@ namespace Repository.ScheduleRepository.ProceduresRepository
 
         public IEnumerable<Examination> GetByPatientAndTime(Patient patient, TimeInterval time)
         {
-            return GetMatching(examination => examination.Patient.Equals(patient) && examination.TimeInterval.Overlaps(time));
+            return GetMatching(examination =>
+                examination.Patient.Equals(patient) && examination.TimeInterval.Overlaps(time));
         }
+
         public IEnumerable<Examination> GetByPatient(Patient patient)
         {
-            List<Examination> examinations = new List<Examination>();
+            var examinations = new List<Examination>();
             IEnumerable<Examination> retExaminations;
 
-            foreach (Examination currentExamination in GetAll())
-            {
+            foreach (var currentExamination in GetAll())
                 if (currentExamination.Patient.Equals(patient))
                     examinations.Add(currentExamination);
-            }
             retExaminations = examinations;
 
             return retExaminations;
-
         }
 
         protected override Examination ParseEntity(Examination entity)
@@ -106,8 +103,8 @@ namespace Repository.ScheduleRepository.ProceduresRepository
                     entity.ProcedureType = procedureTypeRepository.GetByID(entity.ProcedureType.GetKey());
                 if (entity.ReferredFrom != null)
                     entity.ReferredFrom = GetByID(entity.ReferredFrom.GetKey());
-                List<MedicationPrescription> prescriptions = new List<MedicationPrescription>();
-                foreach (MedicationPrescription prescription in entity.Prescriptions)
+                var prescriptions = new List<MedicationPrescription>();
+                foreach (var prescription in entity.Prescriptions)
                     prescriptions.Add(medicinePrescriptionRepository.GetByID(prescription.GetKey()));
                 entity.Prescriptions = prescriptions;
             }

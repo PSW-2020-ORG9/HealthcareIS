@@ -3,18 +3,15 @@
 // Created: 21 April 2020 15:36:43
 // Purpose: Definition of Class PersonalHistory
 
-using Model.Miscellaneous;
-using System;
 using System.Collections.Generic;
 
 namespace Model.Users.Patient.MedicalHistory
 {
     public class PersonalHistory
     {
-        private String overview;
         private List<DiagnosisDetails> diagnoses;
 
-        public string Overview { get => overview; set => overview = value; }
+        public string Overview { get; set; }
 
         public IEnumerable<DiagnosisDetails> Diagnoses
         {
@@ -28,10 +25,8 @@ namespace Model.Users.Patient.MedicalHistory
             {
                 RemoveAllDiagnoses();
                 if (value != null)
-                {
-                    foreach (DiagnosisDetails diagnosis in value)
+                    foreach (var diagnosis in value)
                         AddDiagnosis(diagnosis);
-                }
             }
         }
 

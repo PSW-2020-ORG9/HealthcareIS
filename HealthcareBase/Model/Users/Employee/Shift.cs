@@ -5,42 +5,39 @@
 
 using Model.HospitalResources;
 using Model.Utilities;
-using System;
+using Repository.Generics;
 
 namespace Model.Users.Employee
 {
-    public class Shift : Repository.Generics.Entity<int>
+    public class Shift : Entity<int>
     {
-        private TimeInterval timeInterval;
-        private Room assignedExamRoom;
-        private Doctor doctor;
-        private int id;
+        public TimeInterval TimeInterval { get; set; }
 
-        public TimeInterval TimeInterval { get => timeInterval; set => timeInterval = value; }
-        public Room AssignedExamRoom { get => assignedExamRoom; set => assignedExamRoom = value; }
-        public Doctor Doctor { get => doctor; set => doctor = value; }
+        public Room AssignedExamRoom { get; set; }
 
-        public int Id { get => id; set => id = value; }
+        public Doctor Doctor { get; set; }
 
-        public override bool Equals(object obj)
-        {
-            return obj is Shift shift &&
-                   id == shift.id;
-        }
-
-        public override int GetHashCode()
-        {
-            return 1877310944 + id.GetHashCode();
-        }
+        public int Id { get; set; }
 
         public int GetKey()
         {
-            return id;
+            return Id;
         }
 
         public void SetKey(int id)
         {
-            this.id = id;
+            Id = id;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Shift shift &&
+                   Id == shift.Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return 1877310944 + Id.GetHashCode();
         }
     }
 }

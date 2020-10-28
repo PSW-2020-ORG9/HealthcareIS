@@ -3,8 +3,6 @@
 // Created: 02 June 2020 10:45:48
 // Purpose: Definition of Class PatientAlwaysAvailableCalculator
 
-using System;
-
 namespace Service.ScheduleService.AvailabilityCalculators
 {
     public class PatientAlwaysAvailableCalculator : PatientAvailabilityCalculator
@@ -13,6 +11,5 @@ namespace Service.ScheduleService.AvailabilityCalculators
         {
             return patient;
         }
-
     }
 }

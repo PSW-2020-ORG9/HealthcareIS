@@ -3,10 +3,9 @@
 // Created: 04 May 2020 12:43:47
 // Purpose: Definition of Interface EquipmentUnitRepository
 
+using System.Collections.Generic;
 using Model.HospitalResources;
 using Repository.Generics;
-using System;
-using System.Collections.Generic;
 
 namespace Repository.HospitalResourcesRepository
 {

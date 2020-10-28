@@ -1,24 +1,21 @@
-﻿using Model.CustomExceptions;
+﻿using System;
+using Model.CustomExceptions;
 using Model.Notifications;
 using Model.Schedule.Procedures;
 using Service.ScheduleService.Validators;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Service.ScheduleService.ProcedureService
 {
     public abstract class AbstractProcedureSchedulingService<T> where T : Procedure
     {
-        private NotificationService.NotificationService notificationService;
-        private ProcedureScheduleComplianceValidator scheduleValidator;
-        private ProcedureValidator procedureValidator;
-        private TimeSpan timeLimit;
+        private readonly NotificationService.NotificationService notificationService;
+        private readonly ProcedureValidator procedureValidator;
+        private readonly ProcedureScheduleComplianceValidator scheduleValidator;
+        private readonly TimeSpan timeLimit;
 
-        protected AbstractProcedureSchedulingService(NotificationService.NotificationService notificationService, 
-            ProcedureScheduleComplianceValidator scheduleValidator, ProcedureValidator procedureValidator, TimeSpan timeLimit)
+        protected AbstractProcedureSchedulingService(NotificationService.NotificationService notificationService,
+            ProcedureScheduleComplianceValidator scheduleValidator, ProcedureValidator procedureValidator,
+            TimeSpan timeLimit)
         {
             this.notificationService = notificationService;
             this.scheduleValidator = scheduleValidator;
@@ -36,7 +33,7 @@ namespace Service.ScheduleService.ProcedureService
             if (procedure is null)
                 throw new BadRequestException();
             ValidateForScheduling(procedure);
-            T createdProcedure = Create(procedure);
+            var createdProcedure = Create(procedure);
             notificationService.Notify(ProcedureUpdateType.Scheduled, createdProcedure);
             return createdProcedure;
         }
@@ -46,7 +43,7 @@ namespace Service.ScheduleService.ProcedureService
             if (procedure is null)
                 throw new BadRequestException();
             ValidateForRescheduling(procedure);
-            T updatedProcedure = Update(procedure);
+            var updatedProcedure = Update(procedure);
             notificationService.Notify(ProcedureUpdateType.Rescheduled, updatedProcedure);
             return updatedProcedure;
         }

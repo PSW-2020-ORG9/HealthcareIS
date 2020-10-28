@@ -3,21 +3,20 @@
 // Created: 04 May 2020 12:43:47
 // Purpose: Definition of Class RenovationFileRepository
 
+using System.Collections.Generic;
 using Model.CustomExceptions;
 using Model.HospitalResources;
 using Model.Utilities;
 using Repository.Generics;
-using System;
-using System.Collections.Generic;
 
 namespace Repository.HospitalResourcesRepository
 {
     public class RenovationFileRepository : GenericFileRepository<Renovation, int>, RenovationRepository
     {
-        private IntegerKeyGenerator keyGenerator;
-        RoomRepository roomRepository;
+        private readonly IntegerKeyGenerator keyGenerator;
+        private readonly RoomRepository roomRepository;
 
-        public RenovationFileRepository(RoomRepository roomRepository, String filePath) : base(filePath)
+        public RenovationFileRepository(RoomRepository roomRepository, string filePath) : base(filePath)
         {
             this.roomRepository = roomRepository;
             keyGenerator = new IntegerKeyGenerator(GetAllKeys());

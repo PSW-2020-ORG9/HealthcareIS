@@ -3,24 +3,22 @@
 // Created: 25 May 2020 12:58:01
 // Purpose: Definition of Class DepartmentService
 
-using Model.CustomExceptions;
-using Model.HospitalResources;
-using Model.Schedule.Hospitalizations;
-using Repository.HospitalResourcesRepository;
-using Repository.ScheduleRepository.HospitalizationsRepository;
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using Model.CustomExceptions;
+using Model.HospitalResources;
+using Repository.HospitalResourcesRepository;
+using Repository.ScheduleRepository.HospitalizationsRepository;
 
 namespace Service.HospitalResourcesService.RoomService
 {
     public class DepartmentService
     {
-        private DepartmentRepository departmentRepository;
-        private RoomRepository roomRepository;
-        private HospitalizationTypeRepository hospitalizationTypeRepository;
+        private readonly DepartmentRepository departmentRepository;
+        private readonly HospitalizationTypeRepository hospitalizationTypeRepository;
+        private readonly RoomRepository roomRepository;
 
-        public DepartmentService(DepartmentRepository departmentRepository, RoomRepository roomRepository, 
+        public DepartmentService(DepartmentRepository departmentRepository, RoomRepository roomRepository,
             HospitalizationTypeRepository hospitalizationTypeRepository)
         {
             this.departmentRepository = departmentRepository;
@@ -63,8 +61,8 @@ namespace Service.HospitalResourcesService.RoomService
 
         private void DeleteFromRooms(Department department)
         {
-            IEnumerable<Room> roomsInDepartment = roomRepository.GetByDepartment(department);
-            foreach (Room room in roomsInDepartment)
+            var roomsInDepartment = roomRepository.GetByDepartment(department);
+            foreach (var room in roomsInDepartment)
             {
                 room.Department = null;
                 roomRepository.Update(room);
@@ -73,13 +71,12 @@ namespace Service.HospitalResourcesService.RoomService
 
         private void DeleteFromHospitalizationTypes(Department department)
         {
-            foreach (HospitalizationType hospitalizationType in hospitalizationTypeRepository.GetAll())
+            foreach (var hospitalizationType in hospitalizationTypeRepository.GetAll())
                 if (hospitalizationType.AppropriateDepartments.Contains(department))
                 {
                     hospitalizationType.RemoveAppropriateDepartments(department);
                     hospitalizationTypeRepository.Update(hospitalizationType);
                 }
         }
-
     }
 }

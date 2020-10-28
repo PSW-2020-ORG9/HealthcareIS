@@ -3,44 +3,41 @@
 // Created: 21 April 2020 18:20:24
 // Purpose: Definition of Class UserFeedback
 
+using System;
 using Model.Users.UserAccounts;
 using Repository.Generics;
-using System;
 
 namespace Model.Users.UserFeedback
 {
     public class UserFeedback : Entity<int>
     {
-        private DateTime date;
-        private String userComment;
-        private UserAccount user;
-        private int id;
+        public DateTime Date { get; set; }
 
-        public DateTime Date { get => date; set => date = value; }
-        public string UserComment { get => userComment; set => userComment = value; }
-        public UserAccount User { get => user; set => user = value; }
+        public string UserComment { get; set; }
 
-        public int Id { get => id; set => id = value; }
+        public UserAccount User { get; set; }
 
-        public override bool Equals(object obj)
-        {
-            return obj is UserFeedback feedback &&
-                   id == feedback.id;
-        }
-
-        public override int GetHashCode()
-        {
-            return 1877310944 + id.GetHashCode();
-        }
+        public int Id { get; set; }
 
         public int GetKey()
         {
-            return id;
+            return Id;
         }
 
         public void SetKey(int id)
         {
-            this.id = id;
+            Id = id;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is UserFeedback feedback &&
+                   Id == feedback.Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return 1877310944 + Id.GetHashCode();
         }
     }
 }

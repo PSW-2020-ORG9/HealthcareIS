@@ -3,16 +3,15 @@
 // Created: 28 May 2020 17:09:20
 // Purpose: Definition of Class UserFeedbackService
 
+using System.Collections.Generic;
 using Model.Users.UserFeedback;
 using Repository.UsersRepository.UserFeedbackRepository;
-using System;
-using System.Collections.Generic;
 
 namespace Service.UsersService.UserFeedbackService
 {
     public class UserFeedbackService
     {
-        private UserFeedbackRepository userFeedbackRepository;
+        private readonly UserFeedbackRepository userFeedbackRepository;
 
         public UserFeedbackService(UserFeedbackRepository userFeedbackRepository)
         {
@@ -28,6 +27,5 @@ namespace Service.UsersService.UserFeedbackService
         {
             return userFeedbackRepository.Create(userFeedback);
         }
-
     }
 }

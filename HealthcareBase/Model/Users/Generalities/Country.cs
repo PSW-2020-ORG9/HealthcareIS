@@ -3,40 +3,37 @@
 // Created: 27 May 2020 22:23:44
 // Purpose: Definition of Class Country
 
-using System;
+using Repository.Generics;
 
 namespace Model.Users.Generalities
 {
-    public class Country : Repository.Generics.Entity<int>
+    public class Country : Entity<int>
     {
-        private String name;
-        private String code;
-        private int id;
+        public string Name { get; set; }
 
-        public string Name { get => name; set => name = value; }
-        public string Code { get => code; set => code = value; }
+        public string Code { get; set; }
 
-        public int Id { get => id; set => id = value; }
-
-        public override bool Equals(object obj)
-        {
-            return obj is Country country &&
-                   id == country.id;
-        }
-
-        public override int GetHashCode()
-        {
-            return 1877310944 + id.GetHashCode();
-        }
+        public int Id { get; set; }
 
         public int GetKey()
         {
-            return id;
+            return Id;
         }
 
         public void SetKey(int id)
         {
-            this.id = id;
+            Id = id;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Country country &&
+                   Id == country.Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return 1877310944 + Id.GetHashCode();
         }
     }
 }

@@ -3,25 +3,23 @@
 // Created: 20 April 2020 21:21:26
 // Purpose: Definition of Class MedicalHistory
 
-using System;
 using System.Collections.Generic;
 
 namespace Model.Users.Patient.MedicalHistory
 {
     public class MedicalHistory
     {
-        private PersonalHistory personalHistory;
-        private FamilyHistory familyHistory;
         private List<AllergyManifestation> allergies;
 
         public MedicalHistory()
         {
-            personalHistory = new PersonalHistory();
+            PersonalHistory = new PersonalHistory();
             FamilyHistory = new FamilyHistory();
         }
 
-        public PersonalHistory PersonalHistory { get => personalHistory; set => personalHistory = value; }
-        public FamilyHistory FamilyHistory { get => familyHistory; set => familyHistory = value; }
+        public PersonalHistory PersonalHistory { get; set; }
+
+        public FamilyHistory FamilyHistory { get; set; }
 
         public IEnumerable<AllergyManifestation> Allergies
         {
@@ -35,10 +33,8 @@ namespace Model.Users.Patient.MedicalHistory
             {
                 RemoveAllAllergies();
                 if (value != null)
-                {
-                    foreach (AllergyManifestation allergy in value)
+                    foreach (var allergy in value)
                         AddAllergy(allergy);
-                }
             }
         }
 

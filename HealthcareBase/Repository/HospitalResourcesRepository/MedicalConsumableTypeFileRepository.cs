@@ -6,15 +6,15 @@
 using Model.HospitalResources;
 using Model.Utilities;
 using Repository.Generics;
-using System;
 
 namespace Repository.HospitalResourcesRepository
 {
-    public class MedicalConsumableTypeFileRepository : GenericFileRepository<MedicalConsumableType, int>, MedicalConsumableTypeRepository
+    public class MedicalConsumableTypeFileRepository : GenericFileRepository<MedicalConsumableType, int>,
+        MedicalConsumableTypeRepository
     {
-        private IntegerKeyGenerator keyGenerator;
+        private readonly IntegerKeyGenerator keyGenerator;
 
-        public MedicalConsumableTypeFileRepository(String filePath) : base(filePath)
+        public MedicalConsumableTypeFileRepository(string filePath) : base(filePath)
         {
             keyGenerator = new IntegerKeyGenerator(GetAllKeys());
         }

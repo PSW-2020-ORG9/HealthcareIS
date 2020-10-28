@@ -4,40 +4,37 @@
 // Purpose: Definition of Class Notification
 
 using Model.Users.UserAccounts;
-using System;
+using Repository.Generics;
 
 namespace Model.Notifications
 {
-    public abstract class Notification : Repository.Generics.Entity<int>
+    public abstract class Notification : Entity<int>
     {
-        private int id;
-        private Boolean read;
-        private Model.Users.UserAccounts.UserAccount user;
+        public bool Read { get; set; }
 
-        public bool Read { get => read; set => read = value; }
-        public UserAccount User { get => user; set => user = value; }
+        public UserAccount User { get; set; }
 
-        public int Id { get => id; set => id = value; }
-
-        public override bool Equals(object obj)
-        {
-            return obj is Notification notification &&
-                   id == notification.id;
-        }
-
-        public override int GetHashCode()
-        {
-            return 1877310944 + id.GetHashCode();
-        }
+        public int Id { get; set; }
 
         public int GetKey()
         {
-            return id;
+            return Id;
         }
 
         public void SetKey(int id)
         {
-            this.id = id;
+            Id = id;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Notification notification &&
+                   Id == notification.Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return 1877310944 + Id.GetHashCode();
         }
     }
 }

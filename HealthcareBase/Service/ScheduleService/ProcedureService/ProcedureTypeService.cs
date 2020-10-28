@@ -3,16 +3,15 @@
 // Created: 28 May 2020 12:23:43
 // Purpose: Definition of Class ProcedureTypeService
 
+using System.Collections.Generic;
 using Model.Schedule.Procedures;
 using Repository.ScheduleRepository.ProceduresRepository;
-using System;
-using System.Collections.Generic;
 
 namespace Service.ScheduleService.ProcedureService
 {
     public class ProcedureTypeService
     {
-        private ProcedureTypeRepository procedureTypeRepository;
+        private readonly ProcedureTypeRepository procedureTypeRepository;
 
         public ProcedureTypeService(ProcedureTypeRepository procedureTypeRepository)
         {
@@ -43,6 +42,5 @@ namespace Service.ScheduleService.ProcedureService
         {
             return procedureTypeRepository.GetMatching(type => type.Kind.Equals(ProcedureKind.Surgery));
         }
-
     }
 }

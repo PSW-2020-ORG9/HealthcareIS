@@ -5,17 +5,14 @@
 
 using Model.HospitalResources;
 using Model.Utilities;
-using System;
 
 namespace Model.Requests
 {
     public class ClearRoomsSchedule : ScheduleAdjustmentRequest
     {
-        private Model.Utilities.TimeInterval timeInterval;
-        private Model.HospitalResources.Room room;
+        public TimeInterval TimeInterval { get; set; }
 
-        public TimeInterval TimeInterval { get => timeInterval; set => timeInterval = value; }
-        public Room Room { get => room; set => room = value; }
+        public Room Room { get; set; }
 
         public override bool Equals(object obj)
         {

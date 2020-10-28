@@ -3,55 +3,49 @@
 // Created: 20 April 2020 23:19:05
 // Purpose: Definition of Class MedicationPrescription
 
+using System;
 using Model.Miscellaneous;
 using Model.Users.Employee;
 using Model.Users.Patient;
-using System;
+using Repository.Generics;
 
 namespace Model.Medication
 {
-    public class MedicationPrescription : Repository.Generics.Entity<int>
+    public class MedicationPrescription : Entity<int>
     {
-        private DateTime date;
-        private Diagnosis diagnosis;
-        private Medication medication;
-        private IntakeInstructions instructions;
-        private Doctor prescribedBy;
-        private Patient patient;
-        private int id;
+        public DateTime Date { get; set; }
 
-        public MedicationPrescription()
-        {
-        }
+        public Diagnosis Diagnosis { get; set; }
 
-        public DateTime Date { get => date; set => date = value; }
-        public Diagnosis Diagnosis { get => diagnosis; set => diagnosis = value; }
-        public Medication Medication { get => medication; set => medication = value; }
-        public IntakeInstructions Instructions { get => instructions; set => instructions = value; }
-        public Doctor PrescribedBy { get => prescribedBy; set => prescribedBy = value; }
-        public Patient Patient { get => patient; set => patient = value; }
+        public Medication Medication { get; set; }
 
-        public int Id { get => id; set => id = value; }
+        public IntakeInstructions Instructions { get; set; }
 
-        public override bool Equals(object obj)
-        {
-            return obj is MedicationPrescription prescription &&
-                   id == prescription.id;
-        }
+        public Doctor PrescribedBy { get; set; }
 
-        public override int GetHashCode()
-        {
-            return 1877310944 + id.GetHashCode();
-        }
+        public Patient Patient { get; set; }
+
+        public int Id { get; set; }
 
         public int GetKey()
         {
-            return id;
+            return Id;
         }
 
         public void SetKey(int id)
         {
-            this.id = id;
+            Id = id;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is MedicationPrescription prescription &&
+                   Id == prescription.Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return 1877310944 + Id.GetHashCode();
         }
     }
 }

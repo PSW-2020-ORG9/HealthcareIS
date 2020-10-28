@@ -4,15 +4,12 @@
 // Purpose: Definition of Class ConsumableStorageRecord
 
 using Model.HospitalResources;
-using System;
 
 namespace Model.StorageRecords
 {
     public class ConsumableStorageRecord : StorageRecord
     {
-        private MedicalConsumable consumable;
-
-        public MedicalConsumable Consumable { get => consumable; set => consumable = value; }
+        public MedicalConsumable Consumable { get; set; }
 
         public override bool Equals(object obj)
         {

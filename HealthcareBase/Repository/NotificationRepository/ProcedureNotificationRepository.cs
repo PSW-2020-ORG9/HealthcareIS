@@ -3,12 +3,11 @@
 // Created: 02 June 2020 01:11:57
 // Purpose: Definition of Interface ProcedureNotificationRepository
 
+using System.Collections.Generic;
 using Model.Notifications;
 using Model.Schedule.Procedures;
 using Model.Users.UserAccounts;
 using Repository.Generics;
-using System;
-using System.Collections.Generic;
 
 namespace Repository.NotificationRepository
 {

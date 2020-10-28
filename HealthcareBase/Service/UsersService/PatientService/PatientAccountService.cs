@@ -10,17 +10,15 @@ using Model.Users.UserAccounts;
 using Model.Users.UserFeedback;
 using Repository.UsersRepository.UserAccountsRepository;
 using Repository.UsersRepository.UserFeedbackRepository;
-using System;
-using System.Linq;
 
 namespace Service.UsersService.PatientService
 {
     public class PatientAccountService
     {
-        private PatientAccountRepository patientAccountRepository;
-        private PatientSurveyResponseRepository patientSurveyResponseRepository;
+        private readonly PatientAccountRepository patientAccountRepository;
+        private readonly PatientSurveyResponseRepository patientSurveyResponseRepository;
 
-        public PatientAccountService(PatientAccountRepository patientAccountRepository, 
+        public PatientAccountService(PatientAccountRepository patientAccountRepository,
             PatientSurveyResponseRepository patientSurveyResponseRepository)
         {
             this.patientAccountRepository = patientAccountRepository;
@@ -37,7 +35,7 @@ namespace Service.UsersService.PatientService
             return patientAccountRepository.GetByPatient(patient);
         }
 
-        public PatientAccount ChangePassword(PatientAccount account, String newPassword)
+        public PatientAccount ChangePassword(PatientAccount account, string newPassword)
         {
             if (newPassword == null)
                 throw new BadRequestException();
@@ -70,6 +68,5 @@ namespace Service.UsersService.PatientService
         {
             patientSurveyResponseRepository.Create(surveyResponse);
         }
-
     }
 }

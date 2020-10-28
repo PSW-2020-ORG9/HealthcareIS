@@ -3,26 +3,22 @@
 // Created: 14 April 2020 20:43:24
 // Purpose: Definition of Class Ingredient
 
-using System;
-
 namespace Model.Medication
 {
     public class Ingredient
     {
-        private String name;
-        private bool isAllergen;
-
         public Ingredient(string name, bool isAllergen)
         {
-            this.name = name;
-            this.isAllergen = isAllergen;
+            Name = name;
+            IsAllergen = isAllergen;
         }
 
         public Ingredient()
         {
         }
 
-        public string Name { get => name; set => name = value; }
-        public bool IsAllergen { get => isAllergen; set => isAllergen = value; }
+        public string Name { get; set; }
+
+        public bool IsAllergen { get; set; }
     }
 }

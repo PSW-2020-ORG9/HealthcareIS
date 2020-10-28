@@ -3,12 +3,11 @@
 // Created: 02 June 2020 01:11:56
 // Purpose: Definition of Interface RequestNotificationRepository
 
+using System.Collections.Generic;
 using Model.Notifications;
 using Model.Requests;
 using Model.Users.UserAccounts;
 using Repository.Generics;
-using System;
-using System.Collections.Generic;
 
 namespace Repository.NotificationRepository
 {

@@ -9,10 +9,8 @@ namespace Model.StorageRecords
 {
     public class AmountChangeRecord
     {
-        private int amount;
-        private DateTime date;
+        public int Amount { get; set; }
 
-        public int Amount { get => amount; set => amount = value; }
-        public DateTime Date { get => date; set => date = value; }
+        public DateTime Date { get; set; }
     }
 }

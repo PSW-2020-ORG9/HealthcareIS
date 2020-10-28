@@ -4,16 +4,13 @@
 // Purpose: Definition of Class AllergyManifestation
 
 using Model.Miscellaneous;
-using System;
 
 namespace Model.Users.Patient.MedicalHistory
 {
     public class AllergyManifestation
     {
-        private AllergyIntensity intensity;
-        private Allergy allergy;
+        public AllergyIntensity Intensity { get; set; }
 
-        public AllergyIntensity Intensity { get => intensity; set => intensity = value; }
-        public Allergy Allergy { get => allergy; set => allergy = value; }
+        public Allergy Allergy { get; set; }
     }
 }

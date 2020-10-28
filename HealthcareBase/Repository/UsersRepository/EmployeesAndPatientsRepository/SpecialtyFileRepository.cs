@@ -6,15 +6,14 @@
 using Model.Users.Employee;
 using Model.Utilities;
 using Repository.Generics;
-using System;
 
 namespace Repository.UsersRepository.EmployeesAndPatientsRepository
 {
     public class SpecialtyFileRepository : GenericFileRepository<Specialty, int>, SpecialtyRepository
     {
-        private IntegerKeyGenerator keyGenerator;
+        private readonly IntegerKeyGenerator keyGenerator;
 
-        public SpecialtyFileRepository(String filePath) : base(filePath)
+        public SpecialtyFileRepository(string filePath) : base(filePath)
         {
             keyGenerator = new IntegerKeyGenerator(GetAllKeys());
         }

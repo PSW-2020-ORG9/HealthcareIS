@@ -4,55 +4,52 @@
 // Purpose: Definition of Class Renovation
 
 using Model.Utilities;
-using System;
+using Repository.Generics;
 
 namespace Model.HospitalResources
 {
-    public class Renovation : Repository.Generics.Entity<int>
+    public class Renovation : Entity<int>
     {
-        private String description;
-        private TimeInterval timeInterval;
-        private Room room;
-        private int id;
-
         public Renovation(string description, TimeInterval timeInterval, Room room)
         {
-            this.description = description;
-            this.timeInterval = timeInterval;
-            this.room = room;
+            Description = description;
+            TimeInterval = timeInterval;
+            Room = room;
         }
 
         public Renovation()
         {
-            room = new Room();
-            timeInterval = new TimeInterval();
+            Room = new Room();
+            TimeInterval = new TimeInterval();
         }
 
-        public string Description { get => description; set => description = value; }
-        public TimeInterval TimeInterval { get => timeInterval; set => timeInterval = value; }
-        public Room Room { get => room; set => room = value; }
+        public string Description { get; set; }
 
-        public int Id { get => id; set => id = value; }
+        public TimeInterval TimeInterval { get; set; }
 
-        public override bool Equals(object obj)
-        {
-            return obj is Renovation renovation &&
-                   id == renovation.id;
-        }
+        public Room Room { get; set; }
 
-        public override int GetHashCode()
-        {
-            return 1877310944 + id.GetHashCode();
-        }
+        public int Id { get; set; }
 
         public int GetKey()
         {
-            return id;
+            return Id;
         }
 
         public void SetKey(int id)
         {
-            this.id = id;
+            Id = id;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Renovation renovation &&
+                   Id == renovation.Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return 1877310944 + Id.GetHashCode();
         }
     }
 }

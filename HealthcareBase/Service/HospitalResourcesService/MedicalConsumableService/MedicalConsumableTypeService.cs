@@ -3,18 +3,17 @@
 // Created: 28 May 2020 11:33:12
 // Purpose: Definition of Class MedicalConsumableTypeService
 
+using System.Collections.Generic;
 using Model.CustomExceptions;
 using Model.HospitalResources;
 using Repository.HospitalResourcesRepository;
-using System;
-using System.Collections.Generic;
 
 namespace Service.HospitalResourcesService.MedicalConsumableService
 {
     public class MedicalConsumableTypeService
     {
-        private MedicalConsumableTypeRepository medicalConsumableTypeRepository;
-        private MedicalConsumableRepository medicalConsumableRepository;
+        private readonly MedicalConsumableRepository medicalConsumableRepository;
+        private readonly MedicalConsumableTypeRepository medicalConsumableTypeRepository;
 
         public MedicalConsumableTypeService(MedicalConsumableTypeRepository medicalConsumableTypeRepository,
             MedicalConsumableRepository medicalConsumableRepository)
@@ -49,6 +48,5 @@ namespace Service.HospitalResourcesService.MedicalConsumableService
                 throw new BadRequestException();
             medicalConsumableTypeRepository.Delete(medicalConsumableType);
         }
-
     }
 }

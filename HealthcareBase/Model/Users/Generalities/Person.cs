@@ -10,31 +10,70 @@ namespace Model.Users.Generalities
 {
     public abstract class Person
     {
-        protected String name;
-        protected String surname;
-        protected DateTime dateOfBirth;
-        protected String address;
-        protected String telephoneNumber;
-        protected String jmbg;
-        protected Gender gender;
-        protected City cityOfResidence;
+        protected string address;
         protected List<Country> citizenship;
+        protected City cityOfResidence;
+        protected DateTime dateOfBirth;
+        protected Gender gender;
+        protected string jmbg;
+        protected string name;
+        protected string surname;
+        protected string telephoneNumber;
 
-        public string Name { get => name; set => name = value; }
-        public string Surname { get => surname; set => surname = value; }
-        public DateTime DateOfBirth { get => dateOfBirth; set => dateOfBirth = value; }
-        public string Address { get => address; set => address = value; }
-        public string TelephoneNumber { get => telephoneNumber; set => telephoneNumber = value; }
-        public string Jmbg { get => jmbg; set => jmbg = value; }
-        public Gender Gender { get => gender; set => gender = value; }
-        public City CityOfResidence { get => cityOfResidence; set => cityOfResidence = value; }
+        public string Name
+        {
+            get => name;
+            set => name = value;
+        }
+
+        public string Surname
+        {
+            get => surname;
+            set => surname = value;
+        }
+
+        public DateTime DateOfBirth
+        {
+            get => dateOfBirth;
+            set => dateOfBirth = value;
+        }
+
+        public string Address
+        {
+            get => address;
+            set => address = value;
+        }
+
+        public string TelephoneNumber
+        {
+            get => telephoneNumber;
+            set => telephoneNumber = value;
+        }
+
+        public string Jmbg
+        {
+            get => jmbg;
+            set => jmbg = value;
+        }
+
+        public Gender Gender
+        {
+            get => gender;
+            set => gender = value;
+        }
+
+        public City CityOfResidence
+        {
+            get => cityOfResidence;
+            set => cityOfResidence = value;
+        }
 
         public int Age
         {
             get
             {
-                DateTime today = DateTime.Now.Date;
-                int age = (today.Year - dateOfBirth.Year - 1);
+                var today = DateTime.Now.Date;
+                var age = today.Year - dateOfBirth.Year - 1;
                 if (today.DayOfYear >= dateOfBirth.DayOfYear)
                     age++;
                 return age;
@@ -53,10 +92,8 @@ namespace Model.Users.Generalities
             {
                 RemoveAllCitizenship();
                 if (value != null)
-                {
-                    foreach (Country oCountry in value)
+                    foreach (var oCountry in value)
                         AddCitizenship(oCountry);
-                }
             }
         }
 
@@ -84,6 +121,5 @@ namespace Model.Users.Generalities
             if (citizenship != null)
                 citizenship.Clear();
         }
-
     }
 }

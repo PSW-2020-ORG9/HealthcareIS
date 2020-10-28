@@ -6,15 +6,14 @@
 using Model.Users.Generalities;
 using Model.Utilities;
 using Repository.Generics;
-using System;
 
 namespace Repository.UsersRepository.GeneralitiesRepository
 {
     public class CountryFileRepository : GenericFileRepository<Country, int>, CountryRepository
     {
-        private IntegerKeyGenerator keyGenerator;
+        private readonly IntegerKeyGenerator keyGenerator;
 
-        public CountryFileRepository(String filePath) : base(filePath)
+        public CountryFileRepository(string filePath) : base(filePath)
         {
             keyGenerator = new IntegerKeyGenerator(GetAllKeys());
         }

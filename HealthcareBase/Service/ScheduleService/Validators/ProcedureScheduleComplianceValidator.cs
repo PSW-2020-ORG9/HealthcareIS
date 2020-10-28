@@ -1,18 +1,14 @@
-﻿using Model.CustomExceptions;
-using Model.HospitalResources;
-using Model.Schedule.Procedures;
-using Model.Users.Employee;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Model.CustomExceptions;
+using Model.Schedule.Procedures;
 
 namespace Service.ScheduleService.Validators
 {
     public class ProcedureScheduleComplianceValidator
     {
-        private CurrentScheduleContext context;
+        private readonly CurrentScheduleContext context;
 
         public ProcedureScheduleComplianceValidator(CurrentScheduleContext context)
         {
@@ -35,25 +31,29 @@ namespace Service.ScheduleService.Validators
 
         private void ValidateComplianceWithRenovations(Procedure procedure)
         {
-            IEnumerable<Renovation> conflictsWithRenovations = context.RenovationService.GetByRoomAndTime(procedure.Room, procedure.TimeInterval);
+            var conflictsWithRenovations =
+                context.RenovationService.GetByRoomAndTime(procedure.Room, procedure.TimeInterval);
             if (conflictsWithRenovations.Count() > 0)
                 throw new ScheduleViolationException();
         }
 
         private void ValidateComplianceWithShifts(Procedure procedure)
         {
-            IEnumerable<Shift> matchingShifts = context.ShiftService.GetByDoctorAndTimeContaining(procedure.Doctor, procedure.TimeInterval);
+            var matchingShifts =
+                context.ShiftService.GetByDoctorAndTimeContaining(procedure.Doctor, procedure.TimeInterval);
             if (matchingShifts.Count() == 0)
                 throw new ScheduleViolationException();
         }
 
-        private void ValidateComplianceWithProcedures(Procedure procedure, Action<IEnumerable<Procedure>> throwIfConflicts)
+        private void ValidateComplianceWithProcedures(Procedure procedure,
+            Action<IEnumerable<Procedure>> throwIfConflicts)
         {
-            IEnumerable<Procedure> roomConflicts = context.ProcedureService.GetByRoomAndTime(procedure.Room, procedure.TimeInterval);
+            var roomConflicts = context.ProcedureService.GetByRoomAndTime(procedure.Room, procedure.TimeInterval);
             throwIfConflicts(roomConflicts);
-            IEnumerable<Procedure> doctorConflicts = context.ProcedureService.GetByDoctorAndTime(procedure.Doctor, procedure.TimeInterval);
+            var doctorConflicts = context.ProcedureService.GetByDoctorAndTime(procedure.Doctor, procedure.TimeInterval);
             throwIfConflicts(doctorConflicts);
-            IEnumerable<Procedure> patientConflicts = context.ProcedureService.GetByPatientAndTime(procedure.Patient, procedure.TimeInterval);
+            var patientConflicts =
+                context.ProcedureService.GetByPatientAndTime(procedure.Patient, procedure.TimeInterval);
             throwIfConflicts(patientConflicts);
         }
 
@@ -67,10 +67,9 @@ namespace Service.ScheduleService.Validators
         {
             if (conflictList.Count() == 0)
                 return;
-            else if (conflictList.Count() == 1 && conflictList.ToList()[0].Equals(procedure))
+            if (conflictList.Count() == 1 && conflictList.ToList()[0].Equals(procedure))
                 return;
-            else
-                throw new ScheduleViolationException();
+            throw new ScheduleViolationException();
         }
 
         private Action<IEnumerable<Procedure>> GetThrowIfReschedulingConflicts(Procedure procedure)

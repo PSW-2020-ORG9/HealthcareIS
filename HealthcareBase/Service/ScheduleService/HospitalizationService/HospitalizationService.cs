@@ -3,6 +3,8 @@
 // Created: 28 May 2020 12:20:01
 // Purpose: Definition of Class HospitalizationService
 
+using System;
+using System.Collections.Generic;
 using Model.CustomExceptions;
 using Model.HospitalResources;
 using Model.Notifications;
@@ -11,20 +13,15 @@ using Model.Users.Patient;
 using Model.Utilities;
 using Repository.ScheduleRepository.HospitalizationsRepository;
 using Service.ScheduleService.Validators;
-using System;
-using System.Collections.Generic;
 
 namespace Service.ScheduleService.HospitalizationService
 {
     public class HospitalizationService
     {
-        private HospitalizationRepository hospitalizationRepository;
-        private HospitalizationValidator hospitalizationValidator;
-        private HospitalizationScheduleComplianceValidator scheduleValidator;
-        private NotificationService.NotificationService notificationService;
-        private TimeSpan timeLimit;
-
-        public HospitalizationScheduleComplianceValidator ScheduleValidator { get => scheduleValidator; set => scheduleValidator = value; }
+        private readonly HospitalizationRepository hospitalizationRepository;
+        private readonly HospitalizationValidator hospitalizationValidator;
+        private readonly NotificationService.NotificationService notificationService;
+        private readonly TimeSpan timeLimit;
 
         public HospitalizationService(HospitalizationRepository hospitalizationRepository,
             HospitalizationValidator hospitalizationValidator,
@@ -36,11 +33,14 @@ namespace Service.ScheduleService.HospitalizationService
             this.timeLimit = timeLimit;
         }
 
+        public HospitalizationScheduleComplianceValidator ScheduleValidator { get; set; }
+
         public IEnumerable<Hospitalization> GetByDate(DateTime date)
         {
-            DateTime realDate = date.Date;
-            return hospitalizationRepository.GetMatching(hospitalization => hospitalization.TimeInterval.Start.Date <= date
-                                                                         && hospitalization.TimeInterval.End.Date >= date);
+            var realDate = date.Date;
+            return hospitalizationRepository.GetMatching(hospitalization =>
+                hospitalization.TimeInterval.Start.Date <= date
+                && hospitalization.TimeInterval.End.Date >= date);
         }
 
         public IEnumerable<Hospitalization> GetAll()
@@ -53,7 +53,8 @@ namespace Service.ScheduleService.HospitalizationService
             return hospitalizationRepository.GetByPatientAndTime(patient, time);
         }
 
-        public IEnumerable<Hospitalization> GetByEquipmentInUseAndTime(IEnumerable<EquipmentUnit> equipment, TimeInterval time)
+        public IEnumerable<Hospitalization> GetByEquipmentInUseAndTime(IEnumerable<EquipmentUnit> equipment,
+            TimeInterval time)
         {
             return hospitalizationRepository.GetByEquipmentInUseAndTime(equipment, time);
         }
@@ -64,7 +65,7 @@ namespace Service.ScheduleService.HospitalizationService
                 throw new BadRequestException();
 
             return hospitalizationRepository.GetMatching(hosp => hosp.Patient.Equals(patient) &&
-                                                          hosp.TimeInterval.Start.Date >= DateTime.Now);
+                                                                 hosp.TimeInterval.Start.Date >= DateTime.Now);
         }
 
         public IEnumerable<Hospitalization> GetByRoomAndTime(Room room, TimeInterval time)
@@ -82,7 +83,7 @@ namespace Service.ScheduleService.HospitalizationService
             if (hospitalization is null)
                 throw new BadRequestException();
             ValidateForScheduling(hospitalization);
-            Hospitalization createdHospitalization = hospitalizationRepository.Create(hospitalization);
+            var createdHospitalization = hospitalizationRepository.Create(hospitalization);
             notificationService.Notify(HospitalizationUpdateType.Scheduled, createdHospitalization);
             return createdHospitalization;
         }
@@ -92,7 +93,7 @@ namespace Service.ScheduleService.HospitalizationService
             if (hospitalization is null)
                 throw new BadRequestException();
             ValidateForRescheduling(hospitalization);
-            Hospitalization updatedHospitalization = hospitalizationRepository.Update(hospitalization);
+            var updatedHospitalization = hospitalizationRepository.Update(hospitalization);
             notificationService.Notify(HospitalizationUpdateType.Rescheduled, updatedHospitalization);
             return updatedHospitalization;
         }
@@ -110,13 +111,13 @@ namespace Service.ScheduleService.HospitalizationService
         {
             ValidateAdmissionTimeLimit(hospitalization);
             hospitalizationValidator.ValidateHospitalization(hospitalization);
-            scheduleValidator.ValidateComplianceForScheduling(hospitalization);
+            ScheduleValidator.ValidateComplianceForScheduling(hospitalization);
             ValidateAdmissionTimeLimit(hospitalization);
         }
 
         private void ValidateForRescheduling(Hospitalization hospitalization)
         {
-            Hospitalization oldHospitalization = hospitalizationRepository.GetByID(hospitalization.GetKey());
+            var oldHospitalization = hospitalizationRepository.GetByID(hospitalization.GetKey());
             hospitalizationValidator.ValidateHospitalization(hospitalization);
             if (!hospitalization.Patient.Equals(oldHospitalization.Patient))
                 throw new BadRequestException();
@@ -126,20 +127,22 @@ namespace Service.ScheduleService.HospitalizationService
                 ValidateForAdmissionRescheduling(hospitalization, oldHospitalization);
         }
 
-        private void ValidateForAdmissionRescheduling(Hospitalization newHospitalization, Hospitalization oldHospitalization)
+        private void ValidateForAdmissionRescheduling(Hospitalization newHospitalization,
+            Hospitalization oldHospitalization)
         {
             ValidateAdmissionTimeLimit(newHospitalization);
             ValidateAdmissionTimeLimit(oldHospitalization);
-            scheduleValidator.ValidateComplianceForRescheduling(newHospitalization);
+            ScheduleValidator.ValidateComplianceForRescheduling(newHospitalization);
             ValidateAdmissionTimeLimit(newHospitalization);
             ValidateAdmissionTimeLimit(oldHospitalization);
         }
 
-        private void ValidateForDischargeRescheduling(Hospitalization newHospitalization, Hospitalization oldHospitalization)
+        private void ValidateForDischargeRescheduling(Hospitalization newHospitalization,
+            Hospitalization oldHospitalization)
         {
             ValidateDischargeTimeLimit(oldHospitalization);
             ValidateDischargeTimeLimit(newHospitalization);
-            scheduleValidator.ValidateComplianceForRescheduling(newHospitalization);
+            ScheduleValidator.ValidateComplianceForRescheduling(newHospitalization);
             ValidateDischargeTimeLimit(oldHospitalization);
             ValidateDischargeTimeLimit(newHospitalization);
         }

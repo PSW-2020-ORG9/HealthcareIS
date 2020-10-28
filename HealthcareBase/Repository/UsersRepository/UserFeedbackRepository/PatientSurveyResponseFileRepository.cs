@@ -9,19 +9,19 @@ using Model.Utilities;
 using Repository.Generics;
 using Repository.UsersRepository.EmployeesAndPatientsRepository;
 using Repository.UsersRepository.UserAccountsRepository;
-using System;
 
 namespace Repository.UsersRepository.UserFeedbackRepository
 {
-    public class PatientSurveyResponseFileRepository : GenericFileRepository<PatientSurveyResponse, int>, PatientSurveyResponseRepository
+    public class PatientSurveyResponseFileRepository : GenericFileRepository<PatientSurveyResponse, int>,
+        PatientSurveyResponseRepository
     {
-        private DoctorRepository doctorRepository;
-        private PatientAccountRepository patientAccountRepository;
-        private IntegerKeyGenerator keyGenerator;
+        private readonly DoctorRepository doctorRepository;
+        private readonly IntegerKeyGenerator keyGenerator;
+        private readonly PatientAccountRepository patientAccountRepository;
 
-        public PatientSurveyResponseFileRepository(DoctorRepository doctorRepository, 
-            PatientAccountRepository patientAccountRepository, String filePath) : base(filePath)
-         {
+        public PatientSurveyResponseFileRepository(DoctorRepository doctorRepository,
+            PatientAccountRepository patientAccountRepository, string filePath) : base(filePath)
+        {
             this.doctorRepository = doctorRepository;
             this.patientAccountRepository = patientAccountRepository;
             keyGenerator = new IntegerKeyGenerator(GetAllKeys());

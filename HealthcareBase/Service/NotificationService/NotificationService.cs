@@ -3,7 +3,8 @@
 // Created: 28 May 2020 14:08:36
 // Purpose: Definition of Class NotificationService
 
-using Model.CustomExceptions;
+using System;
+using System.Collections.Generic;
 using Model.Medication;
 using Model.Notifications;
 using Model.Requests;
@@ -12,19 +13,17 @@ using Model.Schedule.Procedures;
 using Model.Users.UserAccounts;
 using Repository.NotificationRepository;
 using Repository.UsersRepository.UserAccountsRepository;
-using System;
-using System.Collections.Generic;
 
 namespace Service.NotificationService
 {
     public class NotificationService
     {
-        private HospitalizationNotificationRepository hospitalizationNotificationRepository;
-        private MedicationPrescriptionNotificationRepository medicationPrescriptionNotificationRepository;
-        private ProcedureNotificationRepository procedureNotificationRepository;
-        private RequestNotificationRepository requestNotificationRepository;
-        private PatientAccountRepository patientAccountRepository;
-        private EmployeeAccountRepository employeeAccountRepository;
+        private readonly EmployeeAccountRepository employeeAccountRepository;
+        private readonly HospitalizationNotificationRepository hospitalizationNotificationRepository;
+        private readonly MedicationPrescriptionNotificationRepository medicationPrescriptionNotificationRepository;
+        private readonly PatientAccountRepository patientAccountRepository;
+        private readonly ProcedureNotificationRepository procedureNotificationRepository;
+        private readonly RequestNotificationRepository requestNotificationRepository;
 
         public NotificationService(HospitalizationNotificationRepository hospitalizationNotificationRepository,
             MedicationPrescriptionNotificationRepository medicationPrescriptionNotificationRepository,
@@ -42,37 +41,39 @@ namespace Service.NotificationService
 
         public IEnumerable<Notification> GetByUser(UserAccount user)
         {
-            List<Notification> notifications = new List<Notification>();
+            var notifications = new List<Notification>();
             try
             {
                 notifications.AddRange(hospitalizationNotificationRepository.GetByUser(user));
                 notifications.AddRange(procedureNotificationRepository.GetByUser(user));
                 notifications.AddRange(medicationPrescriptionNotificationRepository.GetByUser(user));
                 notifications.AddRange(requestNotificationRepository.GetByUser(user));
-                foreach (Notification notification in notifications)
+                foreach (var notification in notifications)
                     MarkAsRead(notification);
             }
             catch (Exception)
             {
             }
+
             return notifications;
         }
 
         public IEnumerable<Notification> GetUnreadByUser(UserAccount user)
         {
-            List<Notification> notifications = new List<Notification>();
+            var notifications = new List<Notification>();
             try
             {
                 notifications.AddRange(hospitalizationNotificationRepository.GetUnreadByUser(user));
                 notifications.AddRange(procedureNotificationRepository.GetUnreadByUser(user));
                 notifications.AddRange(medicationPrescriptionNotificationRepository.GetUnreadByUser(user));
                 notifications.AddRange(requestNotificationRepository.GetUnreadByUser(user));
-                foreach (Notification notification in notifications)
+                foreach (var notification in notifications)
                     MarkAsRead(notification);
             }
             catch (Exception)
             {
             }
+
             return notifications;
         }
 
@@ -80,18 +81,19 @@ namespace Service.NotificationService
         {
             try
             {
-                IEnumerable<HospitalizationNotification> previousNotifications =
+                var previousNotifications =
                     hospitalizationNotificationRepository.GetByHospitalization(hospitalization);
-                foreach (HospitalizationNotification notification in previousNotifications)
+                foreach (var notification in previousNotifications)
                     hospitalizationNotificationRepository.Delete(notification);
             }
             catch (Exception)
             {
             }
+
             try
             {
-                PatientAccount patientAccount = patientAccountRepository.GetByPatient(hospitalization.Patient);
-                HospitalizationNotification patientNotification = new HospitalizationNotification
+                var patientAccount = patientAccountRepository.GetByPatient(hospitalization.Patient);
+                var patientNotification = new HospitalizationNotification
                 {
                     User = patientAccount,
                     Read = false,
@@ -109,14 +111,15 @@ namespace Service.NotificationService
         {
             try
             {
-                IEnumerable<ProcedureNotification> previousNotifications =
+                var previousNotifications =
                     procedureNotificationRepository.GetByProcedure(procedure);
-                foreach (ProcedureNotification notification in previousNotifications)
+                foreach (var notification in previousNotifications)
                     procedureNotificationRepository.Delete(notification);
             }
             catch (Exception)
             {
             }
+
             NotifyPatient(updateType, procedure);
             NotifyDoctor(updateType, procedure);
         }
@@ -125,8 +128,8 @@ namespace Service.NotificationService
         {
             try
             {
-                PatientAccount patientAccount = patientAccountRepository.GetByPatient(procedure.Patient);
-                ProcedureNotification patientNotification = new ProcedureNotification
+                var patientAccount = patientAccountRepository.GetByPatient(procedure.Patient);
+                var patientNotification = new ProcedureNotification
                 {
                     User = patientAccount,
                     Read = false,
@@ -137,7 +140,6 @@ namespace Service.NotificationService
             }
             catch (Exception)
             {
-
             }
         }
 
@@ -145,8 +147,8 @@ namespace Service.NotificationService
         {
             try
             {
-                EmployeeAccount doctorAccount = employeeAccountRepository.GetByEmployee(procedure.Doctor);
-                ProcedureNotification doctorNotification = new ProcedureNotification
+                var doctorAccount = employeeAccountRepository.GetByEmployee(procedure.Doctor);
+                var doctorNotification = new ProcedureNotification
                 {
                     User = doctorAccount,
                     Read = false,
@@ -157,7 +159,6 @@ namespace Service.NotificationService
             }
             catch (Exception)
             {
-
             }
         }
 
@@ -165,18 +166,19 @@ namespace Service.NotificationService
         {
             try
             {
-                IEnumerable<MedicationPrescriptionNotification> previousNotifications =
+                var previousNotifications =
                     medicationPrescriptionNotificationRepository.GetByPrescription(medicationPrescription);
-                foreach (MedicationPrescriptionNotification notification in previousNotifications)
+                foreach (var notification in previousNotifications)
                     medicationPrescriptionNotificationRepository.Delete(notification);
             }
             catch (Exception)
             {
             }
+
             try
             {
-                PatientAccount patientAccount = patientAccountRepository.GetByPatient(medicationPrescription.Patient);
-                MedicationPrescriptionNotification patientNotification = new MedicationPrescriptionNotification
+                var patientAccount = patientAccountRepository.GetByPatient(medicationPrescription.Patient);
+                var patientNotification = new MedicationPrescriptionNotification
                 {
                     User = patientAccount,
                     Read = false,
@@ -193,17 +195,18 @@ namespace Service.NotificationService
         {
             try
             {
-                IEnumerable<RequestNotification> previousNotifications =
+                var previousNotifications =
                     requestNotificationRepository.GetByRequest(request);
-                foreach (RequestNotification notification in previousNotifications)
+                foreach (var notification in previousNotifications)
                     requestNotificationRepository.Delete(notification);
             }
             catch (Exception)
             {
             }
+
             try
             {
-                RequestNotification senderNotification = new RequestNotification
+                var senderNotification = new RequestNotification
                 {
                     User = request.Sender,
                     Read = false,
@@ -219,26 +222,26 @@ namespace Service.NotificationService
         public void Delete(Notification notification)
         {
             if (notification is RequestNotification)
-                requestNotificationRepository.Delete((RequestNotification)notification);
+                requestNotificationRepository.Delete((RequestNotification) notification);
             else if (notification is ProcedureNotification)
-                procedureNotificationRepository.Delete((ProcedureNotification)notification);
+                procedureNotificationRepository.Delete((ProcedureNotification) notification);
             else if (notification is HospitalizationNotification)
-                hospitalizationNotificationRepository.Delete((HospitalizationNotification)notification);
+                hospitalizationNotificationRepository.Delete((HospitalizationNotification) notification);
             else if (notification is MedicationPrescriptionNotification)
-                medicationPrescriptionNotificationRepository.Delete((MedicationPrescriptionNotification)notification);
+                medicationPrescriptionNotificationRepository.Delete((MedicationPrescriptionNotification) notification);
         }
 
         private void MarkAsRead(Notification notification)
         {
             notification.Read = true;
             if (notification is RequestNotification)
-                requestNotificationRepository.Update((RequestNotification)notification);
+                requestNotificationRepository.Update((RequestNotification) notification);
             else if (notification is ProcedureNotification)
-                procedureNotificationRepository.Update((ProcedureNotification)notification);
+                procedureNotificationRepository.Update((ProcedureNotification) notification);
             else if (notification is HospitalizationNotification)
-                hospitalizationNotificationRepository.Update((HospitalizationNotification)notification);
+                hospitalizationNotificationRepository.Update((HospitalizationNotification) notification);
             else if (notification is MedicationPrescriptionNotification)
-                medicationPrescriptionNotificationRepository.Update((MedicationPrescriptionNotification)notification);
+                medicationPrescriptionNotificationRepository.Update((MedicationPrescriptionNotification) notification);
         }
     }
 }

@@ -3,29 +3,25 @@
 // Created: 14 April 2020 20:48:37
 // Purpose: Definition of Class Medication
 
-using System;
 using System.Collections.Generic;
+using Repository.Generics;
 
 namespace Model.Medication
 {
-    public class Medication : Repository.Generics.Entity<int>
+    public class Medication : Entity<int>
     {
-        private String name;
-        private String manufacturer;
         private List<Medication> alternatives;
-        private String description;
-        private MedicineType type;
-        private List<Frequency> sideEffects;
         private List<Amount> ingredients;
-        private int id;
+        private List<Frequency> sideEffects;
 
-        public Medication(string name, string manufacturer, List<Medication> alternatives, string description, MedicineType type, List<Frequency> sideEffects, List<Amount> ingredients)
+        public Medication(string name, string manufacturer, List<Medication> alternatives, string description,
+            MedicineType type, List<Frequency> sideEffects, List<Amount> ingredients)
         {
-            this.name = name;
-            this.manufacturer = manufacturer;
+            Name = name;
+            Manufacturer = manufacturer;
             this.alternatives = alternatives;
-            this.description = description;
-            this.type = type;
+            Description = description;
+            Type = type;
             this.sideEffects = sideEffects;
             this.ingredients = ingredients;
         }
@@ -34,12 +30,15 @@ namespace Model.Medication
         {
         }
 
-        public string Name { get => name; set => name = value; }
-        public string Manufacturer { get => manufacturer; set => manufacturer = value; }
-        public string Description { get => description; set => description = value; }
-        public MedicineType Type { get => type; set => type = value; }
+        public string Name { get; set; }
 
-        public int Id { get => id; set => id = value; }
+        public string Manufacturer { get; set; }
+
+        public string Description { get; set; }
+
+        public MedicineType Type { get; set; }
+
+        public int Id { get; set; }
 
         public IEnumerable<Medication> Alternatives
         {
@@ -53,11 +52,53 @@ namespace Model.Medication
             {
                 RemoveAllAlternatives();
                 if (value != null)
-                {
-                    foreach (Medication alternative in value)
+                    foreach (var alternative in value)
                         AddAlternative(alternative);
-                }
             }
+        }
+
+        public IEnumerable<Frequency> SideEffects
+        {
+            get
+            {
+                if (sideEffects == null)
+                    sideEffects = new List<Frequency>();
+                return sideEffects;
+            }
+            set
+            {
+                RemoveAllSideEffects();
+                if (value != null)
+                    foreach (var sideEffect in value)
+                        AddSideEffect(sideEffect);
+            }
+        }
+
+        public IEnumerable<Amount> Ingredients
+        {
+            get
+            {
+                if (ingredients == null)
+                    ingredients = new List<Amount>();
+                return ingredients;
+            }
+            set
+            {
+                RemoveAllIngredients();
+                if (value != null)
+                    foreach (var ingrediets in value)
+                        AddIngredient(ingrediets);
+            }
+        }
+
+        public int GetKey()
+        {
+            return Id;
+        }
+
+        public void SetKey(int id)
+        {
+            Id = id;
         }
 
         public void AddAlternative(Medication newAlternative)
@@ -85,25 +126,6 @@ namespace Model.Medication
                 alternatives.Clear();
         }
 
-        public IEnumerable<Frequency> SideEffects
-        {
-            get
-            {
-                if (sideEffects == null)
-                    sideEffects = new List<Frequency>();
-                return sideEffects;
-            }
-            set
-            {
-                RemoveAllSideEffects();
-                if (value != null)
-                {
-                    foreach (Frequency sideEffect in value)
-                        AddSideEffect(sideEffect);
-                }
-            }
-        }
-
         public void AddSideEffect(Frequency newSideEffect)
         {
             if (newSideEffect == null)
@@ -129,25 +151,6 @@ namespace Model.Medication
                 sideEffects.Clear();
         }
 
-        public IEnumerable<Amount> Ingredients
-        {
-            get
-            {
-                if (ingredients == null)
-                    ingredients = new List<Amount>();
-                return ingredients;
-            }
-            set
-            {
-                RemoveAllIngredients();
-                if (value != null)
-                {
-                    foreach (Amount ingrediets in value)
-                        AddIngredient(ingrediets);
-                }
-            }
-        }
-
         public void AddIngredient(Amount newIngredient)
         {
             if (newIngredient == null)
@@ -171,16 +174,6 @@ namespace Model.Medication
         {
             if (ingredients != null)
                 ingredients.Clear();
-        }
-
-        public int GetKey()
-        {
-            return id;
-        }
-
-        public void SetKey(int id)
-        {
-            this.id = id;
         }
     }
 }

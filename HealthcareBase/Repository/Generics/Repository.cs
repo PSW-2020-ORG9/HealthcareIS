@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace Repository.Generics
 {
     public interface Repository<T, ID> where T : Entity<ID>
-     where ID : IComparable
+        where ID : IComparable
     {
         int Count();
 
@@ -17,7 +17,7 @@ namespace Repository.Generics
 
         void DeleteByID(ID id);
 
-        Boolean ExistsByID(ID id);
+        bool ExistsByID(ID id);
 
         IEnumerable<T> GetAll();
 
@@ -28,6 +28,5 @@ namespace Repository.Generics
         T Create(T entity);
 
         T Update(T entity);
-
     }
 }

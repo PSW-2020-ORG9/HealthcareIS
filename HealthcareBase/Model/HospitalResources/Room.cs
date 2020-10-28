@@ -3,18 +3,14 @@
 // Created: 18 April 2020 17:07:59
 // Purpose: Definition of Class Room
 
-using System;
 using System.Collections.Generic;
+using Repository.Generics;
 
 namespace Model.HospitalResources
 {
-    public class Room : Repository.Generics.Entity<int>
+    public class Room : Entity<int>
     {
-        private String name;
-        private RoomType purpose;
         private List<EquipmentUnit> equipment;
-        private Department department;
-        private int id;
 
         public Room(string name, RoomType purpose, List<EquipmentUnit> equipment, Department department)
         {
@@ -28,11 +24,13 @@ namespace Model.HospitalResources
         {
         }
 
-        public string Name { get => name; set => name = value; }
-        public RoomType Purpose { get => purpose; set => purpose = value; }
-        public Department Department { get => department; set => department = value; }
+        public string Name { get; set; }
 
-        public int Id { get => id; set => id = value; }
+        public RoomType Purpose { get; set; }
+
+        public Department Department { get; set; }
+
+        public int Id { get; set; }
 
         public IEnumerable<EquipmentUnit> Equipment
         {
@@ -46,11 +44,19 @@ namespace Model.HospitalResources
             {
                 RemoveAllEquipment();
                 if (value != null)
-                {
-                    foreach (EquipmentUnit equipment in value)
+                    foreach (var equipment in value)
                         AddEquipment(equipment);
-                }
             }
+        }
+
+        public int GetKey()
+        {
+            return Id;
+        }
+
+        public void SetKey(int id)
+        {
+            Id = id;
         }
 
 
@@ -60,10 +66,7 @@ namespace Model.HospitalResources
                 return;
             if (equipment == null)
                 equipment = new List<EquipmentUnit>();
-            if (!equipment.Contains(newEquipment))
-            {
-                equipment.Add(newEquipment);
-            }
+            if (!equipment.Contains(newEquipment)) equipment.Add(newEquipment);
         }
 
         public void RemoveEquipment(EquipmentUnit oldEquipment)
@@ -81,25 +84,15 @@ namespace Model.HospitalResources
                 equipment.Clear();
         }
 
-        public int GetKey()
-        {
-            return id;
-        }
-
-        public void SetKey(int id)
-        {
-            this.id = id;
-        }
-
         public override bool Equals(object obj)
         {
             return obj is Room room &&
-                   id == room.id;
+                   Id == room.Id;
         }
 
         public override int GetHashCode()
         {
-            return 1877310944 + id.GetHashCode();
+            return 1877310944 + Id.GetHashCode();
         }
     }
 }

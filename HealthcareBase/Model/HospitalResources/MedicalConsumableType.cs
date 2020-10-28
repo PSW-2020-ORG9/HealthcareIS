@@ -3,50 +3,47 @@
 // Created: 18 April 2020 17:38:58
 // Purpose: Definition of Class MedicalConsumableType
 
-using System;
+using Repository.Generics;
 
 namespace Model.HospitalResources
 {
-    public class MedicalConsumableType : Repository.Generics.Entity<int>
+    public class MedicalConsumableType : Entity<int>
     {
-        private String name;
-        private String purpose;
-        private int id;
-
         public MedicalConsumableType()
         {
         }
 
         public MedicalConsumableType(string name, string purpose)
         {
-            this.name = name;
-            this.purpose = purpose;
+            Name = name;
+            Purpose = purpose;
         }
 
-        public string Name { get => name; set => name = value; }
-        public string Purpose { get => purpose; set => purpose = value; }
+        public string Name { get; set; }
 
-        public int Id { get => id; set => id = value; }
+        public string Purpose { get; set; }
 
-        public override bool Equals(object obj)
-        {
-            return obj is MedicalConsumableType type &&
-                   id == type.id;
-        }
-
-        public override int GetHashCode()
-        {
-            return 1877310944 + id.GetHashCode();
-        }
+        public int Id { get; set; }
 
         public int GetKey()
         {
-            return id;
+            return Id;
         }
 
         public void SetKey(int id)
         {
-            this.id = id;
+            Id = id;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is MedicalConsumableType type &&
+                   Id == type.Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return 1877310944 + Id.GetHashCode();
         }
     }
 }

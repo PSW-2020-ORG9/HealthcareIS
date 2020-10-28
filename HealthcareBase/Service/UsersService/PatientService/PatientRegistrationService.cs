@@ -3,71 +3,67 @@
 // Created: 28 May 2020 16:44:45
 // Purpose: Definition of Class PatientRegistrationService
 
-using System;
-using Repository.UsersRepository.UserAccountsRepository;
-using Repository.UsersRepository.EmployeesAndPatientsRepository;
+using Model.CustomExceptions;
 using Model.Users.Patient;
 using Model.Users.UserAccounts;
-using Model.CustomExceptions;
+using Repository.UsersRepository.EmployeesAndPatientsRepository;
+using Repository.UsersRepository.UserAccountsRepository;
 
 namespace Service.UsersService.PatientService
 {
     public class PatientRegistrationService
     {
-        private PatientAccountRepository patientAccountRepository;
-        private PatientRepository patientRepository;
+        private readonly PatientAccountRepository patientAccountRepository;
+        private readonly PatientRepository patientRepository;
 
-        public PatientRegistrationService(PatientAccountRepository patientAccountRepository, PatientRepository patientRepository)
+        public PatientRegistrationService(PatientAccountRepository patientAccountRepository,
+            PatientRepository patientRepository)
         {
             this.patientAccountRepository = patientAccountRepository;
             this.patientRepository = patientRepository;
         }
 
-        public Boolean IsRegistered(String jmbg)
+        public bool IsRegistered(string jmbg)
         {
-            return patientAccountRepository.ExistsByJMBG(jmbg); ;
+            return patientAccountRepository.ExistsByJMBG(jmbg);
+            ;
         }
 
-        public Boolean HasGuestAccount(String jmbg)
+        public bool HasGuestAccount(string jmbg)
         {
             return patientRepository.ExistsByJMBG(jmbg);
         }
 
-        public Patient GetGuestAccount(String jmbg)
+        public Patient GetGuestAccount(string jmbg)
         {
             return patientRepository.GetByJMBG(jmbg);
         }
 
-        public PatientAccount Register(Patient patient, String username, String password)
+        public PatientAccount Register(Patient patient, string username, string password)
         {
             if (patientAccountRepository.ExistsByJMBG(patient.Jmbg))
                 throw new BadRequestException();
 
             if (!IsUsernameUnique(username))
                 throw new NotUniqueException();
-                
-            if (HasGuestAccount(patient.Jmbg))
-            {
-                    patient=patientRepository.Update(patient);
-            }
-            else
-            {
-                   patient= patientRepository.Create(patient); 
-            }
 
-            PatientAccount newPatient = new PatientAccount();
+            if (HasGuestAccount(patient.Jmbg))
+                patient = patientRepository.Update(patient);
+            else
+                patient = patientRepository.Create(patient);
+
+            var newPatient = new PatientAccount();
             newPatient.Patient = patient;
             newPatient.Username = username;
             newPatient.Password = password;
 
-                
-            return  patientAccountRepository.Create(newPatient);
+
+            return patientAccountRepository.Create(newPatient);
         }
 
-        public Boolean IsUsernameUnique(String jmbg)
+        public bool IsUsernameUnique(string jmbg)
         {
             return patientAccountRepository.IsUsernameUnique(jmbg);
         }
-
     }
 }

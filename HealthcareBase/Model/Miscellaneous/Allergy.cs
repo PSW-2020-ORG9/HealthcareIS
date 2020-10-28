@@ -3,54 +3,50 @@
 // Created: 20 April 2020 23:04:50
 // Purpose: Definition of Class Allergy
 
-using System;
-using System.Collections.Generic;
+using Repository.Generics;
 
 namespace Model.Miscellaneous
 {
-    public class Allergy : Repository.Generics.Entity<int>
+    public class Allergy : Entity<int>
     {
-        private String allergen;
-        private String symptoms;
-        private String prevention;
-        private int id;
-
         public Allergy(string allergen, string symptoms, string prevention)
         {
-            this.allergen = allergen;
-            this.symptoms = symptoms;
-            this.prevention = prevention;
+            Allergen = allergen;
+            Symptoms = symptoms;
+            Prevention = prevention;
         }
 
         public Allergy()
         {
         }
 
-        public string Allergen { get => allergen; set => allergen = value; }
-        public string Prevention { get => prevention; set => prevention = value; }
-        public string Symptoms { get => symptoms; set => symptoms = value; }
+        public string Allergen { get; set; }
 
-        public int Id { get => id; set => id = value; }
+        public string Prevention { get; set; }
 
-        public override bool Equals(object obj)
-        {
-            return obj is Allergy allergy &&
-                   id == allergy.id;
-        }
+        public string Symptoms { get; set; }
 
-        public override int GetHashCode()
-        {
-            return 1877310944 + id.GetHashCode();
-        }
+        public int Id { get; set; }
 
         public int GetKey()
         {
-            return id;
+            return Id;
         }
 
         public void SetKey(int id)
         {
-            this.id = id;
+            Id = id;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Allergy allergy &&
+                   Id == allergy.Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return 1877310944 + Id.GetHashCode();
         }
     }
 }

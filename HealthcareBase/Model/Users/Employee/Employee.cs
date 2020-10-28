@@ -3,28 +3,26 @@
 // Created: 18 April 2020 19:42:16
 // Purpose: Definition of Class Employee
 
-using System;
+using Model.Users.Generalities;
+using Repository.Generics;
 
 namespace Model.Users.Employee
 {
-    public class Employee : Model.Users.Generalities.Person, Repository.Generics.Entity<int>
+    public class Employee : Person, Entity<int>
     {
-        protected EmployeeStatus status;
         protected int employeeID;
+        protected EmployeeStatus status;
 
-        public EmployeeStatus Status { get => status; set => status = value; }
-
-        public int EmployeeID { get => employeeID; set => employeeID = value; }
-
-        public override bool Equals(object obj)
+        public EmployeeStatus Status
         {
-            return obj is Employee employee &&
-                   employeeID == employee.employeeID;
+            get => status;
+            set => status = value;
         }
 
-        public override int GetHashCode()
+        public int EmployeeID
         {
-            return 2070159828 + employeeID.GetHashCode();
+            get => employeeID;
+            set => employeeID = value;
         }
 
         public int GetKey()
@@ -35,6 +33,17 @@ namespace Model.Users.Employee
         public void SetKey(int id)
         {
             employeeID = id;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Employee employee &&
+                   employeeID == employee.employeeID;
+        }
+
+        public override int GetHashCode()
+        {
+            return 2070159828 + employeeID.GetHashCode();
         }
     }
 }

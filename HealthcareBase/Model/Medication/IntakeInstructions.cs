@@ -9,32 +9,31 @@ namespace Model.Medication
 {
     public class IntakeInstructions
     {
-        private DateTime startDate;
-        private DateTime endDate;
-        private int timesPerDay;
-        private double dosage;
-        private String dosageUnit;
-        private String description;
-
-        public IntakeInstructions(DateTime startDate, DateTime endDate, int timesPerDay, double dosage, string dosageUnit, string description)
+        public IntakeInstructions(DateTime startDate, DateTime endDate, int timesPerDay, double dosage,
+            string dosageUnit, string description)
         {
-            this.startDate = startDate;
-            this.endDate = endDate;
-            this.timesPerDay = timesPerDay;
-            this.dosage = dosage;
-            this.dosageUnit = dosageUnit;
-            this.description = description;
+            StartDate = startDate;
+            EndDate = endDate;
+            TimesPerDay = timesPerDay;
+            Dosage = dosage;
+            DosageUnit = dosageUnit;
+            Description = description;
         }
 
         public IntakeInstructions()
         {
         }
 
-        public DateTime StartDate { get => startDate; set => startDate = value; }
-        public DateTime EndDate { get => endDate; set => endDate = value; }
-        public int TimesPerDay { get => timesPerDay; set => timesPerDay = value; }
-        public double Dosage { get => dosage; set => dosage = value; }
-        public string DosageUnit { get => dosageUnit; set => dosageUnit = value; }
-        public string Description { get => description; set => description = value; }
+        public DateTime StartDate { get; set; }
+
+        public DateTime EndDate { get; set; }
+
+        public int TimesPerDay { get; set; }
+
+        public double Dosage { get; set; }
+
+        public string DosageUnit { get; set; }
+
+        public string Description { get; set; }
     }
 }

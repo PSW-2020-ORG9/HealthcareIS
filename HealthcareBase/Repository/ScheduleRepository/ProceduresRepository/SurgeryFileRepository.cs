@@ -3,6 +3,9 @@
 // Created: 04 May 2020 13:58:09
 // Purpose: Definition of Class SurgeryFileRepository
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Model.CustomExceptions;
 using Model.HospitalResources;
 using Model.Schedule.Procedures;
@@ -13,25 +16,23 @@ using Repository.Generics;
 using Repository.HospitalResourcesRepository;
 using Repository.MiscellaneousRepository;
 using Repository.UsersRepository.EmployeesAndPatientsRepository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Repository.ScheduleRepository.ProceduresRepository
 {
     public class SurgeryFileRepository : GenericFileRepository<Surgery, int>, SurgeryRepository
     {
-        private DiagnosisRepository diagnosisRepository;
-        private DoctorRepository doctorRepository;
-        private RoomRepository roomRepository;
-        private PatientRepository patientRepository;
-        private ProcedureTypeRepository procedureTypeRepository;
-        private ExaminationRepository examinationRepository;
-        private IntegerKeyGenerator keyGenerator;
+        private readonly DiagnosisRepository diagnosisRepository;
+        private readonly DoctorRepository doctorRepository;
+        private readonly ExaminationRepository examinationRepository;
+        private readonly IntegerKeyGenerator keyGenerator;
+        private readonly PatientRepository patientRepository;
+        private readonly ProcedureTypeRepository procedureTypeRepository;
+        private readonly RoomRepository roomRepository;
 
-        public SurgeryFileRepository(DiagnosisRepository diagnosisRepository, DoctorRepository doctorRepository, 
-            RoomRepository roomRepository, PatientRepository patientRepository, 
-            ProcedureTypeRepository procedureTypeRepository, ExaminationRepository examinationRepository, String filePath) : base(filePath)
+        public SurgeryFileRepository(DiagnosisRepository diagnosisRepository, DoctorRepository doctorRepository,
+            RoomRepository roomRepository, PatientRepository patientRepository,
+            ProcedureTypeRepository procedureTypeRepository, ExaminationRepository examinationRepository,
+            string filePath) : base(filePath)
         {
             this.diagnosisRepository = diagnosisRepository;
             this.doctorRepository = doctorRepository;
@@ -47,12 +48,8 @@ namespace Repository.ScheduleRepository.ProceduresRepository
             var surgeries = new List<Surgery>();
 
             foreach (var surgery in GetAll())
-            {
                 if (surgery.Doctor.Equals(doctor) && dates.Contains(surgery.TimeInterval.Start.Date))
-                {
                     surgeries.Add(surgery);
-                }
-            }
 
             return surgeries;
         }
@@ -71,16 +68,15 @@ namespace Repository.ScheduleRepository.ProceduresRepository
         {
             return GetMatching(surgery => surgery.Patient.Equals(patient) && surgery.TimeInterval.Overlaps(time));
         }
+
         public IEnumerable<Surgery> GetByPatient(Patient patient)
         {
-            List<Surgery> surgeries = new List<Surgery>();
+            var surgeries = new List<Surgery>();
             IEnumerable<Surgery> retSurgeries;
 
-            foreach (Surgery currentSurgery in GetAll())
-            {
+            foreach (var currentSurgery in GetAll())
                 if (currentSurgery.Patient.Equals(patient))
                     surgeries.Add(currentSurgery);
-            }
             retSurgeries = surgeries;
 
             return retSurgeries;

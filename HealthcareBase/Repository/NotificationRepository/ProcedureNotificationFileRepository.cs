@@ -3,21 +3,21 @@
 // Created: 02 June 2020 01:12:00
 // Purpose: Definition of Class ProcedureNotificationFileRepository
 
+using System.Collections.Generic;
 using Model.Notifications;
 using Model.Schedule.Procedures;
 using Model.Users.UserAccounts;
 using Model.Utilities;
 using Repository.Generics;
-using System;
-using System.Collections.Generic;
 
 namespace Repository.NotificationRepository
 {
-    public class ProcedureNotificationFileRepository : GenericFileRepository<ProcedureNotification, int>, ProcedureNotificationRepository
+    public class ProcedureNotificationFileRepository : GenericFileRepository<ProcedureNotification, int>,
+        ProcedureNotificationRepository
     {
-        private IntegerKeyGenerator keyGenerator;
+        private readonly IntegerKeyGenerator keyGenerator;
 
-        public ProcedureNotificationFileRepository(String filePath) : base(filePath)
+        public ProcedureNotificationFileRepository(string filePath) : base(filePath)
         {
             keyGenerator = new IntegerKeyGenerator(GetAllKeys());
         }

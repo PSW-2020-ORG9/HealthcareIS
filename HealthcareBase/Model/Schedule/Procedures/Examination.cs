@@ -3,21 +3,19 @@
 // Created: 20 April 2020 23:40:27
 // Purpose: Definition of Class Examination
 
+using System.Collections.Generic;
 using Model.Medication;
 using Model.Miscellaneous;
-using System;
-using System.Collections.Generic;
 
 namespace Model.Schedule.Procedures
 {
     public class Examination : Procedure
     {
-        private Diagnosis diagnosis;
-        private String anamnesis;
         private List<MedicationPrescription> prescriptions;
 
-        public Diagnosis Diagnosis { get => diagnosis; set => diagnosis = value; }
-        public string Anamnesis { get => anamnesis; set => anamnesis = value; }
+        public Diagnosis Diagnosis { get; set; }
+
+        public string Anamnesis { get; set; }
 
         public IEnumerable<MedicationPrescription> Prescriptions
         {
@@ -31,30 +29,28 @@ namespace Model.Schedule.Procedures
             {
                 RemoveAllPrescriptions();
                 if (value != null)
-                {
-                    foreach (Model.Medication.MedicationPrescription oMedicationPrescription in value)
+                    foreach (var oMedicationPrescription in value)
                         AddPrescriptions(oMedicationPrescription);
-                }
             }
         }
 
-        public void AddPrescriptions(Model.Medication.MedicationPrescription newMedicationPrescription)
+        public void AddPrescriptions(MedicationPrescription newMedicationPrescription)
         {
             if (newMedicationPrescription == null)
                 return;
-            if (this.prescriptions == null)
-                this.prescriptions = new List<MedicationPrescription>();
-            if (!this.prescriptions.Contains(newMedicationPrescription))
-                this.prescriptions.Add(newMedicationPrescription);
+            if (prescriptions == null)
+                prescriptions = new List<MedicationPrescription>();
+            if (!prescriptions.Contains(newMedicationPrescription))
+                prescriptions.Add(newMedicationPrescription);
         }
 
-        public void RemovePrescriptions(Model.Medication.MedicationPrescription oldMedicationPrescription)
+        public void RemovePrescriptions(MedicationPrescription oldMedicationPrescription)
         {
             if (oldMedicationPrescription == null)
                 return;
-            if (this.prescriptions != null)
-                if (this.prescriptions.Contains(oldMedicationPrescription))
-                    this.prescriptions.Remove(oldMedicationPrescription);
+            if (prescriptions != null)
+                if (prescriptions.Contains(oldMedicationPrescription))
+                    prescriptions.Remove(oldMedicationPrescription);
         }
 
         public void RemoveAllPrescriptions()

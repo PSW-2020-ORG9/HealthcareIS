@@ -3,23 +3,23 @@
 // Created: 04 May 2020 12:43:47
 // Purpose: Definition of Class ConsumableStorageRecordFileRepository
 
+using System.Linq;
 using Model.CustomExceptions;
 using Model.HospitalResources;
 using Model.StorageRecords;
 using Model.Utilities;
 using Repository.Generics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Repository.HospitalResourcesRepository
 {
-    public class ConsumableStorageRecordFileRepository : GenericFileRepository<ConsumableStorageRecord, int>, ConsumableStorageRecordRepository
+    public class ConsumableStorageRecordFileRepository : GenericFileRepository<ConsumableStorageRecord, int>,
+        ConsumableStorageRecordRepository
     {
-        private IntegerKeyGenerator keyGenerator;
-        MedicalConsumableRepository medicalConsumableRepository;
+        private readonly IntegerKeyGenerator keyGenerator;
+        private readonly MedicalConsumableRepository medicalConsumableRepository;
 
-        public ConsumableStorageRecordFileRepository(String filePath, MedicalConsumableRepository medicalConsumableRepository) : base(filePath)
+        public ConsumableStorageRecordFileRepository(string filePath,
+            MedicalConsumableRepository medicalConsumableRepository) : base(filePath)
         {
             this.medicalConsumableRepository = medicalConsumableRepository;
             keyGenerator = new IntegerKeyGenerator(GetAllKeys());
@@ -27,7 +27,7 @@ namespace Repository.HospitalResourcesRepository
 
         public ConsumableStorageRecord GetByMedicalConsumable(MedicalConsumable medicalConsumable)
         {
-            List<ConsumableStorageRecord> records = GetMatching(record => record.Consumable.Equals(medicalConsumable)).ToList();
+            var records = GetMatching(record => record.Consumable.Equals(medicalConsumable)).ToList();
             if (records.Count == 0)
                 throw new BadRequestException();
             return records[0];

@@ -3,52 +3,45 @@
 // Created: 21 May 2020 20:31:56
 // Purpose: Definition of Class PatientFileRepository
 
-using Model.Users.Patient;
-using Repository.Generics;
-using System;
 using System.Collections.Generic;
 using Model.CustomExceptions;
-using Repository.UsersRepository.GeneralitiesRepository;
 using Model.Users.Generalities;
+using Model.Users.Patient;
 using Model.Utilities;
+using Repository.Generics;
+using Repository.UsersRepository.GeneralitiesRepository;
 
 namespace Repository.UsersRepository.EmployeesAndPatientsRepository
 {
     public class PatientFileRepository : GenericFileRepository<Patient, int>, PatientRepository
     {
-        private IntegerKeyGenerator keyGenerator;
-        private CityRepository cityRepository;
-        private CountryRepository countryRepository;
+        private readonly CityRepository cityRepository;
+        private readonly CountryRepository countryRepository;
+        private readonly IntegerKeyGenerator keyGenerator;
 
-        public PatientFileRepository(CityRepository cityRepository, CountryRepository countryRepository, String filePath) : base(filePath)
+        public PatientFileRepository(CityRepository cityRepository, CountryRepository countryRepository,
+            string filePath) : base(filePath)
         {
             this.cityRepository = cityRepository;
             this.countryRepository = countryRepository;
             keyGenerator = new IntegerKeyGenerator(GetAllKeys());
         }
 
-        public Boolean ExistsByJMBG(String jmbg)
+        public bool ExistsByJMBG(string jmbg)
         {
-            List<Patient> patients = (List<Patient>)GetAll();
+            var patients = (List<Patient>) GetAll();
 
-            foreach (Patient currentPatient in patients)
-            {
+            foreach (var currentPatient in patients)
                 if (currentPatient.Jmbg.Equals(jmbg))
                     return true;
-
-            }
             return false;
         }
 
-        public Patient GetByJMBG(String jmbg)
+        public Patient GetByJMBG(string jmbg)
         {
-
-            foreach (Patient currentPatient in GetAll())
-            {
+            foreach (var currentPatient in GetAll())
                 if (currentPatient.Jmbg.Equals(jmbg))
                     return currentPatient;
-
-            }
 
             throw new BadRequestException();
         }
@@ -59,23 +52,16 @@ namespace Repository.UsersRepository.EmployeesAndPatientsRepository
             {
                 if (entity.Citizenship != null)
                 {
-                    List<Country> citizenship = new List<Country>();
-                    foreach (Country country in entity.Citizenship)
-                    {
+                    var citizenship = new List<Country>();
+                    foreach (var country in entity.Citizenship)
                         citizenship.Add(countryRepository.GetByID(country.GetKey()));
-                    }
                     entity.Citizenship = citizenship;
                 }
 
                 if (entity.CityOfBirth != null)
-                {
                     entity.CityOfBirth = cityRepository.GetByID(entity.CityOfBirth.GetKey());
-                }
                 if (entity.CityOfResidence != null)
-                {
                     entity.CityOfResidence = cityRepository.GetByID(entity.CityOfResidence.GetKey());
-                }
-
             }
             catch (BadRequestException)
             {

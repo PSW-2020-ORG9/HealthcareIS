@@ -5,11 +5,10 @@
 
 using Model.HospitalResources;
 using Repository.Generics;
-using System;
 
 namespace Repository.HospitalResourcesRepository
 {
-   public interface MedicalConsumableTypeRepository : Repository<MedicalConsumableType,int>
-   {
-   }
+    public interface MedicalConsumableTypeRepository : Repository<MedicalConsumableType, int>
+    {
+    }
 }

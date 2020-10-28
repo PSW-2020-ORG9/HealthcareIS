@@ -4,56 +4,55 @@
 // Purpose: Definition of Class EquipmentUnit
 
 using System;
+using Repository.Generics;
 
 namespace Model.HospitalResources
 {
-    public class EquipmentUnit : Repository.Generics.Entity<int>
+    public class EquipmentUnit : Entity<int>
     {
-        private DateTime acquisitionDate;
-        private String manufacturer;
-        private Room currentLocation;
-        private EquipmentType equipmentType;
-        private int id;
-
-        public EquipmentUnit(DateTime acquisitionDate, string manufacturer, Room currentLocation, EquipmentType equipmentType)
+        public EquipmentUnit(DateTime acquisitionDate, string manufacturer, Room currentLocation,
+            EquipmentType equipmentType)
         {
-            this.acquisitionDate = acquisitionDate;
-            this.manufacturer = manufacturer;
-            this.currentLocation = currentLocation;
-            this.equipmentType = equipmentType;
+            AcquisitionDate = acquisitionDate;
+            Manufacturer = manufacturer;
+            CurrentLocation = currentLocation;
+            EquipmentType = equipmentType;
         }
 
         public EquipmentUnit()
         {
-            equipmentType = new EquipmentType();
+            EquipmentType = new EquipmentType();
         }
 
-        public DateTime AcquisitionDate { get => acquisitionDate; set => acquisitionDate = value; }
-        public string Manufacturer { get => manufacturer; set => manufacturer = value; }
-        public Room CurrentLocation { get => currentLocation; set { currentLocation = value; } }
-        public EquipmentType EquipmentType { get => equipmentType; set => equipmentType = value; }
+        public DateTime AcquisitionDate { get; set; }
 
-        public int Id { get => id; set => id = value; }
+        public string Manufacturer { get; set; }
+
+        public Room CurrentLocation { get; set; }
+
+        public EquipmentType EquipmentType { get; set; }
+
+        public int Id { get; set; }
 
         public int GetKey()
         {
-            return id;
+            return Id;
         }
 
         public void SetKey(int id)
         {
-            this.id = id;
+            Id = id;
         }
 
         public override bool Equals(object obj)
         {
             return obj is EquipmentUnit unit &&
-                   id == unit.id;
+                   Id == unit.Id;
         }
 
         public override int GetHashCode()
         {
-            return 1877310944 + id.GetHashCode();
+            return 1877310944 + Id.GetHashCode();
         }
     }
 }

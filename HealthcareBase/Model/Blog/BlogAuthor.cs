@@ -4,52 +4,48 @@
 // Purpose: Definition of Class BlogAuthor
 
 using Model.Users.Employee;
-using System;
+using Repository.Generics;
 
 namespace Model.Blog
 {
-    public class BlogAuthor : Repository.Generics.Entity<int>
+    public class BlogAuthor : Entity<int>
     {
-        private string description;
-        private Doctor doctor;
-        private int id;
-
         public BlogAuthor(string description, Doctor doctor)
         {
-            this.description = description;
-            this.doctor = doctor;
+            Description = description;
+            Doctor = doctor;
         }
 
         public BlogAuthor()
         {
-            doctor = new Doctor();
+            Doctor = new Doctor();
         }
 
-        public string Description { get => description; set => description = value; }
-        public Doctor Doctor { get => doctor; set => doctor = value; }
+        public string Description { get; set; }
 
-        public int Id { get => id; set => id = value; }
+        public Doctor Doctor { get; set; }
 
-        public override bool Equals(object obj)
-        {
-            return obj is BlogAuthor author &&
-                   id == author.id;
-        }
-
-        public override int GetHashCode()
-        {
-            return 1877310944 + id.GetHashCode();
-        }
+        public int Id { get; set; }
 
         public int GetKey()
         {
-            return id;
+            return Id;
         }
 
         public void SetKey(int id)
         {
-            this.id = id;
+            Id = id;
         }
 
+        public override bool Equals(object obj)
+        {
+            return obj is BlogAuthor author &&
+                   Id == author.Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return 1877310944 + Id.GetHashCode();
+        }
     }
 }

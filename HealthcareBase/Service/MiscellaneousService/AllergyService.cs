@@ -3,16 +3,15 @@
 // Created: 28 May 2020 12:04:04
 // Purpose: Definition of Class AllergyService
 
+using System.Collections.Generic;
 using Model.Miscellaneous;
 using Repository.MiscellaneousRepository;
-using System;
-using System.Collections.Generic;
 
 namespace Service.MiscellaneousService
 {
     public class AllergyService
     {
-        private AllergyRepository allergyRepository;
+        private readonly AllergyRepository allergyRepository;
 
         public AllergyService(AllergyRepository allergyRepository)
         {
@@ -28,6 +27,5 @@ namespace Service.MiscellaneousService
         {
             return allergyRepository.GetAll();
         }
-
     }
 }

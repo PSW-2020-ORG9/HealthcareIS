@@ -5,7 +5,6 @@
 
 using Model.Schedule.Hospitalizations;
 using Repository.Generics;
-using System;
 
 namespace Repository.ScheduleRepository.HospitalizationsRepository
 {

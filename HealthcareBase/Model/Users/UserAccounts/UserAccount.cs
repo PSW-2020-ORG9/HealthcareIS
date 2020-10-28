@@ -3,30 +3,32 @@
 // Created: 21 April 2020 11:34:09
 // Purpose: Definition of Class UserAccount
 
-using System;
+using Repository.Generics;
 
 namespace Model.Users.UserAccounts
 {
-    public abstract class UserAccount : Repository.Generics.Entity<int>
+    public abstract class UserAccount : Entity<int>
     {
-        protected String username;
-        protected String password;
         protected int id;
+        protected string password;
+        protected string username;
 
-        public string Username { get => username; set => username = value; }
-        public string Password { get => password; set => password = value; }
-
-        public int Id { get => id; set => id = value; }
-
-        public override bool Equals(object obj)
+        public string Username
         {
-            return obj is UserAccount account &&
-                   id == account.id;
+            get => username;
+            set => username = value;
         }
 
-        public override int GetHashCode()
+        public string Password
         {
-            return 1877310944 + id.GetHashCode();
+            get => password;
+            set => password = value;
+        }
+
+        public int Id
+        {
+            get => id;
+            set => id = value;
         }
 
         public int GetKey()
@@ -37,6 +39,17 @@ namespace Model.Users.UserAccounts
         public void SetKey(int id)
         {
             this.id = id;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is UserAccount account &&
+                   id == account.id;
+        }
+
+        public override int GetHashCode()
+        {
+            return 1877310944 + id.GetHashCode();
         }
     }
 }

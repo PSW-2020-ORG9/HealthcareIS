@@ -3,26 +3,25 @@
 // Created: 27 May 2020 19:14:10
 // Purpose: Definition of Class EmployeeAccountService
 
+using System.Collections.Generic;
 using Model.CustomExceptions;
 using Model.Users.UserAccounts;
 using Repository.UsersRepository.UserAccountsRepository;
-using System;
-using System.Collections.Generic;
 
 namespace Service.UsersService.EmployeeService
 {
     public class EmployeeAccountService
     {
-        private EmployeeAccountRepository employeeAccountRepository;
+        private readonly EmployeeAccountRepository employeeAccountRepository;
 
         public EmployeeAccountService(EmployeeAccountRepository employeeAccountRepository)
         {
             this.employeeAccountRepository = employeeAccountRepository;
         }
 
-        public EmployeeAccount ChangePassword(EmployeeAccount account, String newPassword)
+        public EmployeeAccount ChangePassword(EmployeeAccount account, string newPassword)
         {
-            EmployeeAccount acc = employeeAccountRepository.GetByID(account.GetKey());
+            var acc = employeeAccountRepository.GetByID(account.GetKey());
             if (acc.Password == "")
                 throw new BadRequestException();
             account.Password = newPassword;
@@ -43,6 +42,5 @@ namespace Service.UsersService.EmployeeService
         {
             return employeeAccountRepository.GetAllDoctors();
         }
-
     }
 }

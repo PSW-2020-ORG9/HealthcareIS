@@ -4,20 +4,17 @@
 // Purpose: Definition of Class FamilyMember
 
 using Model.Miscellaneous;
-using System;
 
 namespace Model.Users.Patient.MedicalHistory
 {
     public class FamilyMemberDiagnosis
     {
-        private String familyRelation;
-        private int discoveredAtAge;
-        private bool lethal;
-        private Diagnosis diagnosis;
+        public string FamilyRelation { get; set; }
 
-        public string FamilyRelation { get => familyRelation; set => familyRelation = value; }
-        public int DiscoveredAtAge { get => discoveredAtAge; set => discoveredAtAge = value; }
-        public bool Lethal { get => lethal; set => lethal = value; }
-        public Diagnosis Diagnosis { get => diagnosis; set => diagnosis = value; }
+        public int DiscoveredAtAge { get; set; }
+
+        public bool Lethal { get; set; }
+
+        public Diagnosis Diagnosis { get; set; }
     }
 }

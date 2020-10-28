@@ -3,13 +3,11 @@
 // Created: 02 June 2020 11:15:37
 // Purpose: Definition of Class DoctorAvailabilityCalculatorDecorator
 
-using System;
-
 namespace Service.ScheduleService.AvailabilityCalculators
 {
     public class DoctorAvailabilityCalculatorDecorator : DoctorAvailabilityCalculator
     {
-        private DoctorAvailabilityCalculator doctorAvailabilityCalculator;
+        private readonly DoctorAvailabilityCalculator doctorAvailabilityCalculator;
 
         public DoctorAvailabilityCalculatorDecorator(DoctorAvailabilityCalculator doctorAvailabilityCalculator)
         {
@@ -24,8 +22,7 @@ namespace Service.ScheduleService.AvailabilityCalculators
         {
             if (doctorAvailabilityCalculator is null)
                 return doctor;
-            else
-                return doctorAvailabilityCalculator.Calculate(doctor, context);
+            return doctorAvailabilityCalculator.Calculate(doctor, context);
         }
     }
 }

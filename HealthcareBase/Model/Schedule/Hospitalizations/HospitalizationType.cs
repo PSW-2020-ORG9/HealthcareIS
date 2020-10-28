@@ -3,19 +3,16 @@
 // Created: 20 April 2020 23:27:02
 // Purpose: Definition of Class HospitalizationType
 
-using Model.HospitalResources;
-using System;
 using System.Collections.Generic;
+using Model.HospitalResources;
+using Repository.Generics;
 
 namespace Model.Schedule.Hospitalizations
 {
-    public class HospitalizationType : Repository.Generics.Entity<int>
+    public class HospitalizationType : Entity<int>
     {
-        private String name;
-        private int usualNumberOfDays;
         private List<Department> appropriateDepartments;
         protected List<EquipmentType> necessaryEquipment;
-        private int id;
 
         public IEnumerable<Department> AppropriateDepartments
         {
@@ -29,36 +26,9 @@ namespace Model.Schedule.Hospitalizations
             {
                 RemoveAllAppropriateDepartments();
                 if (value != null)
-                {
-                    foreach (Model.HospitalResources.Department oDepartment in value)
+                    foreach (var oDepartment in value)
                         AddAppropriateDepartments(oDepartment);
-                }
             }
-        }
-
-        public void AddAppropriateDepartments(Model.HospitalResources.Department newDepartment)
-        {
-            if (newDepartment == null)
-                return;
-            if (this.appropriateDepartments == null)
-                this.appropriateDepartments = new List<Department>();
-            if (!this.appropriateDepartments.Contains(newDepartment))
-                this.appropriateDepartments.Add(newDepartment);
-        }
-
-        public void RemoveAppropriateDepartments(Model.HospitalResources.Department oldDepartment)
-        {
-            if (oldDepartment == null)
-                return;
-            if (this.appropriateDepartments != null)
-                if (this.appropriateDepartments.Contains(oldDepartment))
-                    this.appropriateDepartments.Remove(oldDepartment);
-        }
-
-        public void RemoveAllAppropriateDepartments()
-        {
-            if (appropriateDepartments != null)
-                appropriateDepartments.Clear();
         }
 
         public IEnumerable<EquipmentType> NecessaryEquipment
@@ -73,30 +43,69 @@ namespace Model.Schedule.Hospitalizations
             {
                 RemoveAllNecessaryEquipment();
                 if (value != null)
-                {
-                    foreach (Model.HospitalResources.EquipmentType oEquipmentType in value)
+                    foreach (var oEquipmentType in value)
                         AddNecessaryEquipment(oEquipmentType);
-                }
             }
         }
 
-        public void AddNecessaryEquipment(Model.HospitalResources.EquipmentType newEquipmentType)
+        public int Id { get; set; }
+
+        public int UsualNumberOfDays { get; set; }
+
+        public string Name { get; set; }
+
+        public int GetKey()
+        {
+            return Id;
+        }
+
+        public void SetKey(int id)
+        {
+            Id = id;
+        }
+
+        public void AddAppropriateDepartments(Department newDepartment)
+        {
+            if (newDepartment == null)
+                return;
+            if (appropriateDepartments == null)
+                appropriateDepartments = new List<Department>();
+            if (!appropriateDepartments.Contains(newDepartment))
+                appropriateDepartments.Add(newDepartment);
+        }
+
+        public void RemoveAppropriateDepartments(Department oldDepartment)
+        {
+            if (oldDepartment == null)
+                return;
+            if (appropriateDepartments != null)
+                if (appropriateDepartments.Contains(oldDepartment))
+                    appropriateDepartments.Remove(oldDepartment);
+        }
+
+        public void RemoveAllAppropriateDepartments()
+        {
+            if (appropriateDepartments != null)
+                appropriateDepartments.Clear();
+        }
+
+        public void AddNecessaryEquipment(EquipmentType newEquipmentType)
         {
             if (newEquipmentType == null)
                 return;
-            if (this.necessaryEquipment == null)
-                this.necessaryEquipment = new List<EquipmentType>();
-            if (!this.necessaryEquipment.Contains(newEquipmentType))
-                this.necessaryEquipment.Add(newEquipmentType);
+            if (necessaryEquipment == null)
+                necessaryEquipment = new List<EquipmentType>();
+            if (!necessaryEquipment.Contains(newEquipmentType))
+                necessaryEquipment.Add(newEquipmentType);
         }
 
-        public void RemoveNecessaryEquipment(Model.HospitalResources.EquipmentType oldEquipmentType)
+        public void RemoveNecessaryEquipment(EquipmentType oldEquipmentType)
         {
             if (oldEquipmentType == null)
                 return;
-            if (this.necessaryEquipment != null)
-                if (this.necessaryEquipment.Contains(oldEquipmentType))
-                    this.necessaryEquipment.Remove(oldEquipmentType);
+            if (necessaryEquipment != null)
+                if (necessaryEquipment.Contains(oldEquipmentType))
+                    necessaryEquipment.Remove(oldEquipmentType);
         }
 
         public void RemoveAllNecessaryEquipment()
@@ -105,29 +114,15 @@ namespace Model.Schedule.Hospitalizations
                 necessaryEquipment.Clear();
         }
 
-        public int Id { get => id; set => id = value; }
-        public int UsualNumberOfDays { get => usualNumberOfDays; set => usualNumberOfDays = value; }
-        public string Name { get => name; set => name = value; }
-
-        public int GetKey()
-        {
-            return id;
-        }
-
-        public void SetKey(int id)
-        {
-            this.id = id;
-        }
-
         public override bool Equals(object obj)
         {
             return obj is HospitalizationType type &&
-                   id == type.id;
+                   Id == type.Id;
         }
 
         public override int GetHashCode()
         {
-            return 1877310944 + id.GetHashCode();
+            return 1877310944 + Id.GetHashCode();
         }
     }
 }

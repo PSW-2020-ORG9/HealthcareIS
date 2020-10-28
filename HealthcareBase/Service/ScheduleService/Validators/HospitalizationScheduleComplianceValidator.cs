@@ -1,17 +1,14 @@
-﻿using Model.CustomExceptions;
-using Model.HospitalResources;
-using Model.Schedule.Hospitalizations;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Model.CustomExceptions;
+using Model.Schedule.Hospitalizations;
 
 namespace Service.ScheduleService.Validators
 {
     public class HospitalizationScheduleComplianceValidator
     {
-        private CurrentScheduleContext context;
+        private readonly CurrentScheduleContext context;
 
         public HospitalizationScheduleComplianceValidator(CurrentScheduleContext context)
         {
@@ -32,18 +29,22 @@ namespace Service.ScheduleService.Validators
 
         private void ValidateComplianceWithRenovations(Hospitalization hospitalization)
         {
-            IEnumerable<Renovation> conflictsWithRenovations = context.RenovationService.GetByRoomAndTime(hospitalization.Room, hospitalization.TimeInterval);
+            var conflictsWithRenovations =
+                context.RenovationService.GetByRoomAndTime(hospitalization.Room, hospitalization.TimeInterval);
             if (conflictsWithRenovations.Count() > 0)
                 throw new ScheduleViolationException();
         }
 
-        private void ValidateComplianceWithHospitlizations(Hospitalization hospitalization, Action<IEnumerable<Hospitalization>> throwIfConflicts)
+        private void ValidateComplianceWithHospitlizations(Hospitalization hospitalization,
+            Action<IEnumerable<Hospitalization>> throwIfConflicts)
         {
-            IEnumerable<Hospitalization> patientConflicts =
-                context.HospitalizationService.GetByPatientAndTime(hospitalization.Patient, hospitalization.TimeInterval);
+            var patientConflicts =
+                context.HospitalizationService.GetByPatientAndTime(hospitalization.Patient,
+                    hospitalization.TimeInterval);
             throwIfConflicts(patientConflicts);
-            IEnumerable<Hospitalization> equipmentInUseConflicts =
-                context.HospitalizationService.GetByEquipmentInUseAndTime(hospitalization.EquipmentInUse, hospitalization.TimeInterval);
+            var equipmentInUseConflicts =
+                context.HospitalizationService.GetByEquipmentInUseAndTime(hospitalization.EquipmentInUse,
+                    hospitalization.TimeInterval);
             throwIfConflicts(equipmentInUseConflicts);
         }
 
@@ -53,14 +54,14 @@ namespace Service.ScheduleService.Validators
                 throw new ScheduleViolationException();
         }
 
-        private void ThrowIfReschedulingConflicts(Hospitalization hospitalization, IEnumerable<Hospitalization> conflictList)
+        private void ThrowIfReschedulingConflicts(Hospitalization hospitalization,
+            IEnumerable<Hospitalization> conflictList)
         {
             if (conflictList.Count() == 0)
                 return;
-            else if (conflictList.Count() == 1 && conflictList.ToList()[0].Equals(hospitalization))
+            if (conflictList.Count() == 1 && conflictList.ToList()[0].Equals(hospitalization))
                 return;
-            else
-                throw new ScheduleViolationException();
+            throw new ScheduleViolationException();
         }
 
         private Action<IEnumerable<Hospitalization>> GetThrowIfReschedulingConflicts(Hospitalization hospitalization)

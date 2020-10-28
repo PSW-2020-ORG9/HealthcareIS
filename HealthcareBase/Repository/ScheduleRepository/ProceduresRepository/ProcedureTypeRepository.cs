@@ -5,7 +5,6 @@
 
 using Model.Schedule.Procedures;
 using Repository.Generics;
-using System;
 
 namespace Repository.ScheduleRepository.ProceduresRepository
 {

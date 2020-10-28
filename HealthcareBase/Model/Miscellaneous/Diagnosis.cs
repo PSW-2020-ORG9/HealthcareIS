@@ -3,55 +3,52 @@
 // Created: 20 April 2020 23:15:25
 // Purpose: Definition of Class Diagnosis
 
-using System;
 using System.Collections.Generic;
+using Repository.Generics;
 
 namespace Model.Miscellaneous
 {
-    public class Diagnosis : Repository.Generics.Entity<String>
+    public class Diagnosis : Entity<string>
     {
-        private String icd;
-        private String name;
-        private String description;
-        private Boolean isInjury;
-
         public Diagnosis(string icd, string name, string description, bool isInjury)
         {
-            this.icd = icd;
-            this.name = name;
-            this.description = description;
-            this.isInjury = isInjury;
+            Icd = icd;
+            Name = name;
+            Description = description;
+            IsInjury = isInjury;
         }
 
         public Diagnosis()
         {
         }
 
-        public string Name { get => name; set => name = value; }
-        public string Description { get => description; set => description = value; }
-        public bool IsInjury { get => isInjury; set => isInjury = value; }
+        public string Name { get; set; }
 
-        public String Icd { get => icd; set => icd = value; }
+        public string Description { get; set; }
+
+        public bool IsInjury { get; set; }
+
+        public string Icd { get; set; }
 
         public string GetKey()
         {
-            return icd;
+            return Icd;
         }
 
         public void SetKey(string id)
         {
-            this.icd = id;
+            Icd = id;
         }
 
         public override bool Equals(object obj)
         {
             return obj is Diagnosis diagnosis &&
-                   icd == diagnosis.icd;
+                   Icd == diagnosis.Icd;
         }
 
         public override int GetHashCode()
         {
-            return -1990239221 + EqualityComparer<string>.Default.GetHashCode(icd);
+            return -1990239221 + EqualityComparer<string>.Default.GetHashCode(Icd);
         }
     }
 }

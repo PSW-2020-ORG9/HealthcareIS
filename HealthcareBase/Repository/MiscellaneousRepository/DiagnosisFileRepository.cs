@@ -3,22 +3,20 @@
 // Created: 21 May 2020 20:31:56
 // Purpose: Definition of Class DiagnosisFileRepository
 
+using System.Collections.Generic;
 using Model.CustomExceptions;
 using Model.Miscellaneous;
 using Repository.Generics;
-using System;
-using System.Collections.Generic;
 
 namespace Repository.MiscellaneousRepository
 {
-    public class DiagnosisFileRepository : GenericFileRepository<Diagnosis, String>, DiagnosisRepository
+    public class DiagnosisFileRepository : GenericFileRepository<Diagnosis, string>, DiagnosisRepository
     {
-        public DiagnosisFileRepository(String filePath) : base(filePath)
+        public DiagnosisFileRepository(string filePath) : base(filePath)
         {
-
         }
 
-        public IEnumerable<Diagnosis> GetByKeyword(String keyword)
+        public IEnumerable<Diagnosis> GetByKeyword(string keyword)
         {
             return GetMatching(diagnosis => diagnosis.Name.Contains(keyword));
         }

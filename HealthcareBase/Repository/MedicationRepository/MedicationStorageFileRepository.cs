@@ -3,23 +3,23 @@
 // Created: 04 May 2020 12:05:05
 // Purpose: Definition of Class MedicationStorageFileRepository
 
+using System.Linq;
 using Model.CustomExceptions;
 using Model.Medication;
 using Model.StorageRecords;
 using Model.Utilities;
 using Repository.Generics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Repository.MedicationRepository
 {
-    public class MedicationStorageFileRepository : GenericFileRepository<MedicationStorageRecord, int>, MedicationStorageRepository
+    public class MedicationStorageFileRepository : GenericFileRepository<MedicationStorageRecord, int>,
+        MedicationStorageRepository
     {
-        private IntegerKeyGenerator keyGenerator;
-        MedicationRepository medicationRepository;
+        private readonly IntegerKeyGenerator keyGenerator;
+        private readonly MedicationRepository medicationRepository;
 
-        public MedicationStorageFileRepository(MedicationRepository medicationRepository, String filePath) : base(filePath)
+        public MedicationStorageFileRepository(MedicationRepository medicationRepository, string filePath) :
+            base(filePath)
         {
             this.medicationRepository = medicationRepository;
             keyGenerator = new IntegerKeyGenerator(GetAllKeys());
@@ -27,7 +27,7 @@ namespace Repository.MedicationRepository
 
         public MedicationStorageRecord GetByMedication(Medication medication)
         {
-            IEnumerable<MedicationStorageRecord> matching = GetMatching(record => record.Medication.Equals(medication));
+            var matching = GetMatching(record => record.Medication.Equals(medication));
             if (matching.Count() == 0)
                 throw new BadRequestException();
             return matching.ToList()[0];
@@ -52,7 +52,5 @@ namespace Repository.MedicationRepository
 
             return entity;
         }
-
-
     }
 }

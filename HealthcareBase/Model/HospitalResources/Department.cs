@@ -3,52 +3,47 @@
 // Created: 18 April 2020 17:20:00
 // Purpose: Definition of Class Department
 
-using System;
-using System.Security.Cryptography;
+using Repository.Generics;
 
 namespace Model.HospitalResources
 {
-    public class Department : Repository.Generics.Entity<int>
+    public class Department : Entity<int>
     {
-        private String name;
-        private String description;
-        private int id;
-
         public Department()
         {
-
         }
 
-        public Department(String name, String description)
+        public Department(string name, string description)
         {
-            this.name = name;
-            this.description = description;
+            Name = name;
+            Description = description;
         }
 
-        public string Name { get => name; set => name = value; }
-        public string Description { get => description; set => description = value; }
+        public string Name { get; set; }
 
-        public int Id { get => id; set => id = value; }
+        public string Description { get; set; }
+
+        public int Id { get; set; }
 
         public int GetKey()
         {
-            return id;
+            return Id;
         }
 
         public void SetKey(int id)
         {
-            this.id = id;
+            Id = id;
         }
 
         public override bool Equals(object obj)
         {
             return obj is Department department &&
-                   id == department.id;
+                   Id == department.Id;
         }
 
         public override int GetHashCode()
         {
-            return 1877310944 + id.GetHashCode();
+            return 1877310944 + Id.GetHashCode();
         }
     }
 }

@@ -3,24 +3,24 @@
 // Created: 02 June 2020 02:15:34
 // Purpose: Definition of Class RecommendationService
 
+using System.Collections.Generic;
+using System.Linq;
 using Model.Schedule.Procedures;
 using Repository.ScheduleRepository.ProceduresRepository;
 using Service.ScheduleService.ScheduleFittingService;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Service.ScheduleService.PatientRecommendationService
 {
     public class RecommendationService
     {
-        private RecommendationStrategy defaultStrategy;
         private RecommendationStrategy currentStrategy;
-        private ProcedureScheduleFittingService procedureScheduleFittingService;
-        private ProcedureTypeRepository procedureTypeRepository;
+        private readonly RecommendationStrategy defaultStrategy;
+        private readonly ProcedureScheduleFittingService procedureScheduleFittingService;
+        private readonly ProcedureTypeRepository procedureTypeRepository;
 
-        public RecommendationService(RecommendationStrategy defaultStrategy, 
-            ProcedureScheduleFittingService procedureScheduleFittingService, ProcedureTypeRepository procedureTypeRepository)
+        public RecommendationService(RecommendationStrategy defaultStrategy,
+            ProcedureScheduleFittingService procedureScheduleFittingService,
+            ProcedureTypeRepository procedureTypeRepository)
         {
             this.defaultStrategy = defaultStrategy;
             this.procedureScheduleFittingService = procedureScheduleFittingService;
@@ -59,6 +59,5 @@ namespace Service.ScheduleService.PatientRecommendationService
             strategy.PatientDefault = procedureTypeRepository.GetPatientDefault();
             currentStrategy = strategy;
         }
-
     }
 }

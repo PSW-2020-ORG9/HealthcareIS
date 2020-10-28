@@ -3,19 +3,18 @@
 // Created: 27 May 2020 19:02:37
 // Purpose: Definition of Class DoctorService
 
+using System.Collections.Generic;
+using System.Linq;
 using Model.CustomExceptions;
 using Model.Schedule.Procedures;
 using Model.Users.Employee;
 using Repository.UsersRepository.EmployeesAndPatientsRepository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Service.UsersService.EmployeeService
 {
     public class DoctorService
     {
-        private DoctorRepository doctorRepository;
+        private readonly DoctorRepository doctorRepository;
 
         public DoctorService(DoctorRepository doctorRepository)
         {
@@ -24,12 +23,12 @@ namespace Service.UsersService.EmployeeService
 
         public IEnumerable<Doctor> GetQualified(ProcedureType procedureType)
         {
-            List<Doctor> qualified = new List<Doctor>();
-            foreach (Doctor doctor in doctorRepository.GetAll())
+            var qualified = new List<Doctor>();
+            foreach (var doctor in doctorRepository.GetAll())
             {
                 if (!doctor.Status.Equals(EmployeeStatus.Current))
                     continue;
-                IEnumerable<Specialty> matchingSpeicalties =
+                var matchingSpeicalties =
                     procedureType.QualifiedSpecialties.Intersect(doctor.Specialties);
                 if (matchingSpeicalties.Count() == 0)
                     continue;
@@ -66,6 +65,5 @@ namespace Service.UsersService.EmployeeService
                 throw new BadRequestException();
             return doctorRepository.Update(doctor);
         }
-
     }
 }

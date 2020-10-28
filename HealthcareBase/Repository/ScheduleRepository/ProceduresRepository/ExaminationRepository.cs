@@ -3,14 +3,14 @@
 // Created: 04 May 2020 13:58:09
 // Purpose: Definition of Interface ExaminationRepository
 
+using System;
+using System.Collections.Generic;
 using Model.HospitalResources;
 using Model.Schedule.Procedures;
 using Model.Users.Employee;
 using Model.Users.Patient;
 using Model.Utilities;
 using Repository.Generics;
-using System;
-using System.Collections.Generic;
 
 namespace Repository.ScheduleRepository.ProceduresRepository
 {

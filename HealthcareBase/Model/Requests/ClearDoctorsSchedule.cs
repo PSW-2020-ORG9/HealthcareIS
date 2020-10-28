@@ -5,17 +5,14 @@
 
 using Model.Users.Employee;
 using Model.Utilities;
-using System;
 
 namespace Model.Requests
 {
     public class ClearDoctorsSchedule : ScheduleAdjustmentRequest
     {
-        private TimeInterval timeInterval;
-        private Doctor doctor;
+        public TimeInterval TimeInterval { get; set; }
 
-        public TimeInterval TimeInterval { get => timeInterval; set => timeInterval = value; }
-        public Doctor Doctor { get => doctor; set => doctor = value; }
+        public Doctor Doctor { get; set; }
 
         public override bool Equals(object obj)
         {

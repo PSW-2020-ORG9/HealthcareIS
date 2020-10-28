@@ -6,7 +6,7 @@ namespace Service.HospitalResourcesService.Validators
 {
     public class RenovationValidator
     {
-        private RoomRepository roomRepository;
+        private readonly RoomRepository roomRepository;
 
         public RenovationValidator(RoomRepository roomRepository)
         {
@@ -40,6 +40,5 @@ namespace Service.HospitalResourcesService.Validators
                 throw new BadReferenceException();
             }
         }
-
     }
 }

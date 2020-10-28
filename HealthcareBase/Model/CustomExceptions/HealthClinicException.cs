@@ -9,14 +9,12 @@ namespace Model.CustomExceptions
 {
     public class HealthClinicException : Exception
     {
-        public HealthClinicException() : base()
+        public HealthClinicException()
         {
-
         }
 
-        public HealthClinicException(String message) : base(message)
+        public HealthClinicException(string message) : base(message)
         {
-
         }
     }
 }

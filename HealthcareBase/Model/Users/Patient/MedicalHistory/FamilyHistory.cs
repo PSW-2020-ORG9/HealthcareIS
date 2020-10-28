@@ -3,17 +3,15 @@
 // Created: 21 April 2020 15:19:06
 // Purpose: Definition of Class FamilyHistory
 
-using System;
 using System.Collections.Generic;
 
 namespace Model.Users.Patient.MedicalHistory
 {
     public class FamilyHistory
     {
-        private String overview;
         private List<FamilyMemberDiagnosis> diagnoses;
 
-        public string Overview { get => overview; set => overview = value; }
+        public string Overview { get; set; }
 
         public IEnumerable<FamilyMemberDiagnosis> Diagnoses
         {
@@ -27,10 +25,8 @@ namespace Model.Users.Patient.MedicalHistory
             {
                 RemoveAllDiagnoses();
                 if (value != null)
-                {
-                    foreach (FamilyMemberDiagnosis diagnosis in value)
+                    foreach (var diagnosis in value)
                         AddDiagnosis(diagnosis);
-                }
             }
         }
 

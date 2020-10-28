@@ -5,7 +5,6 @@
 
 using Model.HospitalResources;
 using Repository.Generics;
-using System;
 
 namespace Repository.HospitalResourcesRepository
 {

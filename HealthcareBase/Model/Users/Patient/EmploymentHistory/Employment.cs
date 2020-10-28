@@ -9,24 +9,22 @@ namespace Model.Users.Patient.EmploymentHistory
 {
     public class Employment
     {
-        private DateTime start;
-        private DateTime end;
-        private Job job;
-
         public Employment(DateTime start, DateTime end, Job job)
         {
-            this.start = start;
-            this.end = end;
-            this.job = job;
+            Start = start;
+            End = end;
+            Job = job;
         }
 
         public Employment()
         {
-            job = new Job();
+            Job = new Job();
         }
 
-        public DateTime Start { get => start; set => start = value; }
-        public DateTime End { get => end; set => end = value; }
-        public Job Job { get => job; set => job = value; }
+        public DateTime Start { get; set; }
+
+        public DateTime End { get; set; }
+
+        public Job Job { get; set; }
     }
 }

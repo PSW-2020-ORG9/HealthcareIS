@@ -6,16 +6,14 @@
 using Model.Medication;
 using Model.Utilities;
 using Repository.Generics;
-using System;
-using System.Collections.Generic;
 
 namespace Repository.MedicationRepository
 {
     public class MedicationFileRepository : GenericFileRepository<Medication, int>, MedicationRepository
     {
-        private IntegerKeyGenerator keyGenerator;
+        private readonly IntegerKeyGenerator keyGenerator;
 
-        public MedicationFileRepository(String filePath) : base(filePath)
+        public MedicationFileRepository(string filePath) : base(filePath)
         {
             keyGenerator = new IntegerKeyGenerator(GetAllKeys());
         }

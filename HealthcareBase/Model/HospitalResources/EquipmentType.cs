@@ -3,53 +3,50 @@
 // Created: 18 April 2020 16:54:14
 // Purpose: Definition of Class EquipmentType
 
-using System;
+using Repository.Generics;
 
 namespace Model.HospitalResources
 {
-    public class EquipmentType : Repository.Generics.Entity<int>
+    public class EquipmentType : Entity<int>
     {
-        private String name;
-        private String purpose;
-        private Boolean requiresRenovationToMove;
-        private int id;
-
         public EquipmentType(string name, string purpose, bool requiresRenovationToMove)
         {
-            this.name = name;
-            this.purpose = purpose;
-            this.requiresRenovationToMove = requiresRenovationToMove;
+            Name = name;
+            Purpose = purpose;
+            RequiresRenovationToMove = requiresRenovationToMove;
         }
 
         public EquipmentType()
         {
         }
 
-        public string Name { get => name; set => name = value; }
-        public string Purpose { get => purpose; set => purpose = value; }
-        public bool RequiresRenovationToMove { get => requiresRenovationToMove; set => requiresRenovationToMove = value; }
+        public string Name { get; set; }
 
-        public int Id { get => id; set => id = value; }
+        public string Purpose { get; set; }
+
+        public bool RequiresRenovationToMove { get; set; }
+
+        public int Id { get; set; }
 
         public int GetKey()
         {
-            return id;
+            return Id;
         }
 
         public void SetKey(int id)
         {
-            this.id = id;
+            Id = id;
         }
 
         public override bool Equals(object obj)
         {
             return obj is EquipmentType type &&
-                   id == type.id;
+                   Id == type.Id;
         }
 
         public override int GetHashCode()
         {
-            return 1877310944 + id.GetHashCode();
+            return 1877310944 + Id.GetHashCode();
         }
     }
 }

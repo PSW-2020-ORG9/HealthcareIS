@@ -6,15 +6,14 @@
 using Model.Miscellaneous;
 using Model.Utilities;
 using Repository.Generics;
-using System;
 
 namespace Repository.MiscellaneousRepository
 {
     public class AllergyFileRepository : GenericFileRepository<Allergy, int>, AllergyRepository
     {
-        private IntegerKeyGenerator keyGenerator;
+        private readonly IntegerKeyGenerator keyGenerator;
 
-        public AllergyFileRepository(String filePath) : base(filePath)
+        public AllergyFileRepository(string filePath) : base(filePath)
         {
             keyGenerator = new IntegerKeyGenerator(GetAllKeys());
         }

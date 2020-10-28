@@ -6,15 +6,12 @@
 using Model.HospitalResources;
 using Model.Utilities;
 using Repository.Generics;
-using System;
-using System.IO;
-using System.Runtime.CompilerServices;
 
 namespace Repository.HospitalResourcesRepository
 {
     public class DepartmentFileRepository : GenericFileRepository<Department, int>, DepartmentRepository
     {
-        private IntegerKeyGenerator keyGenerator;
+        private readonly IntegerKeyGenerator keyGenerator;
 
         public DepartmentFileRepository(string filePath) : base(filePath)
         {
@@ -30,6 +27,5 @@ namespace Repository.HospitalResourcesRepository
         {
             return entity;
         }
-
     }
 }

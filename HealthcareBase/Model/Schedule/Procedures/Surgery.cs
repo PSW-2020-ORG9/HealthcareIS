@@ -4,17 +4,14 @@
 // Purpose: Definition of Class Surgery
 
 using Model.Miscellaneous;
-using System;
 
 namespace Model.Schedule.Procedures
 {
     public class Surgery : Procedure
     {
-        private Diagnosis diagnosis;
-        private String causeOfSurgery;
+        public Diagnosis Diagnosis { get; set; }
 
-        public Diagnosis Diagnosis { get => diagnosis; set => diagnosis = value; }
-        public string CauseOfSurgery { get => causeOfSurgery; set => causeOfSurgery = value; }
+        public string CauseOfSurgery { get; set; }
 
         public override bool Equals(object obj)
         {

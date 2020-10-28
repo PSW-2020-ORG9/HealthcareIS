@@ -5,11 +5,10 @@
 
 using Model.HospitalResources;
 using Repository.Generics;
-using System;
 
 namespace Repository.HospitalResourcesRepository
 {
-   public interface DepartmentRepository : Repository<Department,int>
-   {
-   }
+    public interface DepartmentRepository : Repository<Department, int>
+    {
+    }
 }

@@ -6,7 +6,6 @@
 using Model.HospitalResources;
 using Model.StorageRecords;
 using Repository.Generics;
-using System;
 
 namespace Repository.HospitalResourcesRepository
 {

@@ -5,14 +5,12 @@
 
 using Model.Users.Employee;
 using Repository.UsersRepository.EmployeesAndPatientsRepository;
-using System;
-using System.Collections.Generic;
 
 namespace Service.UsersService.EmployeeService
 {
     public class EmployeeService
     {
-        private EmployeeRepository employeeRepository;
+        private readonly EmployeeRepository employeeRepository;
 
         public EmployeeService(EmployeeRepository employeeRepository)
         {
@@ -28,6 +26,5 @@ namespace Service.UsersService.EmployeeService
         {
             return employeeRepository.Update(employee);
         }
-
     }
 }

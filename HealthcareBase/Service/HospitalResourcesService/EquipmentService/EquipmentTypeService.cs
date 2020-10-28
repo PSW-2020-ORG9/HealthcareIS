@@ -3,28 +3,26 @@
 // Created: 28 May 2020 11:59:51
 // Purpose: Definition of Class EquipmentTypeService
 
+using System.Collections.Generic;
+using System.Linq;
 using Model.CustomExceptions;
 using Model.HospitalResources;
-using Model.Schedule.Hospitalizations;
-using Model.Schedule.Procedures;
 using Repository.HospitalResourcesRepository;
 using Repository.ScheduleRepository.HospitalizationsRepository;
 using Repository.ScheduleRepository.ProceduresRepository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Service.HospitalResourcesService.EquipmentService
 {
     public class EquipmentTypeService
     {
-        private EquipmentTypeRepository equipmentTypeRepository;
-        private HospitalizationTypeRepository hospitalizationTypeRepository;
-        private ProcedureTypeRepository procedureTypeRepository;
-        private EquipmentService equipmentService;
+        private readonly EquipmentService equipmentService;
+        private readonly EquipmentTypeRepository equipmentTypeRepository;
+        private readonly HospitalizationTypeRepository hospitalizationTypeRepository;
+        private readonly ProcedureTypeRepository procedureTypeRepository;
 
-        public EquipmentTypeService(EquipmentTypeRepository equipmentTypeRepository, 
-            HospitalizationTypeRepository hospitalizationTypeRepository, ProcedureTypeRepository procedureTypeRepository, 
+        public EquipmentTypeService(EquipmentTypeRepository equipmentTypeRepository,
+            HospitalizationTypeRepository hospitalizationTypeRepository,
+            ProcedureTypeRepository procedureTypeRepository,
             EquipmentService equipmentService)
         {
             this.equipmentTypeRepository = equipmentTypeRepository;
@@ -69,7 +67,7 @@ namespace Service.HospitalResourcesService.EquipmentService
 
         private void DeleteFromHospitalizationTypes(EquipmentType equipmentType)
         {
-            foreach (HospitalizationType hospitalizationType in hospitalizationTypeRepository.GetAll())
+            foreach (var hospitalizationType in hospitalizationTypeRepository.GetAll())
                 if (hospitalizationType.NecessaryEquipment.Contains(equipmentType))
                 {
                     hospitalizationType.RemoveNecessaryEquipment(equipmentType);
@@ -79,13 +77,12 @@ namespace Service.HospitalResourcesService.EquipmentService
 
         private void DeleteFromProcedureTypes(EquipmentType equipmentType)
         {
-            foreach (ProcedureType procedureType in procedureTypeRepository.GetAll())
+            foreach (var procedureType in procedureTypeRepository.GetAll())
                 if (procedureType.NecessaryEquipment.Contains(equipmentType))
                 {
                     procedureType.RemoveNecessaryEquipment(equipmentType);
                     procedureTypeRepository.Update(procedureType);
                 }
         }
-
     }
 }

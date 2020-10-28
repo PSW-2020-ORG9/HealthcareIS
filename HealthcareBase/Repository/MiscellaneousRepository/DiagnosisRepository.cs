@@ -3,16 +3,14 @@
 // Created: 21 May 2020 20:31:56
 // Purpose: Definition of Interface DiagnosisRepository
 
+using System.Collections.Generic;
 using Model.Miscellaneous;
 using Repository.Generics;
-using System;
-using System.Collections.Generic;
 
 namespace Repository.MiscellaneousRepository
 {
-    public interface DiagnosisRepository : Repository<Diagnosis, String>
+    public interface DiagnosisRepository : Repository<Diagnosis, string>
     {
-        IEnumerable<Diagnosis> GetByKeyword(String keyword);
-
+        IEnumerable<Diagnosis> GetByKeyword(string keyword);
     }
 }

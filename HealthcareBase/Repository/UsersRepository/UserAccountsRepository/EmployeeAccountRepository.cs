@@ -3,11 +3,10 @@
 // Created: 21 May 2020 20:31:56
 // Purpose: Definition of Interface EmployeeAccountRepository
 
+using System.Collections.Generic;
 using Model.Users.Employee;
 using Model.Users.UserAccounts;
 using Repository.Generics;
-using System;
-using System.Collections.Generic;
 
 namespace Repository.UsersRepository.UserAccountsRepository
 {
@@ -21,7 +20,6 @@ namespace Repository.UsersRepository.UserAccountsRepository
 
         IEnumerable<EmployeeAccount> GetAllDoctors();
 
-        EmployeeAccount GetByUsernameAndPassword(String username, String password);
-
+        EmployeeAccount GetByUsernameAndPassword(string username, string password);
     }
 }

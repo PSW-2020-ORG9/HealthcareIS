@@ -3,16 +3,15 @@
 // Created: 27 May 2020 19:02:37
 // Purpose: Definition of Class SpecialtyService
 
+using System.Collections.Generic;
 using Model.Users.Employee;
 using Repository.UsersRepository.EmployeesAndPatientsRepository;
-using System;
-using System.Collections.Generic;
 
 namespace Service.UsersService.EmployeeService
 {
     public class SpecialtyService
     {
-        private SpecialtyRepository specialtyRepository;
+        private readonly SpecialtyRepository specialtyRepository;
 
         public SpecialtyService(SpecialtyRepository specialtyRepository)
         {
@@ -28,6 +27,5 @@ namespace Service.UsersService.EmployeeService
         {
             return specialtyRepository.GetAll();
         }
-
     }
 }

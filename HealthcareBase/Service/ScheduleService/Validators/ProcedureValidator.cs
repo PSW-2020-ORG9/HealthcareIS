@@ -1,27 +1,24 @@
-﻿using Model.CustomExceptions;
+﻿using System.Linq;
+using Model.CustomExceptions;
 using Model.HospitalResources;
 using Model.Schedule.Procedures;
 using Model.Users.Employee;
 using Repository.HospitalResourcesRepository;
 using Repository.ScheduleRepository.ProceduresRepository;
 using Repository.UsersRepository.EmployeesAndPatientsRepository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Service.ScheduleService.Validators
 {
     public class ProcedureValidator
     {
-        private DoctorRepository doctorRepository;
-        private RoomRepository roomRepository;
-        private PatientRepository patientRepository;
-        private ProcedureTypeRepository procedureTypeRepository;
-        private ExaminationRepository examinationRepository;
+        private readonly DoctorRepository doctorRepository;
+        private readonly ExaminationRepository examinationRepository;
+        private readonly PatientRepository patientRepository;
+        private readonly ProcedureTypeRepository procedureTypeRepository;
+        private readonly RoomRepository roomRepository;
 
-        public ProcedureValidator(DoctorRepository doctorRepository, RoomRepository roomRepository, PatientRepository patientRepository, 
+        public ProcedureValidator(DoctorRepository doctorRepository, RoomRepository roomRepository,
+            PatientRepository patientRepository,
             ProcedureTypeRepository procedureTypeRepository, ExaminationRepository examinationRepository)
         {
             this.doctorRepository = doctorRepository;
@@ -75,7 +72,7 @@ namespace Service.ScheduleService.Validators
 
         private void ValidateDoctorSuitability(ProcedureType procedureType, Doctor doctor)
         {
-            IEnumerable<Specialty> matchingSpeicalties = procedureType.QualifiedSpecialties.Intersect(doctor.Specialties);
+            var matchingSpeicalties = procedureType.QualifiedSpecialties.Intersect(doctor.Specialties);
             if (matchingSpeicalties.Count() == 0)
                 throw new ValidationException();
         }
@@ -90,9 +87,10 @@ namespace Service.ScheduleService.Validators
 
         private void ValidateEquipmentSuitability(ProcedureType procedureType, Room room)
         {
-            foreach (EquipmentType type in procedureType.NecessaryEquipment)
+            foreach (var type in procedureType.NecessaryEquipment)
             {
-                Boolean roomContainsEquipmentOfNecessaryType = room.Equipment.Count(unit => unit.EquipmentType.Equals(type)) != 0;
+                var roomContainsEquipmentOfNecessaryType =
+                    room.Equipment.Count(unit => unit.EquipmentType.Equals(type)) != 0;
                 if (!roomContainsEquipmentOfNecessaryType)
                     throw new ValidationException();
             }

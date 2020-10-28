@@ -3,27 +3,22 @@
 // Created: 27 May 2020 19:02:37
 // Purpose: Definition of Class ShiftService
 
-using Model.CustomExceptions;
-using Model.HospitalResources;
-using Model.Schedule.Procedures;
-using Model.Users.Employee;
-using Model.Utilities;
-using Repository.Generics;
-using Repository.HospitalResourcesRepository;
-using Repository.ScheduleRepository.HospitalizationsRepository;
-using Repository.UsersRepository.EmployeesAndPatientsRepository;
-using Service.ScheduleService.HospitalizationService;
-using Service.ScheduleService.ProcedureService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Model.CustomExceptions;
+using Model.Schedule.Procedures;
+using Model.Users.Employee;
+using Model.Utilities;
+using Repository.UsersRepository.EmployeesAndPatientsRepository;
+using Service.ScheduleService.ProcedureService;
 
 namespace Service.UsersService.EmployeeService
 {
     public class ShiftService
     {
-        private ShiftRepository shiftRepository;
-        private ProcedureService procedureService;
+        private readonly ProcedureService procedureService;
+        private readonly ShiftRepository shiftRepository;
 
         public ShiftService(ShiftRepository shiftRepository, ProcedureService procedureService)
         {
@@ -62,12 +57,9 @@ namespace Service.UsersService.EmployeeService
         public IEnumerable<Shift> EditShifts(ChangeShiftRequestDTO requestDTO)
         {
             IEnumerable<Shift> shifts = requestDTO.Shifts;
-            IEnumerable<Procedure> procedures = procedureService.GetByDoctorAndDate(requestDTO.Doctor, GetDatesFromShifts(shifts));    
+            var procedures = procedureService.GetByDoctorAndDate(requestDTO.Doctor, GetDatesFromShifts(shifts));
 
-            foreach (var procedure in procedures)   
-            {
-                ValidateTimeInterval(requestDTO.Time, procedure);      
-            }
+            foreach (var procedure in procedures) ValidateTimeInterval(requestDTO.Time, procedure);
 
             return UpdateTimeInterval(shifts, requestDTO.Time);
         }
@@ -75,7 +67,7 @@ namespace Service.UsersService.EmployeeService
         private IEnumerable<DateTime> GetDatesFromShifts(IEnumerable<Shift> shifts)
         {
             var dates = new List<DateTime>();
-            
+
             foreach (var shift in shifts)
             {
                 dates.Add(shift.TimeInterval.Start.Date);
@@ -89,10 +81,8 @@ namespace Service.UsersService.EmployeeService
 
         private void ValidateTimeInterval(TimeInterval interval, Procedure procedure)
         {
-            if (!(procedure.TimeInterval.Start > interval.Start  &&  procedure.TimeInterval.End < interval.End))
-            {
+            if (!(procedure.TimeInterval.Start > interval.Start && procedure.TimeInterval.End < interval.End))
                 throw new ScheduleViolationException();
-            }
         }
 
         private IEnumerable<Shift> UpdateTimeInterval(IEnumerable<Shift> shifts, TimeInterval timeInterval)

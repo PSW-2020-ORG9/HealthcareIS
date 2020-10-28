@@ -3,16 +3,15 @@
 // Created: 28 May 2020 12:20:01
 // Purpose: Definition of Class HospitalizationTypeService
 
+using System.Collections.Generic;
 using Model.Schedule.Hospitalizations;
 using Repository.ScheduleRepository.HospitalizationsRepository;
-using System;
-using System.Collections.Generic;
 
 namespace Service.ScheduleService.HospitalizationService
 {
     public class HospitalizationTypeService
     {
-        private HospitalizationTypeRepository hospitalizationTypeRepository;
+        private readonly HospitalizationTypeRepository hospitalizationTypeRepository;
 
         public HospitalizationTypeService(HospitalizationTypeRepository hospitalizationTypeRepository)
         {
@@ -28,6 +27,5 @@ namespace Service.ScheduleService.HospitalizationService
         {
             return hospitalizationTypeRepository.GetByID(id);
         }
-
     }
 }

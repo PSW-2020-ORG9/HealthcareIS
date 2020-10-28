@@ -3,26 +3,25 @@
 // Created: 27 May 2020 19:14:10
 // Purpose: Definition of Class PatientService
 
+using System.Collections.Generic;
 using Model.CustomExceptions;
 using Model.Users.Patient;
-using Repository.UsersRepository.EmployeesAndPatientsRepository;
-using System;
-using System.Collections.Generic;
-using Repository.ScheduleRepository.ProceduresRepository;
 using Repository.ScheduleRepository.HospitalizationsRepository;
+using Repository.ScheduleRepository.ProceduresRepository;
+using Repository.UsersRepository.EmployeesAndPatientsRepository;
 
 namespace Service.UsersService.PatientService
 {
     public class PatientService
     {
-        private PatientRepository patientRepository;
-        private ExaminationRepository examinationRepository;
-        private SurgeryRepository surgeryRepository;
-        private HospitalizationRepository hospitalizationRepository;
-        private PatientAccountService patientAccountService;
+        private readonly ExaminationRepository examinationRepository;
+        private readonly HospitalizationRepository hospitalizationRepository;
+        private readonly PatientAccountService patientAccountService;
+        private readonly PatientRepository patientRepository;
+        private readonly SurgeryRepository surgeryRepository;
 
-        public PatientService(PatientRepository patientRepository, ExaminationRepository examinationRepository, 
-            SurgeryRepository surgeryRepository, HospitalizationRepository hospitalizationRepository, 
+        public PatientService(PatientRepository patientRepository, ExaminationRepository examinationRepository,
+            SurgeryRepository surgeryRepository, HospitalizationRepository hospitalizationRepository,
             PatientAccountService patientAccountService)
         {
             this.patientRepository = patientRepository;
@@ -34,7 +33,7 @@ namespace Service.UsersService.PatientService
 
         public PatientChartDTO GetPatientChart(Patient patient)
         {
-            PatientChartDTO retPatientDTO = new PatientChartDTO();
+            var retPatientDTO = new PatientChartDTO();
 
             retPatientDTO.Examinations = examinationRepository.GetByPatient(patient);
             retPatientDTO.Surgeries = surgeryRepository.GetByPatient(patient);
@@ -52,7 +51,7 @@ namespace Service.UsersService.PatientService
         {
             return patientRepository.GetMatching(patient => patient.Status == PatientStatus.Alive);
         }
-       
+
 
         public Patient Create(Patient patient)
         {
@@ -78,6 +77,5 @@ namespace Service.UsersService.PatientService
 
             return patientRepository.Update(existingPatient);
         }
-
     }
 }

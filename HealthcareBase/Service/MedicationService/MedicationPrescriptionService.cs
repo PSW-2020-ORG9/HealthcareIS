@@ -3,22 +3,20 @@
 // Created: 27 May 2020 19:21:11
 // Purpose: Definition of Class MedicationPrescriptionService
 
-using Model.Medication;
-using System;
 using System.Collections.Generic;
-using Repository.MedicationRepository;
 using Model.CustomExceptions;
+using Model.Medication;
 using Model.Users.Patient;
-using Model.Notifications;
+using Repository.MedicationRepository;
 
 namespace Service.MedicationService
 {
     public class MedicationPrescriptionService
     {
-        private MedicationPrescriptionRepository medicationPrescriptionRepository;
-        private NotificationService.NotificationService notificationService;
+        private readonly MedicationPrescriptionRepository medicationPrescriptionRepository;
+        private readonly NotificationService.NotificationService notificationService;
 
-        public MedicationPrescriptionService(MedicationPrescriptionRepository medicationPrescriptionRepository, 
+        public MedicationPrescriptionService(MedicationPrescriptionRepository medicationPrescriptionRepository,
             NotificationService.NotificationService notificationService)
         {
             this.medicationPrescriptionRepository = medicationPrescriptionRepository;
@@ -42,17 +40,13 @@ namespace Service.MedicationService
 
         public MedicationPrescription Create(MedicationPrescription medicationPrescription)
         {
-         
             if (medicationPrescription is null)
                 throw new BadRequestException();
 
-            MedicationPrescription createdMedicationPrescription = medicationPrescriptionRepository.Create(medicationPrescription);
+            var createdMedicationPrescription = medicationPrescriptionRepository.Create(medicationPrescription);
             notificationService.Notify(createdMedicationPrescription);
 
             return createdMedicationPrescription;
         }
-
-        
-
     }
 }

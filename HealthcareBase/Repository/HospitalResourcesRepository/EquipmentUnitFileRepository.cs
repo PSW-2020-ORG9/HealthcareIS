@@ -3,29 +3,28 @@
 // Created: 04 May 2020 12:43:47
 // Purpose: Definition of Class EquipmentUnitFileRepository
 
+using System.Collections.Generic;
+using System.Linq;
 using Model.CustomExceptions;
 using Model.HospitalResources;
-using Repository.Generics;
-using System;
-using System.Linq;
-using System.Collections.Generic;
 using Model.Utilities;
+using Repository.Generics;
 
 namespace Repository.HospitalResourcesRepository
 {
     public class EquipmentUnitFileRepository : GenericFileRepository<EquipmentUnit, int>, EquipmentUnitRepository
     {
-        private IntegerKeyGenerator keyGenerator;
-        private RoomRepository roomRepository;
-        private EquipmentTypeRepository equipmentTypeRepository;
+        private readonly EquipmentTypeRepository equipmentTypeRepository;
+        private readonly IntegerKeyGenerator keyGenerator;
 
-        public RoomRepository RoomRepository { get => roomRepository; set => roomRepository = value; }
-
-        public EquipmentUnitFileRepository(EquipmentTypeRepository equipmentTypeRepository, String filePath) : base(filePath)
+        public EquipmentUnitFileRepository(EquipmentTypeRepository equipmentTypeRepository, string filePath) :
+            base(filePath)
         {
             this.equipmentTypeRepository = equipmentTypeRepository;
             keyGenerator = new IntegerKeyGenerator(GetAllKeys());
         }
+
+        public RoomRepository RoomRepository { get; set; }
 
         public override EquipmentUnit Create(EquipmentUnit entity)
         {
@@ -43,9 +42,9 @@ namespace Repository.HospitalResourcesRepository
 
         public IEnumerable<EquipmentUnit> GetByCurrentLocationWithoutParse(Room room)
         {
-            List<EquipmentUnit> equipment = ReadFile();
-            IEnumerable<EquipmentUnit> filteredEquipment = equipment.Where(unit => room.Equals(unit.CurrentLocation));
-            foreach (EquipmentUnit entity in filteredEquipment)
+            var equipment = ReadFile();
+            var filteredEquipment = equipment.Where(unit => room.Equals(unit.CurrentLocation));
+            foreach (var entity in filteredEquipment)
                 try
                 {
                     if (entity.EquipmentType != null)
@@ -55,6 +54,7 @@ namespace Repository.HospitalResourcesRepository
                 {
                     throw new BadReferenceException();
                 }
+
             return filteredEquipment;
         }
 
@@ -63,7 +63,7 @@ namespace Repository.HospitalResourcesRepository
             try
             {
                 if (entity.CurrentLocation != null)
-                    entity.CurrentLocation = roomRepository.GetByID(entity.CurrentLocation.GetKey());
+                    entity.CurrentLocation = RoomRepository.GetByID(entity.CurrentLocation.GetKey());
                 if (entity.EquipmentType != null)
                     entity.EquipmentType = equipmentTypeRepository.GetByID(entity.EquipmentType.GetKey());
             }

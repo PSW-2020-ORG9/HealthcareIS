@@ -3,10 +3,9 @@
 // Created: 04 May 2020 12:43:47
 // Purpose: Definition of Interface RoomRepository
 
+using System.Collections.Generic;
 using Model.HospitalResources;
 using Repository.Generics;
-using System;
-using System.Collections.Generic;
 
 namespace Repository.HospitalResourcesRepository
 {
@@ -15,6 +14,5 @@ namespace Repository.HospitalResourcesRepository
         IEnumerable<Room> GetByEquipment(IEnumerable<EquipmentType> equipment);
 
         IEnumerable<Room> GetByDepartment(Department department);
-
     }
 }

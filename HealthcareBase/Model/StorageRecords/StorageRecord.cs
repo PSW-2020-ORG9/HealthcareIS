@@ -3,20 +3,29 @@
 // Created: 18 April 2020 18:19:45
 // Purpose: Definition of Class StorageRecord
 
-using System;
 using System.Collections.Generic;
+using Repository.Generics;
 
 namespace Model.StorageRecords
 {
-    public abstract class StorageRecord : Repository.Generics.Entity<int>
+    public abstract class StorageRecord : Entity<int>
     {
         protected int availableAmount;
+        protected int id;
         protected List<AmountChangeRecord> supplyHistory;
         protected List<AmountChangeRecord> usageHistory;
-        protected int id;
 
-        public int AvailableAmount { get => availableAmount; set => availableAmount = value; }
-        public int Id { get => id; set => id = value; }
+        public int AvailableAmount
+        {
+            get => availableAmount;
+            set => availableAmount = value;
+        }
+
+        public int Id
+        {
+            get => id;
+            set => id = value;
+        }
 
         public IEnumerable<AmountChangeRecord> SupplyHistory
         {
@@ -30,36 +39,9 @@ namespace Model.StorageRecords
             {
                 RemoveAllSupplyHistory();
                 if (value != null)
-                {
-                    foreach (AmountChangeRecord oAmountChangeRecord in value)
+                    foreach (var oAmountChangeRecord in value)
                         AddSupplyHistory(oAmountChangeRecord);
-                }
             }
-        }
-
-        public void AddSupplyHistory(AmountChangeRecord newAmountChangeRecord)
-        {
-            if (newAmountChangeRecord == null)
-                return;
-            if (this.supplyHistory == null)
-                this.supplyHistory = new List<AmountChangeRecord>();
-            if (!this.supplyHistory.Contains(newAmountChangeRecord))
-                this.supplyHistory.Add(newAmountChangeRecord);
-        }
-
-        public void RemoveSupplyHistory(AmountChangeRecord oldAmountChangeRecord)
-        {
-            if (oldAmountChangeRecord == null)
-                return;
-            if (this.supplyHistory != null)
-                if (this.supplyHistory.Contains(oldAmountChangeRecord))
-                    this.supplyHistory.Remove(oldAmountChangeRecord);
-        }
-
-        public void RemoveAllSupplyHistory()
-        {
-            if (supplyHistory != null)
-                supplyHistory.Clear();
         }
 
         public IEnumerable<AmountChangeRecord> UsageHistory
@@ -74,36 +56,9 @@ namespace Model.StorageRecords
             {
                 RemoveAllUsageHistory();
                 if (value != null)
-                {
-                    foreach (AmountChangeRecord oAmountChangeRecord in value)
+                    foreach (var oAmountChangeRecord in value)
                         AddUsageHistory(oAmountChangeRecord);
-                }
             }
-        }
-
-        public void AddUsageHistory(AmountChangeRecord newAmountChangeRecord)
-        {
-            if (newAmountChangeRecord == null)
-                return;
-            if (this.usageHistory == null)
-                this.usageHistory = new List<AmountChangeRecord>();
-            if (!this.usageHistory.Contains(newAmountChangeRecord))
-                this.usageHistory.Add(newAmountChangeRecord);
-        }
-
-        public void RemoveUsageHistory(AmountChangeRecord oldAmountChangeRecord)
-        {
-            if (oldAmountChangeRecord == null)
-                return;
-            if (this.usageHistory != null)
-                if (this.usageHistory.Contains(oldAmountChangeRecord))
-                    this.usageHistory.Remove(oldAmountChangeRecord);
-        }
-
-        public void RemoveAllUsageHistory()
-        {
-            if (usageHistory != null)
-                usageHistory.Clear();
         }
 
         public int GetKey()
@@ -114,6 +69,56 @@ namespace Model.StorageRecords
         public void SetKey(int id)
         {
             this.id = id;
+        }
+
+        public void AddSupplyHistory(AmountChangeRecord newAmountChangeRecord)
+        {
+            if (newAmountChangeRecord == null)
+                return;
+            if (supplyHistory == null)
+                supplyHistory = new List<AmountChangeRecord>();
+            if (!supplyHistory.Contains(newAmountChangeRecord))
+                supplyHistory.Add(newAmountChangeRecord);
+        }
+
+        public void RemoveSupplyHistory(AmountChangeRecord oldAmountChangeRecord)
+        {
+            if (oldAmountChangeRecord == null)
+                return;
+            if (supplyHistory != null)
+                if (supplyHistory.Contains(oldAmountChangeRecord))
+                    supplyHistory.Remove(oldAmountChangeRecord);
+        }
+
+        public void RemoveAllSupplyHistory()
+        {
+            if (supplyHistory != null)
+                supplyHistory.Clear();
+        }
+
+        public void AddUsageHistory(AmountChangeRecord newAmountChangeRecord)
+        {
+            if (newAmountChangeRecord == null)
+                return;
+            if (usageHistory == null)
+                usageHistory = new List<AmountChangeRecord>();
+            if (!usageHistory.Contains(newAmountChangeRecord))
+                usageHistory.Add(newAmountChangeRecord);
+        }
+
+        public void RemoveUsageHistory(AmountChangeRecord oldAmountChangeRecord)
+        {
+            if (oldAmountChangeRecord == null)
+                return;
+            if (usageHistory != null)
+                if (usageHistory.Contains(oldAmountChangeRecord))
+                    usageHistory.Remove(oldAmountChangeRecord);
+        }
+
+        public void RemoveAllUsageHistory()
+        {
+            if (usageHistory != null)
+                usageHistory.Clear();
         }
 
         public override bool Equals(object obj)

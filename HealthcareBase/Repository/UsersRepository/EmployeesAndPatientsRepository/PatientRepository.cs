@@ -5,15 +5,13 @@
 
 using Model.Users.Patient;
 using Repository.Generics;
-using System;
 
 namespace Repository.UsersRepository.EmployeesAndPatientsRepository
 {
     public interface PatientRepository : Repository<Patient, int>
     {
-        Boolean ExistsByJMBG(String jmbg);
+        bool ExistsByJMBG(string jmbg);
 
-        Patient GetByJMBG(String jmbg);
-
+        Patient GetByJMBG(string jmbg);
     }
 }

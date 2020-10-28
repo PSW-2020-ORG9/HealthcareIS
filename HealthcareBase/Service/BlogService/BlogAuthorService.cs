@@ -3,23 +3,23 @@
 // Created: 27 May 2020 19:02:37
 // Purpose: Definition of Class BlogAuthorService
 
+using System;
+using System.Collections.Generic;
 using Model.Blog;
 using Model.CustomExceptions;
 using Model.Users.Employee;
 using Repository.BlogRepository;
-using System;
-using System.Collections.Generic;
 
 namespace Service.BlogService
 {
     public class BlogAuthorService
     {
+        private readonly BlogAuthorRepository blogAuthorRepository;
+
         static BlogAuthorService()
         {
             Console.WriteLine("Hello I am working");
         }
-
-        private BlogAuthorRepository blogAuthorRepository;
 
         public BlogAuthorService(BlogAuthorRepository blogAuthorRepository)
         {
@@ -51,6 +51,5 @@ namespace Service.BlogService
 
             return blogAuthorRepository.Update(blogAuthor);
         }
-
     }
 }

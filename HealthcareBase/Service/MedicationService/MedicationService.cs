@@ -3,16 +3,15 @@
 // Created: 25 May 2020 13:42:22
 // Purpose: Definition of Class MedicationService
 
+using System.Collections.Generic;
 using Model.Medication;
 using Repository.MedicationRepository;
-using System;
-using System.Collections.Generic;
 
 namespace Service.MedicationService
 {
     public class MedicationService
     {
-        private MedicationRepository medicationRepository;
+        private readonly MedicationRepository medicationRepository;
 
         public MedicationService(MedicationRepository medicationRepository)
         {
@@ -28,6 +27,5 @@ namespace Service.MedicationService
         {
             return medicationRepository.GetAll();
         }
-
     }
 }

@@ -4,14 +4,11 @@
 // Purpose: Definition of Class RequestNotification
 
 using Model.Requests;
-using System;
 
 namespace Model.Notifications
 {
     public class RequestNotification : Notification
     {
-        private Model.Requests.Request request;
-
-        public Request Request { get => request; set => request = value; }
+        public Request Request { get; set; }
     }
 }

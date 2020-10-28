@@ -1,26 +1,22 @@
-﻿using Model.CustomExceptions;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Model.CustomExceptions;
 using Model.HospitalResources;
 using Model.Schedule.Hospitalizations;
 using Repository.HospitalResourcesRepository;
-using Repository.MiscellaneousRepository;
 using Repository.ScheduleRepository.HospitalizationsRepository;
 using Repository.UsersRepository.EmployeesAndPatientsRepository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Service.ScheduleService.Validators
 {
     public class HospitalizationValidator
     {
-        private RoomRepository roomRepository;
-        private EquipmentUnitRepository equipmentUnitRepository;
-        private PatientRepository patientRepository;
-        private HospitalizationTypeRepository hospitalizationTypeRepository;
+        private readonly EquipmentUnitRepository equipmentUnitRepository;
+        private readonly HospitalizationTypeRepository hospitalizationTypeRepository;
+        private readonly PatientRepository patientRepository;
+        private readonly RoomRepository roomRepository;
 
-        public HospitalizationValidator(RoomRepository roomRepository, EquipmentUnitRepository equipmentUnitRepository, 
+        public HospitalizationValidator(RoomRepository roomRepository, EquipmentUnitRepository equipmentUnitRepository,
             PatientRepository patientRepository, HospitalizationTypeRepository hospitalizationTypeRepository)
         {
             this.roomRepository = roomRepository;
@@ -58,9 +54,10 @@ namespace Service.ScheduleService.Validators
             {
                 hospitalization.Room = roomRepository.GetByID(hospitalization.Room.GetKey());
                 hospitalization.Patient = patientRepository.GetByID(hospitalization.Patient.GetKey());
-                hospitalization.HospitalizationType = hospitalizationTypeRepository.GetByID(hospitalization.HospitalizationType.GetKey());
-                List<EquipmentUnit> equipmentInUse = new List<EquipmentUnit>();
-                foreach (EquipmentUnit equipment in hospitalization.EquipmentInUse)
+                hospitalization.HospitalizationType =
+                    hospitalizationTypeRepository.GetByID(hospitalization.HospitalizationType.GetKey());
+                var equipmentInUse = new List<EquipmentUnit>();
+                foreach (var equipment in hospitalization.EquipmentInUse)
                     equipmentInUse.Add(equipmentUnitRepository.GetByID(equipment.GetKey()));
                 hospitalization.EquipmentInUse = equipmentInUse;
             }
@@ -80,11 +77,13 @@ namespace Service.ScheduleService.Validators
                 throw new ValidationException();
         }
 
-        private void ValidateEquipmentSuitability(HospitalizationType hospitalizationType, IEnumerable<EquipmentUnit> equipment)
+        private void ValidateEquipmentSuitability(HospitalizationType hospitalizationType,
+            IEnumerable<EquipmentUnit> equipment)
         {
-            foreach (EquipmentType equipmentType in hospitalizationType.NecessaryEquipment)
+            foreach (var equipmentType in hospitalizationType.NecessaryEquipment)
             {
-                int numberOfEquipmentUnitsOfCorrectType = equipment.Count(unit => unit.EquipmentType.Equals(equipmentType));
+                var numberOfEquipmentUnitsOfCorrectType =
+                    equipment.Count(unit => unit.EquipmentType.Equals(equipmentType));
                 if (numberOfEquipmentUnitsOfCorrectType == 0)
                     throw new ValidationException();
             }
@@ -92,7 +91,7 @@ namespace Service.ScheduleService.Validators
 
         private void ValidateEquipmentLocation(Room room, IEnumerable<EquipmentUnit> equipment)
         {
-            foreach (EquipmentUnit equipmentUnit in equipment)
+            foreach (var equipmentUnit in equipment)
                 if (!equipmentUnit.CurrentLocation.Equals(room))
                     throw new ValidationException();
         }

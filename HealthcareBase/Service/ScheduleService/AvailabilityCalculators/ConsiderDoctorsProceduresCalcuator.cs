@@ -3,17 +3,15 @@
 // Created: 02 June 2020 10:51:02
 // Purpose: Definition of Class ConsiderDoctorsProceduresCalcuator
 
+using System.Linq;
 using Model.Schedule.Procedures;
 using Model.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Service.ScheduleService.AvailabilityCalculators
 {
     public class ConsiderDoctorsProceduresCalcuator : DoctorAvailabilityCalculatorDecorator
     {
-        private Procedure procedure;
+        private readonly Procedure procedure;
 
         public ConsiderDoctorsProceduresCalcuator(Procedure procedure,
             DoctorAvailabilityCalculator calculator) : base(calculator)
@@ -36,21 +34,21 @@ namespace Service.ScheduleService.AvailabilityCalculators
 
         public new DoctorAvailabilityDTO Calculate(DoctorAvailabilityDTO doctor, CurrentScheduleContext context)
         {
-            TimeIntervalCollection newIntervals = new TimeIntervalCollection(doctor.Availability.Intervals);
+            var newIntervals = new TimeIntervalCollection(doctor.Availability.Intervals);
 
-            foreach (TimeInterval timeInterval in doctor.Availability.Intervals)
+            foreach (var timeInterval in doctor.Availability.Intervals)
             {
-                List<Procedure> conflictingProcedures =
+                var conflictingProcedures =
                     context.ProcedureService.GetByDoctorAndTime(doctor.Doctor, timeInterval).ToList();
                 if (procedure != null)
                     conflictingProcedures.Remove(procedure);
 
-                foreach (Procedure procedure in conflictingProcedures)
+                foreach (var procedure in conflictingProcedures)
                     newIntervals.SubtractInterval(procedure.TimeInterval);
             }
 
-            return base.Calculate(new DoctorAvailabilityDTO { Doctor = doctor.Doctor, Availability = newIntervals }, context);
+            return base.Calculate(new DoctorAvailabilityDTO {Doctor = doctor.Doctor, Availability = newIntervals},
+                context);
         }
-
     }
 }

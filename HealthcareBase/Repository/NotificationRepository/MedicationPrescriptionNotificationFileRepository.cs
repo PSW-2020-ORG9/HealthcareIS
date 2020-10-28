@@ -3,21 +3,21 @@
 // Created: 02 June 2020 01:11:59
 // Purpose: Definition of Class MedicationPrescriptionNotificationFileRepository
 
+using System.Collections.Generic;
 using Model.Medication;
 using Model.Notifications;
 using Model.Users.UserAccounts;
 using Model.Utilities;
 using Repository.Generics;
-using System;
-using System.Collections.Generic;
 
 namespace Repository.NotificationRepository
 {
-    public class MedicationPrescriptionNotificationFileRepository : GenericFileRepository<MedicationPrescriptionNotification, int>, MedicationPrescriptionNotificationRepository
+    public class MedicationPrescriptionNotificationFileRepository :
+        GenericFileRepository<MedicationPrescriptionNotification, int>, MedicationPrescriptionNotificationRepository
     {
-        private IntegerKeyGenerator keyGenerator;
+        private readonly IntegerKeyGenerator keyGenerator;
 
-        public MedicationPrescriptionNotificationFileRepository(String filePath) : base(filePath)
+        public MedicationPrescriptionNotificationFileRepository(string filePath) : base(filePath)
         {
             keyGenerator = new IntegerKeyGenerator(GetAllKeys());
         }

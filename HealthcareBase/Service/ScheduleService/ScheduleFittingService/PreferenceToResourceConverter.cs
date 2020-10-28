@@ -3,23 +3,22 @@
 // Created: 02 June 2020 10:01:03
 // Purpose: Definition of Class PreferenceToResourceConverter
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Model.HospitalResources;
-using Model.Schedule.SchedulingPreferences;
 using Model.Users.Employee;
 using Model.Utilities;
 using Service.HospitalResourcesService.RoomService;
 using Service.UsersService.EmployeeService;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Service.ScheduleService.ScheduleFittingService
 {
     public class PreferenceToResourceConverter
     {
-        private DoctorService doctorService;
-        private RoomService roomService;
-        private TimeSpan timeLimit;
+        private readonly DoctorService doctorService;
+        private readonly RoomService roomService;
+        private readonly TimeSpan timeLimit;
 
         public PreferenceToResourceConverter(DoctorService doctorService, RoomService roomService, TimeSpan timeLimit)
         {
@@ -30,10 +29,10 @@ namespace Service.ScheduleService.ScheduleFittingService
 
         public ProcedureResourcesDTO ConvertProcedurePreference(ProcedurePreferenceDTO preference)
         {
-            IEnumerable<Doctor> qualifiedDoctors = doctorService.GetQualified(preference.Type);
-            IEnumerable<Room> appropriateRooms = roomService.GetAppropriate(preference.Type);
+            var qualifiedDoctors = doctorService.GetQualified(preference.Type);
+            var appropriateRooms = roomService.GetAppropriate(preference.Type);
 
-            ProcedureResourcesDTO resources = new ProcedureResourcesDTO()
+            var resources = new ProcedureResourcesDTO
             {
                 Patient = preference.Patient,
                 Type = preference.Type,
@@ -47,9 +46,9 @@ namespace Service.ScheduleService.ScheduleFittingService
 
         public HospitalizationResourcesDTO ConvertHospitalizationPreference(HospitalizationPreferenceDTO preference)
         {
-            IEnumerable<Room> appropriateRooms = roomService.GetAppropriate(preference.Type);
+            var appropriateRooms = roomService.GetAppropriate(preference.Type);
 
-            HospitalizationResourcesDTO resources = new HospitalizationResourcesDTO()
+            var resources = new HospitalizationResourcesDTO
             {
                 Patient = preference.Patient,
                 Type = preference.Type,
@@ -62,8 +61,8 @@ namespace Service.ScheduleService.ScheduleFittingService
 
         private TimeIntervalCollection ConvertTiming(ProcedurePreferenceDTO preference)
         {
-            DateTime earliestAllowed = DateTime.Now + timeLimit;
-            TimeInterval defaultTime = new TimeInterval()
+            var earliestAllowed = DateTime.Now + timeLimit;
+            var defaultTime = new TimeInterval
             {
                 Start = earliestAllowed,
                 End = earliestAllowed.AddDays(5)
@@ -71,15 +70,15 @@ namespace Service.ScheduleService.ScheduleFittingService
 
             if (preference.Preference.PreferredTime is null)
                 return new TimeIntervalCollection(defaultTime);
-            else return preference.Preference.PreferredTime.RemoveEarlier(DateTime.Now + timeLimit);
+            return preference.Preference.PreferredTime.RemoveEarlier(DateTime.Now + timeLimit);
         }
 
         private TimeIntervalCollection ConvertTiming(HospitalizationPreferenceDTO preference)
         {
-            int duration = preference.Preference.Duration;
+            var duration = preference.Preference.Duration;
             if (duration <= 0) duration = preference.Type.UsualNumberOfDays;
-            DateTime earliestAllowed = (DateTime.Now + timeLimit).Date;
-            TimeInterval defaultInterval = new TimeInterval()
+            var earliestAllowed = (DateTime.Now + timeLimit).Date;
+            var defaultInterval = new TimeInterval
             {
                 Start = earliestAllowed,
                 End = earliestAllowed.AddDays(5 + duration)
@@ -87,40 +86,38 @@ namespace Service.ScheduleService.ScheduleFittingService
 
             if (preference.Preference.PreferredAdmissionDate is null)
                 return new TimeIntervalCollection(defaultInterval);
-            else if (preference.Preference.PreferredAdmissionDate.End.Date < earliestAllowed)
-                return new TimeIntervalCollection(defaultInterval);
-            else
+
+            if (preference.Preference.PreferredAdmissionDate.End.Date < earliestAllowed)
             {
-                TimeInterval time = new TimeInterval()
-                {
-                    Start = preference.Preference.PreferredAdmissionDate.Start,
-                    End = preference.Preference.PreferredAdmissionDate.End.Date.AddDays(duration)
-                };
-                if (time.Start < earliestAllowed)
-                    time.Start = earliestAllowed;
-                return new TimeIntervalCollection(time);
+                return new TimeIntervalCollection(defaultInterval);
             }
+
+            var time = new TimeInterval
+            {
+                Start = preference.Preference.PreferredAdmissionDate.Start,
+                End = preference.Preference.PreferredAdmissionDate.End.Date.AddDays(duration)
+            };
+            if (time.Start < earliestAllowed)
+                time.Start = earliestAllowed;
+            return new TimeIntervalCollection(time);
         }
 
         private IEnumerable<Doctor> ConvertDoctors(Doctor preferred, IEnumerable<Doctor> qualified)
         {
             if (preferred is null)
                 return qualified;
-            else if (!qualified.Contains(preferred))
+            if (!qualified.Contains(preferred))
                 return qualified;
-            else
-                return new List<Doctor>() { preferred };
+            return new List<Doctor> {preferred};
         }
 
         private IEnumerable<Room> ConvertRooms(Room preferred, IEnumerable<Room> appropriate)
         {
             if (preferred is null)
                 return appropriate;
-            else if (!appropriate.Contains(preferred))
+            if (!appropriate.Contains(preferred))
                 return appropriate;
-            else
-                return new List<Room>() { preferred };
+            return new List<Room> {preferred};
         }
-
     }
 }

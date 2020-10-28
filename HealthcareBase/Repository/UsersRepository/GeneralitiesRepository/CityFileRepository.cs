@@ -3,21 +3,20 @@
 // Created: 27 May 2020 23:47:16
 // Purpose: Definition of Class CityFileRepository
 
+using System.Collections.Generic;
 using Model.CustomExceptions;
 using Model.Users.Generalities;
 using Model.Utilities;
 using Repository.Generics;
-using System;
-using System.Collections.Generic;
 
 namespace Repository.UsersRepository.GeneralitiesRepository
 {
     public class CityFileRepository : GenericFileRepository<City, int>, CityRepository
     {
-        private IntegerKeyGenerator keyGenerator;
-        private CountryRepository countryRepository;
+        private readonly CountryRepository countryRepository;
+        private readonly IntegerKeyGenerator keyGenerator;
 
-        public CityFileRepository(CountryRepository countryRepository, String filePath) : base(filePath)
+        public CityFileRepository(CountryRepository countryRepository, string filePath) : base(filePath)
         {
             this.countryRepository = countryRepository;
             keyGenerator = new IntegerKeyGenerator(GetAllKeys());

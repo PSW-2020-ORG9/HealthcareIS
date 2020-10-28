@@ -3,21 +3,20 @@
 // Created: 21 May 2020 20:31:56
 // Purpose: Definition of Class BlogPostFileRepository
 
+using System.Collections.Generic;
 using Model.Blog;
 using Model.CustomExceptions;
 using Model.Utilities;
 using Repository.Generics;
-using System;
-using System.Collections.Generic;
 
 namespace Repository.BlogRepository
 {
     public class BlogPostFileRepository : GenericFileRepository<BlogPost, int>, BlogPostRepository
     {
-        private IntegerKeyGenerator keyGenerator;
-        private BlogAuthorRepository blogAuthorRepository;
+        private readonly BlogAuthorRepository blogAuthorRepository;
+        private readonly IntegerKeyGenerator keyGenerator;
 
-        public BlogPostFileRepository(BlogAuthorRepository blogAuthorRepository, String filePath) : base(filePath)
+        public BlogPostFileRepository(BlogAuthorRepository blogAuthorRepository, string filePath) : base(filePath)
         {
             this.blogAuthorRepository = blogAuthorRepository;
             keyGenerator = new IntegerKeyGenerator(GetAllKeys());

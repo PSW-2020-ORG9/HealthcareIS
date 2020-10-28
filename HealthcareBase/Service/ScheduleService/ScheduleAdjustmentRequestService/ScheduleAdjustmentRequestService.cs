@@ -3,24 +3,25 @@
 // Created: 02 June 2020 01:36:41
 // Purpose: Definition of Class ScheduleAdjustmentRequestService
 
+using System;
+using System.Collections.Generic;
 using Model.CustomExceptions;
 using Model.Requests;
 using Model.Users.UserAccounts;
 using Repository.RequestRepository;
 using Repository.UsersRepository.UserAccountsRepository;
-using System;
-using System.Collections.Generic;
 
 namespace Service.ScheduleService.ScheduleAdjustmentRequestService
 {
     public class ScheduleAdjustmentRequestService
     {
-        private ScheduleAdjustmentRequestRepository requestRepository;
-        private EmployeeAccountRepository employeeAccountRepository;
-        private NotificationService.NotificationService notificationService;
+        private readonly EmployeeAccountRepository employeeAccountRepository;
+        private readonly NotificationService.NotificationService notificationService;
+        private readonly ScheduleAdjustmentRequestRepository requestRepository;
 
-        public ScheduleAdjustmentRequestService(ScheduleAdjustmentRequestRepository requestRepository, 
-            EmployeeAccountRepository employeeAccountRepository, NotificationService.NotificationService notificationService)
+        public ScheduleAdjustmentRequestService(ScheduleAdjustmentRequestRepository requestRepository,
+            EmployeeAccountRepository employeeAccountRepository,
+            NotificationService.NotificationService notificationService)
         {
             this.requestRepository = requestRepository;
             this.employeeAccountRepository = employeeAccountRepository;
@@ -47,8 +48,8 @@ namespace Service.ScheduleService.ScheduleAdjustmentRequestService
         {
             if (update is null || update.Reviewer is null || update.Request is null)
                 throw new BadRequestException();
-            ScheduleAdjustmentRequest request = requestRepository.GetByID(update.Request.GetKey());
-            EmployeeAccount reviewer = employeeAccountRepository.GetByID(update.Reviewer.GetKey());
+            var request = requestRepository.GetByID(update.Request.GetKey());
+            var reviewer = employeeAccountRepository.GetByID(update.Reviewer.GetKey());
             if (reviewer.EmployeeType != EmployeeType.Secretary)
                 throw new ValidationException();
 
@@ -57,7 +58,7 @@ namespace Service.ScheduleService.ScheduleAdjustmentRequestService
             request.ReviewDate = DateTime.Now;
             request.Status = status;
 
-            ScheduleAdjustmentRequest updated = requestRepository.Update(request);
+            var updated = requestRepository.Update(request);
             notificationService.Notify(updated);
         }
 
@@ -73,6 +74,5 @@ namespace Service.ScheduleService.ScheduleAdjustmentRequestService
 
             return requestRepository.Create(request);
         }
-
     }
 }

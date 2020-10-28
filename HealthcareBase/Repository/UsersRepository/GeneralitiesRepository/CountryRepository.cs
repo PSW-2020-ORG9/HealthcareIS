@@ -5,7 +5,6 @@
 
 using Model.Users.Generalities;
 using Repository.Generics;
-using System;
 
 namespace Repository.UsersRepository.GeneralitiesRepository
 {

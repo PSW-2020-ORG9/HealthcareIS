@@ -3,12 +3,12 @@
 // Created: 27 May 2020 21:59:05
 // Purpose: Definition of Class ProcedurePriority
 
-using System;
-
 namespace Model.Schedule.Procedures
 {
     public enum ProcedurePriority
     {
-        Low, Medium, High
+        Low,
+        Medium,
+        High
     }
 }

@@ -3,23 +3,21 @@
 // Created: 27 May 2020 20:29:45
 // Purpose: Definition of Class MedicationInputRequest
 
-using Model.Users.Employee;
-using System;
 using System.Collections.Generic;
+using Model.Users.Employee;
 
 namespace Model.Requests
 {
     public class MedicationInputRequest : Request
     {
         private List<Specialty> reviewableBy;
-        private Medication.Medication medication;
-
-        public Medication.Medication Medication { get => medication; set => medication = value; }
 
         public MedicationInputRequest()
         {
-            medication = new Medication.Medication();
+            Medication = new Medication.Medication();
         }
+
+        public Medication.Medication Medication { get; set; }
 
         public IEnumerable<Specialty> ReviewableBy
         {
@@ -33,10 +31,8 @@ namespace Model.Requests
             {
                 RemoveAllSpecialties();
                 if (value != null)
-                {
-                    foreach (Specialty oSpecialty in value)
+                    foreach (var oSpecialty in value)
                         AddSpecialties(oSpecialty);
-                }
             }
         }
 
@@ -44,19 +40,19 @@ namespace Model.Requests
         {
             if (newSpecialty == null)
                 return;
-            if (this.reviewableBy == null)
-                this.reviewableBy = new List<Specialty>();
-            if (!this.reviewableBy.Contains(newSpecialty))
-                this.reviewableBy.Add(newSpecialty);
+            if (reviewableBy == null)
+                reviewableBy = new List<Specialty>();
+            if (!reviewableBy.Contains(newSpecialty))
+                reviewableBy.Add(newSpecialty);
         }
 
         public void RemoveSpecialties(Specialty oldSpecialty)
         {
             if (oldSpecialty == null)
                 return;
-            if (this.reviewableBy != null)
-                if (this.reviewableBy.Contains(oldSpecialty))
-                    this.reviewableBy.Remove(oldSpecialty);
+            if (reviewableBy != null)
+                if (reviewableBy.Contains(oldSpecialty))
+                    reviewableBy.Remove(oldSpecialty);
         }
 
         public void RemoveAllSpecialties()

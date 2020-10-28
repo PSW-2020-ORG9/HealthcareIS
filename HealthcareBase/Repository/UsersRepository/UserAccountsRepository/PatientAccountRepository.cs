@@ -6,21 +6,19 @@
 using Model.Users.Patient;
 using Model.Users.UserAccounts;
 using Repository.Generics;
-using System;
 
 namespace Repository.UsersRepository.UserAccountsRepository
 {
     public interface PatientAccountRepository : Repository<PatientAccount, int>
     {
-        Boolean ExistsByJMBG(String jmbg);
+        bool ExistsByJMBG(string jmbg);
 
-        Boolean IsUsernameUnique(String username);
+        bool IsUsernameUnique(string username);
 
-        String GetPasswordByUsername(String username);
+        string GetPasswordByUsername(string username);
 
-        PatientAccount GetByUsernameAndPassword(String username, String password);
+        PatientAccount GetByUsernameAndPassword(string username, string password);
 
         PatientAccount GetByPatient(Patient patient);
-
     }
 }

@@ -6,15 +6,14 @@
 using Model.Users.UserFeedback;
 using Model.Utilities;
 using Repository.Generics;
-using System;
 
 namespace Repository.UsersRepository.UserFeedbackRepository
 {
     public class UserFeedbackFileRepository : GenericFileRepository<UserFeedback, int>, UserFeedbackRepository
     {
-        private IntegerKeyGenerator keyGenerator;
+        private readonly IntegerKeyGenerator keyGenerator;
 
-        public UserFeedbackFileRepository(String filePath) : base(filePath)
+        public UserFeedbackFileRepository(string filePath) : base(filePath)
         {
             keyGenerator = new IntegerKeyGenerator(GetAllKeys());
         }

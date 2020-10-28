@@ -3,16 +3,15 @@
 // Created: 28 May 2020 12:04:05
 // Purpose: Definition of Class CityService
 
+using System.Collections.Generic;
 using Model.Users.Generalities;
 using Repository.UsersRepository.GeneralitiesRepository;
-using System;
-using System.Collections.Generic;
 
 namespace Service.MiscellaneousService
 {
     public class CityService
     {
-        private CityRepository cityRepository;
+        private readonly CityRepository cityRepository;
 
         public CityService(CityRepository cityRepository)
         {
@@ -33,6 +32,5 @@ namespace Service.MiscellaneousService
         {
             return cityRepository.GetByCountry(country);
         }
-
     }
 }

@@ -3,8 +3,6 @@
 // Created: 14 April 2020 20:57:12
 // Purpose: Definition of Enum SideEffectFrequency
 
-using System;
-
 namespace Model.Medication
 {
     public enum SideEffectFrequency

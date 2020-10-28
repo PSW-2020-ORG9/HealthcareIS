@@ -3,23 +3,24 @@
 // Created: 28 May 2020 12:23:43
 // Purpose: Definition of Class SurgeryService
 
-using Model.CustomExceptions;
+using System;
+using System.Collections.Generic;
 using Model.Schedule.Procedures;
 using Model.Users.Employee;
 using Model.Utilities;
 using Repository.ScheduleRepository.ProceduresRepository;
 using Service.ScheduleService.Validators;
-using System;
-using System.Collections.Generic;
 
 namespace Service.ScheduleService.ProcedureService
 {
     public class SurgeryService : AbstractProcedureSchedulingService<Surgery>
     {
-        private SurgeryRepository surgeryRepository;
+        private readonly SurgeryRepository surgeryRepository;
 
-        public SurgeryService(SurgeryRepository surgeryRepository, NotificationService.NotificationService notificationService,
-            ProcedureScheduleComplianceValidator scheduleValidator, ProcedureValidator procedureValidator, TimeSpan timeLimit) :
+        public SurgeryService(SurgeryRepository surgeryRepository,
+            NotificationService.NotificationService notificationService,
+            ProcedureScheduleComplianceValidator scheduleValidator, ProcedureValidator procedureValidator,
+            TimeSpan timeLimit) :
             base(notificationService, scheduleValidator, procedureValidator, timeLimit)
         {
             this.surgeryRepository = surgeryRepository;

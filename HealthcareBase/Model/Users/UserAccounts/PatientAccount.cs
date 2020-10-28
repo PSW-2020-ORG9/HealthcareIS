@@ -3,21 +3,18 @@
 // Created: 21 April 2020 11:34:46
 // Purpose: Definition of Class PatientAccount
 
-using Model.Users.Employee;
-using System;
 using System.Collections.Generic;
-using Model.Users.Patient;
+using Model.Users.Employee;
 
 namespace Model.Users.UserAccounts
 {
     public class PatientAccount : UserAccount
     {
-        private Boolean respondedToSurvey;
-        private Patient.Patient patient;
         private List<Doctor> favouriteDoctors;
 
-        public bool RespondedToSurvey { get => respondedToSurvey; set => respondedToSurvey = value; }
-        public Patient.Patient Patient { get => patient; set => patient = value; }
+        public bool RespondedToSurvey { get; set; }
+
+        public Patient.Patient Patient { get; set; }
 
         public IEnumerable<Doctor> FavouriteDoctors
         {
@@ -31,10 +28,8 @@ namespace Model.Users.UserAccounts
             {
                 RemoveAllFavouriteDoctors();
                 if (value != null)
-                {
-                    foreach (Doctor oDoctor in value)
+                    foreach (var oDoctor in value)
                         AddFavouriteDoctor(oDoctor);
-                }
             }
         }
 

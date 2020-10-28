@@ -5,16 +5,13 @@
 
 using Model.Users.Patient;
 using Model.Utilities;
-using System;
 
 namespace Service.ScheduleService.AvailabilityCalculators
 {
     public class PatientAvailabilityDTO
     {
-        private Patient patient;
-        private TimeIntervalCollection availability;
+        public Patient Patient { get; set; }
 
-        public Patient Patient { get => patient; set => patient = value; }
-        public TimeIntervalCollection Availability { get => availability; set => availability = value; }
+        public TimeIntervalCollection Availability { get; set; }
     }
 }

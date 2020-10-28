@@ -4,56 +4,54 @@
 // Purpose: Definition of Class BlogPost
 
 using System;
+using Repository.Generics;
 
 namespace Model.Blog
 {
-    public class BlogPost : Repository.Generics.Entity<int>
+    public class BlogPost : Entity<int>
     {
-        private String title;
-        private String text;
-        private DateTime timeStamp;
-        private BlogAuthor author;
-        private int id;
-
         public BlogPost(string title, string text, DateTime timeStamp, BlogAuthor author)
         {
-            this.title = title;
-            this.text = text;
-            this.timeStamp = timeStamp;
-            this.author = author;
+            Title = title;
+            Text = text;
+            TimeStamp = timeStamp;
+            Author = author;
         }
 
         public BlogPost()
         {
-            author = new BlogAuthor();
+            Author = new BlogAuthor();
         }
 
-        public string Title { get => title; set => title = value; }
-        public string Text { get => text; set => text = value; }
-        public DateTime TimeStamp { get => timeStamp; set => timeStamp = value; }
-        public BlogAuthor Author { get => author; set => author = value; }
+        public string Title { get; set; }
 
-        public int Id { get => id; set => id = value; }
+        public string Text { get; set; }
 
-        public override bool Equals(object obj)
-        {
-            return obj is BlogPost post &&
-                   id == post.id;
-        }
+        public DateTime TimeStamp { get; set; }
 
-        public override int GetHashCode()
-        {
-            return 1877310944 + id.GetHashCode();
-        }
+        public BlogAuthor Author { get; set; }
+
+        public int Id { get; set; }
 
         public int GetKey()
         {
-            return id;
+            return Id;
         }
 
         public void SetKey(int id)
         {
-            this.id = id;
+            Id = id;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is BlogPost post &&
+                   Id == post.Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return 1877310944 + Id.GetHashCode();
         }
     }
 }

@@ -3,11 +3,8 @@
 // Created: 02 June 2020 10:51:02
 // Purpose: Definition of Class ConsiderDoctorsShiftsCalculator
 
-using Model.Users.Employee;
-using Model.Utilities;
-using System;
-using System.Collections.Generic;
 using System.Linq;
+using Model.Utilities;
 
 namespace Service.ScheduleService.AvailabilityCalculators
 {
@@ -15,8 +12,8 @@ namespace Service.ScheduleService.AvailabilityCalculators
     {
         public DoctorAvailabilityDTO Calculate(DoctorAvailabilityDTO doctor, CurrentScheduleContext context)
         {
-            IEnumerable<Shift> shifts = context.ShiftService.GetByDoctor(doctor.Doctor);
-            TimeIntervalCollection shiftCollection = new TimeIntervalCollection(shifts.Select(shift => shift.TimeInterval));
+            var shifts = context.ShiftService.GetByDoctor(doctor.Doctor);
+            var shiftCollection = new TimeIntervalCollection(shifts.Select(shift => shift.TimeInterval));
 
             return new DoctorAvailabilityDTO
             {
@@ -24,6 +21,5 @@ namespace Service.ScheduleService.AvailabilityCalculators
                 Availability = doctor.Availability.Overlap(shiftCollection)
             };
         }
-
     }
 }

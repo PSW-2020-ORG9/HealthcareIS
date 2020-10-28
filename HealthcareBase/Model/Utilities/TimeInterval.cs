@@ -9,29 +9,28 @@ namespace Model.Utilities
 {
     public class TimeInterval
     {
-        private DateTime start;
-        private DateTime end;
+        public DateTime Start { get; set; }
 
-        public DateTime Start { get => start; set => start = value; }
-        public DateTime End { get => end; set => end = value; }
-        public TimeSpan Duration { get { return end - start; } }
+        public DateTime End { get; set; }
 
-        public Boolean Overlaps(TimeInterval other)
+        public TimeSpan Duration => End - Start;
+
+        public bool Overlaps(TimeInterval other)
         {
             if (other == null)
                 return false;
-            if (end <= other.start)
+            if (End <= other.Start)
                 return false;
-            if (other.end <= start)
+            if (other.End <= Start)
                 return false;
             return true;
         }
 
-        public Boolean Contains(TimeInterval other)
+        public bool Contains(TimeInterval other)
         {
             if (other == null)
                 return false;
-            return start <= other.start && end >= other.end;
+            return Start <= other.Start && End >= other.End;
         }
 
         public override bool Equals(object obj)

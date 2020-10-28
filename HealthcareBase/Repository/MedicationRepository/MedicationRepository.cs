@@ -5,7 +5,6 @@
 
 using Model.Medication;
 using Repository.Generics;
-using System;
 
 namespace Repository.MedicationRepository
 {

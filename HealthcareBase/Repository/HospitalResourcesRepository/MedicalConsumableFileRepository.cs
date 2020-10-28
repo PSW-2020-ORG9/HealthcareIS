@@ -3,23 +3,22 @@
 // Created: 04 May 2020 12:43:47
 // Purpose: Definition of Class MedicalConsumableFileRepository
 
+using System.Linq;
 using Model.CustomExceptions;
 using Model.HospitalResources;
 using Model.Utilities;
 using Repository.Generics;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Repository.HospitalResourcesRepository
 {
-    public class MedicalConsumableFileRepository : GenericFileRepository<MedicalConsumable, int>, MedicalConsumableRepository
+    public class MedicalConsumableFileRepository : GenericFileRepository<MedicalConsumable, int>,
+        MedicalConsumableRepository
     {
-        private MedicalConsumableTypeRepository medicalConsumableTypeRepository;
-        private IntegerKeyGenerator keyGenerator;
+        private readonly IntegerKeyGenerator keyGenerator;
+        private readonly MedicalConsumableTypeRepository medicalConsumableTypeRepository;
 
-        public MedicalConsumableFileRepository(MedicalConsumableTypeRepository medicalConsumableTypeRepository, String filePath) : base(filePath)
+        public MedicalConsumableFileRepository(MedicalConsumableTypeRepository medicalConsumableTypeRepository,
+            string filePath) : base(filePath)
         {
             this.medicalConsumableTypeRepository = medicalConsumableTypeRepository;
             keyGenerator = new IntegerKeyGenerator(GetAllKeys());
@@ -27,7 +26,7 @@ namespace Repository.HospitalResourcesRepository
 
         public bool ExistsByType(MedicalConsumableType type)
         {
-            IEnumerable<MedicalConsumable> consumables = GetAll();
+            var consumables = GetAll();
             if (consumables.Any(consumable => consumable.ConsumableType.Equals(type)))
                 return true;
             return false;

@@ -3,21 +3,21 @@
 // Created: 02 June 2020 01:12:00
 // Purpose: Definition of Class HospitalizationNotificationFileRepository
 
+using System.Collections.Generic;
 using Model.Notifications;
 using Model.Schedule.Hospitalizations;
 using Model.Users.UserAccounts;
 using Model.Utilities;
 using Repository.Generics;
-using System;
-using System.Collections.Generic;
 
 namespace Repository.NotificationRepository
 {
-    public class HospitalizationNotificationFileRepository : GenericFileRepository<HospitalizationNotification, int>, HospitalizationNotificationRepository
+    public class HospitalizationNotificationFileRepository : GenericFileRepository<HospitalizationNotification, int>,
+        HospitalizationNotificationRepository
     {
-        private IntegerKeyGenerator keyGenerator;
+        private readonly IntegerKeyGenerator keyGenerator;
 
-        public HospitalizationNotificationFileRepository(String filePath) : base(filePath)
+        public HospitalizationNotificationFileRepository(string filePath) : base(filePath)
         {
             keyGenerator = new IntegerKeyGenerator(GetAllKeys());
         }

@@ -3,31 +3,31 @@
 // Created: 28 May 2020 11:49:19
 // Purpose: Definition of Class RenovationService
 
+using System;
+using System.Collections.Generic;
 using Model.CustomExceptions;
 using Model.HospitalResources;
 using Model.Utilities;
 using Repository.HospitalResourcesRepository;
 using Service.HospitalResourcesService.Validators;
-using System;
-using System.Collections.Generic;
 
 namespace Service.HospitalResourcesService.RoomService
 {
     public class RenovationService
     {
-        private RenovationRepository renovationRepository;
-        private RenovationValidator renovationValidator;
-        private RenovationScheduleComplianceValidator scheduleValidator;
-        private TimeSpan timeLimit;
+        private readonly RenovationRepository renovationRepository;
+        private readonly RenovationValidator renovationValidator;
+        private readonly TimeSpan timeLimit;
 
-        public RenovationScheduleComplianceValidator ScheduleValidator { get => scheduleValidator; set => scheduleValidator = value; }
-
-        public RenovationService(RenovationRepository renovationRepository, RenovationValidator renovationValidator, TimeSpan timeLimit)
+        public RenovationService(RenovationRepository renovationRepository, RenovationValidator renovationValidator,
+            TimeSpan timeLimit)
         {
             this.renovationRepository = renovationRepository;
             this.renovationValidator = renovationValidator;
             this.timeLimit = timeLimit;
         }
+
+        public RenovationScheduleComplianceValidator ScheduleValidator { get; set; }
 
         public Renovation GetByID(int id)
         {
@@ -70,15 +70,15 @@ namespace Service.HospitalResourcesService.RoomService
 
         private void ValidateForScheduling(Renovation renovation)
         {
-            ValidateStartTimeLimit(renovation); 
-            renovationValidator.ValidateRenovation(renovation); 
-            scheduleValidator.ValidateComplianceForScheduling(renovation);   
+            ValidateStartTimeLimit(renovation);
+            renovationValidator.ValidateRenovation(renovation);
+            ScheduleValidator.ValidateComplianceForScheduling(renovation);
             ValidateStartTimeLimit(renovation);
         }
 
         private void ValidateForRescheduling(Renovation renovation)
         {
-            Renovation oldRenovation = renovationRepository.GetByID(renovation.GetKey());
+            var oldRenovation = renovationRepository.GetByID(renovation.GetKey());
             renovationValidator.ValidateRenovation(renovation);
             if (!oldRenovation.Room.Equals(renovation.Room))
                 throw new BadRequestException();
@@ -92,7 +92,7 @@ namespace Service.HospitalResourcesService.RoomService
         {
             ValidateStartTimeLimit(newRenovation);
             ValidateStartTimeLimit(oldRenovation);
-            scheduleValidator.ValidateComplianceForRescheduling(newRenovation);
+            ScheduleValidator.ValidateComplianceForRescheduling(newRenovation);
             ValidateStartTimeLimit(newRenovation);
             ValidateStartTimeLimit(oldRenovation);
         }
@@ -101,7 +101,7 @@ namespace Service.HospitalResourcesService.RoomService
         {
             ValidateEndTimeLimit(oldRenovation);
             ValidateEndTimeLimit(newRenovation);
-            scheduleValidator.ValidateComplianceForRescheduling(newRenovation);
+            ScheduleValidator.ValidateComplianceForRescheduling(newRenovation);
             ValidateEndTimeLimit(oldRenovation);
             ValidateEndTimeLimit(newRenovation);
         }
@@ -122,6 +122,5 @@ namespace Service.HospitalResourcesService.RoomService
             if (renovation.TimeInterval.End < DateTime.Now.Date)
                 throw new TimingException();
         }
-
     }
 }

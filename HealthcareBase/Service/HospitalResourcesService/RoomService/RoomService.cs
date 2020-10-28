@@ -3,6 +3,9 @@
 // Created: 25 May 2020 12:58:01
 // Purpose: Definition of Class RoomService
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Model.CustomExceptions;
 using Model.HospitalResources;
 using Model.Schedule.Hospitalizations;
@@ -13,25 +16,22 @@ using Repository.ScheduleRepository.HospitalizationsRepository;
 using Repository.ScheduleRepository.ProceduresRepository;
 using Service.ScheduleService;
 using Service.ScheduleService.AvailabilityCalculators;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Service.HospitalResourcesService.RoomService
 {
     public class RoomService
     {
-        private RoomRepository roomRepository;
-        private RenovationRepository renovationRepository;
-        private EquipmentUnitRepository equipmentUnitRepository;
-        private DepartmentRepository departmentRepository;
-        private CurrentScheduleContext currentScheduleContext;
-        private ExaminationRepository examinationRepository;
-        private SurgeryRepository surgeryRepository;
-        private HospitalizationRepository hospitalizationRepository;
+        private readonly CurrentScheduleContext currentScheduleContext;
+        private readonly DepartmentRepository departmentRepository;
+        private readonly EquipmentUnitRepository equipmentUnitRepository;
+        private readonly ExaminationRepository examinationRepository;
+        private readonly HospitalizationRepository hospitalizationRepository;
+        private readonly RenovationRepository renovationRepository;
+        private readonly RoomRepository roomRepository;
+        private readonly SurgeryRepository surgeryRepository;
 
-        public RoomService(RoomRepository roomRepository, RenovationRepository renovationRepository, 
-            EquipmentUnitRepository equipmentUnitRepository, DepartmentRepository departmentRepository, 
+        public RoomService(RoomRepository roomRepository, RenovationRepository renovationRepository,
+            EquipmentUnitRepository equipmentUnitRepository, DepartmentRepository departmentRepository,
             CurrentScheduleContext currentScheduleContext, ExaminationRepository examinationRepository,
             SurgeryRepository surgeryRepository, HospitalizationRepository hospitalizationRepository)
         {
@@ -50,7 +50,7 @@ namespace Service.HospitalResourcesService.RoomService
             RoomAvailabilityCalculator calculator = new ConsiderProceduresInRoomCalculator(
                 new ConsiderHospitalizationsInRoomCalculator(new ConsiderRenovationsCalculator()));
 
-            RoomAvailabilityDTO initialAvailability = new RoomAvailabilityDTO()
+            var initialAvailability = new RoomAvailabilityDTO
             {
                 Room = room,
                 Availability = new TimeIntervalCollection(time)
@@ -61,8 +61,8 @@ namespace Service.HospitalResourcesService.RoomService
 
         public IEnumerable<Room> GetAppropriate(ProcedureType procedureType)
         {
-            List<Room> appropriate = new List<Room>();
-            foreach (Room room in roomRepository.GetByEquipment(procedureType.NecessaryEquipment))
+            var appropriate = new List<Room>();
+            foreach (var room in roomRepository.GetByEquipment(procedureType.NecessaryEquipment))
             {
                 if (procedureType.Kind == ProcedureKind.Examination && room.Purpose != RoomType.examinationRoom)
                     continue;
@@ -77,8 +77,8 @@ namespace Service.HospitalResourcesService.RoomService
 
         public IEnumerable<Room> GetAppropriate(HospitalizationType hospitalizationType)
         {
-            List<Room> appropriate = new List<Room>();
-            foreach (Room room in roomRepository.GetByEquipment(hospitalizationType.NecessaryEquipment))
+            var appropriate = new List<Room>();
+            foreach (var room in roomRepository.GetByEquipment(hospitalizationType.NecessaryEquipment))
             {
                 if (room.Purpose != RoomType.recoveryRoom)
                     continue;
@@ -126,18 +126,17 @@ namespace Service.HospitalResourcesService.RoomService
             return roomRepository.Update(room);
         }
 
-        public Boolean IsCurrentlyInRenovation(Room room)
+        public bool IsCurrentlyInRenovation(Room room)
         {
-            TimeInterval now = new TimeInterval
+            var now = new TimeInterval
             {
                 Start = DateTime.Now,
                 End = DateTime.Now.AddMinutes(5)
             };
-            IEnumerable<Renovation> renovations = renovationRepository.getByRoomAndTime(room, now);
+            var renovations = renovationRepository.getByRoomAndTime(room, now);
             if (renovations.Count() == 0)
                 return false;
-            else
-                return true;
+            return true;
         }
 
         public void Delete(Room room)
@@ -155,7 +154,7 @@ namespace Service.HospitalResourcesService.RoomService
 
         private void DeleteFromHospitalizations(Room room)
         {
-            foreach (Hospitalization hospitalization in hospitalizationRepository.GetAll())
+            foreach (var hospitalization in hospitalizationRepository.GetAll())
                 if (room.Equals(hospitalization.Room))
                 {
                     hospitalization.Room = null;
@@ -165,7 +164,7 @@ namespace Service.HospitalResourcesService.RoomService
 
         private void DeleteFromExaminations(Room room)
         {
-            foreach (Examination examination in examinationRepository.GetAll())
+            foreach (var examination in examinationRepository.GetAll())
                 if (room.Equals(examination.Room))
                 {
                     examination.Room = null;
@@ -175,7 +174,7 @@ namespace Service.HospitalResourcesService.RoomService
 
         private void DeleteFromSurgeries(Room room)
         {
-            foreach (Surgery surgery in surgeryRepository.GetAll())
+            foreach (var surgery in surgeryRepository.GetAll())
                 if (room.Equals(surgery.Room))
                 {
                     surgery.Room = null;
@@ -185,11 +184,9 @@ namespace Service.HospitalResourcesService.RoomService
 
         private void DeleteRenovationsByRoom(Room room)
         {
-            foreach (Renovation renovation in renovationRepository.GetAll())
+            foreach (var renovation in renovationRepository.GetAll())
                 if (room.Equals(renovation.Room))
-                {
                     renovationRepository.Delete(renovation);
-                }
         }
 
         public Room MoveEquipmentToRoom(Room room, EquipmentUnit equipmentUnit)
@@ -208,6 +205,5 @@ namespace Service.HospitalResourcesService.RoomService
 
             return room;
         }
-
     }
 }

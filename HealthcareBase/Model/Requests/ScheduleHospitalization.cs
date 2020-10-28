@@ -6,19 +6,16 @@
 using Model.Schedule.Hospitalizations;
 using Model.Schedule.SchedulingPreferences;
 using Model.Users.Patient;
-using System;
 
 namespace Model.Requests
 {
     public class ScheduleHospitalization : ScheduleAdjustmentRequest
     {
-        private Patient patient;
-        private HospitalizationType type;
-        private HospitalizationSchedulingPreference preference;
+        public Patient Patient { get; set; }
 
-        public Patient Patient { get => patient; set => patient = value; }
-        public HospitalizationType Type { get => type; set => type = value; }
-        public HospitalizationSchedulingPreference Preference { get => preference; set => preference = value; }
+        public HospitalizationType Type { get; set; }
+
+        public HospitalizationSchedulingPreference Preference { get; set; }
 
         public override bool Equals(object obj)
         {

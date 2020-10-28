@@ -3,42 +3,39 @@
 // Created: 27 May 2020 22:23:44
 // Purpose: Definition of Class City
 
-using System;
+using Repository.Generics;
 
 namespace Model.Users.Generalities
 {
-    public class City : Repository.Generics.Entity<int>
+    public class City : Entity<int>
     {
-        private String name;
-        private String postalCode;
-        private Country country;
-        private int id;
+        public string Name { get; set; }
 
-        public string Name { get => name; set => name = value; }
-        public string PostalCode { get => postalCode; set => postalCode = value; }
-        public Country Country { get => country; set => country = value; }
+        public string PostalCode { get; set; }
 
-        public int Id { get => id; set => id = value; }
+        public Country Country { get; set; }
 
-        public override bool Equals(object obj)
-        {
-            return obj is City city &&
-                   id == city.id;
-        }
-
-        public override int GetHashCode()
-        {
-            return 1877310944 + id.GetHashCode();
-        }
+        public int Id { get; set; }
 
         public int GetKey()
         {
-            return id;
+            return Id;
         }
 
         public void SetKey(int id)
         {
-            this.id = id;
+            Id = id;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is City city &&
+                   Id == city.Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return 1877310944 + Id.GetHashCode();
         }
     }
 }

@@ -1,21 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Model.CustomExceptions
+﻿namespace Model.CustomExceptions
 {
-    class BadReferenceException : ValidationException
+    internal class BadReferenceException : ValidationException
     {
-        public BadReferenceException() : base()
+        public BadReferenceException()
         {
-
         }
 
-        public BadReferenceException(String message) : base(message)
+        public BadReferenceException(string message) : base(message)
         {
-
         }
     }
 }

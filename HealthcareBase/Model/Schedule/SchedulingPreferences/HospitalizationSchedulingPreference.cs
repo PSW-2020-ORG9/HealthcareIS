@@ -5,18 +5,15 @@
 
 using Model.HospitalResources;
 using Model.Utilities;
-using System;
 
 namespace Model.Schedule.SchedulingPreferences
 {
     public class HospitalizationSchedulingPreference
     {
-        private Room preferredRoom;
-        private TimeInterval preferredAdmissionDate;
-        private int duration;
+        public Room PreferredRoom { get; set; }
 
-        public Room PreferredRoom { get => preferredRoom; set => preferredRoom = value; }
-        public TimeInterval PreferredAdmissionDate { get => preferredAdmissionDate; set => preferredAdmissionDate = value; }
-        public int Duration { get => duration; set => duration = value; }
+        public TimeInterval PreferredAdmissionDate { get; set; }
+
+        public int Duration { get; set; }
     }
 }

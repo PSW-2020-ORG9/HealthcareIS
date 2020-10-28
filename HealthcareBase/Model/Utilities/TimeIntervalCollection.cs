@@ -13,8 +13,6 @@ namespace Model.Utilities
     {
         private List<TimeInterval> intervals;
 
-        public IEnumerable<TimeInterval> Intervals => intervals;
-
         public TimeIntervalCollection()
         {
             intervals = new List<TimeInterval>();
@@ -31,47 +29,50 @@ namespace Model.Utilities
         public TimeIntervalCollection(TimeIntervalCollection other)
         {
             if (other is null)
-                this.intervals = new List<TimeInterval>();
+                intervals = new List<TimeInterval>();
             else
-                this.intervals = new List<TimeInterval>(other.intervals);
+                intervals = new List<TimeInterval>(other.intervals);
         }
 
         public TimeIntervalCollection(TimeInterval interval)
         {
-            this.intervals = new List<TimeInterval>() { interval };
+            intervals = new List<TimeInterval> {interval};
         }
+
+        public IEnumerable<TimeInterval> Intervals => intervals;
 
         public TimeIntervalCollection Overlap(TimeIntervalCollection other)
         {
-            List<TimeInterval> newIntervals = new List<TimeInterval>();
+            var newIntervals = new List<TimeInterval>();
 
-            foreach (TimeInterval interval1 in intervals)
-            {
-                foreach (TimeInterval interval2 in intervals)
+            foreach (var interval1 in intervals)
+            foreach (var interval2 in intervals)
+                if (!interval1.Overlaps(interval2))
                 {
-                    if (!interval1.Overlaps(interval2))
-                        continue;
-                    else if (interval1.Contains(interval2))
-                        newIntervals.Add(interval2);
-                    else if (interval2.Contains(interval1))
-                        newIntervals.Add(interval1);
-                    else if (interval1.Start < interval2.Start)
-                    {
-                        if (!interval1.End.Equals(interval2.Start))
-                            newIntervals.Add(new TimeInterval()
-                            {
-                                Start = interval2.Start,
-                                End = interval1.End
-                            });
-                        if (!interval2.End.Equals(interval1.Start))
-                            newIntervals.Add(new TimeInterval()
-                            {
-                                Start = interval1.Start,
-                                End = interval2.End
-                            });
-                    }
                 }
-            }
+                else if (interval1.Contains(interval2))
+                {
+                    newIntervals.Add(interval2);
+                }
+                else if (interval2.Contains(interval1))
+                {
+                    newIntervals.Add(interval1);
+                }
+                else if (interval1.Start < interval2.Start)
+                {
+                    if (!interval1.End.Equals(interval2.Start))
+                        newIntervals.Add(new TimeInterval
+                        {
+                            Start = interval2.Start,
+                            End = interval1.End
+                        });
+                    if (!interval2.End.Equals(interval1.Start))
+                        newIntervals.Add(new TimeInterval
+                        {
+                            Start = interval1.Start,
+                            End = interval2.End
+                        });
+                }
 
             intervals = newIntervals;
             return this;
@@ -79,24 +80,26 @@ namespace Model.Utilities
 
         public TimeIntervalCollection SubtractInterval(TimeInterval interval)
         {
-            List<TimeInterval> newIntervals = new List<TimeInterval>();
+            var newIntervals = new List<TimeInterval>();
 
-            foreach (TimeInterval currentInterval in intervals)
-            {
+            foreach (var currentInterval in intervals)
                 if (!currentInterval.Overlaps(interval))
+                {
                     newIntervals.Add(currentInterval);
+                }
                 else if (interval.Contains(currentInterval))
-                    continue;
+                {
+                }
                 else if (currentInterval.Contains(interval))
                 {
                     if (!currentInterval.Start.Equals(interval.Start))
-                        newIntervals.Add(new TimeInterval()
+                        newIntervals.Add(new TimeInterval
                         {
                             Start = currentInterval.Start,
                             End = interval.Start
                         });
                     if (!currentInterval.End.Equals(interval.End))
-                        newIntervals.Add(new TimeInterval()
+                        newIntervals.Add(new TimeInterval
                         {
                             Start = interval.End,
                             End = currentInterval.End
@@ -105,7 +108,7 @@ namespace Model.Utilities
                 else if (currentInterval.Start > interval.Start)
                 {
                     if (!currentInterval.End.Equals(interval.End))
-                        newIntervals.Add(new TimeInterval()
+                        newIntervals.Add(new TimeInterval
                         {
                             Start = interval.End,
                             End = currentInterval.End
@@ -114,13 +117,12 @@ namespace Model.Utilities
                 else
                 {
                     if (!currentInterval.Start.Equals(interval.Start))
-                        newIntervals.Add(new TimeInterval()
+                        newIntervals.Add(new TimeInterval
                         {
                             Start = currentInterval.Start,
                             End = interval.Start
                         });
                 }
-            }
 
             intervals = newIntervals;
             return this;
@@ -129,7 +131,7 @@ namespace Model.Utilities
         public TimeIntervalCollection RemoveEarlier(DateTime cutoff)
         {
             intervals = intervals.Where(interval => interval.End <= cutoff).ToList();
-            foreach (TimeInterval interval in intervals)
+            foreach (var interval in intervals)
                 if (interval.Start < cutoff)
                     interval.Start = cutoff;
             return this;
@@ -140,6 +142,5 @@ namespace Model.Utilities
             intervals = intervals.Where(interval => interval.Duration < minimumLength).ToList();
             return this;
         }
-
     }
 }

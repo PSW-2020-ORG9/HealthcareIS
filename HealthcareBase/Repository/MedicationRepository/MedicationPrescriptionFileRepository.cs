@@ -3,26 +3,27 @@
 // Created: 04 May 2020 12:05:26
 // Purpose: Definition of Class MedicationPrescriptionFileRepository
 
+using System.Collections.Generic;
+using Model.CustomExceptions;
 using Model.Medication;
+using Model.Users.Patient;
 using Model.Utilities;
 using Repository.Generics;
-using System;
-using System.Collections.Generic;
-using Model.Users.Patient;
 using Repository.UsersRepository.EmployeesAndPatientsRepository;
-using Model.CustomExceptions;
 
 namespace Repository.MedicationRepository
 {
-    public class MedicationPrescriptionFileRepository : GenericFileRepository<MedicationPrescription, int>, MedicationPrescriptionRepository
+    public class MedicationPrescriptionFileRepository : GenericFileRepository<MedicationPrescription, int>,
+        MedicationPrescriptionRepository
     {
-        private IntegerKeyGenerator keyGenerator;
-        private MedicationRepository medicationRepository;
-        private DoctorRepository doctorRepository;
-        private PatientRepository patientRepository;
+        private readonly DoctorRepository doctorRepository;
+        private readonly IntegerKeyGenerator keyGenerator;
+        private readonly MedicationRepository medicationRepository;
+        private readonly PatientRepository patientRepository;
 
-        public MedicationPrescriptionFileRepository(MedicationRepository medicationRepository, DoctorRepository doctorRepository,
-            PatientRepository patientRepository, String filePath) : base(filePath)
+        public MedicationPrescriptionFileRepository(MedicationRepository medicationRepository,
+            DoctorRepository doctorRepository,
+            PatientRepository patientRepository, string filePath) : base(filePath)
         {
             this.medicationRepository = medicationRepository;
             this.patientRepository = patientRepository;

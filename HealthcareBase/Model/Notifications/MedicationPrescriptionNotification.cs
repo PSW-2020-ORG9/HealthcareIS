@@ -4,14 +4,11 @@
 // Purpose: Definition of Class MedicationPrescriptionNotification
 
 using Model.Medication;
-using System;
 
 namespace Model.Notifications
 {
     public class MedicationPrescriptionNotification : Notification
     {
-        private Model.Medication.MedicationPrescription prescription;
-
-        public MedicationPrescription Prescription { get => prescription; set => prescription = value; }
+        public MedicationPrescription Prescription { get; set; }
     }
 }

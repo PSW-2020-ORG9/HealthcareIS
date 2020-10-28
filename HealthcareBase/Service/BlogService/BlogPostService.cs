@@ -3,18 +3,18 @@
 // Created: 27 May 2020 19:02:37
 // Purpose: Definition of Class BlogPostService
 
+using System;
+using System.Collections.Generic;
 using Model.Blog;
 using Model.CustomExceptions;
 using Repository.BlogRepository;
-using System;
-using System.Collections.Generic;
 
 namespace Service.BlogService
 {
     public class BlogPostService
     {
-        private BlogPostRepository blogPostRepository;
-        private BlogAuthorRepository blogAuthorRepository;
+        private readonly BlogAuthorRepository blogAuthorRepository;
+        private readonly BlogPostRepository blogPostRepository;
 
         public BlogPostService(BlogPostRepository blogPostRepository, BlogAuthorRepository blogAuthorRepository)
         {
@@ -63,6 +63,5 @@ namespace Service.BlogService
         {
             blogPostRepository.Delete(blogPost);
         }
-
     }
 }

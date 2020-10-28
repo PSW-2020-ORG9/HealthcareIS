@@ -8,16 +8,17 @@ using Model.Requests;
 using Model.Utilities;
 using Repository.Generics;
 using Repository.UsersRepository.UserAccountsRepository;
-using System;
 
 namespace Repository.RequestRepository
 {
-    public class ScheduleAdjustmentRequestFileRepository : GenericFileRepository<ScheduleAdjustmentRequest, int>, ScheduleAdjustmentRequestRepository
+    public class ScheduleAdjustmentRequestFileRepository : GenericFileRepository<ScheduleAdjustmentRequest, int>,
+        ScheduleAdjustmentRequestRepository
     {
-        private IntegerKeyGenerator keyGenerator;
-        EmployeeAccountRepository employeeAccountRepository;
+        private readonly EmployeeAccountRepository employeeAccountRepository;
+        private readonly IntegerKeyGenerator keyGenerator;
 
-        public ScheduleAdjustmentRequestFileRepository(EmployeeAccountRepository employeeAccountRepository, String filePath) : base(filePath)
+        public ScheduleAdjustmentRequestFileRepository(EmployeeAccountRepository employeeAccountRepository,
+            string filePath) : base(filePath)
         {
             this.employeeAccountRepository = employeeAccountRepository;
             keyGenerator = new IntegerKeyGenerator(GetAllKeys());

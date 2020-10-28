@@ -1,21 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Model.CustomExceptions
+﻿namespace Model.CustomExceptions
 {
-    class NotUniqueException: ValidationException
+    internal class NotUniqueException : ValidationException
     {
-        public NotUniqueException() : base()
+        public NotUniqueException()
         {
-
         }
 
-        public NotUniqueException(String message) : base(message)
+        public NotUniqueException(string message) : base(message)
         {
-
         }
     }
 }
