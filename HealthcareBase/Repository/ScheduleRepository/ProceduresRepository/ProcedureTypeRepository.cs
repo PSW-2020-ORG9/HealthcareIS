@@ -1,0 +1,16 @@
+// File:    ProcedureTypeRepository.cs
+// Author:  Lana
+// Created: 04 May 2020 13:58:09
+// Purpose: Definition of Interface ProcedureTypeRepository
+
+using Model.Schedule.Procedures;
+using Repository.Generics;
+using System;
+
+namespace Repository.ScheduleRepository.ProceduresRepository
+{
+    public interface ProcedureTypeRepository : Repository<ProcedureType, int>
+    {
+        ProcedureType GetPatientDefault();
+    }
+}
