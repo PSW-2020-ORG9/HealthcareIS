@@ -1,0 +1,69 @@
+// File:    PatientRegistrationService.cs
+// Author:  Lana
+// Created: 28 May 2020 16:44:45
+// Purpose: Definition of Class PatientRegistrationService
+
+using Model.CustomExceptions;
+using Model.Users.Patient;
+using Model.Users.UserAccounts;
+using Repository.UsersRepository.EmployeesAndPatientsRepository;
+using Repository.UsersRepository.UserAccountsRepository;
+
+namespace Service.UsersService.PatientService
+{
+    public class PatientRegistrationService
+    {
+        private readonly PatientAccountRepository patientAccountRepository;
+        private readonly PatientRepository patientRepository;
+
+        public PatientRegistrationService(PatientAccountRepository patientAccountRepository,
+            PatientRepository patientRepository)
+        {
+            this.patientAccountRepository = patientAccountRepository;
+            this.patientRepository = patientRepository;
+        }
+
+        public bool IsRegistered(string jmbg)
+        {
+            return patientAccountRepository.ExistsByJMBG(jmbg);
+            ;
+        }
+
+        public bool HasGuestAccount(string jmbg)
+        {
+            return patientRepository.ExistsByJMBG(jmbg);
+        }
+
+        public Patient GetGuestAccount(string jmbg)
+        {
+            return patientRepository.GetByJMBG(jmbg);
+        }
+
+        public PatientAccount Register(Patient patient, string username, string password)
+        {
+            if (patientAccountRepository.ExistsByJMBG(patient.Jmbg))
+                throw new BadRequestException();
+
+            if (!IsUsernameUnique(username))
+                throw new NotUniqueException();
+
+            if (HasGuestAccount(patient.Jmbg))
+                patient = patientRepository.Update(patient);
+            else
+                patient = patientRepository.Create(patient);
+
+            var newPatient = new PatientAccount();
+            newPatient.Patient = patient;
+            newPatient.Username = username;
+            newPatient.Password = password;
+
+
+            return patientAccountRepository.Create(newPatient);
+        }
+
+        public bool IsUsernameUnique(string jmbg)
+        {
+            return patientAccountRepository.IsUsernameUnique(jmbg);
+        }
+    }
+}
