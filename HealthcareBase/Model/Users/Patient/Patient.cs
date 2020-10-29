@@ -5,6 +5,8 @@
 
 using Model.Users.Generalities;
 using Repository.Generics;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Users.Patient
 {
@@ -19,12 +21,15 @@ namespace Model.Users.Patient
 
         public string MiddleName { get; set; }
 
+        [Column(TypeName = "nvarchar(24)")]
         public MaritalStatus MartialStatus { get; set; }
 
+        [Column(TypeName = "nvarchar(24)")]
         public PatientStatus Status { get; set; }
 
         public City CityOfBirth { get; set; }
 
+        [Key]
         public int MedicalRecordID { get; set; }
 
         public MedicalHistory.MedicalHistory MedicalHistory { get; set; }

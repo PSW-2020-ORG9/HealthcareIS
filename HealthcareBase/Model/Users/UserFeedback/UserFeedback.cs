@@ -4,6 +4,7 @@
 // Purpose: Definition of Class UserFeedback
 
 using System;
+using System.ComponentModel.DataAnnotations;
 using Model.Users.UserAccounts;
 using Repository.Generics;
 
@@ -17,6 +18,7 @@ namespace Model.Users.UserFeedback
 
         public UserAccount User { get; set; }
 
+        [Key]
         public int Id { get; set; }
 
         public int GetKey()

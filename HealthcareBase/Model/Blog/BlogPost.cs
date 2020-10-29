@@ -4,6 +4,7 @@
 // Purpose: Definition of Class BlogPost
 
 using System;
+using System.ComponentModel.DataAnnotations;
 using Repository.Generics;
 
 namespace Model.Blog
@@ -31,6 +32,7 @@ namespace Model.Blog
 
         public BlogAuthor Author { get; set; }
 
+        [Key]
         public int Id { get; set; }
 
         public int GetKey()

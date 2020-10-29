@@ -4,6 +4,8 @@
 // Purpose: Definition of Class Request
 
 using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Model.Users.UserAccounts;
 using Repository.Generics;
 
@@ -19,6 +21,7 @@ namespace Model.Requests
         protected EmployeeAccount sender;
         protected RequestStatus status;
 
+        [Column(TypeName = "nvarchar(24)")]
         public RequestStatus Status
         {
             get => status;
@@ -55,6 +58,7 @@ namespace Model.Requests
             set => reviewer = value;
         }
 
+        [Key]
         public int Id
         {
             get => id;

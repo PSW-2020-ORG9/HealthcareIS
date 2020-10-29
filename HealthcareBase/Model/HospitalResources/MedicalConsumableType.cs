@@ -4,6 +4,7 @@
 // Purpose: Definition of Class MedicalConsumableType
 
 using Repository.Generics;
+using System.ComponentModel.DataAnnotations;
 
 namespace Model.HospitalResources
 {
@@ -23,6 +24,7 @@ namespace Model.HospitalResources
 
         public string Purpose { get; set; }
 
+        [Key]
         public int Id { get; set; }
 
         public int GetKey()

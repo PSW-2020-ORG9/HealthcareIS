@@ -4,6 +4,7 @@
 // Purpose: Definition of Class EquipmentUnit
 
 using System;
+using System.ComponentModel.DataAnnotations;
 using Repository.Generics;
 
 namespace Model.HospitalResources
@@ -32,6 +33,7 @@ namespace Model.HospitalResources
 
         public EquipmentType EquipmentType { get; set; }
 
+        [Key]
         public int Id { get; set; }
 
         public int GetKey()

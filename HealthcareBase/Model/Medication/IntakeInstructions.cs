@@ -3,10 +3,12 @@
 // Created: 20 April 2020 23:19:05
 // Purpose: Definition of Class IntakeInstructions
 
+using Microsoft.EntityFrameworkCore;
 using System;
 
 namespace Model.Medication
 {
+    [Owned]
     public class IntakeInstructions
     {
         public IntakeInstructions(DateTime startDate, DateTime endDate, int timesPerDay, double dosage,

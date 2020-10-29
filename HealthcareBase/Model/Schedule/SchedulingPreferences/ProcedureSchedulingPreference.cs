@@ -3,12 +3,14 @@
 // Created: 21 April 2020 17:32:57
 // Purpose: Definition of Class ProcedureSchedulingPreference
 
+using Microsoft.EntityFrameworkCore;
 using Model.HospitalResources;
 using Model.Users.Employee;
 using Model.Utilities;
 
 namespace Model.Schedule.SchedulingPreferences
 {
+    [Owned]
     public class ProcedureSchedulingPreference
     {
         public TimeIntervalCollection PreferredTime { get; set; }

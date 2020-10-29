@@ -3,11 +3,13 @@
 // Created: 21 April 2020 17:32:57
 // Purpose: Definition of Class HospitalizationSchedulingPreference
 
+using Microsoft.EntityFrameworkCore;
 using Model.HospitalResources;
 using Model.Utilities;
 
 namespace Model.Schedule.SchedulingPreferences
 {
+    [Owned]
     public class HospitalizationSchedulingPreference
     {
         public Room PreferredRoom { get; set; }

@@ -8,6 +8,8 @@ using Model.Users.Employee;
 using Model.Users.Patient;
 using Model.Utilities;
 using Repository.Generics;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Schedule.Procedures
 {
@@ -43,6 +45,7 @@ namespace Model.Schedule.Procedures
             set => procedureType = value;
         }
 
+        [Key]
         public int Id
         {
             get => id;
@@ -67,6 +70,7 @@ namespace Model.Schedule.Procedures
             set => referredFrom = value;
         }
 
+        [Column(TypeName = "nvarchar(24)")]
         public ProcedurePriority Priority
         {
             get => priority;

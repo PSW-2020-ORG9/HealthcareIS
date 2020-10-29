@@ -6,6 +6,7 @@
 using Model.HospitalResources;
 using Model.Utilities;
 using Repository.Generics;
+using System.ComponentModel.DataAnnotations;
 
 namespace Model.Users.Employee
 {
@@ -17,6 +18,7 @@ namespace Model.Users.Employee
 
         public Doctor Doctor { get; set; }
 
+        [Key]
         public int Id { get; set; }
 
         public int GetKey()

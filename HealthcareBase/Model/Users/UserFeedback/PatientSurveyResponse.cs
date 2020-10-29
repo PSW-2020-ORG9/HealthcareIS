@@ -6,6 +6,7 @@
 using Model.Users.Employee;
 using Model.Users.UserAccounts;
 using Repository.Generics;
+using System.ComponentModel.DataAnnotations;
 
 namespace Model.Users.UserFeedback
 {
@@ -17,6 +18,7 @@ namespace Model.Users.UserFeedback
 
         public PatientAccount Patient { get; set; }
 
+        [Key]
         public int Id { get; set; }
 
         public int GetKey()

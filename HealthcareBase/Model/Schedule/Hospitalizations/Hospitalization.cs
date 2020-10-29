@@ -4,6 +4,8 @@
 // Purpose: Definition of Class Hospitalization
 
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Model.HospitalResources;
 using Model.Miscellaneous;
 using Model.Users.Patient;
@@ -20,16 +22,19 @@ namespace Model.Schedule.Hospitalizations
 
         public string CauseOfAdmission { get; set; }
 
+        [Column(TypeName = "nvarchar(24)")]
         public DischargeType DischargeType { get; set; }
 
         public Room Room { get; set; }
 
+        [Column(TypeName = "nvarchar(24)")]
         public HospitalizationType HospitalizationType { get; set; }
 
         public TimeInterval TimeInterval { get; set; }
 
         public Patient Patient { get; set; }
 
+        [Key]
         public int Id { get; set; }
 
         public IEnumerable<EquipmentUnit> EquipmentInUse

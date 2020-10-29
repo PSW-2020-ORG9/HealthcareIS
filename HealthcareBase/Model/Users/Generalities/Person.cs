@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Users.Generalities
 {
@@ -56,6 +57,7 @@ namespace Model.Users.Generalities
             set => jmbg = value;
         }
 
+        [Column(TypeName = "nvarchar(24)")]
         public Gender Gender
         {
             get => gender;

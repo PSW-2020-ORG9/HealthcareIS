@@ -4,6 +4,7 @@
 // Purpose: Definition of Class MedicationPrescription
 
 using System;
+using System.ComponentModel.DataAnnotations;
 using Model.Miscellaneous;
 using Model.Users.Employee;
 using Model.Users.Patient;
@@ -25,6 +26,7 @@ namespace Model.Medication
 
         public Patient Patient { get; set; }
 
+        [Key]
         public int Id { get; set; }
 
         public int GetKey()

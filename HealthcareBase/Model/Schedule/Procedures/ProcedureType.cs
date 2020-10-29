@@ -5,6 +5,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Model.HospitalResources;
 using Model.Users.Employee;
 using Repository.Generics;
@@ -33,12 +35,14 @@ namespace Model.Schedule.Procedures
             set => duration = value;
         }
 
+        [Column(TypeName = "nvarchar(24)")]
         public ProcedureKind Kind
         {
             get => kind;
             set => kind = value;
         }
 
+        [Column(TypeName = "nvarchar(24)")]
         public ProcedurePriority Priority
         {
             get => priority;
@@ -47,6 +51,7 @@ namespace Model.Schedule.Procedures
 
         public bool SchedulableByPatient { get; set; }
 
+        [Key]
         public int Id
         {
             get => id;

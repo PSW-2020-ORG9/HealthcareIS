@@ -5,6 +5,7 @@
 
 using Model.Users.Employee;
 using Repository.Generics;
+using System.ComponentModel.DataAnnotations;
 
 namespace Model.Blog
 {
@@ -25,6 +26,7 @@ namespace Model.Blog
 
         public Doctor Doctor { get; set; }
 
+        [Key]
         public int Id { get; set; }
 
         public int GetKey()

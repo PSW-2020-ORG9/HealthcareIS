@@ -5,6 +5,7 @@
 
 using Model.Utilities;
 using Repository.Generics;
+using System.ComponentModel.DataAnnotations;
 
 namespace Model.HospitalResources
 {
@@ -29,6 +30,7 @@ namespace Model.HospitalResources
 
         public Room Room { get; set; }
 
+        [Key]
         public int Id { get; set; }
 
         public int GetKey()
