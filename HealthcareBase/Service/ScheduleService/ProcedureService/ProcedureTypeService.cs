@@ -5,42 +5,43 @@
 
 using System.Collections.Generic;
 using Model.Schedule.Procedures;
+using Repository.Generics;
 using Repository.ScheduleRepository.ProceduresRepository;
 
 namespace Service.ScheduleService.ProcedureService
 {
     public class ProcedureTypeService
     {
-        private readonly ProcedureTypeRepository procedureTypeRepository;
+        private RepositoryWrapper<ProcedureTypeRepository> procedureTypeRepository;
 
-        public ProcedureTypeService(ProcedureTypeRepository procedureTypeRepository)
+        public ProcedureTypeService(RepositoryWrapper<ProcedureTypeRepository> procedureTypeRepository)
         {
             this.procedureTypeRepository = procedureTypeRepository;
         }
 
         public ProcedureType GetPatientDefault()
         {
-            return procedureTypeRepository.GetPatientDefault();
+            return procedureTypeRepository.Repository.GetPatientDefault();
         }
 
         public ProcedureType GetByID(int id)
         {
-            return procedureTypeRepository.GetByID(id);
+            return procedureTypeRepository.Repository.GetByID(id);
         }
 
         public IEnumerable<ProcedureType> GetAll()
         {
-            return procedureTypeRepository.GetAll();
+            return procedureTypeRepository.Repository.GetAll();
         }
 
         public IEnumerable<ProcedureType> GetAllExaminationTypes()
         {
-            return procedureTypeRepository.GetMatching(type => type.Kind.Equals(ProcedureKind.Examination));
+            return procedureTypeRepository.Repository.GetMatching(type => type.Kind.Equals(ProcedureKind.Examination));
         }
 
         public IEnumerable<ProcedureType> GetAllSurgeryTypes()
         {
-            return procedureTypeRepository.GetMatching(type => type.Kind.Equals(ProcedureKind.Surgery));
+            return procedureTypeRepository.Repository.GetMatching(type => type.Kind.Equals(ProcedureKind.Surgery));
         }
     }
 }

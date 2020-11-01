@@ -8,9 +8,7 @@ using System.Text;
 
 namespace Repository.Generics
 {
-    public class GenericSqlRepository<T, ID> 
-        : IWrappableRepository,  
-        Repository<T, ID> 
+    public class GenericSqlRepository<T, ID> : Repository<T, ID> 
         where T : class, Entity<ID>
         where ID : IComparable
     {

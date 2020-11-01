@@ -11,6 +11,7 @@ using Model.Notifications;
 using Model.Schedule.Hospitalizations;
 using Model.Users.Patient;
 using Model.Utilities;
+using Repository.Generics;
 using Repository.ScheduleRepository.HospitalizationsRepository;
 using Service.ScheduleService.Validators;
 
@@ -18,12 +19,12 @@ namespace Service.ScheduleService.HospitalizationService
 {
     public class HospitalizationService
     {
-        private readonly HospitalizationRepository hospitalizationRepository;
+        private readonly RepositoryWrapper<HospitalizationRepository> hospitalizationRepository;
         private readonly HospitalizationValidator hospitalizationValidator;
         private readonly NotificationService.NotificationService notificationService;
         private readonly TimeSpan timeLimit;
 
-        public HospitalizationService(HospitalizationRepository hospitalizationRepository,
+        public HospitalizationService(RepositoryWrapper<HospitalizationRepository> hospitalizationRepository,
             HospitalizationValidator hospitalizationValidator,
             NotificationService.NotificationService notificationService, TimeSpan timeLimit)
         {
@@ -38,25 +39,25 @@ namespace Service.ScheduleService.HospitalizationService
         public IEnumerable<Hospitalization> GetByDate(DateTime date)
         {
             var realDate = date.Date;
-            return hospitalizationRepository.GetMatching(hospitalization =>
+            return hospitalizationRepository.Repository.GetMatching(hospitalization =>
                 hospitalization.TimeInterval.Start.Date <= date
                 && hospitalization.TimeInterval.End.Date >= date);
         }
 
         public IEnumerable<Hospitalization> GetAll()
         {
-            return hospitalizationRepository.GetAll();
+            return hospitalizationRepository.Repository.GetAll();
         }
 
         public IEnumerable<Hospitalization> GetByPatientAndTime(Patient patient, TimeInterval time)
         {
-            return hospitalizationRepository.GetByPatientAndTime(patient, time);
+            return hospitalizationRepository.Repository.GetByPatientAndTime(patient, time);
         }
 
         public IEnumerable<Hospitalization> GetByEquipmentInUseAndTime(IEnumerable<EquipmentUnit> equipment,
             TimeInterval time)
         {
-            return hospitalizationRepository.GetByEquipmentInUseAndTime(equipment, time);
+            return hospitalizationRepository.Repository.GetByEquipmentInUseAndTime(equipment, time);
         }
 
         public IEnumerable<Hospitalization> GetUpcomingByPatient(Patient patient)
@@ -64,18 +65,18 @@ namespace Service.ScheduleService.HospitalizationService
             if (patient == null)
                 throw new BadRequestException();
 
-            return hospitalizationRepository.GetMatching(hosp => hosp.Patient.Equals(patient) &&
+            return hospitalizationRepository.Repository.GetMatching(hosp => hosp.Patient.Equals(patient) &&
                                                                  hosp.TimeInterval.Start.Date >= DateTime.Now);
         }
 
         public IEnumerable<Hospitalization> GetByRoomAndTime(Room room, TimeInterval time)
         {
-            return hospitalizationRepository.GetByRoomAndTime(room, time);
+            return hospitalizationRepository.Repository.GetByRoomAndTime(room, time);
         }
 
         public Hospitalization GetByID(int id)
         {
-            return hospitalizationRepository.GetByID(id);
+            return hospitalizationRepository.Repository.GetByID(id);
         }
 
         public Hospitalization Schedule(Hospitalization hospitalization)
@@ -83,7 +84,7 @@ namespace Service.ScheduleService.HospitalizationService
             if (hospitalization is null)
                 throw new BadRequestException();
             ValidateForScheduling(hospitalization);
-            var createdHospitalization = hospitalizationRepository.Create(hospitalization);
+            var createdHospitalization = hospitalizationRepository.Repository.Create(hospitalization);
             notificationService.Notify(HospitalizationUpdateType.Scheduled, createdHospitalization);
             return createdHospitalization;
         }
@@ -93,7 +94,7 @@ namespace Service.ScheduleService.HospitalizationService
             if (hospitalization is null)
                 throw new BadRequestException();
             ValidateForRescheduling(hospitalization);
-            var updatedHospitalization = hospitalizationRepository.Update(hospitalization);
+            var updatedHospitalization = hospitalizationRepository.Repository.Update(hospitalization);
             notificationService.Notify(HospitalizationUpdateType.Rescheduled, updatedHospitalization);
             return updatedHospitalization;
         }
@@ -103,7 +104,7 @@ namespace Service.ScheduleService.HospitalizationService
             if (hospitalization is null)
                 throw new BadRequestException();
             ValidateForCancelling(hospitalization);
-            hospitalizationRepository.Delete(hospitalization);
+            hospitalizationRepository.Repository.Delete(hospitalization);
             notificationService.Notify(HospitalizationUpdateType.Cancelled, hospitalization);
         }
 
@@ -117,7 +118,7 @@ namespace Service.ScheduleService.HospitalizationService
 
         private void ValidateForRescheduling(Hospitalization hospitalization)
         {
-            var oldHospitalization = hospitalizationRepository.GetByID(hospitalization.GetKey());
+            var oldHospitalization = hospitalizationRepository.Repository.GetByID(hospitalization.GetKey());
             hospitalizationValidator.ValidateHospitalization(hospitalization);
             if (!hospitalization.Patient.Equals(oldHospitalization.Patient))
                 throw new BadRequestException();

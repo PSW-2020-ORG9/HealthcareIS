@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Model.CustomExceptions;
 using Model.HospitalResources;
+using Repository.Generics;
 using Repository.HospitalResourcesRepository;
 using Repository.ScheduleRepository.HospitalizationsRepository;
 using Repository.ScheduleRepository.ProceduresRepository;
@@ -16,13 +17,13 @@ namespace Service.HospitalResourcesService.EquipmentService
     public class EquipmentTypeService
     {
         private readonly EquipmentService equipmentService;
-        private readonly EquipmentTypeRepository equipmentTypeRepository;
-        private readonly HospitalizationTypeRepository hospitalizationTypeRepository;
-        private readonly ProcedureTypeRepository procedureTypeRepository;
+        private readonly RepositoryWrapper<EquipmentTypeRepository> equipmentTypeRepository;
+        private readonly RepositoryWrapper<HospitalizationTypeRepository> hospitalizationTypeRepository;
+        private readonly RepositoryWrapper<ProcedureTypeRepository> procedureTypeRepository;
 
-        public EquipmentTypeService(EquipmentTypeRepository equipmentTypeRepository,
-            HospitalizationTypeRepository hospitalizationTypeRepository,
-            ProcedureTypeRepository procedureTypeRepository,
+        public EquipmentTypeService(RepositoryWrapper<EquipmentTypeRepository> equipmentTypeRepository,
+            RepositoryWrapper<HospitalizationTypeRepository> hospitalizationTypeRepository,
+            RepositoryWrapper<ProcedureTypeRepository> procedureTypeRepository,
             EquipmentService equipmentService)
         {
             this.equipmentTypeRepository = equipmentTypeRepository;
@@ -33,26 +34,26 @@ namespace Service.HospitalResourcesService.EquipmentService
 
         public EquipmentType GetByID(int id)
         {
-            return equipmentTypeRepository.GetByID(id);
+            return equipmentTypeRepository.Repository.GetByID(id);
         }
 
         public IEnumerable<EquipmentType> GetAll()
         {
-            return equipmentTypeRepository.GetAll();
+            return equipmentTypeRepository.Repository.GetAll();
         }
 
         public EquipmentType Create(EquipmentType equipmentType)
         {
             if (equipmentType is null)
                 throw new BadRequestException();
-            return equipmentTypeRepository.Create(equipmentType);
+            return equipmentTypeRepository.Repository.Create(equipmentType);
         }
 
         public EquipmentType Update(EquipmentType equipmentType)
         {
             if (equipmentType is null)
                 throw new BadRequestException();
-            return equipmentTypeRepository.Update(equipmentType);
+            return equipmentTypeRepository.Repository.Update(equipmentType);
         }
 
         public void Delete(EquipmentType equipmentType)
@@ -62,26 +63,26 @@ namespace Service.HospitalResourcesService.EquipmentService
             equipmentService.DeleteByType(equipmentType);
             DeleteFromHospitalizationTypes(equipmentType);
             DeleteFromProcedureTypes(equipmentType);
-            equipmentTypeRepository.Delete(equipmentType);
+            equipmentTypeRepository.Repository.Delete(equipmentType);
         }
 
         private void DeleteFromHospitalizationTypes(EquipmentType equipmentType)
         {
-            foreach (var hospitalizationType in hospitalizationTypeRepository.GetAll())
+            foreach (var hospitalizationType in hospitalizationTypeRepository.Repository.GetAll())
                 if (hospitalizationType.NecessaryEquipment.Contains(equipmentType))
                 {
                     hospitalizationType.RemoveNecessaryEquipment(equipmentType);
-                    hospitalizationTypeRepository.Update(hospitalizationType);
+                    hospitalizationTypeRepository.Repository.Update(hospitalizationType);
                 }
         }
 
         private void DeleteFromProcedureTypes(EquipmentType equipmentType)
         {
-            foreach (var procedureType in procedureTypeRepository.GetAll())
+            foreach (var procedureType in procedureTypeRepository.Repository.GetAll())
                 if (procedureType.NecessaryEquipment.Contains(equipmentType))
                 {
                     procedureType.RemoveNecessaryEquipment(equipmentType);
-                    procedureTypeRepository.Update(procedureType);
+                    procedureTypeRepository.Repository.Update(procedureType);
                 }
         }
     }

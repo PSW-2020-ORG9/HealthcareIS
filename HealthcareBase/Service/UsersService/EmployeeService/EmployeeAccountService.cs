@@ -6,41 +6,42 @@
 using System.Collections.Generic;
 using Model.CustomExceptions;
 using Model.Users.UserAccounts;
+using Repository.Generics;
 using Repository.UsersRepository.UserAccountsRepository;
 
 namespace Service.UsersService.EmployeeService
 {
     public class EmployeeAccountService
     {
-        private readonly EmployeeAccountRepository employeeAccountRepository;
+        private readonly RepositoryWrapper<EmployeeAccountRepository> employeeAccountRepository;
 
-        public EmployeeAccountService(EmployeeAccountRepository employeeAccountRepository)
+        public EmployeeAccountService(RepositoryWrapper<EmployeeAccountRepository> employeeAccountRepository)
         {
             this.employeeAccountRepository = employeeAccountRepository;
         }
 
         public EmployeeAccount ChangePassword(EmployeeAccount account, string newPassword)
         {
-            var acc = employeeAccountRepository.GetByID(account.GetKey());
+            var acc = employeeAccountRepository.Repository.GetByID(account.GetKey());
             if (acc.Password == "")
                 throw new BadRequestException();
             account.Password = newPassword;
-            return employeeAccountRepository.Update(account);
+            return employeeAccountRepository.Repository.Update(account);
         }
 
         public IEnumerable<EmployeeAccount> GetAllSecretaries()
         {
-            return employeeAccountRepository.GetAllSecretaries();
+            return employeeAccountRepository.Repository.GetAllSecretaries();
         }
 
         public IEnumerable<EmployeeAccount> GetAllDirectors()
         {
-            return employeeAccountRepository.GetAllDirectors();
+            return employeeAccountRepository.Repository.GetAllDirectors();
         }
 
         public IEnumerable<EmployeeAccount> GetAllDoctors()
         {
-            return employeeAccountRepository.GetAllDoctors();
+            return employeeAccountRepository.Repository.GetAllDoctors();
         }
     }
 }

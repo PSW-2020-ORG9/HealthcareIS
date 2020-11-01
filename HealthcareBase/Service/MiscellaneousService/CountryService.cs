@@ -5,27 +5,28 @@
 
 using System.Collections.Generic;
 using Model.Users.Generalities;
+using Repository.Generics;
 using Repository.UsersRepository.GeneralitiesRepository;
 
 namespace Service.MiscellaneousService
 {
     public class CountryService
     {
-        private readonly CountryRepository countryRepository;
+        private readonly RepositoryWrapper<CountryRepository> countryRepository;
 
-        public CountryService(CountryRepository countryRepository)
+        public CountryService(RepositoryWrapper<CountryRepository> countryRepository)
         {
             this.countryRepository = countryRepository;
         }
 
         public Country GetByID(int id)
         {
-            return countryRepository.GetByID(id);
+            return countryRepository.Repository.GetByID(id);
         }
 
         public IEnumerable<Country> GetAll()
         {
-            return countryRepository.GetAll();
+            return countryRepository.Repository.GetAll();
         }
     }
 }

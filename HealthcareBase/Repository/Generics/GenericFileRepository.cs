@@ -143,5 +143,7 @@ namespace Repository.Generics
 
             throw new BadRequestException();
         }
+
+        public void PrepareTransaction() { }
     }
 }

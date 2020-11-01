@@ -5,27 +5,28 @@
 
 using System.Collections.Generic;
 using Model.Miscellaneous;
+using Repository.Generics;
 using Repository.MiscellaneousRepository;
 
 namespace Service.MiscellaneousService
 {
     public class AllergyService
     {
-        private readonly AllergyRepository allergyRepository;
+        private readonly RepositoryWrapper<AllergyRepository> allergyRepository;
 
-        public AllergyService(AllergyRepository allergyRepository)
+        public AllergyService(RepositoryWrapper<AllergyRepository> allergyRepository)
         {
             this.allergyRepository = allergyRepository;
         }
 
         public Allergy GetByID(int id)
         {
-            return allergyRepository.GetByID(id);
+            return allergyRepository.Repository.GetByID(id);
         }
 
         public IEnumerable<Allergy> GetAll()
         {
-            return allergyRepository.GetAll();
+            return allergyRepository.Repository.GetAll();
         }
     }
 }

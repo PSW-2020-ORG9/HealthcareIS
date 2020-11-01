@@ -8,15 +8,16 @@ using System.Linq;
 using Model.CustomExceptions;
 using Model.Schedule.Procedures;
 using Model.Users.Employee;
+using Repository.Generics;
 using Repository.UsersRepository.EmployeesAndPatientsRepository;
 
 namespace Service.UsersService.EmployeeService
 {
     public class DoctorService
     {
-        private readonly DoctorRepository doctorRepository;
+        private readonly RepositoryWrapper<DoctorRepository> doctorRepository;
 
-        public DoctorService(DoctorRepository doctorRepository)
+        public DoctorService(RepositoryWrapper<DoctorRepository> doctorRepository)
         {
             this.doctorRepository = doctorRepository;
         }
@@ -24,7 +25,7 @@ namespace Service.UsersService.EmployeeService
         public IEnumerable<Doctor> GetQualified(ProcedureType procedureType)
         {
             var qualified = new List<Doctor>();
-            foreach (var doctor in doctorRepository.GetAll())
+            foreach (var doctor in doctorRepository.Repository.GetAll())
             {
                 if (!doctor.Status.Equals(EmployeeStatus.Current))
                     continue;
@@ -41,29 +42,29 @@ namespace Service.UsersService.EmployeeService
 
         public Doctor GetByID(int id)
         {
-            return doctorRepository.GetByID(id);
+            return doctorRepository.Repository.GetByID(id);
         }
 
         public IEnumerable<Doctor> GetBySpecialty(Specialty specialty)
         {
-            return doctorRepository.GetBySpecialty(specialty);
+            return doctorRepository.Repository.GetBySpecialty(specialty);
         }
 
         public IEnumerable<Doctor> GetAllActive()
         {
-            return doctorRepository.GetMatching(doctor => doctor.Status.Equals(EmployeeStatus.Current));
+            return doctorRepository.Repository.GetMatching(doctor => doctor.Status.Equals(EmployeeStatus.Current));
         }
 
         public IEnumerable<Doctor> GetAll()
         {
-            return doctorRepository.GetAll();
+            return doctorRepository.Repository.GetAll();
         }
 
         public Doctor Update(Doctor doctor)
         {
             if (doctor is null)
                 throw new BadRequestException();
-            return doctorRepository.Update(doctor);
+            return doctorRepository.Repository.Update(doctor);
         }
     }
 }

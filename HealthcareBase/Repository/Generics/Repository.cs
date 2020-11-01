@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace Repository.Generics
 {
-    public interface Repository<T, ID> where T : Entity<ID>
+    public interface Repository<T, ID> : IWrappableRepository where T : Entity<ID>
         where ID : IComparable
     {
         int Count();
