@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using Model.CustomExceptions;
 
 namespace Repository.Generics
@@ -58,7 +59,7 @@ namespace Repository.Generics
             return false;
         }
 
-        public virtual IEnumerable<T> GetMatching(Predicate<T> condition)
+        public virtual IEnumerable<T> GetMatching(Expression<Func<T, bool>> condition)
         {
             var parsedList = new List<T>();
             var entityList = ReadFile();
@@ -66,7 +67,6 @@ namespace Repository.Generics
             foreach (var entity in entityList)
             {
                 ent = ParseEntity(entity);
-                if (condition(ent)) parsedList.Add(ent);
             }
 
             return parsedList;

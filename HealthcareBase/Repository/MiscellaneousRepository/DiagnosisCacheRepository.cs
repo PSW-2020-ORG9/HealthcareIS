@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using Model.Miscellaneous;
 
 namespace Repository.MiscellaneousRepository
@@ -53,7 +54,7 @@ namespace Repository.MiscellaneousRepository
             return ((DiagnosisRepository) diagnosisFileRepository).GetByID(id);
         }
 
-        public IEnumerable<Diagnosis> GetMatching(Predicate<Diagnosis> condition)
+        public IEnumerable<Diagnosis> GetMatching(Expression<Func<Diagnosis, bool>> condition)
         {
             return ((DiagnosisRepository) diagnosisFileRepository).GetMatching(condition);
         }

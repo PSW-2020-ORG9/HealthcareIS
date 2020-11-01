@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 
 namespace Repository.Generics
@@ -15,15 +16,11 @@ namespace Repository.Generics
         private readonly IContextFactory _contextFactory;
         private DbContext _context;
         
-        public GenericSqlRepository(IContextFactory contextFactory)
-        {
-            _contextFactory = contextFactory;
-        }
+        public GenericSqlRepository(IContextFactory contextFactory) 
+            => _contextFactory = contextFactory;
 
         public void Prepare()
-        {
-            _context = _contextFactory.CreateContext();
-        }
+            => _context = _contextFactory.CreateContext();
 
         public T Create(T entity)
         {
@@ -60,24 +57,21 @@ namespace Repository.Generics
             => GetByID(id) != default;
 
         public T GetByID(ID id)
-            => Query().FirstOrDefault(entity => entity.GetKey().Equals(id));
+            => Query().Find(id);
 
-        public IEnumerable<T> GetMatching(Predicate<T> condition) 
-            => Query().Where(entity => condition(entity)).ToList();
+        public IEnumerable<T> GetMatching(Expression<Func<T, bool>> condition)
+            => Query().Where(condition);
 
-        public IEnumerable<T> GetAll() 
-            => GetAllIncluded().ToList();
-        
-        private IEnumerable<T> GetAllIncluded()
+        public IEnumerable<T> GetAll()
         {
             IQueryable<T> entities = Query();
             GetModelProperties().ToList().ForEach(property =>
             {
                 // Performs a Join operation on the given Property
-                // TODO Check whether this fetches multiple depths of references
+                // TODO Create a wrap function 'Include' to include custom fields for each class separately
                 entities = entities.Include(property.Name);
             });
-            return entities;
+            return entities.ToList();
         }
 
         /// <summary>
