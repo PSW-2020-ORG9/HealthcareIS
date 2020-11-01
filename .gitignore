@@ -350,7 +350,7 @@ MigrationBackup/
 .ionide/
 
 # Common IntelliJ Platform excludes
-
+.idea
 # User specific
 **/.idea/**/workspace.xml
 **/.idea/**/tasks.xml
@@ -371,3 +371,14 @@ MigrationBackup/
 **/.idea/**/*.iml
 **/.idea/**/contentModel.xml
 **/.idea/**/modules.xml
+
+#Vuejs
+.DS_Store
+Thumbs.db
+db.json
+*.log
+node_modules/
+public/
+.deploy*/
+src/_drafts
+package-lock.json
