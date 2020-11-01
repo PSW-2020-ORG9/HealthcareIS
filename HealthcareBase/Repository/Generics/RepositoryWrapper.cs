@@ -11,7 +11,7 @@ namespace Repository.Generics
     /// </summary>
     /// <typeparam name="TRepository"></typeparam>
     public class RepositoryWrapper<TRepository>
-        where TRepository : class, IWrappableRepository
+        where TRepository : class, IPreparable
     {
         private readonly TRepository _repository;
 
@@ -22,7 +22,7 @@ namespace Repository.Generics
         {
             get
             {
-                _repository.PrepareTransaction();
+                _repository.Prepare();
                 return _repository;
             }
         }

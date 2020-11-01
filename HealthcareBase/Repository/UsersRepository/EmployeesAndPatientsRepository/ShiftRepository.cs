@@ -10,7 +10,7 @@ using Repository.Generics;
 
 namespace Repository.UsersRepository.EmployeesAndPatientsRepository
 {
-    public interface ShiftRepository : Repository<Shift, int>
+    public interface ShiftRepository : IWrappableRepository<Shift, int>
     {
         IEnumerable<Shift> GetByDoctor(Doctor doctor);
 

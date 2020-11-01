@@ -9,7 +9,7 @@ using Repository.Generics;
 
 namespace Repository.UsersRepository.EmployeesAndPatientsRepository
 {
-    public interface DoctorRepository : Repository<Doctor, int>
+    public interface DoctorRepository : IWrappableRepository<Doctor, int>
     {
         IEnumerable<Doctor> GetBySpecialty(Specialty specialty);
     }

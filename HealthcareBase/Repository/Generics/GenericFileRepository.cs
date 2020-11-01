@@ -13,7 +13,9 @@ namespace Repository.Generics
 {
     // TODO: Full size refactor necessary for this class
     // Migrate from File reading to SQL
-    public abstract class GenericFileRepository<T, ID> : Repository<T, ID> where T : Entity<ID>
+    public abstract class GenericFileRepository<T, ID> 
+        : IWrappableRepository<T, ID> 
+        where T : Entity<ID>
         where ID : IComparable
     {
         protected string filePath;
@@ -144,6 +146,6 @@ namespace Repository.Generics
             throw new BadRequestException();
         }
 
-        public void PrepareTransaction() { }
+        public void Prepare() { }
     }
 }

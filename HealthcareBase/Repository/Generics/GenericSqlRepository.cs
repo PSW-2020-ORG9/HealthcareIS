@@ -4,11 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace Repository.Generics
 {
-    public class GenericSqlRepository<T, ID> : Repository<T, ID> 
+    public class GenericSqlRepository<T, ID> 
+        : IWrappableRepository<T, ID> 
         where T : class, Entity<ID>
         where ID : IComparable
     {
@@ -20,82 +20,89 @@ namespace Repository.Generics
             _contextFactory = contextFactory;
         }
 
-        public void PrepareTransaction()
+        public void Prepare()
         {
             _context = _contextFactory.CreateContext();
         }
 
-        public int Count()
-        {
-            var context = _contextFactory.CreateContext();
-            return context.Set<T>().Count();
-        }
-
         public T Create(T entity)
         {
-            var context = _contextFactory.CreateContext();
-            entity = context.Set<T>().Add(entity).Entity;
-            context.SaveChanges();
-            return entity;
+            var createdEntity = Query().Add(entity).Entity;
+            SaveChanges();
+            return createdEntity;
+        }
+        
+        public T Update(T entity)
+        {
+            var updatedEntity = Query().Update(entity).Entity;
+            SaveChanges();
+            return updatedEntity;
         }
 
         public void Delete(T entity)
         {
-            var context = _contextFactory.CreateContext();
-            context.Set<T>().Remove(entity);
-            context.SaveChanges();
+            Query().Remove(entity);
+            SaveChanges();
         }
 
         public void DeleteByID(ID id)
         {
-            var context = _contextFactory.CreateContext();
-            T entity = context.Set<T>().Find(id);
-            context.Set<T>().Remove(entity);
-            context.SaveChanges();
+            var entity = Activator.CreateInstance<T>();
+            entity.SetKey(id);
+            Query().Remove(entity);
+            SaveChanges();
         }
+        
+        public int Count()
+            => Query().Count();
 
-        public bool ExistsByID(ID id)
-        {
-            T entity = GetByID(id);
-            return entity != default;
-        }
-
-        public IEnumerable<T> GetAll()
-            => GetAllEager().ToList();
+        public bool ExistsByID(ID id) 
+            => GetByID(id) != default;
 
         public T GetByID(ID id)
-            => GetAllEager().ToList().Where(x => id.Equals(x.GetKey())).FirstOrDefault();
+            => Query().FirstOrDefault(entity => entity.GetKey().Equals(id));
 
-        public IEnumerable<T> GetMatching(Predicate<T> condition)
+        public IEnumerable<T> GetMatching(Predicate<T> condition) 
+            => Query().Where(entity => condition(entity)).ToList();
+
+        public IEnumerable<T> GetAll() 
+            => GetAllIncluded().ToList();
+        
+        private IEnumerable<T> GetAllIncluded()
         {
-            List<T> entities = new List<T>();
-            foreach (T entity in GetAllEager().ToList())
+            IQueryable<T> entities = Query();
+            GetModelProperties().ToList().ForEach(property =>
             {
-                if (condition(entity)) entities.Add(entity);
-            }
-            return entities;
-        }
-
-        public T Update(T entity)
-        {
-            var context = _contextFactory.CreateContext();
-            entity = context.Set<T>().Update(entity).Entity;
-            context.SaveChanges();
-            return entity;
-
-        }
-
-        private IQueryable<T> GetAllEager()
-        {
-            var context = _contextFactory.CreateContext();
-            var modelInfo = context.Model.GetEntityTypes(typeof(T)).FirstOrDefault();
-            var properties = modelInfo.GetNavigations().Select(p => p.PropertyInfo);
-            IQueryable<T> entities = context.Set<T>();
-            foreach (var property in properties)
-            {
+                // Performs a Join operation on the given Property
+                // TODO Check whether this fetches multiple depths of references
                 entities = entities.Include(property.Name);
-            }
+            });
             return entities;
+        }
+
+        /// <summary>
+        /// Returns the default DbSet for the current Repository instance.
+        /// </summary>
+        /// <returns></returns>
+        private DbSet<T> Query()
+            => _context.Set<T>();
+        
+
+        /// <summary>
+        /// Saves all currently pending changes to the database.
+        /// </summary>
+        private void SaveChanges() 
+            => _context.SaveChanges();
+        
+
+        /// <summary>
+        /// Returns a list of properties for the object-type tied to this repository instance.
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerable<PropertyInfo> GetModelProperties()
+        {
+            return _context.Model.GetEntityTypes(typeof(T)).FirstOrDefault()!
+                .GetNavigations().Select(p => p.PropertyInfo);
         }
     }
 }

@@ -8,7 +8,7 @@ using Repository.Generics;
 
 namespace Repository.UsersRepository.UserFeedbackRepository
 {
-    public interface UserFeedbackRepository : Repository<UserFeedback, int>
+    public interface UserFeedbackRepository : IWrappableRepository<UserFeedback, int>
     {
     }
 }

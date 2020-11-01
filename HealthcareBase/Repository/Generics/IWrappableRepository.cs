@@ -1,10 +1,20 @@
-﻿namespace Repository.Generics
+using System;
+using System.Collections.Generic;
+
+namespace Repository.Generics
 {
-    public interface IWrappableRepository
+    /// <summary>
+    /// Repository interface which offers basic CRUD method implementations, along with a Prepare() method
+    /// from the IPreparable interface. 
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="ID"></typeparam>
+    public interface IWrappableRepository<T, ID> 
+        : IPreparable,
+        IRepository<T, ID>
+        where T : Entity<ID>
+        where ID : IComparable
     {
-        /// <summary>
-        /// Calls any necessary actions on the repository before the actual data transfer occurs. 
-        /// </summary>
-        public void PrepareTransaction();
+        
     }
 }

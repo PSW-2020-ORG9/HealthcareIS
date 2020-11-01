@@ -8,7 +8,7 @@ using Repository.Generics;
 
 namespace Repository.MiscellaneousRepository
 {
-    public interface AllergyRepository : Repository<Allergy, int>
+    public interface AllergyRepository : IWrappableRepository<Allergy, int>
     {
     }
 }

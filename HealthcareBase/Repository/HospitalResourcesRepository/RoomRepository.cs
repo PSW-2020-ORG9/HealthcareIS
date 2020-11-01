@@ -9,7 +9,7 @@ using Repository.Generics;
 
 namespace Repository.HospitalResourcesRepository
 {
-    public interface RoomRepository : Repository<Room, int>
+    public interface RoomRepository : IWrappableRepository<Room, int>
     {
         IEnumerable<Room> GetByEquipment(IEnumerable<EquipmentType> equipment);
 

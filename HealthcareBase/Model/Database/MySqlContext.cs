@@ -22,12 +22,14 @@ namespace HealthcareBase.Model.Database
 {
     class MySqlContext : DbContext
     {
+        // Database access password
         private static string password = "helloworldNOVISAD021";
+        // Port number to communicate with the database
         private static string port = "3306";
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySql(@"server=localhost;port=3306;database=clinic;uid=root;password=" + password);
+            optionsBuilder.UseMySql(@"server=localhost;port=" + port + ";database=clinic;uid=root;password=" + password);
         }
 
         public DbSet<BlogAuthor> BlogAuthors { get; set; }

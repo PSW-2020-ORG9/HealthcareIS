@@ -68,6 +68,6 @@ namespace Repository.MiscellaneousRepository
             return ((DiagnosisRepository) diagnosisFileRepository).Update(entity);
         }
 
-        public void PrepareTransaction() {  }
+        public void Prepare() {  }
     }
 }
