@@ -8,14 +8,25 @@ using System.Text;
 
 namespace Repository.Generics
 {
-    public class GenericSqlRepository<T, ID> : Repository<T, ID> where T : class, Entity<ID>
+    public class GenericSqlRepository<T, ID> 
+        : IWrappableRepository,  
+        Repository<T, ID> 
+        where T : class, Entity<ID>
         where ID : IComparable
     {
         private readonly IContextFactory _contextFactory;
+        private DbContext _context;
+        
         public GenericSqlRepository(IContextFactory contextFactory)
         {
             _contextFactory = contextFactory;
         }
+
+        public void PrepareTransaction()
+        {
+            _context = _contextFactory.CreateContext();
+        }
+
         public int Count()
         {
             var context = _contextFactory.CreateContext();
