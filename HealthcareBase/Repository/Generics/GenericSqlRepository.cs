@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 
 namespace Repository.Generics
@@ -15,15 +16,11 @@ namespace Repository.Generics
         private readonly IContextFactory _contextFactory;
         private DbContext _context;
         
-        public GenericSqlRepository(IContextFactory contextFactory)
-        {
-            _contextFactory = contextFactory;
-        }
+        public GenericSqlRepository(IContextFactory contextFactory) 
+            => _contextFactory = contextFactory;
 
         public void Prepare()
-        {
-            _context = _contextFactory.CreateContext();
-        }
+            => _context = _contextFactory.CreateContext();
 
         public T Create(T entity)
         {
@@ -60,21 +57,21 @@ namespace Repository.Generics
             => GetByID(id) != default;
 
         public T GetByID(ID id)
-            => GetAll().FirstOrDefault(entity => entity.GetKey().Equals(id));
+            => Query().Find(id);
 
-        public IEnumerable<T> GetMatching(Predicate<T> condition) 
-            => GetAll().Where(entity => condition(entity));
-        
+        public IEnumerable<T> GetMatching(Expression<Func<T, bool>> condition)
+            => Query().Where(condition);
+
         public IEnumerable<T> GetAll()
         {
             IQueryable<T> entities = Query();
             GetModelProperties().ToList().ForEach(property =>
             {
                 // Performs a Join operation on the given Property
-                // This doesn't recursevly fetch multiple depths of properties
+                // TODO Create a wrap function 'Include' to include custom fields for each class separately
                 entities = entities.Include(property.Name);
             });
-            return entities;
+            return entities.ToList();
         }
 
         /// <summary>

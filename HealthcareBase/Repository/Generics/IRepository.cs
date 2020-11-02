@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace Repository.Generics
 {
@@ -12,7 +13,7 @@ namespace Repository.Generics
         void DeleteByID(ID id);
         bool ExistsByID(ID id);
         IEnumerable<T> GetAll();
-        IEnumerable<T> GetMatching(Predicate<T> condition);
+        IEnumerable<T> GetMatching(Expression<Func<T, bool>> condition);
         T GetByID(ID id);
         T Create(T entity);
         T Update(T entity);
