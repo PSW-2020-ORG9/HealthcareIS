@@ -11,6 +11,7 @@
     "core-js": "^3.6.5",
     "jquery": "^3.5.1",
     "vue": "^3.0.0",
+    "vue-js-modal": "^2.0.0-rc.6",
     "vue-router": "^4.0.0-0"
   },
   "devDependencies": {
@@ -43,7 +44,10 @@
     "parserOptions": {
       "parser": "babel-eslint"
     },
-    "rules": {}
+    "rules": {
+			"no-console": "off",
+  		"no-unused-vars": "off"
+		}
   },
   "browserslist": [
     "> 1%",
