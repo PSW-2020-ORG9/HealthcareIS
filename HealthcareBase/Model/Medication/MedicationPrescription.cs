@@ -7,6 +7,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Model.Miscellaneous;
+using Model.Schedule.Procedures;
 using Model.Users.Employee;
 using Model.Users.Patient;
 using Repository.Generics;
@@ -18,7 +19,7 @@ namespace Model.Medication
         public DateTime Date { get; set; }
 
         [ForeignKey("Diagnosis")]
-        public string? DiagnosisId { get; set; }
+        public string DiagnosisId { get; set; }
         public Diagnosis Diagnosis { get; set; }
 
         [ForeignKey("Medication")]
@@ -33,6 +34,8 @@ namespace Model.Medication
         [ForeignKey("Patient")]
         public int PatientId { get; set; }
         public Patient Patient { get; set; }
+
+        public Examination Examination { get; set; }
 
         [Key]
         public int Id { get; set; }

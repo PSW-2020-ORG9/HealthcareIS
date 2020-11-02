@@ -24,7 +24,7 @@ namespace Model.Schedule.Hospitalizations
         }
 
         [ForeignKey("Diagnosis")]
-        public string? DiagnosisId { get; set; }
+        public string DiagnosisId { get; set; }
         public Diagnosis Diagnosis { get; set; }
 
         public string CauseOfAdmission { get; set; }
