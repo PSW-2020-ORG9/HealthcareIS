@@ -37,5 +37,15 @@ namespace Repository.Generics
         {
             _repository = Activator.CreateInstance(typeof(TRepository), varargs) as TRepository;
         }
+
+        /// <summary>
+        /// Constructor which takes any object as parameter, and instantiates the given Repository with it.
+        /// </summary>
+        /// <exception cref="ArgumentException"> If no Repository constructor exists for the given parameter type </exception>
+        /// <param name="param"></param>
+        public RepositoryWrapper(object param)
+        {
+            _repository = Activator.CreateInstance(typeof(TRepository), param) as TRepository;
+        }
     }
 }
