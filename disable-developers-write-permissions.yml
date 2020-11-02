@@ -1,0 +1,21 @@
+trigger: none
+pr: none
+
+schedules:
+- cron: "0 0 * * Mon"
+  displayName: End-of-Week disable Developer Write Access
+  branches:
+    exclude:
+      - 
+  always: true
+
+steps:
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      $uri = "https://api.github.com/orgs/PSW-2020-ORG9/teams/developers/repos/PSW-2020-ORG9/test"
+      $header = @{Authorization="Bearer $env:GHAPITOKEN"; Accept="application/vnd.github.inertia-preview+json"}
+      Invoke-RestMethod -Method 'Put' -Uri $uri -Headers $header -Body '{"permission":"pull"}'
+  env:
+    GHAPITOKEN: $(GHAPIToken)
