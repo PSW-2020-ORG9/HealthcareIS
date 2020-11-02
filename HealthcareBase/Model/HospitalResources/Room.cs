@@ -31,6 +31,8 @@ namespace Model.HospitalResources
         [Column(TypeName = "nvarchar(24)")]
         public RoomType Purpose { get; set; }
 
+        [ForeignKey("Department")]
+        public int? DepartmentId { get; set; }
         public Department Department { get; set; }
 
         [Key]

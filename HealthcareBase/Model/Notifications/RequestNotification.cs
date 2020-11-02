@@ -4,11 +4,14 @@
 // Purpose: Definition of Class RequestNotification
 
 using Model.Requests;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Notifications
 {
     public class RequestNotification : Notification
     {
+        [ForeignKey("Request")]
+        public int RequestId { get; set; }
         public Request Request { get; set; }
     }
 }

@@ -10,6 +10,8 @@ namespace Model.Notifications
 {
     public class ProcedureNotification : Notification
     {
+        [ForeignKey("Procedure")]
+        public int ProcedureId { get; set; }
         public Procedure Procedure { get; set; }
 
         [Column(TypeName = "nvarchar(24)")]

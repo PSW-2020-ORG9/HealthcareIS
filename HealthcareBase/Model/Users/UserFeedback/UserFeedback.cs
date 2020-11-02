@@ -5,6 +5,7 @@
 
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Model.Users.UserAccounts;
 using Repository.Generics;
 
@@ -16,6 +17,8 @@ namespace Model.Users.UserFeedback
 
         public string UserComment { get; set; }
 
+        [ForeignKey("User")]
+        public int UserId { get; set; }
         public UserAccount User { get; set; }
 
         [Key]

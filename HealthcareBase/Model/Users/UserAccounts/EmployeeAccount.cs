@@ -12,6 +12,8 @@ namespace Model.Users.UserAccounts
         protected Employee.Employee employee;
         protected EmployeeType employeeType;
 
+        [ForeignKey("Employee")]
+        public int EmployeeId { get; set; }
         public Employee.Employee Employee
         {
             get => employee;

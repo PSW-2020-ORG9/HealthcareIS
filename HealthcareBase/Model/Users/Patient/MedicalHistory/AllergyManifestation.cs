@@ -15,6 +15,8 @@ namespace Model.Users.Patient.MedicalHistory
         [Column(TypeName = "nvarchar(24)")]
         public AllergyIntensity Intensity { get; set; }
 
+        [ForeignKey("Allergy")]
+        public int AllergyId { get; set; }
         public Allergy Allergy { get; set; }
     }
 }

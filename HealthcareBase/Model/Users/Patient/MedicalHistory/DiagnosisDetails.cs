@@ -17,6 +17,8 @@ namespace Model.Users.Patient.MedicalHistory
         [Column(TypeName = "nvarchar(24)")]
         public ConditionType Type { get; set; }
 
+        [ForeignKey("Diagnosis")]
+        public string DiagnosisId { get; set; }
         public Diagnosis Diagnosis { get; set; }
     }
 }

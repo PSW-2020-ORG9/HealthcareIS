@@ -33,12 +33,16 @@ namespace Model.Schedule.Procedures
             set => timeInterval = value;
         }
 
+        [ForeignKey("Doctor")]
+        public int DoctorId { get; set; }
         public Doctor Doctor
         {
             get => doctor;
             set => doctor = value;
         }
 
+        [ForeignKey("ProcedureType")]
+        public int ProcedureTypeId { get; set; }
         public ProcedureType ProcedureType
         {
             get => procedureType;
@@ -52,18 +56,24 @@ namespace Model.Schedule.Procedures
             set => id = value;
         }
 
+        [ForeignKey("Room")]
+        public int RoomId { get; set; }
         public Room Room
         {
             get => room;
             set => room = value;
         }
 
+        [ForeignKey("Patient")]
+        public int PatientId { get; set; }
         public Patient Patient
         {
             get => patient;
             set => patient = value;
         }
 
+        [ForeignKey("ReferredFrom")]
+        public int ReferredFromId { get; set; }
         public Examination ReferredFrom
         {
             get => referredFrom;

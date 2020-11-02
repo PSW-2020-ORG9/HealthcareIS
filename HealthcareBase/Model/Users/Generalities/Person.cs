@@ -64,6 +64,8 @@ namespace Model.Users.Generalities
             set => gender = value;
         }
 
+        [ForeignKey("CityOfResidence")]
+        public int CityOfResidenceId { get; set; }
         public City CityOfResidence
         {
             get => cityOfResidence;

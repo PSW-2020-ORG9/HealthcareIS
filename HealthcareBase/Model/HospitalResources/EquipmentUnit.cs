@@ -5,6 +5,8 @@
 
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Model.Schedule.Hospitalizations;
 using Repository.Generics;
 
 namespace Model.HospitalResources
@@ -26,11 +28,14 @@ namespace Model.HospitalResources
         }
 
         public DateTime AcquisitionDate { get; set; }
-
         public string Manufacturer { get; set; }
 
+        [ForeignKey("CurrentLocation")]
+        public int? CurrentLocationId { get; set; }
         public Room CurrentLocation { get; set; }
 
+        [ForeignKey("EquipmentType")]
+        public int? EquipmentTypeId { get; set; }
         public EquipmentType EquipmentType { get; set; }
 
         [Key]

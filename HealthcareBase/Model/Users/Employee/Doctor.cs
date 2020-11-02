@@ -4,6 +4,7 @@
 // Purpose: Definition of Class Doctor
 
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using Model.HospitalResources;
 
 namespace Model.Users.Employee
@@ -12,6 +13,8 @@ namespace Model.Users.Employee
     {
         private List<Specialty> specialties;
 
+        [ForeignKey("Department")]
+        public int DepartmentId { get; set; }
         public Department Department { get; set; }
 
         public IEnumerable<Specialty> Specialties

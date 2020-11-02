@@ -23,7 +23,7 @@ namespace HealthcareBase.Model.Database
     class MySqlContext : DbContext
     {
         // Database access password
-        private static string password = "helloworldNOVISAD021";
+        private static string password = "chc6kcxhd";
         // Port number to communicate with the database
         private static string port = "3306";
         

@@ -4,6 +4,7 @@
 // Purpose: Definition of Class Amount
 
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Medication
 {

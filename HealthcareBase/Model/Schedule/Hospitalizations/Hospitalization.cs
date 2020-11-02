@@ -18,6 +18,13 @@ namespace Model.Schedule.Hospitalizations
     {
         private List<EquipmentUnit> equipmentInUse;
 
+        public Hospitalization()
+        {
+            equipmentInUse = new List<EquipmentUnit>();
+        }
+
+        [ForeignKey("Diagnosis")]
+        public string? DiagnosisId { get; set; }
         public Diagnosis Diagnosis { get; set; }
 
         public string CauseOfAdmission { get; set; }
@@ -25,6 +32,8 @@ namespace Model.Schedule.Hospitalizations
         [Column(TypeName = "nvarchar(24)")]
         public DischargeType DischargeType { get; set; }
 
+        [ForeignKey("Room")]
+        public int? RoomId { get; set; }
         public Room Room { get; set; }
 
         [Column(TypeName = "nvarchar(24)")]
@@ -32,12 +41,14 @@ namespace Model.Schedule.Hospitalizations
 
         public TimeInterval TimeInterval { get; set; }
 
+        [ForeignKey("Patient")]
+        public int PatientId { get; set; }
         public Patient Patient { get; set; }
 
         [Key]
         public int Id { get; set; }
 
-        public IEnumerable<EquipmentUnit> EquipmentInUse
+        public virtual ICollection<EquipmentUnit> EquipmentInUse
         {
             get
             {

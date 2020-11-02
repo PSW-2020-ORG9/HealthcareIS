@@ -10,6 +10,8 @@ namespace Model.Notifications
 {
     public class HospitalizationNotification : Notification
     {
+        [ForeignKey("Hospitalization")]
+        public int HospitalizationId { get; set; }
         public Hospitalization Hospitalization { get; set; }
 
         [Column(TypeName = "nvarchar(24)")]

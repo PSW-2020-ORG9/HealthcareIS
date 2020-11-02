@@ -5,6 +5,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using Model.Miscellaneous;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Users.Patient.MedicalHistory
 {
@@ -17,6 +18,8 @@ namespace Model.Users.Patient.MedicalHistory
 
         public bool Lethal { get; set; }
 
+        [ForeignKey("Diagnosis")]
+        public string DiagnosisId { get; set; }
         public Diagnosis Diagnosis { get; set; }
     }
 }

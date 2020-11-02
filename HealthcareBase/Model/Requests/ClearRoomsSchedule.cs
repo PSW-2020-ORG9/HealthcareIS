@@ -5,6 +5,7 @@
 
 using Model.HospitalResources;
 using Model.Utilities;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Requests
 {
@@ -12,6 +13,8 @@ namespace Model.Requests
     {
         public TimeInterval TimeInterval { get; set; }
 
+        [ForeignKey("Room")]
+        public int RoomId { get; set; }
         public Room Room { get; set; }
 
         public override bool Equals(object obj)

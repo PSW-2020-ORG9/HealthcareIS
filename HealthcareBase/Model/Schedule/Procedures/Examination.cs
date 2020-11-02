@@ -4,6 +4,7 @@
 // Purpose: Definition of Class Examination
 
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using Model.Medication;
 using Model.Miscellaneous;
 
@@ -13,6 +14,8 @@ namespace Model.Schedule.Procedures
     {
         private List<MedicationPrescription> prescriptions;
 
+        [ForeignKey("Diagnosis")]
+        public string DiagnosisId { get; set; }
         public Diagnosis Diagnosis { get; set; }
 
         public string Anamnesis { get; set; }

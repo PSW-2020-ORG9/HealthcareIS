@@ -6,12 +6,15 @@
 using Microsoft.EntityFrameworkCore;
 using Model.HospitalResources;
 using Model.Utilities;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Schedule.SchedulingPreferences
 {
     [Owned]
     public class HospitalizationSchedulingPreference
     {
+        [ForeignKey("PreferredRoom")]
+        public int PreferredRoomId { get; set; }
         public Room PreferredRoom { get; set; }
 
         public TimeInterval PreferredAdmissionDate { get; set; }

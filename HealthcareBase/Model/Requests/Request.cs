@@ -46,12 +46,16 @@ namespace Model.Requests
             set => reviewerComment = value;
         }
 
+        [ForeignKey("Sender")]
+        public int SenderId { get; set; }
         public EmployeeAccount Sender
         {
             get => sender;
             set => sender = value;
         }
 
+        [ForeignKey("Reviewer")]
+        public int ReviewerId { get; set; }
         public EmployeeAccount Reviewer
         {
             get => reviewer;

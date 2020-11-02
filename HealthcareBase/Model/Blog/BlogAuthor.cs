@@ -3,9 +3,11 @@
 // Created: 20 April 2020 11:54:01
 // Purpose: Definition of Class BlogAuthor
 
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Model.Users.Employee;
 using Repository.Generics;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Blog
 {
@@ -24,6 +26,8 @@ namespace Model.Blog
 
         public string Description { get; set; }
 
+        [ForeignKey("Doctor")]
+        public int DoctorId { get; set; }
         public Doctor Doctor { get; set; }
 
         [Key]

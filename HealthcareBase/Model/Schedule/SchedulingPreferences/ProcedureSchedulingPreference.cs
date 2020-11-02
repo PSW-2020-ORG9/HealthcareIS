@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Model.HospitalResources;
 using Model.Users.Employee;
 using Model.Utilities;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Schedule.SchedulingPreferences
 {
@@ -15,8 +16,12 @@ namespace Model.Schedule.SchedulingPreferences
     {
         public TimeIntervalCollection PreferredTime { get; set; }
 
+        [ForeignKey("PreferredDoctor")]
+        public int PreferredDoctorId { get; set; }
         public Doctor PreferredDoctor { get; set; }
 
+        [ForeignKey("PreferredRoom")]
+        public int PreferredRoomId { get; set; }
         public Room PreferredRoom { get; set; }
     }
 }

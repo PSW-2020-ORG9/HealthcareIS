@@ -60,21 +60,18 @@ namespace Repository.Generics
             => GetByID(id) != default;
 
         public T GetByID(ID id)
-            => Query().FirstOrDefault(entity => entity.GetKey().Equals(id));
+            => GetAll().FirstOrDefault(entity => entity.GetKey().Equals(id));
 
         public IEnumerable<T> GetMatching(Predicate<T> condition) 
-            => Query().Where(entity => condition(entity)).ToList();
-
-        public IEnumerable<T> GetAll() 
-            => GetAllIncluded().ToList();
+            => GetAll().Where(entity => condition(entity));
         
-        private IEnumerable<T> GetAllIncluded()
+        public IEnumerable<T> GetAll()
         {
             IQueryable<T> entities = Query();
             GetModelProperties().ToList().ForEach(property =>
             {
                 // Performs a Join operation on the given Property
-                // TODO Check whether this fetches multiple depths of references
+                // This doesn't recursevly fetch multiple depths of properties
                 entities = entities.Include(property.Name);
             });
             return entities;

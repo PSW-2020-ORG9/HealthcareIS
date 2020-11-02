@@ -7,6 +7,7 @@ using Model.HospitalResources;
 using Model.Utilities;
 using Repository.Generics;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Users.Employee
 {
@@ -14,8 +15,12 @@ namespace Model.Users.Employee
     {
         public TimeInterval TimeInterval { get; set; }
 
+        [ForeignKey("AssignedExamRoom")]
+        public int AssignedExamRoomId { get; set; }
         public Room AssignedExamRoom { get; set; }
 
+        [ForeignKey("Doctor")]
+        public int DoctorId { get; set; }
         public Doctor Doctor { get; set; }
 
         [Key]

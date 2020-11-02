@@ -27,6 +27,8 @@ namespace Model.Users.Patient
         [Column(TypeName = "nvarchar(24)")]
         public PatientStatus Status { get; set; }
 
+        [ForeignKey("CityOfBirth")]
+        public int CityOfBirthId { get; set; }
         public City CityOfBirth { get; set; }
 
         [Key]
