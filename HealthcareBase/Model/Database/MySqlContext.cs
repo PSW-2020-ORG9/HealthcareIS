@@ -16,6 +16,7 @@ using Model.Users.UserAccounts;
 using Model.Users.UserFeedback;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace HealthcareBase.Model.Database
@@ -71,5 +72,25 @@ namespace HealthcareBase.Model.Database
         public DbSet<PatientAccount> PatientAccounts { get; set; }
         public DbSet<PatientSurveyResponse> PatientSurveyResponses { get; set; }
         public DbSet<UserFeedback> UserFeedbacks { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Room>()
+                .HasMany(r => r.Equipment)
+                .WithOne(e => e.Room)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<Hospitalization>()
+                .HasMany(h => h.EquipmentInUse)
+                .WithOne(e => e.Hospitalization)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<Examination>()
+                .HasMany(e => e.Prescriptions)
+                .WithOne(p => p.Examination)
+                .OnDelete(DeleteBehavior.SetNull);
+
+        }
+
     }
 }
