@@ -16,11 +16,11 @@ steps:
     script: |
       $uri = "https://api.github.com/orgs/PSW-2020-ORG9/teams/developers/repos/PSW-2020-ORG9/HealthcareIS"
       $header = @{Authorization="Bearer $env:GHAPITOKEN"; Accept="application/vnd.github.inertia-preview+json"}
-      if([int]$(Get-Date -UFormat %V) % 2 -eq 0) {
+      if([int]$(Get-Date -UFormat %V) % 2 -eq 1) {
         Invoke-RestMethod -Method 'Put' -Uri $uri -Headers $header -Body '{"permission":"pull"}'
         Write-Host "Sprint End."
       } else {
-        Write-Host "This is an automated timed job, successfully running only on even weeks (between sprints). To change permissions mid-sprint (odd week), use Github's Web UI."
+        Write-Host "This is an automated timed job, successfully running only on odd weeks (end of sprint, that would technically be an even week - Mon 00:00, but Azure is UTC time and we are UTC+1, so...). To change permissions on sprint start week (even week), use Github's Web UI."
       }
   env:
     GHAPITOKEN: $(GHAPIToken)
