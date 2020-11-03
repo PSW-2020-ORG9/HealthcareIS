@@ -3,7 +3,7 @@ pr: none
 
 schedules:
 - cron: "0 9 * * Tue"
-  displayName: End-of-Week disable Developer Write Access
+  displayName: Enable Developer Write Access
   branches:
     exclude:
       - 
