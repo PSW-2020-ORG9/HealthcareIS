@@ -5,7 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-
+using Microsoft.VisualBasic.CompilerServices;
+using Model.Users.Employee;
+ 
 namespace Repository.Generics
 {
     public class GenericSqlRepository<T, ID> 
@@ -15,33 +17,33 @@ namespace Repository.Generics
     {
         private readonly IContextFactory _contextFactory;
         private DbContext _context;
-        
+ 
         public GenericSqlRepository(IContextFactory contextFactory) 
             => _contextFactory = contextFactory;
-
+ 
         public void Prepare()
             => _context = _contextFactory.CreateContext();
-
+ 
         public T Create(T entity)
         {
             var createdEntity = Query().Add(entity).Entity;
             SaveChanges();
             return createdEntity;
         }
-        
+ 
         public T Update(T entity)
         {
             var updatedEntity = Query().Update(entity).Entity;
             SaveChanges();
             return updatedEntity;
         }
-
+ 
         public void Delete(T entity)
         {
             Query().Remove(entity);
             SaveChanges();
         }
-
+ 
         public void DeleteByID(ID id)
         {
             var entity = Activator.CreateInstance<T>();
@@ -49,54 +51,46 @@ namespace Repository.Generics
             Query().Remove(entity);
             SaveChanges();
         }
-        
+ 
         public int Count()
             => Query().Count();
-
+ 
         public bool ExistsByID(ID id) 
             => GetByID(id) != default;
-
+ 
+        // TODO GetKey() and other methods CANNOT be converted to an SQL query. Properties are required.
         public T GetByID(ID id)
-            => Query().Find(id);
-
+            => GetAll().FirstOrDefault(entity => entity.GetKey().Equals(id));
+ 
         public IEnumerable<T> GetMatching(Expression<Func<T, bool>> condition)
-            => Query().Where(condition);
-
-        public IEnumerable<T> GetAll()
+            => IncludeFields(Query()).Where(condition);
+ 
+        public IEnumerable<T> GetAll() 
+            => IncludeFields(Query());
+ 
+        /// <summary>
+        /// Method which allows extending Repository classes to include custom fields
+        /// for their respective classes.
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        public virtual IQueryable<T> IncludeFields(IQueryable<T> query)
         {
-            IQueryable<T> entities = Query();
-            GetModelProperties().ToList().ForEach(property =>
-            {
-                // Performs a Join operation on the given Property
-                // TODO Create a wrap function 'Include' to include custom fields for each class separately
-                entities = entities.Include(property.Name);
-            });
-            return entities.ToList();
+            return query;
         }
-
+ 
         /// <summary>
         /// Returns the default DbSet for the current Repository instance.
         /// </summary>
         /// <returns></returns>
         private DbSet<T> Query()
             => _context.Set<T>();
-        
-
+ 
+ 
         /// <summary>
         /// Saves all currently pending changes to the database.
         /// </summary>
         private void SaveChanges() 
             => _context.SaveChanges();
-        
-
-        /// <summary>
-        /// Returns a list of properties for the object-type tied to this repository instance.
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerable<PropertyInfo> GetModelProperties()
-        {
-            return _context.Model.GetEntityTypes(typeof(T)).FirstOrDefault()!
-                .GetNavigations().Select(p => p.PropertyInfo);
-        }
     }
 }

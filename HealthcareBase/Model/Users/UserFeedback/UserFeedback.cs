@@ -17,6 +17,10 @@ namespace Model.Users.UserFeedback
 
         public string UserComment { get; set; }
 
+        public bool isPublic { get; set; }
+        public bool isAnonymous { get; set; }
+        public bool isPublished { get; set; }
+
         [ForeignKey("User")]
         public int UserId { get; set; }
         public UserAccount User { get; set; }
