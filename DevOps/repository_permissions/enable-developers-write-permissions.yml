@@ -16,6 +16,8 @@ steps:
     script: |
       $uri = "https://api.github.com/orgs/PSW-2020-ORG9/teams/developers/repos/PSW-2020-ORG9/HealthcareIS"
       $header = @{Authorization="Bearer $env:GHAPITOKEN"; Accept="application/vnd.github.inertia-preview+json"}
-      Invoke-RestMethod -Method 'Put' -Uri $uri -Headers $header -Body '{"permission":"push"}'
+      if([int]$(Get-Date -UFormat %V) % 2 -eq 0) {
+        Invoke-RestMethod -Method 'Put' -Uri $uri -Headers $header -Body '{"permission":"push"}'
+      }
   env:
     GHAPITOKEN: $(GHAPIToken)
