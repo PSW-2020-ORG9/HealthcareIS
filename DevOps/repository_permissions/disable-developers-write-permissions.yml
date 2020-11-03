@@ -2,7 +2,7 @@ trigger: none
 pr: none
 
 schedules:
-- cron: "0 0 * * Mon"
+- cron: "0 23 * * Sun"
   displayName: End-of-Week disable Developer Write Access
   branches:
     exclude:
