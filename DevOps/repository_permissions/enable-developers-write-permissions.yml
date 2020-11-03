@@ -18,6 +18,9 @@ steps:
       $header = @{Authorization="Bearer $env:GHAPITOKEN"; Accept="application/vnd.github.inertia-preview+json"}
       if([int]$(Get-Date -UFormat %V) % 2 -eq 0) {
         Invoke-RestMethod -Method 'Put' -Uri $uri -Headers $header -Body '{"permission":"push"}'
+        Write-Host "Sprint Start."
+      } else {
+        Write-Host "This is an automated timed job, successfully running only on even weeks (between sprints). To change permissions mid-sprint (odd week), use Github's Web UI."
       }
   env:
     GHAPITOKEN: $(GHAPIToken)
