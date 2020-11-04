@@ -4,27 +4,28 @@
 // Purpose: Definition of Class EmployeeService
 
 using Model.Users.Employee;
+using Repository.Generics;
 using Repository.UsersRepository.EmployeesAndPatientsRepository;
 
 namespace Service.UsersService.EmployeeService
 {
     public class EmployeeService
     {
-        private readonly EmployeeRepository employeeRepository;
+        private readonly RepositoryWrapper<EmployeeRepository> employeeRepository;
 
-        public EmployeeService(EmployeeRepository employeeRepository)
+        public EmployeeService(RepositoryWrapper<EmployeeRepository> employeeRepository)
         {
             this.employeeRepository = employeeRepository;
         }
 
         public Employee GetByID(int id)
         {
-            return employeeRepository.GetByID(id);
+            return employeeRepository.Repository.GetByID(id);
         }
 
         public Employee Update(Employee employee)
         {
-            return employeeRepository.Update(employee);
+            return employeeRepository.Repository.Update(employee);
         }
     }
 }

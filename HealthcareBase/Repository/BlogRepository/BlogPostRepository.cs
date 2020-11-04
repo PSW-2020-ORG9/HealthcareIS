@@ -9,7 +9,7 @@ using Repository.Generics;
 
 namespace Repository.BlogRepository
 {
-    public interface BlogPostRepository : Repository<BlogPost, int>
+    public interface BlogPostRepository : IWrappableRepository<BlogPost, int>
     {
         IEnumerable<BlogPost> GetByAuthor(BlogAuthor author);
     }

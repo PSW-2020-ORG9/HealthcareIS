@@ -3,8 +3,12 @@
 // Created: 14 April 2020 20:49:40
 // Purpose: Definition of Class Amount
 
+using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Model.Medication
 {
+    [Owned]
     public class Amount
     {
         public Amount(double value, string unit, Ingredient ingredients)

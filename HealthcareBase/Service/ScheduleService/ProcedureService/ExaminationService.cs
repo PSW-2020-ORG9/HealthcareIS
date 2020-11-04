@@ -12,6 +12,7 @@ using Model.Users.Employee;
 using Model.Users.Patient;
 using Model.Users.Patient.MedicalHistory;
 using Model.Utilities;
+using Repository.Generics;
 using Repository.MiscellaneousRepository;
 using Repository.ScheduleRepository.ProceduresRepository;
 using Repository.UsersRepository.EmployeesAndPatientsRepository;
@@ -21,12 +22,12 @@ namespace Service.ScheduleService.ProcedureService
 {
     public class ExaminationService : AbstractProcedureSchedulingService<Examination>
     {
-        private readonly DiagnosisRepository diagnosisRepository;
-        private readonly ExaminationRepository examinationRepository;
-        private readonly PatientRepository patientRepository;
+        private readonly RepositoryWrapper<DiagnosisRepository> diagnosisRepository;
+        private readonly RepositoryWrapper<ExaminationRepository> examinationRepository;
+        private readonly RepositoryWrapper<PatientRepository> patientRepository;
 
-        public ExaminationService(ExaminationRepository examinationRepository, DiagnosisRepository diagnosisRepository,
-            PatientRepository patientRepository, NotificationService.NotificationService notificationService,
+        public ExaminationService(RepositoryWrapper<ExaminationRepository> examinationRepository, RepositoryWrapper<DiagnosisRepository> diagnosisRepository,
+            RepositoryWrapper<PatientRepository> patientRepository, NotificationService.NotificationService notificationService,
             ProcedureScheduleComplianceValidator scheduleValidator, ProcedureValidator procedureValidator,
             TimeSpan timeLimit) :
             base(notificationService, scheduleValidator, procedureValidator, timeLimit)
@@ -38,23 +39,23 @@ namespace Service.ScheduleService.ProcedureService
 
         public override Examination GetByID(int id)
         {
-            return examinationRepository.GetByID(id);
+            return examinationRepository.Repository.GetByID(id);
         }
 
         public IEnumerable<Examination> GetAll()
         {
-            return examinationRepository.GetAll();
+            return examinationRepository.Repository.GetAll();
         }
 
         public IEnumerable<Examination> GetByDate(DateTime date)
         {
-            return examinationRepository.GetMatching(examination =>
+            return examinationRepository.Repository.GetMatching(examination =>
                 examination.TimeInterval.Start.Date.Equals(date.Date));
         }
 
         public IEnumerable<Examination> GetByDoctorAndTime(Doctor doctor, TimeInterval time)
         {
-            return examinationRepository.GetByDoctorAndTime(doctor, time);
+            return examinationRepository.Repository.GetByDoctorAndTime(doctor, time);
         }
 
         public Examination RecordAnamnesisAndDiagnosos(AnamnesisAndDiagnosisDTO anamnesisAndDiagnosis)
@@ -67,7 +68,7 @@ namespace Service.ScheduleService.ProcedureService
             if (anamnesisAndDiagnosis.Anamnesis != null && !anamnesisAndDiagnosis.Anamnesis.Equals(""))
                 updatedExamination.Anamnesis = anamnesisAndDiagnosis.Anamnesis;
             RecordDiagnosisInPatientHistory(updatedExamination.Patient, anamnesisAndDiagnosis.Diagnosis);
-            return examinationRepository.Update(updatedExamination);
+            return examinationRepository.Repository.Update(updatedExamination);
         }
 
         private void RecordDiagnosisInPatientHistory(Patient patient, Diagnosis diagnosis)
@@ -77,7 +78,7 @@ namespace Service.ScheduleService.ProcedureService
                 Diagnosis = diagnosis,
                 DiscoveredAtAge = patient.Age
             });
-            patientRepository.Update(patient);
+            patientRepository.Repository.Update(patient);
         }
 
         private void ValidateAnamnesisAndDiagnosis(AnamnesisAndDiagnosisDTO anamnesisAndDiagnosis)
@@ -88,8 +89,8 @@ namespace Service.ScheduleService.ProcedureService
                 throw new BadRequestException();
 
             anamnesisAndDiagnosis.Examination =
-                examinationRepository.GetByID(anamnesisAndDiagnosis.Examination.GetKey());
-            anamnesisAndDiagnosis.Diagnosis = diagnosisRepository.GetByID(anamnesisAndDiagnosis.Diagnosis.GetKey());
+                examinationRepository.Repository.GetByID(anamnesisAndDiagnosis.Examination.GetKey());
+            anamnesisAndDiagnosis.Diagnosis = diagnosisRepository.Repository.GetByID(anamnesisAndDiagnosis.Diagnosis.GetKey());
 
             if (anamnesisAndDiagnosis.Examination.TimeInterval.Start > DateTime.Now)
                 throw new TimingException();
@@ -97,17 +98,17 @@ namespace Service.ScheduleService.ProcedureService
 
         protected override Examination Create(Examination procedure)
         {
-            return examinationRepository.Create(procedure);
+            return examinationRepository.Repository.Create(procedure);
         }
 
         protected override Examination Update(Examination procedure)
         {
-            return examinationRepository.Update(procedure);
+            return examinationRepository.Repository.Update(procedure);
         }
 
         protected override void Delete(Examination procedure)
         {
-            examinationRepository.Delete(procedure);
+            examinationRepository.Repository.Delete(procedure);
         }
     }
 }

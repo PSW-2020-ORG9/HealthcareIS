@@ -4,6 +4,8 @@
 // Purpose: Definition of Class City
 
 using Repository.Generics;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Users.Generalities
 {
@@ -13,8 +15,11 @@ namespace Model.Users.Generalities
 
         public string PostalCode { get; set; }
 
+        [ForeignKey("Country")]
+        public int CountryId { get; set; }
         public Country Country { get; set; }
 
+        [Key]
         public int Id { get; set; }
 
         public int GetKey()

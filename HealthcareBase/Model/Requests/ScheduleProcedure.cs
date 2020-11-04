@@ -6,13 +6,18 @@
 using Model.Schedule.Procedures;
 using Model.Schedule.SchedulingPreferences;
 using Model.Users.Patient;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Requests
 {
     public class ScheduleProcedure : ScheduleAdjustmentRequest
     {
+        [ForeignKey("Patient")]
+        public int PatientId { get; set; }
         public Patient Patient { get; set; }
 
+        [ForeignKey("Type")]
+        public int? TypeId { get; set; }
         public ProcedureType Type { get; set; }
 
         public ProcedureSchedulingPreference Preference { get; set; }

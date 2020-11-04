@@ -4,6 +4,7 @@
 // Purpose: Definition of Class UserAccount
 
 using Repository.Generics;
+using System.ComponentModel.DataAnnotations;
 
 namespace Model.Users.UserAccounts
 {
@@ -25,6 +26,7 @@ namespace Model.Users.UserAccounts
             set => password = value;
         }
 
+        [Key]
         public int Id
         {
             get => id;

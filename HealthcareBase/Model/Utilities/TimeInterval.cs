@@ -3,10 +3,12 @@
 // Created: 20 April 2020 23:38:16
 // Purpose: Definition of Class TimeInterval
 
+using Microsoft.EntityFrameworkCore;
 using System;
 
 namespace Model.Utilities
 {
+    [Owned]
     public class TimeInterval
     {
         public DateTime Start { get; set; }

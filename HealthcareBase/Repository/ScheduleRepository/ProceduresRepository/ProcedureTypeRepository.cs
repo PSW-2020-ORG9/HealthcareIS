@@ -8,7 +8,7 @@ using Repository.Generics;
 
 namespace Repository.ScheduleRepository.ProceduresRepository
 {
-    public interface ProcedureTypeRepository : Repository<ProcedureType, int>
+    public interface ProcedureTypeRepository : IWrappableRepository<ProcedureType, int>
     {
         ProcedureType GetPatientDefault();
     }

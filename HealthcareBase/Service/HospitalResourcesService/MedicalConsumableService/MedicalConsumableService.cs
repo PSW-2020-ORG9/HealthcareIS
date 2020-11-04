@@ -6,19 +6,20 @@
 using System.Collections.Generic;
 using Model.HospitalResources;
 using Model.StorageRecords;
+using Repository.Generics;
 using Repository.HospitalResourcesRepository;
 
 namespace Service.HospitalResourcesService.MedicalConsumableService
 {
     public class MedicalConsumableService
     {
-        private readonly ConsumableStorageRecordRepository consumableStorageRecordRepository;
-        private readonly MedicalConsumableRepository medicalConsumableRepository;
-        private readonly MedicalConsumableTypeRepository medicalConsumableTypeRepository;
+        private readonly RepositoryWrapper<ConsumableStorageRecordRepository> consumableStorageRecordRepository;
+        private readonly RepositoryWrapper<MedicalConsumableRepository> medicalConsumableRepository;
+        private readonly RepositoryWrapper<MedicalConsumableTypeRepository> medicalConsumableTypeRepository;
 
-        public MedicalConsumableService(MedicalConsumableRepository medicalConsumableRepository,
-            MedicalConsumableTypeRepository medicalConsumableTypeRepository,
-            ConsumableStorageRecordRepository consumableStorageRecordRepository)
+        public MedicalConsumableService(RepositoryWrapper<MedicalConsumableRepository> medicalConsumableRepository,
+            RepositoryWrapper<MedicalConsumableTypeRepository> medicalConsumableTypeRepository,
+            RepositoryWrapper<ConsumableStorageRecordRepository> consumableStorageRecordRepository)
         {
             this.medicalConsumableRepository = medicalConsumableRepository;
             this.medicalConsumableTypeRepository = medicalConsumableTypeRepository;
@@ -27,39 +28,39 @@ namespace Service.HospitalResourcesService.MedicalConsumableService
 
         public MedicalConsumable GetByID(int id)
         {
-            return medicalConsumableRepository.GetByID(id);
+            return medicalConsumableRepository.Repository.GetByID(id);
         }
 
         public IEnumerable<MedicalConsumable> GetAll()
         {
-            return medicalConsumableRepository.GetAll();
+            return medicalConsumableRepository.Repository.GetAll();
         }
 
         public MedicalConsumable Create(MedicalConsumable medicalConsumable)
         {
-            var typeExists = medicalConsumableTypeRepository.ExistsByID(medicalConsumable.ConsumableType.GetKey());
+            var typeExists = medicalConsumableTypeRepository.Repository.ExistsByID(medicalConsumable.ConsumableType.GetKey());
             if (!typeExists)
                 medicalConsumable.ConsumableType =
-                    medicalConsumableTypeRepository.Create(medicalConsumable.ConsumableType);
-            consumableStorageRecordRepository.Create(new ConsumableStorageRecord
+                    medicalConsumableTypeRepository.Repository.Create(medicalConsumable.ConsumableType);
+            consumableStorageRecordRepository.Repository.Create(new ConsumableStorageRecord
                 {
                     AvailableAmount = 0,
                     Consumable = medicalConsumable
                 }
             );
-            return medicalConsumableRepository.Create(medicalConsumable);
+            return medicalConsumableRepository.Repository.Create(medicalConsumable);
         }
 
         public MedicalConsumable Update(MedicalConsumable medicalConsumable)
         {
-            return medicalConsumableRepository.Update(medicalConsumable);
+            return medicalConsumableRepository.Repository.Update(medicalConsumable);
         }
 
         public void Delete(MedicalConsumable medicalConsumable)
         {
-            medicalConsumableRepository.Delete(medicalConsumable);
-            var record = consumableStorageRecordRepository.GetByMedicalConsumable(medicalConsumable);
-            consumableStorageRecordRepository.Delete(record);
+            medicalConsumableRepository.Repository.Delete(medicalConsumable);
+            var record = consumableStorageRecordRepository.Repository.GetByMedicalConsumable(medicalConsumable);
+            consumableStorageRecordRepository.Repository.Delete(record);
         }
     }
 }

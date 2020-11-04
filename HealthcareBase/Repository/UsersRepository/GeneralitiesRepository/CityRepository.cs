@@ -9,7 +9,7 @@ using Repository.Generics;
 
 namespace Repository.UsersRepository.GeneralitiesRepository
 {
-    public interface CityRepository : Repository<City, int>
+    public interface CityRepository : IWrappableRepository<City, int>
     {
         IEnumerable<City> GetByCountry(Country country);
     }

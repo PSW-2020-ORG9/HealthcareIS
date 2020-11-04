@@ -6,6 +6,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Model.Schedule.Procedures;
+using Repository.Generics;
 using Repository.ScheduleRepository.ProceduresRepository;
 using Service.ScheduleService.ScheduleFittingService;
 
@@ -16,11 +17,11 @@ namespace Service.ScheduleService.PatientRecommendationService
         private RecommendationStrategy currentStrategy;
         private readonly RecommendationStrategy defaultStrategy;
         private readonly ProcedureScheduleFittingService procedureScheduleFittingService;
-        private readonly ProcedureTypeRepository procedureTypeRepository;
+        private readonly RepositoryWrapper<ProcedureTypeRepository> procedureTypeRepository;
 
         public RecommendationService(RecommendationStrategy defaultStrategy,
             ProcedureScheduleFittingService procedureScheduleFittingService,
-            ProcedureTypeRepository procedureTypeRepository)
+            RepositoryWrapper<ProcedureTypeRepository> procedureTypeRepository)
         {
             this.defaultStrategy = defaultStrategy;
             this.procedureScheduleFittingService = procedureScheduleFittingService;
@@ -56,7 +57,7 @@ namespace Service.ScheduleService.PatientRecommendationService
 
         public void SwapStrategy(RecommendationStrategy strategy)
         {
-            strategy.PatientDefault = procedureTypeRepository.GetPatientDefault();
+            strategy.PatientDefault = procedureTypeRepository.Repository.GetPatientDefault();
             currentStrategy = strategy;
         }
     }

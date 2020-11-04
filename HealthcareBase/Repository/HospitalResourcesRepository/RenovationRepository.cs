@@ -10,7 +10,7 @@ using Repository.Generics;
 
 namespace Repository.HospitalResourcesRepository
 {
-    public interface RenovationRepository : Repository<Renovation, int>
+    public interface RenovationRepository : IWrappableRepository<Renovation, int>
     {
         IEnumerable<Renovation> getByRoomAndTime(Room room, TimeInterval time);
     }

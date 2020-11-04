@@ -11,7 +11,7 @@ using Repository.Generics;
 
 namespace Repository.NotificationRepository
 {
-    public interface HospitalizationNotificationRepository : Repository<HospitalizationNotification, int>
+    public interface HospitalizationNotificationRepository : IWrappableRepository<HospitalizationNotification, int>
     {
         IEnumerable<HospitalizationNotification> GetByUser(UserAccount user);
 

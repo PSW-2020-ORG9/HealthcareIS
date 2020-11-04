@@ -9,7 +9,7 @@ using Repository.Generics;
 
 namespace Repository.MedicationRepository
 {
-    public interface MedicationStorageRepository : Repository<MedicationStorageRecord, int>
+    public interface MedicationStorageRepository : IWrappableRepository<MedicationStorageRecord, int>
     {
         MedicationStorageRecord GetByMedication(Medication medication);
     }

@@ -4,6 +4,7 @@
 // Purpose: Definition of Class Allergy
 
 using Repository.Generics;
+using System.ComponentModel.DataAnnotations;
 
 namespace Model.Miscellaneous
 {
@@ -26,6 +27,7 @@ namespace Model.Miscellaneous
 
         public string Symptoms { get; set; }
 
+        [Key]
         public int Id { get; set; }
 
         public int GetKey()

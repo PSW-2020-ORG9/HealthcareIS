@@ -11,7 +11,7 @@ using Repository.Generics;
 
 namespace Repository.NotificationRepository
 {
-    public interface ProcedureNotificationRepository : Repository<ProcedureNotification, int>
+    public interface ProcedureNotificationRepository : IWrappableRepository<ProcedureNotification, int>
     {
         IEnumerable<ProcedureNotification> GetByUser(UserAccount user);
 

@@ -9,7 +9,7 @@ using Repository.Generics;
 
 namespace Repository.HospitalResourcesRepository
 {
-    public interface EquipmentUnitRepository : Repository<EquipmentUnit, int>
+    public interface EquipmentUnitRepository : IWrappableRepository<EquipmentUnit, int>
     {
         IEnumerable<EquipmentUnit> GetByCurrentLocationWithoutParse(Room room);
     }

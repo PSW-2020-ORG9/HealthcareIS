@@ -14,7 +14,7 @@ using Repository.Generics;
 
 namespace Repository.ScheduleRepository.ProceduresRepository
 {
-    public interface SurgeryRepository : Repository<Surgery, int>
+    public interface SurgeryRepository : IWrappableRepository<Surgery, int>
     {
         IEnumerable<Surgery> GetByDoctorAndTime(Doctor doctor, TimeInterval time);
 

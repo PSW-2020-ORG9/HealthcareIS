@@ -4,6 +4,7 @@
 // Purpose: Definition of Class Diagnosis
 
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Repository.Generics;
 
 namespace Model.Miscellaneous
@@ -28,6 +29,7 @@ namespace Model.Miscellaneous
 
         public bool IsInjury { get; set; }
 
+        [Key]
         public string Icd { get; set; }
 
         public string GetKey()

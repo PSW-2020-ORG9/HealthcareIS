@@ -6,6 +6,7 @@
 using System.Collections.Generic;
 using Model.CustomExceptions;
 using Model.Users.Patient;
+using Repository.Generics;
 using Repository.ScheduleRepository.HospitalizationsRepository;
 using Repository.ScheduleRepository.ProceduresRepository;
 using Repository.UsersRepository.EmployeesAndPatientsRepository;
@@ -14,14 +15,16 @@ namespace Service.UsersService.PatientService
 {
     public class PatientService
     {
-        private readonly ExaminationRepository examinationRepository;
-        private readonly HospitalizationRepository hospitalizationRepository;
+        private readonly RepositoryWrapper<ExaminationRepository> examinationRepository;
+        private readonly RepositoryWrapper<HospitalizationRepository> hospitalizationRepository;
         private readonly PatientAccountService patientAccountService;
-        private readonly PatientRepository patientRepository;
-        private readonly SurgeryRepository surgeryRepository;
+        private readonly RepositoryWrapper<PatientRepository> patientRepository;
+        private readonly RepositoryWrapper<SurgeryRepository> surgeryRepository;
 
-        public PatientService(PatientRepository patientRepository, ExaminationRepository examinationRepository,
-            SurgeryRepository surgeryRepository, HospitalizationRepository hospitalizationRepository,
+        public PatientService(RepositoryWrapper<PatientRepository> patientRepository,
+            RepositoryWrapper<ExaminationRepository> examinationRepository,
+            RepositoryWrapper<SurgeryRepository> surgeryRepository,
+            RepositoryWrapper<HospitalizationRepository> hospitalizationRepository,
             PatientAccountService patientAccountService)
         {
             this.patientRepository = patientRepository;
@@ -35,21 +38,21 @@ namespace Service.UsersService.PatientService
         {
             var retPatientDTO = new PatientChartDTO();
 
-            retPatientDTO.Examinations = examinationRepository.GetByPatient(patient);
-            retPatientDTO.Surgeries = surgeryRepository.GetByPatient(patient);
-            retPatientDTO.Hospitalizations = hospitalizationRepository.GetByPatient(patient);
+            retPatientDTO.Examinations = examinationRepository.Repository.GetByPatient(patient);
+            retPatientDTO.Surgeries = surgeryRepository.Repository.GetByPatient(patient);
+            retPatientDTO.Hospitalizations = hospitalizationRepository.Repository.GetByPatient(patient);
 
             return retPatientDTO;
         }
 
         public Patient GetByID(int id)
         {
-            return patientRepository.GetByID(id);
+            return patientRepository.Repository.GetByID(id);
         }
 
         public IEnumerable<Patient> GetAllActive()
         {
-            return patientRepository.GetMatching(patient => patient.Status == PatientStatus.Alive);
+            return patientRepository.Repository.GetMatching(patient => patient.Status == PatientStatus.Alive);
         }
 
 
@@ -58,7 +61,7 @@ namespace Service.UsersService.PatientService
             if (patient == null)
                 throw new BadRequestException();
 
-            return patientRepository.Create(patient);
+            return patientRepository.Repository.Create(patient);
         }
 
         public Patient Update(Patient patient)
@@ -66,16 +69,16 @@ namespace Service.UsersService.PatientService
             if (patient == null)
                 throw new BadRequestException();
 
-            return patientRepository.Update(patient);
+            return patientRepository.Repository.Update(patient);
         }
 
         public Patient PronounceDeceased(Patient patient)
         {
-            var existingPatient = patientRepository.GetByJMBG(patient.Jmbg);
+            var existingPatient = patientRepository.Repository.GetByJMBG(patient.Jmbg);
             existingPatient.Status = PatientStatus.Deceased;
             patientAccountService.DeleteAccount(patientAccountService.GetAccount(existingPatient));
 
-            return patientRepository.Update(existingPatient);
+            return patientRepository.Repository.Update(existingPatient);
         }
     }
 }
