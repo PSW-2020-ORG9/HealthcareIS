@@ -4,6 +4,8 @@
 // Purpose: Definition of Class BlogPost
 
 using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Repository.Generics;
 
 namespace Model.Blog
@@ -29,8 +31,11 @@ namespace Model.Blog
 
         public DateTime TimeStamp { get; set; }
 
+        [ForeignKey("Author")]
+        public int AuthorId { get; set; }
         public BlogAuthor Author { get; set; }
 
+        [Key]
         public int Id { get; set; }
 
         public int GetKey()

@@ -10,7 +10,7 @@ using Repository.Generics;
 
 namespace Repository.RequestRepository
 {
-    public interface MedicationInputRequestRepository : Repository<MedicationInputRequest, int>
+    public interface MedicationInputRequestRepository : IWrappableRepository<MedicationInputRequest, int>
     {
         IEnumerable<MedicationInputRequest> GetAllRejectedRequests();
         IEnumerable<MedicationInputRequest> GetAllPendingRequests(Doctor reviewer);

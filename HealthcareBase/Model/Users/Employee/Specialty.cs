@@ -4,6 +4,7 @@
 // Purpose: Definition of Class Specialty
 
 using Repository.Generics;
+using System.ComponentModel.DataAnnotations;
 
 namespace Model.Users.Employee
 {
@@ -13,6 +14,7 @@ namespace Model.Users.Employee
 
         public string Description { get; set; }
 
+        [Key]
         public int Id { get; set; }
 
         public int GetKey()

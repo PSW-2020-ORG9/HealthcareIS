@@ -5,6 +5,8 @@
 
 using Model.Users.Generalities;
 using Repository.Generics;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Users.Employee
 {
@@ -13,12 +15,14 @@ namespace Model.Users.Employee
         protected int employeeID;
         protected EmployeeStatus status;
 
+        [Column(TypeName = "nvarchar(24)")]
         public EmployeeStatus Status
         {
             get => status;
             set => status = value;
         }
 
+        [Key]
         public int EmployeeID
         {
             get => employeeID;

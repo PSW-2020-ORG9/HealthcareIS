@@ -12,7 +12,7 @@ using Repository.Generics;
 
 namespace Repository.ScheduleRepository.HospitalizationsRepository
 {
-    public interface HospitalizationRepository : Repository<Hospitalization, int>
+    public interface HospitalizationRepository : IWrappableRepository<Hospitalization, int>
     {
         IEnumerable<Hospitalization> GetByPatientAndTime(Patient patient, TimeInterval time);
 

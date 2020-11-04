@@ -5,27 +5,28 @@
 
 using System.Collections.Generic;
 using Model.Users.UserFeedback;
+using Repository.Generics;
 using Repository.UsersRepository.UserFeedbackRepository;
 
 namespace Service.UsersService.UserFeedbackService
 {
     public class UserFeedbackService
     {
-        private readonly UserFeedbackRepository userFeedbackRepository;
+        private readonly RepositoryWrapper<UserFeedbackRepository> userFeedbackRepository;
 
-        public UserFeedbackService(UserFeedbackRepository userFeedbackRepository)
+        public UserFeedbackService(RepositoryWrapper<UserFeedbackRepository> userFeedbackRepository)
         {
             this.userFeedbackRepository = userFeedbackRepository;
         }
 
         public IEnumerable<UserFeedback> GetAll()
         {
-            return userFeedbackRepository.GetAll();
+            return userFeedbackRepository.Repository.GetAll();
         }
 
         public UserFeedback Create(UserFeedback userFeedback)
         {
-            return userFeedbackRepository.Create(userFeedback);
+            return userFeedbackRepository.Repository.Create(userFeedback);
         }
     }
 }

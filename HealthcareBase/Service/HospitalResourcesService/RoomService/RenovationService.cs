@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using Model.CustomExceptions;
 using Model.HospitalResources;
 using Model.Utilities;
+using Repository.Generics;
 using Repository.HospitalResourcesRepository;
 using Service.HospitalResourcesService.Validators;
 
@@ -15,11 +16,11 @@ namespace Service.HospitalResourcesService.RoomService
 {
     public class RenovationService
     {
-        private readonly RenovationRepository renovationRepository;
+        private readonly RepositoryWrapper<RenovationRepository> renovationRepository;
         private readonly RenovationValidator renovationValidator;
         private readonly TimeSpan timeLimit;
 
-        public RenovationService(RenovationRepository renovationRepository, RenovationValidator renovationValidator,
+        public RenovationService(RepositoryWrapper<RenovationRepository> renovationRepository, RenovationValidator renovationValidator,
             TimeSpan timeLimit)
         {
             this.renovationRepository = renovationRepository;
@@ -31,17 +32,17 @@ namespace Service.HospitalResourcesService.RoomService
 
         public Renovation GetByID(int id)
         {
-            return renovationRepository.GetByID(id);
+            return renovationRepository.Repository.GetByID(id);
         }
 
         public IEnumerable<Renovation> GetAll()
         {
-            return renovationRepository.GetAll();
+            return renovationRepository.Repository.GetAll();
         }
 
         public IEnumerable<Renovation> GetByRoomAndTime(Room room, TimeInterval time)
         {
-            return renovationRepository.getByRoomAndTime(room, time);
+            return renovationRepository.Repository.getByRoomAndTime(room, time);
         }
 
         public Renovation Schedule(Renovation renovation)
@@ -49,7 +50,7 @@ namespace Service.HospitalResourcesService.RoomService
             if (renovation is null)
                 throw new BadRequestException();
             ValidateForScheduling(renovation);
-            return renovationRepository.Create(renovation);
+            return renovationRepository.Repository.Create(renovation);
         }
 
         public Renovation Reschedule(Renovation renovation)
@@ -57,7 +58,7 @@ namespace Service.HospitalResourcesService.RoomService
             if (renovation is null)
                 throw new BadRequestException();
             ValidateForRescheduling(renovation);
-            return renovationRepository.Update(renovation);
+            return renovationRepository.Repository.Update(renovation);
         }
 
         public void Cancel(Renovation renovation)
@@ -65,7 +66,7 @@ namespace Service.HospitalResourcesService.RoomService
             if (renovation is null)
                 throw new BadRequestException();
             ValidateForCancelling(renovation);
-            renovationRepository.Delete(renovation);
+            renovationRepository.Repository.Delete(renovation);
         }
 
         private void ValidateForScheduling(Renovation renovation)
@@ -78,7 +79,7 @@ namespace Service.HospitalResourcesService.RoomService
 
         private void ValidateForRescheduling(Renovation renovation)
         {
-            var oldRenovation = renovationRepository.GetByID(renovation.GetKey());
+            var oldRenovation = renovationRepository.Repository.GetByID(renovation.GetKey());
             renovationValidator.ValidateRenovation(renovation);
             if (!oldRenovation.Room.Equals(renovation.Room))
                 throw new BadRequestException();

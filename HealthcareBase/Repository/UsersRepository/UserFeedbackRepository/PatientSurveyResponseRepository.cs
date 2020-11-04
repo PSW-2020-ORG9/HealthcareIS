@@ -8,7 +8,7 @@ using Repository.Generics;
 
 namespace Repository.UsersRepository.UserFeedbackRepository
 {
-    public interface PatientSurveyResponseRepository : Repository<PatientSurveyResponse, int>
+    public interface PatientSurveyResponseRepository : IWrappableRepository<PatientSurveyResponse, int>
     {
     }
 }

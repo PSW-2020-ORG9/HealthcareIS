@@ -8,6 +8,7 @@ using Model.Users.Employee;
 using Model.Users.Patient;
 using Model.Users.UserAccounts;
 using Model.Users.UserFeedback;
+using Repository.Generics;
 using Repository.UsersRepository.UserAccountsRepository;
 using Repository.UsersRepository.UserFeedbackRepository;
 
@@ -15,11 +16,11 @@ namespace Service.UsersService.PatientService
 {
     public class PatientAccountService
     {
-        private readonly PatientAccountRepository patientAccountRepository;
-        private readonly PatientSurveyResponseRepository patientSurveyResponseRepository;
+        private readonly RepositoryWrapper<PatientAccountRepository> patientAccountRepository;
+        private readonly RepositoryWrapper<PatientSurveyResponseRepository> patientSurveyResponseRepository;
 
-        public PatientAccountService(PatientAccountRepository patientAccountRepository,
-            PatientSurveyResponseRepository patientSurveyResponseRepository)
+        public PatientAccountService(RepositoryWrapper<PatientAccountRepository> patientAccountRepository,
+            RepositoryWrapper<PatientSurveyResponseRepository> patientSurveyResponseRepository)
         {
             this.patientAccountRepository = patientAccountRepository;
             this.patientSurveyResponseRepository = patientSurveyResponseRepository;
@@ -27,12 +28,12 @@ namespace Service.UsersService.PatientService
 
         public void DeleteAccount(PatientAccount patientAccount)
         {
-            patientAccountRepository.Delete(patientAccount);
+            patientAccountRepository.Repository.Delete(patientAccount);
         }
 
         public PatientAccount GetAccount(Patient patient)
         {
-            return patientAccountRepository.GetByPatient(patient);
+            return patientAccountRepository.Repository.GetByPatient(patient);
         }
 
         public PatientAccount ChangePassword(PatientAccount account, string newPassword)
@@ -42,31 +43,31 @@ namespace Service.UsersService.PatientService
             if (newPassword.Trim().Equals(""))
                 throw new BadRequestException();
 
-            var acc = patientAccountRepository.GetByID(account.Id);
+            var acc = patientAccountRepository.Repository.GetByID(account.Id);
             acc.Password = newPassword;
 
-            return patientAccountRepository.Update(acc);
+            return patientAccountRepository.Repository.Update(acc);
         }
 
         public PatientAccount AddFavouriteDoctor(Doctor doctor, PatientAccount account)
         {
-            var acc = patientAccountRepository.GetByID(account.Id);
+            var acc = patientAccountRepository.Repository.GetByID(account.Id);
             acc.AddFavouriteDoctor(doctor);
 
-            return patientAccountRepository.Update(acc);
+            return patientAccountRepository.Repository.Update(acc);
         }
 
         public PatientAccount RemoveFavoriteDoctor(Doctor doctor, PatientAccount account)
         {
-            var acc = patientAccountRepository.GetByID(account.Id);
+            var acc = patientAccountRepository.Repository.GetByID(account.Id);
             acc.RemoveFavouriteDoctor(doctor);
 
-            return patientAccountRepository.Update(acc);
+            return patientAccountRepository.Repository.Update(acc);
         }
 
         public void RecordSurveyResponse(PatientSurveyResponse surveyResponse)
         {
-            patientSurveyResponseRepository.Create(surveyResponse);
+            patientSurveyResponseRepository.Repository.Create(surveyResponse);
         }
     }
 }

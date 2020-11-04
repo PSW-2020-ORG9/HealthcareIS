@@ -5,34 +5,35 @@
 
 using System.Collections.Generic;
 using Model.Miscellaneous;
+using Repository.Generics;
 using Repository.MiscellaneousRepository;
 
 namespace Service.MiscellaneousService
 {
     public class DiagnosisService
     {
-        private readonly DiagnosisRepository diagnosisRepository;
+        private readonly RepositoryWrapper<DiagnosisRepository> diagnosisRepository;
 
-        public DiagnosisService(DiagnosisRepository diagnosisRepository)
+        public DiagnosisService(RepositoryWrapper<DiagnosisRepository> diagnosisRepository)
         {
             this.diagnosisRepository = diagnosisRepository;
         }
 
         public Diagnosis GetByID(string id)
         {
-            return diagnosisRepository.GetByID(id);
+            return diagnosisRepository.Repository.GetByID(id);
         }
 
         public IEnumerable<Diagnosis> GetAll()
         {
-            return diagnosisRepository.GetAll();
+            return diagnosisRepository.Repository.GetAll();
         }
 
         public IEnumerable<Diagnosis> Search(string keyword)
         {
             if (keyword is null || keyword.Equals(""))
-                return diagnosisRepository.GetAll();
-            return diagnosisRepository.GetByKeyword(keyword);
+                return diagnosisRepository.Repository.GetAll();
+            return diagnosisRepository.Repository.GetByKeyword(keyword);
         }
     }
 }

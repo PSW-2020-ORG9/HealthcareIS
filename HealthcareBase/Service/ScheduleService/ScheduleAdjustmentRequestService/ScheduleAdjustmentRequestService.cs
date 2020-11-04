@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using Model.CustomExceptions;
 using Model.Requests;
 using Model.Users.UserAccounts;
+using Repository.Generics;
 using Repository.RequestRepository;
 using Repository.UsersRepository.UserAccountsRepository;
 
@@ -15,12 +16,12 @@ namespace Service.ScheduleService.ScheduleAdjustmentRequestService
 {
     public class ScheduleAdjustmentRequestService
     {
-        private readonly EmployeeAccountRepository employeeAccountRepository;
+        private readonly RepositoryWrapper<EmployeeAccountRepository> employeeAccountRepository;
         private readonly NotificationService.NotificationService notificationService;
-        private readonly ScheduleAdjustmentRequestRepository requestRepository;
+        private readonly RepositoryWrapper<ScheduleAdjustmentRequestRepository> requestRepository;
 
-        public ScheduleAdjustmentRequestService(ScheduleAdjustmentRequestRepository requestRepository,
-            EmployeeAccountRepository employeeAccountRepository,
+        public ScheduleAdjustmentRequestService(RepositoryWrapper<ScheduleAdjustmentRequestRepository> requestRepository,
+            RepositoryWrapper<EmployeeAccountRepository> employeeAccountRepository,
             NotificationService.NotificationService notificationService)
         {
             this.requestRepository = requestRepository;
@@ -30,7 +31,7 @@ namespace Service.ScheduleService.ScheduleAdjustmentRequestService
 
         public IEnumerable<ScheduleAdjustmentRequest> GetAllPending()
         {
-            return requestRepository.GetMatching(
+            return requestRepository.Repository.GetMatching(
                 request => request.Status.Equals(RequestStatus.Pending));
         }
 
@@ -48,8 +49,8 @@ namespace Service.ScheduleService.ScheduleAdjustmentRequestService
         {
             if (update is null || update.Reviewer is null || update.Request is null)
                 throw new BadRequestException();
-            var request = requestRepository.GetByID(update.Request.GetKey());
-            var reviewer = employeeAccountRepository.GetByID(update.Reviewer.GetKey());
+            var request = requestRepository.Repository.GetByID(update.Request.GetKey());
+            var reviewer = employeeAccountRepository.Repository.GetByID(update.Reviewer.GetKey());
             if (reviewer.EmployeeType != EmployeeType.Secretary)
                 throw new ValidationException();
 
@@ -58,7 +59,7 @@ namespace Service.ScheduleService.ScheduleAdjustmentRequestService
             request.ReviewDate = DateTime.Now;
             request.Status = status;
 
-            var updated = requestRepository.Update(request);
+            var updated = requestRepository.Repository.Update(request);
             notificationService.Notify(updated);
         }
 
@@ -66,13 +67,13 @@ namespace Service.ScheduleService.ScheduleAdjustmentRequestService
         {
             if (request is null || request.Sender is null)
                 throw new BadRequestException();
-            if (!employeeAccountRepository.ExistsByID(request.Sender.GetKey()))
+            if (!employeeAccountRepository.Repository.ExistsByID(request.Sender.GetKey()))
                 throw new BadReferenceException();
 
             request.Status = RequestStatus.Pending;
             request.CreationDate = DateTime.Now;
 
-            return requestRepository.Create(request);
+            return requestRepository.Repository.Create(request);
         }
     }
 }

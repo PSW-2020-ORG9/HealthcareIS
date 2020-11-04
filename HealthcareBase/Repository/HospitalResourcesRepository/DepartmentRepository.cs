@@ -8,7 +8,7 @@ using Repository.Generics;
 
 namespace Repository.HospitalResourcesRepository
 {
-    public interface DepartmentRepository : Repository<Department, int>
+    public interface DepartmentRepository : IWrappableRepository<Department, int>
     {
     }
 }

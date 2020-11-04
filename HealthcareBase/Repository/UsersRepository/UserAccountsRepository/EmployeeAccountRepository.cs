@@ -10,7 +10,7 @@ using Repository.Generics;
 
 namespace Repository.UsersRepository.UserAccountsRepository
 {
-    public interface EmployeeAccountRepository : Repository<EmployeeAccount, int>
+    public interface EmployeeAccountRepository : IWrappableRepository<EmployeeAccount, int>
     {
         EmployeeAccount GetByEmployee(Employee employee);
 

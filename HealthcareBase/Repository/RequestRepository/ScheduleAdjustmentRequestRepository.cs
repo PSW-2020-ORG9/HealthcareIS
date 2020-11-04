@@ -8,7 +8,7 @@ using Repository.Generics;
 
 namespace Repository.RequestRepository
 {
-    public interface ScheduleAdjustmentRequestRepository : Repository<ScheduleAdjustmentRequest, int>
+    public interface ScheduleAdjustmentRequestRepository : IWrappableRepository<ScheduleAdjustmentRequest, int>
     {
     }
 }

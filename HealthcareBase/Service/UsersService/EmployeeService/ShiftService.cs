@@ -10,6 +10,7 @@ using Model.CustomExceptions;
 using Model.Schedule.Procedures;
 using Model.Users.Employee;
 using Model.Utilities;
+using Repository.Generics;
 using Repository.UsersRepository.EmployeesAndPatientsRepository;
 using Service.ScheduleService.ProcedureService;
 
@@ -18,9 +19,10 @@ namespace Service.UsersService.EmployeeService
     public class ShiftService
     {
         private readonly ProcedureService procedureService;
-        private readonly ShiftRepository shiftRepository;
+        private readonly RepositoryWrapper<ShiftRepository> shiftRepository;
 
-        public ShiftService(ShiftRepository shiftRepository, ProcedureService procedureService)
+        public ShiftService(RepositoryWrapper<ShiftRepository> shiftRepository,
+            ProcedureService procedureService)
         {
             this.shiftRepository = shiftRepository;
             this.procedureService = procedureService;
@@ -28,21 +30,21 @@ namespace Service.UsersService.EmployeeService
 
         public Shift Create(Shift shift)
         {
-            var overlappingShifts = shiftRepository.GetByDoctorAndTimeOverlap(shift.Doctor, shift.TimeInterval);
+            var overlappingShifts = shiftRepository.Repository.GetByDoctorAndTimeOverlap(shift.Doctor, shift.TimeInterval);
             if (overlappingShifts.Count() != 0)
                 throw new ScheduleViolationException();
 
-            return shiftRepository.Create(shift);
+            return shiftRepository.Repository.Create(shift);
         }
 
         public Shift GetByID(int id)
         {
-            return shiftRepository.GetByID(id);
+            return shiftRepository.Repository.GetByID(id);
         }
 
         public IEnumerable<Shift> GetAll()
         {
-            return shiftRepository.GetAll();
+            return shiftRepository.Repository.GetAll();
         }
 
         public void Delete(Shift shift)
@@ -51,7 +53,7 @@ namespace Service.UsersService.EmployeeService
             if (procedures.Count() != 0)
                 throw new ScheduleViolationException();
 
-            shiftRepository.Delete(shift);
+            shiftRepository.Repository.Delete(shift);
         }
 
         public IEnumerable<Shift> EditShifts(ChangeShiftRequestDTO requestDTO)
@@ -91,7 +93,7 @@ namespace Service.UsersService.EmployeeService
             {
                 shift.TimeInterval = timeInterval;
 
-                shiftRepository.Update(shift);
+                shiftRepository.Repository.Update(shift);
             }
 
             return shifts;
@@ -99,12 +101,12 @@ namespace Service.UsersService.EmployeeService
 
         public IEnumerable<Shift> GetByDoctorAndTimeContaining(Doctor doctor, TimeInterval time)
         {
-            return shiftRepository.GetByDoctorAndTimeContaining(doctor, time);
+            return shiftRepository.Repository.GetByDoctorAndTimeContaining(doctor, time);
         }
 
         public IEnumerable<Shift> GetByDoctor(Doctor doctor)
         {
-            return shiftRepository.GetByDoctor(doctor);
+            return shiftRepository.Repository.GetByDoctor(doctor);
         }
     }
 }

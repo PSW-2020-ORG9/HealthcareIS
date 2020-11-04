@@ -5,6 +5,8 @@
 
 using Model.Users.UserAccounts;
 using Repository.Generics;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Notifications
 {
@@ -12,8 +14,11 @@ namespace Model.Notifications
     {
         public bool Read { get; set; }
 
+        [ForeignKey("User")]
+        public int UserId { get; set; }
         public UserAccount User { get; set; }
 
+        [Key]
         public int Id { get; set; }
 
         public int GetKey()

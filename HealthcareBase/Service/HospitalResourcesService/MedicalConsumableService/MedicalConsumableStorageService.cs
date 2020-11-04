@@ -6,42 +6,43 @@
 using System;
 using Model.HospitalResources;
 using Model.StorageRecords;
+using Repository.Generics;
 using Repository.HospitalResourcesRepository;
 
 namespace Service.HospitalResourcesService.MedicalConsumableService
 {
     public class MedicalConsumableStorageService
     {
-        private readonly ConsumableStorageRecordRepository consumableStorageRecordRepository;
+        private readonly RepositoryWrapper<ConsumableStorageRecordRepository> consumableStorageRecordRepository;
 
-        public MedicalConsumableStorageService(ConsumableStorageRecordRepository consumableStorageRecordRepository)
+        public MedicalConsumableStorageService(RepositoryWrapper<ConsumableStorageRecordRepository> consumableStorageRecordRepository)
         {
             this.consumableStorageRecordRepository = consumableStorageRecordRepository;
         }
 
         public int GetCurrentAmount(MedicalConsumable consumable)
         {
-            var record = consumableStorageRecordRepository.GetByMedicalConsumable(consumable);
+            var record = consumableStorageRecordRepository.Repository.GetByMedicalConsumable(consumable);
             return record.AvailableAmount;
         }
 
         public int IncreaseAmount(MedicalConsumable consumable, int amount)
         {
-            var record = consumableStorageRecordRepository.GetByMedicalConsumable(consumable);
+            var record = consumableStorageRecordRepository.Repository.GetByMedicalConsumable(consumable);
             record.AvailableAmount += amount;
             var amountChangeRecord = new AmountChangeRecord {Amount = record.AvailableAmount, Date = DateTime.Now};
             record.AddSupplyHistory(amountChangeRecord);
-            consumableStorageRecordRepository.Update(record);
+            consumableStorageRecordRepository.Repository.Update(record);
             return record.AvailableAmount;
         }
 
         public int DecreaseAmount(MedicalConsumable consumable, int amount)
         {
-            var record = consumableStorageRecordRepository.GetByMedicalConsumable(consumable);
+            var record = consumableStorageRecordRepository.Repository.GetByMedicalConsumable(consumable);
             record.AvailableAmount -= amount;
             var amountChangeRecord = new AmountChangeRecord {Amount = record.AvailableAmount, Date = DateTime.Now};
             record.AddUsageHistory(amountChangeRecord);
-            consumableStorageRecordRepository.Update(record);
+            consumableStorageRecordRepository.Repository.Update(record);
             return record.AvailableAmount;
         }
     }

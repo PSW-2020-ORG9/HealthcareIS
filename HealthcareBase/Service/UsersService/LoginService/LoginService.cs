@@ -4,17 +4,18 @@
 // Purpose: Definition of Class LoginService
 
 using Model.Users.UserAccounts;
+using Repository.Generics;
 using Repository.UsersRepository.UserAccountsRepository;
 
 namespace Service.UsersService.LoginService
 {
     public class LoginService
     {
-        private readonly EmployeeAccountRepository employeeAccountRepository;
-        private readonly PatientAccountRepository patientAccountRepository;
+        private readonly RepositoryWrapper<EmployeeAccountRepository> employeeAccountRepository;
+        private readonly RepositoryWrapper<PatientAccountRepository> patientAccountRepository;
 
-        public LoginService(PatientAccountRepository patientAccountRepository,
-            EmployeeAccountRepository employeeAccountRepository)
+        public LoginService(RepositoryWrapper<PatientAccountRepository> patientAccountRepository,
+            RepositoryWrapper<EmployeeAccountRepository> employeeAccountRepository)
         {
             this.patientAccountRepository = patientAccountRepository;
             this.employeeAccountRepository = employeeAccountRepository;
@@ -22,22 +23,22 @@ namespace Service.UsersService.LoginService
 
         public PatientAccount LogInPatient(string username, string password)
         {
-            return patientAccountRepository.GetByUsernameAndPassword(username, password);
+            return patientAccountRepository.Repository.GetByUsernameAndPassword(username, password);
         }
 
         public EmployeeAccount LogInDoctor(string username, string password)
         {
-            return employeeAccountRepository.GetByUsernameAndPassword(username, password);
+            return employeeAccountRepository.Repository.GetByUsernameAndPassword(username, password);
         }
 
         public EmployeeAccount LogInSecretary(string username, string password)
         {
-            return employeeAccountRepository.GetByUsernameAndPassword(username, password);
+            return employeeAccountRepository.Repository.GetByUsernameAndPassword(username, password);
         }
 
         public EmployeeAccount LogInDirector(string username, string password)
         {
-            return employeeAccountRepository.GetByUsernameAndPassword(username, password);
+            return employeeAccountRepository.Repository.GetByUsernameAndPassword(username, password);
         }
     }
 }

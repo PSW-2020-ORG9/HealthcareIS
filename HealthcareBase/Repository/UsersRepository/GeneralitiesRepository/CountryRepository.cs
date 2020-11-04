@@ -8,7 +8,7 @@ using Repository.Generics;
 
 namespace Repository.UsersRepository.GeneralitiesRepository
 {
-    public interface CountryRepository : Repository<Country, int>
+    public interface CountryRepository : IWrappableRepository<Country, int>
     {
     }
 }

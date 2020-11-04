@@ -4,13 +4,17 @@
 // Purpose: Definition of Class HospitalizationNotification
 
 using Model.Schedule.Hospitalizations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Notifications
 {
     public class HospitalizationNotification : Notification
     {
+        [ForeignKey("Hospitalization")]
+        public int HospitalizationId { get; set; }
         public Hospitalization Hospitalization { get; set; }
 
+        [Column(TypeName = "nvarchar(24)")]
         public HospitalizationUpdateType UpdateType { get; set; }
     }
 }

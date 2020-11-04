@@ -3,14 +3,18 @@
 // Created: 20 April 2020 17:55:19
 // Purpose: Definition of Class EmploymentInformation
 
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Users.Patient.EmploymentHistory
 {
+    [Owned]
     public class EmploymentInformation
     {
         private List<Employment> employmentHistory;
 
+        [Column(TypeName = "nvarchar(24)")]
         public EmploymentStatus EmploymentStatus { get; set; }
 
         public IEnumerable<Employment> EmploymentHistory

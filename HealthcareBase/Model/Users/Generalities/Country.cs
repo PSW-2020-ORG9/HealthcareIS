@@ -4,6 +4,7 @@
 // Purpose: Definition of Class Country
 
 using Repository.Generics;
+using System.ComponentModel.DataAnnotations;
 
 namespace Model.Users.Generalities
 {
@@ -13,6 +14,7 @@ namespace Model.Users.Generalities
 
         public string Code { get; set; }
 
+        [Key]
         public int Id { get; set; }
 
         public int GetKey()

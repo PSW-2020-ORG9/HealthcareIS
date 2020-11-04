@@ -4,13 +4,17 @@
 // Purpose: Definition of Class ProcedureNotification
 
 using Model.Schedule.Procedures;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Notifications
 {
     public class ProcedureNotification : Notification
     {
+        [ForeignKey("Procedure")]
+        public int ProcedureId { get; set; }
         public Procedure Procedure { get; set; }
 
+        [Column(TypeName = "nvarchar(24)")]
         public ProcedureUpdateType UpdateType { get; set; }
     }
 }

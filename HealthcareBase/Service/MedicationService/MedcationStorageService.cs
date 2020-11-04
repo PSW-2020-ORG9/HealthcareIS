@@ -6,42 +6,43 @@
 using System;
 using Model.Medication;
 using Model.StorageRecords;
+using Repository.Generics;
 using Repository.MedicationRepository;
 
 namespace Service.MedicationService
 {
     public class MedcationStorageService
     {
-        private readonly MedicationStorageRepository medicatonStorageRepository;
+        private readonly RepositoryWrapper<MedicationStorageRepository> medicatonStorageRepository;
 
-        public MedcationStorageService(MedicationStorageRepository medicatonStorageRepository)
+        public MedcationStorageService(RepositoryWrapper<MedicationStorageRepository> medicatonStorageRepository)
         {
             this.medicatonStorageRepository = medicatonStorageRepository;
         }
 
         public int GetCurrentAmount(Medication medication)
         {
-            var record = medicatonStorageRepository.GetByMedication(medication);
+            var record = medicatonStorageRepository.Repository.GetByMedication(medication);
             return record.AvailableAmount;
         }
 
         public int IncreaseAmount(Medication medication, int amount)
         {
-            var record = medicatonStorageRepository.GetByMedication(medication);
+            var record = medicatonStorageRepository.Repository.GetByMedication(medication);
             record.AvailableAmount += amount;
             var amountChangeRecord = new AmountChangeRecord {Amount = record.AvailableAmount, Date = DateTime.Now};
             record.AddSupplyHistory(amountChangeRecord);
-            medicatonStorageRepository.Update(record);
+            medicatonStorageRepository.Repository.Update(record);
             return record.AvailableAmount;
         }
 
         public int DecreaseAmount(Medication medication, int amount)
         {
-            var record = medicatonStorageRepository.GetByMedication(medication);
+            var record = medicatonStorageRepository.Repository.GetByMedication(medication);
             record.AvailableAmount -= amount;
             var amountChangeRecord = new AmountChangeRecord {Amount = record.AvailableAmount, Date = DateTime.Now};
             record.AddUsageHistory(amountChangeRecord);
-            medicatonStorageRepository.Update(record);
+            medicatonStorageRepository.Repository.Update(record);
             return record.AvailableAmount;
         }
     }

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using Model.Requests;
 using Model.StorageRecords;
 using Model.Users.Employee;
+using Repository.Generics;
 using Repository.MedicationRepository;
 using Repository.RequestRepository;
 
@@ -15,14 +16,17 @@ namespace Service.MedicationService
 {
     public class MedicationInputService
     {
-        private readonly MedicationInputRequestRepository medicationInputRequestRepository;
-        private readonly MedicationRepository medicationRepository;
-        private readonly MedicationStorageRepository medicationStorageRepository;
+        private readonly RepositoryWrapper<MedicationInputRequestRepository> medicationInputRequestRepository;
+        private readonly RepositoryWrapper<MedicationRepository> medicationRepository;
+        private readonly RepositoryWrapper<MedicationStorageRepository> medicationStorageRepository;
         private readonly NotificationService.NotificationService notificationService;
 
-        public MedicationInputService(MedicationInputRequestRepository medicationInputRequestRepository,
-            MedicationRepository medicationRepository, NotificationService.NotificationService notificationService,
-            MedicationStorageRepository medicationStorageRepository)
+        public MedicationInputService(
+            RepositoryWrapper<MedicationInputRequestRepository> medicationInputRequestRepository,
+            RepositoryWrapper<MedicationRepository> medicationRepository,
+            NotificationService.NotificationService notificationService,
+            RepositoryWrapper<MedicationStorageRepository> medicationStorageRepository
+            )
         {
             this.medicationInputRequestRepository = medicationInputRequestRepository;
             this.medicationRepository = medicationRepository;
@@ -48,7 +52,7 @@ namespace Service.MedicationService
                 Sender = requestInput.Sender,
                 CreationDate = DateTime.Now
             };
-            medicationInputRequestRepository.Create(inputRequest);
+            medicationInputRequestRepository.Repository.Create(inputRequest);
             return inputRequest;
         }
 
@@ -57,28 +61,28 @@ namespace Service.MedicationService
             var inputRequest = requestUpdate.InputRequest;
             ChangeRequestFileds(requestUpdate, RequestStatus.Approved);
             var newMedication = inputRequest.Medication;
-            medicationRepository.Create(newMedication);
-            medicationStorageRepository.Create(new MedicationStorageRecord
+            medicationRepository.Repository.Create(newMedication);
+            medicationStorageRepository.Repository.Create(new MedicationStorageRecord
                 {Medication = newMedication, AvailableAmount = 0});
-            medicationInputRequestRepository.Update(inputRequest);
+            medicationInputRequestRepository.Repository.Update(inputRequest);
         }
 
         public void DeclineInput(MedicationInputRequestUpdateDTO requestUpdate)
         {
             var inputRequest = requestUpdate.InputRequest;
             ChangeRequestFileds(requestUpdate, RequestStatus.Rejected);
-            medicationInputRequestRepository.Update(inputRequest);
+            medicationInputRequestRepository.Repository.Update(inputRequest);
             notificationService.Notify(inputRequest);
         }
 
         public IEnumerable<MedicationInputRequest> GetAllRejectedRequests()
         {
-            return medicationInputRequestRepository.GetAllRejectedRequests();
+            return medicationInputRequestRepository.Repository.GetAllRejectedRequests();
         }
 
         public IEnumerable<MedicationInputRequest> GetAllPendingRequests(Doctor reviewerSpecialty)
         {
-            return medicationInputRequestRepository.GetAllPendingRequests(reviewerSpecialty);
+            return medicationInputRequestRepository.Repository.GetAllPendingRequests(reviewerSpecialty);
         }
     }
 }

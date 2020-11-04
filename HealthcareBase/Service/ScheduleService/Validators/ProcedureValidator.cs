@@ -3,6 +3,7 @@ using Model.CustomExceptions;
 using Model.HospitalResources;
 using Model.Schedule.Procedures;
 using Model.Users.Employee;
+using Repository.Generics;
 using Repository.HospitalResourcesRepository;
 using Repository.ScheduleRepository.ProceduresRepository;
 using Repository.UsersRepository.EmployeesAndPatientsRepository;
@@ -11,15 +12,17 @@ namespace Service.ScheduleService.Validators
 {
     public class ProcedureValidator
     {
-        private readonly DoctorRepository doctorRepository;
-        private readonly ExaminationRepository examinationRepository;
-        private readonly PatientRepository patientRepository;
-        private readonly ProcedureTypeRepository procedureTypeRepository;
-        private readonly RoomRepository roomRepository;
+        private readonly RepositoryWrapper<DoctorRepository> doctorRepository;
+        private readonly RepositoryWrapper<ExaminationRepository> examinationRepository;
+        private readonly RepositoryWrapper<PatientRepository> patientRepository;
+        private readonly RepositoryWrapper<ProcedureTypeRepository> procedureTypeRepository;
+        private readonly RepositoryWrapper<RoomRepository> roomRepository;
 
-        public ProcedureValidator(DoctorRepository doctorRepository, RoomRepository roomRepository,
-            PatientRepository patientRepository,
-            ProcedureTypeRepository procedureTypeRepository, ExaminationRepository examinationRepository)
+        public ProcedureValidator(RepositoryWrapper<DoctorRepository> doctorRepository,
+            RepositoryWrapper<RoomRepository> roomRepository,
+            RepositoryWrapper<PatientRepository> patientRepository,
+            RepositoryWrapper<ProcedureTypeRepository> procedureTypeRepository,
+            RepositoryWrapper<ExaminationRepository> examinationRepository)
         {
             this.doctorRepository = doctorRepository;
             this.roomRepository = roomRepository;
@@ -57,12 +60,12 @@ namespace Service.ScheduleService.Validators
         {
             try
             {
-                procedure.Doctor = doctorRepository.GetByID(procedure.Doctor.GetKey());
-                procedure.Room = roomRepository.GetByID(procedure.Room.GetKey());
-                procedure.Patient = patientRepository.GetByID(procedure.Patient.GetKey());
-                procedure.ProcedureType = procedureTypeRepository.GetByID(procedure.ProcedureType.GetKey());
+                procedure.Doctor = doctorRepository.Repository.GetByID(procedure.Doctor.GetKey());
+                procedure.Room = roomRepository.Repository.GetByID(procedure.Room.GetKey());
+                procedure.Patient = patientRepository.Repository.GetByID(procedure.Patient.GetKey());
+                procedure.ProcedureType = procedureTypeRepository.Repository.GetByID(procedure.ProcedureType.GetKey());
                 if (procedure.ReferredFrom != null)
-                    procedure.ReferredFrom = examinationRepository.GetByID(procedure.ReferredFrom.GetKey());
+                    procedure.ReferredFrom = examinationRepository.Repository.GetByID(procedure.ReferredFrom.GetKey());
             }
             catch (BadRequestException)
             {
