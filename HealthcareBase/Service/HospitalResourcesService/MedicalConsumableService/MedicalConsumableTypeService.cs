@@ -21,7 +21,7 @@ namespace Service.HospitalResourcesService.MedicalConsumableService
             MedicalConsumableRepository medicalConsumableRepository)
         {
             this.medicalConsumableTypeRepository =
-                new RepositoryWrapper<MedicalConsumableTypeRepository>(medicalConsumableRepository);
+                new RepositoryWrapper<MedicalConsumableTypeRepository>(medicalConsumableTypeRepository);
             this.medicalConsumableRepository =
                 new RepositoryWrapper<MedicalConsumableRepository>(medicalConsumableRepository);
         }

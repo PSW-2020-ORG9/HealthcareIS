@@ -27,7 +27,8 @@ namespace Service.ScheduleService.HospitalizationService
         public HospitalizationService(
             HospitalizationRepository hospitalizationRepository,
             HospitalizationValidator hospitalizationValidator,
-            NotificationService.NotificationService notificationService, TimeSpan timeLimit)
+            NotificationService.NotificationService notificationService,
+            TimeSpan timeLimit)
         {
             this.hospitalizationRepository =
                 new RepositoryWrapper<HospitalizationRepository>(hospitalizationRepository);
