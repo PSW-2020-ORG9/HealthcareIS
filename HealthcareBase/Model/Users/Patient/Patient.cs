@@ -12,10 +12,7 @@ namespace Model.Users.Patient
 {
     public class Patient : Person, Entity<int>
     {
-        public Patient()
-        {
-            MedicalHistory = new MedicalHistory.MedicalHistory();
-        }
+        public Patient(){}
 
         public string InsuranceNumber { get; set; }
 

@@ -28,5 +28,19 @@ namespace HospitalWebApp.Controllers
         {
             return Ok(_userFeedbackService.Update(userFeedback));
         }
+
+        [HttpPost]
+        public IActionResult Post(UserFeedback userFeedback)
+        {
+            Console.WriteLine(userFeedback.UserComment);
+            _userFeedbackService.Create(userFeedback);
+            return Ok();
+        }
+
+        [HttpGet]
+        public IActionResult Get()
+        {
+            return Ok();
+        }
     }
 }
