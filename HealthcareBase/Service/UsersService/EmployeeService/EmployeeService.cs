@@ -13,9 +13,9 @@ namespace Service.UsersService.EmployeeService
     {
         private readonly RepositoryWrapper<EmployeeRepository> employeeRepository;
 
-        public EmployeeService(RepositoryWrapper<EmployeeRepository> employeeRepository)
+        public EmployeeService(EmployeeRepository employeeRepository)
         {
-            this.employeeRepository = employeeRepository;
+            this.employeeRepository = new RepositoryWrapper<EmployeeRepository>(employeeRepository);
         }
 
         public Employee GetByID(int id)

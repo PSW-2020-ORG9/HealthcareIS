@@ -4,7 +4,6 @@
 // Purpose: Definition of Class EquipmentService
 
 using System.Collections.Generic;
-using System.Linq;
 using Model.CustomExceptions;
 using Model.HospitalResources;
 using Repository.Generics;
@@ -19,13 +18,15 @@ namespace Service.HospitalResourcesService.EquipmentService
         private readonly RepositoryWrapper<EquipmentUnitRepository> equipmentUnitRepository;
         private readonly RepositoryWrapper<HospitalizationRepository> hospitalizationRepository;
 
-        public EquipmentService(RepositoryWrapper<EquipmentUnitRepository> equipmentUnitRepository,
-            RepositoryWrapper<EquipmentTypeRepository> equipmentTypeRepository,
-            RepositoryWrapper<HospitalizationRepository> hospitalizationRepository)
+        public EquipmentService(
+            EquipmentUnitRepository equipmentUnitRepository,
+            EquipmentTypeRepository equipmentTypeRepository,
+            HospitalizationRepository hospitalizationRepository)
         {
-            this.equipmentUnitRepository = equipmentUnitRepository;
-            this.equipmentTypeRepository = equipmentTypeRepository;
-            this.hospitalizationRepository = hospitalizationRepository;
+            this.equipmentUnitRepository = new RepositoryWrapper<EquipmentUnitRepository>(equipmentUnitRepository);
+            this.equipmentTypeRepository = new RepositoryWrapper<EquipmentTypeRepository>(equipmentTypeRepository);
+            this.hospitalizationRepository =
+                new RepositoryWrapper<HospitalizationRepository>(hospitalizationRepository);
         }
 
         public EquipmentUnit GetByID(int id)

@@ -12,11 +12,11 @@ namespace Service.UsersService.UserFeedbackService
 {
     public class UserFeedbackService
     {
-        private readonly RepositoryWrapper<UserFeedbackSqlRepository> userFeedbackRepository;
+        private readonly RepositoryWrapper<UserFeedbackRepository> userFeedbackRepository;
 
-        public UserFeedbackService(RepositoryWrapper<UserFeedbackSqlRepository> userFeedbackRepository)
+        public UserFeedbackService(UserFeedbackRepository repository)
         {
-            this.userFeedbackRepository = userFeedbackRepository;
+            userFeedbackRepository = new RepositoryWrapper<UserFeedbackRepository>(repository);
         }
 
         public IEnumerable<UserFeedback> GetAll()

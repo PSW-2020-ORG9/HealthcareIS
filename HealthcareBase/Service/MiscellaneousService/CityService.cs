@@ -14,9 +14,9 @@ namespace Service.MiscellaneousService
     {
         private readonly RepositoryWrapper<CityRepository> cityRepository;
 
-        public CityService(RepositoryWrapper<CityRepository> cityRepository)
+        public CityService(CityRepository cityRepository)
         {
-            this.cityRepository = cityRepository;
+            this.cityRepository = new RepositoryWrapper<CityRepository>(cityRepository);
         }
 
         public City GetByID(int id)

@@ -17,15 +17,17 @@ namespace Service.ScheduleService.Validators
         private readonly RepositoryWrapper<PatientRepository> patientRepository;
         private readonly RepositoryWrapper<RoomRepository> roomRepository;
 
-        public HospitalizationValidator(RepositoryWrapper<RoomRepository> roomRepository,
-            RepositoryWrapper<EquipmentUnitRepository> equipmentUnitRepository,
-            RepositoryWrapper<PatientRepository> patientRepository,
-            RepositoryWrapper<HospitalizationTypeRepository> hospitalizationTypeRepository)
+        public HospitalizationValidator(
+            RoomRepository roomRepository,
+            EquipmentUnitRepository equipmentUnitRepository,
+            PatientRepository patientRepository,
+            HospitalizationTypeRepository hospitalizationTypeRepository)
         {
-            this.roomRepository = roomRepository;
-            this.equipmentUnitRepository = equipmentUnitRepository;
-            this.patientRepository = patientRepository;
-            this.hospitalizationTypeRepository = hospitalizationTypeRepository;
+            this.roomRepository = new RepositoryWrapper<RoomRepository>(roomRepository);
+            this.equipmentUnitRepository = new RepositoryWrapper<EquipmentUnitRepository>(equipmentUnitRepository);
+            this.patientRepository = new RepositoryWrapper<PatientRepository>(patientRepository);
+            this.hospitalizationTypeRepository =
+                new RepositoryWrapper<HospitalizationTypeRepository>(hospitalizationTypeRepository);
         }
 
         public void ValidateHospitalization(Hospitalization hospitalization)

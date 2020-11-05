@@ -3,7 +3,6 @@
 // Created: 27 May 2020 19:02:37
 // Purpose: Definition of Class BlogAuthorService
 
-using System;
 using System.Collections.Generic;
 using Model.Blog;
 using Model.CustomExceptions;
@@ -17,14 +16,9 @@ namespace Service.BlogService
     {
         private readonly RepositoryWrapper<BlogAuthorRepository> blogAuthorRepository;
 
-        static BlogAuthorService()
+        public BlogAuthorService(BlogAuthorRepository blogAuthorRepository)
         {
-            Console.WriteLine("Hello I am working");
-        }
-
-        public BlogAuthorService(RepositoryWrapper<BlogAuthorRepository> blogAuthorRepository)
-        {
-            this.blogAuthorRepository = blogAuthorRepository;
+            this.blogAuthorRepository = new RepositoryWrapper<BlogAuthorRepository>(blogAuthorRepository);
         }
 
         public BlogAuthor GetByID(int id)

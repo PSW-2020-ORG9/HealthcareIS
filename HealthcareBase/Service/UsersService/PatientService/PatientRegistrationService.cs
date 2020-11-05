@@ -17,11 +17,12 @@ namespace Service.UsersService.PatientService
         private readonly RepositoryWrapper<PatientAccountRepository> patientAccountRepository;
         private readonly RepositoryWrapper<PatientRepository> patientRepository;
 
-        public PatientRegistrationService(RepositoryWrapper<PatientAccountRepository> patientAccountRepository,
-            RepositoryWrapper<PatientRepository> patientRepository)
+        public PatientRegistrationService(
+            PatientAccountRepository patientAccountRepository,
+            PatientRepository patientRepository)
         {
-            this.patientAccountRepository = patientAccountRepository;
-            this.patientRepository = patientRepository;
+            this.patientAccountRepository = new RepositoryWrapper<PatientAccountRepository>(patientAccountRepository);
+            this.patientRepository = new RepositoryWrapper<PatientRepository>(patientRepository);
         }
 
         public bool IsRegistered(string jmbg)

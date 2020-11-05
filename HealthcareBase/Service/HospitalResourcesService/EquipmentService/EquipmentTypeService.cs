@@ -21,14 +21,16 @@ namespace Service.HospitalResourcesService.EquipmentService
         private readonly RepositoryWrapper<HospitalizationTypeRepository> hospitalizationTypeRepository;
         private readonly RepositoryWrapper<ProcedureTypeRepository> procedureTypeRepository;
 
-        public EquipmentTypeService(RepositoryWrapper<EquipmentTypeRepository> equipmentTypeRepository,
-            RepositoryWrapper<HospitalizationTypeRepository> hospitalizationTypeRepository,
-            RepositoryWrapper<ProcedureTypeRepository> procedureTypeRepository,
+        public EquipmentTypeService(
+            EquipmentTypeRepository equipmentTypeRepository,
+            HospitalizationTypeRepository hospitalizationTypeRepository,
+            ProcedureTypeRepository procedureTypeRepository,
             EquipmentService equipmentService)
         {
-            this.equipmentTypeRepository = equipmentTypeRepository;
-            this.hospitalizationTypeRepository = hospitalizationTypeRepository;
-            this.procedureTypeRepository = procedureTypeRepository;
+            this.equipmentTypeRepository = new RepositoryWrapper<EquipmentTypeRepository>(equipmentTypeRepository);
+            this.hospitalizationTypeRepository =
+                new RepositoryWrapper<HospitalizationTypeRepository>(hospitalizationTypeRepository);
+            this.procedureTypeRepository = new RepositoryWrapper<ProcedureTypeRepository>(procedureTypeRepository);
             this.equipmentService = equipmentService;
         }
 
