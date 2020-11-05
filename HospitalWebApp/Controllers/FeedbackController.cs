@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EntityFramework.Exceptions.Common;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -32,14 +33,14 @@ namespace HospitalWebApp.Controllers
         [HttpPost]
         public IActionResult Post(UserFeedback userFeedback)
         {
-            Console.WriteLine(userFeedback.UserComment);
-            _userFeedbackService.Create(userFeedback);
-            return Ok();
-        }
-
-        [HttpGet]
-        public IActionResult Get()
-        {
+            try
+            {
+                _userFeedbackService.Create(userFeedback);
+            }
+            catch(ReferenceConstraintException e)
+            {
+                return BadRequest("ReferenceConstraintException");
+            }
             return Ok();
         }
     }

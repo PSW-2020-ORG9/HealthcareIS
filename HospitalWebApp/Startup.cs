@@ -27,6 +27,12 @@ namespace HospitalWebApp
             RepositoryWrapper<UserFeedbackSqlRepository> userFeedbackRepository = new RepositoryWrapper<UserFeedbackSqlRepository>(new MySqlContextFactory(connectionString));
             services.Add(new ServiceDescriptor(typeof(UserFeedbackService), new UserFeedbackService(userFeedbackRepository)));
             services.AddControllers();
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            {
+                builder.AllowAnyOrigin();
+                builder.AllowAnyHeader();
+                builder.AllowAnyMethod();
+            }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,6 +42,8 @@ namespace HospitalWebApp
 
             app.UseRouting();
 
+            app.UseCors("MyPolicy");
+            
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
