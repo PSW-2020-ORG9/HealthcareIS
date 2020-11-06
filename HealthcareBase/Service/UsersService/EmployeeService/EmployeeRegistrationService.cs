@@ -19,28 +19,27 @@ namespace Service.UsersService.EmployeeService
         private readonly RepositoryWrapper<EmployeeAccountRepository> employeeAccountRepository;
         private readonly RepositoryWrapper<EmployeeRepository> employeeRepository;
 
-        public EmployeeRegistrationService(RepositoryWrapper<DoctorRepository> doctorRepository,
-            RepositoryWrapper<EmployeeRepository> employeeRepository, RepositoryWrapper<EmployeeAccountRepository> employeeAccountRepository)
+        public EmployeeRegistrationService(
+            DoctorRepository doctorRepository,
+            EmployeeRepository employeeRepository,
+            EmployeeAccountRepository employeeAccountRepository)
         {
-            this.doctorRepository = doctorRepository;
-            this.employeeRepository = employeeRepository;
-            this.employeeAccountRepository = employeeAccountRepository;
+            this.doctorRepository = new RepositoryWrapper<DoctorRepository>(doctorRepository);
+            this.employeeRepository = new RepositoryWrapper<EmployeeRepository>(employeeRepository);
+            this.employeeAccountRepository =
+                new RepositoryWrapper<EmployeeAccountRepository>(employeeAccountRepository);
         }
 
         public bool IsUsernameUnique(string username)
         {
             var accounts = employeeAccountRepository.Repository.GetAll();
-            if (accounts.Any(acc => acc.Username.Equals(username)))
-                return false;
-            return true;
+            return !accounts.Any(acc => acc.Username.Equals(username));
         }
 
         public bool IsRegistered(string jmbg)
         {
             var accounts = employeeAccountRepository.Repository.GetAll();
-            if (accounts.Any(acc => acc.Employee.Jmbg.Equals(jmbg)))
-                return true;
-            return false;
+            return accounts.Any(acc => acc.Employee.Jmbg.Equals(jmbg));
         }
 
         public EmployeeAccount RegisterDoctor(Doctor doctor, string username, string password)
@@ -89,7 +88,7 @@ namespace Service.UsersService.EmployeeService
 
             employeeAccountRepository.Repository.Delete(employeeAccount);
             employee.Status = EmployeeStatus.Former;
-            if (employee.GetType().Equals(typeof(Doctor)))
+            if (employee.GetType() == typeof(Doctor))
                 doctorRepository.Repository.Update((Doctor) employee);
             else
                 employeeRepository.Repository.Update(employee);

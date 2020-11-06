@@ -12,11 +12,11 @@ namespace Service.ScheduleService.ProcedureService
 {
     public class ProcedureTypeService
     {
-        private RepositoryWrapper<ProcedureTypeRepository> procedureTypeRepository;
+        private readonly RepositoryWrapper<ProcedureTypeRepository> procedureTypeRepository;
 
-        public ProcedureTypeService(RepositoryWrapper<ProcedureTypeRepository> procedureTypeRepository)
+        public ProcedureTypeService(ProcedureTypeRepository procedureTypeRepository)
         {
-            this.procedureTypeRepository = procedureTypeRepository;
+            this.procedureTypeRepository = new RepositoryWrapper<ProcedureTypeRepository>(procedureTypeRepository);
         }
 
         public ProcedureType GetPatientDefault()

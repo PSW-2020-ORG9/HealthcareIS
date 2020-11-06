@@ -14,9 +14,9 @@ namespace Service.MedicationService
     {
         private readonly RepositoryWrapper<MedicationRepository> medicationRepository;
 
-        public MedicationService(RepositoryWrapper<MedicationRepository> medicationRepository)
+        public MedicationService(MedicationRepository medicationRepository)
         {
-            this.medicationRepository = medicationRepository;
+            this.medicationRepository = new RepositoryWrapper<MedicationRepository>(medicationRepository);
         }
 
         public Medication GetByID(int id)

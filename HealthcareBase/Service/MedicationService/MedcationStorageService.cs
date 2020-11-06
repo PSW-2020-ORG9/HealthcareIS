@@ -15,9 +15,10 @@ namespace Service.MedicationService
     {
         private readonly RepositoryWrapper<MedicationStorageRepository> medicatonStorageRepository;
 
-        public MedcationStorageService(RepositoryWrapper<MedicationStorageRepository> medicatonStorageRepository)
+        public MedcationStorageService(MedicationStorageRepository medicatonStorageRepository)
         {
-            this.medicatonStorageRepository = medicatonStorageRepository;
+            this.medicatonStorageRepository =
+                new RepositoryWrapper<MedicationStorageRepository>(medicatonStorageRepository);
         }
 
         public int GetCurrentAmount(Medication medication)

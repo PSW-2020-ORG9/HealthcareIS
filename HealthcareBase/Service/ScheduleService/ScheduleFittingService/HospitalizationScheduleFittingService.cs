@@ -16,7 +16,8 @@ namespace Service.ScheduleService.ScheduleFittingService
         private readonly CurrentScheduleContext context;
         private readonly PreferenceToResourceConverter preferenceToResourceConverter;
 
-        public HospitalizationScheduleFittingService(CurrentScheduleContext context,
+        public HospitalizationScheduleFittingService(
+            CurrentScheduleContext context,
             PreferenceToResourceConverter preferenceToResourceConverter)
         {
             this.context = context;

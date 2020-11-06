@@ -14,9 +14,9 @@ namespace Service.MiscellaneousService
     {
         private readonly RepositoryWrapper<CountryRepository> countryRepository;
 
-        public CountryService(RepositoryWrapper<CountryRepository> countryRepository)
+        public CountryService(CountryRepository countryRepository)
         {
-            this.countryRepository = countryRepository;
+            this.countryRepository = new RepositoryWrapper<CountryRepository>(countryRepository);
         }
 
         public Country GetByID(int id)

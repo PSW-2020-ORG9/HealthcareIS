@@ -46,7 +46,8 @@ namespace Service.HospitalResourcesService.Validators
                 throw new ScheduleViolationException();
         }
 
-        private void ValidateComplianceWithRenovations(Renovation renovation,
+        private void ValidateComplianceWithRenovations(
+            Renovation renovation,
             Action<IEnumerable<Renovation>> throwIfConflicts)
         {
             var conflictsWithRenovations =
@@ -60,7 +61,9 @@ namespace Service.HospitalResourcesService.Validators
                 throw new ScheduleViolationException();
         }
 
-        private void ThrowIfReschedulingConflicts(Renovation renovation, IEnumerable<Renovation> conflictList)
+        private void ThrowIfReschedulingConflicts(
+            Renovation renovation,
+            IEnumerable<Renovation> conflictList)
         {
             if (conflictList.Count() == 0)
                 return;

@@ -17,13 +17,17 @@ namespace Service.HospitalResourcesService.MedicalConsumableService
         private readonly RepositoryWrapper<MedicalConsumableRepository> medicalConsumableRepository;
         private readonly RepositoryWrapper<MedicalConsumableTypeRepository> medicalConsumableTypeRepository;
 
-        public MedicalConsumableService(RepositoryWrapper<MedicalConsumableRepository> medicalConsumableRepository,
-            RepositoryWrapper<MedicalConsumableTypeRepository> medicalConsumableTypeRepository,
-            RepositoryWrapper<ConsumableStorageRecordRepository> consumableStorageRecordRepository)
+        public MedicalConsumableService(
+            MedicalConsumableRepository medicalConsumableRepository,
+            MedicalConsumableTypeRepository medicalConsumableTypeRepository,
+            ConsumableStorageRecordRepository consumableStorageRecordRepository)
         {
-            this.medicalConsumableRepository = medicalConsumableRepository;
-            this.medicalConsumableTypeRepository = medicalConsumableTypeRepository;
-            this.consumableStorageRecordRepository = consumableStorageRecordRepository;
+            this.medicalConsumableRepository =
+                new RepositoryWrapper<MedicalConsumableRepository>(medicalConsumableRepository);
+            this.medicalConsumableTypeRepository =
+                new RepositoryWrapper<MedicalConsumableTypeRepository>(medicalConsumableTypeRepository);
+            this.consumableStorageRecordRepository =
+                new RepositoryWrapper<ConsumableStorageRecordRepository>(consumableStorageRecordRepository);
         }
 
         public MedicalConsumable GetByID(int id)
@@ -38,7 +42,8 @@ namespace Service.HospitalResourcesService.MedicalConsumableService
 
         public MedicalConsumable Create(MedicalConsumable medicalConsumable)
         {
-            var typeExists = medicalConsumableTypeRepository.Repository.ExistsByID(medicalConsumable.ConsumableType.GetKey());
+            var typeExists =
+                medicalConsumableTypeRepository.Repository.ExistsByID(medicalConsumable.ConsumableType.GetKey());
             if (!typeExists)
                 medicalConsumable.ConsumableType =
                     medicalConsumableTypeRepository.Repository.Create(medicalConsumable.ConsumableType);
