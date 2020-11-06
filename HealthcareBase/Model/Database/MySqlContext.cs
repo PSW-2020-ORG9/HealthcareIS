@@ -18,6 +18,8 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
+using EntityFramework.Exceptions.MySQL.Pomelo;
+using Model.Users.Patient.MedicalHistory;
 
 namespace HealthcareBase.Model.Database
 {
@@ -25,13 +27,20 @@ namespace HealthcareBase.Model.Database
     {
         private readonly string _connectionString;
 
+        public MySqlContext()
+        {
+            this._connectionString = "server=localhost;port=3306;database=psw;user=root;password=password";
+        }
+
         public MySqlContext(string connectionString)
         {
             this._connectionString = connectionString;
         }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseMySql(_connectionString);
+            optionsBuilder.UseExceptionProcessor();
         }
 
         public DbSet<BlogAuthor> BlogAuthors { get; set; }
@@ -73,8 +82,17 @@ namespace HealthcareBase.Model.Database
         public DbSet<PatientAccount> PatientAccounts { get; set; }
         public DbSet<PatientSurveyResponse> PatientSurveyResponses { get; set; }
         public DbSet<UserFeedback> UserFeedbacks { get; set; }
-
+        
+        
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            SetRelations(modelBuilder);
+
+            SeedData(modelBuilder);
+        }
+
+        private static void SetRelations(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Room>()
                 .HasMany(r => r.Equipment)
@@ -90,8 +108,42 @@ namespace HealthcareBase.Model.Database
                 .HasMany(e => e.Prescriptions)
                 .WithOne(p => p.Examination)
                 .OnDelete(DeleteBehavior.SetNull);
-
         }
 
+        private static void SeedData(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Country>().HasData(
+                new {Name = "Serbia", Code = "381", Id = 1},
+                new {Name = "Macedonia", Code = "389", Id = 2},
+                new {Name = "Albania", Code = "355", Id = 3},
+                new {Name = "Montenegro", Code = "382", Id = 4}
+            );
+            modelBuilder.Entity<City>().HasData(
+                new City() {Name = "Novi Sad", PostalCode = "21000", Id = 1, CountryId = 1},
+                new City() {Name = "Belgrade", PostalCode = "11000", Id = 2, CountryId = 1},
+                new City() {Name = "Skopje", Id = 3, CountryId = 2}
+            );
+            modelBuilder.Entity<Patient>(patient =>
+            {
+                patient.HasData(
+                    new Patient()
+                    {
+                        Name = "Milos", Surname = "Milanovic", CityOfResidenceId = 1, MedicalRecordID = 1, CityOfBirthId = 1
+                    }
+                );
+                patient.OwnsOne(e => e.MedicalHistory).HasData(new
+                {
+                    PatientMedicalRecordID = 1
+                });
+            });
+            modelBuilder.Entity<PatientAccount>().HasData(
+                new PatientAccount()
+                    {PatientId = 1, RespondedToSurvey = false, Username = "milosmilanovic", Password = "password", Id = 1}
+            );
+            modelBuilder.Entity<UserFeedback>().HasData(
+                new UserFeedback() {Date = DateTime.Now, UserComment = "odlicno", UserId = 1, Id = 1},
+                new UserFeedback() {Date = DateTime.Now, UserComment = "bravo", UserId = 1, Id = 2}
+            );
+        }
     }
 }
