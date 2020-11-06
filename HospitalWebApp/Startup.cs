@@ -45,10 +45,12 @@ namespace HospitalWebApp
             app.UseRouting();
 
             app.UseCors("MyPolicy");
-            
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+
+            
         }
 
         private void AddService(IServiceCollection services, Type serviceClass, Type repositoryClass)
