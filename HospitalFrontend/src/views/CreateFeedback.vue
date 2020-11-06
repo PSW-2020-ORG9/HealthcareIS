@@ -10,14 +10,14 @@
       </div>
       <div class="col-sm offset-md-1 d-flex justify-content-start">
         <div class="form-group">
-          <input type="checkbox" class="form-check-input" id="public-feedback">
-          <label class="form-check-label" for="public-feedback">Public</label>
         </div>
+          <input type="checkbox" class="form-check-input" id="public-feedback" v-model="ispublic" >
+          <label class="form-check-label" for="public-feedback" >Public</label>
       </div>
       <div class="col-sm offset-md-1 d-flex justify-content-start">
         <div class="form-group">
-          <input type="checkbox" class="form-check-input" id="anon-feedback">
-          <label class="form-check-label" for="anon-feedback">Send anonimously</label>
+          <input type="checkbox" class="form-check-input" id="anon-feedback" v-model="isanonymous" >
+          <label class="form-check-label" for="anon-feedback" >Send anonimously</label>
         </div>
       </div>
       <button :disabled="!feedbackContent" type="submit" class="btn submit-btn" @click="onSubmit()" >Submit</button>
@@ -37,8 +37,8 @@
     data: function () {
       return {
         feedbackContent: "",
-        anonymous: false,
-        public: false,
+        isanonymous: false,
+        ispublic: false,
         userId: 1,
         buttonEnabled: false
 
@@ -82,8 +82,8 @@
         var userFeedback = {
           Date: new Date(),
           UserComment: this.feedbackContent,
-          isPublic: this.public,
-          isAnonymous: this.isAnonymous,
+          isPublic: this.ispublic,
+          isAnonymous: this.isanonymous,
           UserId: this.userId
         }
 
