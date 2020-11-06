@@ -36,5 +36,12 @@ namespace HospitalWebApp.Controllers
 
             return Ok();
         }
+
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            return Ok(_userFeedbackService.GetAll());
+
+        }
     }
 }
