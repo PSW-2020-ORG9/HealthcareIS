@@ -17,10 +17,10 @@ namespace Service.BlogService
         private readonly RepositoryWrapper<BlogAuthorRepository> blogAuthorRepository;
         private readonly RepositoryWrapper<BlogPostRepository> blogPostRepository;
 
-        public BlogPostService(RepositoryWrapper<BlogPostRepository> blogPostRepository, RepositoryWrapper<BlogAuthorRepository> blogAuthorRepository)
+        public BlogPostService(BlogPostRepository blogPostRepository, BlogAuthorRepository blogAuthorRepository)
         {
-            this.blogPostRepository = blogPostRepository;
-            this.blogAuthorRepository = blogAuthorRepository;
+            this.blogPostRepository = new RepositoryWrapper<BlogPostRepository>(blogPostRepository);
+            this.blogAuthorRepository = new RepositoryWrapper<BlogAuthorRepository>(blogAuthorRepository);
         }
 
         public BlogPost GetByID(int id)

@@ -21,16 +21,18 @@ namespace Service.UsersService.PatientService
         private readonly RepositoryWrapper<PatientRepository> patientRepository;
         private readonly RepositoryWrapper<SurgeryRepository> surgeryRepository;
 
-        public PatientService(RepositoryWrapper<PatientRepository> patientRepository,
-            RepositoryWrapper<ExaminationRepository> examinationRepository,
-            RepositoryWrapper<SurgeryRepository> surgeryRepository,
-            RepositoryWrapper<HospitalizationRepository> hospitalizationRepository,
+        public PatientService(
+            PatientRepository patientRepository,
+            ExaminationRepository examinationRepository,
+            SurgeryRepository surgeryRepository,
+            HospitalizationRepository hospitalizationRepository,
             PatientAccountService patientAccountService)
         {
-            this.patientRepository = patientRepository;
-            this.examinationRepository = examinationRepository;
-            this.surgeryRepository = surgeryRepository;
-            this.hospitalizationRepository = hospitalizationRepository;
+            this.patientRepository = new RepositoryWrapper<PatientRepository>(patientRepository);
+            this.examinationRepository = new RepositoryWrapper<ExaminationRepository>(examinationRepository);
+            this.surgeryRepository = new RepositoryWrapper<SurgeryRepository>(surgeryRepository);
+            this.hospitalizationRepository =
+                new RepositoryWrapper<HospitalizationRepository>(hospitalizationRepository);
             this.patientAccountService = patientAccountService;
         }
 

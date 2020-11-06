@@ -18,13 +18,14 @@ namespace Service.ScheduleService.ProcedureService
     {
         private readonly RepositoryWrapper<SurgeryRepository> surgeryRepository;
 
-        public SurgeryService(RepositoryWrapper<SurgeryRepository> surgeryRepository,
+        public SurgeryService(
+            SurgeryRepository surgeryRepository,
             NotificationService.NotificationService notificationService,
             ProcedureScheduleComplianceValidator scheduleValidator, ProcedureValidator procedureValidator,
-            TimeSpan timeLimit) :
-            base(notificationService, scheduleValidator, procedureValidator, timeLimit)
+            TimeSpan timeLimit
+        ) : base(notificationService, scheduleValidator, procedureValidator, timeLimit)
         {
-            this.surgeryRepository = surgeryRepository;
+            this.surgeryRepository = new RepositoryWrapper<SurgeryRepository>(surgeryRepository);
         }
 
         public override Surgery GetByID(int id)
@@ -39,7 +40,8 @@ namespace Service.ScheduleService.ProcedureService
 
         public IEnumerable<Surgery> GetByDate(DateTime date)
         {
-            return surgeryRepository.Repository.GetMatching(surgery => surgery.TimeInterval.Start.Date.Equals(date.Date));
+            return surgeryRepository.Repository.GetMatching(
+                surgery => surgery.TimeInterval.Start.Date.Equals(date.Date));
         }
 
         public IEnumerable<Surgery> GetByDoctorAndTime(Doctor doctor, TimeInterval time)

@@ -20,10 +20,12 @@ namespace Service.HospitalResourcesService.RoomService
         private readonly RenovationValidator renovationValidator;
         private readonly TimeSpan timeLimit;
 
-        public RenovationService(RepositoryWrapper<RenovationRepository> renovationRepository, RenovationValidator renovationValidator,
+        public RenovationService(
+            RenovationRepository renovationRepository,
+            RenovationValidator renovationValidator,
             TimeSpan timeLimit)
         {
-            this.renovationRepository = renovationRepository;
+            this.renovationRepository = new RepositoryWrapper<RenovationRepository>(renovationRepository);
             this.renovationValidator = renovationValidator;
             this.timeLimit = timeLimit;
         }

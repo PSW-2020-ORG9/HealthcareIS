@@ -14,9 +14,9 @@ namespace Service.MiscellaneousService
     {
         private readonly RepositoryWrapper<DiagnosisRepository> diagnosisRepository;
 
-        public DiagnosisService(RepositoryWrapper<DiagnosisRepository> diagnosisRepository)
+        public DiagnosisService(DiagnosisRepository diagnosisRepository)
         {
-            this.diagnosisRepository = diagnosisRepository;
+            this.diagnosisRepository = new RepositoryWrapper<DiagnosisRepository>(diagnosisRepository);
         }
 
         public Diagnosis GetByID(string id)

@@ -31,23 +31,25 @@ namespace Service.HospitalResourcesService.RoomService
         private readonly RepositoryWrapper<RoomRepository> roomRepository;
         private readonly RepositoryWrapper<SurgeryRepository> surgeryRepository;
 
-        public RoomService(RepositoryWrapper<RoomRepository> roomRepository,
-            RepositoryWrapper<RenovationRepository> renovationRepository,
-            RepositoryWrapper<EquipmentUnitRepository> equipmentUnitRepository,
-            RepositoryWrapper<DepartmentRepository> departmentRepository,
+        public RoomService(
+            RoomRepository roomRepository,
+            RenovationRepository renovationRepository,
+            EquipmentUnitRepository equipmentUnitRepository,
+            DepartmentRepository departmentRepository,
             CurrentScheduleContext currentScheduleContext,
-            RepositoryWrapper<ExaminationRepository> examinationRepository,
-            RepositoryWrapper<SurgeryRepository> surgeryRepository,
-            RepositoryWrapper<HospitalizationRepository> hospitalizationRepository)
+            ExaminationRepository examinationRepository,
+            SurgeryRepository surgeryRepository,
+            HospitalizationRepository hospitalizationRepository)
         {
-            this.roomRepository = roomRepository;
-            this.renovationRepository = renovationRepository;
-            this.equipmentUnitRepository = equipmentUnitRepository;
-            this.departmentRepository = departmentRepository;
+            this.roomRepository = new RepositoryWrapper<RoomRepository>(roomRepository);
+            this.renovationRepository = new RepositoryWrapper<RenovationRepository>(renovationRepository);
+            this.equipmentUnitRepository = new RepositoryWrapper<EquipmentUnitRepository>(equipmentUnitRepository);
+            this.departmentRepository = new RepositoryWrapper<DepartmentRepository>(departmentRepository);
             this.currentScheduleContext = currentScheduleContext;
-            this.examinationRepository = examinationRepository;
-            this.surgeryRepository = surgeryRepository;
-            this.hospitalizationRepository = hospitalizationRepository;
+            this.examinationRepository = new RepositoryWrapper<ExaminationRepository>(examinationRepository);
+            this.surgeryRepository = new RepositoryWrapper<SurgeryRepository>(surgeryRepository);
+            this.hospitalizationRepository =
+                new RepositoryWrapper<HospitalizationRepository>(hospitalizationRepository);
         }
 
         public RoomAvailabilityDTO GetRoomAvailability(Room room, TimeInterval time)

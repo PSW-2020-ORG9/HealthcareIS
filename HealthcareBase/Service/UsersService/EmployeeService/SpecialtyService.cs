@@ -14,9 +14,9 @@ namespace Service.UsersService.EmployeeService
     {
         private readonly RepositoryWrapper<SpecialtyRepository> specialtyRepository;
 
-        public SpecialtyService(RepositoryWrapper<SpecialtyRepository> specialtyRepository)
+        public SpecialtyService(SpecialtyRepository specialtyRepository)
         {
-            this.specialtyRepository = specialtyRepository;
+            this.specialtyRepository = new RepositoryWrapper<SpecialtyRepository>(specialtyRepository);
         }
 
         public Specialty GetByID(int id)

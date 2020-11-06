@@ -14,9 +14,9 @@ namespace Service.MiscellaneousService
     {
         private readonly RepositoryWrapper<AllergyRepository> allergyRepository;
 
-        public AllergyService(RepositoryWrapper<AllergyRepository> allergyRepository)
+        public AllergyService(AllergyRepository allergyRepository)
         {
-            this.allergyRepository = allergyRepository;
+            this.allergyRepository = new RepositoryWrapper<AllergyRepository>(allergyRepository);
         }
 
         public Allergy GetByID(int id)

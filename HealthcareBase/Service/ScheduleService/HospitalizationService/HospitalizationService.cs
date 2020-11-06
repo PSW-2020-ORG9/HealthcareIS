@@ -24,11 +24,14 @@ namespace Service.ScheduleService.HospitalizationService
         private readonly NotificationService.NotificationService notificationService;
         private readonly TimeSpan timeLimit;
 
-        public HospitalizationService(RepositoryWrapper<HospitalizationRepository> hospitalizationRepository,
+        public HospitalizationService(
+            HospitalizationRepository hospitalizationRepository,
             HospitalizationValidator hospitalizationValidator,
-            NotificationService.NotificationService notificationService, TimeSpan timeLimit)
+            NotificationService.NotificationService notificationService,
+            TimeSpan timeLimit)
         {
-            this.hospitalizationRepository = hospitalizationRepository;
+            this.hospitalizationRepository =
+                new RepositoryWrapper<HospitalizationRepository>(hospitalizationRepository);
             this.hospitalizationValidator = hospitalizationValidator;
             this.notificationService = notificationService;
             this.timeLimit = timeLimit;
@@ -66,7 +69,8 @@ namespace Service.ScheduleService.HospitalizationService
                 throw new BadRequestException();
 
             return hospitalizationRepository.Repository.GetMatching(hosp => hosp.Patient.Equals(patient) &&
-                                                                 hosp.TimeInterval.Start.Date >= DateTime.Now);
+                                                                            hosp.TimeInterval.Start.Date >=
+                                                                            DateTime.Now);
         }
 
         public IEnumerable<Hospitalization> GetByRoomAndTime(Room room, TimeInterval time)

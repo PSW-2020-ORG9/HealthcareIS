@@ -14,11 +14,13 @@ namespace Service.UsersService.LoginService
         private readonly RepositoryWrapper<EmployeeAccountRepository> employeeAccountRepository;
         private readonly RepositoryWrapper<PatientAccountRepository> patientAccountRepository;
 
-        public LoginService(RepositoryWrapper<PatientAccountRepository> patientAccountRepository,
-            RepositoryWrapper<EmployeeAccountRepository> employeeAccountRepository)
+        public LoginService(
+            PatientAccountRepository patientAccountRepository,
+            EmployeeAccountRepository employeeAccountRepository)
         {
-            this.patientAccountRepository = patientAccountRepository;
-            this.employeeAccountRepository = employeeAccountRepository;
+            this.patientAccountRepository = new RepositoryWrapper<PatientAccountRepository>(patientAccountRepository);
+            this.employeeAccountRepository =
+                new RepositoryWrapper<EmployeeAccountRepository>(employeeAccountRepository);
         }
 
         public PatientAccount LogInPatient(string username, string password)

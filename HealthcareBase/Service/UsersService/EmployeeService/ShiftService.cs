@@ -21,16 +21,18 @@ namespace Service.UsersService.EmployeeService
         private readonly ProcedureService procedureService;
         private readonly RepositoryWrapper<ShiftRepository> shiftRepository;
 
-        public ShiftService(RepositoryWrapper<ShiftRepository> shiftRepository,
+        public ShiftService(
+            ShiftRepository shiftRepository,
             ProcedureService procedureService)
         {
-            this.shiftRepository = shiftRepository;
+            this.shiftRepository = new RepositoryWrapper<ShiftRepository>(shiftRepository);
             this.procedureService = procedureService;
         }
 
         public Shift Create(Shift shift)
         {
-            var overlappingShifts = shiftRepository.Repository.GetByDoctorAndTimeOverlap(shift.Doctor, shift.TimeInterval);
+            var overlappingShifts =
+                shiftRepository.Repository.GetByDoctorAndTimeOverlap(shift.Doctor, shift.TimeInterval);
             if (overlappingShifts.Count() != 0)
                 throw new ScheduleViolationException();
 
@@ -89,14 +91,15 @@ namespace Service.UsersService.EmployeeService
 
         private IEnumerable<Shift> UpdateTimeInterval(IEnumerable<Shift> shifts, TimeInterval timeInterval)
         {
-            foreach (var shift in shifts)
+            var updateTimeInterval = shifts as Shift[] ?? shifts.ToArray();
+            updateTimeInterval.ToList().ForEach(shift =>
             {
                 shift.TimeInterval = timeInterval;
 
                 shiftRepository.Repository.Update(shift);
-            }
+            });
 
-            return shifts;
+            return updateTimeInterval;
         }
 
         public IEnumerable<Shift> GetByDoctorAndTimeContaining(Doctor doctor, TimeInterval time)

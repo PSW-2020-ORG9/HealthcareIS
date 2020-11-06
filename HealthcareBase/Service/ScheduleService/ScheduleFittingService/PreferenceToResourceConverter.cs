@@ -88,9 +88,7 @@ namespace Service.ScheduleService.ScheduleFittingService
                 return new TimeIntervalCollection(defaultInterval);
 
             if (preference.Preference.PreferredAdmissionDate.End.Date < earliestAllowed)
-            {
                 return new TimeIntervalCollection(defaultInterval);
-            }
 
             var time = new TimeInterval
             {
