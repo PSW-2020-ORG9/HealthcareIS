@@ -9,6 +9,7 @@
 
 import FeedbackItem from '../components/FeedbackItem.vue'
 import axios from 'axios';
+import api from '../constant/api.js'
 
 
 export default {
@@ -28,7 +29,7 @@ export default {
 
     getAllFeedbacks:function()
     {
-      axios.get("http://localhost:5290/feedback").then((response) => 
+      axios.get(api.feedback).then((response) => 
       {
          this.feedbacks = response.data
          console.log(response.data)
