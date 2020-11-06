@@ -18,17 +18,18 @@ namespace Service.ScheduleService.Validators
         private readonly RepositoryWrapper<ProcedureTypeRepository> procedureTypeRepository;
         private readonly RepositoryWrapper<RoomRepository> roomRepository;
 
-        public ProcedureValidator(RepositoryWrapper<DoctorRepository> doctorRepository,
-            RepositoryWrapper<RoomRepository> roomRepository,
-            RepositoryWrapper<PatientRepository> patientRepository,
-            RepositoryWrapper<ProcedureTypeRepository> procedureTypeRepository,
-            RepositoryWrapper<ExaminationRepository> examinationRepository)
+        public ProcedureValidator(
+            DoctorRepository doctorRepository,
+            RoomRepository roomRepository,
+            PatientRepository patientRepository,
+            ProcedureTypeRepository procedureTypeRepository,
+            ExaminationRepository examinationRepository)
         {
-            this.doctorRepository = doctorRepository;
-            this.roomRepository = roomRepository;
-            this.patientRepository = patientRepository;
-            this.procedureTypeRepository = procedureTypeRepository;
-            this.examinationRepository = examinationRepository;
+            this.doctorRepository = new RepositoryWrapper<DoctorRepository>(doctorRepository);
+            this.roomRepository = new RepositoryWrapper<RoomRepository>(roomRepository);
+            this.patientRepository = new RepositoryWrapper<PatientRepository>(patientRepository);
+            this.procedureTypeRepository = new RepositoryWrapper<ProcedureTypeRepository>(procedureTypeRepository);
+            this.examinationRepository = new RepositoryWrapper<ExaminationRepository>(examinationRepository);
         }
 
         public void ValidateProcedure(Procedure procedure)
@@ -75,8 +76,8 @@ namespace Service.ScheduleService.Validators
 
         private void ValidateDoctorSuitability(ProcedureType procedureType, Doctor doctor)
         {
-            var matchingSpeicalties = procedureType.QualifiedSpecialties.Intersect(doctor.Specialties);
-            if (matchingSpeicalties.Count() == 0)
+            var matchingSpecialties = procedureType.QualifiedSpecialties.Intersect(doctor.Specialties);
+            if (!matchingSpecialties.Any())
                 throw new ValidationException();
         }
 
@@ -90,12 +91,11 @@ namespace Service.ScheduleService.Validators
 
         private void ValidateEquipmentSuitability(ProcedureType procedureType, Room room)
         {
-            foreach (var type in procedureType.NecessaryEquipment)
+            if (procedureType.NecessaryEquipment
+                .Select(type => room.Equipment.Count(unit => unit.EquipmentType.Equals(type)) != 0)
+                .Any(roomContainsEquipmentOfNecessaryType => !roomContainsEquipmentOfNecessaryType))
             {
-                var roomContainsEquipmentOfNecessaryType =
-                    room.Equipment.Count(unit => unit.EquipmentType.Equals(type)) != 0;
-                if (!roomContainsEquipmentOfNecessaryType)
-                    throw new ValidationException();
+                throw new ValidationException();
             }
         }
     }

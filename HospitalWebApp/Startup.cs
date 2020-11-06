@@ -1,3 +1,5 @@
+using System;
+using System.Runtime.InteropServices;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -11,6 +13,7 @@ namespace HospitalWebApp
 {
     public class Startup
     {
+        private string _connectionString = null;
         public Startup(IConfiguration configuration)
         {
             var builder = new ConfigurationBuilder()
@@ -20,12 +23,11 @@ namespace HospitalWebApp
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        // This method gets called at runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            string connectionString = Configuration["MySql"];
-            RepositoryWrapper<UserFeedbackSqlRepository> userFeedbackRepository = new RepositoryWrapper<UserFeedbackSqlRepository>(new MySqlContextFactory(connectionString));
-            services.Add(new ServiceDescriptor(typeof(UserFeedbackService), new UserFeedbackService(userFeedbackRepository)));
+            _connectionString = Configuration["MySql"];
+            AddService(services, typeof(UserFeedbackService), typeof(UserFeedbackSqlRepository));
             services.AddControllers();
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
             {
@@ -47,6 +49,18 @@ namespace HospitalWebApp
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+        }
+
+        private void AddService(IServiceCollection services, Type serviceClass, Type repositoryClass)
+        {
+            var repository = CreateRepository(repositoryClass);
+            var service = Activator.CreateInstance(serviceClass, repository);
+            services.Add(new ServiceDescriptor(serviceClass, service));
+        }
+
+        private IPreparable CreateRepository(Type repositoryClass)
+        {
+            return Activator.CreateInstance(repositoryClass, new MySqlContextFactory(_connectionString)) as IPreparable;
         }
     }
 }

@@ -15,9 +15,11 @@ namespace Service.HospitalResourcesService.MedicalConsumableService
     {
         private readonly RepositoryWrapper<ConsumableStorageRecordRepository> consumableStorageRecordRepository;
 
-        public MedicalConsumableStorageService(RepositoryWrapper<ConsumableStorageRecordRepository> consumableStorageRecordRepository)
+        public MedicalConsumableStorageService(
+            ConsumableStorageRecordRepository consumableStorageRecordRepository)
         {
-            this.consumableStorageRecordRepository = consumableStorageRecordRepository;
+            this.consumableStorageRecordRepository =
+                new RepositoryWrapper<ConsumableStorageRecordRepository>(consumableStorageRecordRepository);
         }
 
         public int GetCurrentAmount(MedicalConsumable consumable)

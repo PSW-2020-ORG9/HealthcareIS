@@ -4,8 +4,8 @@ using HealthcareBase.Model.Database;
 namespace Repository.Generics
 {
     /// <summary>
-    /// Wrapper class around a Repository object.
-    /// Storing direct references to the Repository object inside of this wrapper is highly discouraged due to
+    /// Wrapper class around an IPreparable object.
+    /// Storing direct references to the object inside of this wrapper is highly discouraged due to
     /// possible data collisions.
     /// Instead, use the Repository property when needed.
     /// </summary>
@@ -46,6 +46,15 @@ namespace Repository.Generics
         public RepositoryWrapper(object param)
         {
             _repository = Activator.CreateInstance(typeof(TRepository), param) as TRepository;
+        }
+
+        /// <summary>
+        /// Instantiates a wrapper with the given Repository object inside.
+        /// </summary>
+        /// <param name="repository"></param>
+        public RepositoryWrapper(TRepository repository)
+        {
+            _repository = repository;
         }
     }
 }

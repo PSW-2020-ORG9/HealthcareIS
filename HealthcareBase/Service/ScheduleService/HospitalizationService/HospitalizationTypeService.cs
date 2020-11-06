@@ -14,9 +14,10 @@ namespace Service.ScheduleService.HospitalizationService
     {
         private readonly RepositoryWrapper<HospitalizationTypeRepository> hospitalizationTypeRepository;
 
-        public HospitalizationTypeService(RepositoryWrapper<HospitalizationTypeRepository> hospitalizationTypeRepository)
+        public HospitalizationTypeService(HospitalizationTypeRepository hospitalizationTypeRepository)
         {
-            this.hospitalizationTypeRepository = hospitalizationTypeRepository;
+            this.hospitalizationTypeRepository =
+                new RepositoryWrapper<HospitalizationTypeRepository>(hospitalizationTypeRepository);
         }
 
         public IEnumerable<HospitalizationType> GetAll()

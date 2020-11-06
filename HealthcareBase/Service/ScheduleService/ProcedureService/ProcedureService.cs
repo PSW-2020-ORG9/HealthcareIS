@@ -21,11 +21,12 @@ namespace Service.ScheduleService.ProcedureService
         private readonly RepositoryWrapper<ExaminationRepository> examinationRepository;
         private readonly RepositoryWrapper<SurgeryRepository> surgeryRepository;
 
-        public ProcedureService(RepositoryWrapper<ExaminationRepository> examinationRepository,
-            RepositoryWrapper<SurgeryRepository> surgeryRepository)
+        public ProcedureService(
+            ExaminationRepository examinationRepository,
+            SurgeryRepository surgeryRepository)
         {
-            this.examinationRepository = examinationRepository;
-            this.surgeryRepository = surgeryRepository;
+            this.examinationRepository = new RepositoryWrapper<ExaminationRepository>(examinationRepository);
+            this.surgeryRepository = new RepositoryWrapper<SurgeryRepository>(surgeryRepository);
         }
 
         public IEnumerable<Procedure> GetAll()
@@ -75,10 +76,10 @@ namespace Service.ScheduleService.ProcedureService
 
             var procedures = new List<Procedure>();
             procedures.AddRange(examinationRepository.Repository.GetMatching(exam => exam.Patient.Equals(patient) &&
-                                                                          exam.TimeInterval.Start.Date >=
-                                                                          DateTime.Now));
+                exam.TimeInterval.Start.Date >=
+                DateTime.Now));
             procedures.AddRange(surgeryRepository.Repository.GetMatching(surg => surg.Patient.Equals(patient) &&
-                                                                      surg.TimeInterval.Start.Date >= DateTime.Now));
+                surg.TimeInterval.Start.Date >= DateTime.Now));
 
             return procedures;
         }

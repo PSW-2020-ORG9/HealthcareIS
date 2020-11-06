@@ -17,9 +17,9 @@ namespace Service.UsersService.EmployeeService
     {
         private readonly RepositoryWrapper<DoctorRepository> doctorRepository;
 
-        public DoctorService(RepositoryWrapper<DoctorRepository> doctorRepository)
+        public DoctorService(DoctorRepository doctorRepository)
         {
-            this.doctorRepository = doctorRepository;
+            this.doctorRepository = new RepositoryWrapper<DoctorRepository>(doctorRepository);
         }
 
         public IEnumerable<Doctor> GetQualified(ProcedureType procedureType)

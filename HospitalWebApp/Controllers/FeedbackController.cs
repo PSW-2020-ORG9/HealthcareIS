@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using EntityFramework.Exceptions.Common;
+﻿using EntityFramework.Exceptions.Common;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Model.Users.Generalities;
-using Model.Users.UserAccounts;
 using Model.Users.UserFeedback;
 using Service.UsersService.UserFeedbackService;
 
@@ -23,7 +15,7 @@ namespace HospitalWebApp.Controllers
         {
             _userFeedbackService = userFeedbackService;
         }
-        
+
         [HttpPut]
         public IActionResult Update(UserFeedback userFeedback)
         {
@@ -37,10 +29,11 @@ namespace HospitalWebApp.Controllers
             {
                 _userFeedbackService.Create(userFeedback);
             }
-            catch(ReferenceConstraintException e)
+            catch (ReferenceConstraintException e)
             {
                 return BadRequest("ReferenceConstraintException");
             }
+
             return Ok();
         }
     }

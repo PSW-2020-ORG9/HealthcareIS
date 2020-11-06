@@ -15,9 +15,10 @@ namespace Service.UsersService.EmployeeService
     {
         private readonly RepositoryWrapper<EmployeeAccountRepository> employeeAccountRepository;
 
-        public EmployeeAccountService(RepositoryWrapper<EmployeeAccountRepository> employeeAccountRepository)
+        public EmployeeAccountService(EmployeeAccountRepository employeeAccountRepository)
         {
-            this.employeeAccountRepository = employeeAccountRepository;
+            this.employeeAccountRepository =
+                new RepositoryWrapper<EmployeeAccountRepository>(employeeAccountRepository);
         }
 
         public EmployeeAccount ChangePassword(EmployeeAccount account, string newPassword)

@@ -19,11 +19,13 @@ namespace Service.UsersService.PatientService
         private readonly RepositoryWrapper<PatientAccountRepository> patientAccountRepository;
         private readonly RepositoryWrapper<PatientSurveyResponseRepository> patientSurveyResponseRepository;
 
-        public PatientAccountService(RepositoryWrapper<PatientAccountRepository> patientAccountRepository,
-            RepositoryWrapper<PatientSurveyResponseRepository> patientSurveyResponseRepository)
+        public PatientAccountService(
+            PatientAccountRepository patientAccountRepository,
+            PatientSurveyResponseRepository patientSurveyResponseRepository)
         {
-            this.patientAccountRepository = patientAccountRepository;
-            this.patientSurveyResponseRepository = patientSurveyResponseRepository;
+            this.patientAccountRepository = new RepositoryWrapper<PatientAccountRepository>(patientAccountRepository);
+            this.patientSurveyResponseRepository =
+                new RepositoryWrapper<PatientSurveyResponseRepository>(patientSurveyResponseRepository);
         }
 
         public void DeleteAccount(PatientAccount patientAccount)

@@ -18,11 +18,12 @@ namespace Service.MedicationService
         private readonly NotificationService.NotificationService notificationService;
 
         public MedicationPrescriptionService(
-            RepositoryWrapper<MedicationPrescriptionRepository> medicationPrescriptionRepository,
+            MedicationPrescriptionRepository medicationPrescriptionRepository,
             NotificationService.NotificationService notificationService
-            )
+        )
         {
-            this.medicationPrescriptionRepository = medicationPrescriptionRepository;
+            this.medicationPrescriptionRepository =
+                new RepositoryWrapper<MedicationPrescriptionRepository>(medicationPrescriptionRepository);
             this.notificationService = notificationService;
         }
 
@@ -46,7 +47,8 @@ namespace Service.MedicationService
             if (medicationPrescription is null)
                 throw new BadRequestException();
 
-            var createdMedicationPrescription = medicationPrescriptionRepository.Repository.Create(medicationPrescription);
+            var createdMedicationPrescription =
+                medicationPrescriptionRepository.Repository.Create(medicationPrescription);
             notificationService.Notify(createdMedicationPrescription);
 
             return createdMedicationPrescription;

@@ -19,13 +19,15 @@ namespace Service.HospitalResourcesService.RoomService
         private readonly RepositoryWrapper<HospitalizationTypeRepository> hospitalizationTypeRepository;
         private readonly RepositoryWrapper<RoomRepository> roomRepository;
 
-        public DepartmentService(RepositoryWrapper<DepartmentRepository> departmentRepository,
-            RepositoryWrapper<RoomRepository> roomRepository,
-            RepositoryWrapper<HospitalizationTypeRepository> hospitalizationTypeRepository)
+        public DepartmentService(
+            DepartmentRepository departmentRepository,
+            RoomRepository roomRepository,
+            HospitalizationTypeRepository hospitalizationTypeRepository)
         {
-            this.departmentRepository = departmentRepository;
-            this.roomRepository = roomRepository;
-            this.hospitalizationTypeRepository = hospitalizationTypeRepository;
+            this.departmentRepository = new RepositoryWrapper<DepartmentRepository>(departmentRepository);
+            this.roomRepository = new RepositoryWrapper<RoomRepository>(roomRepository);
+            this.hospitalizationTypeRepository =
+                new RepositoryWrapper<HospitalizationTypeRepository>(hospitalizationTypeRepository);
         }
 
         public Department GetByID(int id)

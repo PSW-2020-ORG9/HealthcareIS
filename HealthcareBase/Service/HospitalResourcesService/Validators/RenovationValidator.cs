@@ -1,16 +1,17 @@
 ﻿using Model.CustomExceptions;
 using Model.HospitalResources;
+using Repository.Generics;
 using Repository.HospitalResourcesRepository;
 
 namespace Service.HospitalResourcesService.Validators
 {
     public class RenovationValidator
     {
-        private readonly RoomRepository roomRepository;
+        private readonly RepositoryWrapper<RoomRepository> roomRepository;
 
         public RenovationValidator(RoomRepository roomRepository)
         {
-            this.roomRepository = roomRepository;
+            this.roomRepository = new RepositoryWrapper<RoomRepository>(roomRepository);
         }
 
         public void ValidateRenovation(Renovation renovation)
@@ -33,7 +34,7 @@ namespace Service.HospitalResourcesService.Validators
         {
             try
             {
-                renovation.Room = roomRepository.GetByID(renovation.Room.GetKey());
+                renovation.Room = roomRepository.Repository.GetByID(renovation.Room.GetKey());
             }
             catch (BadRequestException)
             {

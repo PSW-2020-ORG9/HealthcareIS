@@ -14,9 +14,9 @@ namespace Service.UsersService.UserFeedbackService
     {
         private readonly RepositoryWrapper<UserFeedbackSqlRepository> userFeedbackRepository;
 
-        public UserFeedbackService(RepositoryWrapper<UserFeedbackSqlRepository> userFeedbackRepository)
+        public UserFeedbackService(UserFeedbackRepository repository)
         {
-            this.userFeedbackRepository = userFeedbackRepository;
+            userFeedbackRepository = new RepositoryWrapper<UserFeedbackRepository>(repository);
         }
 
         public IEnumerable<UserFeedback> GetAll()

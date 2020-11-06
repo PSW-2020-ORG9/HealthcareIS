@@ -22,16 +22,18 @@ namespace Service.MedicationService
         private readonly NotificationService.NotificationService notificationService;
 
         public MedicationInputService(
-            RepositoryWrapper<MedicationInputRequestRepository> medicationInputRequestRepository,
-            RepositoryWrapper<MedicationRepository> medicationRepository,
+            MedicationInputRequestRepository medicationInputRequestRepository,
+            MedicationRepository medicationRepository,
             NotificationService.NotificationService notificationService,
-            RepositoryWrapper<MedicationStorageRepository> medicationStorageRepository
-            )
+            MedicationStorageRepository medicationStorageRepository
+        )
         {
-            this.medicationInputRequestRepository = medicationInputRequestRepository;
-            this.medicationRepository = medicationRepository;
+            this.medicationInputRequestRepository =
+                new RepositoryWrapper<MedicationInputRequestRepository>(medicationInputRequestRepository);
+            this.medicationRepository = new RepositoryWrapper<MedicationRepository>(medicationRepository);
             this.notificationService = notificationService;
-            this.medicationStorageRepository = medicationStorageRepository;
+            this.medicationStorageRepository =
+                new RepositoryWrapper<MedicationStorageRepository>(medicationStorageRepository);
         }
 
         private void ChangeRequestFileds(MedicationInputRequestUpdateDTO requestUpdate, RequestStatus status)

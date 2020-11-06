@@ -20,12 +20,14 @@ namespace Service.ScheduleService.ScheduleAdjustmentRequestService
         private readonly NotificationService.NotificationService notificationService;
         private readonly RepositoryWrapper<ScheduleAdjustmentRequestRepository> requestRepository;
 
-        public ScheduleAdjustmentRequestService(RepositoryWrapper<ScheduleAdjustmentRequestRepository> requestRepository,
-            RepositoryWrapper<EmployeeAccountRepository> employeeAccountRepository,
+        public ScheduleAdjustmentRequestService(
+            ScheduleAdjustmentRequestRepository requestRepository,
+            EmployeeAccountRepository employeeAccountRepository,
             NotificationService.NotificationService notificationService)
         {
-            this.requestRepository = requestRepository;
-            this.employeeAccountRepository = employeeAccountRepository;
+            this.requestRepository = new RepositoryWrapper<ScheduleAdjustmentRequestRepository>(requestRepository);
+            this.employeeAccountRepository =
+                new RepositoryWrapper<EmployeeAccountRepository>(employeeAccountRepository);
             this.notificationService = notificationService;
         }
 

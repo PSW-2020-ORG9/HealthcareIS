@@ -26,15 +26,18 @@ namespace Service.ScheduleService.ProcedureService
         private readonly RepositoryWrapper<ExaminationRepository> examinationRepository;
         private readonly RepositoryWrapper<PatientRepository> patientRepository;
 
-        public ExaminationService(RepositoryWrapper<ExaminationRepository> examinationRepository, RepositoryWrapper<DiagnosisRepository> diagnosisRepository,
-            RepositoryWrapper<PatientRepository> patientRepository, NotificationService.NotificationService notificationService,
+        public ExaminationService(
+            ExaminationRepository examinationRepository,
+            DiagnosisRepository diagnosisRepository,
+            PatientRepository patientRepository,
+            NotificationService.NotificationService notificationService,
             ProcedureScheduleComplianceValidator scheduleValidator, ProcedureValidator procedureValidator,
-            TimeSpan timeLimit) :
-            base(notificationService, scheduleValidator, procedureValidator, timeLimit)
+            TimeSpan timeLimit
+        ) : base(notificationService, scheduleValidator, procedureValidator, timeLimit)
         {
-            this.examinationRepository = examinationRepository;
-            this.diagnosisRepository = diagnosisRepository;
-            this.patientRepository = patientRepository;
+            this.examinationRepository = new RepositoryWrapper<ExaminationRepository>(examinationRepository);
+            this.diagnosisRepository = new RepositoryWrapper<DiagnosisRepository>(diagnosisRepository);
+            this.patientRepository = new RepositoryWrapper<PatientRepository>(patientRepository);
         }
 
         public override Examination GetByID(int id)
@@ -90,7 +93,8 @@ namespace Service.ScheduleService.ProcedureService
 
             anamnesisAndDiagnosis.Examination =
                 examinationRepository.Repository.GetByID(anamnesisAndDiagnosis.Examination.GetKey());
-            anamnesisAndDiagnosis.Diagnosis = diagnosisRepository.Repository.GetByID(anamnesisAndDiagnosis.Diagnosis.GetKey());
+            anamnesisAndDiagnosis.Diagnosis =
+                diagnosisRepository.Repository.GetByID(anamnesisAndDiagnosis.Diagnosis.GetKey());
 
             if (anamnesisAndDiagnosis.Examination.TimeInterval.Start > DateTime.Now)
                 throw new TimingException();
