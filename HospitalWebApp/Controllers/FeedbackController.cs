@@ -33,9 +33,11 @@ namespace HospitalWebApp.Controllers
         [HttpPost]
         public IActionResult Post(UserFeedback userFeedback)
         {
+            
             try
             {
                 UserFeedbackValidator.validate(userFeedback);
+                UpdateUserFeedbackDate(userFeedback);
                 _userFeedbackService.Create(userFeedback);
             }
             catch (ReferenceConstraintException e)
@@ -48,6 +50,11 @@ namespace HospitalWebApp.Controllers
             }
 
             return Ok();
+        }
+
+        private static void UpdateUserFeedbackDate(UserFeedback userFeedback)
+        {
+            userFeedback.Date=DateTime.Now;
         }
 
         [HttpGet]

@@ -27,6 +27,8 @@ namespace HealthcareBase.Service.ValidationService
         {
             if (entity == null)
                 throw new ArgumentNullException();
+            if (entity.Date==null) 
+                throw new FieldRequiredException("Field 'Date' cannot be null.");
             if (entity.UserComment==null)
                 throw new FieldRequiredException("Field 'UserComment' cannot be null.");
 
