@@ -2,8 +2,8 @@
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
   <div class="container">
-    <div class="col-sm-3 mx-auto shadow-lg p-3 mb-5 bg-white rounded feedback">
-      <div class="col-sm d-flex justify-content-start">
+    <div class="col-sm-5 mx-auto shadow-lg p-3 mb-5 bg-white rounded feedback">
+      <div class="feedback-text">
         <div class="form-group d-flex justify-content-start">
           <textarea class="form-control input-feedback" rows=5 type="text" placeholder="Enter your feedback" v-model="feedbackContent" required></textarea>
         </div>
@@ -107,6 +107,15 @@
 .submit-btn:hover {
   background-color: white;
   color: #58804f;
+}
+.feedback-text{
+  display:flex;
+  height: 200px;
+  justify-content: center;
+}
+.input-feedback{
+  width:360px;
+  height: 300px;
 }
 
 
