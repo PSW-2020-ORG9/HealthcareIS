@@ -21,12 +21,30 @@ namespace HospitalWebApp.Controllers
             _userFeedbackService = userFeedbackService;
         }
 
+        /// <summary>
+        /// Updates the given <see cref="UserFeedback"/>
+        /// </summary>
+        /// <param name="userFeedback"></param>
+        /// <returns>An <see cref="IActionResult"/> representing a result of the operation.</returns>
         [HttpPut]
-        public IActionResult Update(UserFeedback userFeedback)
+        public IActionResult Update(UserFeedbackDto userFeedbackDto)
         {
-            return Ok(_userFeedbackService.Update(userFeedback));
+            try
+            {
+                UserFeedbackValidator.validate(userFeedbackDto);
+                var userFeedback = UserFeedbackAdapter.userFeedbackDtoToUserFeedback(userFeedbackDto);
+                return Ok(_userFeedbackService.Update(userFeedback));
+            }
+            catch(ReferenceConstraintException e)
+            {
+                return BadRequest(e.Message);
+            }
+            catch(ValidationException e)
+            {
+                return BadRequest(e.Message);
+            }
         }
-
+        
         /// <summary>
         ///  Creates new user feedback.
         /// </summary>
@@ -52,11 +70,31 @@ namespace HospitalWebApp.Controllers
 
             return Ok();
         }
+
+        /// <summary>
+        /// Publishes a UserFeedback with a given id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>An <see cref="IActionResult"/> representing a result of the operation.</returns>
+        [Route("publish/{id}")]
+        [HttpGet]
+        public IActionResult Publish(int id)
+        {
+            //TODO: Check if current user is admin
+            if(_userFeedbackService.Publish(id))
+            {
+                return Ok("Feedback successfully published.");
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
         [HttpGet]
         public IActionResult GetAll()
         {
             return Ok(_userFeedbackService.GetAll());
-
         }
     }
 }

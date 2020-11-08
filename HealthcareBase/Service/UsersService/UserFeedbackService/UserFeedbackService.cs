@@ -33,5 +33,19 @@ namespace Service.UsersService.UserFeedbackService
         {
             return userFeedbackRepository.Repository.Update(userFeedback);
         }
+
+        /// <summary>
+        /// Publishes a UserFeedback with a given id.
+        /// </summary>
+        /// <param name="id">Id of the <see cref="UserFeedback"/> to be published.</param>
+        /// <returns>A <see cref="bool"/> value indicating the operation success.</returns>
+        public bool Publish(int id)
+        {
+            UserFeedback userFeedback = userFeedbackRepository.Repository.GetByID(id);
+            if (!userFeedback.isPublic) return false;
+            userFeedback.isPublished = true;
+            userFeedbackRepository.Repository.Update(userFeedback);
+            return true;
+        }
     }
 }
