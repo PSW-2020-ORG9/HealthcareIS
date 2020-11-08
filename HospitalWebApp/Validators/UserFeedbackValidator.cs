@@ -4,7 +4,7 @@ using Model.Users.UserFeedback;
 
 namespace HealthcareBase.Service.ValidationService
 {
-    public static class UserFeedbackValidator 
+    public static class UserFeedbackValidator
     {
         private const int COMMENT_MAX_LEN = 300;
 
@@ -17,6 +17,7 @@ namespace HealthcareBase.Service.ValidationService
             CheckForNullValues(entity);
             CheckFields(entity);
         }
+
         /// <summary>
         /// Checks if passed object or any of its fields are null values.
         /// </summary>
@@ -27,12 +28,12 @@ namespace HealthcareBase.Service.ValidationService
         {
             if (entity == null)
                 throw new ArgumentNullException();
-            if (entity.Date==null) 
+            if (entity.Date == null)
                 throw new FieldRequiredException("Field 'Date' cannot be null.");
-            if (entity.UserComment==null)
+            if (entity.UserComment == null)
                 throw new FieldRequiredException("Field 'UserComment' cannot be null.");
-
         }
+
         /// <summary>
         /// Validates object fields content.
         /// </summary>
@@ -44,7 +45,7 @@ namespace HealthcareBase.Service.ValidationService
             IsCommentTooLong(entity.UserComment);
             IsDateSetInFuture(entity.Date);
         }
-        
+
         /// <summary>
         /// Checks if comment is empty
         /// </summary>
@@ -55,6 +56,7 @@ namespace HealthcareBase.Service.ValidationService
             if (comment.Trim().Equals(""))
                 throw new ValidationException("User comment cannot be empty.");
         }
+
         /// <summary>
         /// Checks if comment is too long.
         /// </summary>
@@ -63,8 +65,9 @@ namespace HealthcareBase.Service.ValidationService
         private static void IsCommentTooLong(string comment)
         {
             if (comment.Length > COMMENT_MAX_LEN)
-                throw new ValidationException("User comment is longer than 300 characters.");
+                throw new ValidationException(message: $"User comment is longer than {COMMENT_MAX_LEN} characters.");
         }
+
         /// <summary>
         /// Checks if comment date is set in the future.
         /// </summary>
