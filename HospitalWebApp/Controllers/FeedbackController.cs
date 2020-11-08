@@ -1,6 +1,8 @@
 ﻿using System;
 using EntityFramework.Exceptions.Common;
 using HealthcareBase.Service.ValidationService;
+using HospitalWebApp.Adapters;
+using HospitalWebApp.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using Model.CustomExceptions;
 using Model.Users.UserFeedback;
@@ -24,20 +26,19 @@ namespace HospitalWebApp.Controllers
         {
             return Ok(_userFeedbackService.Update(userFeedback));
         }
-        
+
         /// <summary>
         ///  Creates new user feedback.
         /// </summary>
         /// <param name="userFeedback"></param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult Post(UserFeedback userFeedback)
+        public IActionResult Create(UserFeedbackDto userFeedbackDto)
         {
-            
             try
             {
-                UserFeedbackValidator.validate(userFeedback);
-                UpdateUserFeedbackDate(userFeedback);
+                UserFeedbackValidator.validate(userFeedbackDto);
+                var userFeedback = UserFeedbackAdapter.userFeedbackDtoToUserFeedback(userFeedbackDto);
                 _userFeedbackService.Create(userFeedback);
             }
             catch (ReferenceConstraintException)
@@ -51,12 +52,6 @@ namespace HospitalWebApp.Controllers
 
             return Ok();
         }
-
-        private static void UpdateUserFeedbackDate(UserFeedback userFeedback)
-        {
-            userFeedback.Date=DateTime.Now;
-        }
-
         [HttpGet]
         public IActionResult GetAll()
         {
