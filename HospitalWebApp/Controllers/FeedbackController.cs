@@ -27,7 +27,19 @@ namespace HospitalWebApp.Controllers
         [HttpPut]
         public IActionResult Update(UserFeedback userFeedback)
         {
-            return Ok(_userFeedbackService.Update(userFeedback));
+            try
+            {
+                UserFeedbackValidator.validate(userFeedback);
+                return Ok(_userFeedbackService.Update(userFeedback));
+            }
+            catch(ReferenceConstraintException e)
+            {
+                return BadRequest(e.Message);
+            }
+            catch(ValidationException e)
+            {
+                return BadRequest(e.Message);
+            }
         }
         
         /// <summary>
