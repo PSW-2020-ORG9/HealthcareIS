@@ -10,7 +10,7 @@ using Repository.Generics;
 
 namespace Repository.MedicationRepository
 {
-    public interface MedicationPrescriptionRepository : Repository<MedicationPrescription, int>
+    public interface MedicationPrescriptionRepository : IWrappableRepository<MedicationPrescription, int>
     {
         IEnumerable<MedicationPrescription> GetByPatient(Patient patient);
     }

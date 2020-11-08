@@ -4,11 +4,14 @@
 // Purpose: Definition of Class ConsumableStorageRecord
 
 using Model.HospitalResources;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.StorageRecords
 {
     public class ConsumableStorageRecord : StorageRecord
     {
+        [ForeignKey("Consumable")]
+        public int ConsumableId { get; set; }
         public MedicalConsumable Consumable { get; set; }
 
         public override bool Equals(object obj)

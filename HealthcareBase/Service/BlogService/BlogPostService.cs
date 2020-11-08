@@ -8,47 +8,48 @@ using System.Collections.Generic;
 using Model.Blog;
 using Model.CustomExceptions;
 using Repository.BlogRepository;
+using Repository.Generics;
 
 namespace Service.BlogService
 {
     public class BlogPostService
     {
-        private readonly BlogAuthorRepository blogAuthorRepository;
-        private readonly BlogPostRepository blogPostRepository;
+        private readonly RepositoryWrapper<BlogAuthorRepository> blogAuthorRepository;
+        private readonly RepositoryWrapper<BlogPostRepository> blogPostRepository;
 
         public BlogPostService(BlogPostRepository blogPostRepository, BlogAuthorRepository blogAuthorRepository)
         {
-            this.blogPostRepository = blogPostRepository;
-            this.blogAuthorRepository = blogAuthorRepository;
+            this.blogPostRepository = new RepositoryWrapper<BlogPostRepository>(blogPostRepository);
+            this.blogAuthorRepository = new RepositoryWrapper<BlogAuthorRepository>(blogAuthorRepository);
         }
 
         public BlogPost GetByID(int id)
         {
-            return blogPostRepository.GetByID(id);
+            return blogPostRepository.Repository.GetByID(id);
         }
 
         public IEnumerable<BlogPost> GetAll()
         {
-            return blogPostRepository.GetAll();
+            return blogPostRepository.Repository.GetAll();
         }
 
         public IEnumerable<BlogPost> GetByAuthor(BlogAuthor author)
         {
-            return blogPostRepository.GetByAuthor(author);
+            return blogPostRepository.Repository.GetByAuthor(author);
         }
 
         public BlogPost Create(BlogPost blogPost)
         {
-            if (blogAuthorRepository.GetByID(blogPost.Author.Id) == null)
+            if (blogAuthorRepository.Repository.GetByID(blogPost.Author.Id) == null)
                 throw new BadRequestException();
 
             blogPost.TimeStamp = DateTime.Now;
-            return blogPostRepository.Create(blogPost);
+            return blogPostRepository.Repository.Create(blogPost);
         }
 
         public BlogPost Update(BlogPost blogPost)
         {
-            var oldPost = blogPostRepository.GetByID(blogPost.Id);
+            var oldPost = blogPostRepository.Repository.GetByID(blogPost.Id);
             if (oldPost == null)
                 throw new BadRequestException();
             if (blogPost.TimeStamp != oldPost.TimeStamp)
@@ -56,12 +57,12 @@ namespace Service.BlogService
             if (!oldPost.Author.Equals(blogPost.Author))
                 throw new BadRequestException();
 
-            return blogPostRepository.Update(blogPost);
+            return blogPostRepository.Repository.Update(blogPost);
         }
 
         public void Delete(BlogPost blogPost)
         {
-            blogPostRepository.Delete(blogPost);
+            blogPostRepository.Repository.Delete(blogPost);
         }
     }
 }

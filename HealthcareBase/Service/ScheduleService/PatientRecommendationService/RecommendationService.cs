@@ -6,6 +6,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Model.Schedule.Procedures;
+using Repository.Generics;
 using Repository.ScheduleRepository.ProceduresRepository;
 using Service.ScheduleService.ScheduleFittingService;
 
@@ -13,10 +14,10 @@ namespace Service.ScheduleService.PatientRecommendationService
 {
     public class RecommendationService
     {
-        private RecommendationStrategy currentStrategy;
         private readonly RecommendationStrategy defaultStrategy;
         private readonly ProcedureScheduleFittingService procedureScheduleFittingService;
-        private readonly ProcedureTypeRepository procedureTypeRepository;
+        private readonly RepositoryWrapper<ProcedureTypeRepository> procedureTypeRepository;
+        private RecommendationStrategy currentStrategy;
 
         public RecommendationService(RecommendationStrategy defaultStrategy,
             ProcedureScheduleFittingService procedureScheduleFittingService,
@@ -24,7 +25,7 @@ namespace Service.ScheduleService.PatientRecommendationService
         {
             this.defaultStrategy = defaultStrategy;
             this.procedureScheduleFittingService = procedureScheduleFittingService;
-            this.procedureTypeRepository = procedureTypeRepository;
+            this.procedureTypeRepository = new RepositoryWrapper<ProcedureTypeRepository>(procedureTypeRepository);
         }
 
         private IEnumerable<Examination> GetPotentialRecommendations(RecommendationRequestDTO request)
@@ -56,7 +57,7 @@ namespace Service.ScheduleService.PatientRecommendationService
 
         public void SwapStrategy(RecommendationStrategy strategy)
         {
-            strategy.PatientDefault = procedureTypeRepository.GetPatientDefault();
+            strategy.PatientDefault = procedureTypeRepository.Repository.GetPatientDefault();
             currentStrategy = strategy;
         }
     }

@@ -8,7 +8,7 @@ using Repository.Generics;
 
 namespace Repository.UsersRepository.EmployeesAndPatientsRepository
 {
-    public interface PatientRepository : Repository<Patient, int>
+    public interface PatientRepository : IWrappableRepository<Patient, int>
     {
         bool ExistsByJMBG(string jmbg);
 

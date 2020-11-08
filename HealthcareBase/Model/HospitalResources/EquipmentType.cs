@@ -4,6 +4,7 @@
 // Purpose: Definition of Class EquipmentType
 
 using Repository.Generics;
+using System.ComponentModel.DataAnnotations;
 
 namespace Model.HospitalResources
 {
@@ -26,6 +27,7 @@ namespace Model.HospitalResources
 
         public bool RequiresRenovationToMove { get; set; }
 
+        [Key]
         public int Id { get; set; }
 
         public int GetKey()

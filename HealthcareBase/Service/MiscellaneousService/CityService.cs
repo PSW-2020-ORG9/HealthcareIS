@@ -5,32 +5,33 @@
 
 using System.Collections.Generic;
 using Model.Users.Generalities;
+using Repository.Generics;
 using Repository.UsersRepository.GeneralitiesRepository;
 
 namespace Service.MiscellaneousService
 {
     public class CityService
     {
-        private readonly CityRepository cityRepository;
+        private readonly RepositoryWrapper<CityRepository> cityRepository;
 
         public CityService(CityRepository cityRepository)
         {
-            this.cityRepository = cityRepository;
+            this.cityRepository = new RepositoryWrapper<CityRepository>(cityRepository);
         }
 
         public City GetByID(int id)
         {
-            return cityRepository.GetByID(id);
+            return cityRepository.Repository.GetByID(id);
         }
 
         public IEnumerable<City> GetAll()
         {
-            return cityRepository.GetAll();
+            return cityRepository.Repository.GetAll();
         }
 
         public IEnumerable<City> GetByCountry(Country country)
         {
-            return cityRepository.GetByCountry(country);
+            return cityRepository.Repository.GetByCountry(country);
         }
     }
 }

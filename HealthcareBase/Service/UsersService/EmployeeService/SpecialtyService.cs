@@ -5,27 +5,28 @@
 
 using System.Collections.Generic;
 using Model.Users.Employee;
+using Repository.Generics;
 using Repository.UsersRepository.EmployeesAndPatientsRepository;
 
 namespace Service.UsersService.EmployeeService
 {
     public class SpecialtyService
     {
-        private readonly SpecialtyRepository specialtyRepository;
+        private readonly RepositoryWrapper<SpecialtyRepository> specialtyRepository;
 
         public SpecialtyService(SpecialtyRepository specialtyRepository)
         {
-            this.specialtyRepository = specialtyRepository;
+            this.specialtyRepository = new RepositoryWrapper<SpecialtyRepository>(specialtyRepository);
         }
 
         public Specialty GetByID(int id)
         {
-            return specialtyRepository.GetByID(id);
+            return specialtyRepository.Repository.GetByID(id);
         }
 
         public IEnumerable<Specialty> GetAll()
         {
-            return specialtyRepository.GetAll();
+            return specialtyRepository.Repository.GetAll();
         }
     }
 }

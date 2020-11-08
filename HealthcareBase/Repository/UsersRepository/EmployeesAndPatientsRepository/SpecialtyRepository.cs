@@ -8,7 +8,7 @@ using Repository.Generics;
 
 namespace Repository.UsersRepository.EmployeesAndPatientsRepository
 {
-    public interface SpecialtyRepository : Repository<Specialty, int>
+    public interface SpecialtyRepository : IWrappableRepository<Specialty, int>
     {
     }
 }

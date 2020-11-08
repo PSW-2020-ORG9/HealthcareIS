@@ -8,7 +8,7 @@ using Repository.Generics;
 
 namespace Repository.HospitalResourcesRepository
 {
-    public interface MedicalConsumableTypeRepository : Repository<MedicalConsumableType, int>
+    public interface MedicalConsumableTypeRepository : IWrappableRepository<MedicalConsumableType, int>
     {
     }
 }

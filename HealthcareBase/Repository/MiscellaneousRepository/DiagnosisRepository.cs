@@ -9,7 +9,7 @@ using Repository.Generics;
 
 namespace Repository.MiscellaneousRepository
 {
-    public interface DiagnosisRepository : Repository<Diagnosis, string>
+    public interface DiagnosisRepository : IWrappableRepository<Diagnosis, string>
     {
         IEnumerable<Diagnosis> GetByKeyword(string keyword);
     }

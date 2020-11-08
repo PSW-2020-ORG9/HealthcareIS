@@ -7,6 +7,7 @@ using System.Linq;
 using Model.CustomExceptions;
 using Model.Users.Employee;
 using Model.Users.UserAccounts;
+using Repository.Generics;
 using Repository.UsersRepository.EmployeesAndPatientsRepository;
 using Repository.UsersRepository.UserAccountsRepository;
 
@@ -14,32 +15,31 @@ namespace Service.UsersService.EmployeeService
 {
     public class EmployeeRegistrationService
     {
-        private readonly DoctorRepository doctorRepository;
-        private readonly EmployeeAccountRepository employeeAccountRepository;
-        private readonly EmployeeRepository employeeRepository;
+        private readonly RepositoryWrapper<DoctorRepository> doctorRepository;
+        private readonly RepositoryWrapper<EmployeeAccountRepository> employeeAccountRepository;
+        private readonly RepositoryWrapper<EmployeeRepository> employeeRepository;
 
-        public EmployeeRegistrationService(DoctorRepository doctorRepository,
-            EmployeeRepository employeeRepository, EmployeeAccountRepository employeeAccountRepository)
+        public EmployeeRegistrationService(
+            DoctorRepository doctorRepository,
+            EmployeeRepository employeeRepository,
+            EmployeeAccountRepository employeeAccountRepository)
         {
-            this.doctorRepository = doctorRepository;
-            this.employeeRepository = employeeRepository;
-            this.employeeAccountRepository = employeeAccountRepository;
+            this.doctorRepository = new RepositoryWrapper<DoctorRepository>(doctorRepository);
+            this.employeeRepository = new RepositoryWrapper<EmployeeRepository>(employeeRepository);
+            this.employeeAccountRepository =
+                new RepositoryWrapper<EmployeeAccountRepository>(employeeAccountRepository);
         }
 
         public bool IsUsernameUnique(string username)
         {
-            var accounts = employeeAccountRepository.GetAll();
-            if (accounts.Any(acc => acc.Username.Equals(username)))
-                return false;
-            return true;
+            var accounts = employeeAccountRepository.Repository.GetAll();
+            return !accounts.Any(acc => acc.Username.Equals(username));
         }
 
         public bool IsRegistered(string jmbg)
         {
-            var accounts = employeeAccountRepository.GetAll();
-            if (accounts.Any(acc => acc.Employee.Jmbg.Equals(jmbg)))
-                return true;
-            return false;
+            var accounts = employeeAccountRepository.Repository.GetAll();
+            return accounts.Any(acc => acc.Employee.Jmbg.Equals(jmbg));
         }
 
         public EmployeeAccount RegisterDoctor(Doctor doctor, string username, string password)
@@ -58,8 +58,8 @@ namespace Service.UsersService.EmployeeService
                 Password = password
             };
 
-            doctorRepository.Create(doctor);
-            return employeeAccountRepository.Create(newEmployeeAccount);
+            doctorRepository.Repository.Create(doctor);
+            return employeeAccountRepository.Repository.Create(newEmployeeAccount);
         }
 
         public EmployeeAccount RegisterSecretary(Employee secretary, string username, string password)
@@ -78,20 +78,20 @@ namespace Service.UsersService.EmployeeService
                 Password = password
             };
 
-            employeeRepository.Create(secretary);
-            return employeeAccountRepository.Create(newEmployeeAccount);
+            employeeRepository.Repository.Create(secretary);
+            return employeeAccountRepository.Repository.Create(newEmployeeAccount);
         }
 
         public void Fire(Employee employee)
         {
-            var employeeAccount = employeeAccountRepository.GetByEmployee(employee);
+            var employeeAccount = employeeAccountRepository.Repository.GetByEmployee(employee);
 
-            employeeAccountRepository.Delete(employeeAccount);
+            employeeAccountRepository.Repository.Delete(employeeAccount);
             employee.Status = EmployeeStatus.Former;
-            if (employee.GetType().Equals(typeof(Doctor)))
-                doctorRepository.Update((Doctor) employee);
+            if (employee.GetType() == typeof(Doctor))
+                doctorRepository.Repository.Update((Doctor) employee);
             else
-                employeeRepository.Update(employee);
+                employeeRepository.Repository.Update(employee);
         }
     }
 }

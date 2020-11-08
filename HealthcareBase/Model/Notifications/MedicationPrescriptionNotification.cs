@@ -4,11 +4,14 @@
 // Purpose: Definition of Class MedicationPrescriptionNotification
 
 using Model.Medication;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Notifications
 {
     public class MedicationPrescriptionNotification : Notification
     {
+        [ForeignKey("Prescription")]
+        public int PrescriptionId { get; set; }
         public MedicationPrescription Prescription { get; set; }
     }
 }

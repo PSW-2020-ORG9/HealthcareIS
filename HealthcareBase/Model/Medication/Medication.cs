@@ -4,6 +4,8 @@
 // Purpose: Definition of Class Medication
 
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Repository.Generics;
 
 namespace Model.Medication
@@ -36,8 +38,10 @@ namespace Model.Medication
 
         public string Description { get; set; }
 
+        [Column(TypeName = "nvarchar(24)")]
         public MedicineType Type { get; set; }
 
+        [Key]
         public int Id { get; set; }
 
         public IEnumerable<Medication> Alternatives

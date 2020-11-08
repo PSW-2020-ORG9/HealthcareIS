@@ -6,6 +6,8 @@
 using Model.Users.Employee;
 using Model.Users.UserAccounts;
 using Repository.Generics;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Users.UserFeedback
 {
@@ -13,10 +15,15 @@ namespace Model.Users.UserFeedback
     {
         public int ExperienceRating { get; set; }
 
+        [ForeignKey("BestDoctor")]
+        public int BestDoctorId { get; set; }
         public Doctor BestDoctor { get; set; }
 
+        [ForeignKey("Patient")]
+        public int PatientId { get; set; }
         public PatientAccount Patient { get; set; }
 
+        [Key]
         public int Id { get; set; }
 
         public int GetKey()

@@ -8,6 +8,8 @@ using Model.Users.Employee;
 using Model.Users.Patient;
 using Model.Utilities;
 using Repository.Generics;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Schedule.Procedures
 {
@@ -31,42 +33,54 @@ namespace Model.Schedule.Procedures
             set => timeInterval = value;
         }
 
+        [ForeignKey("Doctor")]
+        public int DoctorId { get; set; }
         public Doctor Doctor
         {
             get => doctor;
             set => doctor = value;
         }
 
+        [ForeignKey("ProcedureType")]
+        public int ProcedureTypeId { get; set; }
         public ProcedureType ProcedureType
         {
             get => procedureType;
             set => procedureType = value;
         }
 
+        [Key]
         public int Id
         {
             get => id;
             set => id = value;
         }
 
+        [ForeignKey("Room")]
+        public int RoomId { get; set; }
         public Room Room
         {
             get => room;
             set => room = value;
         }
 
+        [ForeignKey("Patient")]
+        public int PatientId { get; set; }
         public Patient Patient
         {
             get => patient;
             set => patient = value;
         }
 
+        [ForeignKey("ReferredFrom")]
+        public int ReferredFromId { get; set; }
         public Examination ReferredFrom
         {
             get => referredFrom;
             set => referredFrom = value;
         }
 
+        [Column(TypeName = "nvarchar(24)")]
         public ProcedurePriority Priority
         {
             get => priority;

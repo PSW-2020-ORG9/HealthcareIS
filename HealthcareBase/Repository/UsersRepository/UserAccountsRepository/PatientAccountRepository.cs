@@ -9,7 +9,7 @@ using Repository.Generics;
 
 namespace Repository.UsersRepository.UserAccountsRepository
 {
-    public interface PatientAccountRepository : Repository<PatientAccount, int>
+    public interface PatientAccountRepository : IWrappableRepository<PatientAccount, int>
     {
         bool ExistsByJMBG(string jmbg);
 

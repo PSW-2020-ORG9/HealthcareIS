@@ -1,0 +1,10 @@
+pr:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- script: echo "your request has been granted"
+  displayName: 'Dummy PR validation'
+

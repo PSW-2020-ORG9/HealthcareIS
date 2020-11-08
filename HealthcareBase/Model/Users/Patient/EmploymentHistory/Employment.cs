@@ -3,10 +3,12 @@
 // Created: 20 April 2020 20:48:53
 // Purpose: Definition of Class Employment
 
+using Microsoft.EntityFrameworkCore;
 using System;
 
 namespace Model.Users.Patient.EmploymentHistory
 {
+    [Owned]
     public class Employment
     {
         public Employment(DateTime start, DateTime end, Job job)

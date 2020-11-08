@@ -7,35 +7,39 @@ using System.Collections.Generic;
 using Model.CustomExceptions;
 using Model.Medication;
 using Model.Users.Patient;
+using Repository.Generics;
 using Repository.MedicationRepository;
 
 namespace Service.MedicationService
 {
     public class MedicationPrescriptionService
     {
-        private readonly MedicationPrescriptionRepository medicationPrescriptionRepository;
+        private readonly RepositoryWrapper<MedicationPrescriptionRepository> medicationPrescriptionRepository;
         private readonly NotificationService.NotificationService notificationService;
 
-        public MedicationPrescriptionService(MedicationPrescriptionRepository medicationPrescriptionRepository,
-            NotificationService.NotificationService notificationService)
+        public MedicationPrescriptionService(
+            MedicationPrescriptionRepository medicationPrescriptionRepository,
+            NotificationService.NotificationService notificationService
+        )
         {
-            this.medicationPrescriptionRepository = medicationPrescriptionRepository;
+            this.medicationPrescriptionRepository =
+                new RepositoryWrapper<MedicationPrescriptionRepository>(medicationPrescriptionRepository);
             this.notificationService = notificationService;
         }
 
         public MedicationPrescription GetByID(int id)
         {
-            return medicationPrescriptionRepository.GetByID(id);
+            return medicationPrescriptionRepository.Repository.GetByID(id);
         }
 
         public IEnumerable<MedicationPrescription> GetAll()
         {
-            return medicationPrescriptionRepository.GetAll();
+            return medicationPrescriptionRepository.Repository.GetAll();
         }
 
         public IEnumerable<MedicationPrescription> GetByPatient(Patient patient)
         {
-            return medicationPrescriptionRepository.GetByPatient(patient);
+            return medicationPrescriptionRepository.Repository.GetByPatient(patient);
         }
 
         public MedicationPrescription Create(MedicationPrescription medicationPrescription)
@@ -43,7 +47,8 @@ namespace Service.MedicationService
             if (medicationPrescription is null)
                 throw new BadRequestException();
 
-            var createdMedicationPrescription = medicationPrescriptionRepository.Create(medicationPrescription);
+            var createdMedicationPrescription =
+                medicationPrescriptionRepository.Repository.Create(medicationPrescription);
             notificationService.Notify(createdMedicationPrescription);
 
             return createdMedicationPrescription;

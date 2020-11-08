@@ -4,6 +4,7 @@
 // Purpose: Definition of Class StorageRecord
 
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Repository.Generics;
 
 namespace Model.StorageRecords
@@ -21,6 +22,7 @@ namespace Model.StorageRecords
             set => availableAmount = value;
         }
 
+        [Key]
         public int Id
         {
             get => id;

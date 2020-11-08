@@ -6,47 +6,51 @@
 using System.Collections.Generic;
 using Model.CustomExceptions;
 using Model.HospitalResources;
+using Repository.Generics;
 using Repository.HospitalResourcesRepository;
 
 namespace Service.HospitalResourcesService.MedicalConsumableService
 {
     public class MedicalConsumableTypeService
     {
-        private readonly MedicalConsumableRepository medicalConsumableRepository;
-        private readonly MedicalConsumableTypeRepository medicalConsumableTypeRepository;
+        private readonly RepositoryWrapper<MedicalConsumableRepository> medicalConsumableRepository;
+        private readonly RepositoryWrapper<MedicalConsumableTypeRepository> medicalConsumableTypeRepository;
 
-        public MedicalConsumableTypeService(MedicalConsumableTypeRepository medicalConsumableTypeRepository,
+        public MedicalConsumableTypeService(
+            MedicalConsumableTypeRepository medicalConsumableTypeRepository,
             MedicalConsumableRepository medicalConsumableRepository)
         {
-            this.medicalConsumableTypeRepository = medicalConsumableTypeRepository;
-            this.medicalConsumableRepository = medicalConsumableRepository;
+            this.medicalConsumableTypeRepository =
+                new RepositoryWrapper<MedicalConsumableTypeRepository>(medicalConsumableTypeRepository);
+            this.medicalConsumableRepository =
+                new RepositoryWrapper<MedicalConsumableRepository>(medicalConsumableRepository);
         }
 
         public MedicalConsumableType GetByID(int id)
         {
-            return medicalConsumableTypeRepository.GetByID(id);
+            return medicalConsumableTypeRepository.Repository.GetByID(id);
         }
 
         public IEnumerable<MedicalConsumableType> GetAll()
         {
-            return medicalConsumableTypeRepository.GetAll();
+            return medicalConsumableTypeRepository.Repository.GetAll();
         }
 
         public MedicalConsumableType Create(MedicalConsumableType medicalConsumableType)
         {
-            return medicalConsumableTypeRepository.Create(medicalConsumableType);
+            return medicalConsumableTypeRepository.Repository.Create(medicalConsumableType);
         }
 
         public MedicalConsumableType Update(MedicalConsumableType medicalConsumableType)
         {
-            return medicalConsumableTypeRepository.Update(medicalConsumableType);
+            return medicalConsumableTypeRepository.Repository.Update(medicalConsumableType);
         }
 
         public void Delete(MedicalConsumableType medicalConsumableType)
         {
-            if (medicalConsumableRepository.ExistsByType(medicalConsumableType))
+            if (medicalConsumableRepository.Repository.ExistsByType(medicalConsumableType))
                 throw new BadRequestException();
-            medicalConsumableTypeRepository.Delete(medicalConsumableType);
+            medicalConsumableTypeRepository.Repository.Delete(medicalConsumableType);
         }
     }
 }

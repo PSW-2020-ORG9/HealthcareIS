@@ -5,26 +5,30 @@
 
 using Model.Users.Generalities;
 using Repository.Generics;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Users.Patient
 {
     public class Patient : Person, Entity<int>
     {
-        public Patient()
-        {
-            MedicalHistory = new MedicalHistory.MedicalHistory();
-        }
+        public Patient(){}
 
         public string InsuranceNumber { get; set; }
 
         public string MiddleName { get; set; }
 
+        [Column(TypeName = "nvarchar(24)")]
         public MaritalStatus MartialStatus { get; set; }
 
+        [Column(TypeName = "nvarchar(24)")]
         public PatientStatus Status { get; set; }
 
+        [ForeignKey("CityOfBirth")]
+        public int CityOfBirthId { get; set; }
         public City CityOfBirth { get; set; }
 
+        [Key]
         public int MedicalRecordID { get; set; }
 
         public MedicalHistory.MedicalHistory MedicalHistory { get; set; }

@@ -3,8 +3,11 @@
 // Created: 14 April 2020 20:43:24
 // Purpose: Definition of Class Ingredient
 
+using Microsoft.EntityFrameworkCore;
+
 namespace Model.Medication
 {
+    [Owned]
     public class Ingredient
     {
         public Ingredient(string name, bool isAllergen)

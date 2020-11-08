@@ -9,7 +9,7 @@ using Repository.Generics;
 
 namespace Repository.HospitalResourcesRepository
 {
-    public interface ConsumableStorageRecordRepository : Repository<ConsumableStorageRecord, int>
+    public interface ConsumableStorageRecordRepository : IWrappableRepository<ConsumableStorageRecord, int>
     {
         ConsumableStorageRecord GetByMedicalConsumable(MedicalConsumable medicalConsumable);
     }

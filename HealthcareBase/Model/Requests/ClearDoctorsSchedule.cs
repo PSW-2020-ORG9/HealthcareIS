@@ -5,6 +5,7 @@
 
 using Model.Users.Employee;
 using Model.Utilities;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Requests
 {
@@ -12,6 +13,8 @@ namespace Model.Requests
     {
         public TimeInterval TimeInterval { get; set; }
 
+        [ForeignKey("Doctor")]
+        public int DoctorId { get; set; }
         public Doctor Doctor { get; set; }
 
         public override bool Equals(object obj)

@@ -4,6 +4,8 @@
 // Purpose: Definition of Class Room
 
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Repository.Generics;
 
 namespace Model.HospitalResources
@@ -26,10 +28,14 @@ namespace Model.HospitalResources
 
         public string Name { get; set; }
 
+        [Column(TypeName = "nvarchar(24)")]
         public RoomType Purpose { get; set; }
 
+        [ForeignKey("Department")]
+        public int? DepartmentId { get; set; }
         public Department Department { get; set; }
 
+        [Key]
         public int Id { get; set; }
 
         public IEnumerable<EquipmentUnit> Equipment

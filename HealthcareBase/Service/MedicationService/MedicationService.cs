@@ -5,27 +5,28 @@
 
 using System.Collections.Generic;
 using Model.Medication;
+using Repository.Generics;
 using Repository.MedicationRepository;
 
 namespace Service.MedicationService
 {
     public class MedicationService
     {
-        private readonly MedicationRepository medicationRepository;
+        private readonly RepositoryWrapper<MedicationRepository> medicationRepository;
 
         public MedicationService(MedicationRepository medicationRepository)
         {
-            this.medicationRepository = medicationRepository;
+            this.medicationRepository = new RepositoryWrapper<MedicationRepository>(medicationRepository);
         }
 
         public Medication GetByID(int id)
         {
-            return medicationRepository.GetByID(id);
+            return medicationRepository.Repository.GetByID(id);
         }
 
         public IEnumerable<Medication> GetAll()
         {
-            return medicationRepository.GetAll();
+            return medicationRepository.Repository.GetAll();
         }
     }
 }

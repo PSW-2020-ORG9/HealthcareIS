@@ -3,6 +3,7 @@ using Model.CustomExceptions;
 using Model.HospitalResources;
 using Model.Schedule.Procedures;
 using Model.Users.Employee;
+using Repository.Generics;
 using Repository.HospitalResourcesRepository;
 using Repository.ScheduleRepository.ProceduresRepository;
 using Repository.UsersRepository.EmployeesAndPatientsRepository;
@@ -11,21 +12,24 @@ namespace Service.ScheduleService.Validators
 {
     public class ProcedureValidator
     {
-        private readonly DoctorRepository doctorRepository;
-        private readonly ExaminationRepository examinationRepository;
-        private readonly PatientRepository patientRepository;
-        private readonly ProcedureTypeRepository procedureTypeRepository;
-        private readonly RoomRepository roomRepository;
+        private readonly RepositoryWrapper<DoctorRepository> doctorRepository;
+        private readonly RepositoryWrapper<ExaminationRepository> examinationRepository;
+        private readonly RepositoryWrapper<PatientRepository> patientRepository;
+        private readonly RepositoryWrapper<ProcedureTypeRepository> procedureTypeRepository;
+        private readonly RepositoryWrapper<RoomRepository> roomRepository;
 
-        public ProcedureValidator(DoctorRepository doctorRepository, RoomRepository roomRepository,
+        public ProcedureValidator(
+            DoctorRepository doctorRepository,
+            RoomRepository roomRepository,
             PatientRepository patientRepository,
-            ProcedureTypeRepository procedureTypeRepository, ExaminationRepository examinationRepository)
+            ProcedureTypeRepository procedureTypeRepository,
+            ExaminationRepository examinationRepository)
         {
-            this.doctorRepository = doctorRepository;
-            this.roomRepository = roomRepository;
-            this.patientRepository = patientRepository;
-            this.procedureTypeRepository = procedureTypeRepository;
-            this.examinationRepository = examinationRepository;
+            this.doctorRepository = new RepositoryWrapper<DoctorRepository>(doctorRepository);
+            this.roomRepository = new RepositoryWrapper<RoomRepository>(roomRepository);
+            this.patientRepository = new RepositoryWrapper<PatientRepository>(patientRepository);
+            this.procedureTypeRepository = new RepositoryWrapper<ProcedureTypeRepository>(procedureTypeRepository);
+            this.examinationRepository = new RepositoryWrapper<ExaminationRepository>(examinationRepository);
         }
 
         public void ValidateProcedure(Procedure procedure)
@@ -57,12 +61,12 @@ namespace Service.ScheduleService.Validators
         {
             try
             {
-                procedure.Doctor = doctorRepository.GetByID(procedure.Doctor.GetKey());
-                procedure.Room = roomRepository.GetByID(procedure.Room.GetKey());
-                procedure.Patient = patientRepository.GetByID(procedure.Patient.GetKey());
-                procedure.ProcedureType = procedureTypeRepository.GetByID(procedure.ProcedureType.GetKey());
+                procedure.Doctor = doctorRepository.Repository.GetByID(procedure.Doctor.GetKey());
+                procedure.Room = roomRepository.Repository.GetByID(procedure.Room.GetKey());
+                procedure.Patient = patientRepository.Repository.GetByID(procedure.Patient.GetKey());
+                procedure.ProcedureType = procedureTypeRepository.Repository.GetByID(procedure.ProcedureType.GetKey());
                 if (procedure.ReferredFrom != null)
-                    procedure.ReferredFrom = examinationRepository.GetByID(procedure.ReferredFrom.GetKey());
+                    procedure.ReferredFrom = examinationRepository.Repository.GetByID(procedure.ReferredFrom.GetKey());
             }
             catch (BadRequestException)
             {
@@ -72,8 +76,8 @@ namespace Service.ScheduleService.Validators
 
         private void ValidateDoctorSuitability(ProcedureType procedureType, Doctor doctor)
         {
-            var matchingSpeicalties = procedureType.QualifiedSpecialties.Intersect(doctor.Specialties);
-            if (matchingSpeicalties.Count() == 0)
+            var matchingSpecialties = procedureType.QualifiedSpecialties.Intersect(doctor.Specialties);
+            if (!matchingSpecialties.Any())
                 throw new ValidationException();
         }
 
@@ -87,12 +91,11 @@ namespace Service.ScheduleService.Validators
 
         private void ValidateEquipmentSuitability(ProcedureType procedureType, Room room)
         {
-            foreach (var type in procedureType.NecessaryEquipment)
+            if (procedureType.NecessaryEquipment
+                .Select(type => room.Equipment.Count(unit => unit.EquipmentType.Equals(type)) != 0)
+                .Any(roomContainsEquipmentOfNecessaryType => !roomContainsEquipmentOfNecessaryType))
             {
-                var roomContainsEquipmentOfNecessaryType =
-                    room.Equipment.Count(unit => unit.EquipmentType.Equals(type)) != 0;
-                if (!roomContainsEquipmentOfNecessaryType)
-                    throw new ValidationException();
+                throw new ValidationException();
             }
         }
     }

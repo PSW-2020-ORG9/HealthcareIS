@@ -4,6 +4,7 @@
 // Purpose: Definition of Class HospitalizationType
 
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Model.HospitalResources;
 using Repository.Generics;
 
@@ -48,6 +49,7 @@ namespace Model.Schedule.Hospitalizations
             }
         }
 
+        [Key]
         public int Id { get; set; }
 
         public int UsualNumberOfDays { get; set; }

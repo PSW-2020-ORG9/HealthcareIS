@@ -5,27 +5,29 @@
 
 using System.Collections.Generic;
 using Model.Schedule.Hospitalizations;
+using Repository.Generics;
 using Repository.ScheduleRepository.HospitalizationsRepository;
 
 namespace Service.ScheduleService.HospitalizationService
 {
     public class HospitalizationTypeService
     {
-        private readonly HospitalizationTypeRepository hospitalizationTypeRepository;
+        private readonly RepositoryWrapper<HospitalizationTypeRepository> hospitalizationTypeRepository;
 
         public HospitalizationTypeService(HospitalizationTypeRepository hospitalizationTypeRepository)
         {
-            this.hospitalizationTypeRepository = hospitalizationTypeRepository;
+            this.hospitalizationTypeRepository =
+                new RepositoryWrapper<HospitalizationTypeRepository>(hospitalizationTypeRepository);
         }
 
         public IEnumerable<HospitalizationType> GetAll()
         {
-            return hospitalizationTypeRepository.GetAll();
+            return hospitalizationTypeRepository.Repository.GetAll();
         }
 
         public HospitalizationType GetByID(int id)
         {
-            return hospitalizationTypeRepository.GetByID(id);
+            return hospitalizationTypeRepository.Repository.GetByID(id);
         }
     }
 }

@@ -4,6 +4,7 @@
 // Purpose: Definition of Class MedicationInputRequest
 
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using Model.Users.Employee;
 
 namespace Model.Requests
@@ -17,6 +18,8 @@ namespace Model.Requests
             Medication = new Medication.Medication();
         }
 
+        [ForeignKey("Medication")]
+        public int MedicationId { get; set; }
         public Medication.Medication Medication { get; set; }
 
         public IEnumerable<Specialty> ReviewableBy
