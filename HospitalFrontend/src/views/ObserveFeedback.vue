@@ -1,4 +1,5 @@
 <template>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 <!--Radio buttons for choosing role -->
   <div class="col">
     <div class="form-check form-check-inline">

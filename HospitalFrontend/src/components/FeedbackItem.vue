@@ -1,6 +1,7 @@
 <template>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
- <div class="item card">
+  <div class="item card">
     <div class="d-flex justify-content-between bg-info">
       <h5 v-if="!feedback.isAnonymous" class="card-header text-left  text-white">{{feedback.user.username}}</h5>
       <h5 v-else class="card-header text-left  text-white">Anonymous</h5>
@@ -10,7 +11,7 @@
         <div class="text-left">{{feedback.userComment}}</div>
         <button v-if="user=='admin' & !feedback.isPublished & !feedback.isAnonymous & feedback.isPublic" @click="publishFeedback" type="button" class="btn btn-success float-right">Publish</button>
     </div>
- </div>
+  </div>
 
 </template>
 
@@ -27,10 +28,7 @@ export default {
   },
   methods: {
     publishFeedback: function () {
-      let publishedFeedback = JSON.parse(JSON.stringify(this.feedback))
-      publishedFeedback.user = null
-      publishedFeedback.isPublished = true
-      axios.put(api.feedback, publishedFeedback)
+      axios.get(api.feedback + '/publish/' + this.feedback.id)
         .then(response => {
           this.$emit('update-feedbacks')
           this.toastSuccess()
@@ -40,7 +38,7 @@ export default {
     },
     toastSuccess: function () {
         Toastify({
-              text: "Feedback succesfully publish!",
+              text: "Feedback succesfully published!",
               duration: '2000',
               newWindow: true,
               close: true,
