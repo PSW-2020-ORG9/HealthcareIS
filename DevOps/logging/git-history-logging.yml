@@ -1,0 +1,19 @@
+trigger: none
+pr: none
+
+schedules:
+- cron: "0 */2 * * Mon,Tue,Sat,Sun"
+  displayName: Git Tree logging to track changes in history (provide commit backdating detection possibilities)
+  branches:
+    exclude:
+      - 
+  always: true
+
+steps:
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      git checkout master
+      git --no-pager log --all --source --full-history # --graph --since=2.weeks
+    workingDirectory: '$(Agent.BuildDirectory)/s'
