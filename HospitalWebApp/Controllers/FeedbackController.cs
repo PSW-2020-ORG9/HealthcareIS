@@ -40,7 +40,7 @@ namespace HospitalWebApp.Controllers
                 UpdateUserFeedbackDate(userFeedback);
                 _userFeedbackService.Create(userFeedback);
             }
-            catch (ReferenceConstraintException e)
+            catch (ReferenceConstraintException)
             {
                 return BadRequest("User with passed ID doesn't exist");
             }
