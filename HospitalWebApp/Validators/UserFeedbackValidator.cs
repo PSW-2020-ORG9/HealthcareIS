@@ -10,20 +10,13 @@ namespace HealthcareBase.Service.ValidationService
         private const int COMMENT_MAX_LEN = 300;
 
         /// <summary>
-        /// Validates passed UserFeedback object.
+        /// Validates the given <see cref="UserFeedbackDto"/> object.
         /// </summary>
-        /// <param name="entity"></param>
-        public static void validate(UserFeedbackDto entity)
-        {
-            CheckFields(entity);
-        }
-
-        /// <summary>
-        /// Validates object fields content.
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <exception cref="ValidationException"></exception>
-        private static void CheckFields(UserFeedbackDto entity)
+        /// <param name="entity"> DTO to be validated </param>
+        /// <exception cref="ValidationException">
+        /// If comment is empty, or longer than <see cref="COMMENT_MAX_LEN"/>
+        /// </exception>
+        public static void Validate(UserFeedbackDto entity)
         {
             IsCommentEmpty(entity.UserComment);
             IsCommentTooLong(entity.UserComment);
@@ -32,8 +25,10 @@ namespace HealthcareBase.Service.ValidationService
         /// <summary>
         /// Checks if comment is empty
         /// </summary>
-        /// <param name="entity"></param>
-        /// <exception cref="ValidationException"></exception>
+        /// <param name="comment"></param>
+        /// <exception cref="ValidationException">
+        /// If the given string is 
+        /// </exception>
         private static void IsCommentEmpty(string comment)
         {
             if (comment.Trim().Equals(""))
@@ -43,7 +38,7 @@ namespace HealthcareBase.Service.ValidationService
         /// <summary>
         /// Checks if comment is too long.
         /// </summary>
-        /// <param name="entity"></param>
+        /// <param name="comment"></param>
         /// <exception cref="ValidationException"></exception>
         private static void IsCommentTooLong(string comment)
         {

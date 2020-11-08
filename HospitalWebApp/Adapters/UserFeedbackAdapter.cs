@@ -6,7 +6,7 @@ namespace HospitalWebApp.Adapters
 {
     public class UserFeedbackAdapter
     {
-        public static UserFeedback userFeedbackDtoToUserFeedback(UserFeedbackDto dto)
+        public static UserFeedback DtoToObject(UserFeedbackDto dto)
         {
             return new UserFeedback
             {

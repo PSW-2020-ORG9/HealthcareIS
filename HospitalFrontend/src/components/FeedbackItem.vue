@@ -9,7 +9,7 @@
     </div>
     <div class="card-body">           
         <div class="text-left">{{feedback.userComment}}</div>
-        <button v-if="user=='admin' & !feedback.isPublished & !feedback.isAnonymous & feedback.isPublic" @click="publishFeedback" type="button" class="btn btn-success float-right">Publish</button>
+        <button v-if="user=='admin' & !feedback.isPublished & feedback.isPublic" @click="publishFeedback" type="button" class="btn btn-success float-right">Publish</button>
     </div>
   </div>
 
@@ -26,6 +26,9 @@ export default {
     feedback: Object,
     user: String
   },
+  emits : [
+    "updateFeedbacks"
+  ],
   methods: {
     publishFeedback: function () {
       axios.get(api.feedback + '/publish/' + this.feedback.id)
@@ -33,7 +36,7 @@ export default {
           this.$emit('update-feedbacks')
           this.toastSuccess()
         }).catch(error => {
-          this.toastError()
+          this.toastError(error.response.data)
         })
     },
     toastSuccess: function () {
@@ -47,9 +50,9 @@ export default {
               backgroundColor: "linear-gradient(to right, #00b09b, #7ecc92)"
             }).showToast()
       },
-      toastError: function () {
+      toastError: function (message) {
         Toastify({
-              text: "An error ocurred!",
+              text: message,
               duration: '2000',
               newWindow: true,
               close: true,

@@ -2,7 +2,6 @@
   <div class="bg-image"></div>
   <div id="nav">
     <router-link to="/">Observe feedback</router-link> |
-    <router-link to="/publish-feedback">Publish feedback</router-link> |
     <router-link to="/create-feedback">Create feedback</router-link> 
   </div>
   <router-view/>
