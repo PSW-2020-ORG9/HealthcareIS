@@ -57,9 +57,9 @@
               backgroundColor: "linear-gradient(to right, #00b09b, #7ecc92)"
             }).showToast()
       },
-      toastError:function(){
+      toastError:function(errorMsg){
         Toastify({
-              text: "An error ocurred!",
+              text: errorMsg,
               duration: '2000',
               newWindow: true,
               close: true,
@@ -74,7 +74,7 @@
             this.toastSuccess()
           })
           .catch((err) => {
-            this.toastError()
+            this.toastError(err.response.data)
           })
       },
       onSubmit: function () {

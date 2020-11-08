@@ -33,7 +33,7 @@ export default {
           this.$emit('update-feedbacks')
           this.toastSuccess()
         }).catch(error => {
-          this.toastError()
+          this.toastError(error.response.data)
         })
     },
     toastSuccess: function () {
@@ -47,9 +47,9 @@ export default {
               backgroundColor: "linear-gradient(to right, #00b09b, #7ecc92)"
             }).showToast()
       },
-      toastError: function () {
+      toastError: function (message) {
         Toastify({
-              text: "An error ocurred!",
+              text: message,
               duration: '2000',
               newWindow: true,
               close: true,
