@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json.Linq;
 using Repository.Generics;
 using Repository.UsersRepository.UserFeedbackRepository;
 using Service.UsersService.UserFeedbackService;
@@ -29,6 +30,7 @@ namespace HospitalWebApp
             _connectionString = Configuration["MySql"];
             AddService(services, typeof(UserFeedbackService), typeof(UserFeedbackSqlRepository));
             services.AddControllers();
+            
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
             {
                 builder.AllowAnyOrigin();

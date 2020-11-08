@@ -1,6 +1,6 @@
 ﻿namespace Model.CustomExceptions
 {
-    internal class FieldRequiredException : ValidationException
+    public class FieldRequiredException : ValidationException
     {
         public FieldRequiredException()
         {
