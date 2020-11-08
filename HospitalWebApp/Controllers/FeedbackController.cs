@@ -27,11 +27,12 @@ namespace HospitalWebApp.Controllers
         /// <param name="userFeedback"></param>
         /// <returns>An <see cref="IActionResult"/> representing a result of the operation.</returns>
         [HttpPut]
-        public IActionResult Update(UserFeedback userFeedback)
+        public IActionResult Update(UserFeedbackDto userFeedbackDto)
         {
             try
             {
-                UserFeedbackValidator.validate(userFeedback);
+                UserFeedbackValidator.validate(userFeedbackDto);
+                var userFeedback = UserFeedbackAdapter.userFeedbackDtoToUserFeedback(userFeedbackDto);
                 return Ok(_userFeedbackService.Update(userFeedback));
             }
             catch(ReferenceConstraintException e)
