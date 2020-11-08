@@ -3,11 +3,11 @@
 <!--Radio buttons for choosing role -->
   <div class="col">
     <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" id="userRadio" value="user" v-model="user">
+      <input class="form-check-input" type="radio" id="userRadio" value="user" v-model="user" @change="getAllFeedbacks">
       <label class="form-check-label" for="userRadio">Regular user</label>
     </div>
     <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" id="adminRadio" value="admin" v-model="user">
+      <input class="form-check-input" type="radio" id="adminRadio" value="admin" v-model="user" @change="getAllFeedbacks">
       <label class="form-check-label" for="adminRadio">Admin</label>
     </div>
   </div>
@@ -40,10 +40,21 @@ export default {
   {
     getAllFeedbacks:function()
     {
-      axios.get(api.feedback).then((response) => 
+      let url = api.feedback
+      if (this.user === "user")
+        url +="/published"
+
+      axios.get(url).then((response) => 
       {
+         response.data.forEach(element => {
+           element.date = this.formatDate(element.date)
+         });
          this.feedbacks = response.data
       })      
+    },
+    formatDate : function(date) {
+      let d = new Date(date)
+      return d.getDate() + "/" + (d.getMonth()+1) + "/" + d.getFullYear()
     }
   },
   mounted: function()

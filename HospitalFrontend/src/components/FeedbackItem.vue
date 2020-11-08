@@ -9,7 +9,7 @@
     </div>
     <div class="card-body">           
         <div class="text-left">{{feedback.userComment}}</div>
-        <button v-if="user=='admin' & !feedback.isPublished & !feedback.isAnonymous & feedback.isPublic" @click="publishFeedback" type="button" class="btn btn-success float-right">Publish</button>
+        <button v-if="user=='admin' & !feedback.isPublished & feedback.isPublic" @click="publishFeedback" type="button" class="btn btn-success float-right">Publish</button>
     </div>
   </div>
 
@@ -26,6 +26,9 @@ export default {
     feedback: Object,
     user: String
   },
+  emits : [
+    "updateFeedbacks"
+  ],
   methods: {
     publishFeedback: function () {
       axios.get(api.feedback + '/publish/' + this.feedback.id)

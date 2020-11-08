@@ -44,7 +44,7 @@ namespace Service.UsersService.UserFeedbackService
         /// </returns>
         public bool Publish(int id)
         {
-            var userFeedback = _userFeedbackRepository.Repository.GetByID(id);
+            UserFeedback userFeedback = _userFeedbackRepository.Repository.GetByID(id);
             if (userFeedback.isPublished) return false;    // If already published
             if (!userFeedback.isPublic) return false;    // If not public
             userFeedback.isPublished = true;
