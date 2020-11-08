@@ -4,7 +4,7 @@
   <div class="container">
     <div class="col-sm-5 mx-auto shadow-lg p-3 mb-5 bg-white rounded feedback">
       <div class="feedback-text">
-        <div class="form-group d-flex justify-content-start">
+        <div class="form-group d-flex justify-content-start md-4">
           <textarea class="form-control input-feedback" rows=5 type="text" placeholder="Enter your feedback" v-model="feedbackContent" required></textarea>
         </div>
       </div>
@@ -80,7 +80,6 @@
       onSubmit: function () {
 
         var userFeedback = {
-          Date: new Date(),
           UserComment: this.feedbackContent,
           isPublic: this.ispublic,
           isAnonymous: this.isanonymous,
@@ -109,13 +108,12 @@
   color: #58804f;
 }
 .feedback-text{
-  display:flex;
-  height: 200px;
+  height: 100%;
   justify-content: center;
 }
 .input-feedback{
-  width:360px;
-  height: 300px;
+  width:100%;
+  height:100%;
 }
 
 
