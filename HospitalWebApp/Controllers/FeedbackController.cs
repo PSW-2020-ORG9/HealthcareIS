@@ -1,5 +1,10 @@
-﻿using EntityFramework.Exceptions.Common;
+﻿using System;
+using EntityFramework.Exceptions.Common;
+using HealthcareBase.Service.ValidationService;
+using HospitalWebApp.Adapters;
+using HospitalWebApp.Dtos;
 using Microsoft.AspNetCore.Mvc;
+using Model.CustomExceptions;
 using Model.Users.UserFeedback;
 using Service.UsersService.UserFeedbackService;
 
@@ -22,21 +27,31 @@ namespace HospitalWebApp.Controllers
             return Ok(_userFeedbackService.Update(userFeedback));
         }
 
+        /// <summary>
+        ///  Creates new user feedback.
+        /// </summary>
+        /// <param name="userFeedback"></param>
+        /// <returns></returns>
         [HttpPost]
-        public IActionResult Post(UserFeedback userFeedback)
+        public IActionResult Create(UserFeedbackDto userFeedbackDto)
         {
             try
             {
+                UserFeedbackValidator.validate(userFeedbackDto);
+                var userFeedback = UserFeedbackAdapter.userFeedbackDtoToUserFeedback(userFeedbackDto);
                 _userFeedbackService.Create(userFeedback);
             }
-            catch (ReferenceConstraintException e)
+            catch (ReferenceConstraintException)
             {
-                return BadRequest("ReferenceConstraintException");
+                return BadRequest("User with passed ID doesn't exist");
+            }
+            catch (ValidationException e)
+            {
+                return BadRequest(e.Message);
             }
 
             return Ok();
         }
-
         [HttpGet]
         public IActionResult GetAll()
         {
