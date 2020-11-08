@@ -91,11 +91,6 @@ namespace HospitalWebApp.Controllers
             }
         }
 
-        private static void UpdateUserFeedbackDate(UserFeedback userFeedback)
-        {
-            userFeedback.Date=DateTime.Now;
-        }
-
         [HttpGet]
         public IActionResult GetAll()
         {
