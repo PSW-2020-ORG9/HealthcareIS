@@ -1,6 +1,24 @@
 ﻿namespace WPFHospitalEditor.MapObjectModel
 {
-    public class MapObjectType
+    public enum MapObjectType
     {
+        Road,
+        Building,
+        Parking,
+        ParkingSlot,
+        Elevator,
+        Informations,
+        Toilet,
+        Canteen,
+        WaitingRoom,
+        SurgeryRoom,
+        DentistryRoom,
+        ExaminationRoom,
+        RecoveryRoom,
+        NeurologyRoom,
+        DermatologyRoom,
+        OphthalmologyRoom,
+        OnDuty
     }
+
 }

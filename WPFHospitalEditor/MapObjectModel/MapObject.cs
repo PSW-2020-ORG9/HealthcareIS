@@ -34,8 +34,9 @@ namespace WPFHospitalEditor.MapObjectModel
             this.rectangle.Width = MapObjectMetrics.MapObjectDimensions.Width;
             this.rectangle.Height = MapObjectMetrics.MapObjectDimensions.Height;
             setRectanglePositionOnMap(MapObjectMetrics.MapObjectCoordinates);
-            setTextBlockProperties(MapObjectType);
+            setTextBlockProperties();
             setTextBlockPositionOnMap(MapObjectMetrics.MapObjectCoordinates);
+            setMapObjectColor();
         }
 
         public void setRectanglePositionOnMap(MapObjectCoordinates mapObjectCoordinates)
@@ -44,10 +45,9 @@ namespace WPFHospitalEditor.MapObjectModel
             this.rectangle.SetValue(Canvas.TopProperty, mapObjectCoordinates.Y);
         }
 
-        public void setTextBlockProperties(MapObjectType MapObjectType)
+        public void setTextBlockProperties()
         {
             this.name = new TextBlock();
-            this.name.Text = MapObjectType;
             this.name.FontSize = 20;
             this.name.HorizontalAlignment = HorizontalAlignment.Center;
             this.name.SetValue(Canvas.WidthProperty, this.rectangle.Width);
@@ -60,6 +60,16 @@ namespace WPFHospitalEditor.MapObjectModel
         {
             this.name.SetValue(Canvas.LeftProperty, mapObjectCoordinates.X);
             this.name.SetValue(Canvas.TopProperty, mapObjectCoordinates.Y);
+        }
+
+        public void setMapObjectColor()
+        {
+            MapObjectColors mapObjectColors = MapObjectColors.getInstance();
+            this.rectangle.Fill = MapObjectColors.mapObjectTypesColors[MapObjectType];
+            if (MapObjectType != MapObjectType.Parking && MapObjectType != MapObjectType.Road && MapObjectType != MapObjectType.WaitingRoom && MapObjectType != MapObjectType.ParkingSlot)
+            {
+                this.rectangle.Stroke = Brushes.Black;
+            }
         }
     }
 }
