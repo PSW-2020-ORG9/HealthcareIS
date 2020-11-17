@@ -37,6 +37,7 @@ namespace WPFHospitalEditor.MapObjectModel
             setTextBlockProperties();
             setTextBlockPositionOnMap(MapObjectMetrics.MapObjectCoordinates);
             setMapObjectColor();
+            setMapObjectDoor(MapObjectDoor.MapObjectDoorOrientation);
         }
 
         public void setRectanglePositionOnMap(MapObjectCoordinates mapObjectCoordinates)
@@ -69,6 +70,33 @@ namespace WPFHospitalEditor.MapObjectModel
             if (MapObjectType != MapObjectType.Parking && MapObjectType != MapObjectType.Road && MapObjectType != MapObjectType.WaitingRoom && MapObjectType != MapObjectType.ParkingSlot)
             {
                 this.rectangle.Stroke = Brushes.Black;
+            }
+        }
+
+        public void setMapObjectDoor(MapObjectDoorOrientation mapObjectDoorOrientation)
+        {
+            MapObjectCoordinates mocDoor = new MapObjectCoordinates(0, 0);
+            switch (mapObjectDoorOrientation)
+            {
+                case MapObjectDoorOrientation.Up:
+                    this.MapObjectDoor.rectangle.SetValue(Canvas.LeftProperty, MapObjectMetrics.MapObjectCoordinates.X + MapObjectMetrics.MapObjectDimensions.Width / 2 - AllConstants.doorWidth / 2);
+                    this.MapObjectDoor.rectangle.SetValue(Canvas.TopProperty, MapObjectMetrics.MapObjectCoordinates.Y - AllConstants.doorHeight / 2);
+                    break;
+                case MapObjectDoorOrientation.Down:
+                    this.MapObjectDoor.rectangle.SetValue(Canvas.LeftProperty, MapObjectMetrics.MapObjectCoordinates.X + MapObjectMetrics.MapObjectDimensions.Width / 2 - AllConstants.doorWidth / 2);
+                    this.MapObjectDoor.rectangle.SetValue(Canvas.TopProperty, MapObjectMetrics.MapObjectCoordinates.Y + MapObjectMetrics.MapObjectDimensions.Height - AllConstants.doorHeight / 2);
+                    break;
+                case MapObjectDoorOrientation.Left:
+                    this.MapObjectDoor.rectangle.SetValue(Canvas.LeftProperty, MapObjectMetrics.MapObjectCoordinates.X - AllConstants.doorHeight / 2);
+                    this.MapObjectDoor.rectangle.SetValue(Canvas.TopProperty, MapObjectMetrics.MapObjectCoordinates.Y + MapObjectMetrics.MapObjectDimensions.Height / 2 - AllConstants.doorWidth / 2);
+                    break;
+                case MapObjectDoorOrientation.Right:
+                    this.MapObjectDoor.rectangle.SetValue(Canvas.LeftProperty, MapObjectMetrics.MapObjectCoordinates.X + MapObjectMetrics.MapObjectDimensions.Width - AllConstants.doorHeight / 2);
+                    this.MapObjectDoor.rectangle.SetValue(Canvas.TopProperty, MapObjectMetrics.MapObjectCoordinates.Y + MapObjectMetrics.MapObjectDimensions.Height / 2 - AllConstants.doorWidth / 2);
+                    break;
+                case MapObjectDoorOrientation.NoDoors:
+                    this.MapObjectDoor.rectangle.Visibility = Visibility.Hidden;
+                    break;
             }
         }
     }
