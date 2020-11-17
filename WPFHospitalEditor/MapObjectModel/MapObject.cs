@@ -8,7 +8,6 @@ namespace WPFHospitalEditor.MapObjectModel
     public class MapObject
     {
         public Rectangle rectangle;
-
         public TextBlock name;
         public String Description { get; set; }
         public MapObjectMetrics MapObjectMetrics { get; set; }
@@ -96,6 +95,5 @@ namespace WPFHospitalEditor.MapObjectModel
             }
         }
     }
-}
-    
+}   
 
