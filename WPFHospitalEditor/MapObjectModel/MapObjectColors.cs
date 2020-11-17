@@ -36,5 +36,10 @@ namespace WPFHospitalEditor.MapObjectModel
                 instance = new MapObjectColors();
             return instance;
         }
+
+        public Brush getColor(MapObjectType mapObjectType)
+        {
+            return mapObjectTypesColors[mapObjectType];
+        }
     }
 }
