@@ -61,7 +61,7 @@ namespace WPFHospitalEditor.MapObjectModel
         public void setMapObjectColor()
         {
             this.rectangle.Fill = MapObjectColors.getInstance().getColor(MapObjectType);
-            if (MapObjectType != MapObjectType.Parking && MapObjectType != MapObjectType.Road && MapObjectType != MapObjectType.WaitingRoom && MapObjectType != MapObjectType.ParkingSlot)
+            if (isStrokeNeeded())
             {
                 this.rectangle.Stroke = Brushes.Black;
             }
@@ -92,6 +92,15 @@ namespace WPFHospitalEditor.MapObjectModel
                     this.MapObjectDoor.rectangle.Visibility = Visibility.Hidden;
                     break;
             }
+        }
+         
+        private Boolean isStrokeNeeded()
+        {
+            if (MapObjectType != MapObjectType.Parking && MapObjectType != MapObjectType.Road && MapObjectType != MapObjectType.WaitingRoom && MapObjectType != MapObjectType.ParkingSlot)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }   
