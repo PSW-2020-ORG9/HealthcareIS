@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input.Manipulations;
 using System.Windows.Media;
-using System.Windows.Shapes;
 using Rectangle = System.Windows.Shapes.Rectangle;
 namespace WPFHospitalEditor.MapObjectModel
 {
@@ -25,10 +21,10 @@ namespace WPFHospitalEditor.MapObjectModel
             this.MapObjectType = MapObjectType;
             this.MapObjectDoor = MapObjectDoor;
             this.Description = Description;
-            setMapObjectProperties(MapObjectMetrics, MapObjectType);
+            setMapObjectProperties(MapObjectMetrics);
         }
 
-        public void setMapObjectProperties(MapObjectMetrics MapObjectMetrics, MapObjectType MapObjectType)
+        public void setMapObjectProperties(MapObjectMetrics MapObjectMetrics)
         {
             this.rectangle = new Rectangle();
             this.rectangle.Width = MapObjectMetrics.MapObjectDimensions.Width;
@@ -37,7 +33,7 @@ namespace WPFHospitalEditor.MapObjectModel
             setTextBlockProperties();
             setTextBlockPositionOnMap(MapObjectMetrics.MapObjectCoordinates);
             setMapObjectColor();
-            setMapObjectDoor(MapObjectDoor.MapObjectDoorOrientation);
+            setMapObjectDoorPosition(MapObjectDoor.MapObjectDoorOrientation);
         }
 
         public void setRectanglePositionOnMap(MapObjectCoordinates mapObjectCoordinates)
@@ -73,7 +69,7 @@ namespace WPFHospitalEditor.MapObjectModel
             }
         }
 
-        public void setMapObjectDoor(MapObjectDoorOrientation mapObjectDoorOrientation)
+        public void setMapObjectDoorPosition(MapObjectDoorOrientation mapObjectDoorOrientation)
         {
             MapObjectCoordinates mocDoor = new MapObjectCoordinates(0, 0);
             switch (mapObjectDoorOrientation)
