@@ -25,20 +25,41 @@ namespace WPFHospitalEditor.MapObjectModel
             this.MapObjectType = MapObjectType;
             this.MapObjectDoor = MapObjectDoor;
             this.Description = Description;
-
+            setMapObjectProperties(MapObjectMetrics, MapObjectType);
         }
 
-        public void setMapObjectProperties(MapObjectDimensions MapObjectDimensions)
+        public void setMapObjectProperties(MapObjectMetrics MapObjectMetrics, MapObjectType MapObjectType)
         {
-            this.rectangle.Width = MapObjectDimensions.Width;
-            this.rectangle.Height = MapObjectDimensions.Height;
+            this.rectangle = new Rectangle();
+            this.rectangle.Width = MapObjectMetrics.MapObjectDimensions.Width;
+            this.rectangle.Height = MapObjectMetrics.MapObjectDimensions.Height;
             setRectanglePositionOnMap(MapObjectMetrics.MapObjectCoordinates);
+            setTextBlockProperties(MapObjectType);
+            setTextBlockPositionOnMap(MapObjectMetrics.MapObjectCoordinates);
         }
 
         public void setRectanglePositionOnMap(MapObjectCoordinates mapObjectCoordinates)
         {
             this.rectangle.SetValue(Canvas.LeftProperty, mapObjectCoordinates.X);
             this.rectangle.SetValue(Canvas.TopProperty, mapObjectCoordinates.Y);
+        }
+
+        public void setTextBlockProperties(MapObjectType MapObjectType)
+        {
+            this.name = new TextBlock();
+            this.name.Text = MapObjectType;
+            this.name.FontSize = 20;
+            this.name.HorizontalAlignment = HorizontalAlignment.Center;
+            this.name.SetValue(Canvas.WidthProperty, this.rectangle.Width);
+            this.name.SetValue(Canvas.HeightProperty, this.rectangle.Height);
+            this.name.TextWrapping = TextWrapping.Wrap;
+            this.name.TextAlignment = TextAlignment.Center;
+        }
+
+        public void setTextBlockPositionOnMap(MapObjectCoordinates mapObjectCoordinates)
+        {
+            this.name.SetValue(Canvas.LeftProperty, mapObjectCoordinates.X);
+            this.name.SetValue(Canvas.TopProperty, mapObjectCoordinates.Y);
         }
     }
 }
