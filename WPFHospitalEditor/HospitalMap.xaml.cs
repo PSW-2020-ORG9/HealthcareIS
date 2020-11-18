@@ -22,7 +22,7 @@ namespace WPFHospitalEditor
         public HospitalMap()
         {
             InitializeComponent();
-            addObjectToCanvas(AllMapObjects.allOuterMapObjects);
+            addObjectToCanvas(AllMapObjects.allOuterMapObjects, canvas);
         }
         private void selectBuilding(object sender, MouseButtonEventArgs e)
         {
@@ -32,7 +32,7 @@ namespace WPFHospitalEditor
                 goToClickedBuilding(chosenBuilding);
             }
         }
-        public MapObject checkWhichObjectIsClicked(MouseButtonEventArgs e, List<MapObject> allMapObjectsShowed)
+        private MapObject checkWhichObjectIsClicked(MouseButtonEventArgs e, List<MapObject> allMapObjectsShowed)
         {
             for (int i = 0; i < allMapObjectsShowed.Count; i++)
             {
@@ -43,25 +43,21 @@ namespace WPFHospitalEditor
             }
             return null;
         }
-        public Boolean checkIfPointIsInRectangle(MouseButtonEventArgs e, MapObject mapObject)
+        private Boolean checkIfPointIsInRectangle(MouseButtonEventArgs e, MapObject mapObject)
         {
-            if (e.GetPosition(canvas).X > mapObject.MapObjectMetrics.MapObjectCoordinates.X
+            return (e.GetPosition(canvas).X > mapObject.MapObjectMetrics.MapObjectCoordinates.X
                     && e.GetPosition(canvas).X < mapObject.MapObjectMetrics.MapObjectCoordinates.X + mapObject.MapObjectMetrics.MapObjectDimensions.Width
                     && e.GetPosition(canvas).Y > mapObject.MapObjectMetrics.MapObjectCoordinates.Y
-                    && e.GetPosition(canvas).Y < mapObject.MapObjectMetrics.MapObjectCoordinates.Y + mapObject.MapObjectMetrics.MapObjectDimensions.Height)
-            {
-                return true;
-            }
-            return false;
+                    && e.GetPosition(canvas).Y < mapObject.MapObjectMetrics.MapObjectCoordinates.Y + mapObject.MapObjectMetrics.MapObjectDimensions.Height);
         }
-        public void goToClickedBuilding(MapObject mapObject)
+        private void goToClickedBuilding(MapObject mapObject)
         {
                 canvas.Children.Clear();
                 Building window1 = new Building(mapObject.Id);
                 this.Close();
                 window1.ShowDialog();
         }
-        public void addObjectToCanvas(List<MapObject> objectsToShow)
+        public void addObjectToCanvas(List<MapObject> objectsToShow, Canvas canvas)
         {
             for (int i = 0; i < objectsToShow.Count; i++)
             {

@@ -11,14 +11,11 @@
         <StackPanel Orientation="Horizontal">
             <Button Background="#BDE7D8" Height="30" Width="100" Name="back" Content="Back" Margin="20,0,20,30" HorizontalAlignment="Left" Click="back_Click"/>
             <TextBlock FontSize="16">Change floor:</TextBlock>
-            <ComboBox x:Name="floor" Width="154" Height="30" Margin="10,-30,0,0" SelectionChanged="floor_SelectionChanged" SelectedIndex="0">
-                <ComboBoxItem Content="1. floor"/>
-                <ComboBoxItem Content="2. floor"/>
+            <ComboBox x:Name="floor" Width="154" Height="30" Margin="10,-30,0,0" SelectionChanged="floor_SelectionChanged">
             </ComboBox>
         </StackPanel>
         <Grid x:Name="legend">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />

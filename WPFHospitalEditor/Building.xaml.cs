@@ -19,11 +19,8 @@ namespace WPFHospitalEditor
     public partial class Building : Window
     {
         AllMapObjects allMapObjects = new AllMapObjects();
-
-        //List<MapObject> allFirstFloorObjects = new List<MapObject>();
-        //List<MapObject> allSecondFloorObjects = new List<MapObject>();
-
         Dictionary<int, Floor> buildingFloors = new Dictionary<int, Floor>();
+        HospitalMap window1 = new HospitalMap();
 
         public Building(int id)
         {
@@ -38,44 +35,33 @@ namespace WPFHospitalEditor
                 buildingFloors.Add(0, new Floor(AllMapObjects.allSecondBuildingFirstFloorObjects));
                 buildingFloors.Add(1, new Floor(AllMapObjects.allSecondBuildingSecondFloorObjects));
             }
-            addObjectToCanvas(buildingFloors[0].getAllFloorMapObjects());
+            setFloorComboBox();
+            window1.addObjectToCanvas(buildingFloors[0].getAllFloorMapObjects(), canvas);
             displayLegend(buildingFloors[0].getAllFloorMapObjects());
+            floor.SelectedIndex = 0;
+        }
+
+        private void setFloorComboBox()
+        {
+            for (int i = 0; i < buildingFloors.Count; i++)
+            {
+                floor.Items.Add((i + 1) + ". floor");
+            }
         }
 
         private void back_Click(object sender, RoutedEventArgs e)
         {
             clearAll();
-            HospitalMap window1 = new HospitalMap();
             this.Close();
             window1.ShowDialog();
-        }
-
-        private void addObjectToCanvas(List<MapObject> objectsToShow)
-        {
-            for (int i = 0; i < objectsToShow.Count; i++)
-            {
-                canvas.Children.Add(objectsToShow[i].rectangle);
-                canvas.Children.Add(objectsToShow[i].name);
-                canvas.Children.Add(objectsToShow[i].MapObjectDoor.rectangle);
-            }
         }
 
         private void floor_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             clearAll();
-            /*  if (floor.SelectedIndex == 0)
-              {
-                  addObjectToCanvas(allFirstFloorObjects);
-                  displayLegend(allFirstFloorObjects);
-              }
-              else if (floor.SelectedIndex == 1)
-              {
-                  addObjectToCanvas(allSecondFloorObjects);
-                  displayLegend(allSecondFloorObjects);
-              }*/
             int index = floor.SelectedIndex;
             if (buildingFloors.Count == 0) return;
-            addObjectToCanvas(buildingFloors[index].getAllFloorMapObjects());
+            window1.addObjectToCanvas(buildingFloors[index].getAllFloorMapObjects(), canvas);
             displayLegend(buildingFloors[index].getAllFloorMapObjects());
         }
 
@@ -89,42 +75,44 @@ namespace WPFHospitalEditor
         private void displayLegend(List<MapObject> displayedMapObjects)
         {
             if (legend == null) return;
+            HashSet<MapObjectType> mapObjectTypes = findAllMapObjectTypesOnFloor(displayedMapObjects);
+            addingRowsToGrid(mapObjectTypes);
+            
+            int index = 0;
+            foreach (MapObjectType mapObjectType in mapObjectTypes) {
+                organiseLegend(mapObjectType, index);
+                index++;
+            }
+        }
+
+        private HashSet<MapObjectType> findAllMapObjectTypesOnFloor(List<MapObject> displayedMapObjects)
+        {
             HashSet<MapObjectType> mapObjectTypes = new HashSet<MapObjectType>();
             for (int i = 0; i < displayedMapObjects.Count; i++)
             {
                 mapObjectTypes.Add(displayedMapObjects[i].MapObjectType);
             }
+            return mapObjectTypes;
+        }
 
+        private void addingRowsToGrid(HashSet<MapObjectType> mapObjectTypes)
+        {
             int numberOfRows = (int)(mapObjectTypes.Count / legend.ColumnDefinitions.Count) + 1;
-
-            for (int i = 0; i < numberOfRows; i++) {
-                legend.RowDefinitions.Add(new RowDefinition() {  });
+            for (int i = 0; i < numberOfRows; i++)
+            {
+                legend.RowDefinitions.Add(new RowDefinition() { });
             }
-
-            int index = 0;
-
-            foreach (MapObjectType mapObjectType in mapObjectTypes) {
-                organiseLegend(mapObjectType, index);
-                index++;
-            }
-
         }
 
         private void organiseLegend(MapObjectType mapObjectType, int index)
         {
-            if (legend == null) return;
-            Rectangle rectangle = createColorObjectInLegend(mapObjectType);
-            TextBlock textblock = createTextObjectInLegend(mapObjectType);
-            int row = (int)(index / legend.ColumnDefinitions.Count);
-            int column = index - row * legend.ColumnDefinitions.Count;
-            rectangle.SetValue(Grid.ColumnProperty, column);
-            rectangle.SetValue(Grid.RowProperty, row);
-            textblock.SetValue(Grid.ColumnProperty, column);
-            textblock.SetValue(Grid.RowProperty, row);
+            Rectangle rectangle = createRectangleInLegend(mapObjectType);
+            TextBlock textblock = createTextBlockInLegend(mapObjectType);
+            settingPosition(index, rectangle, textblock);
             addToLegend(rectangle, textblock);
         }
 
-        private Rectangle createColorObjectInLegend(MapObjectType mapObjectType)
+        private Rectangle createRectangleInLegend(MapObjectType mapObjectType)
         {
             Rectangle rectangle = new Rectangle();
             rectangle.Fill = MapObjectColors.getInstance().getColor(mapObjectType);
@@ -133,16 +121,25 @@ namespace WPFHospitalEditor
             return rectangle;
         }
 
-        private TextBlock createTextObjectInLegend(MapObjectType mapObjectType)
+        private TextBlock createTextBlockInLegend(MapObjectType mapObjectType)
         {
             TextBlock textblock = new TextBlock();
-            textblock.Text = "-" + mapObjectType.ToString() + "   ";
+            textblock.Text = mapObjectType.ToString() + "-  ";
             return textblock;
+        }
+
+        private void settingPosition(int index, Rectangle rectangle, TextBlock textblock)
+        {
+            int row = (int)(index / legend.ColumnDefinitions.Count);
+            int column = index - row * legend.ColumnDefinitions.Count;
+            rectangle.SetValue(Grid.ColumnProperty, column);
+            rectangle.SetValue(Grid.RowProperty, row);
+            textblock.SetValue(Grid.ColumnProperty, column);
+            textblock.SetValue(Grid.RowProperty, row);
         }
 
         private void addToLegend(Rectangle rectangle, TextBlock textblock)
         {
-            if (legend == null) return;
             legend.Children.Add(rectangle);
             legend.Children.Add(textblock);
         }
