@@ -16,11 +16,17 @@
                 <ComboBoxItem Content="2. floor"/>
             </ComboBox>
         </StackPanel>
-        <StackPanel x:Name="legend1" Width="auto" Orientation="Horizontal" Margin="20,0,20,20">
-        </StackPanel>
-        <StackPanel x:Name="legend2" Width="auto" Orientation="Horizontal" Margin="20,0,20,20">
-        </StackPanel>
-        <StackPanel x:Name="legend3" Width="auto" Orientation="Horizontal" Margin="20,0,20,20">
-        </StackPanel>
+        <Grid x:Name="legend">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                
+            </Grid.RowDefinitions>
+        </Grid>
     </StackPanel>
 </Window>

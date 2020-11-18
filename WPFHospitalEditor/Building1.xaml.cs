@@ -24,6 +24,7 @@ namespace WPFHospitalEditor
         {
             InitializeComponent();
             clearAll();
+
             addObjectToCanvas(AllMapObjects.allFirstBuildingFirstFloorObjects);
             displayLegend(AllMapObjects.allFirstBuildingFirstFloorObjects);
         }
@@ -63,35 +64,47 @@ namespace WPFHospitalEditor
 
         private void clearAll()
         {
+            if (legend == null) return;
             canvas.Children.Clear();
-            if (legend1 != null && legend2 != null && legend3 != null)
-            {
-                legend1.Children.Clear();
-                legend2.Children.Clear();
-                legend3.Children.Clear();
-            }
+            legend.Children.Clear();
         }
 
         private void displayLegend(List<MapObject> displayedMapObjects)
         {
-            int itemsInOneRow = 0;
-            List<MapObjectType> mapObjectTypes = new List<MapObjectType>();
+            if (legend == null) return;
+            HashSet<MapObjectType> mapObjectTypes = new HashSet<MapObjectType>();
             for (int i = 0; i < displayedMapObjects.Count; i++)
             {
-                if (!mapObjectTypes.Contains(displayedMapObjects[i].MapObjectType))
-                {
-                    mapObjectTypes.Add(displayedMapObjects[i].MapObjectType);
-                    itemsInOneRow = organiseLegend(displayedMapObjects[i].MapObjectType, itemsInOneRow);
-                }
+                mapObjectTypes.Add(displayedMapObjects[i].MapObjectType);
             }
+
+            int numberOfRows = (int)(mapObjectTypes.Count / legend.ColumnDefinitions.Count) + 1;
+
+            for (int i = 0; i < numberOfRows; i++) {
+                legend.RowDefinitions.Add(new RowDefinition() {  });
+            }
+
+            int index = 0;
+
+            foreach (MapObjectType mapObjectType in mapObjectTypes) {
+                organiseLegend(mapObjectType, index);
+                index++;
+            }
+
         }
 
-        private int organiseLegend(MapObjectType mapObjectType, int itemsInOneRow)
+        private void organiseLegend(MapObjectType mapObjectType, int index)
         {
+            if (legend == null) return;
             Rectangle rectangle = createColorObjectInLegend(mapObjectType);
             TextBlock textblock = createTextObjectInLegend(mapObjectType);
-            itemsInOneRow = organiseRows(rectangle, textblock, itemsInOneRow);
-            return itemsInOneRow;
+            int row = (int)(index / legend.ColumnDefinitions.Count);
+            int column = index - row * legend.ColumnDefinitions.Count;
+            rectangle.SetValue(Grid.ColumnProperty, column);
+            rectangle.SetValue(Grid.RowProperty, row);
+            textblock.SetValue(Grid.ColumnProperty, column);
+            textblock.SetValue(Grid.RowProperty, row);
+            addToLegend(rectangle, textblock);
         }
 
         private Rectangle createColorObjectInLegend(MapObjectType mapObjectType)
@@ -110,30 +123,11 @@ namespace WPFHospitalEditor
             return textblock;
         }
 
-        private int organiseRows(Rectangle rectangle, TextBlock textblock, int itemsInOneRow)
+        private void addToLegend(Rectangle rectangle, TextBlock textblock)
         {
-            if (itemsInOneRow < 5)
-            {
-                addToLegend(legend1, rectangle, textblock);
-            }
-            else if (itemsInOneRow >= 5 && itemsInOneRow < 10)
-            {
-                addToLegend(legend2, rectangle, textblock);
-            }
-            else
-            {
-                addToLegend(legend3, rectangle, textblock);
-            }
-            return itemsInOneRow + 1;
-        }
-
-        private void addToLegend(StackPanel legend, Rectangle rectangle, TextBlock textblock)
-        {
-            if (legend != null)
-            {
-                legend.Children.Add(rectangle);
-                legend.Children.Add(textblock);
-            }
+            if (legend == null) return;
+            legend.Children.Add(rectangle);
+            legend.Children.Add(textblock);
         }
     }
 }
