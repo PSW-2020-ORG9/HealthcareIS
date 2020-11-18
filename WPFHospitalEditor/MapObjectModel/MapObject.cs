@@ -15,7 +15,7 @@ namespace WPFHospitalEditor.MapObjectModel
         public MapObjectType MapObjectType { get; set; }
         public MapObjectDoor MapObjectDoor { get; set; }
 
-        public MapObject(int Id, MapObjectMetrics MapObjectMetrics, MapObjectType MapObjectType, String name, MapObjectDoor MapObjectDoor, String Description)
+        public MapObject(int Id, MapObjectMetrics MapObjectMetrics, MapObjectType MapObjectType, MapObjectDoor MapObjectDoor, String Description)
         {
             this.Id = Id;
             this.MapObjectMetrics = MapObjectMetrics;
