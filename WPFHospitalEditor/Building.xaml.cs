@@ -14,19 +14,30 @@ using WPFHospitalEditor.MapObjectModel;
 namespace WPFHospitalEditor
 {
     /// <summary>
-    /// Interaction logic for Building1.xaml
+    /// Interaction logic for Building.xaml
     /// </summary>
-    public partial class Building1 : Window
+    public partial class Building : Window
     {
         AllMapObjects allMapObjects = new AllMapObjects();
 
-        public Building1()
+        List<MapObject> allFirstFloorObjects = new List<MapObject>();
+        List<MapObject> allSecondFloorObjects = new List<MapObject>();
+
+        public Building(int id)
         {
             InitializeComponent();
             clearAll();
-
-            addObjectToCanvas(AllMapObjects.allFirstBuildingFirstFloorObjects);
-            displayLegend(AllMapObjects.allFirstBuildingFirstFloorObjects);
+            if(id == 1)
+            {
+                allFirstFloorObjects = AllMapObjects.allFirstBuildingFirstFloorObjects;
+                allSecondFloorObjects = AllMapObjects.allFirstBuildingSecondFloorObjects;
+            } else
+            {
+                allFirstFloorObjects = AllMapObjects.allSecondBuildingFirstFloorObjects;
+                allSecondFloorObjects = AllMapObjects.allSecondBuildingSecondFloorObjects;
+            }
+            addObjectToCanvas(allFirstFloorObjects);
+            displayLegend(allSecondFloorObjects);
         }
 
         private void back_Click(object sender, RoutedEventArgs e)
@@ -52,13 +63,13 @@ namespace WPFHospitalEditor
             clearAll();
             if (floor.SelectedIndex == 0)
             {
-                addObjectToCanvas(AllMapObjects.allFirstBuildingFirstFloorObjects);
-                displayLegend(AllMapObjects.allFirstBuildingFirstFloorObjects);
+                addObjectToCanvas(allFirstFloorObjects);
+                displayLegend(allFirstFloorObjects);
             }
             else if (floor.SelectedIndex == 1)
             {
-                addObjectToCanvas(AllMapObjects.allFirstBuildingSecondFloorObjects);
-                displayLegend(AllMapObjects.allFirstBuildingSecondFloorObjects);
+                addObjectToCanvas(allSecondFloorObjects);
+                displayLegend(allSecondFloorObjects);
             }
         }
 

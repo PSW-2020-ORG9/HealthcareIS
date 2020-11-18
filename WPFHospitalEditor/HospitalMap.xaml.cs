@@ -56,19 +56,10 @@ namespace WPFHospitalEditor
         }
         public void goToClickedBuilding(MapObject mapObject)
         {
-            if(mapObject.Id == 1)
-            {
                 canvas.Children.Clear();
-                Building1 window1 = new Building1();
+                Building window1 = new Building(mapObject.Id);
                 this.Close();
                 window1.ShowDialog();
-            } else if(mapObject.Id == 2)
-            {
-                canvas.Children.Clear();
-                Building2 window2 = new Building2();
-                this.Close();
-                window2.ShowDialog();
-            }
         }
         public void addObjectToCanvas(List<MapObject> objectsToShow)
         {
