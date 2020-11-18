@@ -56,8 +56,10 @@ namespace WPFHospitalEditor.MapObjectModel
         }
         public void setMapObjectNameOnMap()
         {
-            if(MapObjectType != MapObjectType.Road && MapObjectType != MapObjectType.Parking && MapObjectType != MapObjectType.ParkingSlot)
-            this.name.Text = MapObjectType.ToString() + Id.ToString();
+            if(isNameNeeded())
+            {
+                this.name.Text = MapObjectType.ToString() + Id.ToString();
+            }
         }
 
         public void setTextBlockPositionOnMap(MapObjectCoordinates mapObjectCoordinates)
@@ -105,6 +107,15 @@ namespace WPFHospitalEditor.MapObjectModel
         private Boolean isStrokeNeeded()
         {
             if (MapObjectType != MapObjectType.Parking && MapObjectType != MapObjectType.Road && MapObjectType != MapObjectType.WaitingRoom && MapObjectType != MapObjectType.ParkingSlot)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private Boolean isNameNeeded()
+        {
+            if (MapObjectType != MapObjectType.Road && MapObjectType != MapObjectType.Parking && MapObjectType != MapObjectType.ParkingSlot)
             {
                 return true;
             }

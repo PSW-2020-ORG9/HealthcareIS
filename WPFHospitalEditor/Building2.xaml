@@ -16,35 +16,11 @@
                 <ComboBoxItem Content="2. floor"/>
             </ComboBox>
         </StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <Rectangle Fill="LightGray" Height="25" Width="25" Margin="20,0,0,0"></Rectangle>
-            <TextBlock Text=" -waiting room"></TextBlock>
-            <Rectangle Fill="Green" Height="25" Width="25" Margin="20,0,0,0"></Rectangle>
-            <TextBlock Text=" -informations"></TextBlock>
-            <Rectangle Fill="Orange" Height="25" Width="25" Margin="20,0,0,0"></Rectangle>
-            <TextBlock Text=" -surgery room"></TextBlock>
-            <Rectangle Fill="Yellow" Height="25" Width="25" Margin="20,0,0,0"></Rectangle>
-            <TextBlock Text=" -examination room"></TextBlock>
-            <Rectangle Fill="SaddleBrown" Height="5" Width="25" Margin="20,0,0,0"></Rectangle>
-            <TextBlock Text=" -door"></TextBlock>
+        <StackPanel x:Name="legend1" Width="auto" Orientation="Horizontal" Margin="20,0,20,20">
         </StackPanel>
-        <StackPanel Margin="0,20,0,0" Orientation="Horizontal">
-            <Rectangle Fill="LightBlue" Height="25" Width="25" Margin="20,0,0,0"></Rectangle>
-            <TextBlock Text=" -toilet"></TextBlock>
-            <Rectangle Fill="Beige" Height="25" Width="25" Margin="20,0,0,0" ></Rectangle>
-            <TextBlock Text=" - dentistry room"></TextBlock>
-            <Rectangle Fill="Pink" Height="25" Width="25" Margin="20,0,0,0"></Rectangle>
-            <TextBlock Text=" -canteen"></TextBlock>
-            <Rectangle Fill="LightSalmon" Height="25" Width="25" Margin="20,0,0,0"></Rectangle>
-            <TextBlock Text=" -neurology room"></TextBlock>
-            <Rectangle Fill="LightGreen" Height="25" Width="25" Margin="20,0,0,0"></Rectangle>
-            <TextBlock Text=" -dermatology room"></TextBlock>
+        <StackPanel x:Name="legend2" Width="auto" Orientation="Horizontal" Margin="20,0,20,20">
         </StackPanel>
-        <StackPanel Margin="0,20,0,0" Orientation="Horizontal">
-            <Rectangle Fill="Gray" Height="25" Width="25" Margin="20,0,0,0"></Rectangle>
-            <TextBlock Text=" -elevator"></TextBlock>
-            <Rectangle Fill="SteelBlue" Height="25" Width="25" Margin="20,0,0,0"></Rectangle>
-            <TextBlock Text=" -ophthalmology room"></TextBlock>
+        <StackPanel x:Name="legend3" Width="auto" Orientation="Horizontal" Margin="20,0,20,20">
         </StackPanel>
     </StackPanel>
 </Window>
