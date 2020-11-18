@@ -20,8 +20,10 @@ namespace WPFHospitalEditor
     {
         AllMapObjects allMapObjects = new AllMapObjects();
 
-        List<MapObject> allFirstFloorObjects = new List<MapObject>();
-        List<MapObject> allSecondFloorObjects = new List<MapObject>();
+        //List<MapObject> allFirstFloorObjects = new List<MapObject>();
+        //List<MapObject> allSecondFloorObjects = new List<MapObject>();
+
+        Dictionary<int, Floor> buildingFloors = new Dictionary<int, Floor>();
 
         public Building(int id)
         {
@@ -29,15 +31,15 @@ namespace WPFHospitalEditor
             clearAll();
             if(id == 1)
             {
-                allFirstFloorObjects = AllMapObjects.allFirstBuildingFirstFloorObjects;
-                allSecondFloorObjects = AllMapObjects.allFirstBuildingSecondFloorObjects;
+                buildingFloors.Add(0, new Floor(AllMapObjects.allFirstBuildingFirstFloorObjects));
+                buildingFloors.Add(1, new Floor(AllMapObjects.allFirstBuildingSecondFloorObjects));
             } else
             {
-                allFirstFloorObjects = AllMapObjects.allSecondBuildingFirstFloorObjects;
-                allSecondFloorObjects = AllMapObjects.allSecondBuildingSecondFloorObjects;
+                buildingFloors.Add(0, new Floor(AllMapObjects.allSecondBuildingFirstFloorObjects));
+                buildingFloors.Add(1, new Floor(AllMapObjects.allSecondBuildingSecondFloorObjects));
             }
-            addObjectToCanvas(allFirstFloorObjects);
-            displayLegend(allSecondFloorObjects);
+            addObjectToCanvas(buildingFloors[0].getAllFloorMapObjects());
+            displayLegend(buildingFloors[0].getAllFloorMapObjects());
         }
 
         private void back_Click(object sender, RoutedEventArgs e)
@@ -61,16 +63,20 @@ namespace WPFHospitalEditor
         private void floor_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             clearAll();
-            if (floor.SelectedIndex == 0)
-            {
-                addObjectToCanvas(allFirstFloorObjects);
-                displayLegend(allFirstFloorObjects);
-            }
-            else if (floor.SelectedIndex == 1)
-            {
-                addObjectToCanvas(allSecondFloorObjects);
-                displayLegend(allSecondFloorObjects);
-            }
+            /*  if (floor.SelectedIndex == 0)
+              {
+                  addObjectToCanvas(allFirstFloorObjects);
+                  displayLegend(allFirstFloorObjects);
+              }
+              else if (floor.SelectedIndex == 1)
+              {
+                  addObjectToCanvas(allSecondFloorObjects);
+                  displayLegend(allSecondFloorObjects);
+              }*/
+            int index = floor.SelectedIndex;
+            if (buildingFloors.Count == 0) return;
+            addObjectToCanvas(buildingFloors[index].getAllFloorMapObjects());
+            displayLegend(buildingFloors[index].getAllFloorMapObjects());
         }
 
         private void clearAll()
