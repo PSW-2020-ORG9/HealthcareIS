@@ -47,7 +47,7 @@ namespace WPFHospitalEditor.MapObjectModel
         {
             this.name = new TextBlock();
             setMapObjectNameOnMap();
-            this.name.FontSize = 20;
+            this.name.FontSize = 15;
             this.name.HorizontalAlignment = HorizontalAlignment.Center;
             this.name.SetValue(Canvas.WidthProperty, this.rectangle.Width);
             this.name.SetValue(Canvas.HeightProperty, this.rectangle.Height);

@@ -19,12 +19,14 @@ namespace WPFHospitalEditor
     public partial class Building2 : Window
     {
         AllMapObjects allMapObjects = new AllMapObjects();
+
         public Building2()
         {
             InitializeComponent();
             canvas.Children.Clear();
             addObjectToCanvas(AllMapObjects.allSecondBuildingFirstFloorObjects);
         }
+
         private void back_Click(object sender, RoutedEventArgs e)
         {
             canvas.Children.Clear();
@@ -32,6 +34,7 @@ namespace WPFHospitalEditor
             this.Close();
             window1.ShowDialog();
         }
+
         public void addObjectToCanvas(List<MapObject> objectsToShow)
         {
             for (int i = 0; i < objectsToShow.Count; i++)
@@ -39,6 +42,19 @@ namespace WPFHospitalEditor
                 canvas.Children.Add(objectsToShow[i].rectangle);
                 canvas.Children.Add(objectsToShow[i].name);
                 canvas.Children.Add(objectsToShow[i].MapObjectDoor.rectangle);
+            }
+        }
+
+        private void floor_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            canvas.Children.Clear();
+            if (floor.SelectedIndex == 0)
+            {
+                addObjectToCanvas(AllMapObjects.allSecondBuildingFirstFloorObjects);
+            }
+            else if (floor.SelectedIndex == 1)
+            {
+                addObjectToCanvas(AllMapObjects.allSecondBuildingSecondFloorObjects);
             }
         }
     }
