@@ -22,12 +22,12 @@ namespace WPFHospitalEditor
         public Building1()
         {
             InitializeComponent();
-            canvas1.Children.Clear();
+            canvas.Children.Clear();
             addObjectToCanvas(AllMapObjects.allFirstBuildingFirstFloorObjects);
         }
         private void back_Click(object sender, RoutedEventArgs e)
         {
-            canvas1.Children.Clear();
+            canvas.Children.Clear();
             HospitalMap window1 = new HospitalMap();
             this.Close();
             window1.ShowDialog();
@@ -36,9 +36,9 @@ namespace WPFHospitalEditor
         {
             for (int i = 0; i < objectsToShow.Count; i++)
             {
-                canvas1.Children.Add(objectsToShow[i].rectangle);
-                canvas1.Children.Add(objectsToShow[i].name);
-                canvas1.Children.Add(objectsToShow[i].MapObjectDoor.rectangle);
+                canvas.Children.Add(objectsToShow[i].rectangle);
+                canvas.Children.Add(objectsToShow[i].name);
+                canvas.Children.Add(objectsToShow[i].MapObjectDoor.rectangle);
             }
         }
     }

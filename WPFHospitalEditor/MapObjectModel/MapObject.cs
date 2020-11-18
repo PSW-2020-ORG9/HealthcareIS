@@ -46,12 +46,18 @@ namespace WPFHospitalEditor.MapObjectModel
         public void setTextBlockProperties()
         {
             this.name = new TextBlock();
+            setMapObjectNameOnMap();
             this.name.FontSize = 20;
             this.name.HorizontalAlignment = HorizontalAlignment.Center;
             this.name.SetValue(Canvas.WidthProperty, this.rectangle.Width);
             this.name.SetValue(Canvas.HeightProperty, this.rectangle.Height);
             this.name.TextWrapping = TextWrapping.Wrap;
             this.name.TextAlignment = TextAlignment.Center;
+        }
+        public void setMapObjectNameOnMap()
+        {
+            if(MapObjectType != MapObjectType.Road && MapObjectType != MapObjectType.Parking && MapObjectType != MapObjectType.ParkingSlot)
+            this.name.Text = MapObjectType.ToString() + Id.ToString();
         }
 
         public void setTextBlockPositionOnMap(MapObjectCoordinates mapObjectCoordinates)
