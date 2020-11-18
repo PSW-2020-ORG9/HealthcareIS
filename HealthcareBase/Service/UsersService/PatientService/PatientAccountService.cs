@@ -3,6 +3,8 @@
 // Created: 27 May 2020 19:14:10
 // Purpose: Definition of Class PatientAccountService
 
+using HealthcareBase.Model.Users.UserFeedback;
+using HealthcareBase.Model.Users.UserFeedback.Survey;
 using Model.CustomExceptions;
 using Model.Users.Employee;
 using Model.Users.Patient;
@@ -67,9 +69,9 @@ namespace Service.UsersService.PatientService
             return patientAccountRepository.Repository.Update(acc);
         }
 
-        public void RecordSurveyResponse(PatientSurveyResponse surveyResponse)
+        public void RecordSurveyResponse(Survey survey)
         {
-            patientSurveyResponseRepository.Repository.Create(surveyResponse);
+            patientSurveyResponseRepository.Repository.Create(survey);
         }
     }
 }

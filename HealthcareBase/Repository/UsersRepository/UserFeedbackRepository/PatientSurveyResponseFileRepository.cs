@@ -3,6 +3,9 @@
 // Created: 27 May 2020 23:51:37
 // Purpose: Definition of Class PatientSurveyResponseFileRepository
 
+using System;
+using HealthcareBase.Model.Users.UserFeedback;
+using HealthcareBase.Model.Users.UserFeedback.Survey;
 using Model.CustomExceptions;
 using Model.Users.UserFeedback;
 using Model.Utilities;
@@ -12,7 +15,7 @@ using Repository.UsersRepository.UserAccountsRepository;
 
 namespace Repository.UsersRepository.UserFeedbackRepository
 {
-    public class PatientSurveyResponseFileRepository : GenericFileRepository<PatientSurveyResponse, int>,
+    public class PatientSurveyResponseFileRepository : GenericFileRepository<Survey, int>,
         PatientSurveyResponseRepository
     {
         private readonly DoctorRepository doctorRepository;
@@ -27,26 +30,15 @@ namespace Repository.UsersRepository.UserFeedbackRepository
             keyGenerator = new IntegerKeyGenerator(GetAllKeys());
         }
 
-        protected override int GenerateKey(PatientSurveyResponse entity)
+        protected override int GenerateKey(Survey entity)
         {
             return keyGenerator.GenerateKey();
         }
 
-        protected override PatientSurveyResponse ParseEntity(PatientSurveyResponse entity)
+        protected override Survey ParseEntity(Survey entity)
         {
-            try
-            {
-                if (entity.BestDoctor != null)
-                    entity.BestDoctor = doctorRepository.GetByID(entity.BestDoctor.GetKey());
-                if (entity.Patient != null)
-                    entity.Patient = patientAccountRepository.GetByID(entity.Patient.GetKey());
-            }
-            catch (BadRequestException)
-            {
-                throw new ValidationException();
-            }
-
-            return entity;
+            //DOTO
+            throw new NotImplementedException();
         }
     }
 }

@@ -14,11 +14,11 @@ using Model.Users.Generalities;
 using Model.Users.Patient;
 using Model.Users.UserAccounts;
 using Model.Users.UserFeedback;
-using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
 using EntityFramework.Exceptions.MySQL.Pomelo;
+using HealthcareBase.Model.Users.UserFeedback.Survey;
 using Model.Users.Patient.MedicalHistory;
 
 namespace HealthcareBase.Model.Database
@@ -80,7 +80,12 @@ namespace HealthcareBase.Model.Database
         public DbSet<Patient> Patients { get; set; }
         public DbSet<EmployeeAccount> EmployeeAccounts { get; set; }
         public DbSet<PatientAccount> PatientAccounts { get; set; }
-        public DbSet<PatientSurveyResponse> PatientSurveyResponses { get; set; }
+        public DbSet<Survey> Surveys { get; set; }
+        public DbSet<SurveySection> SurveySections { get; set; }
+        public DbSet<SurveyQuestion> SurveyQuestions { get; set; }
+        public DbSet<SurveyResponse> SurveyResponses { get; set; }
+        public DbSet<RatedSurveySection> RatedSurveySections { get; set; }
+        public DbSet<RatedSurveyQuestion> RatedSurveyQuestions { get; set; }
         public DbSet<UserFeedback> UserFeedbacks { get; set; }
         
         
@@ -88,8 +93,7 @@ namespace HealthcareBase.Model.Database
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             SetRelations(modelBuilder);
-
-            SeedData(modelBuilder);
+            
         }
 
         private static void SetRelations(ModelBuilder modelBuilder)
@@ -108,42 +112,6 @@ namespace HealthcareBase.Model.Database
                 .HasMany(e => e.Prescriptions)
                 .WithOne(p => p.Examination)
                 .OnDelete(DeleteBehavior.SetNull);
-        }
-
-        private static void SeedData(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Country>().HasData(
-                new {Name = "Serbia", Code = "381", Id = 1},
-                new {Name = "Macedonia", Code = "389", Id = 2},
-                new {Name = "Albania", Code = "355", Id = 3},
-                new {Name = "Montenegro", Code = "382", Id = 4}
-            );
-            modelBuilder.Entity<City>().HasData(
-                new City() {Name = "Novi Sad", PostalCode = "21000", Id = 1, CountryId = 1},
-                new City() {Name = "Belgrade", PostalCode = "11000", Id = 2, CountryId = 1},
-                new City() {Name = "Skopje", Id = 3, CountryId = 2}
-            );
-            modelBuilder.Entity<Patient>(patient =>
-            {
-                patient.HasData(
-                    new Patient()
-                    {
-                        Name = "Milos", Surname = "Milanovic", CityOfResidenceId = 1, MedicalRecordID = 1, CityOfBirthId = 1
-                    }
-                );
-                patient.OwnsOne(e => e.MedicalHistory).HasData(new
-                {
-                    PatientMedicalRecordID = 1
-                });
-            });
-            modelBuilder.Entity<PatientAccount>().HasData(
-                new PatientAccount()
-                    {PatientId = 1, RespondedToSurvey = false, Username = "milosmilanovic", Password = "password", Id = 1}
-            );
-            modelBuilder.Entity<UserFeedback>().HasData(
-                new UserFeedback() {Date = DateTime.Now, UserComment = "odlicno", UserId = 1, Id = 1},
-                new UserFeedback() {Date = DateTime.Now, UserComment = "bravo", UserId = 1, Id = 2}
-            );
         }
     }
 }
