@@ -24,5 +24,11 @@ namespace WPFHospitalEditor
         {
             InitializeComponent();
         }
+        private void hospitalMapPressed(object sender, RoutedEventArgs e)
+        {
+            HospitalMap startWindow = new HospitalMap();
+            this.Close();
+            startWindow.ShowDialog();
+        }
     }
 }

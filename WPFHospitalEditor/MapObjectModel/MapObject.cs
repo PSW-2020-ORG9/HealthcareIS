@@ -7,6 +7,7 @@ namespace WPFHospitalEditor.MapObjectModel
 {
     public class MapObject
     {
+        public int Id { get; set; }
         public Rectangle rectangle;
         public TextBlock name;
         public String Description { get; set; }
@@ -14,8 +15,9 @@ namespace WPFHospitalEditor.MapObjectModel
         public MapObjectType MapObjectType { get; set; }
         public MapObjectDoor MapObjectDoor { get; set; }
 
-        public MapObject(MapObjectMetrics MapObjectMetrics, MapObjectType MapObjectType, MapObjectDoor MapObjectDoor, String Description)
+        public MapObject(int Id, MapObjectMetrics MapObjectMetrics, MapObjectType MapObjectType, MapObjectDoor MapObjectDoor, String Description)
         {
+            this.Id = Id;
             this.MapObjectMetrics = MapObjectMetrics;
             this.MapObjectType = MapObjectType;
             this.MapObjectDoor = MapObjectDoor;
@@ -44,12 +46,20 @@ namespace WPFHospitalEditor.MapObjectModel
         public void setTextBlockProperties()
         {
             this.name = new TextBlock();
-            this.name.FontSize = 20;
+            setMapObjectNameOnMap();
+            this.name.FontSize = 15;
             this.name.HorizontalAlignment = HorizontalAlignment.Center;
             this.name.SetValue(Canvas.WidthProperty, this.rectangle.Width);
             this.name.SetValue(Canvas.HeightProperty, this.rectangle.Height);
             this.name.TextWrapping = TextWrapping.Wrap;
             this.name.TextAlignment = TextAlignment.Center;
+        }
+        public void setMapObjectNameOnMap()
+        {
+            if(isNameNeeded())
+            {
+                this.name.Text = MapObjectType.ToString() + Id.ToString();
+            }
         }
 
         public void setTextBlockPositionOnMap(MapObjectCoordinates mapObjectCoordinates)
@@ -97,6 +107,15 @@ namespace WPFHospitalEditor.MapObjectModel
         private Boolean isStrokeNeeded()
         {
             if (MapObjectType != MapObjectType.Parking && MapObjectType != MapObjectType.Road && MapObjectType != MapObjectType.WaitingRoom && MapObjectType != MapObjectType.ParkingSlot)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private Boolean isNameNeeded()
+        {
+            if (MapObjectType != MapObjectType.Road && MapObjectType != MapObjectType.Parking && MapObjectType != MapObjectType.ParkingSlot)
             {
                 return true;
             }
