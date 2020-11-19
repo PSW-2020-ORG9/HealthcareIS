@@ -143,5 +143,38 @@ namespace WPFHospitalEditor
             legend.Children.Add(rectangle);
             legend.Children.Add(textblock);
         }
+
+        private void selectMapObject(object sender, MouseButtonEventArgs e)
+        {
+            int index = floor.SelectedIndex;
+            MapObject chosenMapObject = checkWhichObjectIsClicked(e, buildingFloors[index].getAllFloorMapObjects());
+            if (chosenMapObject != null)
+            {
+                openAdditionalInformationDialog(chosenMapObject);
+            }
+        }
+        private MapObject checkWhichObjectIsClicked(MouseButtonEventArgs e, List<MapObject> allMapObjectsShowed)
+        {
+            for (int i = 0; i < allMapObjectsShowed.Count; i++)
+            {
+                if (checkIfPointIsInRectangle(e, allMapObjectsShowed[i]))
+                {
+                    return allMapObjectsShowed[i];
+                }
+            }
+            return null;
+        }
+        private Boolean checkIfPointIsInRectangle(MouseButtonEventArgs e, MapObject mapObject)
+        {
+            return (e.GetPosition(canvas).X > mapObject.MapObjectMetrics.MapObjectCoordinates.X
+                    && e.GetPosition(canvas).X < mapObject.MapObjectMetrics.MapObjectCoordinates.X + mapObject.MapObjectMetrics.MapObjectDimensions.Width
+                    && e.GetPosition(canvas).Y > mapObject.MapObjectMetrics.MapObjectCoordinates.Y
+                    && e.GetPosition(canvas).Y < mapObject.MapObjectMetrics.MapObjectCoordinates.Y + mapObject.MapObjectMetrics.MapObjectDimensions.Height);
+        }
+        private void openAdditionalInformationDialog(MapObject mapObject)
+        {
+            AdditionalInformation additionalInformation = new AdditionalInformation(mapObject);
+            additionalInformation.ShowDialog();
+        }
     }
 }
