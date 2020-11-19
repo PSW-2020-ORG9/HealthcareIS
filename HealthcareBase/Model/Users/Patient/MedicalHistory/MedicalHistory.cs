@@ -11,7 +11,7 @@ namespace Model.Users.Patient.MedicalHistory
     [Owned]
     public class MedicalHistory
     {
-        private List<AllergyManifestation> allergies;
+        public List<AllergyManifestation> Allergies { get; set; }
 
         public MedicalHistory()
         {
@@ -23,46 +23,5 @@ namespace Model.Users.Patient.MedicalHistory
 
         public FamilyHistory FamilyHistory { get; set; }
 
-        public IEnumerable<AllergyManifestation> Allergies
-        {
-            get
-            {
-                if (allergies == null)
-                    allergies = new List<AllergyManifestation>();
-                return allergies;
-            }
-            set
-            {
-                RemoveAllAllergies();
-                if (value != null)
-                    foreach (var allergy in value)
-                        AddAllergy(allergy);
-            }
-        }
-
-        public void AddAllergy(AllergyManifestation allergy)
-        {
-            if (allergy == null)
-                return;
-            if (allergies == null)
-                allergies = new List<AllergyManifestation>();
-            if (!allergies.Contains(allergy))
-                allergies.Add(allergy);
-        }
-
-        public void RemoveAllergy(AllergyManifestation allergy)
-        {
-            if (allergy == null)
-                return;
-            if (allergies != null)
-                if (allergies.Contains(allergy))
-                    allergies.Remove(allergy);
-        }
-
-        public void RemoveAllAllergies()
-        {
-            if (allergies != null)
-                allergies.Clear();
-        }
     }
 }
