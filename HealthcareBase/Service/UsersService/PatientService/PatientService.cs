@@ -4,6 +4,7 @@
 // Purpose: Definition of Class PatientService
 
 using System.Collections.Generic;
+using System.Linq;
 using Model.CustomExceptions;
 using Model.Users.Patient;
 using Repository.Generics;
@@ -53,7 +54,6 @@ namespace Service.UsersService.PatientService
         {
             return patientRepository.Repository.GetMatching(patient => patient.Status == PatientStatus.Alive);
         }
-
 
         public Patient Create(Patient patient)
         {

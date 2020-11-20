@@ -47,12 +47,11 @@ namespace Repository.UsersRepository.EmployeesAndPatientsRepository
         {
             try
             {
-                if (entity.Citizenship != null)
+                if (entity.Citizenships != null)
                 {
                     var citizenship = new List<Country>();
-                    foreach (var country in entity.Citizenship)
+                    foreach (var country in entity.Citizenships)
                         citizenship.Add(countryRepository.GetByID(country.GetKey()));
-                    entity.Citizenship = citizenship;
                 }
 
                 if (entity.CityOfResidence != null)

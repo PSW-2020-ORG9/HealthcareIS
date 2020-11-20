@@ -27,14 +27,11 @@ namespace Model.Users.Patient.MedicalHistory
         public int PersonalHistoryId { get; set; }
         public PersonalHistory PersonalHistory { get; set; }
 
-        [ForeignKey("FamilyHistoryId")]
+        [ForeignKey("FamilyHistory")]
         public int FamilyHistoryId { get; set; }
         public FamilyHistory FamilyHistory { get; set; }
 
-        public int GetKey()
-            => Id;
-
-        public void SetKey(int id)
-            => Id = id;
+        public int GetKey() => Id;
+        public void SetKey(int id) => Id = id;
     }
 }

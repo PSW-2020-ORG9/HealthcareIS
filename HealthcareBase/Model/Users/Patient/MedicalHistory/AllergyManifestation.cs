@@ -23,10 +23,7 @@ namespace Model.Users.Patient.MedicalHistory
         public int AllergyId { get; set; }
         public Allergy Allergy { get; set; }
 
-        public int GetKey()
-            => Id;
-
-        public void SetKey(int id)
-            => Id = id;
+        public int GetKey() => Id;
+        public void SetKey(int id) => Id = id;
     }
 }

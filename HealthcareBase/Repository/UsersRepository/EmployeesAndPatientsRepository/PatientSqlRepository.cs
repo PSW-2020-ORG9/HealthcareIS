@@ -24,9 +24,13 @@ namespace HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsReposito
                 .Include(p => p.MedicalHistory)
                     .ThenInclude(mh => mh.PersonalHistory)
                         .ThenInclude(ph => ph.Diagnoses)
+                            .ThenInclude(d => d.Diagnosis)
                 .Include(p => p.MedicalHistory)
                     .ThenInclude(mh => mh.FamilyHistory)
-                        .ThenInclude(fh => fh.Diagnoses);
+                        .ThenInclude(fh => fh.Diagnoses)
+                            .ThenInclude(d => d.Diagnosis)
+                .Include(p => p.Citizenships)
+                    .ThenInclude(cz => cz.Country);
         }
 
         public bool ExistsByJMBG(string jmbg)

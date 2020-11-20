@@ -16,19 +16,14 @@ namespace Model.Users.Patient.MedicalHistory
         [Key]
         public int Id { get; set; }
         public string FamilyRelation { get; set; }
-
         public int DiscoveredAtAge { get; set; }
-
         public bool Lethal { get; set; }
 
         [ForeignKey("Diagnosis")]
         public string DiagnosisId { get; set; }
         public Diagnosis Diagnosis { get; set; }
 
-        public int GetKey()
-            => Id;
-
-        public void SetKey(int id)
-            => Id = id;
+        public int GetKey() => Id;
+        public void SetKey(int id) => Id = id;
     }
 }

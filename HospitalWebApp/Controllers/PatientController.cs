@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using HospitalWebApp.Adapters;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Model.Users.Generalities;
 using Model.Users.Patient;
 using Service.UsersService.PatientService;
 
@@ -27,7 +28,7 @@ namespace HospitalWebApp.Controllers
         {
             Patient p = _patientService.GetByID(id);
             if (p != null) return Ok(p);
-            return BadRequest("Patient not found!");
+            return BadRequest("Patient not found.");
         }
     }
 }

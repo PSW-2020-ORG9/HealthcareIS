@@ -14,15 +14,10 @@ namespace Model.Users.Patient.MedicalHistory
     {
         [Key]
         public int Id { get; set; }
-
+        public string Overview { get; set; }
         public List<DiagnosisDetails> Diagnoses { get; set; }
 
-        public string Overview { get; set; }
-
-        public int GetKey()
-            => Id;
-
-        public void SetKey(int id)
-            => Id = id;
+        public int GetKey() => Id;
+        public void SetKey(int id) => Id = id;
     }
 }

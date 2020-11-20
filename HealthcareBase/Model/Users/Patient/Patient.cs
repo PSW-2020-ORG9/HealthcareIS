@@ -12,10 +12,14 @@ namespace Model.Users.Patient
 {
     public class Patient : Person, Entity<int>
     {
-        public Patient(){}
+        public Patient() {}
 
+        public void createEmptyMedicalHistory()
+            => this.MedicalHistory = new MedicalHistory.MedicalHistory();
+        
+        [Key]
+        public int MedicalRecordID { get; set; }
         public string InsuranceNumber { get; set; }
-
         public string MiddleName { get; set; }
 
         [Column(TypeName = "nvarchar(24)")]
@@ -28,32 +32,15 @@ namespace Model.Users.Patient
         public int CityOfBirthId { get; set; }
         public City CityOfBirth { get; set; }
 
-        [Key]
-        public int MedicalRecordID { get; set; }
-
         [ForeignKey("MedicalHistory")]
         public int MedicalHistoryId { get; set; }
         public MedicalHistory.MedicalHistory MedicalHistory { get; set; }
 
-        public int GetKey()
-        {
-            return MedicalRecordID;
-        }
-
-        public void SetKey(int id)
-        {
-            MedicalRecordID = id;
-        }
+        public int GetKey() => MedicalRecordID;
+        public void SetKey(int id) => MedicalRecordID = id;
 
         public override bool Equals(object obj)
-        {
-            return obj is Patient patient &&
-                   MedicalRecordID == patient.MedicalRecordID;
-        }
-
-        public override int GetHashCode()
-        {
-            return -98446404 + MedicalRecordID.GetHashCode();
-        }
+            => obj is Patient patient &&
+               MedicalRecordID == patient.MedicalRecordID;
     }
 }

@@ -29,7 +29,7 @@ namespace HealthcareBase.Model.Database
 
         public MySqlContext()
         {
-            this._connectionString = "server=localhost;port=3306;database=psw;user=root;password=password";
+            this._connectionString = "server=localhost;port=3306;database=clinic;user=root;password=helloworldNOVISAD021";
         }
 
         public MySqlContext(string connectionString)
@@ -77,6 +77,7 @@ namespace HealthcareBase.Model.Database
         public DbSet<Specialty> Specialties { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Country> Countries { get; set; }
+        public DbSet<Citizenship> Citizenships { get; set; }
         public DbSet<Patient> Patients { get; set; }
         public DbSet<EmployeeAccount> EmployeeAccounts { get; set; }
         public DbSet<PatientAccount> PatientAccounts { get; set; }
