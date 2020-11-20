@@ -24,10 +24,6 @@ namespace Model.Users.Patient.MedicalHistory
         public string DiagnosisId { get; set; }
         public Diagnosis Diagnosis { get; set; }
 
-        [ForeignKey("PersonalHistory")]
-        public int PersonalHistoryId { get; set; }
-        public PersonalHistory PersonalHistory { get; set; }
-
         public int GetKey()
             => Id;
 

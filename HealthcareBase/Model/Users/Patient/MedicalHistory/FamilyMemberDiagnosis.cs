@@ -5,13 +5,16 @@
 
 using Microsoft.EntityFrameworkCore;
 using Model.Miscellaneous;
+using Repository.Generics;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Users.Patient.MedicalHistory
 {
-    [Owned]
-    public class FamilyMemberDiagnosis
+    public class FamilyMemberDiagnosis : Entity<int>
     {
+        [Key]
+        public int Id { get; set; }
         public string FamilyRelation { get; set; }
 
         public int DiscoveredAtAge { get; set; }
@@ -22,8 +25,10 @@ namespace Model.Users.Patient.MedicalHistory
         public string DiagnosisId { get; set; }
         public Diagnosis Diagnosis { get; set; }
 
-        [ForeignKey("FamilyHistory")]
-        public int FamilyHistoryId { get; set; }
-        public FamilyHistory FamilyHistory { get; set; }
+        public int GetKey()
+            => Id;
+
+        public void SetKey(int id)
+            => Id = id;
     }
 }

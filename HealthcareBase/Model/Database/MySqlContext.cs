@@ -87,6 +87,7 @@ namespace HealthcareBase.Model.Database
         public DbSet<FamilyHistory> FamilyHistories { get; set; }
         public DbSet<AllergyManifestation> AllergyManifestations { get; set; }
         public DbSet<DiagnosisDetails> DiagnosisDetails { get; set; }
+        public DbSet<FamilyMemberDiagnosis> FamilyMemberDiagnoses { get; set; }
         
         
         
@@ -116,18 +117,21 @@ namespace HealthcareBase.Model.Database
 
             modelBuilder.Entity<MedicalHistory>()
                 .HasMany(m => m.Allergies)
-                .WithOne(a => a.MedicalHistory)
-                .OnDelete(DeleteBehavior.Cascade);
+                .WithOne()
+                .OnDelete(DeleteBehavior.Cascade)
+                .IsRequired(true);
 
             modelBuilder.Entity<PersonalHistory>()
                 .HasMany(ph => ph.Diagnoses)
-                .WithOne(d => d.PersonalHistory)
-                .OnDelete(DeleteBehavior.Cascade);
+                .WithOne()
+                .OnDelete(DeleteBehavior.Cascade)
+                .IsRequired(true);
 
             modelBuilder.Entity<FamilyHistory>()
                 .HasMany(fh => fh.Diagnoses)
-                .WithOne(d => d.FamilyHistory)
-                .OnDelete(DeleteBehavior.Cascade);
+                .WithOne()
+                .OnDelete(DeleteBehavior.Cascade)
+                .IsRequired(true);
         }
 
         private static void SeedData(ModelBuilder modelBuilder)

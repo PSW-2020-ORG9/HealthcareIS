@@ -23,9 +23,6 @@ namespace Model.Users.Patient.MedicalHistory
         public int AllergyId { get; set; }
         public Allergy Allergy { get; set; }
 
-        [ForeignKey("MedicalHistory")]
-        public int MedicalHistoryId { get; set; }
-        public MedicalHistory MedicalHistory { get; set; }
         public int GetKey()
             => Id;
 
