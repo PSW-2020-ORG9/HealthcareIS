@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import CreateFeedback from '../views/CreateFeedback.vue'
 import ObserveFeedback from '../views/ObserveFeedback.vue'
+import ObserveMedicalRecord from '../views/ObserveMedicalRecord.vue'
 
 const routes = [
   {
@@ -13,7 +14,11 @@ const routes = [
     path: '/create-feedback',
     name: 'CreateFeedback',
     component: CreateFeedback
-    
+  },
+  {
+    path: '/medical-record',
+    name: 'ObserveMedicalRecord',
+    component: ObserveMedicalRecord
   }
 ]
 
