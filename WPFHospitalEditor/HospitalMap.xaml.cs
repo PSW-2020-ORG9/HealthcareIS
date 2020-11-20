@@ -32,7 +32,7 @@ namespace WPFHospitalEditor
                 goToClickedBuilding(chosenBuilding);
             }
         }
-        private MapObject checkWhichObjectIsClicked(MouseButtonEventArgs e, List<MapObject> allMapObjectsShowed)
+        public MapObject checkWhichObjectIsClicked(MouseButtonEventArgs e, List<MapObject> allMapObjectsShowed)
         {
             for (int i = 0; i < allMapObjectsShowed.Count; i++)
             {
