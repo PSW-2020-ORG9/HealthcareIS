@@ -18,9 +18,17 @@ namespace WPFHospitalEditor
     /// </summary>
     public partial class AdditionalInformation : Window
     {
+        private MapObject mapObject;
+        private List<string> labelContent = new List<string>();
+        private List<string> value = new List<string>();
+        private List<Label> labels = new List<Label>();
+        private List<TextBox> textBoxes = new List<TextBox>();
+        private TextBox name = new TextBox();
+
         public AdditionalInformation(MapObject mapObject)
         {
             InitializeComponent();
+            this.mapObject = mapObject;
             string[] contentRows = mapObject.Description.Split(";");
             this.Height = (contentRows.Length + 2) * 50 + 30;
             CreateDynamicWPFGrid(mapObject, contentRows);   
@@ -33,15 +41,27 @@ namespace WPFHospitalEditor
 
         private void Done_Click(object sender, RoutedEventArgs e)
         {
+            mapObject.Description = "";
+
+            for(int i = 0; i < labels.Count; i++)
+            {
+                mapObject.Description += labels[i].Content;
+                mapObject.Description += "=";
+                mapObject.Description += textBoxes[i].Text;
+                mapObject.Description += ";";
+            }
+
+            int lenght = mapObject.Description.Length;
+            mapObject.Description.Substring(0,lenght - 1);
+
+            mapObject.name.Text = this.name.Text;
+            
             Close();
         }
 
         private void CreateDynamicWPFGrid(MapObject mapObject, string[] contentRows)
 
         {
-
-            // Create the Grid
-
             Grid DynamicGrid = new Grid();
             var bc = new BrushConverter();
             DynamicGrid.Background = (Brush)bc.ConvertFrom("#FFC6F5F8");
@@ -59,9 +79,6 @@ namespace WPFHospitalEditor
 
         private void createRowContent(string[] contentRows, Grid DynamicGrid)
         {
-            List<string> labelContent = new List<string>();
-            List<string> value = new List<string>();
-
             for (int i = 0; i < contentRows.Length; i++)
             {
                 if (contentRows[i].Equals(""))
@@ -73,12 +90,9 @@ namespace WPFHospitalEditor
             }
 
             insertData(DynamicGrid, labelContent, value);
-
-            if (!contentRows.Equals(""))
-            {
-                addCancelButton(contentRows, DynamicGrid);
-            }
-            
+                        
+            addCancelButton(contentRows, DynamicGrid);
+                        
             addOkButton(contentRows, DynamicGrid);
         }
 
@@ -118,33 +132,42 @@ namespace WPFHospitalEditor
             DynamicGrid.Children.Add(cancel);
         }
 
-        private static void insertData(Grid DynamicGrid, List<string> labelContent, List<string> value)
+        private void insertData(Grid DynamicGrid, List<string> labelContent, List<string> value)
         {
             for (int i = 0; i < labelContent.Count; i++)
             {
-                Label label = new Label();
-                label.Content = labelContent[i];
-                label.HorizontalContentAlignment = HorizontalAlignment.Center;
-                label.VerticalAlignment = VerticalAlignment.Center;
-                label.FontSize = 20;
-                Grid.SetRow(label, i + 2);
-                Grid.SetColumn(label, 1);
-                DynamicGrid.Children.Add(label);
-               
-                TextBox textBox = new TextBox();
-                textBox.Text = value[i];
-                textBox.HorizontalContentAlignment = HorizontalAlignment.Center;
-                textBox.VerticalAlignment = VerticalAlignment.Center;
-                Grid.SetRow(textBox, i + 2);
-                Grid.SetColumn(textBox, 2);
-                DynamicGrid.Children.Add(textBox);
+                insertLabels(DynamicGrid, labelContent, i);
+                insertTextBoxes(DynamicGrid, value, i);
             }
+        }
+
+        private void insertTextBoxes(Grid DynamicGrid, List<string> value, int i)
+        {
+            TextBox textBox = new TextBox();
+            textBox.Text = value[i];
+            textBox.HorizontalContentAlignment = HorizontalAlignment.Center;
+            textBox.VerticalAlignment = VerticalAlignment.Center;
+            Grid.SetRow(textBox, i + 2);
+            Grid.SetColumn(textBox, 2);
+            textBoxes.Add(textBox);
+            DynamicGrid.Children.Add(textBox);
+        }
+
+        private void insertLabels(Grid DynamicGrid, List<string> labelContent, int i)
+        {
+            Label label = new Label();
+            label.Content = labelContent[i];
+            label.HorizontalContentAlignment = HorizontalAlignment.Center;
+            label.VerticalAlignment = VerticalAlignment.Center;
+            label.FontSize = 20;
+            Grid.SetRow(label, i + 2);
+            Grid.SetColumn(label, 1);
+            labels.Add(label);
+            DynamicGrid.Children.Add(label);
         }
 
         private void addMapObjectName(MapObject mapObject, BrushConverter bc, Grid DynamicGrid)
         {
-            TextBox name = new TextBox();
-
             name.Text = mapObject.name.Text;
 
             name.Background = (Brush)bc.ConvertFrom("#FFC6F5F8");
