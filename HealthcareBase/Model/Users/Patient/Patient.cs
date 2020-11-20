@@ -31,6 +31,8 @@ namespace Model.Users.Patient
         [Key]
         public int MedicalRecordID { get; set; }
 
+        [ForeignKey("MedicalHistory")]
+        public int MedicalHistoryId { get; set; }
         public MedicalHistory.MedicalHistory MedicalHistory { get; set; }
 
         public int GetKey()
