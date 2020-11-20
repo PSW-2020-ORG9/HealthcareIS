@@ -24,6 +24,7 @@ namespace WPFHospitalEditor
         private List<Label> labels = new List<Label>();
         private List<TextBox> textBoxes = new List<TextBox>();
         private TextBox name = new TextBox();
+        private Grid DynamicGrid = new Grid();
 
         public AdditionalInformation(MapObject mapObject)
         {
@@ -31,7 +32,7 @@ namespace WPFHospitalEditor
             this.mapObject = mapObject;
             string[] contentRows = mapObject.Description.Split(";");
             this.Height = (contentRows.Length + 2) * 50 + 30;
-            CreateDynamicWPFGrid(mapObject, contentRows);   
+            CreateDynamicWPFGrid(mapObject, contentRows);
         }
 
         private void Close_Click(object sender, RoutedEventArgs e)
@@ -43,7 +44,7 @@ namespace WPFHospitalEditor
         {
             mapObject.Description = "";
 
-            for(int i = 0; i < labels.Count; i++)
+            for (int i = 0; i < labels.Count; i++)
             {
                 mapObject.Description += labels[i].Content;
                 mapObject.Description += "=";
@@ -52,32 +53,31 @@ namespace WPFHospitalEditor
             }
 
             int lenght = mapObject.Description.Length;
-            mapObject.Description.Substring(0,lenght - 1);
+            mapObject.Description.Substring(0, lenght - 1);
 
             mapObject.name.Text = this.name.Text;
-            
+
             Close();
         }
 
         private void CreateDynamicWPFGrid(MapObject mapObject, string[] contentRows)
 
         {
-            Grid DynamicGrid = new Grid();
             var bc = new BrushConverter();
             DynamicGrid.Background = (Brush)bc.ConvertFrom("#FFC6F5F8");
 
-            createColumns(DynamicGrid);
+            createColumns();
 
-            createRows(contentRows, DynamicGrid);
+            createRows(contentRows);
 
-            addMapObjectName(mapObject, bc, DynamicGrid);
+            addMapObjectName(mapObject, bc);
 
-            createRowContent(contentRows, DynamicGrid);
+            createRowContent(contentRows);
 
             Border.Child = DynamicGrid;
         }
 
-        private void createRowContent(string[] contentRows, Grid DynamicGrid)
+        private void createRowContent(string[] contentRows)
         {
             for (int i = 0; i < contentRows.Length; i++)
             {
@@ -89,14 +89,14 @@ namespace WPFHospitalEditor
                 value.Add(label[1]);
             }
 
-            insertData(DynamicGrid, labelContent, value);
-                        
-            addCancelButton(contentRows, DynamicGrid);
-                        
-            addOkButton(contentRows, DynamicGrid);
+            insertData();
+
+            addCancelButton(contentRows);
+
+            addOkButton(contentRows);
         }
 
-        private void addOkButton(string[] contentRows, Grid DynamicGrid)
+        private void addOkButton(string[] contentRows)
         {
             Button ok = new Button();
             ok.Content = "OK";
@@ -114,7 +114,7 @@ namespace WPFHospitalEditor
             DynamicGrid.Children.Add(ok);
         }
 
-        private void addCancelButton(string[] contentRows, Grid DynamicGrid)
+        private void addCancelButton(string[] contentRows)
         {
             Button cancel = new Button();
             cancel.Content = "Poništi";
@@ -132,16 +132,16 @@ namespace WPFHospitalEditor
             DynamicGrid.Children.Add(cancel);
         }
 
-        private void insertData(Grid DynamicGrid, List<string> labelContent, List<string> value)
+        private void insertData()
         {
             for (int i = 0; i < labelContent.Count; i++)
             {
-                insertLabels(DynamicGrid, labelContent, i);
-                insertTextBoxes(DynamicGrid, value, i);
+                insertLabel(i);
+                insertTextBox(i);
             }
         }
 
-        private void insertTextBoxes(Grid DynamicGrid, List<string> value, int i)
+        private void insertTextBox(int i)
         {
             TextBox textBox = new TextBox();
             textBox.Text = value[i];
@@ -153,7 +153,7 @@ namespace WPFHospitalEditor
             DynamicGrid.Children.Add(textBox);
         }
 
-        private void insertLabels(Grid DynamicGrid, List<string> labelContent, int i)
+        private void insertLabel(int i)
         {
             Label label = new Label();
             label.Content = labelContent[i];
@@ -166,7 +166,7 @@ namespace WPFHospitalEditor
             DynamicGrid.Children.Add(label);
         }
 
-        private void addMapObjectName(MapObject mapObject, BrushConverter bc, Grid DynamicGrid)
+        private void addMapObjectName(MapObject mapObject, BrushConverter bc)
         {
             name.Text = mapObject.name.Text;
 
@@ -186,48 +186,40 @@ namespace WPFHospitalEditor
 
             Grid.SetColumnSpan(name, 2);
             Grid.SetColumn(name, 1);
-            
+
             DynamicGrid.Children.Add(name);
         }
 
-        private void createRows(string[] contentRows, Grid DynamicGrid)
+        private void createRows(string[] contentRows)
         {
-            RowDefinition gridRow1 = new RowDefinition();
-            gridRow1.Height = new GridLength(2);
-            DynamicGrid.RowDefinitions.Add(gridRow1);
+            createOneRow(2);
 
-            for (int i = 0; i <= contentRows.Length; i++)
+            for (int i = 0; i <= contentRows.Length + 1; i++)
             {
-                RowDefinition gridRow = new RowDefinition();
-                gridRow.Height = new GridLength(50);
-                DynamicGrid.RowDefinitions.Add(gridRow);
+                createOneRow(50);
             }
-            RowDefinition gridRowCancelOK = new RowDefinition();
-            gridRowCancelOK.Height = new GridLength(50);
-            DynamicGrid.RowDefinitions.Add(gridRowCancelOK);
         }
 
-        private void createColumns(Grid DynamicGrid)
+        private void createOneRow(int height)
+        {
+            RowDefinition gridRow1 = new RowDefinition();
+            gridRow1.Height = new GridLength(height);
+            DynamicGrid.RowDefinitions.Add(gridRow1);
+        }
+
+        private void createColumns()
+        {
+            createOneColumn(15);
+            createOneColumn(150);
+            createOneColumn(150);
+            createOneColumn(20);
+        }
+
+        private void createOneColumn(int width)
         {
             ColumnDefinition borderColumn1 = new ColumnDefinition();
-            borderColumn1.Width = new GridLength(15);
-
-            ColumnDefinition labelContentColumn = new ColumnDefinition();
-            labelContentColumn.Width = new GridLength(150);
-
-            ColumnDefinition valueColumn = new ColumnDefinition();
-            valueColumn.Width = new GridLength(150);
-
-            ColumnDefinition borderColumn2 = new ColumnDefinition();
-            borderColumn1.Width = new GridLength(20);
-
+            borderColumn1.Width = new GridLength(width);
             DynamicGrid.ColumnDefinitions.Add(borderColumn1);
-
-            DynamicGrid.ColumnDefinitions.Add(labelContentColumn);
-
-            DynamicGrid.ColumnDefinitions.Add(valueColumn);
-
-            DynamicGrid.ColumnDefinitions.Add(borderColumn2);
         }
     }
 }

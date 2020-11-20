@@ -20,7 +20,7 @@ namespace WPFHospitalEditor
     {
         AllMapObjects allMapObjects = new AllMapObjects();
         Dictionary<int, Floor> buildingFloors = new Dictionary<int, Floor>();
-        HospitalMap window1 = new HospitalMap();
+        HospitalMap hospitalMap = new HospitalMap();
 
         public Building(int id)
         {
@@ -35,8 +35,10 @@ namespace WPFHospitalEditor
                 buildingFloors.Add(0, new Floor(AllMapObjects.allSecondBuildingFirstFloorObjects));
                 buildingFloors.Add(1, new Floor(AllMapObjects.allSecondBuildingSecondFloorObjects));
             }
+
+            hospitalMap.canvas = this.canvas;
             setFloorComboBox();
-            window1.addObjectToCanvas(buildingFloors[0].getAllFloorMapObjects(), canvas);
+            hospitalMap.addObjectToCanvas(buildingFloors[0].getAllFloorMapObjects(), canvas);
             displayLegend(buildingFloors[0].getAllFloorMapObjects());
             floor.SelectedIndex = 0;
         }
@@ -53,7 +55,7 @@ namespace WPFHospitalEditor
         {
             clearAll();
             this.Close();
-            window1.ShowDialog();
+            hospitalMap.ShowDialog();
         }
 
         private void floor_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -61,7 +63,7 @@ namespace WPFHospitalEditor
             clearAll();
             int index = floor.SelectedIndex;
             if (buildingFloors.Count == 0) return;
-            window1.addObjectToCanvas(buildingFloors[index].getAllFloorMapObjects(), canvas);
+            hospitalMap.addObjectToCanvas(buildingFloors[index].getAllFloorMapObjects(), canvas);
             displayLegend(buildingFloors[index].getAllFloorMapObjects());
         }
 
@@ -147,30 +149,13 @@ namespace WPFHospitalEditor
         private void selectMapObject(object sender, MouseButtonEventArgs e)
         {
             int index = floor.SelectedIndex;
-            MapObject chosenMapObject = checkWhichObjectIsClicked(e, buildingFloors[index].getAllFloorMapObjects());
+            MapObject chosenMapObject = hospitalMap.checkWhichObjectIsClicked(e, buildingFloors[index].getAllFloorMapObjects());
             if (chosenMapObject != null)
             {
                 openAdditionalInformationDialog(chosenMapObject);
             }
         }
-        private MapObject checkWhichObjectIsClicked(MouseButtonEventArgs e, List<MapObject> allMapObjectsShowed)
-        {
-            for (int i = 0; i < allMapObjectsShowed.Count; i++)
-            {
-                if (checkIfPointIsInRectangle(e, allMapObjectsShowed[i]))
-                {
-                    return allMapObjectsShowed[i];
-                }
-            }
-            return null;
-        }
-        private Boolean checkIfPointIsInRectangle(MouseButtonEventArgs e, MapObject mapObject)
-        {
-            return (e.GetPosition(canvas).X > mapObject.MapObjectMetrics.MapObjectCoordinates.X
-                    && e.GetPosition(canvas).X < mapObject.MapObjectMetrics.MapObjectCoordinates.X + mapObject.MapObjectMetrics.MapObjectDimensions.Width
-                    && e.GetPosition(canvas).Y > mapObject.MapObjectMetrics.MapObjectCoordinates.Y
-                    && e.GetPosition(canvas).Y < mapObject.MapObjectMetrics.MapObjectCoordinates.Y + mapObject.MapObjectMetrics.MapObjectDimensions.Height);
-        }
+        
         private void openAdditionalInformationDialog(MapObject mapObject)
         {
             AdditionalInformation additionalInformation = new AdditionalInformation(mapObject);
