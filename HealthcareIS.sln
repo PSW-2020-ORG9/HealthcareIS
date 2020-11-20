@@ -9,6 +9,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFHospitalEditor", "WPFHos
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HospitalWebApp", "HospitalWebApp\HospitalWebApp.csproj", "{7CB35A4E-A104-4098-A2FE-23E4A42856B0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthcareBaseTests", "HealthcareBaseTests\HealthcareBaseTests.csproj", "{9564E34A-6EF5-4E4E-A250-2A348C5A031D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HospitalWebAppTests", "HospitalWebAppTests\HospitalWebAppTests.csproj", "{51B18CC7-B280-4A8F-A019-CAE492B7ACDF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{7CB35A4E-A104-4098-A2FE-23E4A42856B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7CB35A4E-A104-4098-A2FE-23E4A42856B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7CB35A4E-A104-4098-A2FE-23E4A42856B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9564E34A-6EF5-4E4E-A250-2A348C5A031D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9564E34A-6EF5-4E4E-A250-2A348C5A031D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9564E34A-6EF5-4E4E-A250-2A348C5A031D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9564E34A-6EF5-4E4E-A250-2A348C5A031D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51B18CC7-B280-4A8F-A019-CAE492B7ACDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51B18CC7-B280-4A8F-A019-CAE492B7ACDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51B18CC7-B280-4A8F-A019-CAE492B7ACDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51B18CC7-B280-4A8F-A019-CAE492B7ACDF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

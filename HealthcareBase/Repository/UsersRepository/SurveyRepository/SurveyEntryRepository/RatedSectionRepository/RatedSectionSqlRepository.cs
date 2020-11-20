@@ -1,0 +1,22 @@
+using System.Linq;
+using HealthcareBase.Model.Database;
+using HealthcareBase.Model.Users.Survey.SurveyEntry;
+using Microsoft.EntityFrameworkCore;
+using Repository.Generics;
+
+namespace HealthcareBase.Repository.UsersRepository.SurveyRepository.SurveyEntryRepository.RatedSectionRepository
+{
+    public class RatedSectionSqlRepository : GenericSqlRepository<RatedSurveySection, int>, RatedSectionRepository
+    {
+        public RatedSectionSqlRepository(IContextFactory contextFactory) : base(contextFactory)
+        {
+            
+        }
+
+        public override IQueryable<RatedSurveySection> IncludeFields(IQueryable<RatedSurveySection> query)
+        {
+            return query.Include(rss => rss.RatedSurveyQuestions)
+                .ThenInclude(qs => qs.SurveyQuestion);
+        }
+    }
+}

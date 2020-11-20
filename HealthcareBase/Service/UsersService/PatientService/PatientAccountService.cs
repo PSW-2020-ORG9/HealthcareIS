@@ -3,8 +3,6 @@
 // Created: 27 May 2020 19:14:10
 // Purpose: Definition of Class PatientAccountService
 
-using HealthcareBase.Model.Users.UserFeedback;
-using HealthcareBase.Model.Users.UserFeedback.Survey;
 using Model.CustomExceptions;
 using Model.Users.Employee;
 using Model.Users.Patient;
@@ -19,15 +17,12 @@ namespace Service.UsersService.PatientService
     public class PatientAccountService
     {
         private readonly RepositoryWrapper<PatientAccountRepository> patientAccountRepository;
-        private readonly RepositoryWrapper<PatientSurveyResponseRepository> patientSurveyResponseRepository;
 
         public PatientAccountService(
-            PatientAccountRepository patientAccountRepository,
-            PatientSurveyResponseRepository patientSurveyResponseRepository)
+            PatientAccountRepository patientAccountRepository)
         {
             this.patientAccountRepository = new RepositoryWrapper<PatientAccountRepository>(patientAccountRepository);
-            this.patientSurveyResponseRepository =
-                new RepositoryWrapper<PatientSurveyResponseRepository>(patientSurveyResponseRepository);
+            
         }
 
         public void DeleteAccount(PatientAccount patientAccount)
@@ -68,10 +63,6 @@ namespace Service.UsersService.PatientService
 
             return patientAccountRepository.Repository.Update(acc);
         }
-
-        public void RecordSurveyResponse(Survey survey)
-        {
-            patientSurveyResponseRepository.Repository.Create(survey);
-        }
+        
     }
 }
