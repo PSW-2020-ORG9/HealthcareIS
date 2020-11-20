@@ -117,7 +117,7 @@ namespace WPFHospitalEditor
         private void addCancelButton(string[] contentRows)
         {
             Button cancel = new Button();
-            cancel.Content = "Poništi";
+            cancel.Content = "Cancel";
             cancel.BorderThickness = new Thickness(0);
             cancel.HorizontalAlignment = HorizontalAlignment.Left;
             cancel.VerticalAlignment = VerticalAlignment.Center;
