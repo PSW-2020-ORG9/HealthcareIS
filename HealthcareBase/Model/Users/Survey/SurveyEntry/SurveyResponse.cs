@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Model.Users.UserAccounts;
 using Repository.Generics;
 
-namespace HealthcareBase.Model.Users.UserFeedback.Survey
+namespace HealthcareBase.Model.Users.Survey.SurveyEntry
 {
     public class SurveyResponse:Entity<int>
     {
@@ -15,6 +15,7 @@ namespace HealthcareBase.Model.Users.UserFeedback.Survey
         public int SurveyId { get; set; }
         public Survey Survey { get; set; }
         public IEnumerable<RatedSurveySection> RatedSurveySections { get; set; }
+        public DoctorSurveySection DoctorSurveySection { get; set; }
         public PatientAccount PatientAccount { get; set; }
         public int GetKey() => Id;
 

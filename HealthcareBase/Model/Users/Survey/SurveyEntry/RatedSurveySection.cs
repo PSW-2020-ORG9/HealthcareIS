@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Repository.Generics;
 
-namespace HealthcareBase.Model.Users.UserFeedback.Survey
+namespace HealthcareBase.Model.Users.Survey.SurveyEntry
 {
     public class RatedSurveySection:Entity<int>
     {
@@ -12,7 +12,6 @@ namespace HealthcareBase.Model.Users.UserFeedback.Survey
         public int SurveySectionId { get; set; }
         public SurveySection SurveySection { get; set; }
         public IEnumerable<RatedSurveyQuestion> RatedSurveyQuestions { get; set; }
-        public double AverageRating { get; set; }
         public int GetKey() => Id;
 
         public void SetKey(int id) => id = Id;

@@ -18,7 +18,8 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
 using EntityFramework.Exceptions.MySQL.Pomelo;
-using HealthcareBase.Model.Users.UserFeedback.Survey;
+using HealthcareBase.Model.Users.Survey;
+using HealthcareBase.Model.Users.Survey.SurveyEntry;
 using Model.Users.Patient.MedicalHistory;
 
 namespace HealthcareBase.Model.Database
@@ -87,9 +88,10 @@ namespace HealthcareBase.Model.Database
         public DbSet<RatedSurveySection> RatedSurveySections { get; set; }
         public DbSet<RatedSurveyQuestion> RatedSurveyQuestions { get; set; }
         public DbSet<UserFeedback> UserFeedbacks { get; set; }
-        
-        
-        
+        public DbSet<DoctorSurveySection> doctorSurveySections { get; set; }
+
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             SetRelations(modelBuilder);

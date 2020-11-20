@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Repository.Generics;
 
-namespace HealthcareBase.Model.Users.UserFeedback.Survey
+namespace HealthcareBase.Model.Users.Survey
 {
     public class SurveyQuestion : Entity<int>
     {

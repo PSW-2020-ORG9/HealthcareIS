@@ -3,15 +3,11 @@
 // Created: 21 April 2020 18:23:22
 // Purpose: Definition of Class PatientSurveyResponse
 
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Model.Users.UserAccounts;
 using Repository.Generics;
 
-namespace HealthcareBase.Model.Users.UserFeedback.Survey
+namespace HealthcareBase.Model.Users.Survey
 {
     public class Survey : Entity<int>
     {
