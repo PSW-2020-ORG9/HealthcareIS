@@ -36,15 +36,15 @@ namespace Repository.UsersRepository.EmployeesAndPatientsRepository
         {
             try
             {
-                if (entity.Citizenships != null)
+                if (entity.Person.Citizenships != null)
                 {
                     var citizenship = new List<Country>();
-                    foreach (var country in entity.Citizenships)
+                    foreach (var country in entity.Person.Citizenships)
                         citizenship.Add(countryRepository.GetByID(country.GetKey()));
                 }
 
-                if (entity.CityOfResidence != null)
-                    entity.CityOfResidence = cityRepository.GetByID(entity.CityOfResidence.GetKey());
+                if (entity.Person.CityOfResidence != null)
+                    entity.Person.CityOfResidence = cityRepository.GetByID(entity.Person.CityOfResidence.GetKey());
             }
             catch (BadRequestException)
             {

@@ -43,13 +43,13 @@ namespace Service.UsersService.PatientService
 
         public PatientAccount Register(Patient patient, string username, string password)
         {
-            if (patientAccountRepository.Repository.ExistsByJMBG(patient.Jmbg))
+            if (patientAccountRepository.Repository.ExistsByJMBG(patient.Person.Jmbg))
                 throw new BadRequestException();
 
             if (!IsUsernameUnique(username))
                 throw new NotUniqueException();
 
-            if (HasGuestAccount(patient.Jmbg))
+            if (HasGuestAccount(patient.Person.Jmbg))
                 patient = patientRepository.Repository.Update(patient);
             else
                 patient = patientRepository.Repository.Create(patient);

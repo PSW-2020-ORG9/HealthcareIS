@@ -11,63 +11,15 @@ namespace Model.Users.Employee
 {
     public class Doctor : Employee
     {
-        private List<Specialty> specialties;
-
         [ForeignKey("Department")]
         public int DepartmentId { get; set; }
         public Department Department { get; set; }
 
-        public IEnumerable<Specialty> Specialties
-        {
-            get
-            {
-                if (specialties == null)
-                    specialties = new List<Specialty>();
-                return specialties;
-            }
-            set
-            {
-                RemoveAllSpecialties();
-                if (value != null)
-                    foreach (var oSpecialty in value)
-                        AddSpecialties(oSpecialty);
-            }
-        }
-
-        public void AddSpecialties(Specialty newSpecialty)
-        {
-            if (newSpecialty == null)
-                return;
-            if (specialties == null)
-                specialties = new List<Specialty>();
-            if (!specialties.Contains(newSpecialty))
-                specialties.Add(newSpecialty);
-        }
-
-        public void RemoveSpecialties(Specialty oldSpecialty)
-        {
-            if (oldSpecialty == null)
-                return;
-            if (specialties != null)
-                if (specialties.Contains(oldSpecialty))
-                    specialties.Remove(oldSpecialty);
-        }
-
-        public void RemoveAllSpecialties()
-        {
-            if (specialties != null)
-                specialties.Clear();
-        }
+        public IEnumerable<Specialty> Specialties { get; set; }
+        
 
         public override bool Equals(object obj)
-        {
-            return obj is Doctor employee &&
-                   employeeID == employee.employeeID;
-        }
-
-        public override int GetHashCode()
-        {
-            return 2070159828 + employeeID.GetHashCode();
-        }
+            => obj is Doctor employee &&
+                   EmployeeID == employee.EmployeeID;
     }
 }

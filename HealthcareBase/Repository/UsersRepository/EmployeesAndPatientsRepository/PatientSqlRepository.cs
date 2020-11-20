@@ -14,33 +14,40 @@ namespace HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsReposito
         public override IQueryable<Patient> IncludeFields(IQueryable<Patient> query)
         {
             return query
-                .Include(p => p.CityOfBirth)
-                    .ThenInclude(c => c.Country)
-                .Include(p => p.CityOfResidence)
-                    .ThenInclude(c => c.Country)
+                .Include(p => p.Person)
+                .ThenInclude(p => p.CityOfBirth)
+                .ThenInclude(c => c.Country)
+
+                // City
+                .Include(p => p.Person)
+                .ThenInclude(p => p.CityOfResidence)
+                .ThenInclude(c => c.Country)
+                
+                // Citizenship
+                .Include(p => p.Person)
+                .ThenInclude(p => p.Citizenships)
+                .ThenInclude(cz => cz.Country)
+                
+                // Med history
                 .Include(p => p.MedicalHistory)
-                    .ThenInclude(mh => mh.Allergies)
-                        .ThenInclude(a => a.Allergy)
+                .ThenInclude(mh => mh.Allergies)
+                .ThenInclude(a => a.Allergy)
+
                 .Include(p => p.MedicalHistory)
-                    .ThenInclude(mh => mh.PersonalHistory)
-                        .ThenInclude(ph => ph.Diagnoses)
-                            .ThenInclude(d => d.Diagnosis)
+                .ThenInclude(mh => mh.PersonalHistory)
+                .ThenInclude(ph => ph.Diagnoses)
+                .ThenInclude(d => d.Diagnosis)
+
                 .Include(p => p.MedicalHistory)
-                    .ThenInclude(mh => mh.FamilyHistory)
-                        .ThenInclude(fh => fh.Diagnoses)
-                            .ThenInclude(d => d.Diagnosis)
-                .Include(p => p.Citizenships)
-                    .ThenInclude(cz => cz.Country);
+                .ThenInclude(mh => mh.FamilyHistory)
+                .ThenInclude(fh => fh.Diagnoses)
+                .ThenInclude(d => d.Diagnosis);
         }
 
         public bool ExistsByJMBG(string jmbg)
-        {
-            return GetByJMBG(jmbg) != null;
-        }
+            => GetByJMBG(jmbg) != null;
 
         public Patient GetByJMBG(string jmbg)
-        {
-            return GetMatching(p => p.Jmbg.Equals(jmbg)).FirstOrDefault();
-        }
+            => GetMatching(p => p.Person.Jmbg == jmbg).FirstOrDefault();
     }
 }

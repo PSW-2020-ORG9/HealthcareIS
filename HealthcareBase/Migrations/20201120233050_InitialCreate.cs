@@ -385,6 +385,40 @@ namespace HealthcareBase.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Persons",
+                columns: table => new
+                {
+                    Jmbg = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    Surname = table.Column<string>(nullable: true),
+                    DateOfBirth = table.Column<DateTime>(nullable: false),
+                    Address = table.Column<string>(nullable: true),
+                    TelephoneNumber = table.Column<string>(nullable: true),
+                    MiddleName = table.Column<string>(nullable: true),
+                    Age = table.Column<int>(nullable: false),
+                    MartialStatus = table.Column<string>(type: "nvarchar(24)", nullable: false),
+                    Gender = table.Column<string>(type: "nvarchar(24)", nullable: false),
+                    CityOfResidenceId = table.Column<int>(nullable: false),
+                    CityOfBirthId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Persons", x => x.Jmbg);
+                    table.ForeignKey(
+                        name: "FK_Persons_Cities_CityOfBirthId",
+                        column: x => x.CityOfBirthId,
+                        principalTable: "Cities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Persons_Cities_CityOfResidenceId",
+                        column: x => x.CityOfResidenceId,
+                        principalTable: "Cities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Rooms",
                 columns: table => new
                 {
@@ -495,47 +529,85 @@ namespace HealthcareBase.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Citizenships",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    CountryID = table.Column<int>(nullable: false),
+                    PersonJmbg = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Citizenships", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Citizenships_Countries_CountryID",
+                        column: x => x.CountryID,
+                        principalTable: "Countries",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Citizenships_Persons_PersonJmbg",
+                        column: x => x.PersonJmbg,
+                        principalTable: "Persons",
+                        principalColumn: "Jmbg",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Employees",
+                columns: table => new
+                {
+                    EmployeeID = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    PersonJmbg = table.Column<string>(nullable: true),
+                    Status = table.Column<string>(type: "nvarchar(24)", nullable: false),
+                    Discriminator = table.Column<string>(nullable: false),
+                    DepartmentId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Employees", x => x.EmployeeID);
+                    table.ForeignKey(
+                        name: "FK_Employees_Departments_DepartmentId",
+                        column: x => x.DepartmentId,
+                        principalTable: "Departments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Employees_Persons_PersonJmbg",
+                        column: x => x.PersonJmbg,
+                        principalTable: "Persons",
+                        principalColumn: "Jmbg",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Patients",
                 columns: table => new
                 {
                     MedicalRecordID = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
-                    Surname = table.Column<string>(nullable: true),
-                    DateOfBirth = table.Column<DateTime>(nullable: false),
-                    Address = table.Column<string>(nullable: true),
-                    TelephoneNumber = table.Column<string>(nullable: true),
-                    Jmbg = table.Column<string>(nullable: true),
-                    Gender = table.Column<string>(type: "nvarchar(24)", nullable: false),
-                    CityOfResidenceId = table.Column<int>(nullable: false),
                     InsuranceNumber = table.Column<string>(nullable: true),
-                    MiddleName = table.Column<string>(nullable: true),
-                    MartialStatus = table.Column<string>(type: "nvarchar(24)", nullable: false),
+                    PersonJmbg = table.Column<string>(nullable: true),
                     Status = table.Column<string>(type: "nvarchar(24)", nullable: false),
-                    CityOfBirthId = table.Column<int>(nullable: false),
                     MedicalHistoryId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Patients", x => x.MedicalRecordID);
                     table.ForeignKey(
-                        name: "FK_Patients_Cities_CityOfBirthId",
-                        column: x => x.CityOfBirthId,
-                        principalTable: "Cities",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Patients_Cities_CityOfResidenceId",
-                        column: x => x.CityOfResidenceId,
-                        principalTable: "Cities",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_Patients_MedicalHistories_MedicalHistoryId",
                         column: x => x.MedicalHistoryId,
                         principalTable: "MedicalHistories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Patients_Persons_PersonJmbg",
+                        column: x => x.PersonJmbg,
+                        principalTable: "Persons",
+                        principalColumn: "Jmbg",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -603,6 +675,54 @@ namespace HealthcareBase.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "BlogAuthors",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Description = table.Column<string>(nullable: true),
+                    DoctorId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BlogAuthors", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_BlogAuthors_Employees_DoctorId",
+                        column: x => x.DoctorId,
+                        principalTable: "Employees",
+                        principalColumn: "EmployeeID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Shifts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    TimeInterval_Start = table.Column<DateTime>(nullable: true),
+                    TimeInterval_End = table.Column<DateTime>(nullable: true),
+                    AssignedExamRoomId = table.Column<int>(nullable: false),
+                    DoctorId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Shifts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Shifts_Rooms_AssignedExamRoomId",
+                        column: x => x.AssignedExamRoomId,
+                        principalTable: "Rooms",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Shifts_Employees_DoctorId",
+                        column: x => x.DoctorId,
+                        principalTable: "Employees",
+                        principalColumn: "EmployeeID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Hospitalizations",
                 columns: table => new
                 {
@@ -643,153 +763,6 @@ namespace HealthcareBase.Migrations
                         column: x => x.RoomId,
                         principalTable: "Rooms",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "EquipmentUnits",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    AcquisitionDate = table.Column<DateTime>(nullable: false),
-                    Manufacturer = table.Column<string>(nullable: true),
-                    CurrentLocationId = table.Column<int>(nullable: true),
-                    EquipmentTypeId = table.Column<int>(nullable: true),
-                    RoomId = table.Column<int>(nullable: true),
-                    HospitalizationId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_EquipmentUnits", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_EquipmentUnits_Rooms_CurrentLocationId",
-                        column: x => x.CurrentLocationId,
-                        principalTable: "Rooms",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_EquipmentUnits_EquipmentTypes_EquipmentTypeId",
-                        column: x => x.EquipmentTypeId,
-                        principalTable: "EquipmentTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_EquipmentUnits_Hospitalizations_HospitalizationId",
-                        column: x => x.HospitalizationId,
-                        principalTable: "Hospitalizations",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.SetNull);
-                    table.ForeignKey(
-                        name: "FK_EquipmentUnits_Rooms_RoomId",
-                        column: x => x.RoomId,
-                        principalTable: "Rooms",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.SetNull);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "BlogPosts",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Title = table.Column<string>(nullable: true),
-                    Text = table.Column<string>(nullable: true),
-                    TimeStamp = table.Column<DateTime>(nullable: false),
-                    AuthorId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_BlogPosts", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Employees",
-                columns: table => new
-                {
-                    EmployeeID = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
-                    Surname = table.Column<string>(nullable: true),
-                    DateOfBirth = table.Column<DateTime>(nullable: false),
-                    Address = table.Column<string>(nullable: true),
-                    TelephoneNumber = table.Column<string>(nullable: true),
-                    Jmbg = table.Column<string>(nullable: true),
-                    Gender = table.Column<string>(type: "nvarchar(24)", nullable: false),
-                    CityOfResidenceId = table.Column<int>(nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(24)", nullable: false),
-                    Discriminator = table.Column<string>(nullable: false),
-                    DepartmentId = table.Column<int>(nullable: true),
-                    PatientAccountId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Employees", x => x.EmployeeID);
-                    table.ForeignKey(
-                        name: "FK_Employees_Departments_DepartmentId",
-                        column: x => x.DepartmentId,
-                        principalTable: "Departments",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Employees_Cities_CityOfResidenceId",
-                        column: x => x.CityOfResidenceId,
-                        principalTable: "Cities",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "BlogAuthors",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Description = table.Column<string>(nullable: true),
-                    DoctorId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_BlogAuthors", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_BlogAuthors_Employees_DoctorId",
-                        column: x => x.DoctorId,
-                        principalTable: "Employees",
-                        principalColumn: "EmployeeID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Citizenships",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    CountryID = table.Column<int>(nullable: false),
-                    EmployeeID = table.Column<int>(nullable: true),
-                    PatientMedicalRecordID = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Citizenships", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Citizenships_Countries_CountryID",
-                        column: x => x.CountryID,
-                        principalTable: "Countries",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Citizenships_Employees_EmployeeID",
-                        column: x => x.EmployeeID,
-                        principalTable: "Employees",
-                        principalColumn: "EmployeeID",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Citizenships_Patients_PatientMedicalRecordID",
-                        column: x => x.PatientMedicalRecordID,
-                        principalTable: "Patients",
-                        principalColumn: "MedicalRecordID",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -864,34 +837,6 @@ namespace HealthcareBase.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Shifts",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    TimeInterval_Start = table.Column<DateTime>(nullable: true),
-                    TimeInterval_End = table.Column<DateTime>(nullable: true),
-                    AssignedExamRoomId = table.Column<int>(nullable: false),
-                    DoctorId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Shifts", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Shifts_Rooms_AssignedExamRoomId",
-                        column: x => x.AssignedExamRoomId,
-                        principalTable: "Rooms",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Shifts_Employees_DoctorId",
-                        column: x => x.DoctorId,
-                        principalTable: "Employees",
-                        principalColumn: "EmployeeID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "UserAccount",
                 columns: table => new
                 {
@@ -902,8 +847,8 @@ namespace HealthcareBase.Migrations
                     Discriminator = table.Column<string>(nullable: false),
                     EmployeeId = table.Column<int>(nullable: true),
                     EmployeeType = table.Column<string>(type: "nvarchar(24)", nullable: true),
-                    RespondedToSurvey = table.Column<bool>(nullable: true),
-                    PatientId = table.Column<int>(nullable: true)
+                    PatientId = table.Column<int>(nullable: true),
+                    RespondedToSurvey = table.Column<bool>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -920,6 +865,70 @@ namespace HealthcareBase.Migrations
                         principalTable: "Patients",
                         principalColumn: "MedicalRecordID",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "BlogPosts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Title = table.Column<string>(nullable: true),
+                    Text = table.Column<string>(nullable: true),
+                    TimeStamp = table.Column<DateTime>(nullable: false),
+                    AuthorId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BlogPosts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_BlogPosts_BlogAuthors_AuthorId",
+                        column: x => x.AuthorId,
+                        principalTable: "BlogAuthors",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EquipmentUnits",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    AcquisitionDate = table.Column<DateTime>(nullable: false),
+                    Manufacturer = table.Column<string>(nullable: true),
+                    CurrentLocationId = table.Column<int>(nullable: true),
+                    EquipmentTypeId = table.Column<int>(nullable: true),
+                    RoomId = table.Column<int>(nullable: true),
+                    HospitalizationId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EquipmentUnits", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_EquipmentUnits_Rooms_CurrentLocationId",
+                        column: x => x.CurrentLocationId,
+                        principalTable: "Rooms",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_EquipmentUnits_EquipmentTypes_EquipmentTypeId",
+                        column: x => x.EquipmentTypeId,
+                        principalTable: "EquipmentTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_EquipmentUnits_Hospitalizations_HospitalizationId",
+                        column: x => x.HospitalizationId,
+                        principalTable: "Hospitalizations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.SetNull);
+                    table.ForeignKey(
+                        name: "FK_EquipmentUnits_Rooms_RoomId",
+                        column: x => x.RoomId,
+                        principalTable: "Rooms",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(
@@ -974,6 +983,32 @@ namespace HealthcareBase.Migrations
                         principalTable: "Employees",
                         principalColumn: "EmployeeID",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "FavoriteDoctors",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    DoctorId = table.Column<int>(nullable: false),
+                    PatientAccountId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FavoriteDoctors", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_FavoriteDoctors_Employees_DoctorId",
+                        column: x => x.DoctorId,
+                        principalTable: "Employees",
+                        principalColumn: "EmployeeID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FavoriteDoctors_UserAccount_PatientAccountId",
+                        column: x => x.PatientAccountId,
+                        principalTable: "UserAccount",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -1330,14 +1365,9 @@ namespace HealthcareBase.Migrations
                 column: "CountryID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Citizenships_EmployeeID",
+                name: "IX_Citizenships_PersonJmbg",
                 table: "Citizenships",
-                column: "EmployeeID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Citizenships_PatientMedicalRecordID",
-                table: "Citizenships",
-                column: "PatientMedicalRecordID");
+                column: "PersonJmbg");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ConsumableStorageRecords_ConsumableId",
@@ -1365,14 +1395,9 @@ namespace HealthcareBase.Migrations
                 column: "DepartmentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Employees_PatientAccountId",
+                name: "IX_Employees_PersonJmbg",
                 table: "Employees",
-                column: "PatientAccountId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Employees_CityOfResidenceId",
-                table: "Employees",
-                column: "CityOfResidenceId");
+                column: "PersonJmbg");
 
             migrationBuilder.CreateIndex(
                 name: "IX_EquipmentTypes_HospitalizationTypeId",
@@ -1413,6 +1438,16 @@ namespace HealthcareBase.Migrations
                 name: "IX_FamilyMemberDiagnoses_FamilyHistoryId",
                 table: "FamilyMemberDiagnoses",
                 column: "FamilyHistoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FavoriteDoctors_DoctorId",
+                table: "FavoriteDoctors",
+                column: "DoctorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FavoriteDoctors_PatientAccountId",
+                table: "FavoriteDoctors",
+                column: "PatientAccountId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_HospitalizationNotifications_HospitalizationId",
@@ -1505,19 +1540,14 @@ namespace HealthcareBase.Migrations
                 column: "MedicationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Patients_CityOfBirthId",
-                table: "Patients",
-                column: "CityOfBirthId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Patients_CityOfResidenceId",
-                table: "Patients",
-                column: "CityOfResidenceId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Patients_MedicalHistoryId",
                 table: "Patients",
                 column: "MedicalHistoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Patients_PersonJmbg",
+                table: "Patients",
+                column: "PersonJmbg");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PatientSurveyResponses_BestDoctorId",
@@ -1528,6 +1558,16 @@ namespace HealthcareBase.Migrations
                 name: "IX_PatientSurveyResponses_PatientId",
                 table: "PatientSurveyResponses",
                 column: "PatientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Persons_CityOfBirthId",
+                table: "Persons",
+                column: "CityOfBirthId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Persons_CityOfResidenceId",
+                table: "Persons",
+                column: "CityOfResidenceId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Procedure_DiagnosisId",
@@ -1693,34 +1733,10 @@ namespace HealthcareBase.Migrations
                 name: "IX_UserFeedbacks_UserId",
                 table: "UserFeedbacks",
                 column: "UserId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_BlogPosts_BlogAuthors_AuthorId",
-                table: "BlogPosts",
-                column: "AuthorId",
-                principalTable: "BlogAuthors",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Employees_UserAccount_PatientAccountId",
-                table: "Employees",
-                column: "PatientAccountId",
-                principalTable: "UserAccount",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Patients_MedicalHistories_MedicalHistoryId",
-                table: "Patients");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_UserAccount_Employees_EmployeeId",
-                table: "UserAccount");
-
             migrationBuilder.DropTable(
                 name: "AllergyManifestations");
 
@@ -1747,6 +1763,9 @@ namespace HealthcareBase.Migrations
 
             migrationBuilder.DropTable(
                 name: "FamilyMemberDiagnoses");
+
+            migrationBuilder.DropTable(
+                name: "FavoriteDoctors");
 
             migrationBuilder.DropTable(
                 name: "Frequency");
@@ -1821,6 +1840,9 @@ namespace HealthcareBase.Migrations
                 name: "Medications");
 
             migrationBuilder.DropTable(
+                name: "UserAccount");
+
+            migrationBuilder.DropTable(
                 name: "MedicalConsumableTypes");
 
             migrationBuilder.DropTable(
@@ -1833,28 +1855,28 @@ namespace HealthcareBase.Migrations
                 name: "Rooms");
 
             migrationBuilder.DropTable(
+                name: "Employees");
+
+            migrationBuilder.DropTable(
+                name: "Patients");
+
+            migrationBuilder.DropTable(
+                name: "Departments");
+
+            migrationBuilder.DropTable(
                 name: "MedicalHistories");
+
+            migrationBuilder.DropTable(
+                name: "Persons");
+
+            migrationBuilder.DropTable(
+                name: "HospitalizationType");
 
             migrationBuilder.DropTable(
                 name: "FamilyHistories");
 
             migrationBuilder.DropTable(
                 name: "PersonalHistories");
-
-            migrationBuilder.DropTable(
-                name: "Employees");
-
-            migrationBuilder.DropTable(
-                name: "Departments");
-
-            migrationBuilder.DropTable(
-                name: "UserAccount");
-
-            migrationBuilder.DropTable(
-                name: "HospitalizationType");
-
-            migrationBuilder.DropTable(
-                name: "Patients");
 
             migrationBuilder.DropTable(
                 name: "Cities");

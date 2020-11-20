@@ -79,7 +79,7 @@ namespace Service.ScheduleService.ProcedureService
             patient.MedicalHistory.PersonalHistory.Diagnoses.Add(new DiagnosisDetails
             {
                 Diagnosis = diagnosis,
-                DiscoveredAtAge = patient.Age
+                DiscoveredAtAge = patient.Person.Age
             });
             patientRepository.Repository.Update(patient);
         }

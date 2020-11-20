@@ -10,44 +10,23 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Users.Employee
 {
-    public class Employee : Person, Entity<int>
+    public class Employee : Entity<int>
     {
-        protected int employeeID;
-        protected EmployeeStatus status;
+        [Key]
+        public int EmployeeID { get; set; }
+        
+        [ForeignKey("Person")]
+        public string PersonJmbg { get; set; }
+        public Person Person { get; set; }
 
         [Column(TypeName = "nvarchar(24)")]
-        public EmployeeStatus Status
-        {
-            get => status;
-            set => status = value;
-        }
+        public EmployeeStatus Status { get; set; }
 
-        [Key]
-        public int EmployeeID
-        {
-            get => employeeID;
-            set => employeeID = value;
-        }
-
-        public int GetKey()
-        {
-            return employeeID;
-        }
-
-        public void SetKey(int id)
-        {
-            employeeID = id;
-        }
+        public int GetKey() => EmployeeID;
+        public void SetKey(int id) => EmployeeID = id;
 
         public override bool Equals(object obj)
-        {
-            return obj is Employee employee &&
-                   employeeID == employee.employeeID;
-        }
-
-        public override int GetHashCode()
-        {
-            return 2070159828 + employeeID.GetHashCode();
-        }
+            => obj is Employee employee &&
+               EmployeeID == employee.EmployeeID;
     }
 }

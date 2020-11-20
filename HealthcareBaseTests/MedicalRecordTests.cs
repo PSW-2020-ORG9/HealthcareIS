@@ -25,8 +25,8 @@ namespace HealthcareBaseTests
 
             Patient p = new Patient();
             p.MedicalRecordID = 1;
-            p.Name = "Pera";
-            p.Surname = "Peric";
+            p.Person.Name = "Pera";
+            p.Person.Surname = "Peric";
 
             List<Patient> patients = new List<Patient>();
             patients.Add(p);
