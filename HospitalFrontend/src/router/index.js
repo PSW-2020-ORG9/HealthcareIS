@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import CreateFeedback from '../views/CreateFeedback.vue'
 import ObserveFeedback from '../views/ObserveFeedback.vue'
+import SurveyPreview from '../views/SurveyPreview.vue'
 
 const routes = [
   {
@@ -14,6 +15,12 @@ const routes = [
     name: 'CreateFeedback',
     component: CreateFeedback
     
+  }
+  ,
+  {
+    path:'/survey-preview',
+    name:'SurveyPrevie',
+    component: SurveyPreview
   }
 ]
 
