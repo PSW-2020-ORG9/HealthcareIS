@@ -24,9 +24,5 @@ namespace Model.Users.Employee
 
         public int GetKey() => EmployeeID;
         public void SetKey(int id) => EmployeeID = id;
-
-        public override bool Equals(object obj)
-            => obj is Employee employee &&
-               EmployeeID == employee.EmployeeID;
     }
 }

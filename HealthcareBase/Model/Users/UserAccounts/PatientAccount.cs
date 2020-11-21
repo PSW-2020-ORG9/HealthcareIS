@@ -17,9 +17,5 @@ namespace Model.Users.UserAccounts
 
         public IEnumerable<FavoriteDoctor> FavouriteDoctors { get; set; }
         public bool RespondedToSurvey { get; set; }
-
-        public override bool Equals(object obj)
-            => obj is PatientAccount account &&
-               Id == account.Id;
     }
 }

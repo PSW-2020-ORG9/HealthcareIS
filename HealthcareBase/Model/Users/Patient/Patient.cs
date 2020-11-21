@@ -12,13 +12,6 @@ namespace Model.Users.Patient
 {
     public class Patient : Entity<int>
     {
-        public Patient() {}
-
-        private int _nesto;
-
-        public void createEmptyMedicalHistory()
-            => this.MedicalHistory = new MedicalHistory.MedicalHistory();
-        
         [Key]
         public int MedicalRecordID { get; set; }
         public string InsuranceNumber { get; set; }
@@ -36,9 +29,5 @@ namespace Model.Users.Patient
 
         public int GetKey() => MedicalRecordID;
         public void SetKey(int id) => MedicalRecordID = id;
-
-        public override bool Equals(object obj)
-            => obj is Patient patient &&
-               MedicalRecordID == patient.MedicalRecordID;
     }
 }

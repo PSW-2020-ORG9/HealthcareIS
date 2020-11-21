@@ -23,9 +23,5 @@ namespace Model.Users.Generalities
         public int GetKey() => Id;
 
         public void SetKey(int id) => Id = id;
-
-        public override bool Equals(object obj) 
-            => obj is City city &&
-               Id == city.Id;
     }
 }

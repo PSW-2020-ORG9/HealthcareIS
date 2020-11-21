@@ -16,10 +16,5 @@ namespace Model.Users.Employee
         public Department Department { get; set; }
 
         public IEnumerable<Specialty> Specialties { get; set; }
-        
-
-        public override bool Equals(object obj)
-            => obj is Doctor employee &&
-                   EmployeeID == employee.EmployeeID;
     }
 }

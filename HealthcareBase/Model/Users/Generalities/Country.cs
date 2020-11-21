@@ -17,8 +17,5 @@ namespace Model.Users.Generalities
 
         public int GetKey() => Id;
         public void SetKey(int id) => Id = id;
-
-        public override bool Equals(object obj) 
-            => obj is Country country && Id == country.Id;
     }
 }

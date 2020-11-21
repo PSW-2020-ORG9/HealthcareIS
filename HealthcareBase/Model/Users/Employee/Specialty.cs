@@ -17,9 +17,5 @@ namespace Model.Users.Employee
 
         public int GetKey() => Id;
         public void SetKey(int id) => Id = id;
-
-        public override bool Equals(object obj)
-            => obj is Specialty specialty &&
-               Id == specialty.Id;
     }
 }

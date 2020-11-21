@@ -18,9 +18,5 @@ namespace Model.Users.UserAccounts
         
         public int GetKey() => Id;
         public void SetKey(int id) => Id = id;
-
-        public override bool Equals(object obj)
-            => obj is UserAccount account &&
-               Id == account.Id;
     }
 }

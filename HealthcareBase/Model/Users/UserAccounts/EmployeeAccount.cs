@@ -15,9 +15,5 @@ namespace Model.Users.UserAccounts
 
         [Column(TypeName = "nvarchar(24)")]
         public EmployeeType EmployeeType { get; set; }
-
-        public override bool Equals(object obj)
-            => obj is EmployeeAccount account &&
-                   Id == account.Id;
     }
 }
