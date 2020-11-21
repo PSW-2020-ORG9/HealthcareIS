@@ -7,19 +7,14 @@ using Model.Notifications;
 using Model.Requests;
 using Model.Schedule.Hospitalizations;
 using Model.Schedule.Procedures;
-using Model.Schedule.SchedulingPreferences;
 using Model.StorageRecords;
 using Model.Users.Employee;
 using Model.Users.Generalities;
 using Model.Users.Patient;
-using Model.Users.UserAccounts;
 using Model.Users.UserFeedback;
-using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Text;
 using EntityFramework.Exceptions.MySQL.Pomelo;
 using Model.Users.Patient.MedicalHistory;
+using Model.Users.UserAccounts;
 
 namespace HealthcareBase.Model.Database
 {
@@ -77,19 +72,26 @@ namespace HealthcareBase.Model.Database
         public DbSet<Specialty> Specialties { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Country> Countries { get; set; }
+        public DbSet<Citizenship> Citizenships { get; set; }
         public DbSet<Patient> Patients { get; set; }
         public DbSet<EmployeeAccount> EmployeeAccounts { get; set; }
         public DbSet<PatientAccount> PatientAccounts { get; set; }
         public DbSet<PatientSurveyResponse> PatientSurveyResponses { get; set; }
         public DbSet<UserFeedback> UserFeedbacks { get; set; }
-        
-        
+        public DbSet<MedicalHistory> MedicalHistories { get; set; }
+        public DbSet<PersonalHistory> PersonalHistories { get; set; }
+        public DbSet<FamilyHistory> FamilyHistories { get; set; }
+        public DbSet<AllergyManifestation> AllergyManifestations { get; set; }
+        public DbSet<DiagnosisDetails> DiagnosisDetails { get; set; }
+        public DbSet<FamilyMemberDiagnosis> FamilyMemberDiagnoses { get; set; }
+        public DbSet<Person> Persons { get; set; }
+        public DbSet<FavoriteDoctor> FavoriteDoctors { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             SetRelations(modelBuilder);
 
-            SeedData(modelBuilder);
+            //SeedData(modelBuilder);
         }
 
         private static void SetRelations(ModelBuilder modelBuilder)
@@ -108,42 +110,24 @@ namespace HealthcareBase.Model.Database
                 .HasMany(e => e.Prescriptions)
                 .WithOne(p => p.Examination)
                 .OnDelete(DeleteBehavior.SetNull);
-        }
 
-        private static void SeedData(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Country>().HasData(
-                new {Name = "Serbia", Code = "381", Id = 1},
-                new {Name = "Macedonia", Code = "389", Id = 2},
-                new {Name = "Albania", Code = "355", Id = 3},
-                new {Name = "Montenegro", Code = "382", Id = 4}
-            );
-            modelBuilder.Entity<City>().HasData(
-                new City() {Name = "Novi Sad", PostalCode = "21000", Id = 1, CountryId = 1},
-                new City() {Name = "Belgrade", PostalCode = "11000", Id = 2, CountryId = 1},
-                new City() {Name = "Skopje", Id = 3, CountryId = 2}
-            );
-            modelBuilder.Entity<Patient>(patient =>
-            {
-                patient.HasData(
-                    new Patient()
-                    {
-                        Name = "Milos", Surname = "Milanovic", CityOfResidenceId = 1, MedicalRecordID = 1, CityOfBirthId = 1
-                    }
-                );
-                patient.OwnsOne(e => e.MedicalHistory).HasData(new
-                {
-                    PatientMedicalRecordID = 1
-                });
-            });
-            modelBuilder.Entity<PatientAccount>().HasData(
-                new PatientAccount()
-                    {PatientId = 1, RespondedToSurvey = false, Username = "milosmilanovic", Password = "password", Id = 1}
-            );
-            modelBuilder.Entity<UserFeedback>().HasData(
-                new UserFeedback() {Date = DateTime.Now, UserComment = "odlicno", UserId = 1, Id = 1},
-                new UserFeedback() {Date = DateTime.Now, UserComment = "bravo", UserId = 1, Id = 2}
-            );
+            modelBuilder.Entity<MedicalHistory>()
+                .HasMany(m => m.Allergies)
+                .WithOne()
+                .OnDelete(DeleteBehavior.Cascade)
+                .IsRequired(true);
+
+            modelBuilder.Entity<PersonalHistory>()
+                .HasMany(ph => ph.Diagnoses)
+                .WithOne()
+                .OnDelete(DeleteBehavior.Cascade)
+                .IsRequired(true);
+
+            modelBuilder.Entity<FamilyHistory>()
+                .HasMany(fh => fh.Diagnoses)
+                .WithOne()
+                .OnDelete(DeleteBehavior.Cascade)
+                .IsRequired(true);
         }
     }
 }

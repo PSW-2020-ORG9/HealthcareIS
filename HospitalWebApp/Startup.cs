@@ -1,5 +1,7 @@
 using System;
 using System.Runtime.InteropServices;
+using HealthcareBase.Model.Database;
+using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -8,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json.Linq;
 using Repository.Generics;
 using Repository.UsersRepository.UserFeedbackRepository;
+using Service.UsersService.PatientService;
 using Service.UsersService.UserFeedbackService;
 
 namespace HospitalWebApp
@@ -28,7 +31,7 @@ namespace HospitalWebApp
         public void ConfigureServices(IServiceCollection services)
         {
             _connectionString = Configuration["MySql"];
-            AddService(services, typeof(UserFeedbackService), typeof(UserFeedbackSqlRepository));
+            AddServices(services);
             services.AddControllers();
             
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
@@ -62,9 +65,25 @@ namespace HospitalWebApp
             services.Add(new ServiceDescriptor(serviceClass, service));
         }
 
+        private void AddServices(IServiceCollection services)
+        {
+            var patientRepository = new PatientSqlRepository(GetContext());
+            var userFeedbackRepository = new UserFeedbackSqlRepository(GetContext());
+            var userFeedbackService = new UserFeedbackService(userFeedbackRepository);
+            var patientService = new PatientService(patientRepository, null, null, null);
+
+            services.Add(new ServiceDescriptor(typeof(UserFeedbackService), userFeedbackService));
+            services.Add(new ServiceDescriptor(typeof(PatientService), patientService));
+        }
+
         private IPreparable CreateRepository(Type repositoryClass)
         {
             return Activator.CreateInstance(repositoryClass, new MySqlContextFactory(_connectionString)) as IPreparable;
+        }
+
+        private IContextFactory GetContext()
+        {
+            return new MySqlContextFactory(_connectionString);
         }
     }
 }

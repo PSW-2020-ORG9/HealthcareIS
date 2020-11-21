@@ -3,6 +3,7 @@
 // Created: 27 May 2020 19:14:10
 // Purpose: Definition of Class PatientAccountService
 
+using System.Linq;
 using Model.CustomExceptions;
 using Model.Users.Employee;
 using Model.Users.Patient;
@@ -51,19 +52,29 @@ namespace Service.UsersService.PatientService
             return patientAccountRepository.Repository.Update(acc);
         }
 
+        // TODO When fetching FavoriteDoctors, do no
         public PatientAccount AddFavouriteDoctor(Doctor doctor, PatientAccount account)
         {
             var acc = patientAccountRepository.Repository.GetByID(account.Id);
-            acc.AddFavouriteDoctor(doctor);
-
+            acc.FavouriteDoctors.ToList().Add(new FavoriteDoctor()
+            {
+                Doctor = doctor,
+            });
             return patientAccountRepository.Repository.Update(acc);
         }
 
         public PatientAccount RemoveFavoriteDoctor(Doctor doctor, PatientAccount account)
         {
             var acc = patientAccountRepository.Repository.GetByID(account.Id);
-            acc.RemoveFavouriteDoctor(doctor);
-
+            var favDoctorList = acc.FavouriteDoctors.ToList();
+            foreach (var favDoc in favDoctorList)
+            {
+                if (favDoc.Doctor.EmployeeID == doctor.EmployeeID)
+                {
+                    favDoctorList.Remove(favDoc);
+                    break;
+                }
+            }
             return patientAccountRepository.Repository.Update(acc);
         }
 

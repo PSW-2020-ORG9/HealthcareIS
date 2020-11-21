@@ -39,7 +39,7 @@ namespace Service.UsersService.EmployeeService
         public bool IsRegistered(string jmbg)
         {
             var accounts = employeeAccountRepository.Repository.GetAll();
-            return accounts.Any(acc => acc.Employee.Jmbg.Equals(jmbg));
+            return accounts.Any(acc => acc.Employee.Person.Jmbg.Equals(jmbg));
         }
 
         public EmployeeAccount RegisterDoctor(Doctor doctor, string username, string password)

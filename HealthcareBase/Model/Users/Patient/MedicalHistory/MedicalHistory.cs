@@ -4,14 +4,18 @@
 // Purpose: Definition of Class MedicalHistory
 
 using Microsoft.EntityFrameworkCore;
+using Repository.Generics;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Users.Patient.MedicalHistory
 {
-    [Owned]
-    public class MedicalHistory
+    public class MedicalHistory : Entity<int>
     {
-        private List<AllergyManifestation> allergies;
+        [Key]
+        public int Id { get; set; }
+        public List<AllergyManifestation> Allergies { get; set; }
 
         public MedicalHistory()
         {
@@ -19,50 +23,15 @@ namespace Model.Users.Patient.MedicalHistory
             FamilyHistory = new FamilyHistory();
         }
 
+        [ForeignKey("PersonalHistory")]
+        public int PersonalHistoryId { get; set; }
         public PersonalHistory PersonalHistory { get; set; }
 
+        [ForeignKey("FamilyHistory")]
+        public int FamilyHistoryId { get; set; }
         public FamilyHistory FamilyHistory { get; set; }
 
-        public IEnumerable<AllergyManifestation> Allergies
-        {
-            get
-            {
-                if (allergies == null)
-                    allergies = new List<AllergyManifestation>();
-                return allergies;
-            }
-            set
-            {
-                RemoveAllAllergies();
-                if (value != null)
-                    foreach (var allergy in value)
-                        AddAllergy(allergy);
-            }
-        }
-
-        public void AddAllergy(AllergyManifestation allergy)
-        {
-            if (allergy == null)
-                return;
-            if (allergies == null)
-                allergies = new List<AllergyManifestation>();
-            if (!allergies.Contains(allergy))
-                allergies.Add(allergy);
-        }
-
-        public void RemoveAllergy(AllergyManifestation allergy)
-        {
-            if (allergy == null)
-                return;
-            if (allergies != null)
-                if (allergies.Contains(allergy))
-                    allergies.Remove(allergy);
-        }
-
-        public void RemoveAllAllergies()
-        {
-            if (allergies != null)
-                allergies.Clear();
-        }
+        public int GetKey() => Id;
+        public void SetKey(int id) => Id = id;
     }
 }

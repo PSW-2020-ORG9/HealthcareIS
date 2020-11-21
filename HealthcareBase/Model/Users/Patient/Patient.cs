@@ -10,48 +10,24 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Users.Patient
 {
-    public class Patient : Person, Entity<int>
+    public class Patient : Entity<int>
     {
-        public Patient(){}
-
+        [Key]
+        public int MedicalRecordID { get; set; }
         public string InsuranceNumber { get; set; }
 
-        public string MiddleName { get; set; }
-
-        [Column(TypeName = "nvarchar(24)")]
-        public MaritalStatus MartialStatus { get; set; }
+        [ForeignKey("Person")]
+        public string PersonJmbg { get; set; }
+        public Person Person { get; set; }
 
         [Column(TypeName = "nvarchar(24)")]
         public PatientStatus Status { get; set; }
 
-        [ForeignKey("CityOfBirth")]
-        public int CityOfBirthId { get; set; }
-        public City CityOfBirth { get; set; }
-
-        [Key]
-        public int MedicalRecordID { get; set; }
-
+        [ForeignKey("MedicalHistory")]
+        public int MedicalHistoryId { get; set; }
         public MedicalHistory.MedicalHistory MedicalHistory { get; set; }
 
-        public int GetKey()
-        {
-            return MedicalRecordID;
-        }
-
-        public void SetKey(int id)
-        {
-            MedicalRecordID = id;
-        }
-
-        public override bool Equals(object obj)
-        {
-            return obj is Patient patient &&
-                   MedicalRecordID == patient.MedicalRecordID;
-        }
-
-        public override int GetHashCode()
-        {
-            return -98446404 + MedicalRecordID.GetHashCode();
-        }
+        public int GetKey() => MedicalRecordID;
+        public void SetKey(int id) => MedicalRecordID = id;
     }
 }

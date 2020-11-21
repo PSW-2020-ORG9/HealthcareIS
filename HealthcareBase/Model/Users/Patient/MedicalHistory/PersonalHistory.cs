@@ -4,57 +4,20 @@
 // Purpose: Definition of Class PersonalHistory
 
 using Microsoft.EntityFrameworkCore;
+using Repository.Generics;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Model.Users.Patient.MedicalHistory
 {
-    [Owned]
-    public class PersonalHistory
+    public class PersonalHistory : Entity<int>
     {
-        private List<DiagnosisDetails> diagnoses;
-
+        [Key]
+        public int Id { get; set; }
         public string Overview { get; set; }
+        public List<DiagnosisDetails> Diagnoses { get; set; }
 
-        public IEnumerable<DiagnosisDetails> Diagnoses
-        {
-            get
-            {
-                if (diagnoses == null)
-                    diagnoses = new List<DiagnosisDetails>();
-                return diagnoses;
-            }
-            set
-            {
-                RemoveAllDiagnoses();
-                if (value != null)
-                    foreach (var diagnosis in value)
-                        AddDiagnosis(diagnosis);
-            }
-        }
-
-        public void AddDiagnosis(DiagnosisDetails diagnosis)
-        {
-            if (diagnosis == null)
-                return;
-            if (diagnoses == null)
-                diagnoses = new List<DiagnosisDetails>();
-            if (!diagnoses.Contains(diagnosis))
-                diagnoses.Add(diagnosis);
-        }
-
-        public void RemoveDiagnosis(DiagnosisDetails diagnosis)
-        {
-            if (diagnosis == null)
-                return;
-            if (diagnoses != null)
-                if (diagnoses.Contains(diagnosis))
-                    diagnoses.Remove(diagnosis);
-        }
-
-        public void RemoveAllDiagnoses()
-        {
-            if (diagnoses != null)
-                diagnoses.Clear();
-        }
+        public int GetKey() => Id;
+        public void SetKey(int id) => Id = id;
     }
 }

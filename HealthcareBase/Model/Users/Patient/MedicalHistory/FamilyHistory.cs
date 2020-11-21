@@ -4,57 +4,20 @@
 // Purpose: Definition of Class FamilyHistory
 
 using Microsoft.EntityFrameworkCore;
+using Repository.Generics;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Model.Users.Patient.MedicalHistory
 {
-    [Owned]
-    public class FamilyHistory
+    public class FamilyHistory : Entity<int>
     {
-        private List<FamilyMemberDiagnosis> diagnoses;
-
+        [Key]
+        public int Id { get; set; }
         public string Overview { get; set; }
+        public List<FamilyMemberDiagnosis> Diagnoses { get; set; }
 
-        public IEnumerable<FamilyMemberDiagnosis> Diagnoses
-        {
-            get
-            {
-                if (diagnoses == null)
-                    diagnoses = new List<FamilyMemberDiagnosis>();
-                return diagnoses;
-            }
-            set
-            {
-                RemoveAllDiagnoses();
-                if (value != null)
-                    foreach (var diagnosis in value)
-                        AddDiagnosis(diagnosis);
-            }
-        }
-
-        public void AddDiagnosis(FamilyMemberDiagnosis diagnosis)
-        {
-            if (diagnosis == null)
-                return;
-            if (diagnoses == null)
-                diagnoses = new List<FamilyMemberDiagnosis>();
-            if (!diagnoses.Contains(diagnosis))
-                diagnoses.Add(diagnosis);
-        }
-
-        public void RemoveDiagnosis(FamilyMemberDiagnosis diagnosis)
-        {
-            if (diagnosis == null)
-                return;
-            if (diagnoses != null)
-                if (diagnoses.Contains(diagnosis))
-                    diagnoses.Remove(diagnosis);
-        }
-
-        public void RemoveAllDiagnoses()
-        {
-            if (diagnoses != null)
-                diagnoses.Clear();
-        }
+        public int GetKey() => Id;
+        public void SetKey(int id) => Id = id;
     }
 }
