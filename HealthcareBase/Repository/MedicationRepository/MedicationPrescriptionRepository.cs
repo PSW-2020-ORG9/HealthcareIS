@@ -4,11 +4,11 @@
 // Purpose: Definition of Interface MedicationPrescriptionRepository
 
 using System.Collections.Generic;
-using Model.Medication;
-using Model.Users.Patient;
-using Repository.Generics;
+using HealthcareBase.Model.Medication;
+using HealthcareBase.Model.Users.Patient;
+using HealthcareBase.Repository.Generics;
 
-namespace Repository.MedicationRepository
+namespace HealthcareBase.Repository.MedicationRepository
 {
     public interface MedicationPrescriptionRepository : IWrappableRepository<MedicationPrescription, int>
     {

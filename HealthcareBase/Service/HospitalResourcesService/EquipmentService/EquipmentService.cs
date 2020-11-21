@@ -4,13 +4,13 @@
 // Purpose: Definition of Class EquipmentService
 
 using System.Collections.Generic;
-using Model.CustomExceptions;
-using Model.HospitalResources;
-using Repository.Generics;
-using Repository.HospitalResourcesRepository;
-using Repository.ScheduleRepository.HospitalizationsRepository;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.HospitalResources;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.HospitalResourcesRepository;
+using HealthcareBase.Repository.ScheduleRepository.HospitalizationsRepository;
 
-namespace Service.HospitalResourcesService.EquipmentService
+namespace HealthcareBase.Service.HospitalResourcesService.EquipmentService
 {
     public class EquipmentService
     {

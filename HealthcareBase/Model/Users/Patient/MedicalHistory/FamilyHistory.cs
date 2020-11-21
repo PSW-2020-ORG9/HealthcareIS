@@ -3,10 +3,10 @@
 // Created: 21 April 2020 15:19:06
 // Purpose: Definition of Class FamilyHistory
 
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
-namespace Model.Users.Patient.MedicalHistory
+namespace HealthcareBase.Model.Users.Patient.MedicalHistory
 {
     [Owned]
     public class FamilyHistory

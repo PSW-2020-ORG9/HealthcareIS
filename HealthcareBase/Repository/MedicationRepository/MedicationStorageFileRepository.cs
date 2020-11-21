@@ -4,13 +4,13 @@
 // Purpose: Definition of Class MedicationStorageFileRepository
 
 using System.Linq;
-using Model.CustomExceptions;
-using Model.Medication;
-using Model.StorageRecords;
-using Model.Utilities;
-using Repository.Generics;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.Medication;
+using HealthcareBase.Model.StorageRecords;
+using HealthcareBase.Model.Utilities;
+using HealthcareBase.Repository.Generics;
 
-namespace Repository.MedicationRepository
+namespace HealthcareBase.Repository.MedicationRepository
 {
     public class MedicationStorageFileRepository : GenericFileRepository<MedicationStorageRecord, int>,
         MedicationStorageRepository

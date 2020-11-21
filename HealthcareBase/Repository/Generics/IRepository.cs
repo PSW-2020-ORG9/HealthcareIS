@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace Repository.Generics
+namespace HealthcareBase.Repository.Generics
 {
     public interface IRepository<T, ID>
         where T : Entity<ID>

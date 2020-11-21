@@ -8,9 +8,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
-using Model.CustomExceptions;
+using HealthcareBase.Model.CustomExceptions;
 
-namespace Repository.Generics
+namespace HealthcareBase.Repository.Generics
 {
     // TODO: Full size refactor necessary for this class
     // Migrate from File reading to SQL

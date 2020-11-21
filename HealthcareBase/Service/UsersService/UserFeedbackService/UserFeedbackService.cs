@@ -4,11 +4,11 @@
 // Purpose: Definition of Class UserFeedbackService
 
 using System.Collections.Generic;
-using Model.Users.UserFeedback;
-using Repository.Generics;
-using Repository.UsersRepository.UserFeedbackRepository;
+using HealthcareBase.Model.Users.UserFeedback;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.UsersRepository.UserFeedbackRepository;
 
-namespace Service.UsersService.UserFeedbackService
+namespace HealthcareBase.Service.UsersService.UserFeedbackService
 {
     public class UserFeedbackService
     {

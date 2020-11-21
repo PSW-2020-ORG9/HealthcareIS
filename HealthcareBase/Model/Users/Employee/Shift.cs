@@ -3,13 +3,13 @@
 // Created: 21 April 2020 00:09:43
 // Purpose: Definition of Class Shift
 
-using Model.HospitalResources;
-using Model.Utilities;
-using Repository.Generics;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using HealthcareBase.Model.HospitalResources;
+using HealthcareBase.Model.Utilities;
+using HealthcareBase.Repository.Generics;
 
-namespace Model.Users.Employee
+namespace HealthcareBase.Model.Users.Employee
 {
     public class Shift : Entity<int>
     {

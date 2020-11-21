@@ -4,11 +4,11 @@
 // Purpose: Definition of Interface EmployeeAccountRepository
 
 using System.Collections.Generic;
-using Model.Users.Employee;
-using Model.Users.UserAccounts;
-using Repository.Generics;
+using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Model.Users.UserAccounts;
+using HealthcareBase.Repository.Generics;
 
-namespace Repository.UsersRepository.UserAccountsRepository
+namespace HealthcareBase.Repository.UsersRepository.UserAccountsRepository
 {
     public interface EmployeeAccountRepository : IWrappableRepository<EmployeeAccount, int>
     {

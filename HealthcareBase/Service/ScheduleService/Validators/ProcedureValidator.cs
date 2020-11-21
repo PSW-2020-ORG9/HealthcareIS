@@ -1,14 +1,14 @@
 ﻿using System.Linq;
-using Model.CustomExceptions;
-using Model.HospitalResources;
-using Model.Schedule.Procedures;
-using Model.Users.Employee;
-using Repository.Generics;
-using Repository.HospitalResourcesRepository;
-using Repository.ScheduleRepository.ProceduresRepository;
-using Repository.UsersRepository.EmployeesAndPatientsRepository;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.HospitalResources;
+using HealthcareBase.Model.Schedule.Procedures;
+using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.HospitalResourcesRepository;
+using HealthcareBase.Repository.ScheduleRepository.ProceduresRepository;
+using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository;
 
-namespace Service.ScheduleService.Validators
+namespace HealthcareBase.Service.ScheduleService.Validators
 {
     public class ProcedureValidator
     {

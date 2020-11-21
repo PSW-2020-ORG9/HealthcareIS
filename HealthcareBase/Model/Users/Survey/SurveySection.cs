@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Repository.Generics;
+using HealthcareBase.Repository.Generics;
 
 namespace HealthcareBase.Model.Users.Survey
 {

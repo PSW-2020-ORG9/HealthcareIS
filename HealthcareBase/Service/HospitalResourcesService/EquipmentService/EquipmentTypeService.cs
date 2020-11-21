@@ -5,14 +5,14 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Model.CustomExceptions;
-using Model.HospitalResources;
-using Repository.Generics;
-using Repository.HospitalResourcesRepository;
-using Repository.ScheduleRepository.HospitalizationsRepository;
-using Repository.ScheduleRepository.ProceduresRepository;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.HospitalResources;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.HospitalResourcesRepository;
+using HealthcareBase.Repository.ScheduleRepository.HospitalizationsRepository;
+using HealthcareBase.Repository.ScheduleRepository.ProceduresRepository;
 
-namespace Service.HospitalResourcesService.EquipmentService
+namespace HealthcareBase.Service.HospitalResourcesService.EquipmentService
 {
     public class EquipmentTypeService
     {

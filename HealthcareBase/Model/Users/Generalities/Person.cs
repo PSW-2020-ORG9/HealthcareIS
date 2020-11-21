@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Model.Users.Generalities
+namespace HealthcareBase.Model.Users.Generalities
 {
     public abstract class Person
     {

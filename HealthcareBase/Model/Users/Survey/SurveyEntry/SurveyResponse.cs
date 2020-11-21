@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Model.Users.UserAccounts;
-using Repository.Generics;
+using HealthcareBase.Model.Users.UserAccounts;
+using HealthcareBase.Repository.Generics;
 
 namespace HealthcareBase.Model.Users.Survey.SurveyEntry
 {

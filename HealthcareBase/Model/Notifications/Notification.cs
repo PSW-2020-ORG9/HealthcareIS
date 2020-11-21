@@ -3,12 +3,12 @@
 // Created: 27 May 2020 20:38:16
 // Purpose: Definition of Class Notification
 
-using Model.Users.UserAccounts;
-using Repository.Generics;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using HealthcareBase.Model.Users.UserAccounts;
+using HealthcareBase.Repository.Generics;
 
-namespace Model.Notifications
+namespace HealthcareBase.Model.Notifications
 {
     public abstract class Notification : Entity<int>
     {

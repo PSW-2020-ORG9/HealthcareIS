@@ -1,9 +1,9 @@
-﻿using Model.CustomExceptions;
-using Model.HospitalResources;
-using Repository.Generics;
-using Repository.HospitalResourcesRepository;
+﻿using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.HospitalResources;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.HospitalResourcesRepository;
 
-namespace Service.HospitalResourcesService.Validators
+namespace HealthcareBase.Service.HospitalResourcesService.Validators
 {
     public class RenovationValidator
     {

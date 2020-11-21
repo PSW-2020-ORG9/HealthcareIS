@@ -3,11 +3,11 @@
 // Created: 04 May 2020 12:05:05
 // Purpose: Definition of Interface MedicationStorageRepository
 
-using Model.Medication;
-using Model.StorageRecords;
-using Repository.Generics;
+using HealthcareBase.Model.Medication;
+using HealthcareBase.Model.StorageRecords;
+using HealthcareBase.Repository.Generics;
 
-namespace Repository.MedicationRepository
+namespace HealthcareBase.Repository.MedicationRepository
 {
     public interface MedicationStorageRepository : IWrappableRepository<MedicationStorageRecord, int>
     {

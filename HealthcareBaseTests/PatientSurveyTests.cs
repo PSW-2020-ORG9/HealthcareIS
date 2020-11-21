@@ -1,41 +1,35 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using HealthcareBase.Model.Users.Employee;
 using HealthcareBase.Model.Users.Survey;
 using HealthcareBase.Model.Users.Survey.DTOs;
 using HealthcareBase.Model.Users.Survey.SurveyEntry;
 using HealthcareBase.Repository.UsersRepository.SurveyRepository.SurveyEntryRepository.RatedQuestionRepository;
+using HealthcareBase.Service.UsersService.EmployeeService;
 using HealthcareBase.Service.UsersService.UserFeedbackService.SurveyService;
+using HealthcareBase.Service.UsersService.UserFeedbackService.SurveyService.SurveyEntryService;
 using Moq;
 using Newtonsoft.Json;
-using Service.UsersService.UserFeedbackService.SurveyService;
-using Service.UsersService.UserFeedbackService.SurveyService.SurveyEntryService;
 using Shouldly;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace HealthcareBaseTests
 {
     public class PatientSurveyTests
     {
         private readonly Mock<ISurveyService> mockSurveyService = new Mock<ISurveyService>();
-        private readonly Mock<IRatedQuestionService> mockRatedQuestionService = new Mock<IRatedQuestionService>();
         private readonly Mock<IRatedSectionService> mockRatedSectionService = new Mock<IRatedSectionService>();
+        private readonly Mock<IDoctorService> mockDoctorService = new Mock<IDoctorService>();
         private readonly SurveyPreviewBuilder surveyPreviewBuilder;
+        
         
         public PatientSurveyTests()
         {
             surveyPreviewBuilder = new SurveyPreviewBuilder(mockRatedSectionService.Object,
-                                                            mockRatedQuestionService.Object,
-                                                            mockSurveyService.Object);
-        }
-        [Fact]
-        public void Finds_average_survey_question_rating()
-        {
-            var ratedQuestionService =
-                new RatedQuestionService(CreateSurveyQuestionStubRepository().Object);
-
-            Assert.Equal(CreateRatingsCount(),
-                ratedQuestionService.GetRatingsCount(1));
+                                                            mockSurveyService.Object,
+                                                            mockDoctorService.Object);
         }
         [Fact]
         private void Checks_survey_preview_build()
@@ -44,7 +38,7 @@ namespace HealthcareBaseTests
             SetupSurveyServices();
             var surveyJson1 = JsonConvert.SerializeObject(CreateSurveyDto());
             var surveyJson2 = JsonConvert.SerializeObject(surveyPreviewBuilder.Build(1));
-            surveyJson1.ShouldBe(surveyJson2);
+            surveyJson2.ShouldBe(surveyJson1);
         }
 
         private static Dictionary<int, int> CreateRatingsCount()
@@ -86,24 +80,86 @@ namespace HealthcareBaseTests
 
         private void SetupSurveyServices()
         {
-            mockSurveyService.Setup(m => m.GetById(It.IsAny<int>())).Returns(CreateSurvey());
+            mockSurveyService
+                .Setup(m => m.GetById(It.IsAny<int>())).Returns(CreateSurvey());
 
-            mockRatedQuestionService.Setup(m => m
-                    .GetQuestionAverage(It.IsAny<int>()))
-                .Returns(3.45);
-            mockRatedQuestionService.Setup(m => m
-                    .GetRatingsCount(It.IsAny<int>()))
-                .Returns(CreateRatingsCount);
             mockRatedSectionService.Setup(m => m
-                    .GetSectionAverage(It.IsAny<int>()))
+                .GetSectionAverage(It.IsAny<int>()))
                 .Returns(3.5);
+            mockRatedSectionService.Setup(m => m
+                .GetDoctorSectionAverage(It.IsAny<int>(), It.IsAny<int>()))
+                .Returns(3.5);
+            mockRatedSectionService.Setup(m => m
+                .GetQuestionAverage(It.IsAny<int>()))
+                .Returns(3.45);
+            mockRatedSectionService.Setup(m => m
+                .GetDoctorQuestionAverage(It.IsAny<int>(), It.IsAny<int>()))
+                .Returns(3.45);
+            mockRatedSectionService.Setup(m => m
+                .GetRatingsCount(It.IsAny<int>()))
+                .Returns(CreateRatingsCount());
+            mockRatedSectionService.Setup(m => m
+                    .GetDoctorsRatingsCount(It.IsAny<int>(), It.IsAny<int>()))
+                .Returns(CreateRatingsCount());
+            mockDoctorService.Setup(m => m.GetAll()).Returns(createDoctors());
         }
 
         private SurveyDTO CreateSurveyDto()
         {
-            var surveyDto = new SurveyDTO
+            return new SurveyDTO
             {
                 SurveyId = 1,
+                DoctorSurveySections = new List<DoctorSurveySectionDTO>
+                {
+                    new DoctorSurveySectionDTO
+                    {
+                        SectionId = 2,
+                        SectionName = "Sekcija 2",
+                        DoctorName = "doktor1",
+                        AverageRating = 3.5,
+                        SurveyQuestions = new List<SurveyQuestionDTO>
+                        {
+                            new SurveyQuestionDTO
+                            {
+                                Question = "consectetur adipiscing?",
+                                QuestionAverage = 3.45,
+                                QuestionId = 3,
+                                RatingsCount = CreateRatingsCount()
+                            },
+                            new SurveyQuestionDTO
+                            {
+                                Question = "Quisque vitae?",
+                                QuestionAverage = 3.45,
+                                QuestionId = 4,
+                                RatingsCount = CreateRatingsCount()
+                            },
+                        }
+                    },
+                    new DoctorSurveySectionDTO
+                    {
+                        SectionId = 2,
+                        SectionName = "Sekcija 2",
+                        DoctorName = "doktor2",
+                        AverageRating = 3.5,
+                        SurveyQuestions = new List<SurveyQuestionDTO>
+                        {
+                            new SurveyQuestionDTO
+                            {
+                                Question = "consectetur adipiscing?",
+                                QuestionAverage = 3.45,
+                                QuestionId = 3,
+                                RatingsCount = CreateRatingsCount()
+                            },
+                            new SurveyQuestionDTO
+                            {
+                                Question = "Quisque vitae?",
+                                QuestionAverage = 3.45,
+                                QuestionId = 4,
+                                RatingsCount = CreateRatingsCount()
+                            },
+                        }
+                    }
+                },
                 SurveySections = new List<SurveySectionDTO>
                 {
                     new SurveySectionDTO
@@ -128,33 +184,10 @@ namespace HealthcareBaseTests
                                 RatingsCount = CreateRatingsCount()
                             },
                         }
-                    },
-                    new SurveySectionDTO
-                    {
-                        SectionId = 1,
-                        SectionName = "Sekcija 2",
-                        AverageRating = 3.5,
-                        SurveyQuestions = new List<SurveyQuestionDTO>
-                        {
-                            new SurveyQuestionDTO
-                            {
-                                Question = "consectetur adipiscing?",
-                                QuestionAverage = 3.45,
-                                QuestionId = 3,
-                                RatingsCount = CreateRatingsCount()
-                            },
-                            new SurveyQuestionDTO
-                            {
-                                Question = "Quisque vitae?",
-                                QuestionAverage = 3.45,
-                                QuestionId = 4,
-                                RatingsCount = CreateRatingsCount()
-                            },
-                        }
                     }
                 }
             };
-            return surveyDto;
+            
         }
 
         private static Survey CreateSurvey()
@@ -168,6 +201,7 @@ namespace HealthcareBaseTests
                     {
                         Id = 1,
                         SectionName = "Sekcija 1",
+                        IsDoctorSection = false,
                         SurveyQuestions = new List<SurveyQuestion>
                         {
                             new SurveyQuestion
@@ -184,8 +218,9 @@ namespace HealthcareBaseTests
                     },
                     new SurveySection
                     {
-                        Id = 1,
+                        Id = 2,
                         SectionName = "Sekcija 2",
+                        IsDoctorSection = true,
                         SurveyQuestions = new List<SurveyQuestion>()
                         {
                             new SurveyQuestion
@@ -203,6 +238,23 @@ namespace HealthcareBaseTests
                 }
             };
             return survey;
+        }
+
+        private List<Doctor> createDoctors()
+        {
+            return new List<Doctor>
+            {
+                new Doctor
+                {
+                    EmployeeID = 1,
+                    Name = "doktor1"
+                },
+                new Doctor
+                {
+                    EmployeeID = 2,
+                    Name = "doktor2"
+                }
+            };
         }
     }
 }

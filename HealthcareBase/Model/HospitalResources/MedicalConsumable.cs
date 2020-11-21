@@ -3,11 +3,11 @@
 // Created: 18 April 2020 17:49:09
 // Purpose: Definition of Class MedicalConsumable
 
-using Repository.Generics;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using HealthcareBase.Repository.Generics;
 
-namespace Model.HospitalResources
+namespace HealthcareBase.Model.HospitalResources
 {
     public class MedicalConsumable : Entity<int>
     {

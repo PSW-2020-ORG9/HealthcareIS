@@ -4,13 +4,13 @@
 // Purpose: Definition of Class ConsumableStorageRecordFileRepository
 
 using System.Linq;
-using Model.CustomExceptions;
-using Model.HospitalResources;
-using Model.StorageRecords;
-using Model.Utilities;
-using Repository.Generics;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.HospitalResources;
+using HealthcareBase.Model.StorageRecords;
+using HealthcareBase.Model.Utilities;
+using HealthcareBase.Repository.Generics;
 
-namespace Repository.HospitalResourcesRepository
+namespace HealthcareBase.Repository.HospitalResourcesRepository
 {
     public class ConsumableStorageRecordFileRepository : GenericFileRepository<ConsumableStorageRecord, int>,
         ConsumableStorageRecordRepository

@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations.Schema;
-using Model.Users.Employee;
+using HealthcareBase.Model.Users.Employee;
 
 namespace HealthcareBase.Model.Users.Survey.SurveyEntry
 {

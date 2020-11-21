@@ -4,14 +4,14 @@
 // Purpose: Definition of Class MedicationPrescriptionFileRepository
 
 using System.Collections.Generic;
-using Model.CustomExceptions;
-using Model.Medication;
-using Model.Users.Patient;
-using Model.Utilities;
-using Repository.Generics;
-using Repository.UsersRepository.EmployeesAndPatientsRepository;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.Medication;
+using HealthcareBase.Model.Users.Patient;
+using HealthcareBase.Model.Utilities;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository;
 
-namespace Repository.MedicationRepository
+namespace HealthcareBase.Repository.MedicationRepository
 {
     public class MedicationPrescriptionFileRepository : GenericFileRepository<MedicationPrescription, int>,
         MedicationPrescriptionRepository

@@ -5,13 +5,13 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Model.CustomExceptions;
-using Model.HospitalResources;
-using Repository.Generics;
-using Repository.HospitalResourcesRepository;
-using Repository.ScheduleRepository.HospitalizationsRepository;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.HospitalResources;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.HospitalResourcesRepository;
+using HealthcareBase.Repository.ScheduleRepository.HospitalizationsRepository;
 
-namespace Service.HospitalResourcesService.RoomService
+namespace HealthcareBase.Service.HospitalResourcesService.RoomService
 {
     public class DepartmentService
     {

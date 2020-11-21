@@ -3,16 +3,14 @@
 // Created: 27 May 2020 19:14:10
 // Purpose: Definition of Class PatientAccountService
 
-using Model.CustomExceptions;
-using Model.Users.Employee;
-using Model.Users.Patient;
-using Model.Users.UserAccounts;
-using Model.Users.UserFeedback;
-using Repository.Generics;
-using Repository.UsersRepository.UserAccountsRepository;
-using Repository.UsersRepository.UserFeedbackRepository;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Model.Users.Patient;
+using HealthcareBase.Model.Users.UserAccounts;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.UsersRepository.UserAccountsRepository;
 
-namespace Service.UsersService.PatientService
+namespace HealthcareBase.Service.UsersService.PatientService
 {
     public class PatientAccountService
     {

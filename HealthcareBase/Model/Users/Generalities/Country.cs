@@ -3,10 +3,10 @@
 // Created: 27 May 2020 22:23:44
 // Purpose: Definition of Class Country
 
-using Repository.Generics;
 using System.ComponentModel.DataAnnotations;
+using HealthcareBase.Repository.Generics;
 
-namespace Model.Users.Generalities
+namespace HealthcareBase.Model.Users.Generalities
 {
     public class Country : Entity<int>
     {

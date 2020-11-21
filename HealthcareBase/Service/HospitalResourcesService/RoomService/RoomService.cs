@@ -6,19 +6,19 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Model.CustomExceptions;
-using Model.HospitalResources;
-using Model.Schedule.Hospitalizations;
-using Model.Schedule.Procedures;
-using Model.Utilities;
-using Repository.Generics;
-using Repository.HospitalResourcesRepository;
-using Repository.ScheduleRepository.HospitalizationsRepository;
-using Repository.ScheduleRepository.ProceduresRepository;
-using Service.ScheduleService;
-using Service.ScheduleService.AvailabilityCalculators;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.HospitalResources;
+using HealthcareBase.Model.Schedule.Hospitalizations;
+using HealthcareBase.Model.Schedule.Procedures;
+using HealthcareBase.Model.Utilities;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.HospitalResourcesRepository;
+using HealthcareBase.Repository.ScheduleRepository.HospitalizationsRepository;
+using HealthcareBase.Repository.ScheduleRepository.ProceduresRepository;
+using HealthcareBase.Service.ScheduleService;
+using HealthcareBase.Service.ScheduleService.AvailabilityCalculators;
 
-namespace Service.HospitalResourcesService.RoomService
+namespace HealthcareBase.Service.HospitalResourcesService.RoomService
 {
     public class RoomService
     {

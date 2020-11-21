@@ -6,17 +6,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Model.CustomExceptions;
-using Model.HospitalResources;
-using Model.Schedule.Hospitalizations;
-using Model.Users.Patient;
-using Model.Utilities;
-using Repository.Generics;
-using Repository.HospitalResourcesRepository;
-using Repository.MiscellaneousRepository;
-using Repository.UsersRepository.EmployeesAndPatientsRepository;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.HospitalResources;
+using HealthcareBase.Model.Schedule.Hospitalizations;
+using HealthcareBase.Model.Users.Patient;
+using HealthcareBase.Model.Utilities;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.HospitalResourcesRepository;
+using HealthcareBase.Repository.MiscellaneousRepository;
+using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository;
 
-namespace Repository.ScheduleRepository.HospitalizationsRepository
+namespace HealthcareBase.Repository.ScheduleRepository.HospitalizationsRepository
 {
     public class HospitalizationFileRepository : GenericFileRepository<Hospitalization, int>, HospitalizationRepository
     {

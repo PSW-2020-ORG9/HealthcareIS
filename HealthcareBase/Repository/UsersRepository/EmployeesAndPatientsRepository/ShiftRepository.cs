@@ -4,11 +4,11 @@
 // Purpose: Definition of Interface ShiftRepository
 
 using System.Collections.Generic;
-using Model.Users.Employee;
-using Model.Utilities;
-using Repository.Generics;
+using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Model.Utilities;
+using HealthcareBase.Repository.Generics;
 
-namespace Repository.UsersRepository.EmployeesAndPatientsRepository
+namespace HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository
 {
     public interface ShiftRepository : IWrappableRepository<Shift, int>
     {

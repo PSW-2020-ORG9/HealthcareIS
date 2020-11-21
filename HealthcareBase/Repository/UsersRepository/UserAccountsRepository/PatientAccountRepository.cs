@@ -3,11 +3,11 @@
 // Created: 21 May 2020 20:31:56
 // Purpose: Definition of Interface PatientAccountRepository
 
-using Model.Users.Patient;
-using Model.Users.UserAccounts;
-using Repository.Generics;
+using HealthcareBase.Model.Users.Patient;
+using HealthcareBase.Model.Users.UserAccounts;
+using HealthcareBase.Repository.Generics;
 
-namespace Repository.UsersRepository.UserAccountsRepository
+namespace HealthcareBase.Repository.UsersRepository.UserAccountsRepository
 {
     public interface PatientAccountRepository : IWrappableRepository<PatientAccount, int>
     {

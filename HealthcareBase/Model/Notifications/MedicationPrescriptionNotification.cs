@@ -3,10 +3,10 @@
 // Created: 27 May 2020 20:46:49
 // Purpose: Definition of Class MedicationPrescriptionNotification
 
-using Model.Medication;
 using System.ComponentModel.DataAnnotations.Schema;
+using HealthcareBase.Model.Medication;
 
-namespace Model.Notifications
+namespace HealthcareBase.Model.Notifications
 {
     public class MedicationPrescriptionNotification : Notification
     {

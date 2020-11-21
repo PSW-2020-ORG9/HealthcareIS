@@ -5,15 +5,15 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Model.CustomExceptions;
-using Model.Schedule.Procedures;
-using Model.Users.Employee;
-using Repository.Generics;
-using Repository.UsersRepository.EmployeesAndPatientsRepository;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.Schedule.Procedures;
+using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository;
 
-namespace Service.UsersService.EmployeeService
+namespace HealthcareBase.Service.UsersService.EmployeeService
 {
-    public class DoctorService
+    public class DoctorService:IDoctorService
     {
         private readonly RepositoryWrapper<DoctorRepository> doctorRepository;
 

@@ -3,13 +3,13 @@
 // Created: 02 June 2020 01:30:24
 // Purpose: Definition of Class ScheduleAdjustmentRequestFileRepository
 
-using Model.CustomExceptions;
-using Model.Requests;
-using Model.Utilities;
-using Repository.Generics;
-using Repository.UsersRepository.UserAccountsRepository;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.Requests;
+using HealthcareBase.Model.Utilities;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.UsersRepository.UserAccountsRepository;
 
-namespace Repository.RequestRepository
+namespace HealthcareBase.Repository.RequestRepository
 {
     public class ScheduleAdjustmentRequestFileRepository : GenericFileRepository<ScheduleAdjustmentRequest, int>,
         ScheduleAdjustmentRequestRepository

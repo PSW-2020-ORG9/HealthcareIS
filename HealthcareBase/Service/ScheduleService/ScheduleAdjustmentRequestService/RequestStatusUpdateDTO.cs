@@ -3,10 +3,10 @@
 // Created: 02 June 2020 01:41:59
 // Purpose: Definition of Class RequestStatusUpdateDTO
 
-using Model.Requests;
-using Model.Users.UserAccounts;
+using HealthcareBase.Model.Requests;
+using HealthcareBase.Model.Users.UserAccounts;
 
-namespace Service.ScheduleService.ScheduleAdjustmentRequestService
+namespace HealthcareBase.Service.ScheduleService.ScheduleAdjustmentRequestService
 {
     public class RequestStatusUpdateDTO
     {

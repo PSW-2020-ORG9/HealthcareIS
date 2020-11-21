@@ -4,11 +4,11 @@
 // Purpose: Definition of Class AllergyService
 
 using System.Collections.Generic;
-using Model.Miscellaneous;
-using Repository.Generics;
-using Repository.MiscellaneousRepository;
+using HealthcareBase.Model.Miscellaneous;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.MiscellaneousRepository;
 
-namespace Service.MiscellaneousService
+namespace HealthcareBase.Service.MiscellaneousService
 {
     public class AllergyService
     {

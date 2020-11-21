@@ -4,14 +4,14 @@
 // Purpose: Definition of Class HospitalizationTypeFileRepository
 
 using System.Collections.Generic;
-using Model.CustomExceptions;
-using Model.HospitalResources;
-using Model.Schedule.Hospitalizations;
-using Model.Utilities;
-using Repository.Generics;
-using Repository.HospitalResourcesRepository;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.HospitalResources;
+using HealthcareBase.Model.Schedule.Hospitalizations;
+using HealthcareBase.Model.Utilities;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.HospitalResourcesRepository;
 
-namespace Repository.ScheduleRepository.HospitalizationsRepository
+namespace HealthcareBase.Repository.ScheduleRepository.HospitalizationsRepository
 {
     public class HospitalizationTypeFileRepository : GenericFileRepository<HospitalizationType, int>,
         HospitalizationTypeRepository

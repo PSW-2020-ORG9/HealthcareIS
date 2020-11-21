@@ -5,14 +5,14 @@
 
 using System;
 using System.Collections.Generic;
-using Model.Requests;
-using Model.StorageRecords;
-using Model.Users.Employee;
-using Repository.Generics;
-using Repository.MedicationRepository;
-using Repository.RequestRepository;
+using HealthcareBase.Model.Requests;
+using HealthcareBase.Model.StorageRecords;
+using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.MedicationRepository;
+using HealthcareBase.Repository.RequestRepository;
 
-namespace Service.MedicationService
+namespace HealthcareBase.Service.MedicationService
 {
     public class MedicationInputService
     {

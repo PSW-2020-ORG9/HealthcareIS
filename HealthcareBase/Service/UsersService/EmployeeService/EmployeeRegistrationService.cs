@@ -4,14 +4,14 @@
 // Purpose: Definition of Class EmployeeRegistrationService
 
 using System.Linq;
-using Model.CustomExceptions;
-using Model.Users.Employee;
-using Model.Users.UserAccounts;
-using Repository.Generics;
-using Repository.UsersRepository.EmployeesAndPatientsRepository;
-using Repository.UsersRepository.UserAccountsRepository;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Model.Users.UserAccounts;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository;
+using HealthcareBase.Repository.UsersRepository.UserAccountsRepository;
 
-namespace Service.UsersService.EmployeeService
+namespace HealthcareBase.Service.UsersService.EmployeeService
 {
     public class EmployeeRegistrationService
     {

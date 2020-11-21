@@ -6,10 +6,10 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Model.Schedule.Hospitalizations;
-using Repository.Generics;
+using HealthcareBase.Model.Schedule.Hospitalizations;
+using HealthcareBase.Repository.Generics;
 
-namespace Model.HospitalResources
+namespace HealthcareBase.Model.HospitalResources
 {
     public class EquipmentUnit : Entity<int>
     {

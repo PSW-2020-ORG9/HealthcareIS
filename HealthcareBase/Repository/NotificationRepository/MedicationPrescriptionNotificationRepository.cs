@@ -4,12 +4,12 @@
 // Purpose: Definition of Interface MedicationPrescriptionNotificationRepository
 
 using System.Collections.Generic;
-using Model.Medication;
-using Model.Notifications;
-using Model.Users.UserAccounts;
-using Repository.Generics;
+using HealthcareBase.Model.Medication;
+using HealthcareBase.Model.Notifications;
+using HealthcareBase.Model.Users.UserAccounts;
+using HealthcareBase.Repository.Generics;
 
-namespace Repository.NotificationRepository
+namespace HealthcareBase.Repository.NotificationRepository
 {
     public interface MedicationPrescriptionNotificationRepository : IWrappableRepository<MedicationPrescriptionNotification, int>
     {

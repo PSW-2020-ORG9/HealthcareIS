@@ -6,15 +6,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Model.CustomExceptions;
-using Model.Users.Employee;
-using Model.Users.Patient;
-using Model.Users.UserAccounts;
-using Model.Utilities;
-using Repository.Generics;
-using Repository.UsersRepository.EmployeesAndPatientsRepository;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Model.Users.Patient;
+using HealthcareBase.Model.Users.UserAccounts;
+using HealthcareBase.Model.Utilities;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository;
 
-namespace Repository.UsersRepository.UserAccountsRepository
+namespace HealthcareBase.Repository.UsersRepository.UserAccountsRepository
 {
     public class PatientAccountFileRepository : GenericFileRepository<PatientAccount, int>, PatientAccountRepository
     {

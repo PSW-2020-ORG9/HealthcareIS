@@ -5,14 +5,14 @@
 
 using System;
 using System.Collections.Generic;
-using Model.HospitalResources;
-using Model.Schedule.Procedures;
-using Model.Users.Employee;
-using Model.Users.Patient;
-using Model.Utilities;
-using Repository.Generics;
+using HealthcareBase.Model.HospitalResources;
+using HealthcareBase.Model.Schedule.Procedures;
+using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Model.Users.Patient;
+using HealthcareBase.Model.Utilities;
+using HealthcareBase.Repository.Generics;
 
-namespace Repository.ScheduleRepository.ProceduresRepository
+namespace HealthcareBase.Repository.ScheduleRepository.ProceduresRepository
 {
     public interface SurgeryRepository : IWrappableRepository<Surgery, int>
     {

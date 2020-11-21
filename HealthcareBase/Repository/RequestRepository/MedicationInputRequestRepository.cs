@@ -4,11 +4,11 @@
 // Purpose: Definition of Interface MedicationInputRequestRepository
 
 using System.Collections.Generic;
-using Model.Requests;
-using Model.Users.Employee;
-using Repository.Generics;
+using HealthcareBase.Model.Requests;
+using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Repository.Generics;
 
-namespace Repository.RequestRepository
+namespace HealthcareBase.Repository.RequestRepository
 {
     public interface MedicationInputRequestRepository : IWrappableRepository<MedicationInputRequest, int>
     {

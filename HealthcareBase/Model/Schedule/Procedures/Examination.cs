@@ -5,10 +5,10 @@
 
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using Model.Medication;
-using Model.Miscellaneous;
+using HealthcareBase.Model.Medication;
+using HealthcareBase.Model.Miscellaneous;
 
-namespace Model.Schedule.Procedures
+namespace HealthcareBase.Model.Schedule.Procedures
 {
     public class Examination : Procedure
     {

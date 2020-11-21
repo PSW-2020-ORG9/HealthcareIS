@@ -6,9 +6,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Repository.Generics;
+using HealthcareBase.Repository.Generics;
 
-namespace Model.Medication
+namespace HealthcareBase.Model.Medication
 {
     public class Medication : Entity<int>
     {

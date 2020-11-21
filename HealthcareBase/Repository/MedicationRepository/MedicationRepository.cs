@@ -3,10 +3,10 @@
 // Created: 04 May 2020 12:04:39
 // Purpose: Definition of Interface MedicationRepository
 
-using Model.Medication;
-using Repository.Generics;
+using HealthcareBase.Model.Medication;
+using HealthcareBase.Repository.Generics;
 
-namespace Repository.MedicationRepository
+namespace HealthcareBase.Repository.MedicationRepository
 {
     public interface MedicationRepository : IWrappableRepository<Medication, int>
     {

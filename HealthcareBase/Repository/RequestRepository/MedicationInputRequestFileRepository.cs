@@ -5,15 +5,15 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Model.CustomExceptions;
-using Model.Requests;
-using Model.Users.Employee;
-using Model.Utilities;
-using Repository.Generics;
-using Repository.UsersRepository.EmployeesAndPatientsRepository;
-using Repository.UsersRepository.UserAccountsRepository;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.Requests;
+using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Model.Utilities;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository;
+using HealthcareBase.Repository.UsersRepository.UserAccountsRepository;
 
-namespace Repository.RequestRepository
+namespace HealthcareBase.Repository.RequestRepository
 {
     public class MedicationInputRequestFileRepository : GenericFileRepository<MedicationInputRequest, int>,
         MedicationInputRequestRepository

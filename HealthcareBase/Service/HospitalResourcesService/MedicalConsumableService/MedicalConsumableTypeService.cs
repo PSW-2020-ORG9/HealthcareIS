@@ -4,12 +4,12 @@
 // Purpose: Definition of Class MedicalConsumableTypeService
 
 using System.Collections.Generic;
-using Model.CustomExceptions;
-using Model.HospitalResources;
-using Repository.Generics;
-using Repository.HospitalResourcesRepository;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.HospitalResources;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.HospitalResourcesRepository;
 
-namespace Service.HospitalResourcesService.MedicalConsumableService
+namespace HealthcareBase.Service.HospitalResourcesService.MedicalConsumableService
 {
     public class MedicalConsumableTypeService
     {

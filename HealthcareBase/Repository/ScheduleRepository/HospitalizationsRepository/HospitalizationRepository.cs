@@ -4,13 +4,13 @@
 // Purpose: Definition of Interface HospitalizationRepository
 
 using System.Collections.Generic;
-using Model.HospitalResources;
-using Model.Schedule.Hospitalizations;
-using Model.Users.Patient;
-using Model.Utilities;
-using Repository.Generics;
+using HealthcareBase.Model.HospitalResources;
+using HealthcareBase.Model.Schedule.Hospitalizations;
+using HealthcareBase.Model.Users.Patient;
+using HealthcareBase.Model.Utilities;
+using HealthcareBase.Repository.Generics;
 
-namespace Repository.ScheduleRepository.HospitalizationsRepository
+namespace HealthcareBase.Repository.ScheduleRepository.HospitalizationsRepository
 {
     public interface HospitalizationRepository : IWrappableRepository<Hospitalization, int>
     {

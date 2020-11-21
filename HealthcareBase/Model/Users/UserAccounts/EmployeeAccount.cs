@@ -5,7 +5,7 @@
 
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Model.Users.UserAccounts
+namespace HealthcareBase.Model.Users.UserAccounts
 {
     public class EmployeeAccount : UserAccount
     {

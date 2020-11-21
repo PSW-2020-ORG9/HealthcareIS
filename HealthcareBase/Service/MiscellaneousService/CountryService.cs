@@ -4,11 +4,11 @@
 // Purpose: Definition of Class CountryService
 
 using System.Collections.Generic;
-using Model.Users.Generalities;
-using Repository.Generics;
-using Repository.UsersRepository.GeneralitiesRepository;
+using HealthcareBase.Model.Users.Generalities;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.UsersRepository.GeneralitiesRepository;
 
-namespace Service.MiscellaneousService
+namespace HealthcareBase.Service.MiscellaneousService
 {
     public class CountryService
     {

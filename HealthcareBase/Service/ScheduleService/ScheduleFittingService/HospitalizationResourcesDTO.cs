@@ -4,12 +4,12 @@
 // Purpose: Definition of Class HospitalizationResourcesDTO
 
 using System.Collections.Generic;
-using Model.HospitalResources;
-using Model.Schedule.Hospitalizations;
-using Model.Users.Patient;
-using Model.Utilities;
+using HealthcareBase.Model.HospitalResources;
+using HealthcareBase.Model.Schedule.Hospitalizations;
+using HealthcareBase.Model.Users.Patient;
+using HealthcareBase.Model.Utilities;
 
-namespace Service.ScheduleService.ScheduleFittingService
+namespace HealthcareBase.Service.ScheduleService.ScheduleFittingService
 {
     public class HospitalizationResourcesDTO
     {

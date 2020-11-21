@@ -5,12 +5,12 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Model.Schedule.Procedures;
-using Repository.Generics;
-using Repository.ScheduleRepository.ProceduresRepository;
-using Service.ScheduleService.ScheduleFittingService;
+using HealthcareBase.Model.Schedule.Procedures;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.ScheduleRepository.ProceduresRepository;
+using HealthcareBase.Service.ScheduleService.ScheduleFittingService;
 
-namespace Service.ScheduleService.PatientRecommendationService
+namespace HealthcareBase.Service.ScheduleService.PatientRecommendationService
 {
     public class RecommendationService
     {

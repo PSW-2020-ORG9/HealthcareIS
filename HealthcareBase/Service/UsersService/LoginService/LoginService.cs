@@ -3,11 +3,11 @@
 // Created: 28 May 2020 17:02:38
 // Purpose: Definition of Class LoginService
 
-using Model.Users.UserAccounts;
-using Repository.Generics;
-using Repository.UsersRepository.UserAccountsRepository;
+using HealthcareBase.Model.Users.UserAccounts;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.UsersRepository.UserAccountsRepository;
 
-namespace Service.UsersService.LoginService
+namespace HealthcareBase.Service.UsersService.LoginService
 {
     public class LoginService
     {

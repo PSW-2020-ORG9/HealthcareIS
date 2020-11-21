@@ -5,14 +5,14 @@
 
 using System;
 using System.Collections.Generic;
-using Model.CustomExceptions;
-using Model.Requests;
-using Model.Users.UserAccounts;
-using Repository.Generics;
-using Repository.RequestRepository;
-using Repository.UsersRepository.UserAccountsRepository;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.Requests;
+using HealthcareBase.Model.Users.UserAccounts;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.RequestRepository;
+using HealthcareBase.Repository.UsersRepository.UserAccountsRepository;
 
-namespace Service.ScheduleService.ScheduleAdjustmentRequestService
+namespace HealthcareBase.Service.ScheduleService.ScheduleAdjustmentRequestService
 {
     public class ScheduleAdjustmentRequestService
     {

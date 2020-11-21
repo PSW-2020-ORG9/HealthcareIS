@@ -3,11 +3,11 @@
 // Created: 21 May 2020 20:31:56
 // Purpose: Definition of Class AllergyFileRepository
 
-using Model.Miscellaneous;
-using Model.Utilities;
-using Repository.Generics;
+using HealthcareBase.Model.Miscellaneous;
+using HealthcareBase.Model.Utilities;
+using HealthcareBase.Repository.Generics;
 
-namespace Repository.MiscellaneousRepository
+namespace HealthcareBase.Repository.MiscellaneousRepository
 {
     public class AllergyFileRepository : GenericFileRepository<Allergy, int>, AllergyRepository
     {

@@ -5,10 +5,10 @@
 
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Model.HospitalResources;
-using Repository.Generics;
+using HealthcareBase.Model.HospitalResources;
+using HealthcareBase.Repository.Generics;
 
-namespace Model.Schedule.Hospitalizations
+namespace HealthcareBase.Model.Schedule.Hospitalizations
 {
     public class HospitalizationType : Entity<int>
     {

@@ -3,10 +3,10 @@
 // Created: 21 May 2020 20:31:56
 // Purpose: Definition of Interface EmployeeRepository
 
-using Model.Users.Employee;
-using Repository.Generics;
+using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Repository.Generics;
 
-namespace Repository.UsersRepository.EmployeesAndPatientsRepository
+namespace HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository
 {
     public interface EmployeeRepository : IWrappableRepository<Employee, int>
     {

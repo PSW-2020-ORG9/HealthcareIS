@@ -4,10 +4,10 @@
 // Purpose: Definition of Interface RoomRepository
 
 using System.Collections.Generic;
-using Model.HospitalResources;
-using Repository.Generics;
+using HealthcareBase.Model.HospitalResources;
+using HealthcareBase.Repository.Generics;
 
-namespace Repository.HospitalResourcesRepository
+namespace HealthcareBase.Repository.HospitalResourcesRepository
 {
     public interface RoomRepository : IWrappableRepository<Room, int>
     {

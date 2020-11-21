@@ -1,7 +1,6 @@
 using System;
-using System.Collections.Generic;
 
-namespace Repository.Generics
+namespace HealthcareBase.Repository.Generics
 {
     /// <summary>
     /// Repository interface which offers basic CRUD method implementations, along with a Prepare() method

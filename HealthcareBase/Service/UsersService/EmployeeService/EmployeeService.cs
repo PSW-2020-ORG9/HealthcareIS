@@ -3,11 +3,11 @@
 // Created: 27 May 2020 19:02:37
 // Purpose: Definition of Class EmployeeService
 
-using Model.Users.Employee;
-using Repository.Generics;
-using Repository.UsersRepository.EmployeesAndPatientsRepository;
+using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository;
 
-namespace Service.UsersService.EmployeeService
+namespace HealthcareBase.Service.UsersService.EmployeeService
 {
     public class EmployeeService
     {

@@ -4,12 +4,12 @@
 // Purpose: Definition of Class MedicalConsumableFileRepository
 
 using System.Linq;
-using Model.CustomExceptions;
-using Model.HospitalResources;
-using Model.Utilities;
-using Repository.Generics;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.HospitalResources;
+using HealthcareBase.Model.Utilities;
+using HealthcareBase.Repository.Generics;
 
-namespace Repository.HospitalResourcesRepository
+namespace HealthcareBase.Repository.HospitalResourcesRepository
 {
     public class MedicalConsumableFileRepository : GenericFileRepository<MedicalConsumable, int>,
         MedicalConsumableRepository

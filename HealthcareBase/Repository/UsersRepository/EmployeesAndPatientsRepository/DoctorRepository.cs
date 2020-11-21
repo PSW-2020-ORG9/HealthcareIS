@@ -4,10 +4,10 @@
 // Purpose: Definition of Interface DoctorRepository
 
 using System.Collections.Generic;
-using Model.Users.Employee;
-using Repository.Generics;
+using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Repository.Generics;
 
-namespace Repository.UsersRepository.EmployeesAndPatientsRepository
+namespace HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository
 {
     public interface DoctorRepository : IWrappableRepository<Doctor, int>
     {

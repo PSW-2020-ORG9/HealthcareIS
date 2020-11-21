@@ -4,12 +4,12 @@
 // Purpose: Definition of Class BlogPostFileRepository
 
 using System.Collections.Generic;
-using Model.Blog;
-using Model.CustomExceptions;
-using Model.Utilities;
-using Repository.Generics;
+using HealthcareBase.Model.Blog;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.Utilities;
+using HealthcareBase.Repository.Generics;
 
-namespace Repository.BlogRepository
+namespace HealthcareBase.Repository.BlogRepository
 {
     public class BlogPostFileRepository : GenericFileRepository<BlogPost, int>, BlogPostRepository
     {

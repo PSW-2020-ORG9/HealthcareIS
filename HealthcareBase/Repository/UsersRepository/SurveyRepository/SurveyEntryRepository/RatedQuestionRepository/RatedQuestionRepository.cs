@@ -1,5 +1,5 @@
 using HealthcareBase.Model.Users.Survey.SurveyEntry;
-using Repository.Generics;
+using HealthcareBase.Repository.Generics;
 
 namespace HealthcareBase.Repository.UsersRepository.SurveyRepository.SurveyEntryRepository.RatedQuestionRepository
 {

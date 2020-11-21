@@ -3,11 +3,11 @@
 // Created: 20 April 2020 17:03:34
 // Purpose: Definition of Class AllergyManifestation
 
-using Microsoft.EntityFrameworkCore;
-using Model.Miscellaneous;
 using System.ComponentModel.DataAnnotations.Schema;
+using HealthcareBase.Model.Miscellaneous;
+using Microsoft.EntityFrameworkCore;
 
-namespace Model.Users.Patient.MedicalHistory
+namespace HealthcareBase.Model.Users.Patient.MedicalHistory
 {
     [Owned]
     public class AllergyManifestation

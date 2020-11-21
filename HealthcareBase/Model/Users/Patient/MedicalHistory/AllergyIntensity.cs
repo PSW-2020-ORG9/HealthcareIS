@@ -3,7 +3,7 @@
 // Created: 20 April 2020 17:01:09
 // Purpose: Definition of Enum AllergyIntensity
 
-namespace Model.Users.Patient.MedicalHistory
+namespace HealthcareBase.Model.Users.Patient.MedicalHistory
 {
     public enum AllergyIntensity
     {

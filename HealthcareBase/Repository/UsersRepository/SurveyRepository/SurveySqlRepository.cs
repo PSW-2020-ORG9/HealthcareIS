@@ -1,8 +1,8 @@
 using System.Linq;
 using HealthcareBase.Model.Database;
 using HealthcareBase.Model.Users.Survey;
+using HealthcareBase.Repository.Generics;
 using Microsoft.EntityFrameworkCore;
-using Repository.Generics;
 
 namespace HealthcareBase.Repository.UsersRepository.SurveyRepository
 {

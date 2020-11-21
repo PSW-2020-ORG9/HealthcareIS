@@ -4,12 +4,12 @@
 // Purpose: Definition of Class EmployeeAccountService
 
 using System.Collections.Generic;
-using Model.CustomExceptions;
-using Model.Users.UserAccounts;
-using Repository.Generics;
-using Repository.UsersRepository.UserAccountsRepository;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.Users.UserAccounts;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.UsersRepository.UserAccountsRepository;
 
-namespace Service.UsersService.EmployeeService
+namespace HealthcareBase.Service.UsersService.EmployeeService
 {
     public class EmployeeAccountService
     {

@@ -4,11 +4,11 @@
 // Purpose: Definition of Class DiagnosisFileRepository
 
 using System.Collections.Generic;
-using Model.CustomExceptions;
-using Model.Miscellaneous;
-using Repository.Generics;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.Miscellaneous;
+using HealthcareBase.Repository.Generics;
 
-namespace Repository.MiscellaneousRepository
+namespace HealthcareBase.Repository.MiscellaneousRepository
 {
     public class DiagnosisFileRepository : GenericFileRepository<Diagnosis, string>, DiagnosisRepository
     {

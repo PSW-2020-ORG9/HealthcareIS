@@ -3,10 +3,10 @@
 // Created: 02 June 2020 12:29:54
 // Purpose: Definition of Class MedicationInputRequestUpdateDTO
 
-using Model.Requests;
-using Model.Users.UserAccounts;
+using HealthcareBase.Model.Requests;
+using HealthcareBase.Model.Users.UserAccounts;
 
-namespace Service.MedicationService
+namespace HealthcareBase.Service.MedicationService
 {
     public class MedicationInputRequestUpdateDTO
     {

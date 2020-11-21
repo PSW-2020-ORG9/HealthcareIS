@@ -4,11 +4,11 @@
 // Purpose: Definition of Class SpecialtyService
 
 using System.Collections.Generic;
-using Model.Users.Employee;
-using Repository.Generics;
-using Repository.UsersRepository.EmployeesAndPatientsRepository;
+using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository;
 
-namespace Service.UsersService.EmployeeService
+namespace HealthcareBase.Service.UsersService.EmployeeService
 {
     public class SpecialtyService
     {

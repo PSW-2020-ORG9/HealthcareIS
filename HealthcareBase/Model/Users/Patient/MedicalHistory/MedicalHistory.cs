@@ -3,10 +3,10 @@
 // Created: 20 April 2020 21:21:26
 // Purpose: Definition of Class MedicalHistory
 
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
-namespace Model.Users.Patient.MedicalHistory
+namespace HealthcareBase.Model.Users.Patient.MedicalHistory
 {
     [Owned]
     public class MedicalHistory

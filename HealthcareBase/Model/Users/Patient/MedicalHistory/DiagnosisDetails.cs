@@ -3,11 +3,11 @@
 // Created: 21 April 2020 15:39:06
 // Purpose: Definition of Class DiagnosisDetails
 
-using Microsoft.EntityFrameworkCore;
-using Model.Miscellaneous;
 using System.ComponentModel.DataAnnotations.Schema;
+using HealthcareBase.Model.Miscellaneous;
+using Microsoft.EntityFrameworkCore;
 
-namespace Model.Users.Patient.MedicalHistory
+namespace HealthcareBase.Model.Users.Patient.MedicalHistory
 {
     [Owned]
     public class DiagnosisDetails

@@ -3,10 +3,10 @@
 // Created: 21 May 2020 20:31:56
 // Purpose: Definition of Interface SpecialtyRepository
 
-using Model.Users.Employee;
-using Repository.Generics;
+using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Repository.Generics;
 
-namespace Repository.UsersRepository.EmployeesAndPatientsRepository
+namespace HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository
 {
     public interface SpecialtyRepository : IWrappableRepository<Specialty, int>
     {

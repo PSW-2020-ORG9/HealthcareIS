@@ -3,10 +3,10 @@
 // Created: 14 April 2020 20:52:43
 // Purpose: Definition of Class Frequency
 
-using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
-namespace Model.Medication
+namespace HealthcareBase.Model.Medication
 {
     [Owned]
     public class Frequency

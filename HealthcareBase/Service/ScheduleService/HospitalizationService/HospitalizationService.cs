@@ -5,17 +5,17 @@
 
 using System;
 using System.Collections.Generic;
-using Model.CustomExceptions;
-using Model.HospitalResources;
-using Model.Notifications;
-using Model.Schedule.Hospitalizations;
-using Model.Users.Patient;
-using Model.Utilities;
-using Repository.Generics;
-using Repository.ScheduleRepository.HospitalizationsRepository;
-using Service.ScheduleService.Validators;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.HospitalResources;
+using HealthcareBase.Model.Notifications;
+using HealthcareBase.Model.Schedule.Hospitalizations;
+using HealthcareBase.Model.Users.Patient;
+using HealthcareBase.Model.Utilities;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.ScheduleRepository.HospitalizationsRepository;
+using HealthcareBase.Service.ScheduleService.Validators;
 
-namespace Service.ScheduleService.HospitalizationService
+namespace HealthcareBase.Service.ScheduleService.HospitalizationService
 {
     public class HospitalizationService
     {

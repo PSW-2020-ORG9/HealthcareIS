@@ -4,10 +4,10 @@
 // Purpose: Definition of Interface CityRepository
 
 using System.Collections.Generic;
-using Model.Users.Generalities;
-using Repository.Generics;
+using HealthcareBase.Model.Users.Generalities;
+using HealthcareBase.Repository.Generics;
 
-namespace Repository.UsersRepository.GeneralitiesRepository
+namespace HealthcareBase.Repository.UsersRepository.GeneralitiesRepository
 {
     public interface CityRepository : IWrappableRepository<City, int>
     {

@@ -4,10 +4,10 @@
 // Purpose: Definition of Interface BlogPostRepository
 
 using System.Collections.Generic;
-using Model.Blog;
-using Repository.Generics;
+using HealthcareBase.Model.Blog;
+using HealthcareBase.Repository.Generics;
 
-namespace Repository.BlogRepository
+namespace HealthcareBase.Repository.BlogRepository
 {
     public interface BlogPostRepository : IWrappableRepository<BlogPost, int>
     {

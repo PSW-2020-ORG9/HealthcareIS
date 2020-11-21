@@ -5,17 +5,17 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Model.Medication;
-using Model.Notifications;
-using Model.Requests;
-using Model.Schedule.Hospitalizations;
-using Model.Schedule.Procedures;
-using Model.Users.UserAccounts;
-using Repository.Generics;
-using Repository.NotificationRepository;
-using Repository.UsersRepository.UserAccountsRepository;
+using HealthcareBase.Model.Medication;
+using HealthcareBase.Model.Notifications;
+using HealthcareBase.Model.Requests;
+using HealthcareBase.Model.Schedule.Hospitalizations;
+using HealthcareBase.Model.Schedule.Procedures;
+using HealthcareBase.Model.Users.UserAccounts;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.NotificationRepository;
+using HealthcareBase.Repository.UsersRepository.UserAccountsRepository;
 
-namespace Service.NotificationService
+namespace HealthcareBase.Service.NotificationService
 {
     public class NotificationService
     {

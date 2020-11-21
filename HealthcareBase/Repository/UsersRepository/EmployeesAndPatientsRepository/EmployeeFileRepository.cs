@@ -4,14 +4,14 @@
 // Purpose: Definition of Class EmployeeFileRepository
 
 using System.Collections.Generic;
-using Model.CustomExceptions;
-using Model.Users.Employee;
-using Model.Users.Generalities;
-using Model.Utilities;
-using Repository.Generics;
-using Repository.UsersRepository.GeneralitiesRepository;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Model.Users.Generalities;
+using HealthcareBase.Model.Utilities;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.UsersRepository.GeneralitiesRepository;
 
-namespace Repository.UsersRepository.EmployeesAndPatientsRepository
+namespace HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository
 {
     public class EmployeeFileRepository : GenericFileRepository<Employee, int>, EmployeeRepository
     {

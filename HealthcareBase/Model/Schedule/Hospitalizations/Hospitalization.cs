@@ -6,13 +6,13 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Model.HospitalResources;
-using Model.Miscellaneous;
-using Model.Users.Patient;
-using Model.Utilities;
-using Repository.Generics;
+using HealthcareBase.Model.HospitalResources;
+using HealthcareBase.Model.Miscellaneous;
+using HealthcareBase.Model.Users.Patient;
+using HealthcareBase.Model.Utilities;
+using HealthcareBase.Repository.Generics;
 
-namespace Model.Schedule.Hospitalizations
+namespace HealthcareBase.Model.Schedule.Hospitalizations
 {
     public class Hospitalization : Entity<int>
     {

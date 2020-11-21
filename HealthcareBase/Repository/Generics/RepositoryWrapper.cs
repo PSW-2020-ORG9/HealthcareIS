@@ -1,7 +1,6 @@
 ﻿using System;
-using HealthcareBase.Model.Database;
 
-namespace Repository.Generics
+namespace HealthcareBase.Repository.Generics
 {
     /// <summary>
     /// Wrapper class around an IPreparable object.

@@ -4,13 +4,13 @@
 // Purpose: Definition of Class HospitalizationNotificationFileRepository
 
 using System.Collections.Generic;
-using Model.Notifications;
-using Model.Schedule.Hospitalizations;
-using Model.Users.UserAccounts;
-using Model.Utilities;
-using Repository.Generics;
+using HealthcareBase.Model.Notifications;
+using HealthcareBase.Model.Schedule.Hospitalizations;
+using HealthcareBase.Model.Users.UserAccounts;
+using HealthcareBase.Model.Utilities;
+using HealthcareBase.Repository.Generics;
 
-namespace Repository.NotificationRepository
+namespace HealthcareBase.Repository.NotificationRepository
 {
     public class HospitalizationNotificationFileRepository : GenericFileRepository<HospitalizationNotification, int>,
         HospitalizationNotificationRepository

@@ -1,13 +1,10 @@
-﻿using HealthcareBase.Model.Database;
+﻿using System.Linq;
+using HealthcareBase.Model.Database;
+using HealthcareBase.Model.Users.UserFeedback;
+using HealthcareBase.Repository.Generics;
 using Microsoft.EntityFrameworkCore;
-using Model.Users.UserFeedback;
-using Repository.Generics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace Repository.UsersRepository.UserFeedbackRepository
+namespace HealthcareBase.Repository.UsersRepository.UserFeedbackRepository
 {
     public class UserFeedbackSqlRepository : GenericSqlRepository<UserFeedback, int>, UserFeedbackRepository
     {

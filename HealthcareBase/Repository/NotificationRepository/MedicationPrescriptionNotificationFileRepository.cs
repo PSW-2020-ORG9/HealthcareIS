@@ -4,13 +4,13 @@
 // Purpose: Definition of Class MedicationPrescriptionNotificationFileRepository
 
 using System.Collections.Generic;
-using Model.Medication;
-using Model.Notifications;
-using Model.Users.UserAccounts;
-using Model.Utilities;
-using Repository.Generics;
+using HealthcareBase.Model.Medication;
+using HealthcareBase.Model.Notifications;
+using HealthcareBase.Model.Users.UserAccounts;
+using HealthcareBase.Model.Utilities;
+using HealthcareBase.Repository.Generics;
 
-namespace Repository.NotificationRepository
+namespace HealthcareBase.Repository.NotificationRepository
 {
     public class MedicationPrescriptionNotificationFileRepository :
         GenericFileRepository<MedicationPrescriptionNotification, int>, MedicationPrescriptionNotificationRepository

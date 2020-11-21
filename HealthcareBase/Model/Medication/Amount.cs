@@ -4,9 +4,8 @@
 // Purpose: Definition of Class Amount
 
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Model.Medication
+namespace HealthcareBase.Model.Medication
 {
     [Owned]
     public class Amount

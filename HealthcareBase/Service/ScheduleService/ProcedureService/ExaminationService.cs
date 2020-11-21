@@ -5,20 +5,20 @@
 
 using System;
 using System.Collections.Generic;
-using Model.CustomExceptions;
-using Model.Miscellaneous;
-using Model.Schedule.Procedures;
-using Model.Users.Employee;
-using Model.Users.Patient;
-using Model.Users.Patient.MedicalHistory;
-using Model.Utilities;
-using Repository.Generics;
-using Repository.MiscellaneousRepository;
-using Repository.ScheduleRepository.ProceduresRepository;
-using Repository.UsersRepository.EmployeesAndPatientsRepository;
-using Service.ScheduleService.Validators;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.Miscellaneous;
+using HealthcareBase.Model.Schedule.Procedures;
+using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Model.Users.Patient;
+using HealthcareBase.Model.Users.Patient.MedicalHistory;
+using HealthcareBase.Model.Utilities;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.MiscellaneousRepository;
+using HealthcareBase.Repository.ScheduleRepository.ProceduresRepository;
+using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository;
+using HealthcareBase.Service.ScheduleService.Validators;
 
-namespace Service.ScheduleService.ProcedureService
+namespace HealthcareBase.Service.ScheduleService.ProcedureService
 {
     public class ExaminationService : AbstractProcedureSchedulingService<Examination>
     {

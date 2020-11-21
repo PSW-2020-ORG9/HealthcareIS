@@ -1,14 +1,11 @@
-﻿using HealthcareBase.Model.Database;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
-using Microsoft.VisualBasic.CompilerServices;
-using Model.Users.Employee;
- 
-namespace Repository.Generics
+using HealthcareBase.Model.Database;
+using Microsoft.EntityFrameworkCore;
+
+namespace HealthcareBase.Repository.Generics
 {
     public class GenericSqlRepository<T, ID> 
         : IWrappableRepository<T, ID> 

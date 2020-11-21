@@ -3,10 +3,10 @@
 // Created: 20 April 2020 23:04:50
 // Purpose: Definition of Class Allergy
 
-using Repository.Generics;
 using System.ComponentModel.DataAnnotations;
+using HealthcareBase.Repository.Generics;
 
-namespace Model.Miscellaneous
+namespace HealthcareBase.Model.Miscellaneous
 {
     public class Allergy : Entity<int>
     {

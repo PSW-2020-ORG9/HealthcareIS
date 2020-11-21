@@ -1,6 +1,6 @@
 using HealthcareBase.Model.Users.Survey;
+using HealthcareBase.Repository.Generics;
 using HealthcareBase.Repository.UsersRepository.SurveyRepository;
-using Repository.Generics;
 
 namespace HealthcareBase.Service.UsersService.UserFeedbackService.SurveyService
 {

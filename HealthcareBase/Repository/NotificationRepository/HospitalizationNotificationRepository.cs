@@ -4,12 +4,12 @@
 // Purpose: Definition of Interface HospitalizationNotificationRepository
 
 using System.Collections.Generic;
-using Model.Notifications;
-using Model.Schedule.Hospitalizations;
-using Model.Users.UserAccounts;
-using Repository.Generics;
+using HealthcareBase.Model.Notifications;
+using HealthcareBase.Model.Schedule.Hospitalizations;
+using HealthcareBase.Model.Users.UserAccounts;
+using HealthcareBase.Repository.Generics;
 
-namespace Repository.NotificationRepository
+namespace HealthcareBase.Repository.NotificationRepository
 {
     public interface HospitalizationNotificationRepository : IWrappableRepository<HospitalizationNotification, int>
     {

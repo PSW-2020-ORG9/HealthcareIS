@@ -4,14 +4,14 @@
 // Purpose: Definition of Class PatientFileRepository
 
 using System.Collections.Generic;
-using Model.CustomExceptions;
-using Model.Users.Generalities;
-using Model.Users.Patient;
-using Model.Utilities;
-using Repository.Generics;
-using Repository.UsersRepository.GeneralitiesRepository;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.Users.Generalities;
+using HealthcareBase.Model.Users.Patient;
+using HealthcareBase.Model.Utilities;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.UsersRepository.GeneralitiesRepository;
 
-namespace Repository.UsersRepository.EmployeesAndPatientsRepository
+namespace HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository
 {
     public class PatientFileRepository : GenericFileRepository<Patient, int>, PatientRepository
     {

@@ -5,7 +5,7 @@
 
 using System;
 
-namespace Repository.Generics
+namespace HealthcareBase.Repository.Generics
 {
     public interface Entity<ID> where ID : IComparable
     {

@@ -3,12 +3,12 @@
 // Created: 13 April 2020 18:23:49
 // Purpose: Definition of Class Patient
 
-using Model.Users.Generalities;
-using Repository.Generics;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using HealthcareBase.Model.Users.Generalities;
+using HealthcareBase.Repository.Generics;
 
-namespace Model.Users.Patient
+namespace HealthcareBase.Model.Users.Patient
 {
     public class Patient : Person, Entity<int>
     {

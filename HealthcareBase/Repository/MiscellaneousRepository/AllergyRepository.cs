@@ -3,10 +3,10 @@
 // Created: 21 May 2020 20:31:56
 // Purpose: Definition of Interface AllergyRepository
 
-using Model.Miscellaneous;
-using Repository.Generics;
+using HealthcareBase.Model.Miscellaneous;
+using HealthcareBase.Repository.Generics;
 
-namespace Repository.MiscellaneousRepository
+namespace HealthcareBase.Repository.MiscellaneousRepository
 {
     public interface AllergyRepository : IWrappableRepository<Allergy, int>
     {

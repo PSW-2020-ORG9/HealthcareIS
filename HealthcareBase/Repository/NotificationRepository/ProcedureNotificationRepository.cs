@@ -4,12 +4,12 @@
 // Purpose: Definition of Interface ProcedureNotificationRepository
 
 using System.Collections.Generic;
-using Model.Notifications;
-using Model.Schedule.Procedures;
-using Model.Users.UserAccounts;
-using Repository.Generics;
+using HealthcareBase.Model.Notifications;
+using HealthcareBase.Model.Schedule.Procedures;
+using HealthcareBase.Model.Users.UserAccounts;
+using HealthcareBase.Repository.Generics;
 
-namespace Repository.NotificationRepository
+namespace HealthcareBase.Repository.NotificationRepository
 {
     public interface ProcedureNotificationRepository : IWrappableRepository<ProcedureNotification, int>
     {

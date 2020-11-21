@@ -4,11 +4,11 @@
 // Purpose: Definition of Class ProcedureTypeService
 
 using System.Collections.Generic;
-using Model.Schedule.Procedures;
-using Repository.Generics;
-using Repository.ScheduleRepository.ProceduresRepository;
+using HealthcareBase.Model.Schedule.Procedures;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.ScheduleRepository.ProceduresRepository;
 
-namespace Service.ScheduleService.ProcedureService
+namespace HealthcareBase.Service.ScheduleService.ProcedureService
 {
     public class ProcedureTypeService
     {

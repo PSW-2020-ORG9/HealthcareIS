@@ -4,10 +4,10 @@
 // Purpose: Definition of Interface DiagnosisRepository
 
 using System.Collections.Generic;
-using Model.Miscellaneous;
-using Repository.Generics;
+using HealthcareBase.Model.Miscellaneous;
+using HealthcareBase.Repository.Generics;
 
-namespace Repository.MiscellaneousRepository
+namespace HealthcareBase.Repository.MiscellaneousRepository
 {
     public interface DiagnosisRepository : IWrappableRepository<Diagnosis, string>
     {

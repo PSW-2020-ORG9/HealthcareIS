@@ -1,10 +1,10 @@
 ﻿using System;
-using Model.CustomExceptions;
-using Model.Notifications;
-using Model.Schedule.Procedures;
-using Service.ScheduleService.Validators;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.Notifications;
+using HealthcareBase.Model.Schedule.Procedures;
+using HealthcareBase.Service.ScheduleService.Validators;
 
-namespace Service.ScheduleService.ProcedureService
+namespace HealthcareBase.Service.ScheduleService.ProcedureService
 {
     public abstract class AbstractProcedureSchedulingService<T> where T : Procedure
     {

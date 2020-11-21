@@ -3,11 +3,11 @@
 // Created: 04 May 2020 12:43:47
 // Purpose: Definition of Class EquipmentTypeFileRepository
 
-using Model.HospitalResources;
-using Model.Utilities;
-using Repository.Generics;
+using HealthcareBase.Model.HospitalResources;
+using HealthcareBase.Model.Utilities;
+using HealthcareBase.Repository.Generics;
 
-namespace Repository.HospitalResourcesRepository
+namespace HealthcareBase.Repository.HospitalResourcesRepository
 {
     public class EquipmentTypeFileRepository : GenericFileRepository<EquipmentType, int>, EquipmentTypeRepository
     {

@@ -4,12 +4,12 @@
 // Purpose: Definition of Class CityFileRepository
 
 using System.Collections.Generic;
-using Model.CustomExceptions;
-using Model.Users.Generalities;
-using Model.Utilities;
-using Repository.Generics;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.Users.Generalities;
+using HealthcareBase.Model.Utilities;
+using HealthcareBase.Repository.Generics;
 
-namespace Repository.UsersRepository.GeneralitiesRepository
+namespace HealthcareBase.Repository.UsersRepository.GeneralitiesRepository
 {
     public class CityFileRepository : GenericFileRepository<City, int>, CityRepository
     {

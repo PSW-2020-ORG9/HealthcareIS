@@ -3,14 +3,14 @@
 // Created: 28 May 2020 16:44:45
 // Purpose: Definition of Class PatientRegistrationService
 
-using Model.CustomExceptions;
-using Model.Users.Patient;
-using Model.Users.UserAccounts;
-using Repository.Generics;
-using Repository.UsersRepository.EmployeesAndPatientsRepository;
-using Repository.UsersRepository.UserAccountsRepository;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.Users.Patient;
+using HealthcareBase.Model.Users.UserAccounts;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository;
+using HealthcareBase.Repository.UsersRepository.UserAccountsRepository;
 
-namespace Service.UsersService.PatientService
+namespace HealthcareBase.Service.UsersService.PatientService
 {
     public class PatientRegistrationService
     {

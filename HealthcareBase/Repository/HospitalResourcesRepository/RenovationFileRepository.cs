@@ -4,12 +4,12 @@
 // Purpose: Definition of Class RenovationFileRepository
 
 using System.Collections.Generic;
-using Model.CustomExceptions;
-using Model.HospitalResources;
-using Model.Utilities;
-using Repository.Generics;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.HospitalResources;
+using HealthcareBase.Model.Utilities;
+using HealthcareBase.Repository.Generics;
 
-namespace Repository.HospitalResourcesRepository
+namespace HealthcareBase.Repository.HospitalResourcesRepository
 {
     public class RenovationFileRepository : GenericFileRepository<Renovation, int>, RenovationRepository
     {

@@ -6,13 +6,13 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Model.Miscellaneous;
-using Model.Schedule.Procedures;
-using Model.Users.Employee;
-using Model.Users.Patient;
-using Repository.Generics;
+using HealthcareBase.Model.Miscellaneous;
+using HealthcareBase.Model.Schedule.Procedures;
+using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Model.Users.Patient;
+using HealthcareBase.Repository.Generics;
 
-namespace Model.Medication
+namespace HealthcareBase.Model.Medication
 {
     public class MedicationPrescription : Entity<int>
     {

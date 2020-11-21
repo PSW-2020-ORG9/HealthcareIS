@@ -3,10 +3,10 @@
 // Created: 02 June 2020 10:39:21
 // Purpose: Definition of Class PatientAvailabilityDTO
 
-using Model.Users.Patient;
-using Model.Utilities;
+using HealthcareBase.Model.Users.Patient;
+using HealthcareBase.Model.Utilities;
 
-namespace Service.ScheduleService.AvailabilityCalculators
+namespace HealthcareBase.Service.ScheduleService.AvailabilityCalculators
 {
     public class PatientAvailabilityDTO
     {

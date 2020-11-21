@@ -3,11 +3,11 @@
 // Created: 27 May 2020 22:23:44
 // Purpose: Definition of Class City
 
-using Repository.Generics;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using HealthcareBase.Repository.Generics;
 
-namespace Model.Users.Generalities
+namespace HealthcareBase.Model.Users.Generalities
 {
     public class City : Entity<int>
     {

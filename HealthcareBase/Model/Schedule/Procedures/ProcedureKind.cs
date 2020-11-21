@@ -3,7 +3,7 @@
 // Created: 20 April 2020 23:40:27
 // Purpose: Definition of Enum ProcedureKind
 
-namespace Model.Schedule.Procedures
+namespace HealthcareBase.Model.Schedule.Procedures
 {
     public enum ProcedureKind
     {

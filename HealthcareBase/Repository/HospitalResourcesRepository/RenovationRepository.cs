@@ -4,11 +4,11 @@
 // Purpose: Definition of Interface RenovationRepository
 
 using System.Collections.Generic;
-using Model.HospitalResources;
-using Model.Utilities;
-using Repository.Generics;
+using HealthcareBase.Model.HospitalResources;
+using HealthcareBase.Model.Utilities;
+using HealthcareBase.Repository.Generics;
 
-namespace Repository.HospitalResourcesRepository
+namespace HealthcareBase.Repository.HospitalResourcesRepository
 {
     public interface RenovationRepository : IWrappableRepository<Renovation, int>
     {

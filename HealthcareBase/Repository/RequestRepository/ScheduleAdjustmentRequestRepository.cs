@@ -3,10 +3,10 @@
 // Created: 02 June 2020 01:30:22
 // Purpose: Definition of Interface ScheduleAdjustmentRequestRepository
 
-using Model.Requests;
-using Repository.Generics;
+using HealthcareBase.Model.Requests;
+using HealthcareBase.Repository.Generics;
 
-namespace Repository.RequestRepository
+namespace HealthcareBase.Repository.RequestRepository
 {
     public interface ScheduleAdjustmentRequestRepository : IWrappableRepository<ScheduleAdjustmentRequest, int>
     {

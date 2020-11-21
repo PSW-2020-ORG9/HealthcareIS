@@ -6,9 +6,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using Model.Miscellaneous;
+using HealthcareBase.Model.Miscellaneous;
 
-namespace Repository.MiscellaneousRepository
+namespace HealthcareBase.Repository.MiscellaneousRepository
 {
     public class DiagnosisCacheRepository : DiagnosisRepository
     {

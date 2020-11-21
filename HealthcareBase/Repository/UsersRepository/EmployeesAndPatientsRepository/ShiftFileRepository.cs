@@ -4,13 +4,13 @@
 // Purpose: Definition of Class ShiftFileRepository
 
 using System.Collections.Generic;
-using Model.CustomExceptions;
-using Model.Users.Employee;
-using Model.Utilities;
-using Repository.Generics;
-using Repository.HospitalResourcesRepository;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Model.Utilities;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.HospitalResourcesRepository;
 
-namespace Repository.UsersRepository.EmployeesAndPatientsRepository
+namespace HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository
 {
     public class ShiftFileRepository : GenericFileRepository<Shift, int>, ShiftRepository
     {

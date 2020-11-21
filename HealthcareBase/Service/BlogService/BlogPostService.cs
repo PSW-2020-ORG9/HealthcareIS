@@ -5,12 +5,12 @@
 
 using System;
 using System.Collections.Generic;
-using Model.Blog;
-using Model.CustomExceptions;
-using Repository.BlogRepository;
-using Repository.Generics;
+using HealthcareBase.Model.Blog;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Repository.BlogRepository;
+using HealthcareBase.Repository.Generics;
 
-namespace Service.BlogService
+namespace HealthcareBase.Service.BlogService
 {
     public class BlogPostService
     {

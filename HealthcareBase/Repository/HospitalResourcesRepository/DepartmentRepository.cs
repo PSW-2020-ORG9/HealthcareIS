@@ -3,10 +3,10 @@
 // Created: 04 May 2020 12:43:47
 // Purpose: Definition of Interface DepartmentRepository
 
-using Model.HospitalResources;
-using Repository.Generics;
+using HealthcareBase.Model.HospitalResources;
+using HealthcareBase.Repository.Generics;
 
-namespace Repository.HospitalResourcesRepository
+namespace HealthcareBase.Repository.HospitalResourcesRepository
 {
     public interface DepartmentRepository : IWrappableRepository<Department, int>
     {

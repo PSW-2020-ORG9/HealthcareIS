@@ -3,11 +3,11 @@
 // Created: 27 May 2020 23:47:17
 // Purpose: Definition of Class CountyFileRepository
 
-using Model.Users.Generalities;
-using Model.Utilities;
-using Repository.Generics;
+using HealthcareBase.Model.Users.Generalities;
+using HealthcareBase.Model.Utilities;
+using HealthcareBase.Repository.Generics;
 
-namespace Repository.UsersRepository.GeneralitiesRepository
+namespace HealthcareBase.Repository.UsersRepository.GeneralitiesRepository
 {
     public class CountryFileRepository : GenericFileRepository<Country, int>, CountryRepository
     {

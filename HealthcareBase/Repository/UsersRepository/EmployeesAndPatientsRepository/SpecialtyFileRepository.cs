@@ -3,11 +3,11 @@
 // Created: 21 May 2020 20:31:56
 // Purpose: Definition of Class SpecialtyFileRepository
 
-using Model.Users.Employee;
-using Model.Utilities;
-using Repository.Generics;
+using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Model.Utilities;
+using HealthcareBase.Repository.Generics;
 
-namespace Repository.UsersRepository.EmployeesAndPatientsRepository
+namespace HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository
 {
     public class SpecialtyFileRepository : GenericFileRepository<Specialty, int>, SpecialtyRepository
     {

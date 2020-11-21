@@ -4,12 +4,12 @@
 // Purpose: Definition of Interface RequestNotificationRepository
 
 using System.Collections.Generic;
-using Model.Notifications;
-using Model.Requests;
-using Model.Users.UserAccounts;
-using Repository.Generics;
+using HealthcareBase.Model.Notifications;
+using HealthcareBase.Model.Requests;
+using HealthcareBase.Model.Users.UserAccounts;
+using HealthcareBase.Repository.Generics;
 
-namespace Repository.NotificationRepository
+namespace HealthcareBase.Repository.NotificationRepository
 {
     public interface RequestNotificationRepository : IWrappableRepository<RequestNotification, int>
     {

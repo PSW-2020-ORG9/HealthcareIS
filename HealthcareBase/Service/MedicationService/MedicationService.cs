@@ -4,11 +4,11 @@
 // Purpose: Definition of Class MedicationService
 
 using System.Collections.Generic;
-using Model.Medication;
-using Repository.Generics;
-using Repository.MedicationRepository;
+using HealthcareBase.Model.Medication;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.MedicationRepository;
 
-namespace Service.MedicationService
+namespace HealthcareBase.Service.MedicationService
 {
     public class MedicationService
     {

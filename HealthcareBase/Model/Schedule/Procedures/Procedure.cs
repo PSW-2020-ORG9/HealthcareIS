@@ -3,15 +3,15 @@
 // Created: 20 April 2020 23:40:27
 // Purpose: Definition of Class Procedure
 
-using Model.HospitalResources;
-using Model.Users.Employee;
-using Model.Users.Patient;
-using Model.Utilities;
-using Repository.Generics;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using HealthcareBase.Model.HospitalResources;
+using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Model.Users.Patient;
+using HealthcareBase.Model.Utilities;
+using HealthcareBase.Repository.Generics;
 
-namespace Model.Schedule.Procedures
+namespace HealthcareBase.Model.Schedule.Procedures
 {
     public abstract class Procedure : Entity<int>
     {

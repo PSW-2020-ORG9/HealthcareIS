@@ -4,14 +4,14 @@
 // Purpose: Definition of Class BlogAuthorFileRepository
 
 using System.Collections.Generic;
-using Model.Blog;
-using Model.CustomExceptions;
-using Model.Users.Employee;
-using Model.Utilities;
-using Repository.Generics;
-using Repository.UsersRepository.EmployeesAndPatientsRepository;
+using HealthcareBase.Model.Blog;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Model.Utilities;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository;
 
-namespace Repository.BlogRepository
+namespace HealthcareBase.Repository.BlogRepository
 {
     public class BlogAuthorFileRepository : GenericFileRepository<BlogAuthor, int>, BlogAuthorRepository
     {

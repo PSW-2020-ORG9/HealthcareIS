@@ -5,7 +5,7 @@
 
 using Microsoft.EntityFrameworkCore;
 
-namespace Model.Medication
+namespace HealthcareBase.Model.Medication
 {
     [Owned]
     public class SideEffect

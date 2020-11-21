@@ -6,10 +6,10 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Model.Users.UserAccounts;
-using Repository.Generics;
+using HealthcareBase.Model.Users.UserAccounts;
+using HealthcareBase.Repository.Generics;
 
-namespace Model.Users.UserFeedback
+namespace HealthcareBase.Model.Users.UserFeedback
 {
     public class UserFeedback : Entity<int>
     {
