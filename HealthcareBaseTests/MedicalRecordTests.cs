@@ -1,3 +1,4 @@
+using Model.Users.Generalities;
 using Model.Users.Patient;
 using Moq;
 using Repository.ScheduleRepository.HospitalizationsRepository;
@@ -25,8 +26,6 @@ namespace HealthcareBaseTests
 
             Patient p = new Patient();
             p.MedicalRecordID = 1;
-            p.Person.Name = "Pera";
-            p.Person.Surname = "Peric";
 
             List<Patient> patients = new List<Patient>();
             patients.Add(p);

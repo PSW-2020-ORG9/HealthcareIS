@@ -24,7 +24,7 @@ namespace HealthcareBase.Model.Database
 
         public MySqlContext()
         {
-            this._connectionString = "server=localhost;port=3306;database=clinic;user=root;password=helloworldNOVISAD021";
+            this._connectionString = "server=localhost;port=3306;database=psw;user=root;password=password";
         }
 
         public MySqlContext(string connectionString)
