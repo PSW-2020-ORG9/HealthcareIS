@@ -5,16 +5,12 @@ using Repository.Generics;
 
 namespace Model.Users.Generalities
 {
-    public class Citizenship : Entity<int>
+    public class Citizenship
     {
-        [Key] 
-        public int Id { get; set; }
-
+        public string PersonJmbg { get; set; }
+        
         [ForeignKey("Country")]
         public int CountryID { get; set; }
         public Country Country { get; set; }
-
-        public int GetKey() => Id;
-        public void SetKey(int id) => Id = id;
     }
 }

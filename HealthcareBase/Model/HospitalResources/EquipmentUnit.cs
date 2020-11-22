@@ -38,8 +38,6 @@ namespace Model.HospitalResources
         public int? EquipmentTypeId { get; set; }
         public EquipmentType EquipmentType { get; set; }
 
-        public Room Room { get; set; }
-
         public Hospitalization Hospitalization { get; set; }
 
         [Key]

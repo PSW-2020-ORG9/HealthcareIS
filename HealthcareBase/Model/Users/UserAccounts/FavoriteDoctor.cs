@@ -6,8 +6,7 @@ namespace Model.Users.UserAccounts
 {
     public class FavoriteDoctor
     {
-        [Key]
-        public int Id { get; set; }
+        public int PatientAccountId { get; set; }
         
         [ForeignKey("Doctor")]
         public int DoctorId { get; set; }

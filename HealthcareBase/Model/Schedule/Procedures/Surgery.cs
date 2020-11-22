@@ -15,16 +15,5 @@ namespace Model.Schedule.Procedures
         public Diagnosis Diagnosis { get; set; }
 
         public string CauseOfSurgery { get; set; }
-
-        public override bool Equals(object obj)
-        {
-            return obj is Surgery procedure &&
-                   id == procedure.id;
-        }
-
-        public override int GetHashCode()
-        {
-            return 1877310944 + id.GetHashCode();
-        }
     }
 }

@@ -3,6 +3,7 @@
 // Created: 28 May 2020 14:08:36
 // Purpose: Definition of Class NotificationService
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Model.Medication;
@@ -108,44 +109,17 @@ namespace Service.NotificationService
 
         private void NotifyPatient(ProcedureUpdateType updateType, Procedure procedure)
         {
-            var patientAccount = patientAccountRepository.Repository.GetByPatient(procedure.Patient);
-            var patientNotification = new ProcedureNotification
-            {
-                User = patientAccount,
-                Read = false,
-                Procedure = procedure,
-                UpdateType = updateType
-            };
-            procedureNotificationRepository.Repository.Create(patientNotification);
+            throw new NotImplementedException();
         }
 
         private void NotifyDoctor(ProcedureUpdateType updateType, Procedure procedure)
         {
-            var doctorAccount = employeeAccountRepository.Repository.GetByEmployee(procedure.Doctor);
-            var doctorNotification = new ProcedureNotification
-            {
-                User = doctorAccount,
-                Read = false,
-                Procedure = procedure,
-                UpdateType = updateType
-            };
-            procedureNotificationRepository.Repository.Create(doctorNotification);
+            throw new NotImplementedException();
         }
 
         public void Notify(MedicationPrescription medicationPrescription)
         {
-            var previousNotifications =
-                medicationPrescriptionNotificationRepository.Repository.GetByPrescription(medicationPrescription);
-            previousNotifications.ToList().ForEach(notification =>
-                medicationPrescriptionNotificationRepository.Repository.Delete(notification));
-            var patientAccount = patientAccountRepository.Repository.GetByPatient(medicationPrescription.Patient);
-            var patientNotification = new MedicationPrescriptionNotification
-            {
-                User = patientAccount,
-                Read = false,
-                Prescription = medicationPrescription
-            };
-            medicationPrescriptionNotificationRepository.Repository.Create(patientNotification);
+            throw new NotImplementedException();
         }
 
         public void Notify(Request request)

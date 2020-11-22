@@ -357,6 +357,8 @@ MigrationBackup/
 **/.idea/shelf/*
 **/.idea/dictionaries
 **/.idea/httpRequests/
+
+**/HealthcareBase/Migrations/
  
 # Sensitive or high-churn files
 **/.idea/**/dataSources/

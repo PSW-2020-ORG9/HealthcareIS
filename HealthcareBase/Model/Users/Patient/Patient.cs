@@ -13,21 +13,21 @@ namespace Model.Users.Patient
     public class Patient : Entity<int>
     {
         [Key]
-        public int MedicalRecordID { get; set; }
+        public int Id { get; set; }
         public string InsuranceNumber { get; set; }
 
         [ForeignKey("Person")]
-        public string PersonJmbg { get; set; }
+        public string Jmbg { get; set; }
         public Person Person { get; set; }
 
         [Column(TypeName = "nvarchar(24)")]
         public PatientStatus Status { get; set; }
 
-        [ForeignKey("MedicalHistory")]
-        public int MedicalHistoryId { get; set; }
-        public MedicalHistory.MedicalHistory MedicalHistory { get; set; }
+        [ForeignKey("MedicalRecord")]
+        public int MedicalRecordId { get; set; }
+        public MedicalHistory.MedicalRecord MedicalRecord { get; set; }
 
-        public int GetKey() => MedicalRecordID;
-        public void SetKey(int id) => MedicalRecordID = id;
+        public int GetKey() => Id;
+        public void SetKey(int id) => Id = id;
     }
 }

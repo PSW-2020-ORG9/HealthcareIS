@@ -16,7 +16,7 @@ namespace Model.Users.Employee
         public int EmployeeID { get; set; }
         
         [ForeignKey("Person")]
-        public string PersonJmbg { get; set; }
+        public string Jmbg { get; set; }
         public Person Person { get; set; }
 
         [Column(TypeName = "nvarchar(24)")]

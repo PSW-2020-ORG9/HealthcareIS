@@ -63,25 +63,12 @@ namespace Service.ScheduleService.ProcedureService
 
         public Examination RecordAnamnesisAndDiagnosos(AnamnesisAndDiagnosisDTO anamnesisAndDiagnosis)
         {
-            if (anamnesisAndDiagnosis is null)
-                throw new BadRequestException();
-            ValidateAnamnesisAndDiagnosis(anamnesisAndDiagnosis);
-            var updatedExamination = anamnesisAndDiagnosis.Examination;
-            updatedExamination.Diagnosis = anamnesisAndDiagnosis.Diagnosis;
-            if (anamnesisAndDiagnosis.Anamnesis != null && !anamnesisAndDiagnosis.Anamnesis.Equals(""))
-                updatedExamination.Anamnesis = anamnesisAndDiagnosis.Anamnesis;
-            RecordDiagnosisInPatientHistory(updatedExamination.Patient, anamnesisAndDiagnosis.Diagnosis);
-            return examinationRepository.Repository.Update(updatedExamination);
+            throw new NotImplementedException();
         }
 
         private void RecordDiagnosisInPatientHistory(Patient patient, Diagnosis diagnosis)
         {
-            patient.MedicalHistory.PersonalHistory.Diagnoses.Add(new DiagnosisDetails
-            {
-                Diagnosis = diagnosis,
-                DiscoveredAtAge = patient.Person.Age
-            });
-            patientRepository.Repository.Update(patient);
+            throw new NotImplementedException();
         }
 
         private void ValidateAnamnesisAndDiagnosis(AnamnesisAndDiagnosisDTO anamnesisAndDiagnosis)

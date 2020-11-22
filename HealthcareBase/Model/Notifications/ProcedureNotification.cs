@@ -10,9 +10,7 @@ namespace Model.Notifications
 {
     public class ProcedureNotification : Notification
     {
-        [ForeignKey("Procedure")]
-        public int ProcedureId { get; set; }
-        public Procedure Procedure { get; set; }
+        // TODO Procedures cannot be used as Types, only Surgeries and Examinations 
 
         [Column(TypeName = "nvarchar(24)")]
         public ProcedureUpdateType UpdateType { get; set; }

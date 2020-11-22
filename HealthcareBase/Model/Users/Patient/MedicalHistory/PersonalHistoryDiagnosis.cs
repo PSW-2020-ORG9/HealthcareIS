@@ -1,24 +1,19 @@
-// File:    FamilyMember.cs
-// Author:  Gudli
-// Created: 21 April 2020 15:23:25
-// Purpose: Definition of Class FamilyMember
-
-using Microsoft.EntityFrameworkCore;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Model.Miscellaneous;
 using Repository.Generics;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Users.Patient.MedicalHistory
 {
-    public class FamilyMemberDiagnosis : Entity<int>
+    public class PersonalHistoryDiagnosis : Entity<int>
     {
         [Key]
         public int Id { get; set; }
-        public string FamilyRelation { get; set; }
         public int DiscoveredAtAge { get; set; }
-        public bool Lethal { get; set; }
         public string Description { get; set; }
+        
+        [Column(TypeName = "nvarchar(12)")]
+        public ConditionType Type { get; set; }
 
         [ForeignKey("Diagnosis")]
         public string DiagnosisId { get; set; }

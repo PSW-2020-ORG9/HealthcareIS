@@ -25,7 +25,7 @@ namespace HealthcareBaseTests
             _hospitalizationStubRepository = new Mock<HospitalizationRepository>();
 
             Patient p = new Patient();
-            p.MedicalRecordID = 1;
+            p.Id = 1;
 
             List<Patient> patients = new List<Patient>();
             patients.Add(p);

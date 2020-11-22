@@ -5,37 +5,22 @@
 
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Model.Medication
 {
-    [Owned]
     public class IntakeInstructions
     {
-        public IntakeInstructions(DateTime startDate, DateTime endDate, int timesPerDay, double dosage,
-            string dosageUnit, string description)
-        {
-            StartDate = startDate;
-            EndDate = endDate;
-            TimesPerDay = timesPerDay;
-            Dosage = dosage;
-            DosageUnit = dosageUnit;
-            Description = description;
-        }
+        public IntakeInstructions() {}
 
-        public IntakeInstructions()
-        {
-        }
-
+        [Key]
+        public int Id { get; set; }
+        
         public DateTime StartDate { get; set; }
-
         public DateTime EndDate { get; set; }
-
         public int TimesPerDay { get; set; }
-
         public double Dosage { get; set; }
-
         public string DosageUnit { get; set; }
-
         public string Description { get; set; }
     }
 }
