@@ -158,9 +158,11 @@ export default {
             let sum=0
             let values = Object.values(ratingsCount)
             
-            for(var value in values){
+            for(var value of values){
                 sum = sum + parseInt(value)
             }
+            if(sum==0)
+                return 0
 
             return (rate / sum ) * 100
 

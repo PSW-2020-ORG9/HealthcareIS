@@ -65,7 +65,7 @@ namespace HealthcareBase.Service.UsersService.UserFeedbackService.SurveyService.
             var surveyQuestions = new List<RatedSurveyQuestion>();
             foreach (var surveySection in surveySections)
                 surveyQuestions.AddRange(
-                    surveySection.RatedSurveyQuestions.Where(surveyQuestion => surveyQuestion.Id == surveyQuestionId));
+                    surveySection.RatedSurveyQuestions.Where(surveyQuestion => surveyQuestion.SurveyQuestionId == surveyQuestionId));
 
             return surveyQuestions;
         }
