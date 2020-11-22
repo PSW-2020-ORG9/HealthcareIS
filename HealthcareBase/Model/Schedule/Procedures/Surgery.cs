@@ -15,5 +15,6 @@ namespace Model.Schedule.Procedures
         public Diagnosis Diagnosis { get; set; }
 
         public string CauseOfSurgery { get; set; }
+        public int MedicalRecordId { get; set; }
     }
 }

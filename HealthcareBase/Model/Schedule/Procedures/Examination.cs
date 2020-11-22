@@ -16,5 +16,7 @@ namespace Model.Schedule.Procedures
         [ForeignKey("ExaminationReport")]
         public int ExaminationReportId { get; set; }
         public ExaminationReport ExaminationReport { get; set; }
+        
+        public int MedicalRecordId { get; set; }
     }
 }

@@ -14,6 +14,7 @@ using Model.Users.Patient;
 using Model.Users.UserFeedback;
 using EntityFramework.Exceptions.MySQL.Pomelo;
 using Model.Users.Patient.MedicalHistory;
+using Model.Users.Patient.MedicalHistory.Relationship;
 using Model.Users.UserAccounts;
 
 namespace HealthcareBase.Model.Database
@@ -22,8 +23,9 @@ namespace HealthcareBase.Model.Database
     {
         private readonly string _connectionString;
 
-        private readonly string db = "clinic";
-        private readonly string pass = "helloworldNOVISAD021";
+        // Database access strings
+        private readonly string db = "";
+        private readonly string pass = "";
 
         public MySqlContext()
         {
@@ -43,6 +45,8 @@ namespace HealthcareBase.Model.Database
 
         public DbSet<BlogAuthor> BlogAuthors { get; set; }
         public DbSet<BlogPost> BlogPosts { get; set; }
+        
+        // Rooms, Hospitalizations, Equipment, etc.
         public DbSet<Department> Departments { get; set; }
         public DbSet<EquipmentType> EquipmentTypes { get; set; }
         public DbSet<EquipmentUnit> EquipmentUnits { get; set; }
@@ -51,9 +55,7 @@ namespace HealthcareBase.Model.Database
         public DbSet<Renovation> Renovations { get; set; }
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Medication> Medications { get; set; }
-        public DbSet<MedicationPrescription> MedicationPrescriptions { get; set; }
-        public DbSet<Allergy> Allergies { get; set; }
-        public DbSet<Diagnosis> Diagnoses { get; set; }
+        
         public DbSet<HospitalizationNotification> HospitalizationNotifications { get; set; }
         public DbSet<MedicationPrescriptionNotification> MedicationPrescriptionNotifications { get; set; }
         public DbSet<ProcedureNotification> ProcedureNotifications { get; set; }
@@ -77,25 +79,26 @@ namespace HealthcareBase.Model.Database
         public DbSet<EmployeeAccount> EmployeeAccounts { get; set; }
         public DbSet<PatientSurveyResponse> PatientSurveyResponses { get; set; }
         public DbSet<UserFeedback> UserFeedbacks { get; set; }
-        public DbSet<AllergyManifestation> AllergyManifestations { get; set; }
         public DbSet<FamilyMemberDiagnosis> FamilyMemberDiagnoses { get; set; }
         public DbSet<Person> Persons { get; set; }
         public DbSet<FavoriteDoctor> FavoriteDoctors { get; set; }
         
+        // Allergies 
+        public DbSet<AllergyManifestation> AllergyManifestations { get; set; }
+        public DbSet<Allergy> Allergies { get; set; }
+
         // Patient general
         public DbSet<MedicalRecord> MedicalRecords { get; set; }
         public DbSet<Patient> Patients { get; set; }
         public DbSet<PatientAccount> PatientAccounts { get; set; }
-        public DbSet<PersonalHistoryDiagnosis> PersonalHistories { get; set; }
         public DbSet<FamilyMemberDiagnosis> FamilyHistories { get; set; }
 
         // Procedures
         public DbSet<Examination> Examinations { get; set; }
         public DbSet<Surgery> Surgeries { get; set; }
-        public DbSet<ExaminationForPatient> ExaminationForPatients { get; set; }
-        public DbSet<SurgeryForPatient> SurgeryForPatients { get; set; }
         public DbSet<ExaminationReport> ExaminationReports { get; set; }
-        public DbSet<DiagnosisDetails> DiagnosisDetails { get; set; }
+        public DbSet<MedicationPrescription> MedicationPrescriptions { get; set; }
+        public DbSet<Diagnosis> Diagnoses { get; set; }
 
             
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -111,14 +114,12 @@ namespace HealthcareBase.Model.Database
 
         private static void SetCompositeKeys(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ExaminationForPatient>()
-                .HasKey(efp => new { efp.MedicalRecordId, efp.ExaminationId });
-            modelBuilder.Entity<SurgeryForPatient>()
-                .HasKey(sfp => new { sfp.MedicalRecordId, sfp.SurgeryId });
             modelBuilder.Entity<Citizenship>()
                 .HasKey(c => new {c.CountryID, c.PersonJmbg});
             modelBuilder.Entity<FavoriteDoctor>()
                 .HasKey(fav => new {fav.DoctorId, fav.PatientAccountId});
+            modelBuilder.Entity<AllergyManifestation>()
+                .HasKey(am => new {am.MedicalRecordId, am.AllergyId});
         }
     }
 }
