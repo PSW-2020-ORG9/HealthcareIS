@@ -14,6 +14,7 @@ namespace Repository.Generics
         bool ExistsByID(ID id);
         IEnumerable<T> GetAll();
         IEnumerable<T> GetMatching(Expression<Func<T, bool>> condition);
+        IEnumerable<T> GetMatching(IEnumerable<Expression<Func<T, bool>>> conditions);
         T GetByID(ID id);
         T Create(T entity);
         T Update(T entity);

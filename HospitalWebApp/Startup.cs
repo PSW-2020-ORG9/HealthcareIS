@@ -11,8 +11,10 @@ using Microsoft.Extensions.Hosting;
 using Model.Medication;
 using Newtonsoft.Json.Linq;
 using Repository.Generics;
+using Repository.ScheduleRepository.ProceduresRepository;
 using Repository.UsersRepository.UserFeedbackRepository;
 using Service.MedicationService;
+using Service.ScheduleService.ProcedureService;
 using Service.UsersService.PatientService;
 using Service.UsersService.UserFeedbackService;
 
@@ -73,13 +75,17 @@ namespace HospitalWebApp
             var patientRepository = new PatientSqlRepository(GetContext());
             var userFeedbackRepository = new UserFeedbackSqlRepository(GetContext());
             var prescriptionRepository = new MedicationPrescriptionSqlRepository(GetContext());
+            var examinationRepository = new ExaminationSqlRepository(GetContext());
+            
             var userFeedbackService = new UserFeedbackService(userFeedbackRepository);
             var patientService = new PatientService(patientRepository, null, null, null);
             var prescriptionService = new MedicationPrescriptionService(prescriptionRepository);
+            var examinationService = new ExaminationService(examinationRepository, null, null, null, null, TimeSpan.Zero);
             
             services.Add(new ServiceDescriptor(typeof(UserFeedbackService), userFeedbackService));
             services.Add(new ServiceDescriptor(typeof(PatientService), patientService));
             services.Add(new ServiceDescriptor(typeof(MedicationPrescriptionService), prescriptionService));
+            services.Add(new ServiceDescriptor(typeof(ExaminationService), examinationService));
         }
 
         private IPreparable CreateRepository(Type repositoryClass)

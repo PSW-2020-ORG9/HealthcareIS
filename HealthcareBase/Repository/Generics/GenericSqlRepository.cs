@@ -64,7 +64,14 @@ namespace Repository.Generics
  
         public IEnumerable<T> GetMatching(Expression<Func<T, bool>> condition)
             => IncludeFields(Query()).Where(condition);
- 
+
+        public IEnumerable<T> GetMatching(IEnumerable<Expression<Func<T, bool>>> expressions)
+        {
+            IQueryable<T> query = IncludeFields(Query());
+            expressions.ToList().ForEach(expression => query = query.Where(expression));
+            return query;
+        }
+
         public IEnumerable<T> GetAll() 
             => IncludeFields(Query());
  
