@@ -32,7 +32,7 @@ namespace HospitalWebApp
         {
             _connectionString = Configuration["MySql"];
             AddServices(services);
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
             {
