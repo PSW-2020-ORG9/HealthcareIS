@@ -14,6 +14,7 @@ using WPFHospitalEditor.Controller;
 using WPFHospitalEditor.Service;
 using WPFHospitalEditor.Repository;
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace WPFHospitalEditor
 {
@@ -23,32 +24,77 @@ namespace WPFHospitalEditor
     public partial class Building : Window
     {
         AllMapObjects allMapObjects = new AllMapObjects();
-        public Dictionary<int, Floor> buildingFloors = new Dictionary<int, Floor>();
-        public HospitalMap hospitalMap = new HospitalMap();
-        public int buildingId;
+        private Dictionary<int, Floor> buildingFloors = new Dictionary<int, Floor>();
+        public HospitalMap hospitalMap = new HospitalMap(AllMapObjects.allFirstBuildingFirstFloorObjects);
+        private List<MapObject> chosenBuidlingAndFloor = new List<MapObject>();
+        private List<MapObject> allBuildingObjects = new List<MapObject>();
 
-
-        public Building(int id, int selectedFloor)
+        public Building(List<MapObject> buildingObjects, int selectedFloor)
         {
-            buildingId = id;
+            allBuildingObjects = buildingObjects;
             InitializeComponent();
-            clearAll();
-            if(id == 1)
-            {
-                buildingFloors.Add(0, new Floor(AllMapObjects.allFirstBuildingFirstFloorObjects));
-                buildingFloors.Add(1, new Floor(AllMapObjects.allFirstBuildingSecondFloorObjects));
-            } else
-            {
-                buildingFloors.Add(0, new Floor(AllMapObjects.allSecondBuildingFirstFloorObjects));
-                buildingFloors.Add(1, new Floor(AllMapObjects.allSecondBuildingSecondFloorObjects));
-                Width = 700;
-            }
+            clearAll();          
+            populateBuildingFloors(buildingObjects);            
             setFloorComboBox();
-            hospitalMap.addObjectToCanvas(buildingFloors[0].getAllFloorMapObjects(), canvas);
-            displayLegend(buildingFloors[0].getAllFloorMapObjects());
-            floor.SelectedIndex = selectedFloor;           
+            floor.SelectedIndex = selectedFloor;
+            //chosenBuidlingAndFloor = findChosenFloor(buildingObjects, floor.SelectedIndex);          
+            //hospitalMap.addObjectToCanvas(buildingFloors[floor.SelectedIndex].getAllFloorMapObjects(), canvas);
+            //displayLegend(buildingFloors[floor.SelectedIndex].getAllFloorMapObjects());
+            
         }
 
+        private void populateBuildingFloors(List<MapObject> allBuildingObjects)
+        {          
+            int numberOfFloors = findMaxFloor(findAllFloors(allBuildingObjects));
+            for(int i = 0; i <= numberOfFloors; i++)
+            {
+                buildingFloors.Add(i, new Floor(findChosenFloor(allBuildingObjects,i)));
+            }
+        }
+
+        private List<int> findAllFloors(List<MapObject> allBuildingObjects)
+        {
+            List<int> floors = new List<int>();
+            foreach (MapObject mapObjectIteration in allBuildingObjects)
+            {
+                floors.Add(int.Parse(findFloor(mapObjectIteration)));
+            }
+            return floors;
+        }
+
+        private int findMaxFloor(List<int> floors)
+        {
+            int maxFloor = 0;
+            for(int i = 0; i < floors.Count; i++)
+            {
+                if (floors[i] > maxFloor)
+                {
+                    maxFloor = floors[i];
+                }
+            }
+            return maxFloor;
+        }
+
+        private List<MapObject> findChosenFloor(List<MapObject> buildingObjects, int floor)
+        {
+            List<MapObject> floorObjects = new List<MapObject>();
+            foreach (MapObject mapObjectIteration in buildingObjects)
+            {
+                if (floor.ToString().Equals(findFloor(mapObjectIteration)))
+                {
+                    floorObjects.Add(mapObjectIteration);
+                }
+            }
+            return floorObjects;
+        }
+
+        private String findFloor(MapObject mapObjectIteration)
+        {
+            String[] firstSplit = mapObjectIteration.Description.Split("&");
+            String[] floor = firstSplit[0].Split("-");
+            return floor[1];
+        }
+        
         private void setFloorComboBox()
         {
             for (int i = 0; i < buildingFloors.Count; i++)
@@ -64,10 +110,9 @@ namespace WPFHospitalEditor
             hospitalMap.ShowDialog();
         }
 
-        private void floor_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        public void floor_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             clearAll();
-            
             int index = floor.SelectedIndex;
             if (buildingFloors.Count == 0) return;
             hospitalMap.addObjectToCanvas(buildingFloors[index].getAllFloorMapObjects(), canvas);
@@ -169,6 +214,23 @@ namespace WPFHospitalEditor
             AdditionalInformation additionalInformation = new AdditionalInformation(mapObject, this, index);
             additionalInformation.Owner = this;
             additionalInformation.ShowDialog(); 
+        }
+
+        public Floor getFloor(int index)
+        {
+            return buildingFloors[index];
+        }
+
+        public List<MapObject> getAllBuildingObjects()
+        {
+            return allBuildingObjects;
+        }
+
+        public String getBuildingId(MapObject mapObject)
+        {
+            String[] firstSplit = mapObject.Description.Split("&");
+            String[] secondSplit = firstSplit[0].Split("-");
+            return secondSplit[0];
         }
     }
 }

@@ -10,6 +10,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WPFHospitalEditor.MapObjectModel;
+using WPFHospitalEditor.Repository;
+using WPFHospitalEditor.Service;
+using WPFHospitalEditor.Controller;
+using System.Diagnostics;
 
 namespace WPFHospitalEditor
 {
@@ -19,15 +23,29 @@ namespace WPFHospitalEditor
     public partial class HospitalMap : Window
     {
         AllMapObjects allMapObjects = new AllMapObjects();
-        public HospitalMap()
-        {
+        public static List<MapObject> allOuterMapObjects = new List<MapObject>();
+
+        public HospitalMap(List<MapObject> allMapObjects)
+        {                     
             InitializeComponent();
-            addObjectToCanvas(AllMapObjects.allOuterMapObjects, canvas);
+            addObjectToCanvas(findOutterMapObjects(allMapObjects), canvas);
+        }
+
+        private List<MapObject> findOutterMapObjects(List<MapObject> allMapObjects)
+        {
+            foreach (MapObject mapObject in allMapObjects)
+            {
+                if (mapObject.Description.Equals(""))
+                {
+                    allOuterMapObjects.Add(mapObject);
+                }
+            }
+            return allOuterMapObjects;
         }
         private void selectBuilding(object sender, MouseButtonEventArgs e)
-        {
-            MapObject chosenBuilding = checkWhichObjectIsClicked(e, AllMapObjects.allOuterMapObjects, canvas);
-            if (chosenBuilding != null)
+        {           
+            MapObject chosenBuilding = checkWhichObjectIsClicked(e, allOuterMapObjects, canvas);
+            if (chosenBuilding != null && chosenBuilding.MapObjectType == MapObjectType.Building)
             {
                 goToClickedBuilding(chosenBuilding);
             }
@@ -52,10 +70,27 @@ namespace WPFHospitalEditor
         }
         private void goToClickedBuilding(MapObject mapObject)
         {
-                canvas.Children.Clear();
-                Building window1 = new Building(mapObject.Id,0);
-                this.Close();
-                window1.ShowDialog();
+            MapObjectController mapObjectController = new MapObjectController(new MapObjectService(new MapObjectRepository(new FileRepository(AllConstants.MAPOBJECT_PATH))));
+            List<MapObject> buildingObjects = new List<MapObject>();
+
+            foreach (MapObject mapObjectIteration in mapObjectController.getAllMapObjects())
+            {
+                if (mapObject.Id.ToString().Equals(findBuilding(mapObjectIteration)))
+                {
+                    buildingObjects.Add(mapObjectIteration);
+                }                
+            }
+            canvas.Children.Clear();
+            Building window1 = new Building(buildingObjects, 0);
+            this.Close();
+            window1.ShowDialog();
+        }
+
+        private String findBuilding(MapObject mapObjectIteration)
+        {
+            String[] firstSplit = mapObjectIteration.Description.Split("&");
+            String[] buildingIndex = firstSplit[0].Split("-");
+            return buildingIndex[0];
         }
         public void addObjectToCanvas(List<MapObject> objectsToShow, Canvas canvas)
         {

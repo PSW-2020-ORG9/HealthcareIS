@@ -12,6 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPFHospitalEditor.Repository;
+using WPFHospitalEditor.Service;
+using WPFHospitalEditor.Controller;
+using WPFHospitalEditor.MapObjectModel;
 
 namespace WPFHospitalEditor
 {
@@ -26,7 +30,9 @@ namespace WPFHospitalEditor
         }
         private void hospitalMapPressed(object sender, RoutedEventArgs e)
         {
-            HospitalMap startWindow = new HospitalMap();
+            MapObjectController mapObjectController = new MapObjectController(new MapObjectService(new MapObjectRepository(new FileRepository(AllConstants.MAPOBJECT_PATH))));
+            List<MapObject> allMapObjects = mapObjectController.getAllMapObjects();
+            HospitalMap startWindow = new HospitalMap(allMapObjects);
             this.Close();
             startWindow.ShowDialog();
         }

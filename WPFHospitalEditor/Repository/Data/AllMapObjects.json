@@ -1719,7 +1719,7 @@
         "IsSealed": false
       },
       "Id": 2,
-      "Name": "Buidling 2",
+      "Name": "Building 2",
       "Description": "",
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
@@ -13338,7 +13338,7 @@
       },
       "Id": 21,
       "Name": "Dentist room 2",
-      "Description": "1-0&Working Hours=09:00 - 19:00;Masks=100;Anaesthesis=100;Chairs=3;Brushes=20",
+      "Description": "1-0&Working Hours=09:00 - 19:00;Masks=100;Anaesthesis=100;Chairs=3;Brushes=20;",
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -17734,12 +17734,12 @@
       },
       "Id": 34,
       "Name": "Elevator 3",
-      "Description": "2-0&Max weight=480kg",
+      "Description": "2-0&Max weight=480kg;",
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
           "$type": "WPFHospitalEditor.MapObjectModel.MapObjectCoordinates, WPFHospitalEditor",
-          "X": 570.0,
+          "X": 750.0,
           "Y": 170.0
         },
         "MapObjectDimensions": {
@@ -22758,7 +22758,7 @@
       },
       "Id": 50,
       "Name": "Canteen 2",
-      "Description": "2-1&Working Hours=09:00 - 18:00;Meals=50;Drinks=100;Tables=10;Chairs=40",
+      "Description": "2-1&Working Hours=09:00 - 18:00;Meals=50;Drinks=100;Tables=10;Chairs=40;",
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
