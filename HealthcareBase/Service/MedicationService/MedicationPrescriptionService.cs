@@ -15,31 +15,18 @@ namespace Service.MedicationService
 {
     public class MedicationPrescriptionService
     {
-        private readonly RepositoryWrapper<MedicationPrescriptionRepository> medicationPrescriptionRepository;
+        private readonly RepositoryWrapper<MedicationPrescriptionRepository> medicationPrescriptionWrapper;
 
         public MedicationPrescriptionService(
             MedicationPrescriptionRepository medicationPrescriptionRepository
         )
         {
-            this.medicationPrescriptionRepository =
+            this.medicationPrescriptionWrapper =
                 new RepositoryWrapper<MedicationPrescriptionRepository>(medicationPrescriptionRepository);
         }
 
-        public IEnumerable<MedicationPrescription> GetByMedicalRecordId(int medicalRecordId)
-        {
-            return medicationPrescriptionRepository.Repository.GetByMedicalRecordId(medicalRecordId);
-        }
-
-        /// <summary>
-        /// Create new <see cref="MedicationPrescription"/>.
-        /// </summary>
-        /// <param name="medicationPrescription"></param>
-        /// <returns>Newly created prescription</returns>
-        /// <exception cref="ArgumentException"> If argument is null. </exception>
-        public MedicationPrescription Create(MedicationPrescription medicationPrescription)
-        {
-            if (medicationPrescription == null) throw new ArgumentException();
-            return medicationPrescriptionRepository.Repository.Create(medicationPrescription);
-        }
+        public IEnumerable<MedicationPrescription> GetNameContained(string nameQuery)
+            => medicationPrescriptionWrapper.Repository.GetMatching(
+                prescription => prescription.Medication.Name.Contains(nameQuery));
     }
 }
