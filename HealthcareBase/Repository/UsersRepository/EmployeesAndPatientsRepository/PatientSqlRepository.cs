@@ -15,26 +15,34 @@ namespace HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsReposito
         {
             return query
                 .Include(p => p.Person)
-                .ThenInclude(p => p.CityOfBirth)
-                .ThenInclude(c => c.Country)
+                    .ThenInclude(p => p.CityOfBirth)
+                        .ThenInclude(c => c.Country)
 
                 // City
                 .Include(p => p.Person)
-                .ThenInclude(p => p.CityOfResidence)
-                .ThenInclude(c => c.Country)
+                    .ThenInclude(p => p.CityOfResidence)
+                        .ThenInclude(c => c.Country)
 
                 // Citizenship
                 .Include(p => p.Person)
-                .ThenInclude(p => p.Citizenships)
-                .ThenInclude(cz => cz.Country)
+                    .ThenInclude(p => p.Citizenships)
+                        .ThenInclude(cz => cz.Country)
 
-                // Med history
+                // Medical record
                 .Include(p => p.MedicalRecord)
-                .ThenInclude(mh => mh.Allergies)
-                .ThenInclude(a => a.Allergy)
+                    .ThenInclude(mr => mr.Allergies)
+                        .ThenInclude(a => a.Allergy)
 
                 .Include(p => p.MedicalRecord)
-                .ThenInclude(mh => mh.FamilyMemberDiagnoses);
+                    .ThenInclude(mr => mr.Examinations)
+                        .ThenInclude(e => e.ExaminationReport)
+                            .ThenInclude(er => er.Diagnoses)
+
+                .Include(p => p.MedicalRecord)
+                    .ThenInclude(mr => mr.Surgeries)
+
+                .Include(p => p.MedicalRecord)
+                    .ThenInclude(mh => mh.FamilyMemberDiagnoses);
         }
 
         public bool ExistsByJMBG(string jmbg)
