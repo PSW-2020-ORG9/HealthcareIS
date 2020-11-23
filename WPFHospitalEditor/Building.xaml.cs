@@ -10,6 +10,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WPFHospitalEditor.MapObjectModel;
+using WPFHospitalEditor.Controller;
+using WPFHospitalEditor.Service;
+using WPFHospitalEditor.Repository;
+using Newtonsoft.Json;
 
 namespace WPFHospitalEditor
 {
@@ -19,11 +23,14 @@ namespace WPFHospitalEditor
     public partial class Building : Window
     {
         AllMapObjects allMapObjects = new AllMapObjects();
-        Dictionary<int, Floor> buildingFloors = new Dictionary<int, Floor>();
-        HospitalMap hospitalMap = new HospitalMap();
+        public Dictionary<int, Floor> buildingFloors = new Dictionary<int, Floor>();
+        public HospitalMap hospitalMap = new HospitalMap();
+        public int buildingId;
 
-        public Building(int id)
+
+        public Building(int id, int selectedFloor)
         {
+            buildingId = id;
             InitializeComponent();
             clearAll();
             if(id == 1)
@@ -34,13 +41,12 @@ namespace WPFHospitalEditor
             {
                 buildingFloors.Add(0, new Floor(AllMapObjects.allSecondBuildingFirstFloorObjects));
                 buildingFloors.Add(1, new Floor(AllMapObjects.allSecondBuildingSecondFloorObjects));
+                Width = 700;
             }
-
-            hospitalMap.canvas = this.canvas;
             setFloorComboBox();
             hospitalMap.addObjectToCanvas(buildingFloors[0].getAllFloorMapObjects(), canvas);
             displayLegend(buildingFloors[0].getAllFloorMapObjects());
-            floor.SelectedIndex = 0;
+            floor.SelectedIndex = selectedFloor;           
         }
 
         private void setFloorComboBox()
@@ -61,6 +67,7 @@ namespace WPFHospitalEditor
         private void floor_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             clearAll();
+            
             int index = floor.SelectedIndex;
             if (buildingFloors.Count == 0) return;
             hospitalMap.addObjectToCanvas(buildingFloors[index].getAllFloorMapObjects(), canvas);
@@ -105,7 +112,7 @@ namespace WPFHospitalEditor
                 legend.RowDefinitions.Add(new RowDefinition() { });
             }
         }
-
+  
         private void organiseLegend(MapObjectType mapObjectType, int index)
         {
             Rectangle rectangle = createRectangleInLegend(mapObjectType);
@@ -149,7 +156,7 @@ namespace WPFHospitalEditor
         private void selectMapObject(object sender, MouseButtonEventArgs e)
         {
             int index = floor.SelectedIndex;
-            MapObject chosenMapObject = hospitalMap.checkWhichObjectIsClicked(e, buildingFloors[index].getAllFloorMapObjects());
+            MapObject chosenMapObject = hospitalMap.checkWhichObjectIsClicked(e, buildingFloors[index].getAllFloorMapObjects(), this.canvas);
             if (chosenMapObject != null)
             {
                 openAdditionalInformationDialog(chosenMapObject);
@@ -158,8 +165,10 @@ namespace WPFHospitalEditor
         
         private void openAdditionalInformationDialog(MapObject mapObject)
         {
-            AdditionalInformation additionalInformation = new AdditionalInformation(mapObject);
-            additionalInformation.ShowDialog();
+            int index = floor.SelectedIndex;
+            AdditionalInformation additionalInformation = new AdditionalInformation(mapObject, this, index);
+            additionalInformation.Owner = this;
+            additionalInformation.ShowDialog(); 
         }
     }
 }

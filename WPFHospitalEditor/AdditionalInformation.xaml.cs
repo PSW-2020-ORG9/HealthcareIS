@@ -10,6 +10,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WPFHospitalEditor.MapObjectModel;
+using WPFHospitalEditor.Repository;
+using WPFHospitalEditor.Service;
+using WPFHospitalEditor.Controller;
+using System.IO;
 
 namespace WPFHospitalEditor
 {
@@ -25,12 +29,20 @@ namespace WPFHospitalEditor
         private List<TextBox> textBoxes = new List<TextBox>();
         private TextBox name = new TextBox();
         private Grid DynamicGrid = new Grid();
+        private int floor;
+        private Building building;
+        private string[] descriptionParts;
 
-        public AdditionalInformation(MapObject mapObject)
+        MapObjectController mapObjectController = new MapObjectController(new MapObjectService(new MapObjectRepository(new FileRepository(AllMapObjects.MAPOBJECT_PATH))));
+
+        public AdditionalInformation(MapObject mapObject, Building building, int floor)
         {
+            this.floor = floor;
+            this.building = building;
             InitializeComponent();
             this.mapObject = mapObject;
-            string[] contentRows = mapObject.Description.Split(";");
+            descriptionParts = mapObject.Description.Split("&");
+            string[] contentRows = descriptionParts[1].Split(";");
             this.Height = (contentRows.Length + 2) * 50 + 30;
             CreateDynamicWPFGrid(mapObject, contentRows);
         }
@@ -43,37 +55,46 @@ namespace WPFHospitalEditor
         private void Done_Click(object sender, RoutedEventArgs e)
         {
             mapObject.Description = "";
+            mapObject.Description += descriptionParts[0] + "&";
 
             for (int i = 0; i < labels.Count; i++)
-            {
+            {    
                 mapObject.Description += labels[i].Content;
                 mapObject.Description += "=";
                 mapObject.Description += textBoxes[i].Text;
                 mapObject.Description += ";";
+                mapObject.Name = this.name.Text;   
             }
+
+            updateAdditionalInformationWindow();
 
             int lenght = mapObject.Description.Length;
             mapObject.Description.Substring(0, lenght - 1);
-
-            mapObject.name.Text = this.name.Text;
-
+            refreshMap();
             Close();
+
+        }
+
+        private void refreshMap()
+        {
+            AllMapObjects allMapObjects = new AllMapObjects();
+            building.canvas.Children.Clear();
+            building.hospitalMap.addObjectToCanvas(building.buildingFloors[floor].getAllFloorMapObjects(), building.canvas);
+        }
+
+        private void updateAdditionalInformationWindow()
+        {
+            mapObjectController.update(mapObject);
         }
 
         private void CreateDynamicWPFGrid(MapObject mapObject, string[] contentRows)
-
         {
             var bc = new BrushConverter();
             DynamicGrid.Background = (Brush)bc.ConvertFrom("#FFC6F5F8");
-
             createColumns();
-
             createRows(contentRows);
-
             addMapObjectName(mapObject, bc);
-
             createRowContent(contentRows);
-
             Border.Child = DynamicGrid;
         }
 
@@ -88,11 +109,8 @@ namespace WPFHospitalEditor
                 labelContent.Add(label[0]);
                 value.Add(label[1]);
             }
-
             insertData();
-
             addCancelButton(contentRows);
-
             addOkButton(contentRows);
         }
 
@@ -110,7 +128,6 @@ namespace WPFHospitalEditor
             ok.Click += Done_Click;
             Grid.SetRow(ok, contentRows.Length + 2);
             Grid.SetColumn(ok, 2);
-
             DynamicGrid.Children.Add(ok);
         }
 
@@ -128,7 +145,6 @@ namespace WPFHospitalEditor
             cancel.Click += Close_Click;
             Grid.SetRow(cancel, contentRows.Length + 2);
             Grid.SetColumn(cancel, 1);
-
             DynamicGrid.Children.Add(cancel);
         }
 
@@ -168,32 +184,22 @@ namespace WPFHospitalEditor
 
         private void addMapObjectName(MapObject mapObject, BrushConverter bc)
         {
-            name.Text = mapObject.name.Text;
-
+            name.Text = mapObject.Name;
             name.Background = (Brush)bc.ConvertFrom("#FFC6F5F8");
-
             name.FontSize = 18;
-
             name.FontWeight = FontWeights.Bold;
-
             name.Foreground = new SolidColorBrush(Colors.Black);
-
             name.VerticalAlignment = VerticalAlignment.Center;
-
             name.HorizontalAlignment = HorizontalAlignment.Center;
-
             Grid.SetRow(name, 1);
-
             Grid.SetColumnSpan(name, 2);
             Grid.SetColumn(name, 1);
-
             DynamicGrid.Children.Add(name);
         }
 
         private void createRows(string[] contentRows)
         {
             createOneRow(2);
-
             for (int i = 0; i <= contentRows.Length + 1; i++)
             {
                 createOneRow(50);

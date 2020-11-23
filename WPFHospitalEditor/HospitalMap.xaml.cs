@@ -26,24 +26,24 @@ namespace WPFHospitalEditor
         }
         private void selectBuilding(object sender, MouseButtonEventArgs e)
         {
-            MapObject chosenBuilding = checkWhichObjectIsClicked(e, AllMapObjects.allOuterMapObjects);
+            MapObject chosenBuilding = checkWhichObjectIsClicked(e, AllMapObjects.allOuterMapObjects, canvas);
             if (chosenBuilding != null)
             {
                 goToClickedBuilding(chosenBuilding);
             }
         }
-        public MapObject checkWhichObjectIsClicked(MouseButtonEventArgs e, List<MapObject> allMapObjectsShowed)
+        public MapObject checkWhichObjectIsClicked(MouseButtonEventArgs e, List<MapObject> allMapObjectsShowed, Canvas canvas)
         {
             for (int i = 0; i < allMapObjectsShowed.Count; i++)
             {
-                if (checkIfPointIsInRectangle(e, allMapObjectsShowed[i]))
+                if (checkIfPointIsInRectangle(e, allMapObjectsShowed[i], canvas))
                 {
                     return allMapObjectsShowed[i];
                 }
             }
             return null;
         }
-        private Boolean checkIfPointIsInRectangle(MouseButtonEventArgs e, MapObject mapObject)
+        private Boolean checkIfPointIsInRectangle(MouseButtonEventArgs e, MapObject mapObject, Canvas canvas)
         {
             return (e.GetPosition(canvas).X > mapObject.MapObjectMetrics.MapObjectCoordinates.X
                     && e.GetPosition(canvas).X < mapObject.MapObjectMetrics.MapObjectCoordinates.X + mapObject.MapObjectMetrics.MapObjectDimensions.Width
@@ -53,7 +53,7 @@ namespace WPFHospitalEditor
         private void goToClickedBuilding(MapObject mapObject)
         {
                 canvas.Children.Clear();
-                Building window1 = new Building(mapObject.Id);
+                Building window1 = new Building(mapObject.Id,0);
                 this.Close();
                 window1.ShowDialog();
         }
@@ -62,8 +62,10 @@ namespace WPFHospitalEditor
             for (int i = 0; i < objectsToShow.Count; i++)
             {
                 canvas.Children.Add(objectsToShow[i].rectangle);
-                canvas.Children.Add(objectsToShow[i].name);
+                canvas.Children.Add(objectsToShow[i].nameOnMap);
                 canvas.Children.Add(objectsToShow[i].MapObjectDoor.rectangle);
+                Canvas.SetLeft(objectsToShow[i].rectangle, objectsToShow[i].MapObjectMetrics.MapObjectCoordinates.X);
+                Canvas.SetTop(objectsToShow[i].rectangle, objectsToShow[i].MapObjectMetrics.MapObjectCoordinates.Y);
             }
         }
     }
