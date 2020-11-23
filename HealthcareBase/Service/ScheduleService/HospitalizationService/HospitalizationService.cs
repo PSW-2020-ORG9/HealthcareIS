@@ -21,19 +21,16 @@ namespace Service.ScheduleService.HospitalizationService
     {
         private readonly RepositoryWrapper<HospitalizationRepository> hospitalizationRepository;
         private readonly HospitalizationValidator hospitalizationValidator;
-        private readonly NotificationService.NotificationService notificationService;
         private readonly TimeSpan timeLimit;
 
         public HospitalizationService(
             HospitalizationRepository hospitalizationRepository,
             HospitalizationValidator hospitalizationValidator,
-            NotificationService.NotificationService notificationService,
             TimeSpan timeLimit)
         {
             this.hospitalizationRepository =
                 new RepositoryWrapper<HospitalizationRepository>(hospitalizationRepository);
             this.hospitalizationValidator = hospitalizationValidator;
-            this.notificationService = notificationService;
             this.timeLimit = timeLimit;
         }
 
@@ -89,7 +86,6 @@ namespace Service.ScheduleService.HospitalizationService
                 throw new BadRequestException();
             ValidateForScheduling(hospitalization);
             var createdHospitalization = hospitalizationRepository.Repository.Create(hospitalization);
-            notificationService.Notify(HospitalizationUpdateType.Scheduled, createdHospitalization);
             return createdHospitalization;
         }
 
@@ -99,7 +95,6 @@ namespace Service.ScheduleService.HospitalizationService
                 throw new BadRequestException();
             ValidateForRescheduling(hospitalization);
             var updatedHospitalization = hospitalizationRepository.Repository.Update(hospitalization);
-            notificationService.Notify(HospitalizationUpdateType.Rescheduled, updatedHospitalization);
             return updatedHospitalization;
         }
 
@@ -109,7 +104,6 @@ namespace Service.ScheduleService.HospitalizationService
                 throw new BadRequestException();
             ValidateForCancelling(hospitalization);
             hospitalizationRepository.Repository.Delete(hospitalization);
-            notificationService.Notify(HospitalizationUpdateType.Cancelled, hospitalization);
         }
 
         private void ValidateForScheduling(Hospitalization hospitalization)

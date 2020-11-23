@@ -42,5 +42,12 @@ namespace HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsReposito
 
         public Patient GetByJMBG(string jmbg)
             => GetMatching(p => p.Person.Jmbg == jmbg).FirstOrDefault();
+
+        public int GetMedicalRecordId(int patientId)
+        {
+            var foundPatient = GetByID(patientId);
+            if (foundPatient == null) return -1;
+            return foundPatient.MedicalRecordId;
+        }
     }
 }

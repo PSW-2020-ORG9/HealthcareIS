@@ -20,10 +20,9 @@ namespace Service.ScheduleService.ProcedureService
 
         public SurgeryService(
             SurgeryRepository surgeryRepository,
-            NotificationService.NotificationService notificationService,
             ProcedureScheduleComplianceValidator scheduleValidator, ProcedureValidator procedureValidator,
             TimeSpan timeLimit
-        ) : base(notificationService, scheduleValidator, procedureValidator, timeLimit)
+        ) : base(scheduleValidator, procedureValidator, timeLimit)
         {
             this.surgeryRepository = new RepositoryWrapper<SurgeryRepository>(surgeryRepository);
         }

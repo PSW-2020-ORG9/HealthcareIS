@@ -11,7 +11,7 @@ namespace Repository.UsersRepository.EmployeesAndPatientsRepository
     public interface PatientRepository : IWrappableRepository<Patient, int>
     {
         bool ExistsByJMBG(string jmbg);
-
         Patient GetByJMBG(string jmbg);
+        int GetMedicalRecordId(int patientId);
     }
 }

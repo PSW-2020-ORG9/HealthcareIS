@@ -17,18 +17,16 @@ namespace Service.ScheduleService.ScheduleAdjustmentRequestService
     public class ScheduleAdjustmentRequestService
     {
         private readonly RepositoryWrapper<EmployeeAccountRepository> employeeAccountRepository;
-        private readonly NotificationService.NotificationService notificationService;
         private readonly RepositoryWrapper<ScheduleAdjustmentRequestRepository> requestRepository;
 
         public ScheduleAdjustmentRequestService(
             ScheduleAdjustmentRequestRepository requestRepository,
-            EmployeeAccountRepository employeeAccountRepository,
-            NotificationService.NotificationService notificationService)
+            EmployeeAccountRepository employeeAccountRepository
+        )
         {
             this.requestRepository = new RepositoryWrapper<ScheduleAdjustmentRequestRepository>(requestRepository);
             this.employeeAccountRepository =
                 new RepositoryWrapper<EmployeeAccountRepository>(employeeAccountRepository);
-            this.notificationService = notificationService;
         }
 
         public IEnumerable<ScheduleAdjustmentRequest> GetAllPending()
@@ -62,7 +60,6 @@ namespace Service.ScheduleService.ScheduleAdjustmentRequestService
             request.Status = status;
 
             var updated = requestRepository.Repository.Update(request);
-            notificationService.Notify(updated);
         }
 
         public ScheduleAdjustmentRequest Create(ScheduleAdjustmentRequest request)

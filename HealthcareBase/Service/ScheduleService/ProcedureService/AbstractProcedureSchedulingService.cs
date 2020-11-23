@@ -8,16 +8,14 @@ namespace Service.ScheduleService.ProcedureService
 {
     public abstract class AbstractProcedureSchedulingService<T> where T : Procedure
     {
-        private readonly NotificationService.NotificationService notificationService;
         private readonly ProcedureValidator procedureValidator;
         private readonly ProcedureScheduleComplianceValidator scheduleValidator;
         private readonly TimeSpan timeLimit;
 
-        protected AbstractProcedureSchedulingService(NotificationService.NotificationService notificationService,
+        protected AbstractProcedureSchedulingService(
             ProcedureScheduleComplianceValidator scheduleValidator, ProcedureValidator procedureValidator,
             TimeSpan timeLimit)
         {
-            this.notificationService = notificationService;
             this.scheduleValidator = scheduleValidator;
             this.procedureValidator = procedureValidator;
             this.timeLimit = timeLimit;
@@ -34,7 +32,6 @@ namespace Service.ScheduleService.ProcedureService
                 throw new BadRequestException();
             ValidateForScheduling(procedure);
             var createdProcedure = Create(procedure);
-            notificationService.Notify(ProcedureUpdateType.Scheduled, createdProcedure);
             return createdProcedure;
         }
 
@@ -44,7 +41,6 @@ namespace Service.ScheduleService.ProcedureService
                 throw new BadRequestException();
             ValidateForRescheduling(procedure);
             var updatedProcedure = Update(procedure);
-            notificationService.Notify(ProcedureUpdateType.Rescheduled, updatedProcedure);
             return updatedProcedure;
         }
 
@@ -54,7 +50,6 @@ namespace Service.ScheduleService.ProcedureService
                 throw new BadRequestException();
             ValidateForCancelling(procedure);
             Delete(procedure);
-            notificationService.Notify(ProcedureUpdateType.Cancelled, procedure);
         }
 
         private void ValidateForScheduling(Procedure procedure)

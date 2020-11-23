@@ -67,7 +67,6 @@ namespace HospitalWebApp.Controllers
                 return Ok("Feedback successfully published.");
             return BadRequest();
         }
-
         
         /// <summary>
         /// Returns a list of all <see cref="UserFeedback"/> objects from the database

@@ -19,19 +19,16 @@ namespace Service.MedicationService
         private readonly RepositoryWrapper<MedicationInputRequestRepository> medicationInputRequestRepository;
         private readonly RepositoryWrapper<MedicationRepository> medicationRepository;
         private readonly RepositoryWrapper<MedicationStorageRepository> medicationStorageRepository;
-        private readonly NotificationService.NotificationService notificationService;
 
         public MedicationInputService(
             MedicationInputRequestRepository medicationInputRequestRepository,
             MedicationRepository medicationRepository,
-            NotificationService.NotificationService notificationService,
             MedicationStorageRepository medicationStorageRepository
         )
         {
             this.medicationInputRequestRepository =
                 new RepositoryWrapper<MedicationInputRequestRepository>(medicationInputRequestRepository);
             this.medicationRepository = new RepositoryWrapper<MedicationRepository>(medicationRepository);
-            this.notificationService = notificationService;
             this.medicationStorageRepository =
                 new RepositoryWrapper<MedicationStorageRepository>(medicationStorageRepository);
         }
@@ -74,7 +71,6 @@ namespace Service.MedicationService
             var inputRequest = requestUpdate.InputRequest;
             ChangeRequestFileds(requestUpdate, RequestStatus.Rejected);
             medicationInputRequestRepository.Repository.Update(inputRequest);
-            notificationService.Notify(inputRequest);
         }
 
         public IEnumerable<MedicationInputRequest> GetAllRejectedRequests()

@@ -30,10 +30,9 @@ namespace Service.ScheduleService.ProcedureService
             ExaminationRepository examinationRepository,
             DiagnosisRepository diagnosisRepository,
             PatientRepository patientRepository,
-            NotificationService.NotificationService notificationService,
             ProcedureScheduleComplianceValidator scheduleValidator, ProcedureValidator procedureValidator,
             TimeSpan timeLimit
-        ) : base(notificationService, scheduleValidator, procedureValidator, timeLimit)
+        ) : base(scheduleValidator, procedureValidator, timeLimit)
         {
             this.examinationRepository = new RepositoryWrapper<ExaminationRepository>(examinationRepository);
             this.diagnosisRepository = new RepositoryWrapper<DiagnosisRepository>(diagnosisRepository);

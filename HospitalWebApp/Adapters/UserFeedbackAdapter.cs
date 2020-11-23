@@ -15,7 +15,7 @@ namespace HospitalWebApp.Adapters
                 isPublic = dto.IsPublic,
                 isPublished = dto.IsPublished,
                 UserComment = dto.UserComment,
-                UserId = dto.UserId
+                PatientAccountId = dto.UserId
             };
         }
     }

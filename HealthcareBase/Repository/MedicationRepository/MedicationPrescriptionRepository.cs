@@ -12,6 +12,6 @@ namespace Repository.MedicationRepository
 {
     public interface MedicationPrescriptionRepository : IWrappableRepository<MedicationPrescription, int>
     {
-        IEnumerable<MedicationPrescription> GetByPatient(Patient patient);
+        IEnumerable<MedicationPrescription> GetByMedicalRecordId(int medicalRecordId);
     }
 }

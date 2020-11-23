@@ -16,7 +16,7 @@ namespace Repository.UsersRepository.UserFeedbackRepository
 
         public override IQueryable<UserFeedback> IncludeFields(IQueryable<UserFeedback> query) 
         {
-            return query.Include(uf => uf.User);
+            return query.Include(uf => uf.PatientAccount);
                 
             
         }

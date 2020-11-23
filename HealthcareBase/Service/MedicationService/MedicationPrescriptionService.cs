@@ -3,6 +3,7 @@
 // Created: 27 May 2020 19:21:11
 // Purpose: Definition of Class MedicationPrescriptionService
 
+using System;
 using System.Collections.Generic;
 using Model.CustomExceptions;
 using Model.Medication;
@@ -15,43 +16,30 @@ namespace Service.MedicationService
     public class MedicationPrescriptionService
     {
         private readonly RepositoryWrapper<MedicationPrescriptionRepository> medicationPrescriptionRepository;
-        private readonly NotificationService.NotificationService notificationService;
 
         public MedicationPrescriptionService(
-            MedicationPrescriptionRepository medicationPrescriptionRepository,
-            NotificationService.NotificationService notificationService
+            MedicationPrescriptionRepository medicationPrescriptionRepository
         )
         {
             this.medicationPrescriptionRepository =
                 new RepositoryWrapper<MedicationPrescriptionRepository>(medicationPrescriptionRepository);
-            this.notificationService = notificationService;
         }
 
-        public MedicationPrescription GetByID(int id)
+        public IEnumerable<MedicationPrescription> GetByMedicalRecordId(int medicalRecordId)
         {
-            return medicationPrescriptionRepository.Repository.GetByID(id);
+            return medicationPrescriptionRepository.Repository.GetByMedicalRecordId(medicalRecordId);
         }
 
-        public IEnumerable<MedicationPrescription> GetAll()
-        {
-            return medicationPrescriptionRepository.Repository.GetAll();
-        }
-
-        public IEnumerable<MedicationPrescription> GetByPatient(Patient patient)
-        {
-            return medicationPrescriptionRepository.Repository.GetByPatient(patient);
-        }
-
+        /// <summary>
+        /// Create new <see cref="MedicationPrescription"/>.
+        /// </summary>
+        /// <param name="medicationPrescription"></param>
+        /// <returns>Newly created prescription</returns>
+        /// <exception cref="ArgumentException"> If argument is null. </exception>
         public MedicationPrescription Create(MedicationPrescription medicationPrescription)
         {
-            if (medicationPrescription is null)
-                throw new BadRequestException();
-
-            var createdMedicationPrescription =
-                medicationPrescriptionRepository.Repository.Create(medicationPrescription);
-            notificationService.Notify(createdMedicationPrescription);
-
-            return createdMedicationPrescription;
+            if (medicationPrescription == null) throw new ArgumentException();
+            return medicationPrescriptionRepository.Repository.Create(medicationPrescription);
         }
     }
 }

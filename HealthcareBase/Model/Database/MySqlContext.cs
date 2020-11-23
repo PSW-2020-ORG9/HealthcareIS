@@ -56,10 +56,6 @@ namespace HealthcareBase.Model.Database
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Medication> Medications { get; set; }
         
-        public DbSet<HospitalizationNotification> HospitalizationNotifications { get; set; }
-        public DbSet<MedicationPrescriptionNotification> MedicationPrescriptionNotifications { get; set; }
-        public DbSet<ProcedureNotification> ProcedureNotifications { get; set; }
-        public DbSet<RequestNotification> RequestNotifications { get; set; }
         public DbSet<ClearDoctorsSchedule> ClearDoctorsSchedules { get; set; }
         public DbSet<ClearRoomsSchedule> ClearRoomsSchedules { get; set; }
         public DbSet<MedicationInputRequest> MedicationInputRequests { get; set; }
