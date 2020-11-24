@@ -36,7 +36,7 @@ namespace Model.Schedule.Procedures
         public Room Room { get; set; }
 
         [ForeignKey("ReferredFrom")]
-        public int ReferredFromId { get; set; }
+        public int? ReferredFromId { get; set; }
         public Examination ReferredFrom { get; set; }
 
         [Column(TypeName = "nvarchar(12)")]

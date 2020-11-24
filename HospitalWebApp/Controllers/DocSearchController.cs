@@ -28,9 +28,10 @@ namespace HospitalWebApp.Controllers
             => Ok(_medicationPrescriptionService.GetNameContained(medicationNameQuery));
         
         [HttpPost]
-        [Route("examinations/simple")]
+        [Route("examination/simple")]
         public IActionResult GetExaminationsByDoctorName(DoctorCredentialsDto doctorCredentialsDto)
         {
+            Console.WriteLine(doctorCredentialsDto.Name + " " + doctorCredentialsDto.Surname);
             try
             {
                 return Ok(_examinationService.GetByDoctorCredentials(doctorCredentialsDto));

@@ -44,7 +44,7 @@ namespace Service.ScheduleService.ProcedureService
 
         public IEnumerable<Examination> GetByDoctorCredentials(DoctorCredentialsDto doctorCredentialsDto)
         {
-            return _examinationWrapper.Repository.GetMatching(doctorCredentialsDto.GetFilterExpression());
+            return _examinationWrapper.Repository.GetAll();//GetMatching(doctorCredentialsDto.GetFilterExpression());
         }
 
         public override Examination GetByID(int id)

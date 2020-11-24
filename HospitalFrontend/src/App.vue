@@ -1,9 +1,10 @@
 <template>
   <div class="bg-image"></div>
-  <div id="nav">
-    <router-link to="/">Observe feedback</router-link> |
-    <router-link to="/create-feedback">Create feedback</router-link> |
-    <router-link to="/medical-record"> Observe medical record </router-link>
+  <div id="nav" style="background-color:rgb(177, 255, 177); margin-bottom: 50px;">
+    <router-link to="/" style="margin-right: 5px; margin-left: 5px;">Observe feedback</router-link> &middot;
+    <router-link to="/create-feedback" style="margin-right: 5px; margin-left: 5px;">Create feedback</router-link> &middot;
+    <router-link to="/medical-record" style="margin-right: 5px; margin-left: 5px;"> Observe medical record </router-link> &middot;
+    <router-link to="/doc-search" style="margin-right: 5px; margin-left: 5px;">Search medical documentation </router-link>
   </div>
   <router-view/>
 </template>
@@ -22,10 +23,12 @@
 
   a {
     font-weight: bold;
-    color: #2c3e50;
+    color: #285228;
 
     &.router-link-exact-active {
-      color: #58804f;
+      color: #273f27;
+      font-size: 18px;
+      font-weight: bold;
     }
   }
 }
