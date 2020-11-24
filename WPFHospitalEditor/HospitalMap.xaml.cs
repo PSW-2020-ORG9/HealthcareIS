@@ -21,14 +21,13 @@ namespace WPFHospitalEditor
     /// Interaction logic for HospitalMap.xaml
     /// </summary>
     public partial class HospitalMap : Window
-    {
-        AllMapObjects allMapObjects = new AllMapObjects();
+    {       
         public static List<MapObject> allOuterMapObjects = new List<MapObject>();
 
         public HospitalMap(List<MapObject> allMapObjects)
         {                     
             InitializeComponent();
-            addObjectToCanvas(findOutterMapObjects(allMapObjects), canvas);
+            CanvasService.addObjectToCanvas(findOutterMapObjects(allMapObjects), canvas);
         }
 
         private List<MapObject> findOutterMapObjects(List<MapObject> allMapObjects)
@@ -44,30 +43,13 @@ namespace WPFHospitalEditor
         }
         private void selectBuilding(object sender, MouseButtonEventArgs e)
         {           
-            MapObject chosenBuilding = checkWhichObjectIsClicked(e, allOuterMapObjects, canvas);
+            MapObject chosenBuilding = CanvasService.checkWhichObjectIsClicked(e, allOuterMapObjects, canvas);
             if (chosenBuilding != null && chosenBuilding.MapObjectType == MapObjectType.Building)
             {
                 goToClickedBuilding(chosenBuilding);
             }
         }
-        public MapObject checkWhichObjectIsClicked(MouseButtonEventArgs e, List<MapObject> allMapObjectsShowed, Canvas canvas)
-        {
-            for (int i = 0; i < allMapObjectsShowed.Count; i++)
-            {
-                if (checkIfPointIsInRectangle(e, allMapObjectsShowed[i], canvas))
-                {
-                    return allMapObjectsShowed[i];
-                }
-            }
-            return null;
-        }
-        private Boolean checkIfPointIsInRectangle(MouseButtonEventArgs e, MapObject mapObject, Canvas canvas)
-        {
-            return (e.GetPosition(canvas).X > mapObject.MapObjectMetrics.MapObjectCoordinates.X
-                    && e.GetPosition(canvas).X < mapObject.MapObjectMetrics.MapObjectCoordinates.X + mapObject.MapObjectMetrics.MapObjectDimensions.Width
-                    && e.GetPosition(canvas).Y > mapObject.MapObjectMetrics.MapObjectCoordinates.Y
-                    && e.GetPosition(canvas).Y < mapObject.MapObjectMetrics.MapObjectCoordinates.Y + mapObject.MapObjectMetrics.MapObjectDimensions.Height);
-        }
+       
         private void goToClickedBuilding(MapObject mapObject)
         {
             MapObjectController mapObjectController = new MapObjectController(new MapObjectService(new MapObjectRepository(new FileRepository(AllConstants.MAPOBJECT_PATH))));
@@ -91,17 +73,6 @@ namespace WPFHospitalEditor
             String[] firstSplit = mapObjectIteration.Description.Split("&");
             String[] buildingIndex = firstSplit[0].Split("-");
             return buildingIndex[0];
-        }
-        public void addObjectToCanvas(List<MapObject> objectsToShow, Canvas canvas)
-        {
-            for (int i = 0; i < objectsToShow.Count; i++)
-            {
-                canvas.Children.Add(objectsToShow[i].rectangle);
-                canvas.Children.Add(objectsToShow[i].nameOnMap);
-                canvas.Children.Add(objectsToShow[i].MapObjectDoor.rectangle);
-                Canvas.SetLeft(objectsToShow[i].rectangle, objectsToShow[i].MapObjectMetrics.MapObjectCoordinates.X);
-                Canvas.SetTop(objectsToShow[i].rectangle, objectsToShow[i].MapObjectMetrics.MapObjectCoordinates.Y);
-            }
         }
     }
 }

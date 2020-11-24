@@ -76,7 +76,7 @@ namespace WPFHospitalEditor
 
         private void refreshMap()
         {
-            String buildingId = building.getBuildingId(mapObject);
+            String buildingId = Building.getBuildingId(mapObject);
             List<MapObject> allMapObjects = mapObjectController.getAllMapObjects();
             List<MapObject> objectsForRefreshing = new List<MapObject>();
             foreach(MapObject mapObjectIterate in allMapObjects)
@@ -87,7 +87,7 @@ namespace WPFHospitalEditor
                 }
             }
             building.canvas.Children.Clear();
-            building.hospitalMap.addObjectToCanvas(objectsForRefreshing, building.canvas);
+            CanvasService.addObjectToCanvas(objectsForRefreshing, building.canvas);
         }
 
         private void compare(List<MapObject> objectsForRefreshing, MapObject mapObjectIterate, String buildingId)

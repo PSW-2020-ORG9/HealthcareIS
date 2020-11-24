@@ -11768,7 +11768,7 @@
       },
       "Id": 17,
       "Name": "Examination 3",
-      "Description": "1-0&Working Hours=09:00 - 21:00;Computers=3;Stethoscopes=5;Thermometers=7;Chairs=8",
+      "Description": "1-0&Working Hours=09:00 - 21:00;Computers=3;Stethoscopes=5;Thermometers=7;Chairs=8;",
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -13966,7 +13966,7 @@
       },
       "Id": 11,
       "Name": "Elevator 1",
-      "Description": "1-0&Max weight=480kg",
+      "Description": "1-0&Max weight=480kg;",
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -20879,7 +20879,7 @@
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
           "$type": "WPFHospitalEditor.MapObjectModel.MapObjectCoordinates, WPFHospitalEditor",
-          "X": 570.0,
+          "X": 750.0,
           "Y": 170.0
         },
         "MapObjectDimensions": {
