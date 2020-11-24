@@ -6,6 +6,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using Model.CustomExceptions;
 using Model.Miscellaneous;
@@ -43,16 +44,7 @@ namespace Service.ScheduleService.ProcedureService
 
         public IEnumerable<Examination> GetByDoctorCredentials(DoctorCredentialsDto doctorCredentialsDto)
         {
-            var evaluationFunctions = new List<Expression<Func<Examination, bool>>>();
-            if (doctorCredentialsDto.Name.Length > 0)
-                evaluationFunctions.Add(
-                    expression => expression.Doctor.Person.Name == doctorCredentialsDto.Name);
-            if (doctorCredentialsDto.Surname.Length > 0)
-                evaluationFunctions.Add(
-                    expression => expression.Doctor.Person.Surname == doctorCredentialsDto.Surname);
-
-            if (evaluationFunctions.Count == 0) throw new ArgumentException("Please specify doctor credentials.");
-            return _examinationWrapper.Repository.GetMatching(evaluationFunctions);
+            return _examinationWrapper.Repository.GetMatching(doctorCredentialsDto.GetFilterExpression());
         }
 
         public override Examination GetByID(int id)
