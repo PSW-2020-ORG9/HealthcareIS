@@ -1,20 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using WPFHospitalEditor.MapObjectModel;
-using WPFHospitalEditor.Repository;
 using WPFHospitalEditor.Service;
 using WPFHospitalEditor.Controller;
-using System.IO;
-using System.Diagnostics;
 
 namespace WPFHospitalEditor
 {
@@ -35,8 +25,10 @@ namespace WPFHospitalEditor
         private int floor;
         private Building building;
         private string[] descriptionParts;
+        private string[] contentRows;
+        private MapObject oldMapObject;
 
-        MapObjectController mapObjectController = new MapObjectController(new MapObjectService(new MapObjectRepository(new FileRepository(AllConstants.MAPOBJECT_PATH))));
+        MapObjectController mapObjectController = new MapObjectController();
 
         public AdditionalInformation(MapObject mapObject, Building building, int floor)
         {
@@ -45,9 +37,10 @@ namespace WPFHospitalEditor
             InitializeComponent();
             this.mapObject = mapObject;
             descriptionParts = mapObject.Description.Split("&");
-            string[] contentRows = descriptionParts[1].Split(";");
+            contentRows = descriptionParts[1].Split(";");
             this.Height = (contentRows.Length + 2) * 50 + 30;
-            CreateDynamicWPFGrid(contentRows);
+            ModifyDynamicWPFGrid(contentRows);
+            oldMapObject = mapObject;
         }
 
         private void Close_Click(object sender, RoutedEventArgs e)
@@ -59,54 +52,36 @@ namespace WPFHospitalEditor
         {
             mapObject.Description = descriptionParts[0] + "&";
 
+
             for (int i = 0; i < labels.Count; i++)
-            {    
+            {
                 mapObject.Description += labels[i].Content + "=" + textBoxes[i].Text + ";";             
-                mapObject.Name = this.name.Text;   
+                mapObject.Name = this.name.Text;
+                mapObject.nameOnMap.Text = mapObject.Name;
             }
 
-            updateAdditionalInformationWindow();
-
+            updateAdditionalInformation();
             int lenght = mapObject.Description.Length;
-            mapObject.Description.Substring(0, lenght - 1);
-            refreshMap();
+            mapObject.Description.Substring(0, lenght - 1);          
             Close();
 
         }
 
         private void refreshMap()
         {
-            String buildingId = Building.getBuildingId(mapObject);
-            List<MapObject> allMapObjects = mapObjectController.getAllMapObjects();
-            List<MapObject> objectsForRefreshing = new List<MapObject>();
-            foreach(MapObject mapObjectIterate in allMapObjects)
-            {
-                if (!mapObjectIterate.Description.Equals(""))
-                {
-                    compare(objectsForRefreshing, mapObjectIterate, buildingId);                   
-                }
-            }
+            building.floorBuildingObjects.Remove(oldMapObject);
+            building.floorBuildingObjects.Add(mapObject);
             building.canvas.Children.Clear();
-            CanvasService.addObjectToCanvas(objectsForRefreshing, building.canvas);
-        }
+            CanvasService.addObjectToCanvas(building.floorBuildingObjects, building.canvas);
+        }      
 
-        private void compare(List<MapObject> objectsForRefreshing, MapObject mapObjectIterate, String buildingId)
-        {
-            
-            String[] firstSplit = mapObjectIterate.Description.Split("&");
-            String[] secondSplit = firstSplit[0].Split("-");
-            if (secondSplit[0].Equals(buildingId) && secondSplit[1].Equals(floor.ToString()))
-            {
-                objectsForRefreshing.Add(mapObjectIterate);
-            }
-        }
-
-        private void updateAdditionalInformationWindow()
+        private void updateAdditionalInformation()
         {
             mapObjectController.update(mapObject);
+            refreshMap();
         }
 
-        private void CreateDynamicWPFGrid(string[] contentRows)
+        private void ModifyDynamicWPFGrid(string[] contentRows)
         {
             var bc = new BrushConverter();
             createColumns();
@@ -244,6 +219,6 @@ namespace WPFHospitalEditor
             ColumnDefinition borderColumn1 = new ColumnDefinition();
             borderColumn1.Width = new GridLength(width);
             DynamicGrid.ColumnDefinitions.Add(borderColumn1);
-        }
+        }       
     }
 }

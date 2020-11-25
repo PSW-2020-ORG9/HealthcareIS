@@ -9,12 +9,7 @@ namespace WPFHospitalEditor.Service
 {
     class MapObjectService : IMapObjectService
     {
-        private MapObjectRepository MapObjectRepository { get; set; }
-
-        public MapObjectService(MapObjectRepository mapObjectRepository)
-        {
-            this.MapObjectRepository = mapObjectRepository;
-        }
+        public MapObjectRepository MapObjectRepository = new MapObjectRepository();
 
         public List<MapObject> getAllMapObjects()
         {
@@ -24,6 +19,14 @@ namespace WPFHospitalEditor.Service
         public MapObject update(MapObject mapObject)
         {
             return MapObjectRepository.update(mapObject);
+        }
+        public List<MapObject> getOutterMapObjects(List<MapObject> allMapObjects)
+        {
+            return MapObjectRepository.getOutterMapObjects(allMapObjects);
+        }
+        public MapObject findMapObjectById(int id)
+        {
+            return MapObjectRepository.findMapObjectById(id);
         }
     }
 }

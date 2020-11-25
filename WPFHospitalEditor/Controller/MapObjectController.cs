@@ -8,20 +8,23 @@ namespace WPFHospitalEditor.Controller
 {
     class MapObjectController : IMapObjectController
     {
-        private MapObjectService MapObjectService { get; set; }
-
-        public MapObjectController(MapObjectService mapObjectService)
-        {
-            this.MapObjectService = mapObjectService;
-        }
+        public IMapObjectService IMapObjectService = new MapObjectService();
 
         public List<MapObject> getAllMapObjects()
         {
-            return MapObjectService.getAllMapObjects();
+            return IMapObjectService.getAllMapObjects();
         }
         public MapObject update(MapObject mapObject)
         {
-            return MapObjectService.update(mapObject);
+            return IMapObjectService.update(mapObject);
+        }
+        public List<MapObject> getOutterMapObjects(List<MapObject> allMapObjects)
+        {
+            return IMapObjectService.getOutterMapObjects(allMapObjects);
+        }
+        public MapObject findMapObjectById(int id)
+        {
+            return IMapObjectService.findMapObjectById(id);
         }
     }
 }

@@ -16792,7 +16792,7 @@
       },
       "Id": 31,
       "Name": "Recovery room 5",
-      "Description": "1-1&All beds=20;Available beds=10",
+      "Description": "1-1&All beds=201;Available beds=10;",
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {

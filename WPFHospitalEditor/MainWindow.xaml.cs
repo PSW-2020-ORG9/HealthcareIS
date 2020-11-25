@@ -30,7 +30,7 @@ namespace WPFHospitalEditor
         }
         private void hospitalMapPressed(object sender, RoutedEventArgs e)
         {
-            MapObjectController mapObjectController = new MapObjectController(new MapObjectService(new MapObjectRepository(new FileRepository(AllConstants.MAPOBJECT_PATH))));
+            MapObjectController mapObjectController = new MapObjectController();
             List<MapObject> allMapObjects = mapObjectController.getAllMapObjects();
             HospitalMap startWindow = new HospitalMap(allMapObjects);
             this.Close();
