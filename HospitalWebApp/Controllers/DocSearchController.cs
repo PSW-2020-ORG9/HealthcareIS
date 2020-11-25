@@ -24,13 +24,30 @@ namespace HospitalWebApp.Controllers
         }
 
         [HttpGet]
-        [Route("prescription/simple/{medicationNameQuery}")]
-        public IActionResult GetNameContainedPrescription(string medicationNameQuery)
-            => Ok(_medicationPrescriptionService.GetNameContained(medicationNameQuery));
-        
-        [HttpPost]
+        [Route("prescription/simple")]
+        public IActionResult GetPrescriptionByName(string medicationName)
+            => Ok(_medicationPrescriptionService.GetByName(medicationName));
+
+        [HttpGet]
         [Route("examination/simple")]
-        public IActionResult GetExaminationsByDoctorName(DoctorCredentialsDto doctorCredentialsDto)
-            => Ok(_examinationService.GetByDoctorCredentials(doctorCredentialsDto));
+        public IActionResult GetExaminationsByDoctorCredentials(string name, string surname)
+        {
+            var doctorCredentialsDto = new DoctorCredentialsDto()
+            {
+                Name = name,
+                Surname = surname
+            };
+            return Ok(_examinationService.GetByDoctorCredentials(doctorCredentialsDto));
+        }
+
+        [HttpGet]
+        [Route("prescription")]
+        public IActionResult GetAllPrescriptions()
+            => Ok(_medicationPrescriptionService.GetAll());
+        
+        [HttpGet]
+        [Route("examination")]
+        public IActionResult GetAllExaminations()
+            => Ok(_examinationService.GetAll());
     }
 }

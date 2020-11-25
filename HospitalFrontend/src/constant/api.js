@@ -1,9 +1,14 @@
 let server='http://localhost:5000'
-let docSearch = server + '/docsearch'
+let examinationsUrl = server + '/docsearch/examination'
+let prescriptionsUrl = server + '/docsearch/prescription'
 
 export default{
     feedback: server + '/feedback',
     patient: server + '/patient',
-    docSearchPrescriptionSimple: docSearch + '/prescription/simple/',
-    docSearchExaminationSimple: docSearch + '/examination/simple'
+    
+    examinations: examinationsUrl,
+    prescriptions: prescriptionsUrl,
+
+    docSearchPrescriptionSimple: prescriptionsUrl + '/simple',
+    docSearchExaminationSimple: examinationsUrl + '/simple',
 }

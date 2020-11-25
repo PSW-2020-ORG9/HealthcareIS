@@ -15,18 +15,21 @@ namespace Service.MedicationService
 {
     public class MedicationPrescriptionService
     {
-        private readonly RepositoryWrapper<MedicationPrescriptionRepository> medicationPrescriptionWrapper;
+        private readonly RepositoryWrapper<MedicationPrescriptionRepository> _medicationPrescriptionWrapper;
 
         public MedicationPrescriptionService(
             MedicationPrescriptionRepository medicationPrescriptionRepository
         )
         {
-            this.medicationPrescriptionWrapper =
+            this._medicationPrescriptionWrapper =
                 new RepositoryWrapper<MedicationPrescriptionRepository>(medicationPrescriptionRepository);
         }
 
-        public IEnumerable<MedicationPrescription> GetNameContained(string nameQuery)
-            => medicationPrescriptionWrapper.Repository.GetMatching(
+        public IEnumerable<MedicationPrescription> GetByName(string nameQuery)
+            => _medicationPrescriptionWrapper.Repository.GetMatching(
                 prescription => prescription.Medication.Name.Contains(nameQuery));
+
+        public IEnumerable<MedicationPrescription> GetAll()
+            => _medicationPrescriptionWrapper.Repository.GetAll();
     }
 }

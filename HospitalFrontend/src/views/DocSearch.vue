@@ -134,15 +134,17 @@ export default {
     },
     methods: {
         searchPrescriptions() {
+            this.prescriptions = [];
             if (!this.prescriptionsQuery) {
+                this.getAllPrescriptions();
                 return;
             }
-            this.prescriptions = [];
-            axios.get(api.docSearchPrescriptionSimple + this.prescriptionsQuery)
+            axios.get(api.docSearchPrescriptionSimple 
+                + "?" + "medicationName=" + this.prescriptionsQuery 
+            )
                 .then(response => {
                     if (response.data && response.data.length) {
                         response.data.forEach(prescription => {
-                            console.log(prescription)
                             this.prescriptions.push(prescription);
                         });
                     }
@@ -155,14 +157,15 @@ export default {
                 })
         },
         searchExaminations() {
+            this.examinations = [];
             if (!this.doctorNameQuery && !this.doctorSurnameQuery) {
+                this.getAllExaminations();
                 return;
             }
-            this.examinations = []
-            axios.post(api.docSearchExaminationSimple, {
-                name : this.doctorNameQuery,
-                surname : this.doctorSurnameQuery
-            })
+            axios.get(api.docSearchExaminationSimple
+                + "?" + "name=" + this.doctorNameQuery + "&"
+                + "surname=" + this.doctorSurnameQuery
+            )
             .then(response => {
                 if (response.data && response.data.length) {
                     response.data.forEach(exam => {
@@ -176,6 +179,26 @@ export default {
             .catch(error => {
                 this.failedConnection();
             })
+        },
+        getAllExaminations() {
+            axios.get(api.examinations)
+                .then(response => {
+                    if (response.data) {
+                        response.data.forEach(exam => { 
+                            this.examinations.push(exam);
+                        })
+                    }
+                })
+        },
+        getAllPrescriptions() {
+            axios.get(api.prescriptions)
+                .then(response => {
+                    if (response.data) {
+                        response.data.forEach(prescription => { 
+                            this.prescriptions.push(prescription);
+                        })
+                    }
+                })
         },
         toastError(message) {
             Toastify({
@@ -194,6 +217,8 @@ export default {
     },
     mounted() { 
         this.rendered = true;
+        this.getAllExaminations();
+        this.getAllPrescriptions();
     }
 }
 </script>
