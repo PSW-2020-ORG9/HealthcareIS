@@ -8,6 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using HealthcareBase.Model.Filters;
 using Model.CustomExceptions;
 using Model.Miscellaneous;
 using Model.Schedule.Procedures;
@@ -42,9 +43,9 @@ namespace Service.ScheduleService.ProcedureService
             this._patientWrapper = new RepositoryWrapper<PatientRepository>(patientRepository);
         }
 
-        public IEnumerable<Examination> GetByDoctorCredentials(DoctorCredentialsDto doctorCredentialsDto)
+        public IEnumerable<Examination> GetByDoctorCredentials(ExaminationSimpleFilterDto examinationSimpleFilterDto)
         {
-            return _examinationWrapper.Repository.GetMatching(doctorCredentialsDto.GetFilterExpression());
+            return _examinationWrapper.Repository.GetMatching(examinationSimpleFilterDto.GetFilterExpression());
         }
 
         public override Examination GetByID(int id)

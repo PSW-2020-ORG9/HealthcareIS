@@ -33,6 +33,10 @@
                                         {{prescription.instructions.dosageUnit}}
                                     </div>
                                     <div class="row mb-2">
+                                        <span class="font-weight-bold"> Diagnosis: </span>
+                                        {{prescription.diagnosis.name}}
+                                    </div>
+                                    <div class="row mb-2">
                                         <span class="font-weight-bold"> Start date: </span>
                                         {{new Date(prescription.instructions.startDate).toLocaleDateString()}}
                                     </div>

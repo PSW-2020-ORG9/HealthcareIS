@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using HealthcareBase.Model.Filters;
 using HospitalWebApp.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -25,20 +26,25 @@ namespace HospitalWebApp.Controllers
 
         [HttpGet]
         [Route("prescription/simple")]
-        public IActionResult GetPrescriptionByName(string medicationName)
-            => Ok(_medicationPrescriptionService.GetByName(medicationName));
+        public IActionResult PrescriptionSimpleSearch(string medicationName)
+            => Ok(_medicationPrescriptionService.SimpleSearch(medicationName));
 
         [HttpGet]
         [Route("examination/simple")]
-        public IActionResult GetExaminationsByDoctorCredentials(string name, string surname)
+        public IActionResult ExaminationSimpleSearch(string name, string surname)
         {
-            var doctorCredentialsDto = new DoctorCredentialsDto()
+            var doctorCredentialsDto = new ExaminationSimpleFilterDto()
             {
                 Name = name,
                 Surname = surname
             };
             return Ok(_examinationService.GetByDoctorCredentials(doctorCredentialsDto));
         }
+
+        [HttpPost]
+        [Route("prescription/advanced")]
+        public IActionResult PrescriptionAdvancedSearch(PrescriptionAdvancedFilterDto dto)
+            => Ok(_medicationPrescriptionService.AdvancedSearch(dto));        
 
         [HttpGet]
         [Route("prescription")]

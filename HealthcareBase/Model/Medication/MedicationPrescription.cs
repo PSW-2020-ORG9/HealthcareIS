@@ -20,6 +20,7 @@ namespace Model.Medication
         [Key]
         public int Id { get; set; }
         public int MedicalRecordId { get; set; }
+        // TODO Remove this, Start/End exists in IntakeInstructions, and Procedure
         public DateTime Date { get; set; }
         
         [ForeignKey("ExaminationReport")]

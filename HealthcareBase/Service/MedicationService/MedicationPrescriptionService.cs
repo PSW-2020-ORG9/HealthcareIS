@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using HealthcareBase.Model.Filters;
 using Model.CustomExceptions;
 using Model.Medication;
 using Model.Users.Patient;
@@ -25,9 +26,12 @@ namespace Service.MedicationService
                 new RepositoryWrapper<MedicationPrescriptionRepository>(medicationPrescriptionRepository);
         }
 
-        public IEnumerable<MedicationPrescription> GetByName(string nameQuery)
+        public IEnumerable<MedicationPrescription> SimpleSearch(string nameQuery)
             => _medicationPrescriptionWrapper.Repository.GetMatching(
                 prescription => prescription.Medication.Name.Contains(nameQuery));
+
+        public IEnumerable<MedicationPrescription> AdvancedSearch(PrescriptionAdvancedFilterDto filterDto)
+            => _medicationPrescriptionWrapper.Repository.GetMatching(filterDto.GetFilterExpression());
 
         public IEnumerable<MedicationPrescription> GetAll()
             => _medicationPrescriptionWrapper.Repository.GetAll();

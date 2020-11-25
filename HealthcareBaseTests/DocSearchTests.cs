@@ -79,7 +79,7 @@ namespace HealthcareBaseTests
                 _prescriptionStubRepository.Object
             );
 
-            IEnumerable<MedicationPrescription> matchedPrescriptions = prescriptionService.GetByName("Brufen");
+            IEnumerable<MedicationPrescription> matchedPrescriptions = prescriptionService.SimpleSearch("Brufen");
             Assert.Equal("Brufen", matchedPrescriptions.ToList()[0].Medication.Name);
         }
         
@@ -92,7 +92,7 @@ namespace HealthcareBaseTests
                 _prescriptionStubRepository.Object
             );
 
-            IEnumerable<MedicationPrescription> matchedPrescriptions = prescriptionService.GetByName("xxx");
+            IEnumerable<MedicationPrescription> matchedPrescriptions = prescriptionService.SimpleSearch("xxx");
             Assert.Empty(matchedPrescriptions);
         }
         
@@ -105,7 +105,7 @@ namespace HealthcareBaseTests
                 _prescriptionStubRepository.Object
             );
 
-            IEnumerable<MedicationPrescription> matchedPrescriptions = prescriptionService.GetByName("Br");
+            IEnumerable<MedicationPrescription> matchedPrescriptions = prescriptionService.SimpleSearch("Br");
             Assert.All(matchedPrescriptions, prescription => 
                 Assert.Contains("Br", prescription.Medication.Name));
         }
