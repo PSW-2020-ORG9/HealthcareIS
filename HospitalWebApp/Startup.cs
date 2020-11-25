@@ -26,7 +26,7 @@ namespace HospitalWebApp
         public Startup(IConfiguration configuration)
         {
             var builder = new ConfigurationBuilder()
-                .AddJsonFile("connections.json");
+                .AddJsonFile("connections.json", optional: true);
             Configuration = builder.Build();
         }
 
@@ -35,7 +35,13 @@ namespace HospitalWebApp
         // This method gets called at runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            _connectionString = Configuration["MySql"];
+            _connectionString = CreateConnectionStringFromEnvironment();
+
+            if (_connectionString == null)
+                _connectionString = Configuration["MySql"];
+
+            if (_connectionString == null) throw new ApplicationException("Missing database connection string");
+
             AddServices(services);
             services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             
@@ -96,6 +102,23 @@ namespace HospitalWebApp
         private IContextFactory GetContext()
         {
             return new MySqlContextFactory(_connectionString);
+        }
+
+        private string CreateConnectionStringFromEnvironment()
+        {
+            string server = Environment.GetEnvironmentVariable("DB_PSW_SERVER");
+            string port = Environment.GetEnvironmentVariable("DB_PSW_PORT");
+            string database = Environment.GetEnvironmentVariable("DB_PSW_DATABASE");
+            string user = Environment.GetEnvironmentVariable("DB_PSW_USER");
+            string password = Environment.GetEnvironmentVariable("DB_PSW_PASSWORD");
+            if (server == null
+                || port == null
+                || database == null
+                || user == null
+                || password == null)
+                return null;
+
+            return $"server={server};port={port};database={database};user={user};password={password};";
         }
     }
 }
