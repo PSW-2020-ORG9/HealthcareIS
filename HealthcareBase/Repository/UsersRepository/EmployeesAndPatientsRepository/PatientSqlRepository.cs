@@ -11,7 +11,7 @@ namespace HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsReposito
     {
         public PatientSqlRepository(IContextFactory factory): base(factory) { }
 
-        public override IQueryable<Patient> IncludeFields(IQueryable<Patient> query)
+        protected override IQueryable<Patient> IncludeFields(IQueryable<Patient> query)
         {
             return query
                 .Include(p => p.Person)

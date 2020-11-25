@@ -11,36 +11,21 @@ namespace Service.UsersService.LoginService
 {
     public class LoginService
     {
-        private readonly RepositoryWrapper<EmployeeAccountRepository> employeeAccountRepository;
+        private readonly RepositoryWrapper<AdministrationAccountRepository> employeeAccountRepository;
         private readonly RepositoryWrapper<PatientAccountRepository> patientAccountRepository;
 
         public LoginService(
             PatientAccountRepository patientAccountRepository,
-            EmployeeAccountRepository employeeAccountRepository)
+            AdministrationAccountRepository administrationAccountRepository)
         {
             this.patientAccountRepository = new RepositoryWrapper<PatientAccountRepository>(patientAccountRepository);
             this.employeeAccountRepository =
-                new RepositoryWrapper<EmployeeAccountRepository>(employeeAccountRepository);
+                new RepositoryWrapper<AdministrationAccountRepository>(administrationAccountRepository);
         }
 
         public PatientAccount LogInPatient(string username, string password)
         {
             return patientAccountRepository.Repository.GetByUsernameAndPassword(username, password);
-        }
-
-        public EmployeeAccount LogInDoctor(string username, string password)
-        {
-            return employeeAccountRepository.Repository.GetByUsernameAndPassword(username, password);
-        }
-
-        public EmployeeAccount LogInSecretary(string username, string password)
-        {
-            return employeeAccountRepository.Repository.GetByUsernameAndPassword(username, password);
-        }
-
-        public EmployeeAccount LogInDirector(string username, string password)
-        {
-            return employeeAccountRepository.Repository.GetByUsernameAndPassword(username, password);
         }
     }
 }

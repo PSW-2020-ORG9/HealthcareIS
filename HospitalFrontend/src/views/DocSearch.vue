@@ -17,7 +17,7 @@
                 <table class="table">
                     <tbody>
                     <tr v-for="(prescription, index) in prescriptions" :key="index">
-                        <td class="row">
+                        <td class="row mb-2" style="background-color: rgb(238, 238, 238); padding-left: 25px; margin-right: 10px;">
                             <div class="col">
                                 <div class="row font-weight-bold">
                                     {{prescription.medication.name}} 
@@ -55,33 +55,48 @@
                 <table class="table">
                     <tbody>
                     <tr v-for="(exam, index) in examinations" :key="index">
-                        <td class="row">
+                        <td class="row mb-2" style="background-color: rgb(238, 238, 238); padding-left: 25px; margin-right: 10px;">
                             <div class="col">
                                 <div class="row font-weight-bold">
-                                    {{exam.doctor.person.name}} {{exam.doctor.person.surname}} 
+                                    {{new Date(exam.timeInterval.start).toLocaleDateString()}}
                                 </div>
-                                <div class="container mt-3">
+                                <div class="row mt-2">
+                                    Doctor: {{exam.doctor.person.name}} {{exam.doctor.person.surname}}
+                                </div>
+                                <div class="row mt-2">
+                                    Anamnesis: {{exam.examinationReport.anamnesis}} 
+                                </div>
+                                <div class="row mt-2"> 
+                                    Diagnoses:
+                                </div>
+                                <div class="container">
                                     <div class="row mb-2">
-                                        <span class="font-weight-bold"> Anamnesis: </span>
-                                        {{exam.examinationReport.anamnesis}} 
-                                    </div>
-                                    <div class="row mb-2">
-                                        <span class="font-weight-bold"> Diagnoses: </span>
                                         <table class="table"> 
                                             <tr v-for="(diagnosis, index) in exam.examinationReport.diagnoses" :key="index">
-                                                <td>
-                                                    {{diagnosis.name}}
-                                                    {{diagnosis.description}}
+                                                <td class="mb-2">
+                                                    <div class="container text-left">
+                                                        <div>
+                                                            {{diagnosis.name}} - {{diagnosis.description}}
+                                                        </div>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         </table>
                                     </div>
-                                    <div class="row mb-2">
-                                        <span class="font-weight-bold"> Medications: </span>
+                                </div>
+                                <div class="row mt-2">
+                                    Medications:
+                                </div>
+                                <div class="container">
+                                    <div class="row">
                                         <table class="table"> 
                                             <tr v-for="(prescription, index) in exam.examinationReport.prescriptions" :key="index">
-                                                <td>
-                                                    {{prescription.medication.name}}
+                                                <td class="mb-2">
+                                                    <div class="container text-left">
+                                                        <div>
+                                                            {{prescription.medication.name}}
+                                                        </div>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         </table>
@@ -127,7 +142,7 @@ export default {
                 .then(response => {
                     if (response.data && response.data.length) {
                         response.data.forEach(prescription => {
-                            console.info(prescription)
+                            console.log(prescription)
                             this.prescriptions.push(prescription);
                         });
                     }

@@ -16,7 +16,7 @@ namespace Repository.ScheduleRepository.ProceduresRepository
     {
         public ExaminationSqlRepository(IContextFactory factory) : base(factory) {}
         
-        public override IQueryable<Examination> IncludeFields(IQueryable<Examination> query)
+        protected override IQueryable<Examination> IncludeFields(IQueryable<Examination> query)
         {
             return query
                 .Include(examination => examination.ExaminationReport)
@@ -25,6 +25,10 @@ namespace Repository.ScheduleRepository.ProceduresRepository
                 .Include(examination => examination.ExaminationReport)
                 .ThenInclude(report => report.Prescriptions)
                 .ThenInclude(prescription => prescription.Instructions)
+                
+                .Include(examination => examination.ExaminationReport)
+                .ThenInclude(report => report.Prescriptions)
+                .ThenInclude(prescription => prescription.Medication)
 
                 .Include(examination => examination.Doctor)
                 .ThenInclude(doctor => doctor.Person)
@@ -35,8 +39,8 @@ namespace Repository.ScheduleRepository.ProceduresRepository
                 .Include(examination => examination.Doctor)
                 .ThenInclude(doctor => doctor.Specialties)
 
-                .Include(examination => examination.Patient)
-                .ThenInclude(patient => patient.Person);
+               .Include(examination => examination.Patient)
+               .ThenInclude(patient => patient.Person); 
         }
 
         public IEnumerable<Examination> GetByDoctorAndTime(Doctor doctor, TimeInterval time)

@@ -10,10 +10,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Users.Employee
 {
-    public class Employee : Entity<int>
+    public abstract class Employee : Entity<int>
     {
         [Key]
-        public int EmployeeID { get; set; }
+        public int Id { get; set; }
         
         [ForeignKey("Person")]
         public string Jmbg { get; set; }
@@ -22,7 +22,7 @@ namespace Model.Users.Employee
         [Column(TypeName = "nvarchar(24)")]
         public EmployeeStatus Status { get; set; }
 
-        public int GetKey() => EmployeeID;
-        public void SetKey(int id) => EmployeeID = id;
+        public int GetKey() => Id;
+        public void SetKey(int id) => Id = id;
     }
 }

@@ -14,7 +14,7 @@ namespace Repository.UsersRepository.UserFeedbackRepository
         public UserFeedbackSqlRepository(IContextFactory contextFactory) : base(contextFactory) { }
 
 
-        public override IQueryable<UserFeedback> IncludeFields(IQueryable<UserFeedback> query) 
+        protected override IQueryable<UserFeedback> IncludeFields(IQueryable<UserFeedback> query) 
         {
             return query.Include(uf => uf.PatientAccount);
                 

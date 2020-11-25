@@ -15,9 +15,9 @@ namespace Service.ScheduleService.ProcedureService
         protected override void ConfigureFilter()
         {
             if (Name.Length > 0) 
-                AddExpressionFunction(examination => examination.Doctor.Person.Name == Name);
+                AddExpressionFunction(examination => examination.Doctor.Person.Name.Contains(Name));
             if (Surname.Length > 0)
-                AddExpressionFunction(examination => examination.Doctor.Person.Surname == Surname);
+                AddExpressionFunction(examination => examination.Doctor.Person.Surname.Contains(Surname));
         }
     }
 }

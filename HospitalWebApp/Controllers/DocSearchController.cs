@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using HospitalWebApp.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -30,16 +31,6 @@ namespace HospitalWebApp.Controllers
         [HttpPost]
         [Route("examination/simple")]
         public IActionResult GetExaminationsByDoctorName(DoctorCredentialsDto doctorCredentialsDto)
-        {
-            Console.WriteLine(doctorCredentialsDto.Name + " " + doctorCredentialsDto.Surname);
-            try
-            {
-                return Ok(_examinationService.GetByDoctorCredentials(doctorCredentialsDto));
-            }
-            catch (ArgumentException e)
-            {
-                return BadRequest(e.Message);
-            }
-        }
+            => Ok(_examinationService.GetByDoctorCredentials(doctorCredentialsDto));
     }
 }

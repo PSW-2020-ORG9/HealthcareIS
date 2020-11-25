@@ -81,7 +81,7 @@ namespace Repository.Generics
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public virtual IQueryable<T> IncludeFields(IQueryable<T> query)
+        protected virtual IQueryable<T> IncludeFields(IQueryable<T> query)
         {
             return query;
         }

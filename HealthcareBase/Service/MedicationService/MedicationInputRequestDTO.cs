@@ -9,7 +9,7 @@ namespace Service.MedicationService
     {
         public Medication Medication { get; set; }
 
-        public EmployeeAccount Sender { get; set; }
+        public DoctorAccount Sender { get; set; }
 
         public List<Specialty> Specialties { get; set; }
     }

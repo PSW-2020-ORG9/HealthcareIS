@@ -5,9 +5,8 @@
 
 namespace Model.Users.UserAccounts
 {
-    public enum EmployeeType
+    public enum AdministrationWorkerType
     {
-        Doctor,
         Secretary,
         Director
     }

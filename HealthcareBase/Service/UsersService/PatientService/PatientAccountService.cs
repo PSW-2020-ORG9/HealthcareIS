@@ -69,7 +69,7 @@ namespace Service.UsersService.PatientService
             var favDoctorList = acc.FavouriteDoctors.ToList();
             foreach (var favDoc in favDoctorList)
             {
-                if (favDoc.Doctor.EmployeeID == doctor.EmployeeID)
+                if (favDoc.Doctor.Id == doctor.Id)
                 {
                     favDoctorList.Remove(favDoc);
                     break;

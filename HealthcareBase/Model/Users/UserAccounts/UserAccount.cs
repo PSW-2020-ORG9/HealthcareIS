@@ -10,7 +10,6 @@ namespace Model.Users.UserAccounts
 {
     public abstract class UserAccount : Entity<int>
     {
-        // TODO Employees and Patients are stored in the same table when using this hierarchy.
         [Key]
         public int Id { get; set; }
         public string Username { get; set; }

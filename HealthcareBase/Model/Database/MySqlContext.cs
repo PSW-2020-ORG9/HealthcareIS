@@ -24,8 +24,8 @@ namespace HealthcareBase.Model.Database
         private readonly string _connectionString;
 
         // Database access strings
-        private readonly string db = "";
-        private readonly string pass = "";
+        private readonly string db = "clinic";
+        private readonly string pass = "helloworldNOVISAD021";
 
         public MySqlContext()
         {
@@ -65,14 +65,11 @@ namespace HealthcareBase.Model.Database
         public DbSet<ProcedureType> ProcedureTypes { get; set; }
         public DbSet<ConsumableStorageRecord> ConsumableStorageRecords { get; set; }
         public DbSet<MedicationStorageRecord> MedicationStorageRecords { get; set; }
-        public DbSet<Doctor> Doctors { get; set; }
-        public DbSet<Employee> Employees { get; set; }
         public DbSet<Shift> Shifts { get; set; }
         public DbSet<Specialty> Specialties { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<Citizenship> Citizenships { get; set; }
-        public DbSet<EmployeeAccount> EmployeeAccounts { get; set; }
         public DbSet<PatientSurveyResponse> PatientSurveyResponses { get; set; }
         public DbSet<UserFeedback> UserFeedbacks { get; set; }
         public DbSet<FamilyMemberDiagnosis> FamilyMemberDiagnoses { get; set; }
@@ -86,7 +83,6 @@ namespace HealthcareBase.Model.Database
         // Patient general
         public DbSet<MedicalRecord> MedicalRecords { get; set; }
         public DbSet<Patient> Patients { get; set; }
-        public DbSet<PatientAccount> PatientAccounts { get; set; }
         public DbSet<FamilyMemberDiagnosis> FamilyHistories { get; set; }
 
         // Procedures
@@ -95,6 +91,15 @@ namespace HealthcareBase.Model.Database
         public DbSet<ExaminationReport> ExaminationReports { get; set; }
         public DbSet<MedicationPrescription> MedicationPrescriptions { get; set; }
         public DbSet<Diagnosis> Diagnoses { get; set; }
+        
+        // Accounts 
+        public DbSet<PatientAccount> PatientAccounts { get; set; }
+        public DbSet<DoctorAccount> DoctorAccounts { get; set; }
+        public DbSet<AdministrationAccount> AdministrationAccounts { get; set; }
+        
+        // Staff
+        public DbSet<Doctor> Doctors { get; set; }
+        public DbSet<AdministrationWorker> AdministrationWorkers { get; set; }
 
             
         protected override void OnModelCreating(ModelBuilder modelBuilder)

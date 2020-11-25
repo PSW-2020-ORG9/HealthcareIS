@@ -16,7 +16,7 @@ namespace HealthcareBase.Repository.MedicationRepository
         {
         }
         
-        public override IQueryable<MedicationPrescription> IncludeFields(IQueryable<MedicationPrescription> query)
+        protected override IQueryable<MedicationPrescription> IncludeFields(IQueryable<MedicationPrescription> query)
         {
             return query
                 .Include(prescription => prescription.Diagnosis)

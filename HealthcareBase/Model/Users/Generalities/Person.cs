@@ -26,7 +26,7 @@ namespace Model.Users.Generalities
         public int Age { get; set; }
         
         [Column(TypeName = "nvarchar(24)")]
-        public MaritalStatus MartialStatus { get; set; }
+        public MaritalStatus MaritalStatus { get; set; }
 
         [Column(TypeName = "nvarchar(24)")]
         public Gender Gender { get; set; }
