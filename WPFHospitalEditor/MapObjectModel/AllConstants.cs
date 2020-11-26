@@ -8,6 +8,6 @@ namespace WPFHospitalEditor.MapObjectModel
         public const double doorWidth = 30;
         public const double doorHeight = 6;
         public static char separator = Path.DirectorySeparatorChar;
-        public readonly static string MAPOBJECT_PATH = $"..{separator}..{separator}..{separator}Repository{separator}Data{separator}AllMapObjects.json";
+        public readonly static string MAPOBJECT_PATH = $"..{separator}..{separator}..{separator}..{separator}WPFHospitalEditor{separator}Repository{separator}Data{separator}AllMapObjects.json";
     }
 }

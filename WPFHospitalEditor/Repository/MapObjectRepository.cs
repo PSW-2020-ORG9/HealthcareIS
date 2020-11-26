@@ -8,7 +8,7 @@ using WPFHospitalEditor.MapObjectModel;
 
 namespace WPFHospitalEditor.Repository
 {
-    class MapObjectRepository : IMapObjectRepository
+    public class MapObjectRepository : IMapObjectRepository
     {
         private string path = AllConstants.MAPOBJECT_PATH;
 

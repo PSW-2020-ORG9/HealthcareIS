@@ -18990,7 +18990,7 @@
       },
       "Id": 38,
       "Name": "Examination room 5",
-      "Description": "2-0&Working Hours=09:00 - 21:00;Computers=2;Stethoscopes=3;Thermometers=7;Chairs=4",
+      "Description": "2-0&Working Hours=09:00 - 21:00;Computers=2;Stethoscopes=3;Thermometers=7;Chairs=4;",
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {

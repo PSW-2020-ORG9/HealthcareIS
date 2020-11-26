@@ -6,7 +6,7 @@ using WPFHospitalEditor.Service;
 
 namespace WPFHospitalEditor.Controller
 {
-    class MapObjectController : IMapObjectController
+    public class MapObjectController : IMapObjectController
     {
         public IMapObjectService IMapObjectService = new MapObjectService();
 

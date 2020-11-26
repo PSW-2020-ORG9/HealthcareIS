@@ -7,7 +7,7 @@ using WPFHospitalEditor.Repository;
 namespace WPFHospitalEditor.Service
 
 {
-    class MapObjectService : IMapObjectService
+    public class MapObjectService : IMapObjectService
     {
         public MapObjectRepository MapObjectRepository = new MapObjectRepository();
 
