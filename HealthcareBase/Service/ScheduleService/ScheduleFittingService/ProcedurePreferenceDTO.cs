@@ -3,11 +3,11 @@
 // Created: 02 June 2020 02:19:59
 // Purpose: Definition of Class ProcedurePreferenceDTO
 
-using Model.Schedule.Procedures;
-using Model.Schedule.SchedulingPreferences;
-using Model.Users.Patient;
+using HealthcareBase.Model.Schedule.Procedures;
+using HealthcareBase.Model.Schedule.SchedulingPreferences;
+using HealthcareBase.Model.Users.Patient;
 
-namespace Service.ScheduleService.ScheduleFittingService
+namespace HealthcareBase.Service.ScheduleService.ScheduleFittingService
 {
     public class ProcedurePreferenceDTO
     {

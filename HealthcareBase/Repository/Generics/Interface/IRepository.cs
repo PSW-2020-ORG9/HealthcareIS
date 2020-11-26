@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace Repository.Generics
+namespace HealthcareBase.Repository.Generics.Interface
 {
     public interface IRepository<T, ID>
-        where T : Entity<ID>
+        where T : IEntity<ID>
         where ID : IComparable
     {
         int Count();

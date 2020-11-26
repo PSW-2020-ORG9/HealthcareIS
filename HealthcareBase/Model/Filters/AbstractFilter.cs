@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using Model.Schedule.Procedures;
-using Repository.Generics;
+using HealthcareBase.Repository.Generics;
 
 namespace HealthcareBase.Model.Filters
 {
     public abstract class AbstractFilter<T, ID> 
         : IFilter<T, ID>
-        where T : Entity<ID> where ID : IComparable
+        where T : IEntity<ID> where ID : IComparable
     {
         private readonly List<Expression<Func<T, bool>>> _expressionFunctions = new List<Expression<Func<T, bool>>>();
 

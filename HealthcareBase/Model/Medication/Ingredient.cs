@@ -4,11 +4,11 @@
 // Purpose: Definition of Class Ingredient
 
 using System.ComponentModel.DataAnnotations;
-using Repository.Generics;
+using HealthcareBase.Repository.Generics;
 
-namespace Model.Medication
+namespace HealthcareBase.Model.Medication
 {
-    public class Ingredient : Entity<int>
+    public class Ingredient : IEntity<int>
     {
         [Key]
         public int Id { get; set; }

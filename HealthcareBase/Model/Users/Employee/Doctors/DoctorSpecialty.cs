@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Model.Users.Employee
+namespace HealthcareBase.Model.Users.Employee.Doctors
 {
     public class DoctorSpecialty
     {

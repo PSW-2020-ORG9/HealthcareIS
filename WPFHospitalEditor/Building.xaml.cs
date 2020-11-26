@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WPFHospitalEditor.MapObjectModel;
+using WPFHospitalEditor.Controller;
+using WPFHospitalEditor.Service;
 
 namespace WPFHospitalEditor
 {
@@ -18,30 +15,41 @@ namespace WPFHospitalEditor
     /// </summary>
     public partial class Building : Window
     {
-        AllMapObjects allMapObjects = new AllMapObjects();
-        Dictionary<int, Floor> buildingFloors = new Dictionary<int, Floor>();
-        HospitalMap hospitalMap = new HospitalMap();
+        private Dictionary<int, Floor> buildingFloors = new Dictionary<int, Floor>();
+        private List<MapObject> allBuildingObjects = new List<MapObject>();
+        public List<MapObject> floorBuildingObjects = new List<MapObject>();
+        MapObjectController mapObjectController = new MapObjectController();
 
-        public Building(int id)
+        public Building(List<MapObject> buildingObjects, int selectedFloor)
         {
+            allBuildingObjects = buildingObjects;
             InitializeComponent();
-            clearAll();
-            if(id == 1)
-            {
-                buildingFloors.Add(0, new Floor(AllMapObjects.allFirstBuildingFirstFloorObjects));
-                buildingFloors.Add(1, new Floor(AllMapObjects.allFirstBuildingSecondFloorObjects));
-            } else
-            {
-                buildingFloors.Add(0, new Floor(AllMapObjects.allSecondBuildingFirstFloorObjects));
-                buildingFloors.Add(1, new Floor(AllMapObjects.allSecondBuildingSecondFloorObjects));
-            }
-
-            hospitalMap.canvas = this.canvas;
+            clearAll();          
+            populateBuildingFloors(buildingObjects);            
             setFloorComboBox();
-            hospitalMap.addObjectToCanvas(buildingFloors[0].getAllFloorMapObjects(), canvas);
-            displayLegend(buildingFloors[0].getAllFloorMapObjects());
-            floor.SelectedIndex = 0;
+            floor.SelectedIndex = selectedFloor;
+            floorBuildingObjects = buildingFloors[floor.SelectedIndex].getAllFloorMapObjects();
         }
+        
+        private void populateBuildingFloors(List<MapObject> allBuildingObjects)
+        {
+            foreach(MapObject mapObjectIterate in allBuildingObjects)
+            {
+                int index = int.Parse(findFloor(mapObjectIterate));
+                if(!buildingFloors.ContainsKey(index))
+                {
+                    buildingFloors.Add(index, new Floor());
+                }
+                buildingFloors[index].addMapObject(mapObjectIterate);
+            }
+        }
+              
+        private String findFloor(MapObject mapObjectIteration)
+        {
+            String[] firstSplit = mapObjectIteration.Description.Split("&");
+            String[] floor = firstSplit[0].Split("-");
+            return floor[1];
+        }      
 
         private void setFloorComboBox()
         {
@@ -53,9 +61,10 @@ namespace WPFHospitalEditor
 
         private void back_Click(object sender, RoutedEventArgs e)
         {
-            clearAll();
+            clearAll();           
             this.Close();
-            hospitalMap.ShowDialog();
+            CanvasService.addObjectToCanvas(mapObjectController.getOutterMapObjects(mapObjectController.getAllMapObjects()), HospitalMap.canvasHospitalMap);
+            Owner.Show();
         }
 
         private void floor_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -63,7 +72,7 @@ namespace WPFHospitalEditor
             clearAll();
             int index = floor.SelectedIndex;
             if (buildingFloors.Count == 0) return;
-            hospitalMap.addObjectToCanvas(buildingFloors[index].getAllFloorMapObjects(), canvas);
+            CanvasService.addObjectToCanvas(buildingFloors[index].getAllFloorMapObjects(), canvas);
             displayLegend(buildingFloors[index].getAllFloorMapObjects());
         }
 
@@ -105,7 +114,7 @@ namespace WPFHospitalEditor
                 legend.RowDefinitions.Add(new RowDefinition() { });
             }
         }
-
+  
         private void organiseLegend(MapObjectType mapObjectType, int index)
         {
             Rectangle rectangle = createRectangleInLegend(mapObjectType);
@@ -149,7 +158,7 @@ namespace WPFHospitalEditor
         private void selectMapObject(object sender, MouseButtonEventArgs e)
         {
             int index = floor.SelectedIndex;
-            MapObject chosenMapObject = hospitalMap.checkWhichObjectIsClicked(e, buildingFloors[index].getAllFloorMapObjects());
+            MapObject chosenMapObject = CanvasService.checkWhichObjectIsClicked(e, buildingFloors[index].getAllFloorMapObjects(), this.canvas);
             if (chosenMapObject != null)
             {
                 openAdditionalInformationDialog(chosenMapObject);
@@ -158,8 +167,10 @@ namespace WPFHospitalEditor
         
         private void openAdditionalInformationDialog(MapObject mapObject)
         {
-            AdditionalInformation additionalInformation = new AdditionalInformation(mapObject);
-            additionalInformation.ShowDialog();
-        }
+            int index = floor.SelectedIndex;
+            AdditionalInformation additionalInformation = new AdditionalInformation(mapObject, this, index);
+            additionalInformation.Owner = this;
+            additionalInformation.ShowDialog(); 
+        }                     
     }
 }

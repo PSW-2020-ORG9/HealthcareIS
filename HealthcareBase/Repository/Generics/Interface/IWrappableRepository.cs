@@ -1,7 +1,6 @@
 using System;
-using System.Collections.Generic;
 
-namespace Repository.Generics
+namespace HealthcareBase.Repository.Generics.Interface
 {
     /// <summary>
     /// Repository interface which offers basic CRUD method implementations, along with a Prepare() method
@@ -12,7 +11,7 @@ namespace Repository.Generics
     public interface IWrappableRepository<T, ID> 
         : IPreparable,
         IRepository<T, ID>
-        where T : Entity<ID>
+        where T : IEntity<ID>
         where ID : IComparable
     {
         

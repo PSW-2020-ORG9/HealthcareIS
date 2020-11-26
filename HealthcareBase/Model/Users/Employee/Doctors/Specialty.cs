@@ -3,12 +3,12 @@
 // Created: 13 April 2020 18:40:05
 // Purpose: Definition of Class Specialty
 
-using Repository.Generics;
 using System.ComponentModel.DataAnnotations;
+using HealthcareBase.Repository.Generics;
 
-namespace Model.Users.Employee
+namespace HealthcareBase.Model.Users.Employee.Doctors
 {
-    public class Specialty : Entity<int>
+    public class Specialty : IEntity<int>
     {
         [Key]
         public int Id { get; set; }

@@ -4,26 +4,26 @@
 // Purpose: Definition of Class MedicalConsumableTypeService
 
 using System.Collections.Generic;
-using Model.CustomExceptions;
-using Model.HospitalResources;
-using Repository.Generics;
-using Repository.HospitalResourcesRepository;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.HospitalResources;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.HospitalResourcesRepository;
 
-namespace Service.HospitalResourcesService.MedicalConsumableService
+namespace HealthcareBase.Service.HospitalResourcesService.MedicalConsumableService
 {
     public class MedicalConsumableTypeService
     {
-        private readonly RepositoryWrapper<MedicalConsumableRepository> medicalConsumableRepository;
-        private readonly RepositoryWrapper<MedicalConsumableTypeRepository> medicalConsumableTypeRepository;
+        private readonly RepositoryWrapper<IMedicalConsumableRepository> medicalConsumableRepository;
+        private readonly RepositoryWrapper<IMedicalConsumableTypeRepository> medicalConsumableTypeRepository;
 
         public MedicalConsumableTypeService(
-            MedicalConsumableTypeRepository medicalConsumableTypeRepository,
-            MedicalConsumableRepository medicalConsumableRepository)
+            IMedicalConsumableTypeRepository medicalConsumableTypeRepository,
+            IMedicalConsumableRepository medicalConsumableRepository)
         {
             this.medicalConsumableTypeRepository =
-                new RepositoryWrapper<MedicalConsumableTypeRepository>(medicalConsumableTypeRepository);
+                new RepositoryWrapper<IMedicalConsumableTypeRepository>(medicalConsumableTypeRepository);
             this.medicalConsumableRepository =
-                new RepositoryWrapper<MedicalConsumableRepository>(medicalConsumableRepository);
+                new RepositoryWrapper<IMedicalConsumableRepository>(medicalConsumableRepository);
         }
 
         public MedicalConsumableType GetByID(int id)

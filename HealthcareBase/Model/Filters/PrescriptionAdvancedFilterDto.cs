@@ -1,5 +1,5 @@
 ﻿using System;
-using Model.Medication;
+using HealthcareBase.Model.Medication;
 
 namespace HealthcareBase.Model.Filters
 {

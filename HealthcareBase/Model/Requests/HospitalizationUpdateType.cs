@@ -3,7 +3,7 @@
 // Created: 27 May 2020 20:52:29
 // Purpose: Definition of Enum HospitalizationUpdateType
 
-namespace Model.Notifications
+namespace HealthcareBase.Model.Requests
 {
     public enum HospitalizationUpdateType
     {

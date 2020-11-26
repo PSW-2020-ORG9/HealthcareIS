@@ -1,13 +1,13 @@
 ﻿using HealthcareBase.Model.Database;
 using Microsoft.EntityFrameworkCore;
-using Model.Users.Patient;
-using Repository.Generics;
-using Repository.UsersRepository.EmployeesAndPatientsRepository;
 using System.Linq;
+using HealthcareBase.Model.Users.Patient;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository.Interface;
 
 namespace HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository
 {
-    public class PatientSqlRepository : GenericSqlRepository<Patient, int>, PatientRepository
+    public class PatientSqlRepository : GenericSqlRepository<Patient, int>, IPatientRepository
     {
         public PatientSqlRepository(IContextFactory factory): base(factory) { }
 

@@ -3,10 +3,10 @@
 // Created: 04 May 2020 13:58:09
 // Purpose: Definition of Interface ProcedureTypeRepository
 
-using Model.Schedule.Procedures;
-using Repository.Generics;
+using HealthcareBase.Model.Schedule.Procedures;
+using HealthcareBase.Repository.Generics.Interface;
 
-namespace Repository.ScheduleRepository.ProceduresRepository
+namespace HealthcareBase.Repository.ScheduleRepository.ProceduresRepository.Interface
 {
     public interface ProcedureTypeRepository : IWrappableRepository<ProcedureDetails, int>
     {

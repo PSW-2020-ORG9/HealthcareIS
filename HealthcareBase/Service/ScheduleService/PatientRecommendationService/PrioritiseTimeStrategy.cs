@@ -5,12 +5,12 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Model.Schedule.Procedures;
-using Model.Schedule.SchedulingPreferences;
-using Model.Utilities;
-using Service.ScheduleService.ScheduleFittingService;
+using HealthcareBase.Model.Schedule.Procedures;
+using HealthcareBase.Model.Schedule.SchedulingPreferences;
+using HealthcareBase.Model.Utilities;
+using HealthcareBase.Service.ScheduleService.ScheduleFittingService;
 
-namespace Service.ScheduleService.PatientRecommendationService
+namespace HealthcareBase.Service.ScheduleService.PatientRecommendationService
 {
     public class PrioritiseTimeStrategy : RecommendationStrategy
     {

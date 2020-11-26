@@ -3,27 +3,24 @@
 // Created: 27 May 2020 19:21:11
 // Purpose: Definition of Class MedicationPrescriptionService
 
-using System;
 using System.Collections.Generic;
 using HealthcareBase.Model.Filters;
-using Model.CustomExceptions;
-using Model.Medication;
-using Model.Users.Patient;
-using Repository.Generics;
-using Repository.MedicationRepository;
+using HealthcareBase.Model.Medication;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.MedicationRepository.Interface;
 
-namespace Service.MedicationService
+namespace HealthcareBase.Service.MedicationService
 {
     public class MedicationPrescriptionService
     {
-        private readonly RepositoryWrapper<MedicationPrescriptionRepository> _medicationPrescriptionWrapper;
+        private readonly RepositoryWrapper<IMedicationPrescriptionRepository> _medicationPrescriptionWrapper;
 
         public MedicationPrescriptionService(
-            MedicationPrescriptionRepository medicationPrescriptionRepository
+            IMedicationPrescriptionRepository medicationPrescriptionRepository
         )
         {
             this._medicationPrescriptionWrapper =
-                new RepositoryWrapper<MedicationPrescriptionRepository>(medicationPrescriptionRepository);
+                new RepositoryWrapper<IMedicationPrescriptionRepository>(medicationPrescriptionRepository);
         }
 
         public IEnumerable<MedicationPrescription> SimpleSearch(string nameQuery)

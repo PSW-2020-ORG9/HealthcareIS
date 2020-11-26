@@ -6,12 +6,12 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Model.Users.UserAccounts;
-using Repository.Generics;
+using HealthcareBase.Model.Users.UserAccounts;
+using HealthcareBase.Repository.Generics;
 
-namespace Model.Requests
+namespace HealthcareBase.Model.Requests
 {
-    public abstract class Request : Entity<int>
+    public abstract class Request : IEntity<int>
     {
         protected DateTime creationDate;
         protected int id;

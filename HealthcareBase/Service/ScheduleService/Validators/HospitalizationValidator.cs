@@ -1,33 +1,33 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Model.CustomExceptions;
-using Model.HospitalResources;
-using Model.Schedule.Hospitalizations;
-using Repository.Generics;
-using Repository.HospitalResourcesRepository;
-using Repository.ScheduleRepository.HospitalizationsRepository;
-using Repository.UsersRepository.EmployeesAndPatientsRepository;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.HospitalResources;
+using HealthcareBase.Model.Schedule.Hospitalizations;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.HospitalResourcesRepository;
+using HealthcareBase.Repository.ScheduleRepository.HospitalizationsRepository;
+using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository.Interface;
 
-namespace Service.ScheduleService.Validators
+namespace HealthcareBase.Service.ScheduleService.Validators
 {
     public class HospitalizationValidator
     {
-        private readonly RepositoryWrapper<EquipmentUnitRepository> equipmentUnitRepository;
-        private readonly RepositoryWrapper<HospitalizationTypeRepository> hospitalizationTypeRepository;
-        private readonly RepositoryWrapper<PatientRepository> patientRepository;
-        private readonly RepositoryWrapper<RoomRepository> roomRepository;
+        private readonly RepositoryWrapper<IEquipmentUnitRepository> equipmentUnitRepository;
+        private readonly RepositoryWrapper<IHospitalizationTypeRepository> hospitalizationTypeRepository;
+        private readonly RepositoryWrapper<IPatientRepository> patientRepository;
+        private readonly RepositoryWrapper<IRoomRepository> roomRepository;
 
         public HospitalizationValidator(
-            RoomRepository roomRepository,
-            EquipmentUnitRepository equipmentUnitRepository,
-            PatientRepository patientRepository,
-            HospitalizationTypeRepository hospitalizationTypeRepository)
+            IRoomRepository roomRepository,
+            IEquipmentUnitRepository equipmentUnitRepository,
+            IPatientRepository IPatientRepository,
+            IHospitalizationTypeRepository IHospitalizationTypeRepository)
         {
-            this.roomRepository = new RepositoryWrapper<RoomRepository>(roomRepository);
-            this.equipmentUnitRepository = new RepositoryWrapper<EquipmentUnitRepository>(equipmentUnitRepository);
-            this.patientRepository = new RepositoryWrapper<PatientRepository>(patientRepository);
+            this.roomRepository = new RepositoryWrapper<IRoomRepository>(roomRepository);
+            this.equipmentUnitRepository = new RepositoryWrapper<IEquipmentUnitRepository>(equipmentUnitRepository);
+            this.patientRepository = new RepositoryWrapper<IPatientRepository>(IPatientRepository);
             this.hospitalizationTypeRepository =
-                new RepositoryWrapper<HospitalizationTypeRepository>(hospitalizationTypeRepository);
+                new RepositoryWrapper<IHospitalizationTypeRepository>(IHospitalizationTypeRepository);
         }
 
         public void ValidateHospitalization(Hospitalization hospitalization)

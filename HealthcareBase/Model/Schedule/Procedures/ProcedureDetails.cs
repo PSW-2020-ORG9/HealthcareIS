@@ -4,16 +4,15 @@
 // Purpose: Definition of Class ProcedureType
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Model.HospitalResources;
-using Model.Users.Employee;
-using Repository.Generics;
+using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Model.Users.Employee.Doctors;
+using HealthcareBase.Repository.Generics;
 
-namespace Model.Schedule.Procedures
+namespace HealthcareBase.Model.Schedule.Procedures
 {
-    public class ProcedureDetails : Entity<int>
+    public class ProcedureDetails : IEntity<int>
     {
         [Key]
         public int Id { get; set; }

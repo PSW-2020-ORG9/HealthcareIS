@@ -3,7 +3,7 @@
 // Created: 02 June 2020 10:43:36
 // Purpose: Definition of Interface PatientAvailabilityCalculator
 
-namespace Service.ScheduleService.AvailabilityCalculators
+namespace HealthcareBase.Service.ScheduleService.AvailabilityCalculators
 {
     public interface PatientAvailabilityCalculator
     {

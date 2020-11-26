@@ -5,11 +5,11 @@
 
 using System;
 using System.Collections.Generic;
-using Model.Schedule.Procedures;
-using Model.Utilities;
-using Service.ScheduleService.AvailabilityCalculators;
+using HealthcareBase.Model.Schedule.Procedures;
+using HealthcareBase.Model.Utilities;
+using HealthcareBase.Service.ScheduleService.AvailabilityCalculators;
 
-namespace Service.ScheduleService.ScheduleFittingService
+namespace HealthcareBase.Service.ScheduleService.ScheduleFittingService
 {
     public class ProcedureScheduleFittingService
     {

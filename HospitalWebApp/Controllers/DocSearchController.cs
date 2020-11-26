@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
 using HealthcareBase.Model.Filters;
+using HealthcareBase.Service.MedicationService;
+using HealthcareBase.Service.ScheduleService.ProcedureService;
 using HospitalWebApp.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
-using Service.MedicationService;
-using Service.ScheduleService.ProcedureService;
 
 namespace HospitalWebApp.Controllers
 {

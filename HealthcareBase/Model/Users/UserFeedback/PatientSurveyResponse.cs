@@ -3,15 +3,16 @@
 // Created: 21 April 2020 18:23:22
 // Purpose: Definition of Class PatientSurveyResponse
 
-using Model.Users.Employee;
-using Model.Users.UserAccounts;
-using Repository.Generics;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Model.Users.Employee.Doctors;
+using HealthcareBase.Model.Users.UserAccounts;
+using HealthcareBase.Repository.Generics;
 
-namespace Model.Users.UserFeedback
+namespace HealthcareBase.Model.Users.UserFeedback
 {
-    public class PatientSurveyResponse : Entity<int>
+    public class PatientSurveyResponse : IEntity<int>
     {
         public int ExperienceRating { get; set; }
 

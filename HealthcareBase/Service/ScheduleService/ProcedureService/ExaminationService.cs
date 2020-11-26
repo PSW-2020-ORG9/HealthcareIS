@@ -3,44 +3,41 @@
 // Created: 28 May 2020 12:23:43
 // Purpose: Definition of Class ExaminationService
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using HealthcareBase.Model.Filters;
-using Model.CustomExceptions;
-using Model.Miscellaneous;
-using Model.Schedule.Procedures;
-using Model.Users.Employee;
-using Model.Users.Patient;
-using Model.Users.Patient.MedicalHistory;
-using Model.Utilities;
-using Repository.Generics;
-using Repository.MiscellaneousRepository;
-using Repository.ScheduleRepository.ProceduresRepository;
-using Repository.UsersRepository.EmployeesAndPatientsRepository;
-using Service.ScheduleService.Validators;
 
-namespace Service.ScheduleService.ProcedureService
+using System;
+using System.Collections.Generic;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.Filters;
+using HealthcareBase.Model.Miscellaneous;
+using HealthcareBase.Model.Schedule.Procedures;
+using HealthcareBase.Model.Users.Employee.Doctors;
+using HealthcareBase.Model.Users.Patient;
+using HealthcareBase.Model.Utilities;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.MiscellaneousRepository;
+using HealthcareBase.Repository.ScheduleRepository.ProceduresRepository.Interface;
+using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository.Interface;
+using HealthcareBase.Service.ScheduleService.Validators;
+
+namespace HealthcareBase.Service.ScheduleService.ProcedureService
 {
     public class ExaminationService : AbstractProcedureSchedulingService<Examination>
     {
-        private readonly RepositoryWrapper<DiagnosisRepository> _diagnosisWrapper;
-        private readonly RepositoryWrapper<ExaminationRepository> _examinationWrapper;
-        private readonly RepositoryWrapper<PatientRepository> _patientWrapper;
+        private readonly RepositoryWrapper<IDiagnosisRepository> _diagnosisWrapper;
+        private readonly RepositoryWrapper<IExaminationRepository> _examinationWrapper;
+        private readonly RepositoryWrapper<IPatientRepository> _patientWrapper;
 
         public ExaminationService(
-            ExaminationRepository examinationRepository,
-            DiagnosisRepository diagnosisRepository,
-            PatientRepository patientRepository,
-            ProcedureScheduleComplianceValidator scheduleValidator, ProcedureValidator procedureValidator,
+            IExaminationRepository examinationRepository,
+            IDiagnosisRepository diagnosisRepository,
+            IPatientRepository patientRepository,
+            ProcedureScheduleComplianceValidator scheduleValidator,
             TimeSpan timeLimit
-        ) : base(scheduleValidator, procedureValidator, timeLimit)
+        ) : base(timeLimit)
         {
-            this._examinationWrapper = new RepositoryWrapper<ExaminationRepository>(examinationRepository);
-            this._diagnosisWrapper = new RepositoryWrapper<DiagnosisRepository>(diagnosisRepository);
-            this._patientWrapper = new RepositoryWrapper<PatientRepository>(patientRepository);
+            this._examinationWrapper = new RepositoryWrapper<IExaminationRepository>(examinationRepository);
+            this._diagnosisWrapper = new RepositoryWrapper<IDiagnosisRepository>(diagnosisRepository);
+            this._patientWrapper = new RepositoryWrapper<IPatientRepository>(patientRepository);
         }
 
         public IEnumerable<Examination> SimpleSearch(ExaminationSimpleFilterDto examinationSimpleFilterDto)

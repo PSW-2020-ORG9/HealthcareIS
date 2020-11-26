@@ -3,11 +3,12 @@
 // Created: 27 May 2020 20:22:22
 // Purpose: Definition of Class ClearDoctorsSchedule
 
-using Model.Users.Employee;
-using Model.Utilities;
 using System.ComponentModel.DataAnnotations.Schema;
+using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Model.Users.Employee.Doctors;
+using HealthcareBase.Model.Utilities;
 
-namespace Model.Requests
+namespace HealthcareBase.Model.Requests
 {
     public class ClearDoctorsSchedule : ScheduleAdjustmentRequest
     {

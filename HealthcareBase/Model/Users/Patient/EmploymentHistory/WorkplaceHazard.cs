@@ -3,10 +3,10 @@
 // Created: 20 April 2020 21:03:42
 // Purpose: Definition of Class WorkplaceHazard
 
-using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
-namespace Model.Users.Patient.EmploymentHistory
+namespace HealthcareBase.Model.Users.Patient.EmploymentHistory
 {
     [Owned]
     public class WorkplaceHazard

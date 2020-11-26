@@ -4,10 +4,10 @@
 // Purpose: Definition of Interface RecommendationStrategy
 
 using System.Collections.Generic;
-using Model.Schedule.Procedures;
-using Service.ScheduleService.ScheduleFittingService;
+using HealthcareBase.Model.Schedule.Procedures;
+using HealthcareBase.Service.ScheduleService.ScheduleFittingService;
 
-namespace Service.ScheduleService.PatientRecommendationService
+namespace HealthcareBase.Service.ScheduleService.PatientRecommendationService
 {
     public interface RecommendationStrategy
     {

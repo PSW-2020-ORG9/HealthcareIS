@@ -3,12 +3,12 @@
 // Created: 21 April 2020 11:34:09
 // Purpose: Definition of Class UserAccount
 
-using Repository.Generics;
 using System.ComponentModel.DataAnnotations;
+using HealthcareBase.Repository.Generics;
 
-namespace Model.Users.UserAccounts
+namespace HealthcareBase.Model.Users.UserAccounts
 {
-    public abstract class UserAccount : Entity<int>
+    public abstract class UserAccount : IEntity<int>
     {
         [Key]
         public int Id { get; set; }

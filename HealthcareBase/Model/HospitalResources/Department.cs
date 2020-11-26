@@ -3,12 +3,12 @@
 // Created: 18 April 2020 17:20:00
 // Purpose: Definition of Class Department
 
-using Repository.Generics;
 using System.ComponentModel.DataAnnotations;
+using HealthcareBase.Repository.Generics;
 
-namespace Model.HospitalResources
+namespace HealthcareBase.Model.HospitalResources
 {
-    public class Department : Entity<int>
+    public class Department : IEntity<int>
     {
         [Key]
         public int Id { get; set; }

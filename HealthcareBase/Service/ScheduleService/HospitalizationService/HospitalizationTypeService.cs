@@ -4,20 +4,20 @@
 // Purpose: Definition of Class HospitalizationTypeService
 
 using System.Collections.Generic;
-using Model.Schedule.Hospitalizations;
-using Repository.Generics;
-using Repository.ScheduleRepository.HospitalizationsRepository;
+using HealthcareBase.Model.Schedule.Hospitalizations;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.ScheduleRepository.HospitalizationsRepository;
 
-namespace Service.ScheduleService.HospitalizationService
+namespace HealthcareBase.Service.ScheduleService.HospitalizationService
 {
     public class HospitalizationTypeService
     {
-        private readonly RepositoryWrapper<HospitalizationTypeRepository> hospitalizationTypeRepository;
+        private readonly RepositoryWrapper<IHospitalizationTypeRepository> hospitalizationTypeRepository;
 
-        public HospitalizationTypeService(HospitalizationTypeRepository hospitalizationTypeRepository)
+        public HospitalizationTypeService(IHospitalizationTypeRepository hospitalizationTypeRepository)
         {
             this.hospitalizationTypeRepository =
-                new RepositoryWrapper<HospitalizationTypeRepository>(hospitalizationTypeRepository);
+                new RepositoryWrapper<IHospitalizationTypeRepository>(hospitalizationTypeRepository);
         }
 
         public IEnumerable<HospitalizationType> GetAll()

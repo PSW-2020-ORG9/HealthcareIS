@@ -1,23 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Model.Medication;
-using Model.Miscellaneous;
+using HealthcareBase.Model.Medication;
+using HealthcareBase.Model.Miscellaneous;
+using HealthcareBase.Repository.MedicationRepository.Interface;
+using HealthcareBase.Service.MedicationService;
 using Moq;
-using Repository.MedicationRepository;
-using Service.MedicationService;
 using Xunit;
 
 namespace HealthcareBaseTests
 {
     public class DocSearchTests
     {
-        private Mock<MedicationPrescriptionRepository> _prescriptionStubRepository;
+        private Mock<IMedicationPrescriptionRepository> _prescriptionStubRepository;
 
         // Prescriptions and past examinations 
         private void PrepareStubs()
         {
-            _prescriptionStubRepository = new Mock<MedicationPrescriptionRepository>();
+            _prescriptionStubRepository = new Mock<IMedicationPrescriptionRepository>();
 
             var allPrescriptions = new List<MedicationPrescription>();
             var matchedPrescriptions = new List<MedicationPrescription>();

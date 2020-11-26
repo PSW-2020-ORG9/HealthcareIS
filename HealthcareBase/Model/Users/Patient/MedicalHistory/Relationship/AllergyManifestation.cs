@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-using Model.Miscellaneous;
+using HealthcareBase.Model.Miscellaneous;
 
-namespace Model.Users.Patient.MedicalHistory.Relationship
+namespace HealthcareBase.Model.Users.Patient.MedicalHistory.Relationship
 {
     public class AllergyManifestation
     {

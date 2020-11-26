@@ -6,26 +6,27 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Model.CustomExceptions;
-using Model.Schedule.Procedures;
-using Model.Users.Employee;
-using Model.Utilities;
-using Repository.Generics;
-using Repository.UsersRepository.EmployeesAndPatientsRepository;
-using Service.ScheduleService.ProcedureService;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.Schedule.Procedures;
+using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Model.Users.Employee.Doctors;
+using HealthcareBase.Model.Utilities;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository.Interface;
+using HealthcareBase.Service.ScheduleService.ProcedureService;
 
-namespace Service.UsersService.EmployeeService
+namespace HealthcareBase.Service.UsersService.EmployeeService
 {
     public class ShiftService
     {
         private readonly ProcedureService procedureService;
-        private readonly RepositoryWrapper<ShiftRepository> shiftRepository;
+        private readonly RepositoryWrapper<IShiftRepository> shiftRepository;
 
         public ShiftService(
-            ShiftRepository shiftRepository,
+            IShiftRepository shiftRepository,
             ProcedureService procedureService)
         {
-            this.shiftRepository = new RepositoryWrapper<ShiftRepository>(shiftRepository);
+            this.shiftRepository = new RepositoryWrapper<IShiftRepository>(shiftRepository);
             this.procedureService = procedureService;
         }
 

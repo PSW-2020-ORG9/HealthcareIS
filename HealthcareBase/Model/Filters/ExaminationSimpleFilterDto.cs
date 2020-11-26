@@ -1,4 +1,6 @@
-﻿using Model.Schedule.Procedures;
+﻿
+
+using HealthcareBase.Model.Schedule.Procedures;
 
 namespace HealthcareBase.Model.Filters
 {

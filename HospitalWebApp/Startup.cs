@@ -1,22 +1,22 @@
 using System;
 using System.Runtime.InteropServices;
 using HealthcareBase.Model.Database;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.Generics.Interface;
 using HealthcareBase.Repository.MedicationRepository;
+using HealthcareBase.Repository.ScheduleRepository.ProceduresRepository;
 using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository;
+using HealthcareBase.Repository.UsersRepository.UserFeedbackRepository;
+using HealthcareBase.Service.MedicationService;
+using HealthcareBase.Service.ScheduleService.ProcedureService;
+using HealthcareBase.Service.UsersService.PatientService;
+using HealthcareBase.Service.UsersService.UserFeedbackService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Model.Medication;
 using Newtonsoft.Json.Linq;
-using Repository.Generics;
-using Repository.ScheduleRepository.ProceduresRepository;
-using Repository.UsersRepository.UserFeedbackRepository;
-using Service.MedicationService;
-using Service.ScheduleService.ProcedureService;
-using Service.UsersService.PatientService;
-using Service.UsersService.UserFeedbackService;
 
 namespace HospitalWebApp
 {
@@ -86,7 +86,7 @@ namespace HospitalWebApp
             var userFeedbackService = new UserFeedbackService(userFeedbackRepository);
             var patientService = new PatientService(patientRepository, null, null, null);
             var prescriptionService = new MedicationPrescriptionService(prescriptionRepository);
-            var examinationService = new ExaminationService(examinationRepository, null, null, null, null, TimeSpan.Zero);
+            var examinationService = new ExaminationService(examinationRepository, null, null, null, TimeSpan.Zero);
             
             services.Add(new ServiceDescriptor(typeof(UserFeedbackService), userFeedbackService));
             services.Add(new ServiceDescriptor(typeof(PatientService), patientService));

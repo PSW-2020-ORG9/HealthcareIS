@@ -5,7 +5,7 @@
 
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Model.StorageRecords
+namespace HealthcareBase.Model.StorageRecords
 {
     public class MedicationStorageRecord : StorageRecord
     {

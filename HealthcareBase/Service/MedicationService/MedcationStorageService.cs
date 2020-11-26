@@ -4,12 +4,12 @@
 // Purpose: Definition of Class MedcationStorageService
 
 using System;
-using Model.Medication;
-using Model.StorageRecords;
-using Repository.Generics;
-using Repository.MedicationRepository;
+using HealthcareBase.Model.Medication;
+using HealthcareBase.Model.StorageRecords;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.MedicationRepository.Interface;
 
-namespace Service.MedicationService
+namespace HealthcareBase.Service.MedicationService
 {
     public class MedcationStorageService
     {

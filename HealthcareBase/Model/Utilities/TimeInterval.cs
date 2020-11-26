@@ -3,10 +3,10 @@
 // Created: 20 April 2020 23:38:16
 // Purpose: Definition of Class TimeInterval
 
-using Microsoft.EntityFrameworkCore;
 using System;
+using Microsoft.EntityFrameworkCore;
 
-namespace Model.Utilities
+namespace HealthcareBase.Model.Utilities
 {
     [Owned]
     public class TimeInterval

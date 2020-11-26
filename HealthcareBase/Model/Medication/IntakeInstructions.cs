@@ -3,11 +3,10 @@
 // Created: 20 April 2020 23:19:05
 // Purpose: Definition of Class IntakeInstructions
 
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Model.Medication
+namespace HealthcareBase.Model.Medication
 {
     public class IntakeInstructions
     {

@@ -1,7 +1,7 @@
-﻿using Model.Miscellaneous;
-using Model.Schedule.Procedures;
+﻿using HealthcareBase.Model.Miscellaneous;
+using HealthcareBase.Model.Schedule.Procedures;
 
-namespace Service.ScheduleService.ProcedureService
+namespace HealthcareBase.Service.ScheduleService.ProcedureService
 {
     public class AnamnesisAndDiagnosisDTO
     {

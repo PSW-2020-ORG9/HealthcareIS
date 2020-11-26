@@ -6,5 +6,10 @@
         xmlns:local="clr-namespace:WPFHospitalEditor"
         mc:Ignorable="d"
         Title="AdditionalInformation" Height="400" Width="350" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen">
-    <Border BorderThickness="10" BorderBrush="#FF8BD9E0" x:Name="Border"></Border>
+    <Border BorderThickness="10" BorderBrush="#FF8BD9E0" x:Name="Border">
+        <Grid x:Name="DynamicGrid" Background="#FFC6F5F8">
+
+        </Grid>
+    </Border>
+    
 </Window>
