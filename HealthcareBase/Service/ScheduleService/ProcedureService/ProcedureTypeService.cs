@@ -4,19 +4,19 @@
 // Purpose: Definition of Class ProcedureTypeService
 
 using System.Collections.Generic;
-using Model.Schedule.Procedures;
-using Repository.Generics;
-using Repository.ScheduleRepository.ProceduresRepository;
+using HealthcareBase.Model.Schedule.Procedures;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.ScheduleRepository.ProceduresRepository.Interface;
 
-namespace Service.ScheduleService.ProcedureService
+namespace HealthcareBase.Service.ScheduleService.ProcedureService
 {
     public class ProcedureTypeService
     {
-        private readonly RepositoryWrapper<ProcedureTypeRepository> procedureTypeRepository;
+        private readonly RepositoryWrapper<IProcedureTypeRepository> procedureTypeRepository;
 
-        public ProcedureTypeService(ProcedureTypeRepository procedureTypeRepository)
+        public ProcedureTypeService(IProcedureTypeRepository procedureTypeRepository)
         {
-            this.procedureTypeRepository = new RepositoryWrapper<ProcedureTypeRepository>(procedureTypeRepository);
+            this.procedureTypeRepository = new RepositoryWrapper<IProcedureTypeRepository>(procedureTypeRepository);
         }
 
         public ProcedureType GetPatientDefault()

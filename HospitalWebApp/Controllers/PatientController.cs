@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HealthcareBase.Model.Users.Patient;
+using HealthcareBase.Service.UsersService.PatientService;
 using HospitalWebApp.Adapters;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Model.Users.Generalities;
-using Model.Users.Patient;
-using Service.UsersService.PatientService;
 
 namespace HospitalWebApp.Controllers
 {

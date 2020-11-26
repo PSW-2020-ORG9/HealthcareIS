@@ -3,15 +3,14 @@
 // Created: 20 April 2020 11:54:01
 // Purpose: Definition of Class BlogAuthor
 
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Model.Users.Employee;
-using Repository.Generics;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Repository.Generics;
 
-namespace Model.Blog
+namespace HealthcareBase.Model.Blog
 {
-    public class BlogAuthor : Entity<int>
+    public class BlogAuthor : IEntity<int>
     {
         public BlogAuthor(string description, Doctor doctor)
         {

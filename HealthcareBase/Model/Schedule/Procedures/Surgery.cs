@@ -3,10 +3,10 @@
 // Created: 20 April 2020 23:40:27
 // Purpose: Definition of Class Surgery
 
-using Model.Miscellaneous;
 using System.ComponentModel.DataAnnotations.Schema;
+using HealthcareBase.Model.Miscellaneous;
 
-namespace Model.Schedule.Procedures
+namespace HealthcareBase.Model.Schedule.Procedures
 {
     public class Surgery : Procedure
     {
@@ -15,16 +15,6 @@ namespace Model.Schedule.Procedures
         public Diagnosis Diagnosis { get; set; }
 
         public string CauseOfSurgery { get; set; }
-
-        public override bool Equals(object obj)
-        {
-            return obj is Surgery procedure &&
-                   id == procedure.id;
-        }
-
-        public override int GetHashCode()
-        {
-            return 1877310944 + id.GetHashCode();
-        }
+        public int MedicalRecordId { get; set; }
     }
 }

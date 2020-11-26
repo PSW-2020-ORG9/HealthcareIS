@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Model.CustomExceptions;
-using Model.Schedule.Hospitalizations;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.Schedule.Hospitalizations;
 
-namespace Service.ScheduleService.Validators
+namespace HealthcareBase.Service.ScheduleService.Validators
 {
     public class HospitalizationScheduleComplianceValidator
     {

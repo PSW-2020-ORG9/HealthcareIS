@@ -5,35 +5,31 @@
 
 using System;
 using System.Collections.Generic;
-using Model.CustomExceptions;
-using Model.HospitalResources;
-using Model.Notifications;
-using Model.Schedule.Hospitalizations;
-using Model.Users.Patient;
-using Model.Utilities;
-using Repository.Generics;
-using Repository.ScheduleRepository.HospitalizationsRepository;
-using Service.ScheduleService.Validators;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.HospitalResources;
+using HealthcareBase.Model.Schedule.Hospitalizations;
+using HealthcareBase.Model.Users.Patient;
+using HealthcareBase.Model.Utilities;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.ScheduleRepository.HospitalizationsRepository;
+using HealthcareBase.Service.ScheduleService.Validators;
 
-namespace Service.ScheduleService.HospitalizationService
+namespace HealthcareBase.Service.ScheduleService.HospitalizationService
 {
     public class HospitalizationService
     {
-        private readonly RepositoryWrapper<HospitalizationRepository> hospitalizationRepository;
+        private readonly RepositoryWrapper<IHospitalizationRepository> hospitalizationRepository;
         private readonly HospitalizationValidator hospitalizationValidator;
-        private readonly NotificationService.NotificationService notificationService;
         private readonly TimeSpan timeLimit;
 
         public HospitalizationService(
-            HospitalizationRepository hospitalizationRepository,
+            IHospitalizationRepository IHospitalizationRepository,
             HospitalizationValidator hospitalizationValidator,
-            NotificationService.NotificationService notificationService,
             TimeSpan timeLimit)
         {
             this.hospitalizationRepository =
-                new RepositoryWrapper<HospitalizationRepository>(hospitalizationRepository);
+                new RepositoryWrapper<IHospitalizationRepository>(IHospitalizationRepository);
             this.hospitalizationValidator = hospitalizationValidator;
-            this.notificationService = notificationService;
             this.timeLimit = timeLimit;
         }
 
@@ -89,7 +85,6 @@ namespace Service.ScheduleService.HospitalizationService
                 throw new BadRequestException();
             ValidateForScheduling(hospitalization);
             var createdHospitalization = hospitalizationRepository.Repository.Create(hospitalization);
-            notificationService.Notify(HospitalizationUpdateType.Scheduled, createdHospitalization);
             return createdHospitalization;
         }
 
@@ -99,7 +94,6 @@ namespace Service.ScheduleService.HospitalizationService
                 throw new BadRequestException();
             ValidateForRescheduling(hospitalization);
             var updatedHospitalization = hospitalizationRepository.Repository.Update(hospitalization);
-            notificationService.Notify(HospitalizationUpdateType.Rescheduled, updatedHospitalization);
             return updatedHospitalization;
         }
 
@@ -109,7 +103,6 @@ namespace Service.ScheduleService.HospitalizationService
                 throw new BadRequestException();
             ValidateForCancelling(hospitalization);
             hospitalizationRepository.Repository.Delete(hospitalization);
-            notificationService.Notify(HospitalizationUpdateType.Cancelled, hospitalization);
         }
 
         private void ValidateForScheduling(Hospitalization hospitalization)

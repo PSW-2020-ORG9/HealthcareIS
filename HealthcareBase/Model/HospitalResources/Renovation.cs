@@ -3,14 +3,14 @@
 // Created: 21 April 2020 00:07:14
 // Purpose: Definition of Class Renovation
 
-using Model.Utilities;
-using Repository.Generics;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using HealthcareBase.Model.Utilities;
+using HealthcareBase.Repository.Generics;
 
-namespace Model.HospitalResources
+namespace HealthcareBase.Model.HospitalResources
 {
-    public class Renovation : Entity<int>
+    public class Renovation : IEntity<int>
     {
         public Renovation(string description, TimeInterval timeInterval, Room room)
         {

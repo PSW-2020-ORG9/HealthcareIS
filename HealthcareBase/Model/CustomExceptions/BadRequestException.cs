@@ -3,7 +3,7 @@
 // Created: 02 June 2020 13:53:33
 // Purpose: Definition of Class BadRequestException
 
-namespace Model.CustomExceptions
+namespace HealthcareBase.Model.CustomExceptions
 {
     public class BadRequestException : HealthClinicException
     {

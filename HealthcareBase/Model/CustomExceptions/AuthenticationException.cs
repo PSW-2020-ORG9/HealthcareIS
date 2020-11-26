@@ -3,7 +3,7 @@
 // Created: 02 June 2020 14:00:57
 // Purpose: Definition of Class AuthenticationException
 
-namespace Model.CustomExceptions
+namespace HealthcareBase.Model.CustomExceptions
 {
     public class AuthenticationException : ValidationException
     {

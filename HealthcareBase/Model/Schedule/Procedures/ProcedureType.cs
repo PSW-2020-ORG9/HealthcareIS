@@ -7,13 +7,13 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Model.HospitalResources;
-using Model.Users.Employee;
-using Repository.Generics;
+using HealthcareBase.Model.HospitalResources;
+using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Repository.Generics;
 
-namespace Model.Schedule.Procedures
+namespace HealthcareBase.Model.Schedule.Procedures
 {
-    public class ProcedureType : Entity<int>
+    public class ProcedureType : IEntity<int>
     {
         protected TimeSpan duration;
         protected int id;

@@ -4,10 +4,10 @@
 // Purpose: Definition of Class ConsiderPatientsHospitalizationsCalculator
 
 using System.Linq;
-using Model.Schedule.Hospitalizations;
-using Model.Utilities;
+using HealthcareBase.Model.Schedule.Hospitalizations;
+using HealthcareBase.Model.Utilities;
 
-namespace Service.ScheduleService.AvailabilityCalculators
+namespace HealthcareBase.Service.ScheduleService.AvailabilityCalculators
 {
     public class ConsiderPatientsHospitalizationsCalculator : PatientAvailabilityCalculatorDecorator
     {

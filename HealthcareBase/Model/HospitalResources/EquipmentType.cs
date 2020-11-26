@@ -3,12 +3,12 @@
 // Created: 18 April 2020 16:54:14
 // Purpose: Definition of Class EquipmentType
 
-using Repository.Generics;
 using System.ComponentModel.DataAnnotations;
+using HealthcareBase.Repository.Generics;
 
-namespace Model.HospitalResources
+namespace HealthcareBase.Model.HospitalResources
 {
-    public class EquipmentType : Entity<int>
+    public class EquipmentType : IEntity<int>
     {
         public EquipmentType(string name, string purpose, bool requiresRenovationToMove)
         {

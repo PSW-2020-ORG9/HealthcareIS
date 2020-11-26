@@ -1,12 +1,12 @@
 ﻿using System;
 using EntityFramework.Exceptions.Common;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.Users.UserFeedback;
+using HealthcareBase.Service.UsersService.UserFeedbackService;
 using HealthcareBase.Service.ValidationService;
 using HospitalWebApp.Adapters;
 using HospitalWebApp.Dtos;
 using Microsoft.AspNetCore.Mvc;
-using Model.CustomExceptions;
-using Model.Users.UserFeedback;
-using Service.UsersService.UserFeedbackService;
 
 namespace HospitalWebApp.Controllers
 {
@@ -67,7 +67,6 @@ namespace HospitalWebApp.Controllers
                 return Ok("Feedback successfully published.");
             return BadRequest();
         }
-
         
         /// <summary>
         /// Returns a list of all <see cref="UserFeedback"/> objects from the database

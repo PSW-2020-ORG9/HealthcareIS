@@ -6,13 +6,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Model.HospitalResources;
-using Model.Users.Employee;
-using Model.Utilities;
-using Service.HospitalResourcesService.RoomService;
-using Service.UsersService.EmployeeService;
+using HealthcareBase.Model.HospitalResources;
+using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Model.Utilities;
+using HealthcareBase.Service.HospitalResourcesService.RoomService;
+using HealthcareBase.Service.UsersService.EmployeeService;
 
-namespace Service.ScheduleService.ScheduleFittingService
+namespace HealthcareBase.Service.ScheduleService.ScheduleFittingService
 {
     public class PreferenceToResourceConverter
     {

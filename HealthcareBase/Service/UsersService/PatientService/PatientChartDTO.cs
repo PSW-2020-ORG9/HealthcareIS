@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using Model.Schedule.Hospitalizations;
-using Model.Schedule.Procedures;
-using Model.Users.Patient;
+using HealthcareBase.Model.Schedule.Hospitalizations;
+using HealthcareBase.Model.Schedule.Procedures;
+using HealthcareBase.Model.Users.Patient;
 
-namespace Service.UsersService.PatientService
+namespace HealthcareBase.Service.UsersService.PatientService
 {
     public class PatientChartDTO
     {

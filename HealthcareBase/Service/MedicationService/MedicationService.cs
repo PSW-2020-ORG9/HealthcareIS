@@ -4,19 +4,19 @@
 // Purpose: Definition of Class MedicationService
 
 using System.Collections.Generic;
-using Model.Medication;
-using Repository.Generics;
-using Repository.MedicationRepository;
+using HealthcareBase.Model.Medication;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.MedicationRepository.Interface;
 
-namespace Service.MedicationService
+namespace HealthcareBase.Service.MedicationService
 {
     public class MedicationService
     {
-        private readonly RepositoryWrapper<MedicationRepository> medicationRepository;
+        private readonly RepositoryWrapper<IMedicationRepository> medicationRepository;
 
-        public MedicationService(MedicationRepository medicationRepository)
+        public MedicationService(IMedicationRepository medicationRepository)
         {
-            this.medicationRepository = new RepositoryWrapper<MedicationRepository>(medicationRepository);
+            this.medicationRepository = new RepositoryWrapper<IMedicationRepository>(medicationRepository);
         }
 
         public Medication GetByID(int id)

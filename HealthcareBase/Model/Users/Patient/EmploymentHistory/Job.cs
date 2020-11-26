@@ -3,10 +3,10 @@
 // Created: 20 April 2020 17:39:56
 // Purpose: Definition of Class Job
 
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
-namespace Model.Users.Patient.EmploymentHistory
+namespace HealthcareBase.Model.Users.Patient.EmploymentHistory
 {
     [Owned]
     public class Job

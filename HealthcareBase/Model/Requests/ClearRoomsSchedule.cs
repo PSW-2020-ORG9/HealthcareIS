@@ -3,11 +3,11 @@
 // Created: 27 May 2020 20:22:22
 // Purpose: Definition of Class ClearRoomsSchedule
 
-using Model.HospitalResources;
-using Model.Utilities;
 using System.ComponentModel.DataAnnotations.Schema;
+using HealthcareBase.Model.HospitalResources;
+using HealthcareBase.Model.Utilities;
 
-namespace Model.Requests
+namespace HealthcareBase.Model.Requests
 {
     public class ClearRoomsSchedule : ScheduleAdjustmentRequest
     {

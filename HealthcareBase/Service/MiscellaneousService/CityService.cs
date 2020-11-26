@@ -4,19 +4,19 @@
 // Purpose: Definition of Class CityService
 
 using System.Collections.Generic;
-using Model.Users.Generalities;
-using Repository.Generics;
-using Repository.UsersRepository.GeneralitiesRepository;
+using HealthcareBase.Model.Users.Generalities;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.UsersRepository.GeneralitiesRepository;
 
-namespace Service.MiscellaneousService
+namespace HealthcareBase.Service.MiscellaneousService
 {
     public class CityService
     {
-        private readonly RepositoryWrapper<CityRepository> cityRepository;
+        private readonly RepositoryWrapper<ICityRepository> cityRepository;
 
-        public CityService(CityRepository cityRepository)
+        public CityService(ICityRepository cityRepository)
         {
-            this.cityRepository = new RepositoryWrapper<CityRepository>(cityRepository);
+            this.cityRepository = new RepositoryWrapper<ICityRepository>(cityRepository);
         }
 
         public City GetByID(int id)

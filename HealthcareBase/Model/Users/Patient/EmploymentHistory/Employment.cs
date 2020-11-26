@@ -3,10 +3,10 @@
 // Created: 20 April 2020 20:48:53
 // Purpose: Definition of Class Employment
 
-using Microsoft.EntityFrameworkCore;
 using System;
+using Microsoft.EntityFrameworkCore;
 
-namespace Model.Users.Patient.EmploymentHistory
+namespace HealthcareBase.Model.Users.Patient.EmploymentHistory
 {
     [Owned]
     public class Employment

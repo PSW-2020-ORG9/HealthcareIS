@@ -4,34 +4,33 @@
 // Purpose: Definition of Class PatientService
 
 using System.Collections.Generic;
-using System.Linq;
-using Model.CustomExceptions;
-using Model.Users.Patient;
-using Repository.Generics;
-using Repository.ScheduleRepository.HospitalizationsRepository;
-using Repository.ScheduleRepository.ProceduresRepository;
-using Repository.UsersRepository.EmployeesAndPatientsRepository;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.Users.Patient;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.ScheduleRepository.HospitalizationsRepository;
+using HealthcareBase.Repository.ScheduleRepository.ProceduresRepository.Interface;
+using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository.Interface;
 
-namespace Service.UsersService.PatientService
+namespace HealthcareBase.Service.UsersService.PatientService
 {
     public class PatientService
     {
-        private readonly RepositoryWrapper<ExaminationRepository> examinationRepository;
-        private readonly RepositoryWrapper<HospitalizationRepository> hospitalizationRepository;
-        private readonly RepositoryWrapper<PatientRepository> patientRepository;
-        private readonly RepositoryWrapper<SurgeryRepository> surgeryRepository;
+        private readonly RepositoryWrapper<IExaminationRepository> examinationRepository;
+        private readonly RepositoryWrapper<IHospitalizationRepository> hospitalizationRepository;
+        private readonly RepositoryWrapper<IPatientRepository> patientRepository;
+        private readonly RepositoryWrapper<ISurgeryRepository> surgeryRepository;
 
         public PatientService(
-            PatientRepository patientRepository,
-            ExaminationRepository examinationRepository,
-            SurgeryRepository surgeryRepository,
-            HospitalizationRepository hospitalizationRepository)
+            IPatientRepository patientRepository,
+            IExaminationRepository examinationRepository,
+            ISurgeryRepository surgeryRepository,
+            IHospitalizationRepository hospitalizationRepository)
         {
-            this.patientRepository = new RepositoryWrapper<PatientRepository>(patientRepository);
-            this.examinationRepository = new RepositoryWrapper<ExaminationRepository>(examinationRepository);
-            this.surgeryRepository = new RepositoryWrapper<SurgeryRepository>(surgeryRepository);
+            this.patientRepository = new RepositoryWrapper<IPatientRepository>(patientRepository);
+            this.examinationRepository = new RepositoryWrapper<IExaminationRepository>(examinationRepository);
+            this.surgeryRepository = new RepositoryWrapper<ISurgeryRepository>(surgeryRepository);
             this.hospitalizationRepository =
-                new RepositoryWrapper<HospitalizationRepository>(hospitalizationRepository);
+                new RepositoryWrapper<IHospitalizationRepository>(hospitalizationRepository);
         }
 
         public PatientChartDTO GetPatientChart(Patient patient)
