@@ -1,19 +1,11 @@
 <template>
-<<<<<<< HEAD
-<body>
-  <div class="bg-image">
-  <div id="nav">
-    <router-link to="/">Observe feedback</router-link> |
-    <router-link to="/create-feedback">Create feedback | </router-link> 
-    <router-link to="/survey-preview">Survey preview</router-link>
-=======
   <div class="bg-image"></div>
   <div id="nav" style="background-color:rgb(177, 255, 177); margin-bottom: 50px;">
     <router-link to="/" style="margin-right: 5px; margin-left: 5px;">Observe feedback</router-link> &middot;
     <router-link to="/create-feedback" style="margin-right: 5px; margin-left: 5px;">Create feedback</router-link> &middot;
+    <router-link to="/survey-preview" style="margin-right: 5px; margin-left: 5px;">Survey preview</router-link> &middot
     <router-link to="/medical-record" style="margin-right: 5px; margin-left: 5px;"> Observe medical record </router-link> &middot;
     <router-link to="/doc-search" style="margin-right: 5px; margin-left: 5px;">Search medical documentation </router-link>
->>>>>>> master
   </div>
   <router-view/>
   </div>

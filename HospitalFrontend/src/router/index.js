@@ -1,12 +1,9 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import CreateFeedback from '../views/CreateFeedback.vue'
 import ObserveFeedback from '../views/ObserveFeedback.vue'
-<<<<<<< HEAD
 import SurveyPreview from '../views/SurveyPreview.vue'
-=======
 import ObserveMedicalRecord from '../views/ObserveMedicalRecord.vue'
 import DocSearch from '../views/DocSearch.vue'
->>>>>>> master
 
 const routes = [
   {
