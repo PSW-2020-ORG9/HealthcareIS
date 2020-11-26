@@ -13,19 +13,8 @@ namespace HealthcareBase.Model.HospitalResources
 {
     public class EquipmentUnit : IEntity<int>
     {
-        public EquipmentUnit(DateTime acquisitionDate, string manufacturer, Room currentLocation,
-            EquipmentType equipmentType)
-        {
-            AcquisitionDate = acquisitionDate;
-            Manufacturer = manufacturer;
-            CurrentLocation = currentLocation;
-            EquipmentType = equipmentType;
-        }
-
-        public EquipmentUnit()
-        {
-            EquipmentType = new EquipmentType();
-        }
+        [Key]
+        public int Id { get; set; }
 
         public DateTime AcquisitionDate { get; set; }
         public string Manufacturer { get; set; }
@@ -35,33 +24,10 @@ namespace HealthcareBase.Model.HospitalResources
         public Room CurrentLocation { get; set; }
 
         [ForeignKey("EquipmentType")]
-        public int? EquipmentTypeId { get; set; }
+        public int EquipmentTypeId { get; set; }
         public EquipmentType EquipmentType { get; set; }
 
-        public Hospitalization Hospitalization { get; set; }
-
-        [Key]
-        public int Id { get; set; }
-
-        public int GetKey()
-        {
-            return Id;
-        }
-
-        public void SetKey(int id)
-        {
-            Id = id;
-        }
-
-        public override bool Equals(object obj)
-        {
-            return obj is EquipmentUnit unit &&
-                   Id == unit.Id;
-        }
-
-        public override int GetHashCode()
-        {
-            return 1877310944 + Id.GetHashCode();
-        }
+        public int GetKey() => Id;
+        public void SetKey(int id) => Id = id;
     }
 }

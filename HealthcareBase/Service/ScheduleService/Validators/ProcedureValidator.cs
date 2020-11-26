@@ -76,27 +76,18 @@ namespace HealthcareBase.Service.ScheduleService.Validators
 
         private void ValidateDoctorSuitability(ProcedureType procedureType, Doctor doctor)
         {
-            var matchingSpecialties = procedureType.QualifiedSpecialties.Intersect(doctor.Specialties);
-            if (!matchingSpecialties.Any())
-                throw new ValidationException();
         }
 
         private void ValidateRoomTypeSuitability(ProcedureType procedureType, Room room)
         {
-            if (procedureType.Kind == ProcedureKind.Examination && room.Purpose != RoomType.examinationRoom)
+            if (procedureType.Kind == ProcedureKind.Examination && room.Purpose != RoomType.ExaminationRoom)
                 throw new ValidationException();
-            if (procedureType.Kind == ProcedureKind.Surgery && room.Purpose != RoomType.operatingRoom)
+            if (procedureType.Kind == ProcedureKind.Surgery && room.Purpose != RoomType.SurgeryRoom)
                 throw new ValidationException();
         }
 
         private void ValidateEquipmentSuitability(ProcedureType procedureType, Room room)
         {
-            if (procedureType.NecessaryEquipment
-                .Select(type => room.Equipment.Count(unit => unit.EquipmentType.Equals(type)) != 0)
-                .Any(roomContainsEquipmentOfNecessaryType => !roomContainsEquipmentOfNecessaryType))
-            {
-                throw new ValidationException();
-            }
         }
     }
 }

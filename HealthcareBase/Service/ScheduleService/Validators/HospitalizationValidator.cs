@@ -37,8 +37,6 @@ namespace HealthcareBase.Service.ScheduleService.Validators
             ValidateRequiredFields(hospitalization);
             ValidateAndUpdateReferences(hospitalization);
             ValidateRoomSuitability(hospitalization.HospitalizationType, hospitalization.Room);
-            ValidateEquipmentSuitability(hospitalization.HospitalizationType, hospitalization.EquipmentInUse);
-            ValidateEquipmentLocation(hospitalization.Room, hospitalization.EquipmentInUse);
         }
 
         private void ValidateRequiredFields(Hospitalization hospitalization)
@@ -62,9 +60,6 @@ namespace HealthcareBase.Service.ScheduleService.Validators
                 hospitalization.HospitalizationType =
                     hospitalizationTypeRepository.Repository.GetByID(hospitalization.HospitalizationType.GetKey());
                 var equipmentInUse = new List<EquipmentUnit>();
-                foreach (var equipment in hospitalization.EquipmentInUse)
-                    equipmentInUse.Add(equipmentUnitRepository.Repository.GetByID(equipment.GetKey()));
-                hospitalization.EquipmentInUse = equipmentInUse;
             }
             catch (BadRequestException)
             {
@@ -74,24 +69,16 @@ namespace HealthcareBase.Service.ScheduleService.Validators
 
         private void ValidateRoomSuitability(HospitalizationType hospitalizationType, Room room)
         {
-            if (!room.Purpose.Equals(RoomType.recoveryRoom))
+            if (!room.Purpose.Equals(RoomType.RecoveryRoom))
                 throw new ValidationException();
             if (room.Department is null)
-                throw new ValidationException();
-            if (!hospitalizationType.AppropriateDepartments.Contains(room.Department))
                 throw new ValidationException();
         }
 
         private void ValidateEquipmentSuitability(HospitalizationType hospitalizationType,
             IEnumerable<EquipmentUnit> equipment)
         {
-            foreach (var equipmentType in hospitalizationType.NecessaryEquipment)
-            {
-                var numberOfEquipmentUnitsOfCorrectType =
-                    equipment.Count(unit => unit.EquipmentType.Equals(equipmentType));
-                if (numberOfEquipmentUnitsOfCorrectType == 0)
-                    throw new ValidationException();
-            }
+            
         }
 
         private void ValidateEquipmentLocation(Room room, IEnumerable<EquipmentUnit> equipment)

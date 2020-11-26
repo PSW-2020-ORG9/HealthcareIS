@@ -99,7 +99,6 @@ namespace HealthcareBase.Model.Database
         // Staff
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<AdministrationWorker> AdministrationWorkers { get; set; }
-
             
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

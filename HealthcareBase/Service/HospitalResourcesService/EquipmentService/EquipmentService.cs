@@ -65,12 +65,6 @@ namespace HealthcareBase.Service.HospitalResourcesService.EquipmentService
 
         private void DeleteFromHospitalizations(EquipmentUnit equipmentUnit)
         {
-            foreach (var hospitalization in hospitalizationRepository.Repository.GetAll())
-                if (hospitalization.EquipmentInUse.Contains(equipmentUnit))
-                {
-                    hospitalization.RemoveEquipmentInUse(equipmentUnit);
-                    hospitalizationRepository.Repository.Update(hospitalization);
-                }
         }
 
         public void DeleteByType(EquipmentType equipmentType)
