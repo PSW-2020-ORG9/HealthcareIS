@@ -18,7 +18,7 @@ namespace Model.Requests
 
         [ForeignKey("Type")]
         public int? TypeId { get; set; }
-        public ProcedureType Type { get; set; }
+        public ProcedureDetails Details { get; set; }
 
         public ProcedureSchedulingPreference Preference { get; set; }
 

@@ -15,6 +15,6 @@ namespace Model.Users.Employee
         public int DepartmentId { get; set; }
         public Department Department { get; set; }
 
-        public IEnumerable<Specialty> Specialties { get; set; }
+        public IEnumerable<DoctorSpecialty> Specialties { get; set; }
     }
 }

@@ -5,18 +5,10 @@ namespace HealthcareBase.Model.Filters
 {
     public class PrescriptionAdvancedFilterDto : AbstractFilter<MedicationPrescription, int>
     {
-        public enum PrescriptionStatus
-        {
-            Ongoing,
-            Past,
-            Future,
-            All
-        }
-        
         public string Manufacturer { get; set; }
         public string Name { get; set; }
         public string Diagnosis { get; set; }
-        public PrescriptionStatus status { get; set; }
+        public TimeStatus Status { get; set; }
 
         protected override void ConfigureFilter()
         {
@@ -26,15 +18,15 @@ namespace HealthcareBase.Model.Filters
                 AddExpressionFunction(prescription => prescription.Medication.Name.Contains(Name));
             if (!string.IsNullOrEmpty(Diagnosis))
                 AddExpressionFunction(prescription => prescription.Diagnosis.Name.Contains(Diagnosis));
-            switch (status)
+            switch (Status)
             {
-                case PrescriptionStatus.Past:
+                case TimeStatus.Past:
                     AddExpressionFunction(prescription => prescription.Instructions.EndDate < DateTime.Now);
                     break;
-                case PrescriptionStatus.Future:
+                case TimeStatus.Future:
                     AddExpressionFunction(prescription => prescription.Instructions.StartDate > DateTime.Now);
                     break;
-                case PrescriptionStatus.Ongoing:
+                case TimeStatus.Ongoing:
                     AddExpressionFunction(prescription => 
                         prescription.Instructions.StartDate < DateTime.Now
                         && prescription.Instructions.EndDate > DateTime.Now);

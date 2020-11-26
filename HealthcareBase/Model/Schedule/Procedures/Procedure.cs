@@ -28,8 +28,8 @@ namespace Model.Schedule.Procedures
         public Patient Patient { get; set; }
         
         [ForeignKey("ProcedureType")]
-        public int ProcedureTypeId { get; set; }
-        public ProcedureType ProcedureType { get; set; }
+        public int ProcedureDetailsId { get; set; }
+        public ProcedureDetails ProcedureDetails { get; set; }
 
         [ForeignKey("Room")]
         public int RoomId { get; set; }

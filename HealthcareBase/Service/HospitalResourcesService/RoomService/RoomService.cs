@@ -66,22 +66,6 @@ namespace Service.HospitalResourcesService.RoomService
             return calculator.Calculate(initialAvailability, currentScheduleContext);
         }
 
-        public IEnumerable<Room> GetAppropriate(ProcedureType procedureType)
-        {
-            var appropriate = new List<Room>();
-            foreach (var room in roomRepository.Repository.GetByEquipment(procedureType.NecessaryEquipment))
-            {
-                if (procedureType.Kind == ProcedureKind.Examination && room.Purpose != RoomType.examinationRoom)
-                    continue;
-                if (procedureType.Kind == ProcedureKind.Surgery && room.Purpose != RoomType.operatingRoom)
-                    continue;
-
-                appropriate.Add(room);
-            }
-
-            return appropriate;
-        }
-
         public IEnumerable<Room> GetAppropriate(HospitalizationType hospitalizationType)
         {
             var appropriate = new List<Room>();
@@ -91,8 +75,8 @@ namespace Service.HospitalResourcesService.RoomService
                     continue;
                 if (room.Department is null)
                     continue;
-                if (!hospitalizationType.AppropriateDepartments.Contains(room.Department))
-                    continue;
+                //if (!hospitalizationType.AppropriateDepartments.Contains(room.Department))
+                  //  continue;
 
                 appropriate.Add(room);
             }

@@ -11,8 +11,6 @@ namespace Model.Medication
 {
     public class IntakeInstructions
     {
-        public IntakeInstructions() {}
-
         [Key]
         public int Id { get; set; }
         

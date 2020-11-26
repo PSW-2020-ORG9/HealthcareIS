@@ -17,8 +17,6 @@ namespace Model.Miscellaneous
         public string Description { get; set; }
         public bool IsInjury { get; set; }
         
-        public Diagnosis() {}
-
         public string GetKey() => Icd;
         public void SetKey(string icd) => Icd = icd;
     }

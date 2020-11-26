@@ -14,7 +14,7 @@ namespace Service.ScheduleService.ScheduleFittingService
 {
     public class ProcedureResourcesDTO
     {
-        public ProcedureType Type { get; set; }
+        public ProcedureDetails Details { get; set; }
 
         public Patient Patient { get; set; }
 

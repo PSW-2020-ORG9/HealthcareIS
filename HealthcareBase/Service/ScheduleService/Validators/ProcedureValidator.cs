@@ -38,14 +38,14 @@ namespace Service.ScheduleService.Validators
                 return;
             ValidateRequiredFields(procedure);
             ValidateAndUpdateReferences(procedure);
-            ValidateDoctorSuitability(procedure.ProcedureType, procedure.Doctor);
-            ValidateRoomTypeSuitability(procedure.ProcedureType, procedure.Room);
-            ValidateEquipmentSuitability(procedure.ProcedureType, procedure.Room);
+            ValidateDoctorSuitability(procedure.ProcedureDetails, procedure.Doctor);
+            ValidateRoomTypeSuitability(procedure.ProcedureDetails, procedure.Room);
+            //ValidateEquipmentSuitability(procedure.ProcedureDetails, procedure.Room);
         }
 
         private void ValidateRequiredFields(Procedure procedure)
         {
-            if (procedure.ProcedureType is null)
+            if (procedure.ProcedureDetails is null)
                 throw new FieldRequiredException();
             if (procedure.Doctor is null)
                 throw new FieldRequiredException();
@@ -64,7 +64,7 @@ namespace Service.ScheduleService.Validators
                 procedure.Doctor = doctorRepository.Repository.GetByID(procedure.Doctor.GetKey());
                 procedure.Room = roomRepository.Repository.GetByID(procedure.Room.GetKey());
                 procedure.Patient = patientRepository.Repository.GetByID(procedure.Patient.GetKey());
-                procedure.ProcedureType = procedureTypeRepository.Repository.GetByID(procedure.ProcedureType.GetKey());
+                procedure.ProcedureDetails = procedureTypeRepository.Repository.GetByID(procedure.ProcedureDetails.GetKey());
                 if (procedure.ReferredFrom != null)
                     procedure.ReferredFrom = examinationRepository.Repository.GetByID(procedure.ReferredFrom.GetKey());
             }
@@ -74,29 +74,15 @@ namespace Service.ScheduleService.Validators
             }
         }
 
-        private void ValidateDoctorSuitability(ProcedureType procedureType, Doctor doctor)
+        private void ValidateDoctorSuitability(ProcedureDetails procedureDetails, Doctor doctor)
         {
-            var matchingSpecialties = procedureType.QualifiedSpecialties.Intersect(doctor.Specialties);
-            if (!matchingSpecialties.Any())
-                throw new ValidationException();
+            //var matchingSpecialties = procedureDetails.RequiredSpecialty.Intersect(doctor.Specialties);
+            //if (!matchingSpecialties.Any())
+            //    throw new ValidationException();
         }
 
-        private void ValidateRoomTypeSuitability(ProcedureType procedureType, Room room)
+        private void ValidateRoomTypeSuitability(ProcedureDetails procedureDetails, Room room)
         {
-            if (procedureType.Kind == ProcedureKind.Examination && room.Purpose != RoomType.examinationRoom)
-                throw new ValidationException();
-            if (procedureType.Kind == ProcedureKind.Surgery && room.Purpose != RoomType.operatingRoom)
-                throw new ValidationException();
-        }
-
-        private void ValidateEquipmentSuitability(ProcedureType procedureType, Room room)
-        {
-            if (procedureType.NecessaryEquipment
-                .Select(type => room.Equipment.Count(unit => unit.EquipmentType.Equals(type)) != 0)
-                .Any(roomContainsEquipmentOfNecessaryType => !roomContainsEquipmentOfNecessaryType))
-            {
-                throw new ValidationException();
-            }
         }
     }
 }

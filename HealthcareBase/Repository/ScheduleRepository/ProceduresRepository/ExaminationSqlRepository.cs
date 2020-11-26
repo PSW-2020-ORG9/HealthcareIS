@@ -25,7 +25,7 @@ namespace Repository.ScheduleRepository.ProceduresRepository
                 .Include(examination => examination.ExaminationReport)
                 .ThenInclude(report => report.Prescriptions)
                 .ThenInclude(prescription => prescription.Instructions)
-                
+
                 .Include(examination => examination.ExaminationReport)
                 .ThenInclude(report => report.Prescriptions)
                 .ThenInclude(prescription => prescription.Medication)
@@ -38,9 +38,13 @@ namespace Repository.ScheduleRepository.ProceduresRepository
 
                 .Include(examination => examination.Doctor)
                 .ThenInclude(doctor => doctor.Specialties)
+                .ThenInclude(specialty => specialty.Specialty)
 
-               .Include(examination => examination.Patient)
-               .ThenInclude(patient => patient.Person); 
+                .Include(examination => examination.Patient)
+                .ThenInclude(patient => patient.Person)
+
+                .Include(examination => examination.ProcedureDetails)
+                .ThenInclude(details => details.RequiredSpecialty);
         }
 
         public IEnumerable<Examination> GetByDoctorAndTime(Doctor doctor, TimeInterval time)

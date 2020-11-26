@@ -14,13 +14,13 @@ namespace Service.ScheduleService.PatientRecommendationService
 {
     public class PrioritiseTimeStrategy : RecommendationStrategy
     {
-        public ProcedureType PatientDefault { get; set; }
+        public ProcedureDetails PatientDefault { get; set; }
 
         public ProcedurePreferenceDTO TransformRequest(RecommendationRequestDTO request)
         {
             var preference = new ProcedurePreferenceDTO
             {
-                Type = PatientDefault,
+                Details = PatientDefault,
                 Patient = request.Patient,
                 Preference = new ProcedureSchedulingPreference
                 {

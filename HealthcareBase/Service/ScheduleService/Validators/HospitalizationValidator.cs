@@ -78,8 +78,8 @@ namespace Service.ScheduleService.Validators
                 throw new ValidationException();
             if (room.Department is null)
                 throw new ValidationException();
-            if (!hospitalizationType.AppropriateDepartments.Contains(room.Department))
-                throw new ValidationException();
+            //if (!hospitalizationType.AppropriateDepartments.Contains(room.Department))
+              //  throw new ValidationException();
         }
 
         private void ValidateEquipmentSuitability(HospitalizationType hospitalizationType,

@@ -124,7 +124,7 @@ namespace Service.ScheduleService.ScheduleFittingService
             PatientAvailabilityDTO patient, IEnumerable<DoctorAvailabilityDTO> doctors)
         {
             var hospitalizations = new List<Procedure>();
-            var duration = resources.Type.Duration;
+            var duration = resources.Details.Duration;
 
             foreach (var room in rooms)
             foreach (var doctor in doctors)
@@ -133,7 +133,7 @@ namespace Service.ScheduleService.ScheduleFittingService
                     patient.Availability.Overlap(room.Availability).Overlap(doctor.Availability);
                 foreach (var slot in MakeSlots(matched.Intervals, duration))
                 {
-                    var toAdd = CreateProcedure(resources.Type);
+                    var toAdd = CreateProcedure(resources.Details);
                     toAdd.TimeInterval = slot;
                     toAdd.Patient = patient.Patient;
                     toAdd.Doctor = doctor.Doctor;
@@ -144,10 +144,8 @@ namespace Service.ScheduleService.ScheduleFittingService
             return hospitalizations;
         }
 
-        private Procedure CreateProcedure(ProcedureType type)
+        private Procedure CreateProcedure(ProcedureDetails details)
         {
-            if (type.Kind.Equals(ProcedureKind.Examination))
-                return new Examination();
             return new Surgery();
         }
 

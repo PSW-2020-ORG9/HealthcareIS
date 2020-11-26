@@ -38,14 +38,19 @@ namespace HospitalWebApp.Controllers
                 Name = name,
                 Surname = surname
             };
-            return Ok(_examinationService.GetByDoctorCredentials(doctorCredentialsDto));
+            return Ok(_examinationService.SimpleSearch(doctorCredentialsDto));
         }
 
         [HttpPost]
         [Route("prescription/advanced")]
         public IActionResult PrescriptionAdvancedSearch(PrescriptionAdvancedFilterDto dto)
-            => Ok(_medicationPrescriptionService.AdvancedSearch(dto));        
+            => Ok(_medicationPrescriptionService.AdvancedSearch(dto));
 
+        [HttpPost]
+        [Route("examination/advanced")]
+        public IActionResult ExaminationAdvancedSearch(ExaminationAdvancedFilterDto dto)
+            => Ok(_examinationService.AdvancedSearch(dto));
+        
         [HttpGet]
         [Route("prescription")]
         public IActionResult GetAllPrescriptions()

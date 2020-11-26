@@ -43,11 +43,14 @@ namespace Service.ScheduleService.ProcedureService
             this._patientWrapper = new RepositoryWrapper<PatientRepository>(patientRepository);
         }
 
-        public IEnumerable<Examination> GetByDoctorCredentials(ExaminationSimpleFilterDto examinationSimpleFilterDto)
-        {
-            return _examinationWrapper.Repository.GetMatching(examinationSimpleFilterDto.GetFilterExpression());
-        }
+        public IEnumerable<Examination> SimpleSearch(ExaminationSimpleFilterDto examinationSimpleFilterDto)
+            => _examinationWrapper.Repository.GetMatching(examinationSimpleFilterDto.GetFilterExpression());
+        
+        public IEnumerable<Examination> AdvancedSearch(ExaminationAdvancedFilterDto dto)
+            => _examinationWrapper.Repository.GetMatching(dto.GetFilterExpression());
 
+        
+        // Old code
         public override Examination GetByID(int id)
         {
             return _examinationWrapper.Repository.GetByID(id);

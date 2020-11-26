@@ -58,11 +58,10 @@ namespace HealthcareBase.Model.Database
         
         public DbSet<ClearDoctorsSchedule> ClearDoctorsSchedules { get; set; }
         public DbSet<ClearRoomsSchedule> ClearRoomsSchedules { get; set; }
-        public DbSet<MedicationInputRequest> MedicationInputRequests { get; set; }
         public DbSet<ScheduleHospitalization> ScheduleHospitalizations { get; set; }
         public DbSet<ScheduleProcedure> ScheduleProcedures { get; set; }
         public DbSet<Hospitalization> Hospitalizations { get; set; }
-        public DbSet<ProcedureType> ProcedureTypes { get; set; }
+        public DbSet<ProcedureDetails> ProcedureDetails { get; set; }
         public DbSet<ConsumableStorageRecord> ConsumableStorageRecords { get; set; }
         public DbSet<MedicationStorageRecord> MedicationStorageRecords { get; set; }
         public DbSet<Shift> Shifts { get; set; }
@@ -98,8 +97,11 @@ namespace HealthcareBase.Model.Database
         public DbSet<AdministrationAccount> AdministrationAccounts { get; set; }
         
         // Staff
-        public DbSet<Doctor> Doctors { get; set; }
         public DbSet<AdministrationWorker> AdministrationWorkers { get; set; }
+        
+        // Doctors
+        public DbSet<Doctor> Doctors { get; set; }
+        public DbSet<DoctorSpecialty> DoctorSpecialties { get; set; }
 
             
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -121,6 +123,8 @@ namespace HealthcareBase.Model.Database
                 .HasKey(fav => new {fav.DoctorId, fav.PatientAccountId});
             modelBuilder.Entity<AllergyManifestation>()
                 .HasKey(am => new {am.MedicalRecordId, am.AllergyId});
+            modelBuilder.Entity<DoctorSpecialty>()
+                .HasKey(ds => new {ds.DoctorId, ds.SpecialtyId});
         }
     }
 }

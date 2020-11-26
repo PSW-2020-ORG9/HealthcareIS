@@ -76,7 +76,7 @@ namespace Service.ScheduleService.ProcedureService
         {
             if (!oldProcedure.Patient.Equals(newProcedure.Patient))
                 throw new BadRequestException();
-            if (!oldProcedure.ProcedureType.Equals(newProcedure.ProcedureType))
+            if (!oldProcedure.ProcedureDetails.Equals(newProcedure.ProcedureDetails))
                 throw new BadRequestException();
             if (oldProcedure.ReferredFrom != null && !oldProcedure.ReferredFrom.Equals(newProcedure.ReferredFrom))
                 throw new BadRequestException();

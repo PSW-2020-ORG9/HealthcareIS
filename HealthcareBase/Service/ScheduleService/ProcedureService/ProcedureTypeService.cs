@@ -19,29 +19,19 @@ namespace Service.ScheduleService.ProcedureService
             this.procedureTypeRepository = new RepositoryWrapper<ProcedureTypeRepository>(procedureTypeRepository);
         }
 
-        public ProcedureType GetPatientDefault()
+        public ProcedureDetails GetPatientDefault()
         {
             return procedureTypeRepository.Repository.GetPatientDefault();
         }
 
-        public ProcedureType GetByID(int id)
+        public ProcedureDetails GetByID(int id)
         {
             return procedureTypeRepository.Repository.GetByID(id);
         }
 
-        public IEnumerable<ProcedureType> GetAll()
+        public IEnumerable<ProcedureDetails> GetAll()
         {
             return procedureTypeRepository.Repository.GetAll();
-        }
-
-        public IEnumerable<ProcedureType> GetAllExaminationTypes()
-        {
-            return procedureTypeRepository.Repository.GetMatching(type => type.Kind.Equals(ProcedureKind.Examination));
-        }
-
-        public IEnumerable<ProcedureType> GetAllSurgeryTypes()
-        {
-            return procedureTypeRepository.Repository.GetMatching(type => type.Kind.Equals(ProcedureKind.Surgery));
         }
     }
 }
