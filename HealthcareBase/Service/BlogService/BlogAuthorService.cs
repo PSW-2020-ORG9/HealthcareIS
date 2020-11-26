@@ -4,21 +4,21 @@
 // Purpose: Definition of Class BlogAuthorService
 
 using System.Collections.Generic;
-using Model.Blog;
-using Model.CustomExceptions;
-using Model.Users.Employee;
-using Repository.BlogRepository;
-using Repository.Generics;
+using HealthcareBase.Model.Blog;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Repository.BlogRepository;
+using HealthcareBase.Repository.Generics;
 
-namespace Service.BlogService
+namespace HealthcareBase.Service.BlogService
 {
     public class BlogAuthorService
     {
-        private readonly RepositoryWrapper<BlogAuthorRepository> blogAuthorRepository;
+        private readonly RepositoryWrapper<IBlogAuthorRepository> blogAuthorRepository;
 
-        public BlogAuthorService(BlogAuthorRepository blogAuthorRepository)
+        public BlogAuthorService(IBlogAuthorRepository blogAuthorRepository)
         {
-            this.blogAuthorRepository = new RepositoryWrapper<BlogAuthorRepository>(blogAuthorRepository);
+            this.blogAuthorRepository = new RepositoryWrapper<IBlogAuthorRepository>(blogAuthorRepository);
         }
 
         public BlogAuthor GetByID(int id)

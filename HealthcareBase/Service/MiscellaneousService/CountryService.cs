@@ -4,19 +4,19 @@
 // Purpose: Definition of Class CountryService
 
 using System.Collections.Generic;
-using Model.Users.Generalities;
-using Repository.Generics;
-using Repository.UsersRepository.GeneralitiesRepository;
+using HealthcareBase.Model.Users.Generalities;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.UsersRepository.GeneralitiesRepository;
 
-namespace Service.MiscellaneousService
+namespace HealthcareBase.Service.MiscellaneousService
 {
     public class CountryService
     {
-        private readonly RepositoryWrapper<CountryRepository> countryRepository;
+        private readonly RepositoryWrapper<ICountryRepository> countryRepository;
 
-        public CountryService(CountryRepository countryRepository)
+        public CountryService(ICountryRepository countryRepository)
         {
-            this.countryRepository = new RepositoryWrapper<CountryRepository>(countryRepository);
+            this.countryRepository = new RepositoryWrapper<ICountryRepository>(countryRepository);
         }
 
         public Country GetByID(int id)

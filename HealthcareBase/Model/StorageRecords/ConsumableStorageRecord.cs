@@ -3,10 +3,10 @@
 // Created: 18 April 2020 18:19:45
 // Purpose: Definition of Class ConsumableStorageRecord
 
-using Model.HospitalResources;
 using System.ComponentModel.DataAnnotations.Schema;
+using HealthcareBase.Model.HospitalResources;
 
-namespace Model.StorageRecords
+namespace HealthcareBase.Model.StorageRecords
 {
     public class ConsumableStorageRecord : StorageRecord
     {

@@ -4,19 +4,19 @@
 // Purpose: Definition of Class UserFeedbackService
 
 using System.Collections.Generic;
-using Model.Users.UserFeedback;
-using Repository.Generics;
-using Repository.UsersRepository.UserFeedbackRepository;
+using HealthcareBase.Model.Users.UserFeedback;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.UsersRepository.UserFeedbackRepository;
 
-namespace Service.UsersService.UserFeedbackService
+namespace HealthcareBase.Service.UsersService.UserFeedbackService
 {
     public class UserFeedbackService
     {
-        private readonly RepositoryWrapper<UserFeedbackRepository> _userFeedbackRepository;
+        private readonly RepositoryWrapper<IUserFeedbackRepository> _userFeedbackRepository;
 
-        public UserFeedbackService(UserFeedbackRepository repository)
+        public UserFeedbackService(IUserFeedbackRepository repository)
         {
-            _userFeedbackRepository = new RepositoryWrapper<UserFeedbackRepository>(repository);
+            _userFeedbackRepository = new RepositoryWrapper<IUserFeedbackRepository>(repository);
         }
 
         public IEnumerable<UserFeedback> GetAll()

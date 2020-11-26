@@ -4,22 +4,22 @@
 // Purpose: Definition of Class MedicalConsumableStorageService
 
 using System;
-using Model.HospitalResources;
-using Model.StorageRecords;
-using Repository.Generics;
-using Repository.HospitalResourcesRepository;
+using HealthcareBase.Model.HospitalResources;
+using HealthcareBase.Model.StorageRecords;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.HospitalResourcesRepository;
 
-namespace Service.HospitalResourcesService.MedicalConsumableService
+namespace HealthcareBase.Service.HospitalResourcesService.MedicalConsumableService
 {
     public class MedicalConsumableStorageService
     {
-        private readonly RepositoryWrapper<ConsumableStorageRecordRepository> consumableStorageRecordRepository;
+        private readonly RepositoryWrapper<IConsumableStorageRecordRepository> consumableStorageRecordRepository;
 
         public MedicalConsumableStorageService(
-            ConsumableStorageRecordRepository consumableStorageRecordRepository)
+            IConsumableStorageRecordRepository consumableStorageRecordRepository)
         {
             this.consumableStorageRecordRepository =
-                new RepositoryWrapper<ConsumableStorageRecordRepository>(consumableStorageRecordRepository);
+                new RepositoryWrapper<IConsumableStorageRecordRepository>(consumableStorageRecordRepository);
         }
 
         public int GetCurrentAmount(MedicalConsumable consumable)

@@ -3,7 +3,7 @@
 // Created: 27 May 2020 20:17:42
 // Purpose: Definition of Enum RequestStatus
 
-namespace Model.Requests
+namespace HealthcareBase.Model.Requests
 {
     public enum RequestStatus
     {

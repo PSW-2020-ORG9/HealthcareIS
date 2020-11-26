@@ -5,26 +5,26 @@
 
 using System;
 using System.Collections.Generic;
-using Model.Schedule.Procedures;
-using Model.Users.Employee;
-using Model.Utilities;
-using Repository.Generics;
-using Repository.ScheduleRepository.ProceduresRepository;
-using Service.ScheduleService.Validators;
+using HealthcareBase.Model.Schedule.Procedures;
+using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Model.Utilities;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.ScheduleRepository.ProceduresRepository.Interface;
+using HealthcareBase.Service.ScheduleService.Validators;
 
-namespace Service.ScheduleService.ProcedureService
+namespace HealthcareBase.Service.ScheduleService.ProcedureService
 {
     public class SurgeryService : AbstractProcedureSchedulingService<Surgery>
     {
-        private readonly RepositoryWrapper<SurgeryRepository> surgeryRepository;
+        private readonly RepositoryWrapper<ISurgeryRepository> surgeryRepository;
 
         public SurgeryService(
-            SurgeryRepository surgeryRepository,
+            ISurgeryRepository surgeryRepository,
             ProcedureScheduleComplianceValidator scheduleValidator, ProcedureValidator procedureValidator,
             TimeSpan timeLimit
         ) : base(scheduleValidator, procedureValidator, timeLimit)
         {
-            this.surgeryRepository = new RepositoryWrapper<SurgeryRepository>(surgeryRepository);
+            this.surgeryRepository = new RepositoryWrapper<ISurgeryRepository>(surgeryRepository);
         }
 
         public override Surgery GetByID(int id)

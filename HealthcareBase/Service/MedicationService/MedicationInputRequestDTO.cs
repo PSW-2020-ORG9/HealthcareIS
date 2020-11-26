@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using Model.Medication;
-using Model.Users.Employee;
-using Model.Users.UserAccounts;
+using HealthcareBase.Model.Medication;
+using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Model.Users.UserAccounts;
 
-namespace Service.MedicationService
+namespace HealthcareBase.Service.MedicationService
 {
     public class MedicationInputRequestDTO
     {

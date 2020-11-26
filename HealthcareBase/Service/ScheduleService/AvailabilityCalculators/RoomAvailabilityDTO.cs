@@ -3,10 +3,10 @@
 // Created: 02 June 2020 10:39:22
 // Purpose: Definition of Class RoomAvailabilityDTO
 
-using Model.HospitalResources;
-using Model.Utilities;
+using HealthcareBase.Model.HospitalResources;
+using HealthcareBase.Model.Utilities;
 
-namespace Service.ScheduleService.AvailabilityCalculators
+namespace HealthcareBase.Service.ScheduleService.AvailabilityCalculators
 {
     public class RoomAvailabilityDTO
     {

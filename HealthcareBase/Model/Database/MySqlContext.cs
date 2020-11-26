@@ -1,21 +1,20 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Model.Blog;
-using Model.HospitalResources;
-using Model.Medication;
-using Model.Miscellaneous;
-using Model.Notifications;
-using Model.Requests;
-using Model.Schedule.Hospitalizations;
-using Model.Schedule.Procedures;
-using Model.StorageRecords;
-using Model.Users.Employee;
-using Model.Users.Generalities;
-using Model.Users.Patient;
-using Model.Users.UserFeedback;
 using EntityFramework.Exceptions.MySQL.Pomelo;
-using Model.Users.Patient.MedicalHistory;
-using Model.Users.Patient.MedicalHistory.Relationship;
-using Model.Users.UserAccounts;
+using HealthcareBase.Model.Blog;
+using HealthcareBase.Model.HospitalResources;
+using HealthcareBase.Model.Medication;
+using HealthcareBase.Model.Miscellaneous;
+using HealthcareBase.Model.Requests;
+using HealthcareBase.Model.Schedule.Hospitalizations;
+using HealthcareBase.Model.Schedule.Procedures;
+using HealthcareBase.Model.StorageRecords;
+using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Model.Users.Generalities;
+using HealthcareBase.Model.Users.Patient;
+using HealthcareBase.Model.Users.Patient.MedicalHistory;
+using HealthcareBase.Model.Users.Patient.MedicalHistory.Relationship;
+using HealthcareBase.Model.Users.UserAccounts;
+using HealthcareBase.Model.Users.UserFeedback;
 
 namespace HealthcareBase.Model.Database
 {
@@ -54,7 +53,7 @@ namespace HealthcareBase.Model.Database
         public DbSet<MedicalConsumableType> MedicalConsumableTypes { get; set; }
         public DbSet<Renovation> Renovations { get; set; }
         public DbSet<Room> Rooms { get; set; }
-        public DbSet<Medication> Medications { get; set; }
+        public DbSet<Medication.Medication> Medications { get; set; }
         
         public DbSet<ClearDoctorsSchedule> ClearDoctorsSchedules { get; set; }
         public DbSet<ClearRoomsSchedule> ClearRoomsSchedules { get; set; }

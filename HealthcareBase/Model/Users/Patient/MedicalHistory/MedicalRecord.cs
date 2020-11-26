@@ -3,17 +3,15 @@
 // Created: 20 April 2020 21:21:26
 // Purpose: Definition of Class MedicalHistory
 
-using Microsoft.EntityFrameworkCore;
-using Repository.Generics;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Model.Schedule.Procedures;
-using Model.Users.Patient.MedicalHistory.Relationship;
+using HealthcareBase.Model.Schedule.Procedures;
+using HealthcareBase.Model.Users.Patient.MedicalHistory.Relationship;
+using HealthcareBase.Repository.Generics;
 
-namespace Model.Users.Patient.MedicalHistory
+namespace HealthcareBase.Model.Users.Patient.MedicalHistory
 {
-    public class MedicalRecord : Entity<int>
+    public class MedicalRecord : IEntity<int>
     {
         [Key]
         public int Id { get; set; }

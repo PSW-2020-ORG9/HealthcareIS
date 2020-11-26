@@ -3,10 +3,10 @@
 // Created: 18 April 2020 18:19:45
 // Purpose: Definition of Class AmountChangeRecord
 
-using Microsoft.EntityFrameworkCore;
 using System;
+using Microsoft.EntityFrameworkCore;
 
-namespace Model.StorageRecords
+namespace HealthcareBase.Model.StorageRecords
 {
     [Owned]
     public class AmountChangeRecord

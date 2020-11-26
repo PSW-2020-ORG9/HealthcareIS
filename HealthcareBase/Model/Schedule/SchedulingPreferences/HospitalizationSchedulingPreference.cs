@@ -3,12 +3,12 @@
 // Created: 21 April 2020 17:32:57
 // Purpose: Definition of Class HospitalizationSchedulingPreference
 
-using Microsoft.EntityFrameworkCore;
-using Model.HospitalResources;
-using Model.Utilities;
 using System.ComponentModel.DataAnnotations.Schema;
+using HealthcareBase.Model.HospitalResources;
+using HealthcareBase.Model.Utilities;
+using Microsoft.EntityFrameworkCore;
 
-namespace Model.Schedule.SchedulingPreferences
+namespace HealthcareBase.Model.Schedule.SchedulingPreferences
 {
     [Owned]
     public class HospitalizationSchedulingPreference

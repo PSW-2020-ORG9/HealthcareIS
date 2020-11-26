@@ -4,29 +4,29 @@
 // Purpose: Definition of Class PatientAccountService
 
 using System.Linq;
-using Model.CustomExceptions;
-using Model.Users.Employee;
-using Model.Users.Patient;
-using Model.Users.UserAccounts;
-using Model.Users.UserFeedback;
-using Repository.Generics;
-using Repository.UsersRepository.UserAccountsRepository;
-using Repository.UsersRepository.UserFeedbackRepository;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Model.Users.Patient;
+using HealthcareBase.Model.Users.UserAccounts;
+using HealthcareBase.Model.Users.UserFeedback;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.UsersRepository.UserAccountsRepository;
+using HealthcareBase.Repository.UsersRepository.UserFeedbackRepository;
 
-namespace Service.UsersService.PatientService
+namespace HealthcareBase.Service.UsersService.PatientService
 {
     public class PatientAccountService
     {
-        private readonly RepositoryWrapper<PatientAccountRepository> patientAccountRepository;
-        private readonly RepositoryWrapper<PatientSurveyResponseRepository> patientSurveyResponseRepository;
+        private readonly RepositoryWrapper<IPatientAccountRepository> patientAccountRepository;
+        private readonly RepositoryWrapper<IPatientSurveyResponseRepository> patientSurveyResponseRepository;
 
         public PatientAccountService(
-            PatientAccountRepository patientAccountRepository,
-            PatientSurveyResponseRepository patientSurveyResponseRepository)
+            IPatientAccountRepository patientAccountRepository,
+            IPatientSurveyResponseRepository patientSurveyResponseRepository)
         {
-            this.patientAccountRepository = new RepositoryWrapper<PatientAccountRepository>(patientAccountRepository);
+            this.patientAccountRepository = new RepositoryWrapper<IPatientAccountRepository>(patientAccountRepository);
             this.patientSurveyResponseRepository =
-                new RepositoryWrapper<PatientSurveyResponseRepository>(patientSurveyResponseRepository);
+                new RepositoryWrapper<IPatientSurveyResponseRepository>(patientSurveyResponseRepository);
         }
 
         public void DeleteAccount(PatientAccount patientAccount)

@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Model.Medication;
-using Model.Miscellaneous;
-using Repository.Generics;
+using HealthcareBase.Model.Medication;
+using HealthcareBase.Model.Miscellaneous;
+using HealthcareBase.Repository.Generics;
 
-namespace Model.Users.Patient.MedicalHistory
+namespace HealthcareBase.Model.Schedule.Procedures
 {
-    public class ExaminationReport : Entity<int>
+    public class ExaminationReport : IEntity<int>
     {
         [Key]
         public int Id { get; set; }

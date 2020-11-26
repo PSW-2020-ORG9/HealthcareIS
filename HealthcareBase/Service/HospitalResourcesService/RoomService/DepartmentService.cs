@@ -5,29 +5,29 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Model.CustomExceptions;
-using Model.HospitalResources;
-using Repository.Generics;
-using Repository.HospitalResourcesRepository;
-using Repository.ScheduleRepository.HospitalizationsRepository;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.HospitalResources;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.HospitalResourcesRepository;
+using HealthcareBase.Repository.ScheduleRepository.HospitalizationsRepository;
 
-namespace Service.HospitalResourcesService.RoomService
+namespace HealthcareBase.Service.HospitalResourcesService.RoomService
 {
     public class DepartmentService
     {
-        private readonly RepositoryWrapper<DepartmentRepository> departmentRepository;
-        private readonly RepositoryWrapper<HospitalizationTypeRepository> hospitalizationTypeRepository;
-        private readonly RepositoryWrapper<RoomRepository> roomRepository;
+        private readonly RepositoryWrapper<IDepartmentRepository> departmentRepository;
+        private readonly RepositoryWrapper<IHospitalizationTypeRepository> hospitalizationTypeRepository;
+        private readonly RepositoryWrapper<IRoomRepository> roomRepository;
 
         public DepartmentService(
-            DepartmentRepository departmentRepository,
-            RoomRepository roomRepository,
-            HospitalizationTypeRepository hospitalizationTypeRepository)
+            IDepartmentRepository departmentRepository,
+            IRoomRepository roomRepository,
+            IHospitalizationTypeRepository hospitalizationTypeRepository)
         {
-            this.departmentRepository = new RepositoryWrapper<DepartmentRepository>(departmentRepository);
-            this.roomRepository = new RepositoryWrapper<RoomRepository>(roomRepository);
+            this.departmentRepository = new RepositoryWrapper<IDepartmentRepository>(departmentRepository);
+            this.roomRepository = new RepositoryWrapper<IRoomRepository>(roomRepository);
             this.hospitalizationTypeRepository =
-                new RepositoryWrapper<HospitalizationTypeRepository>(hospitalizationTypeRepository);
+                new RepositoryWrapper<IHospitalizationTypeRepository>(hospitalizationTypeRepository);
         }
 
         public Department GetByID(int id)

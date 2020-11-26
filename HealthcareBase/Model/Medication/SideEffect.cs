@@ -4,12 +4,11 @@
 // Purpose: Definition of Class SideEffect
 
 using System.ComponentModel.DataAnnotations;
-using Microsoft.EntityFrameworkCore;
-using Repository.Generics;
+using HealthcareBase.Repository.Generics;
 
-namespace Model.Medication
+namespace HealthcareBase.Model.Medication
 {
-    public class SideEffect : Entity<int>
+    public class SideEffect : IEntity<int>
     {
         [Key]
         public int Id { get; set; }

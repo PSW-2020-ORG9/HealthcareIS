@@ -3,12 +3,12 @@
 // Created: 27 May 2020 20:27:43
 // Purpose: Definition of Class ScheduleProcedure
 
-using Model.Schedule.Procedures;
-using Model.Schedule.SchedulingPreferences;
-using Model.Users.Patient;
 using System.ComponentModel.DataAnnotations.Schema;
+using HealthcareBase.Model.Schedule.Procedures;
+using HealthcareBase.Model.Schedule.SchedulingPreferences;
+using HealthcareBase.Model.Users.Patient;
 
-namespace Model.Requests
+namespace HealthcareBase.Model.Requests
 {
     public class ScheduleProcedure : ScheduleAdjustmentRequest
     {

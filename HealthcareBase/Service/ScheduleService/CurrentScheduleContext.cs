@@ -3,10 +3,10 @@
 // Created: 02 June 2020 09:15:36
 // Purpose: Definition of Class CurrentScheduleContext
 
-using Service.HospitalResourcesService.RoomService;
-using Service.UsersService.EmployeeService;
+using HealthcareBase.Service.HospitalResourcesService.RoomService;
+using HealthcareBase.Service.UsersService.EmployeeService;
 
-namespace Service.ScheduleService
+namespace HealthcareBase.Service.ScheduleService
 {
     public class CurrentScheduleContext
     {

@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using HealthcareBase.Model.Filters;
-using Model.Schedule.Procedures;
-using Model.Users.Employee;
+﻿using HealthcareBase.Model.Filters;
+using HealthcareBase.Model.Schedule.Procedures;
 
-namespace Service.ScheduleService.ProcedureService
+namespace HealthcareBase.Service.ScheduleService.ProcedureService
 {
     public class DoctorCredentialsDto : AbstractFilter<Examination, int>
     {

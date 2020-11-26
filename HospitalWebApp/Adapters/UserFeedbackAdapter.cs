@@ -1,6 +1,6 @@
 using System;
+using HealthcareBase.Model.Users.UserFeedback;
 using HospitalWebApp.Dtos;
-using Model.Users.UserFeedback;
 
 namespace HospitalWebApp.Adapters
 {

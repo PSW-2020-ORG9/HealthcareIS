@@ -1,8 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Model.Users.Employee;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using HealthcareBase.Model.Users.Employee;
 
-namespace Model.Users.UserAccounts
+namespace HealthcareBase.Model.Users.UserAccounts
 {
     public class FavoriteDoctor
     {

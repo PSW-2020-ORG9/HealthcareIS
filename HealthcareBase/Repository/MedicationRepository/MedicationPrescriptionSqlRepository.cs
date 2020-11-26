@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using HealthcareBase.Model.Database;
+using HealthcareBase.Model.Medication;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.MedicationRepository.Interface;
 using Microsoft.EntityFrameworkCore;
-using Model.Medication;
-using Repository.Generics;
-using Repository.MedicationRepository;
 
 namespace HealthcareBase.Repository.MedicationRepository
 {
     public class MedicationPrescriptionSqlRepository 
         : GenericSqlRepository<MedicationPrescription, int>, 
-        MedicationPrescriptionRepository
+        IMedicationPrescriptionRepository
     {
         public MedicationPrescriptionSqlRepository(IContextFactory contextFactory) : base(contextFactory)
         {
