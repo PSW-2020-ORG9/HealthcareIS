@@ -87,27 +87,24 @@ namespace WPFHospitalEditor
                 case 1:
                     {
                         label.Content = mapObject.Name;
-                        label.HorizontalAlignment = HorizontalAlignment.Center;
-                        label.VerticalAlignment = VerticalAlignment.Center;
                     }
                     break;
                 case 2:
                     {
                         label.Content = Building.findBuilding(mapObject);
-                        label.HorizontalAlignment = HorizontalAlignment.Center;
-                        label.VerticalAlignment = VerticalAlignment.Center;
                     }
                     break;
                 case 3:
                     {
                         label.Content = Building.findFloor(mapObject);
-                        label.HorizontalAlignment = HorizontalAlignment.Center;
-                        label.VerticalAlignment = VerticalAlignment.Center;
                     }
                     break;
                 default:
                     break;
             }
+
+            label.HorizontalAlignment = HorizontalAlignment.Center;
+            label.VerticalAlignment = VerticalAlignment.Center;
         }
 
         private void addNameLabel(MapObject mapObject)
@@ -136,8 +133,6 @@ namespace WPFHospitalEditor
             adjustAdvancedSearchButtonProperties(advancedSearch);
 
             advanceSearchButtons.Add(advancedSearch);
-
-            //advancedSearch.Click += Advanced_Search_Click(mapObject, i);
 
             Grid.SetRow(advancedSearch, firstContentRowNumber);
             Grid.SetColumn(advancedSearch, 4);
@@ -208,12 +203,5 @@ namespace WPFHospitalEditor
             HospitalMap.searchResult.Clear();
             Close();
         }
-
-        /*private void Advanced_Search_Click(MapObject mapObject, int i)
-        {
-            button.Click += new EventHandler(
-                (sender, e) => button_Click(sender, e, grid, i)
-            );
-        }*/
     }
 }

@@ -44,16 +44,16 @@ namespace WPFHospitalEditor
             }
         }
               
-        public static String findFloor(MapObject mapObjectIteration)
+        public static String findFloor(MapObject mapObject)
         {
-            String[] firstSplit = mapObjectIteration.Description.Split("&");
+            String[] firstSplit = mapObject.Description.Split("&");
             String[] floor = firstSplit[0].Split("-");
             return floor[1];
         }
 
-        public static String findBuilding(MapObject mapObjectIteration)
+        public static String findBuilding(MapObject mapObject)
         {
-            String[] firstSplit = mapObjectIteration.Description.Split("&");
+            String[] firstSplit = mapObject.Description.Split("&");
             String[] building = firstSplit[0].Split("-");
             return building[0];
         }
