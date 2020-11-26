@@ -7,8 +7,12 @@ namespace HealthcareBase.Model.HospitalResources
 {
     public enum RoomType
     {
-        operatingRoom,
-        examinationRoom,
-        recoveryRoom
+        SurgeryRoom,
+        ExaminationRoom,
+        RecoveryRoom,
+        DentistryRoom,
+        NeurologyRoom,
+        OphthamologyRoom,
+        DermatologyRoom
     }
 }

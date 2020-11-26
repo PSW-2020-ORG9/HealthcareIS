@@ -30,15 +30,10 @@ namespace HealthcareBase.Service.ScheduleService.ScheduleFittingService
 
         public ProcedureResourcesDTO ConvertProcedurePreference(ProcedurePreferenceDTO preference)
         {
-            var qualifiedDoctors = new List<Doctor>();
-            var appropriateRooms = new List<Room>();
-
             var resources = new ProcedureResourcesDTO
             {
                 Patient = preference.Patient,
-                Details = preference.Details,
-                Doctors = ConvertDoctors(preference.Preference.PreferredDoctor, qualifiedDoctors),
-                Rooms = ConvertRooms(preference.Preference.PreferredRoom, appropriateRooms),
+                Doctors = ConvertDoctors(preference.Preference.PreferredDoctor, new List<Doctor>()),
                 Timing = ConvertTiming(preference)
             };
 

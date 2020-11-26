@@ -9,46 +9,14 @@ using HealthcareBase.Repository.Generics;
 namespace HealthcareBase.Model.HospitalResources
 {
     public class EquipmentType : IEntity<int>
-    {
-        public EquipmentType(string name, string purpose, bool requiresRenovationToMove)
-        {
-            Name = name;
-            Purpose = purpose;
-            RequiresRenovationToMove = requiresRenovationToMove;
-        }
-
-        public EquipmentType()
-        {
-        }
-
-        public string Name { get; set; }
-
-        public string Purpose { get; set; }
-
-        public bool RequiresRenovationToMove { get; set; }
-
+    {       
         [Key]
         public int Id { get; set; }
+        public string Name { get; set; }
+        public string Purpose { get; set; }
+        public bool RequiresRenovationToMove { get; set; }
 
-        public int GetKey()
-        {
-            return Id;
-        }
-
-        public void SetKey(int id)
-        {
-            Id = id;
-        }
-
-        public override bool Equals(object obj)
-        {
-            return obj is EquipmentType type &&
-                   Id == type.Id;
-        }
-
-        public override int GetHashCode()
-        {
-            return 1877310944 + Id.GetHashCode();
-        }
+        public int GetKey() => Id;
+        public void SetKey(int id) => Id = id;
     }
 }

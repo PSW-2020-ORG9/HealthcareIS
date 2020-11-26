@@ -33,12 +33,12 @@ namespace HospitalWebApp.Controllers
         [Route("examination/simple")]
         public IActionResult ExaminationSimpleSearch(string name, string surname)
         {
-            var doctorCredentialsDto = new ExaminationSimpleFilterDto()
+            var filterDto = new ExaminationSimpleFilterDto()
             {
                 Name = name,
                 Surname = surname
             };
-            return Ok(_examinationService.SimpleSearch(doctorCredentialsDto));
+            return Ok(_examinationService.SimpleSearch(filterDto));
         }
 
         [HttpPost]
