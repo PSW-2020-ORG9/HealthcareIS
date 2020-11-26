@@ -23,8 +23,8 @@ namespace HealthcareBase.Model.Database
         private readonly string _connectionString;
 
         // Database access strings
-        private readonly string db = "";
-        private readonly string pass = "";
+        private readonly string db = "clinic";
+        private readonly string pass = "helloworldNOVISAD021";
 
         public MySqlContext()
         {
@@ -99,7 +99,6 @@ namespace HealthcareBase.Model.Database
         // Staff
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<AdministrationWorker> AdministrationWorkers { get; set; }
-
             
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

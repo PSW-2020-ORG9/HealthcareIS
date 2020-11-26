@@ -75,12 +75,7 @@ namespace HealthcareBase.Service.HospitalResourcesService.RoomService
 
         private void DeleteFromHospitalizationTypes(Department department)
         {
-            foreach (var hospitalizationType in hospitalizationTypeRepository.Repository.GetAll())
-                if (hospitalizationType.AppropriateDepartments.Contains(department))
-                {
-                    hospitalizationType.RemoveAppropriateDepartments(department);
-                    hospitalizationTypeRepository.Repository.Update(hospitalizationType);
-                }
+            
         }
     }
 }

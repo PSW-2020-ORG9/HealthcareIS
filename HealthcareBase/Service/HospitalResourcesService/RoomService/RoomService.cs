@@ -68,36 +68,12 @@ namespace HealthcareBase.Service.HospitalResourcesService.RoomService
 
         public IEnumerable<Room> GetAppropriate(ProcedureType procedureType)
         {
-            var appropriate = new List<Room>();
-            foreach (var room in roomRepository.Repository.GetByEquipment(procedureType.NecessaryEquipment))
-            {
-                if (procedureType.Kind == ProcedureKind.Examination && room.Purpose != RoomType.examinationRoom)
-                    continue;
-                if (procedureType.Kind == ProcedureKind.Surgery && room.Purpose != RoomType.operatingRoom)
-                    continue;
-
-                appropriate.Add(room);
-            }
-
-            return appropriate;
+            return new List<Room>();
         }
 
         public IEnumerable<Room> GetAppropriate(HospitalizationType hospitalizationType)
         {
-            var appropriate = new List<Room>();
-            foreach (var room in roomRepository.Repository.GetByEquipment(hospitalizationType.NecessaryEquipment))
-            {
-                if (room.Purpose != RoomType.recoveryRoom)
-                    continue;
-                if (room.Department is null)
-                    continue;
-                if (!hospitalizationType.AppropriateDepartments.Contains(room.Department))
-                    continue;
-
-                appropriate.Add(room);
-            }
-
-            return appropriate;
+            return new List<Room>();
         }
 
         public IEnumerable<Room> GetByEquipment(IEnumerable<EquipmentType> equipment)
@@ -207,7 +183,6 @@ namespace HealthcareBase.Service.HospitalResourcesService.RoomService
             room = roomRepository.Repository.GetByID(room.GetKey());
 
             equipmentUnit.CurrentLocation = room;
-            room.AddEquipment(equipmentUnit);
             equipmentUnitRepository.Repository.Update(equipmentUnit);
 
             return room;
