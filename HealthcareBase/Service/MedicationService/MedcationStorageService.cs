@@ -13,12 +13,12 @@ namespace HealthcareBase.Service.MedicationService
 {
     public class MedcationStorageService
     {
-        private readonly RepositoryWrapper<MedicationStorageRepository> medicatonStorageRepository;
+        private readonly RepositoryWrapper<IMedicationStorageRepository> medicatonStorageRepository;
 
-        public MedcationStorageService(MedicationStorageRepository medicatonStorageRepository)
+        public MedcationStorageService(IMedicationStorageRepository medicatonStorageRepository)
         {
             this.medicatonStorageRepository =
-                new RepositoryWrapper<MedicationStorageRepository>(medicatonStorageRepository);
+                new RepositoryWrapper<IMedicationStorageRepository>(medicatonStorageRepository);
         }
 
         public int GetCurrentAmount(Medication medication)
