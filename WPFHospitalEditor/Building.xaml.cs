@@ -46,16 +46,16 @@ namespace WPFHospitalEditor
               
         public static String findFloor(MapObject mapObject)
         {
-            String[] firstSplit = mapObject.Description.Split("&");
-            String[] floor = firstSplit[0].Split("-");
-            return floor[1];
+            String[] descriptionParts = mapObject.Description.Split("&");
+            String[] floors = descriptionParts[0].Split("-");
+            return floors[1];
         }
 
         public static String findBuilding(MapObject mapObject)
         {
-            String[] firstSplit = mapObject.Description.Split("&");
-            String[] building = firstSplit[0].Split("-");
-            return building[0];
+            String[] descriptionParts = mapObject.Description.Split("&");
+            String[] buildings = descriptionParts[0].Split("-");
+            return buildings[0];
         }
 
         private void setFloorComboBox()
