@@ -4,13 +4,9 @@
 // Purpose: Definition of Class MedicationPrescriptionService
 
 using System.Collections.Generic;
-using HealthcareBase.Model.CustomExceptions;
 using HealthcareBase.Model.Medication;
-using HealthcareBase.Model.Users.Patient;
 using HealthcareBase.Repository.Generics;
-using HealthcareBase.Repository.MedicationRepository;
 using HealthcareBase.Repository.MedicationRepository.Interface;
-
 
 namespace HealthcareBase.Service.MedicationService
 {

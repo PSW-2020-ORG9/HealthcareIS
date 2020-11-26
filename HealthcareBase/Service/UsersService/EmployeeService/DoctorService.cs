@@ -22,24 +22,6 @@ namespace HealthcareBase.Service.UsersService.EmployeeService
             this.doctorRepository = new RepositoryWrapper<IDoctorRepository>(doctorRepository);
         }
 
-        public IEnumerable<Doctor> GetQualified(ProcedureType procedureType)
-        {
-            var qualified = new List<Doctor>();
-            foreach (var doctor in doctorRepository.Repository.GetAll())
-            {
-                if (!doctor.Status.Equals(EmployeeStatus.Current))
-                    continue;
-                var matchingSpeicalties =
-                    procedureType.QualifiedSpecialties.Intersect(doctor.Specialties);
-                if (matchingSpeicalties.Count() == 0)
-                    continue;
-
-                qualified.Add(doctor);
-            }
-
-            return qualified;
-        }
-
         public Doctor GetByID(int id)
         {
             return doctorRepository.Repository.GetByID(id);

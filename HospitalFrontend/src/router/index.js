@@ -30,7 +30,7 @@ const routes = [
   ,
   {
     path:'/survey-preview',
-    name:'SurveyPrevie',
+    name:'SurveyPreview',
     component: SurveyPreview
   }
 ]

@@ -13,17 +13,9 @@ namespace HealthcareBase.Model.Medication
 {
     public class MedicationPrescription : IEntity<int>
     {
-        private int medicalRecordId;
-
         [Key]
         public int Id { get; set; }
-
-        public int MedicalRecordId
-        {
-            get => medicalRecordId;
-            set => medicalRecordId = value;
-        }
-
+        public int MedicalRecordId { get; set; }
         public DateTime Date { get; set; }
         
         [ForeignKey("ExaminationReport")]

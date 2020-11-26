@@ -3,12 +3,12 @@
 // Created: 27 May 2020 19:14:10
 // Purpose: Definition of Class PatientAccountService
 
-
 using System.Linq;
 using HealthcareBase.Model.CustomExceptions;
 using HealthcareBase.Model.Users.Employee;
 using HealthcareBase.Model.Users.Patient;
 using HealthcareBase.Model.Users.UserAccounts;
+using HealthcareBase.Model.Users.UserFeedback;
 using HealthcareBase.Repository.Generics;
 using HealthcareBase.Repository.UsersRepository.UserAccountsRepository;
 using HealthcareBase.Repository.UsersRepository.UserFeedbackRepository;

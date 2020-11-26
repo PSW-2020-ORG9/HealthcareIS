@@ -8,7 +8,6 @@ using HealthcareBase.Model.Users.Employee;
 using HealthcareBase.Repository.Generics;
 using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository.Interface;
 
-
 namespace HealthcareBase.Service.UsersService.EmployeeService
 {
     public class SpecialtyService

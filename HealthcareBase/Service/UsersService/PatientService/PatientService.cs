@@ -11,7 +11,6 @@ using HealthcareBase.Repository.ScheduleRepository.HospitalizationsRepository;
 using HealthcareBase.Repository.ScheduleRepository.ProceduresRepository.Interface;
 using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository.Interface;
 
-
 namespace HealthcareBase.Service.UsersService.PatientService
 {
     public class PatientService

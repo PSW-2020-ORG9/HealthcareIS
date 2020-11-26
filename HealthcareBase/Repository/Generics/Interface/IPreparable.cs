@@ -1,4 +1,4 @@
-namespace HealthcareBase.Repository.Generics.Interface
+﻿namespace HealthcareBase.Repository.Generics.Interface
 {
     public interface IPreparable
     {

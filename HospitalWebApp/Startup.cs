@@ -21,7 +21,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
+using Newtonsoft.Json.Linq;
 
 namespace HospitalWebApp
 {
@@ -149,5 +149,7 @@ namespace HospitalWebApp
 
             return $"server={server};port={port};database={database};user={user};password={password};";
         }
+        
+        
     }
 }

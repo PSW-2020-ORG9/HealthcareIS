@@ -3,7 +3,6 @@
 // Created: 21 April 2020 15:23:25
 // Purpose: Definition of Class FamilyMember
 
-
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using HealthcareBase.Model.Miscellaneous;

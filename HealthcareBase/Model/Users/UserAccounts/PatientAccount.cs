@@ -12,8 +12,8 @@ namespace HealthcareBase.Model.Users.UserAccounts
         [ForeignKey("Patient")]
         public int PatientId { get; set; }
         public Patient.Patient Patient { get; set; }
+
         public IEnumerable<FavoriteDoctor> FavouriteDoctors { get; set; }
         public bool RespondedToSurvey { get; set; }
-        
     }
 }

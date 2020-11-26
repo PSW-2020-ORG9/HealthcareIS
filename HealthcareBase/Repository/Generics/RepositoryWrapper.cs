@@ -1,6 +1,4 @@
-﻿
-
-using System;
+﻿using System;
 using HealthcareBase.Repository.Generics.Interface;
 
 namespace HealthcareBase.Repository.Generics

@@ -1,6 +1,5 @@
 using System;
 
-
 namespace HealthcareBase.Repository.Generics.Interface
 {
     /// <summary>
@@ -11,7 +10,9 @@ namespace HealthcareBase.Repository.Generics.Interface
     /// <typeparam name="ID"></typeparam>
     public interface IWrappableRepository<T, ID> 
         : IPreparable,
-        IRepository<T, ID> where ID : IComparable where T : IEntity<ID>
+        IRepository<T, ID>
+        where T : IEntity<ID>
+        where ID : IComparable
     {
         
     }

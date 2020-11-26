@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using HealthcareBase.Model.HospitalResources;
 using HealthcareBase.Repository.Generics.Interface;
 
-
 namespace HealthcareBase.Repository.HospitalResourcesRepository
 {
     public interface IRoomRepository : IWrappableRepository<Room, int>

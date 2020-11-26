@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using HealthcareBase.Model.Miscellaneous;
 using HealthcareBase.Repository.Generics.Interface;
 
-
 namespace HealthcareBase.Repository.MiscellaneousRepository
 {
     public interface IDiagnosisRepository : IWrappableRepository<Diagnosis, string>

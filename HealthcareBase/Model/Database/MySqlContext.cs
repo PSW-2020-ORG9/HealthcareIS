@@ -1,4 +1,4 @@
-﻿using EntityFramework.Exceptions.MySQL.Pomelo;
+using EntityFramework.Exceptions.MySQL.Pomelo;
 using HealthcareBase.Model.Blog;
 using HealthcareBase.Model.HospitalResources;
 using HealthcareBase.Model.Medication;
@@ -26,8 +26,8 @@ namespace HealthcareBase.Model.Database
         private readonly string _connectionString;
 
         // Database access strings
-        private readonly string db = "psw";
-        private readonly string pass = "password";
+        private readonly string db = "";
+        private readonly string pass = "";
 
         public MySqlContext()
         {
@@ -57,6 +57,8 @@ namespace HealthcareBase.Model.Database
         public DbSet<Renovation> Renovations { get; set; }
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Medication.Medication> Medications { get; set; }
+        
+        public DbSet<ClearDoctorsSchedule> ClearDoctorsSchedules { get; set; }
         public DbSet<ClearRoomsSchedule> ClearRoomsSchedules { get; set; }
         public DbSet<MedicationInputRequest> MedicationInputRequests { get; set; }
         public DbSet<ScheduleHospitalization> ScheduleHospitalizations { get; set; }
@@ -107,7 +109,6 @@ namespace HealthcareBase.Model.Database
         // Staff
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<AdministrationWorker> AdministrationWorkers { get; set; }
-
             
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
