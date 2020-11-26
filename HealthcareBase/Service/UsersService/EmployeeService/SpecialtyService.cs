@@ -6,17 +6,18 @@
 using System.Collections.Generic;
 using HealthcareBase.Model.Users.Employee;
 using HealthcareBase.Repository.Generics;
-using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository;
+using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository.Interface;
+
 
 namespace HealthcareBase.Service.UsersService.EmployeeService
 {
     public class SpecialtyService
     {
-        private readonly RepositoryWrapper<SpecialtyRepository> specialtyRepository;
+        private readonly RepositoryWrapper<ISpecialtyRepository> specialtyRepository;
 
-        public SpecialtyService(SpecialtyRepository specialtyRepository)
+        public SpecialtyService(ISpecialtyRepository specialtyRepository)
         {
-            this.specialtyRepository = new RepositoryWrapper<SpecialtyRepository>(specialtyRepository);
+            this.specialtyRepository = new RepositoryWrapper<ISpecialtyRepository>(specialtyRepository);
         }
 
         public Specialty GetByID(int id)

@@ -62,12 +62,12 @@ namespace HealthcareBase.Service.UsersService.UserFeedbackService.SurveyService
             
             var doctorSurveySectionDto = new DoctorSurveySectionDTO
             {
-                DoctorName = doctor.Name,
+                DoctorName = doctor.Person.Name,
                 AverageRating = ratedSectionService
-                    .GetDoctorSectionAverage(doctorSurveySection.Id,doctor.EmployeeID),
+                    .GetDoctorSectionAverage(doctorSurveySection.Id,doctor.Id),
                 SectionId = doctorSurveySection.Id,
                 SectionName = doctorSurveySection.SectionName,
-                SurveyQuestions = BuildDoctorSurveyQuestions(doctor.EmployeeID,doctorSurveySection.SurveyQuestions)
+                SurveyQuestions = BuildDoctorSurveyQuestions(doctor.Id,doctorSurveySection.SurveyQuestions)
             };
             return doctorSurveySectionDto;
         }

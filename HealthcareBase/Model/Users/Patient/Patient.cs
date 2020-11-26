@@ -10,48 +10,24 @@ using HealthcareBase.Repository.Generics;
 
 namespace HealthcareBase.Model.Users.Patient
 {
-    public class Patient : Person, Entity<int>
+    public class Patient : IEntity<int>
     {
-        public Patient(){}
-
+        [Key]
+        public int Id { get; set; }
         public string InsuranceNumber { get; set; }
 
-        public string MiddleName { get; set; }
-
-        [Column(TypeName = "nvarchar(24)")]
-        public MaritalStatus MartialStatus { get; set; }
+        [ForeignKey("Person")]
+        public string Jmbg { get; set; }
+        public Person Person { get; set; }
 
         [Column(TypeName = "nvarchar(24)")]
         public PatientStatus Status { get; set; }
 
-        [ForeignKey("CityOfBirth")]
-        public int CityOfBirthId { get; set; }
-        public City CityOfBirth { get; set; }
+        [ForeignKey("MedicalRecord")]
+        public int MedicalRecordId { get; set; }
+        public MedicalHistory.MedicalRecord MedicalRecord { get; set; }
 
-        [Key]
-        public int MedicalRecordID { get; set; }
-
-        public MedicalHistory.MedicalHistory MedicalHistory { get; set; }
-
-        public int GetKey()
-        {
-            return MedicalRecordID;
-        }
-
-        public void SetKey(int id)
-        {
-            MedicalRecordID = id;
-        }
-
-        public override bool Equals(object obj)
-        {
-            return obj is Patient patient &&
-                   MedicalRecordID == patient.MedicalRecordID;
-        }
-
-        public override int GetHashCode()
-        {
-            return -98446404 + MedicalRecordID.GetHashCode();
-        }
+        public int GetKey() => Id;
+        public void SetKey(int id) => Id = id;
     }
 }

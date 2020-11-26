@@ -5,7 +5,6 @@ namespace HealthcareBase.Service.UsersService.EmployeeService
 {
     public interface IDoctorService
     {
-        public IEnumerable<Doctor> GetAll();
-        
+        IEnumerable<Doctor> GetAll();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using Newtonsoft.Json;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -7,15 +8,20 @@ namespace WPFHospitalEditor.MapObjectModel
 {
     public class MapObject
     {
+        public int Id { get; set; }
         public Rectangle rectangle;
-        public TextBlock name;
+        [JsonIgnore]
+        public TextBlock nameOnMap;
+        public String Name { get; set; }
         public String Description { get; set; }
         public MapObjectMetrics MapObjectMetrics { get; set; }
         public MapObjectType MapObjectType { get; set; }
         public MapObjectDoor MapObjectDoor { get; set; }
 
-        public MapObject(MapObjectMetrics MapObjectMetrics, MapObjectType MapObjectType, MapObjectDoor MapObjectDoor, String Description)
+        public MapObject(String name, int Id, MapObjectMetrics MapObjectMetrics, MapObjectType MapObjectType, MapObjectDoor MapObjectDoor, String Description)
         {
+            this.Name = name;
+            this.Id = Id;
             this.MapObjectMetrics = MapObjectMetrics;
             this.MapObjectType = MapObjectType;
             this.MapObjectDoor = MapObjectDoor;
@@ -43,19 +49,27 @@ namespace WPFHospitalEditor.MapObjectModel
 
         public void setTextBlockProperties()
         {
-            this.name = new TextBlock();
-            this.name.FontSize = 20;
-            this.name.HorizontalAlignment = HorizontalAlignment.Center;
-            this.name.SetValue(Canvas.WidthProperty, this.rectangle.Width);
-            this.name.SetValue(Canvas.HeightProperty, this.rectangle.Height);
-            this.name.TextWrapping = TextWrapping.Wrap;
-            this.name.TextAlignment = TextAlignment.Center;
+            this.nameOnMap = new TextBlock();
+            setMapObjectNameOnMap();
+            this.nameOnMap.FontSize = 15;
+            this.nameOnMap.HorizontalAlignment = HorizontalAlignment.Center;
+            this.nameOnMap.SetValue(Canvas.WidthProperty, this.rectangle.Width);
+            this.nameOnMap.SetValue(Canvas.HeightProperty, this.rectangle.Height);
+            this.nameOnMap.TextWrapping = TextWrapping.Wrap;
+            this.nameOnMap.TextAlignment = TextAlignment.Center;
+        }
+        public void setMapObjectNameOnMap()
+        {
+            if(isNameNeeded())
+            {
+                this.nameOnMap.Text = Name;
+            }
         }
 
         public void setTextBlockPositionOnMap(MapObjectCoordinates mapObjectCoordinates)
         {
-            this.name.SetValue(Canvas.LeftProperty, mapObjectCoordinates.X);
-            this.name.SetValue(Canvas.TopProperty, mapObjectCoordinates.Y);
+            this.nameOnMap.SetValue(Canvas.LeftProperty, mapObjectCoordinates.X);
+            this.nameOnMap.SetValue(Canvas.TopProperty, mapObjectCoordinates.Y);
         }
 
         public void setMapObjectColor()
@@ -97,6 +111,15 @@ namespace WPFHospitalEditor.MapObjectModel
         private Boolean isStrokeNeeded()
         {
             if (MapObjectType != MapObjectType.Parking && MapObjectType != MapObjectType.Road && MapObjectType != MapObjectType.WaitingRoom && MapObjectType != MapObjectType.ParkingSlot)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private Boolean isNameNeeded()
+        {
+            if (MapObjectType != MapObjectType.Road && MapObjectType != MapObjectType.Parking && MapObjectType != MapObjectType.ParkingSlot)
             {
                 return true;
             }

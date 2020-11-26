@@ -8,7 +8,7 @@ using HealthcareBase.Repository.Generics;
 
 namespace HealthcareBase.Model.HospitalResources
 {
-    public class EquipmentType : Entity<int>
+    public class EquipmentType : IEntity<int>
     {
         public EquipmentType(string name, string purpose, bool requiresRenovationToMove)
         {

@@ -12,11 +12,11 @@ namespace HealthcareBase.Service.MiscellaneousService
 {
     public class DiagnosisService
     {
-        private readonly RepositoryWrapper<DiagnosisRepository> diagnosisRepository;
+        private readonly RepositoryWrapper<IDiagnosisRepository> diagnosisRepository;
 
-        public DiagnosisService(DiagnosisRepository diagnosisRepository)
+        public DiagnosisService(IDiagnosisRepository diagnosisRepository)
         {
-            this.diagnosisRepository = new RepositoryWrapper<DiagnosisRepository>(diagnosisRepository);
+            this.diagnosisRepository = new RepositoryWrapper<IDiagnosisRepository>(diagnosisRepository);
         }
 
         public Diagnosis GetByID(string id)

@@ -8,32 +8,30 @@ using HealthcareBase.Model.CustomExceptions;
 using HealthcareBase.Model.Users.Patient;
 using HealthcareBase.Repository.Generics;
 using HealthcareBase.Repository.ScheduleRepository.HospitalizationsRepository;
-using HealthcareBase.Repository.ScheduleRepository.ProceduresRepository;
-using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository;
+using HealthcareBase.Repository.ScheduleRepository.ProceduresRepository.Interface;
+using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository.Interface;
+
 
 namespace HealthcareBase.Service.UsersService.PatientService
 {
     public class PatientService
     {
-        private readonly RepositoryWrapper<ExaminationRepository> examinationRepository;
-        private readonly RepositoryWrapper<HospitalizationRepository> hospitalizationRepository;
-        private readonly PatientAccountService patientAccountService;
-        private readonly RepositoryWrapper<PatientRepository> patientRepository;
-        private readonly RepositoryWrapper<SurgeryRepository> surgeryRepository;
+        private readonly RepositoryWrapper<IExaminationRepository> examinationRepository;
+        private readonly RepositoryWrapper<IHospitalizationRepository> hospitalizationRepository;
+        private readonly RepositoryWrapper<IPatientRepository> patientRepository;
+        private readonly RepositoryWrapper<ISurgeryRepository> surgeryRepository;
 
         public PatientService(
-            PatientRepository patientRepository,
-            ExaminationRepository examinationRepository,
-            SurgeryRepository surgeryRepository,
-            HospitalizationRepository hospitalizationRepository,
-            PatientAccountService patientAccountService)
+            IPatientRepository patientRepository,
+            IExaminationRepository examinationRepository,
+            ISurgeryRepository surgeryRepository,
+            IHospitalizationRepository hospitalizationRepository)
         {
-            this.patientRepository = new RepositoryWrapper<PatientRepository>(patientRepository);
-            this.examinationRepository = new RepositoryWrapper<ExaminationRepository>(examinationRepository);
-            this.surgeryRepository = new RepositoryWrapper<SurgeryRepository>(surgeryRepository);
+            this.patientRepository = new RepositoryWrapper<IPatientRepository>(patientRepository);
+            this.examinationRepository = new RepositoryWrapper<IExaminationRepository>(examinationRepository);
+            this.surgeryRepository = new RepositoryWrapper<ISurgeryRepository>(surgeryRepository);
             this.hospitalizationRepository =
-                new RepositoryWrapper<HospitalizationRepository>(hospitalizationRepository);
-            this.patientAccountService = patientAccountService;
+                new RepositoryWrapper<IHospitalizationRepository>(hospitalizationRepository);
         }
 
         public PatientChartDTO GetPatientChart(Patient patient)
@@ -57,7 +55,6 @@ namespace HealthcareBase.Service.UsersService.PatientService
             return patientRepository.Repository.GetMatching(patient => patient.Status == PatientStatus.Alive);
         }
 
-
         public Patient Create(Patient patient)
         {
             if (patient == null)
@@ -72,15 +69,6 @@ namespace HealthcareBase.Service.UsersService.PatientService
                 throw new BadRequestException();
 
             return patientRepository.Repository.Update(patient);
-        }
-
-        public Patient PronounceDeceased(Patient patient)
-        {
-            var existingPatient = patientRepository.Repository.GetByJMBG(patient.Jmbg);
-            existingPatient.Status = PatientStatus.Deceased;
-            patientAccountService.DeleteAccount(patientAccountService.GetAccount(existingPatient));
-
-            return patientRepository.Repository.Update(existingPatient);
         }
     }
 }

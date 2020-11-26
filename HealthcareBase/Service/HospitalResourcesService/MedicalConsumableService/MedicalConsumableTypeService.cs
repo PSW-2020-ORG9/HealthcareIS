@@ -13,17 +13,17 @@ namespace HealthcareBase.Service.HospitalResourcesService.MedicalConsumableServi
 {
     public class MedicalConsumableTypeService
     {
-        private readonly RepositoryWrapper<MedicalConsumableRepository> medicalConsumableRepository;
-        private readonly RepositoryWrapper<MedicalConsumableTypeRepository> medicalConsumableTypeRepository;
+        private readonly RepositoryWrapper<IMedicalConsumableRepository> medicalConsumableRepository;
+        private readonly RepositoryWrapper<IMedicalConsumableTypeRepository> medicalConsumableTypeRepository;
 
         public MedicalConsumableTypeService(
-            MedicalConsumableTypeRepository medicalConsumableTypeRepository,
-            MedicalConsumableRepository medicalConsumableRepository)
+            IMedicalConsumableTypeRepository medicalConsumableTypeRepository,
+            IMedicalConsumableRepository medicalConsumableRepository)
         {
             this.medicalConsumableTypeRepository =
-                new RepositoryWrapper<MedicalConsumableTypeRepository>(medicalConsumableTypeRepository);
+                new RepositoryWrapper<IMedicalConsumableTypeRepository>(medicalConsumableTypeRepository);
             this.medicalConsumableRepository =
-                new RepositoryWrapper<MedicalConsumableRepository>(medicalConsumableRepository);
+                new RepositoryWrapper<IMedicalConsumableRepository>(medicalConsumableRepository);
         }
 
         public MedicalConsumableType GetByID(int id)

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Model.Users.Generalities;
 using HealthcareBase.Model.Users.Survey;
 using HealthcareBase.Model.Users.Survey.DTOs;
 using HealthcareBase.Model.Users.Survey.SurveyEntry;
@@ -246,13 +247,19 @@ namespace HealthcareBaseTests
             {
                 new Doctor
                 {
-                    EmployeeID = 1,
-                    Name = "doktor1"
+                    Id = 1,
+                    Person = new Person
+                    {
+                        Name = "doktor1"
+                    }
                 },
                 new Doctor
                 {
-                    EmployeeID = 2,
-                    Name = "doktor2"
+                    Id = 1,
+                    Person = new Person
+                    {
+                        Name = "doktor2"
+                    }
                 }
             };
         }

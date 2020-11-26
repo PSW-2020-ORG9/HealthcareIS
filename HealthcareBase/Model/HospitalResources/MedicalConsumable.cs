@@ -9,7 +9,7 @@ using HealthcareBase.Repository.Generics;
 
 namespace HealthcareBase.Model.HospitalResources
 {
-    public class MedicalConsumable : Entity<int>
+    public class MedicalConsumable : IEntity<int>
     {
         public MedicalConsumable(string manufacutrer, string description, MedicalConsumableType consumableType)
         {

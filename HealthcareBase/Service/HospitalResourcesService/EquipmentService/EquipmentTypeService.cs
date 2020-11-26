@@ -10,27 +10,28 @@ using HealthcareBase.Model.HospitalResources;
 using HealthcareBase.Repository.Generics;
 using HealthcareBase.Repository.HospitalResourcesRepository;
 using HealthcareBase.Repository.ScheduleRepository.HospitalizationsRepository;
-using HealthcareBase.Repository.ScheduleRepository.ProceduresRepository;
+using HealthcareBase.Repository.ScheduleRepository.ProceduresRepository.Interface;
+
 
 namespace HealthcareBase.Service.HospitalResourcesService.EquipmentService
 {
     public class EquipmentTypeService
     {
         private readonly EquipmentService equipmentService;
-        private readonly RepositoryWrapper<EquipmentTypeRepository> equipmentTypeRepository;
-        private readonly RepositoryWrapper<HospitalizationTypeRepository> hospitalizationTypeRepository;
-        private readonly RepositoryWrapper<ProcedureTypeRepository> procedureTypeRepository;
+        private readonly RepositoryWrapper<IEquipmentTypeRepository> equipmentTypeRepository;
+        private readonly RepositoryWrapper<IHospitalizationTypeRepository> hospitalizationTypeRepository;
+        private readonly RepositoryWrapper<IProcedureTypeRepository> procedureTypeRepository;
 
         public EquipmentTypeService(
-            EquipmentTypeRepository equipmentTypeRepository,
-            HospitalizationTypeRepository hospitalizationTypeRepository,
-            ProcedureTypeRepository procedureTypeRepository,
+            IEquipmentTypeRepository equipmentTypeRepository,
+            IHospitalizationTypeRepository hospitalizationTypeRepository,
+            IProcedureTypeRepository procedureTypeRepository,
             EquipmentService equipmentService)
         {
-            this.equipmentTypeRepository = new RepositoryWrapper<EquipmentTypeRepository>(equipmentTypeRepository);
+            this.equipmentTypeRepository = new RepositoryWrapper<IEquipmentTypeRepository>(equipmentTypeRepository);
             this.hospitalizationTypeRepository =
-                new RepositoryWrapper<HospitalizationTypeRepository>(hospitalizationTypeRepository);
-            this.procedureTypeRepository = new RepositoryWrapper<ProcedureTypeRepository>(procedureTypeRepository);
+                new RepositoryWrapper<IHospitalizationTypeRepository>(hospitalizationTypeRepository);
+            this.procedureTypeRepository = new RepositoryWrapper<IProcedureTypeRepository>(procedureTypeRepository);
             this.equipmentService = equipmentService;
         }
 

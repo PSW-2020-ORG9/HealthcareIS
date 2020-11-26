@@ -10,7 +10,7 @@ using HealthcareBase.Repository.Generics;
 
 namespace HealthcareBase.Model.Schedule.Hospitalizations
 {
-    public class HospitalizationType : Entity<int>
+    public class HospitalizationType : IEntity<int>
     {
         private List<Department> appropriateDepartments;
         protected List<EquipmentType> necessaryEquipment;

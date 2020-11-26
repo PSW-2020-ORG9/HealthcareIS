@@ -10,7 +10,7 @@ using HealthcareBase.Repository.Generics;
 
 namespace HealthcareBase.Model.Blog
 {
-    public class BlogAuthor : Entity<int>
+    public class BlogAuthor : IEntity<int>
     {
         public BlogAuthor(string description, Doctor doctor)
         {

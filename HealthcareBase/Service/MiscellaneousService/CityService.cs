@@ -12,11 +12,11 @@ namespace HealthcareBase.Service.MiscellaneousService
 {
     public class CityService
     {
-        private readonly RepositoryWrapper<CityRepository> cityRepository;
+        private readonly RepositoryWrapper<ICityRepository> cityRepository;
 
-        public CityService(CityRepository cityRepository)
+        public CityService(ICityRepository cityRepository)
         {
-            this.cityRepository = new RepositoryWrapper<CityRepository>(cityRepository);
+            this.cityRepository = new RepositoryWrapper<ICityRepository>(cityRepository);
         }
 
         public City GetByID(int id)

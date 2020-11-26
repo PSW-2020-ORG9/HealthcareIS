@@ -9,7 +9,7 @@ using HealthcareBase.Repository.Generics;
 
 namespace HealthcareBase.Model.Users.Survey
 {
-    public class Survey : Entity<int>
+    public class Survey : IEntity<int>
     {
         
         public List<SurveySection> SurveySections { get; set; }

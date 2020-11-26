@@ -8,34 +8,14 @@ using HealthcareBase.Repository.Generics;
 
 namespace HealthcareBase.Model.Users.Generalities
 {
-    public class Country : Entity<int>
+    public class Country : IEntity<int>
     {
-        public string Name { get; set; }
-
-        public string Code { get; set; }
-
         [Key]
         public int Id { get; set; }
+        public string Name { get; set; }
+        public string Code { get; set; }
 
-        public int GetKey()
-        {
-            return Id;
-        }
-
-        public void SetKey(int id)
-        {
-            Id = id;
-        }
-
-        public override bool Equals(object obj)
-        {
-            return obj is Country country &&
-                   Id == country.Id;
-        }
-
-        public override int GetHashCode()
-        {
-            return 1877310944 + Id.GetHashCode();
-        }
+        public int GetKey() => Id;
+        public void SetKey(int id) => Id = id;
     }
 }

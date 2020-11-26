@@ -13,117 +13,40 @@ using HealthcareBase.Repository.Generics;
 
 namespace HealthcareBase.Model.Schedule.Procedures
 {
-    public abstract class Procedure : Entity<int>
+    public abstract class Procedure : IEntity<int>
     {
-        protected bool avoidChangingDoctor;
-        protected bool avoidChangingRoom;
-        protected bool avoidChangingTime;
-        protected Doctor doctor;
-        protected int id;
-        protected Patient patient;
-        protected ProcedurePriority priority;
-        protected ProcedureType procedureType;
-        protected Examination referredFrom;
-        protected Room room;
-        protected TimeInterval timeInterval;
-
-        public TimeInterval TimeInterval
-        {
-            get => timeInterval;
-            set => timeInterval = value;
-        }
-
+        [Key]
+        public int Id { get; set; }
+        public TimeInterval TimeInterval { get; set; }
+        
         [ForeignKey("Doctor")]
         public int DoctorId { get; set; }
-        public Doctor Doctor
-        {
-            get => doctor;
-            set => doctor = value;
-        }
-
-        [ForeignKey("ProcedureType")]
-        public int ProcedureTypeId { get; set; }
-        public ProcedureType ProcedureType
-        {
-            get => procedureType;
-            set => procedureType = value;
-        }
-
-        [Key]
-        public int Id
-        {
-            get => id;
-            set => id = value;
-        }
-
-        [ForeignKey("Room")]
-        public int RoomId { get; set; }
-        public Room Room
-        {
-            get => room;
-            set => room = value;
-        }
+        public Doctor Doctor { get; set; }
 
         [ForeignKey("Patient")]
         public int PatientId { get; set; }
-        public Patient Patient
-        {
-            get => patient;
-            set => patient = value;
-        }
+        public Patient Patient { get; set; }
+        
+        [ForeignKey("ProcedureType")]
+        public int ProcedureTypeId { get; set; }
+        public ProcedureType ProcedureType { get; set; }
+
+        [ForeignKey("Room")]
+        public int RoomId { get; set; }
+        public Room Room { get; set; }
 
         [ForeignKey("ReferredFrom")]
-        public int ReferredFromId { get; set; }
-        public Examination ReferredFrom
-        {
-            get => referredFrom;
-            set => referredFrom = value;
-        }
+        public int? ReferredFromId { get; set; }
+        public Examination ReferredFrom { get; set; }
 
-        [Column(TypeName = "nvarchar(24)")]
-        public ProcedurePriority Priority
-        {
-            get => priority;
-            set => priority = value;
-        }
+        [Column(TypeName = "nvarchar(12)")]
+        public ProcedurePriority Priority { get; set; }
 
-        public bool AvoidChangingTime
-        {
-            get => avoidChangingTime;
-            set => avoidChangingTime = value;
-        }
+        public bool AvoidChangingTime { get; set; }
+        public bool AvoidChangingRoom { get; set; }
+        public bool AvoidChangingDoctor { get; set; }
 
-        public bool AvoidChangingRoom
-        {
-            get => avoidChangingRoom;
-            set => avoidChangingRoom = value;
-        }
-
-        public bool AvoidChangingDoctor
-        {
-            get => avoidChangingDoctor;
-            set => avoidChangingDoctor = value;
-        }
-
-        public int GetKey()
-        {
-            return id;
-        }
-
-        public void SetKey(int id)
-        {
-            this.id = id;
-        }
-
-        public override bool Equals(object obj)
-        {
-            return obj is Procedure procedure &&
-                   id == procedure.id;
-        }
-
-        public override int GetHashCode()
-        {
-            return 1877310944 + id.GetHashCode();
-        }
+        public int GetKey() => Id;
+        public void SetKey(int id) => Id = id;
     }
 }

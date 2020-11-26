@@ -10,7 +10,7 @@ using HealthcareBase.Repository.Generics;
 
 namespace HealthcareBase.Model.HospitalResources
 {
-    public class Renovation : Entity<int>
+    public class Renovation : IEntity<int>
     {
         public Renovation(string description, TimeInterval timeInterval, Room room)
         {

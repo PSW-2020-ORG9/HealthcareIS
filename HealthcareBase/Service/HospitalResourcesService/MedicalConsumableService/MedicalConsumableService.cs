@@ -13,21 +13,21 @@ namespace HealthcareBase.Service.HospitalResourcesService.MedicalConsumableServi
 {
     public class MedicalConsumableService
     {
-        private readonly RepositoryWrapper<ConsumableStorageRecordRepository> consumableStorageRecordRepository;
-        private readonly RepositoryWrapper<MedicalConsumableRepository> medicalConsumableRepository;
-        private readonly RepositoryWrapper<MedicalConsumableTypeRepository> medicalConsumableTypeRepository;
+        private readonly RepositoryWrapper<IConsumableStorageRecordRepository> consumableStorageRecordRepository;
+        private readonly RepositoryWrapper<IMedicalConsumableRepository> medicalConsumableRepository;
+        private readonly RepositoryWrapper<IMedicalConsumableTypeRepository> medicalConsumableTypeRepository;
 
         public MedicalConsumableService(
-            MedicalConsumableRepository medicalConsumableRepository,
-            MedicalConsumableTypeRepository medicalConsumableTypeRepository,
-            ConsumableStorageRecordRepository consumableStorageRecordRepository)
+            IMedicalConsumableRepository medicalConsumableRepository,
+            IMedicalConsumableTypeRepository medicalConsumableTypeRepository,
+            IConsumableStorageRecordRepository consumableStorageRecordRepository)
         {
             this.medicalConsumableRepository =
-                new RepositoryWrapper<MedicalConsumableRepository>(medicalConsumableRepository);
+                new RepositoryWrapper<IMedicalConsumableRepository>(medicalConsumableRepository);
             this.medicalConsumableTypeRepository =
-                new RepositoryWrapper<MedicalConsumableTypeRepository>(medicalConsumableTypeRepository);
+                new RepositoryWrapper<IMedicalConsumableTypeRepository>(medicalConsumableTypeRepository);
             this.consumableStorageRecordRepository =
-                new RepositoryWrapper<ConsumableStorageRecordRepository>(consumableStorageRecordRepository);
+                new RepositoryWrapper<IConsumableStorageRecordRepository>(consumableStorageRecordRepository);
         }
 
         public MedicalConsumable GetByID(int id)

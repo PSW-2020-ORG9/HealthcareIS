@@ -12,7 +12,7 @@ namespace HealthcareBase.Service.MedicationService
     {
         public MedicationInputRequest InputRequest { get; set; }
 
-        public EmployeeAccount Reviewer { get; set; }
+        public AdministrationAccount Reviewer { get; set; }
 
         public string Comment { get; set; }
     }

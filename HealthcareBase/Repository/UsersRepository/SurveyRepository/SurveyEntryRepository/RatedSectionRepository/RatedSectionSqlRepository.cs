@@ -13,7 +13,7 @@ namespace HealthcareBase.Repository.UsersRepository.SurveyRepository.SurveyEntry
             
         }
 
-        public override IQueryable<RatedSurveySection> IncludeFields(IQueryable<RatedSurveySection> query)
+        protected override IQueryable<RatedSurveySection> IncludeFields(IQueryable<RatedSurveySection> query)
         {
             return query.Include(rss => rss.RatedSurveyQuestions)
                 .ThenInclude(qs => qs.SurveyQuestion);

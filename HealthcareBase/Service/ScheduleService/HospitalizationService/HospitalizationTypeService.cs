@@ -12,12 +12,12 @@ namespace HealthcareBase.Service.ScheduleService.HospitalizationService
 {
     public class HospitalizationTypeService
     {
-        private readonly RepositoryWrapper<HospitalizationTypeRepository> hospitalizationTypeRepository;
+        private readonly RepositoryWrapper<IHospitalizationTypeRepository> hospitalizationTypeRepository;
 
-        public HospitalizationTypeService(HospitalizationTypeRepository hospitalizationTypeRepository)
+        public HospitalizationTypeService(IHospitalizationTypeRepository hospitalizationTypeRepository)
         {
             this.hospitalizationTypeRepository =
-                new RepositoryWrapper<HospitalizationTypeRepository>(hospitalizationTypeRepository);
+                new RepositoryWrapper<IHospitalizationTypeRepository>(hospitalizationTypeRepository);
         }
 
         public IEnumerable<HospitalizationType> GetAll()

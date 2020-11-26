@@ -3,24 +3,30 @@
 // Created: 27 May 2020 19:14:10
 // Purpose: Definition of Class PatientAccountService
 
+
+using System.Linq;
 using HealthcareBase.Model.CustomExceptions;
 using HealthcareBase.Model.Users.Employee;
 using HealthcareBase.Model.Users.Patient;
 using HealthcareBase.Model.Users.UserAccounts;
 using HealthcareBase.Repository.Generics;
 using HealthcareBase.Repository.UsersRepository.UserAccountsRepository;
+using HealthcareBase.Repository.UsersRepository.UserFeedbackRepository;
 
 namespace HealthcareBase.Service.UsersService.PatientService
 {
     public class PatientAccountService
     {
-        private readonly RepositoryWrapper<PatientAccountRepository> patientAccountRepository;
+        private readonly RepositoryWrapper<IPatientAccountRepository> patientAccountRepository;
+        private readonly RepositoryWrapper<IPatientSurveyResponseRepository> patientSurveyResponseRepository;
 
         public PatientAccountService(
-            PatientAccountRepository patientAccountRepository)
+            IPatientAccountRepository patientAccountRepository,
+            IPatientSurveyResponseRepository patientSurveyResponseRepository)
         {
-            this.patientAccountRepository = new RepositoryWrapper<PatientAccountRepository>(patientAccountRepository);
-            
+            this.patientAccountRepository = new RepositoryWrapper<IPatientAccountRepository>(patientAccountRepository);
+            this.patientSurveyResponseRepository =
+                new RepositoryWrapper<IPatientSurveyResponseRepository>(patientSurveyResponseRepository);
         }
 
         public void DeleteAccount(PatientAccount patientAccount)
@@ -46,19 +52,29 @@ namespace HealthcareBase.Service.UsersService.PatientService
             return patientAccountRepository.Repository.Update(acc);
         }
 
+        // TODO When fetching FavoriteDoctors, do no
         public PatientAccount AddFavouriteDoctor(Doctor doctor, PatientAccount account)
         {
             var acc = patientAccountRepository.Repository.GetByID(account.Id);
-            acc.AddFavouriteDoctor(doctor);
-
+            acc.FavouriteDoctors.ToList().Add(new FavoriteDoctor()
+            {
+                Doctor = doctor,
+            });
             return patientAccountRepository.Repository.Update(acc);
         }
 
         public PatientAccount RemoveFavoriteDoctor(Doctor doctor, PatientAccount account)
         {
             var acc = patientAccountRepository.Repository.GetByID(account.Id);
-            acc.RemoveFavouriteDoctor(doctor);
-
+            var favDoctorList = acc.FavouriteDoctors.ToList();
+            foreach (var favDoc in favDoctorList)
+            {
+                if (favDoc.Doctor.Id == doctor.Id)
+                {
+                    favDoctorList.Remove(favDoc);
+                    break;
+                }
+            }
             return patientAccountRepository.Repository.Update(acc);
         }
         

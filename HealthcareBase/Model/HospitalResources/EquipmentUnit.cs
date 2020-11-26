@@ -11,7 +11,7 @@ using HealthcareBase.Repository.Generics;
 
 namespace HealthcareBase.Model.HospitalResources
 {
-    public class EquipmentUnit : Entity<int>
+    public class EquipmentUnit : IEntity<int>
     {
         public EquipmentUnit(DateTime acquisitionDate, string manufacturer, Room currentLocation,
             EquipmentType equipmentType)
@@ -37,8 +37,6 @@ namespace HealthcareBase.Model.HospitalResources
         [ForeignKey("EquipmentType")]
         public int? EquipmentTypeId { get; set; }
         public EquipmentType EquipmentType { get; set; }
-
-        public Room Room { get; set; }
 
         public Hospitalization Hospitalization { get; set; }
 

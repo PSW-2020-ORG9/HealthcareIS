@@ -9,7 +9,7 @@ using HealthcareBase.Repository.Generics;
 
 namespace HealthcareBase.Model.StorageRecords
 {
-    public abstract class StorageRecord : Entity<int>
+    public abstract class StorageRecord : IEntity<int>
     {
         protected int availableAmount;
         protected int id;

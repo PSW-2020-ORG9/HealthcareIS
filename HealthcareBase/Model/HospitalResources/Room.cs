@@ -10,7 +10,7 @@ using HealthcareBase.Repository.Generics;
 
 namespace HealthcareBase.Model.HospitalResources
 {
-    public class Room : Entity<int>
+    public class Room : IEntity<int>
     {
         private List<EquipmentUnit> equipment;
 

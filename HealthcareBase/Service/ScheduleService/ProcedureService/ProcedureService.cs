@@ -12,21 +12,21 @@ using HealthcareBase.Model.Users.Employee;
 using HealthcareBase.Model.Users.Patient;
 using HealthcareBase.Model.Utilities;
 using HealthcareBase.Repository.Generics;
-using HealthcareBase.Repository.ScheduleRepository.ProceduresRepository;
+using HealthcareBase.Repository.ScheduleRepository.ProceduresRepository.Interface;
 
 namespace HealthcareBase.Service.ScheduleService.ProcedureService
 {
     public class ProcedureService
     {
-        private readonly RepositoryWrapper<ExaminationRepository> examinationRepository;
-        private readonly RepositoryWrapper<SurgeryRepository> surgeryRepository;
+        private readonly RepositoryWrapper<IExaminationRepository> examinationRepository;
+        private readonly RepositoryWrapper<ISurgeryRepository> surgeryRepository;
 
         public ProcedureService(
-            ExaminationRepository examinationRepository,
-            SurgeryRepository surgeryRepository)
+            IExaminationRepository examinationRepository,
+            ISurgeryRepository surgeryRepository)
         {
-            this.examinationRepository = new RepositoryWrapper<ExaminationRepository>(examinationRepository);
-            this.surgeryRepository = new RepositoryWrapper<SurgeryRepository>(surgeryRepository);
+            this.examinationRepository = new RepositoryWrapper<IExaminationRepository>(examinationRepository);
+            this.surgeryRepository = new RepositoryWrapper<ISurgeryRepository>(surgeryRepository);
         }
 
         public IEnumerable<Procedure> GetAll()

@@ -13,7 +13,7 @@ using HealthcareBase.Repository.Generics;
 
 namespace HealthcareBase.Model.Schedule.Procedures
 {
-    public class ProcedureType : Entity<int>
+    public class ProcedureType : IEntity<int>
     {
         protected TimeSpan duration;
         protected int id;

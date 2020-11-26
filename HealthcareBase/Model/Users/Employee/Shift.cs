@@ -11,7 +11,7 @@ using HealthcareBase.Repository.Generics;
 
 namespace HealthcareBase.Model.Users.Employee
 {
-    public class Shift : Entity<int>
+    public class Shift : IEntity<int>
     {
         public TimeInterval TimeInterval { get; set; }
 

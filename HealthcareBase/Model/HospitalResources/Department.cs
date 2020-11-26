@@ -8,7 +8,7 @@ using HealthcareBase.Repository.Generics;
 
 namespace HealthcareBase.Model.HospitalResources
 {
-    public class Department : Entity<int>
+    public class Department : IEntity<int>
     {
         public Department()
         {

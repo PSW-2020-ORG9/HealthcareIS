@@ -11,42 +11,21 @@ using HealthcareBase.Repository.Generics;
 
 namespace HealthcareBase.Model.Users.UserFeedback
 {
-    public class UserFeedback : Entity<int>
+    public class UserFeedback : IEntity<int>
     {
+        [Key]
+        public int Id { get; set; }
         public DateTime Date { get; set; }
-
         public string UserComment { get; set; }
-
         public bool isPublic { get; set; }
         public bool isAnonymous { get; set; }
         public bool isPublished { get; set; }
 
-        [ForeignKey("User")]
-        public int UserId { get; set; }
-        public UserAccount User { get; set; }
+        [ForeignKey("PatientAccount")]
+        public int PatientAccountId { get; set; }
+        public PatientAccount PatientAccount { get; set; }
 
-        [Key]
-        public int Id { get; set; }
-
-        public int GetKey()
-        {
-            return Id;
-        }
-
-        public void SetKey(int id)
-        {
-            Id = id;
-        }
-
-        public override bool Equals(object obj)
-        {
-            return obj is UserFeedback feedback &&
-                   Id == feedback.Id;
-        }
-
-        public override int GetHashCode()
-        {
-            return 1877310944 + Id.GetHashCode();
-        }
+        public int GetKey() => Id;
+        public void SetKey(int id) => Id = id;
     }
 }

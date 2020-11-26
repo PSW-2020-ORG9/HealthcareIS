@@ -12,11 +12,11 @@ namespace HealthcareBase.Service.MiscellaneousService
 {
     public class AllergyService
     {
-        private readonly RepositoryWrapper<AllergyRepository> allergyRepository;
+        private readonly RepositoryWrapper<IAllergyRepository> allergyRepository;
 
-        public AllergyService(AllergyRepository allergyRepository)
+        public AllergyService(IAllergyRepository allergyRepository)
         {
-            this.allergyRepository = new RepositoryWrapper<AllergyRepository>(allergyRepository);
+            this.allergyRepository = new RepositoryWrapper<IAllergyRepository>(allergyRepository);
         }
 
         public Allergy GetByID(int id)

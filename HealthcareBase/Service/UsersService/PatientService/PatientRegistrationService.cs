@@ -7,22 +7,22 @@ using HealthcareBase.Model.CustomExceptions;
 using HealthcareBase.Model.Users.Patient;
 using HealthcareBase.Model.Users.UserAccounts;
 using HealthcareBase.Repository.Generics;
-using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository;
+using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository.Interface;
 using HealthcareBase.Repository.UsersRepository.UserAccountsRepository;
 
 namespace HealthcareBase.Service.UsersService.PatientService
 {
     public class PatientRegistrationService
     {
-        private readonly RepositoryWrapper<PatientAccountRepository> patientAccountRepository;
-        private readonly RepositoryWrapper<PatientRepository> patientRepository;
+        private readonly RepositoryWrapper<IPatientAccountRepository> patientAccountRepository;
+        private readonly RepositoryWrapper<IPatientRepository> patientRepository;
 
         public PatientRegistrationService(
-            PatientAccountRepository patientAccountRepository,
-            PatientRepository patientRepository)
+            IPatientAccountRepository patientAccountRepository,
+            IPatientRepository patientRepository)
         {
-            this.patientAccountRepository = new RepositoryWrapper<PatientAccountRepository>(patientAccountRepository);
-            this.patientRepository = new RepositoryWrapper<PatientRepository>(patientRepository);
+            this.patientAccountRepository = new RepositoryWrapper<IPatientAccountRepository>(patientAccountRepository);
+            this.patientRepository = new RepositoryWrapper<IPatientRepository>(patientRepository);
         }
 
         public bool IsRegistered(string jmbg)
@@ -43,13 +43,13 @@ namespace HealthcareBase.Service.UsersService.PatientService
 
         public PatientAccount Register(Patient patient, string username, string password)
         {
-            if (patientAccountRepository.Repository.ExistsByJMBG(patient.Jmbg))
+            if (patientAccountRepository.Repository.ExistsByJMBG(patient.Person.Jmbg))
                 throw new BadRequestException();
 
             if (!IsUsernameUnique(username))
                 throw new NotUniqueException();
 
-            if (HasGuestAccount(patient.Jmbg))
+            if (HasGuestAccount(patient.Person.Jmbg))
                 patient = patientRepository.Repository.Update(patient);
             else
                 patient = patientRepository.Repository.Create(patient);

@@ -3,7 +3,7 @@ using HealthcareBase.Repository.Generics;
 
 namespace HealthcareBase.Model.Users.Survey
 {
-    public class SurveyQuestion : Entity<int>
+    public class SurveyQuestion : IEntity<int>
     {
         [Key] public int Id { get; set; }
         public string Question { get; set; }

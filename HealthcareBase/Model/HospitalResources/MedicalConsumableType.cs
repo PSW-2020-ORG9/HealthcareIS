@@ -8,7 +8,7 @@ using HealthcareBase.Repository.Generics;
 
 namespace HealthcareBase.Model.HospitalResources
 {
-    public class MedicalConsumableType : Entity<int>
+    public class MedicalConsumableType : IEntity<int>
     {
         public MedicalConsumableType()
         {

@@ -14,7 +14,7 @@ using HealthcareBase.Repository.Generics;
 
 namespace HealthcareBase.Model.Schedule.Hospitalizations
 {
-    public class Hospitalization : Entity<int>
+    public class Hospitalization : IEntity<int>
     {
         private List<EquipmentUnit> equipmentInUse;
 

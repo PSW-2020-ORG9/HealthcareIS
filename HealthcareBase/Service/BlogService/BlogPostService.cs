@@ -14,13 +14,13 @@ namespace HealthcareBase.Service.BlogService
 {
     public class BlogPostService
     {
-        private readonly RepositoryWrapper<BlogAuthorRepository> blogAuthorRepository;
-        private readonly RepositoryWrapper<BlogPostRepository> blogPostRepository;
+        private readonly RepositoryWrapper<IBlogAuthorRepository> blogAuthorRepository;
+        private readonly RepositoryWrapper<IBlogPostRepository> blogPostRepository;
 
-        public BlogPostService(BlogPostRepository blogPostRepository, BlogAuthorRepository blogAuthorRepository)
+        public BlogPostService(IBlogPostRepository blogPostRepository, IBlogAuthorRepository blogAuthorRepository)
         {
-            this.blogPostRepository = new RepositoryWrapper<BlogPostRepository>(blogPostRepository);
-            this.blogAuthorRepository = new RepositoryWrapper<BlogAuthorRepository>(blogAuthorRepository);
+            this.blogPostRepository = new RepositoryWrapper<IBlogPostRepository>(blogPostRepository);
+            this.blogAuthorRepository = new RepositoryWrapper<IBlogAuthorRepository>(blogAuthorRepository);
         }
 
         public BlogPost GetByID(int id)

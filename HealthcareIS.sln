@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthcareBase", "Healthcar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFHospitalEditor", "WPFHospitalEditor\WPFHospitalEditor.csproj", "{8A270394-8874-426A-A846-3892E54EB437}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HospitalWebApp", "HospitalWebApp\HospitalWebApp.csproj", "{7CB35A4E-A104-4098-A2FE-23E4A42856B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HospitalWebApp", "HospitalWebApp\HospitalWebApp.csproj", "{7CB35A4E-A104-4098-A2FE-23E4A42856B0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthcareBaseTests", "HealthcareBaseTests\HealthcareBaseTests.csproj", "{9564E34A-6EF5-4E4E-A250-2A348C5A031D}"
 EndProject

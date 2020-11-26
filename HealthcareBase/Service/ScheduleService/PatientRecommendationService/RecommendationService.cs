@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using HealthcareBase.Model.Schedule.Procedures;
 using HealthcareBase.Repository.Generics;
-using HealthcareBase.Repository.ScheduleRepository.ProceduresRepository;
+using HealthcareBase.Repository.ScheduleRepository.ProceduresRepository.Interface;
 using HealthcareBase.Service.ScheduleService.ScheduleFittingService;
 
 namespace HealthcareBase.Service.ScheduleService.PatientRecommendationService
@@ -16,16 +16,16 @@ namespace HealthcareBase.Service.ScheduleService.PatientRecommendationService
     {
         private readonly RecommendationStrategy defaultStrategy;
         private readonly ProcedureScheduleFittingService procedureScheduleFittingService;
-        private readonly RepositoryWrapper<ProcedureTypeRepository> procedureTypeRepository;
+        private readonly RepositoryWrapper<IProcedureTypeRepository> procedureTypeRepository;
         private RecommendationStrategy currentStrategy;
 
         public RecommendationService(RecommendationStrategy defaultStrategy,
             ProcedureScheduleFittingService procedureScheduleFittingService,
-            ProcedureTypeRepository procedureTypeRepository)
+            IProcedureTypeRepository procedureTypeRepository)
         {
             this.defaultStrategy = defaultStrategy;
             this.procedureScheduleFittingService = procedureScheduleFittingService;
-            this.procedureTypeRepository = new RepositoryWrapper<ProcedureTypeRepository>(procedureTypeRepository);
+            this.procedureTypeRepository = new RepositoryWrapper<IProcedureTypeRepository>(procedureTypeRepository);
         }
 
         private IEnumerable<Examination> GetPotentialRecommendations(RecommendationRequestDTO request)

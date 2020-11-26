@@ -13,13 +13,13 @@ namespace HealthcareBase.Service.HospitalResourcesService.MedicalConsumableServi
 {
     public class MedicalConsumableStorageService
     {
-        private readonly RepositoryWrapper<ConsumableStorageRecordRepository> consumableStorageRecordRepository;
+        private readonly RepositoryWrapper<IConsumableStorageRecordRepository> consumableStorageRecordRepository;
 
         public MedicalConsumableStorageService(
-            ConsumableStorageRecordRepository consumableStorageRecordRepository)
+            IConsumableStorageRecordRepository consumableStorageRecordRepository)
         {
             this.consumableStorageRecordRepository =
-                new RepositoryWrapper<ConsumableStorageRecordRepository>(consumableStorageRecordRepository);
+                new RepositoryWrapper<IConsumableStorageRecordRepository>(consumableStorageRecordRepository);
         }
 
         public int GetCurrentAmount(MedicalConsumable consumable)

@@ -12,7 +12,7 @@ namespace HealthcareBase.Repository.UsersRepository.SurveyRepository.SurveyEntry
         {
         }
 
-        public override IQueryable<DoctorSurveySection> IncludeFields(IQueryable<DoctorSurveySection> query)
+        protected override IQueryable<DoctorSurveySection> IncludeFields(IQueryable<DoctorSurveySection> query)
         {
             return query.Include(s => s.Doctor);
         }

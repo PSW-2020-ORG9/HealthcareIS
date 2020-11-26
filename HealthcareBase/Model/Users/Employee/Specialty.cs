@@ -8,34 +8,14 @@ using HealthcareBase.Repository.Generics;
 
 namespace HealthcareBase.Model.Users.Employee
 {
-    public class Specialty : Entity<int>
+    public class Specialty : IEntity<int>
     {
-        public string Name { get; set; }
-
-        public string Description { get; set; }
-
         [Key]
         public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
 
-        public int GetKey()
-        {
-            return Id;
-        }
-
-        public void SetKey(int id)
-        {
-            Id = id;
-        }
-
-        public override bool Equals(object obj)
-        {
-            return obj is Specialty specialty &&
-                   Id == specialty.Id;
-        }
-
-        public override int GetHashCode()
-        {
-            return 1877310944 + Id.GetHashCode();
-        }
+        public int GetKey() => Id;
+        public void SetKey(int id) => Id = id;
     }
 }

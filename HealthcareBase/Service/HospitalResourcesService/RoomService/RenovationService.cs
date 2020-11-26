@@ -16,16 +16,16 @@ namespace HealthcareBase.Service.HospitalResourcesService.RoomService
 {
     public class RenovationService
     {
-        private readonly RepositoryWrapper<RenovationRepository> renovationRepository;
+        private readonly RepositoryWrapper<IRenovationRepository> renovationRepository;
         private readonly RenovationValidator renovationValidator;
         private readonly TimeSpan timeLimit;
 
         public RenovationService(
-            RenovationRepository renovationRepository,
+            IRenovationRepository renovationRepository,
             RenovationValidator renovationValidator,
             TimeSpan timeLimit)
         {
-            this.renovationRepository = new RepositoryWrapper<RenovationRepository>(renovationRepository);
+            this.renovationRepository = new RepositoryWrapper<IRenovationRepository>(renovationRepository);
             this.renovationValidator = renovationValidator;
             this.timeLimit = timeLimit;
         }

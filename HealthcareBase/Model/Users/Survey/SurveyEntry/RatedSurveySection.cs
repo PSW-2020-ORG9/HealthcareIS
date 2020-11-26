@@ -5,7 +5,7 @@ using HealthcareBase.Repository.Generics;
 
 namespace HealthcareBase.Model.Users.Survey.SurveyEntry
 {
-    public class RatedSurveySection:Entity<int>
+    public class RatedSurveySection:IEntity<int>
     {
         [Key] public int Id { get; set; }
         [ForeignKey("SurveySection")]

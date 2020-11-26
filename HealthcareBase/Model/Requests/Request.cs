@@ -11,14 +11,14 @@ using HealthcareBase.Repository.Generics;
 
 namespace HealthcareBase.Model.Requests
 {
-    public abstract class Request : Entity<int>
+    public abstract class Request : IEntity<int>
     {
         protected DateTime creationDate;
         protected int id;
         protected DateTime reviewDate;
-        protected EmployeeAccount reviewer;
+        protected AdministrationAccount reviewer;
         protected string reviewerComment;
-        protected EmployeeAccount sender;
+        protected AdministrationAccount sender;
         protected RequestStatus status;
 
         [Column(TypeName = "nvarchar(24)")]
@@ -48,7 +48,7 @@ namespace HealthcareBase.Model.Requests
 
         [ForeignKey("Sender")]
         public int SenderId { get; set; }
-        public EmployeeAccount Sender
+        public AdministrationAccount Sender
         {
             get => sender;
             set => sender = value;
@@ -56,7 +56,7 @@ namespace HealthcareBase.Model.Requests
 
         [ForeignKey("Reviewer")]
         public int ReviewerId { get; set; }
-        public EmployeeAccount Reviewer
+        public AdministrationAccount Reviewer
         {
             get => reviewer;
             set => reviewer = value;

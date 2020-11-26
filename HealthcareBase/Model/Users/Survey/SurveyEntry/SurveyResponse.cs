@@ -7,7 +7,7 @@ using HealthcareBase.Repository.Generics;
 
 namespace HealthcareBase.Model.Users.Survey.SurveyEntry
 {
-    public class SurveyResponse:Entity<int>
+    public class SurveyResponse:IEntity<int>
     {
         [Key] public int Id { get; set; }
         public DateTime SubmittedAt { get; set; }

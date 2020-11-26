@@ -11,7 +11,7 @@ using HealthcareBase.Model.Schedule.Procedures;
 using HealthcareBase.Model.Users.Employee;
 using HealthcareBase.Model.Utilities;
 using HealthcareBase.Repository.Generics;
-using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository;
+using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository.Interface;
 using HealthcareBase.Service.ScheduleService.ProcedureService;
 
 namespace HealthcareBase.Service.UsersService.EmployeeService
@@ -19,13 +19,13 @@ namespace HealthcareBase.Service.UsersService.EmployeeService
     public class ShiftService
     {
         private readonly ProcedureService procedureService;
-        private readonly RepositoryWrapper<ShiftRepository> shiftRepository;
+        private readonly RepositoryWrapper<IShiftRepository> shiftRepository;
 
         public ShiftService(
-            ShiftRepository shiftRepository,
+            IShiftRepository shiftRepository,
             ProcedureService procedureService)
         {
-            this.shiftRepository = new RepositoryWrapper<ShiftRepository>(shiftRepository);
+            this.shiftRepository = new RepositoryWrapper<IShiftRepository>(shiftRepository);
             this.procedureService = procedureService;
         }
 

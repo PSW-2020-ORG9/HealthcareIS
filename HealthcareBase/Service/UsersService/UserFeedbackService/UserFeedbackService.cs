@@ -12,11 +12,11 @@ namespace HealthcareBase.Service.UsersService.UserFeedbackService
 {
     public class UserFeedbackService
     {
-        private readonly RepositoryWrapper<UserFeedbackRepository> _userFeedbackRepository;
+        private readonly RepositoryWrapper<IUserFeedbackRepository> _userFeedbackRepository;
 
-        public UserFeedbackService(UserFeedbackRepository repository)
+        public UserFeedbackService(IUserFeedbackRepository repository)
         {
-            _userFeedbackRepository = new RepositoryWrapper<UserFeedbackRepository>(repository);
+            _userFeedbackRepository = new RepositoryWrapper<IUserFeedbackRepository>(repository);
         }
 
         public IEnumerable<UserFeedback> GetAll()
