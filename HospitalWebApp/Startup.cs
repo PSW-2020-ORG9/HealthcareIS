@@ -79,7 +79,7 @@ namespace HospitalWebApp
         private void AddServices(IServiceCollection services)
         {
             var patientRepository = new PatientSqlRepository(GetContext());
-            var userFeedbackRepository = new IUserFeedbackSqlRepository(GetContext());
+            var userFeedbackRepository = new UserFeedbackSqlRepository(GetContext());
             var prescriptionRepository = new MedicationPrescriptionSqlRepository(GetContext());
             var examinationRepository = new ExaminationSqlRepository(GetContext());
             

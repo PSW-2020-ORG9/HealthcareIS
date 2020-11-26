@@ -6,9 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HealthcareBase.Repository.UsersRepository.UserFeedbackRepository
 {
-    public class IUserFeedbackSqlRepository : GenericSqlRepository<UserFeedback, int>, IUserFeedbackRepository
+    public class UserFeedbackSqlRepository : GenericSqlRepository<UserFeedback, int>, IUserFeedbackRepository
     {
-        public IUserFeedbackSqlRepository(IContextFactory contextFactory) : base(contextFactory) { }
+        public UserFeedbackSqlRepository(IContextFactory contextFactory) : base(contextFactory) { }
 
 
         protected override IQueryable<UserFeedback> IncludeFields(IQueryable<UserFeedback> query) 
