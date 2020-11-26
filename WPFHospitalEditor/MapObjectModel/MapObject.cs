@@ -1,4 +1,5 @@
 ﻿using System;
+using Newtonsoft.Json;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -9,14 +10,17 @@ namespace WPFHospitalEditor.MapObjectModel
     {
         public int Id { get; set; }
         public Rectangle rectangle;
-        public TextBlock name;
+        [JsonIgnore]
+        public TextBlock nameOnMap;
+        public String Name { get; set; }
         public String Description { get; set; }
         public MapObjectMetrics MapObjectMetrics { get; set; }
         public MapObjectType MapObjectType { get; set; }
         public MapObjectDoor MapObjectDoor { get; set; }
 
-        public MapObject(int Id, MapObjectMetrics MapObjectMetrics, MapObjectType MapObjectType, MapObjectDoor MapObjectDoor, String Description)
+        public MapObject(String name, int Id, MapObjectMetrics MapObjectMetrics, MapObjectType MapObjectType, MapObjectDoor MapObjectDoor, String Description)
         {
+            this.Name = name;
             this.Id = Id;
             this.MapObjectMetrics = MapObjectMetrics;
             this.MapObjectType = MapObjectType;
@@ -45,27 +49,27 @@ namespace WPFHospitalEditor.MapObjectModel
 
         public void setTextBlockProperties()
         {
-            this.name = new TextBlock();
+            this.nameOnMap = new TextBlock();
             setMapObjectNameOnMap();
-            this.name.FontSize = 15;
-            this.name.HorizontalAlignment = HorizontalAlignment.Center;
-            this.name.SetValue(Canvas.WidthProperty, this.rectangle.Width);
-            this.name.SetValue(Canvas.HeightProperty, this.rectangle.Height);
-            this.name.TextWrapping = TextWrapping.Wrap;
-            this.name.TextAlignment = TextAlignment.Center;
+            this.nameOnMap.FontSize = 15;
+            this.nameOnMap.HorizontalAlignment = HorizontalAlignment.Center;
+            this.nameOnMap.SetValue(Canvas.WidthProperty, this.rectangle.Width);
+            this.nameOnMap.SetValue(Canvas.HeightProperty, this.rectangle.Height);
+            this.nameOnMap.TextWrapping = TextWrapping.Wrap;
+            this.nameOnMap.TextAlignment = TextAlignment.Center;
         }
         public void setMapObjectNameOnMap()
         {
             if(isNameNeeded())
             {
-                this.name.Text = MapObjectType.ToString() + Id.ToString();
+                this.nameOnMap.Text = Name;
             }
         }
 
         public void setTextBlockPositionOnMap(MapObjectCoordinates mapObjectCoordinates)
         {
-            this.name.SetValue(Canvas.LeftProperty, mapObjectCoordinates.X);
-            this.name.SetValue(Canvas.TopProperty, mapObjectCoordinates.Y);
+            this.nameOnMap.SetValue(Canvas.LeftProperty, mapObjectCoordinates.X);
+            this.nameOnMap.SetValue(Canvas.TopProperty, mapObjectCoordinates.Y);
         }
 
         public void setMapObjectColor()

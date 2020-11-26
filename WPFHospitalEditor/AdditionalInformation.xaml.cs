@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using WPFHospitalEditor.MapObjectModel;
+using WPFHospitalEditor.Service;
+using WPFHospitalEditor.Controller;
 
 namespace WPFHospitalEditor
 {
@@ -18,21 +13,34 @@ namespace WPFHospitalEditor
     /// </summary>
     public partial class AdditionalInformation : Window
     {
+        const int buttonWidth = 100;
+        const int buttonHeight = 25;
+
         private MapObject mapObject;
         private List<string> labelContent = new List<string>();
         private List<string> value = new List<string>();
         private List<Label> labels = new List<Label>();
         private List<TextBox> textBoxes = new List<TextBox>();
         private TextBox name = new TextBox();
-        private Grid DynamicGrid = new Grid();
+        private int floor;
+        private Building building;
+        private string[] descriptionParts;
+        private string[] contentRows;
+        private MapObject oldMapObject;
 
-        public AdditionalInformation(MapObject mapObject)
+        MapObjectController mapObjectController = new MapObjectController();
+
+        public AdditionalInformation(MapObject mapObject, Building building, int floor)
         {
+            this.floor = floor;
+            this.building = building;
             InitializeComponent();
             this.mapObject = mapObject;
-            string[] contentRows = mapObject.Description.Split(";");
+            descriptionParts = mapObject.Description.Split("&");
+            contentRows = descriptionParts[1].Split(";");
             this.Height = (contentRows.Length + 2) * 50 + 30;
-            CreateDynamicWPFGrid(mapObject, contentRows);
+            ModifyDynamicWPFGrid(contentRows);
+            oldMapObject = mapObject;
         }
 
         private void Close_Click(object sender, RoutedEventArgs e)
@@ -42,38 +50,44 @@ namespace WPFHospitalEditor
 
         private void Done_Click(object sender, RoutedEventArgs e)
         {
-            mapObject.Description = "";
+            mapObject.Description = descriptionParts[0] + "&";
+
 
             for (int i = 0; i < labels.Count; i++)
             {
-                mapObject.Description += labels[i].Content;
-                mapObject.Description += "=";
-                mapObject.Description += textBoxes[i].Text;
-                mapObject.Description += ";";
+                mapObject.Description += labels[i].Content + "=" + textBoxes[i].Text + ";";             
+                mapObject.Name = this.name.Text;
+                mapObject.nameOnMap.Text = mapObject.Name;
             }
 
+            updateAdditionalInformation();
             int lenght = mapObject.Description.Length;
-            mapObject.Description.Substring(0, lenght - 1);
-
-            mapObject.name.Text = this.name.Text;
-
+            mapObject.Description.Substring(0, lenght - 1);          
             Close();
+
         }
 
-        private void CreateDynamicWPFGrid(MapObject mapObject, string[] contentRows)
+        private void refreshMap()
+        {
+            building.floorBuildingObjects.Remove(oldMapObject);
+            building.floorBuildingObjects.Add(mapObject);
+            building.canvas.Children.Clear();
+            CanvasService.addObjectToCanvas(building.floorBuildingObjects, building.canvas);
+        }      
 
+        private void updateAdditionalInformation()
+        {
+            mapObjectController.update(mapObject);
+            refreshMap();
+        }
+
+        private void ModifyDynamicWPFGrid(string[] contentRows)
         {
             var bc = new BrushConverter();
-            DynamicGrid.Background = (Brush)bc.ConvertFrom("#FFC6F5F8");
-
             createColumns();
-
             createRows(contentRows);
-
             addMapObjectName(mapObject, bc);
-
             createRowContent(contentRows);
-
             Border.Child = DynamicGrid;
         }
 
@@ -88,11 +102,8 @@ namespace WPFHospitalEditor
                 labelContent.Add(label[0]);
                 value.Add(label[1]);
             }
-
             insertData();
-
             addCancelButton(contentRows);
-
             addOkButton(contentRows);
         }
 
@@ -104,13 +115,12 @@ namespace WPFHospitalEditor
             ok.HorizontalAlignment = HorizontalAlignment.Right;
             ok.VerticalAlignment = VerticalAlignment.Center;
             ok.Background = Brushes.SkyBlue;
-            ok.Width = 100;
-            ok.Height = 25;
+            ok.Width = buttonWidth;
+            ok.Height = buttonHeight;
             ok.Foreground = Brushes.White;
             ok.Click += Done_Click;
             Grid.SetRow(ok, contentRows.Length + 2);
             Grid.SetColumn(ok, 2);
-
             DynamicGrid.Children.Add(ok);
         }
 
@@ -122,13 +132,12 @@ namespace WPFHospitalEditor
             cancel.HorizontalAlignment = HorizontalAlignment.Left;
             cancel.VerticalAlignment = VerticalAlignment.Center;
             cancel.Background = Brushes.SkyBlue;
-            cancel.Width = 100;
-            cancel.Height = 25;
+            cancel.Width = buttonWidth;
+            cancel.Height = buttonHeight;
             cancel.Foreground = Brushes.White;
             cancel.Click += Close_Click;
             Grid.SetRow(cancel, contentRows.Length + 2);
             Grid.SetColumn(cancel, 1);
-
             DynamicGrid.Children.Add(cancel);
         }
 
@@ -168,32 +177,22 @@ namespace WPFHospitalEditor
 
         private void addMapObjectName(MapObject mapObject, BrushConverter bc)
         {
-            name.Text = mapObject.name.Text;
-
+            name.Text = mapObject.Name;
             name.Background = (Brush)bc.ConvertFrom("#FFC6F5F8");
-
             name.FontSize = 18;
-
             name.FontWeight = FontWeights.Bold;
-
             name.Foreground = new SolidColorBrush(Colors.Black);
-
             name.VerticalAlignment = VerticalAlignment.Center;
-
             name.HorizontalAlignment = HorizontalAlignment.Center;
-
             Grid.SetRow(name, 1);
-
             Grid.SetColumnSpan(name, 2);
             Grid.SetColumn(name, 1);
-
             DynamicGrid.Children.Add(name);
         }
 
         private void createRows(string[] contentRows)
         {
             createOneRow(2);
-
             for (int i = 0; i <= contentRows.Length + 1; i++)
             {
                 createOneRow(50);
@@ -220,6 +219,6 @@ namespace WPFHospitalEditor
             ColumnDefinition borderColumn1 = new ColumnDefinition();
             borderColumn1.Width = new GridLength(width);
             DynamicGrid.ColumnDefinitions.Add(borderColumn1);
-        }
+        }       
     }
 }

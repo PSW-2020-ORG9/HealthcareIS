@@ -13,10 +13,19 @@ namespace WPFHospitalEditor
         {
             this.allMapObjectsOnFloor = allMapObjectsOnFloor;
         }
+        public Floor()
+        {
+            allMapObjectsOnFloor = new List<MapObject>();
+        }
 
         public List<MapObject> getAllFloorMapObjects()
         {
             return allMapObjectsOnFloor;
+        }
+        public MapObject addMapObject(MapObject mapObject)
+        {
+            allMapObjectsOnFloor.Add(mapObject);
+            return mapObject;
         }
     }
 }
