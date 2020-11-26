@@ -28,8 +28,9 @@ namespace HealthcareBaseTests
         
         public PatientSurveyTests()
         {
-            surveyPreviewBuilder = new SurveyPreviewBuilder(mockRatedSectionService.Object,
+            surveyPreviewBuilder = new SurveyPreviewBuilder(
                                                             mockSurveyService.Object,
+                                                            mockRatedSectionService.Object,
                                                             mockDoctorService.Object);
         }
         [Fact]

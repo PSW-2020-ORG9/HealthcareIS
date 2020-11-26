@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using System.Linq;
 using HealthcareBase.Model.Database;
 using HealthcareBase.Model.Users.Employee;
 using HealthcareBase.Repository.Generics;
 using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository.Interface;
+using Microsoft.EntityFrameworkCore;
 
 namespace HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository
 {
@@ -10,6 +12,11 @@ namespace HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsReposito
     {
         public DoctorSqlRepository(IContextFactory contextFactory) : base(contextFactory)
         {
+        }
+
+        protected override IQueryable<Doctor> IncludeFields(IQueryable<Doctor> query)
+        {
+            return query.Include(d => d.Person);
         }
 
         public IEnumerable<Doctor> GetBySpecialty(Specialty specialty)

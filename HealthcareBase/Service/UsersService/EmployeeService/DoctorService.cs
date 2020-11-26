@@ -13,7 +13,7 @@ using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository.I
 
 namespace HealthcareBase.Service.UsersService.EmployeeService
 {
-    public class DoctorService
+    public class DoctorService:IDoctorService
     {
         private readonly RepositoryWrapper<IDoctorRepository> doctorRepository;
 

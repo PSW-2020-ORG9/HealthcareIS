@@ -48,7 +48,6 @@ namespace HospitalWebApp
             services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             
             AddServices(services);
-            
             AddCustomSerializers(services);
             ConfigureCors(services);
             services.AddControllers();
@@ -77,8 +76,7 @@ namespace HospitalWebApp
             var surveyService= AddService(services, typeof(SurveyService), typeof(SurveySqlRepository));
             var ratedSectionService = AddService(services, typeof(RatedSectionService), typeof(RatedSectionSqlRepository));
             var doctorService = AddService(services, typeof(DoctorService), typeof(DoctorSqlRepository));
-            var surveyPreviewBuilder=Activator.CreateInstance(typeof(SurveyPreviewBuilder), ratedSectionService,
-                surveyService, doctorService);
+            var surveyPreviewBuilder=Activator.CreateInstance(typeof(SurveyPreviewBuilder), surveyService,ratedSectionService,doctorService);
                 
             services.Add(new ServiceDescriptor(typeof(SurveyPreviewBuilder),surveyPreviewBuilder));
         }

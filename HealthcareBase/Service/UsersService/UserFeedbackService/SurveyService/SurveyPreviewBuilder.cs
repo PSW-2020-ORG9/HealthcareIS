@@ -16,11 +16,10 @@ namespace HealthcareBase.Service.UsersService.UserFeedbackService.SurveyService
         private readonly ISurveyService surveyService;
         private readonly IDoctorService doctorService;
 
-        public SurveyPreviewBuilder(IRatedSectionService ratedSectionService,
-            ISurveyService surveyService,
+        public SurveyPreviewBuilder(ISurveyService surveyService,IRatedSectionService sectionService,
             IDoctorService doctorService)
         {
-            this.ratedSectionService = ratedSectionService;
+            this.ratedSectionService = sectionService;
             this.surveyService = surveyService;
             this.doctorService = doctorService;
         }
