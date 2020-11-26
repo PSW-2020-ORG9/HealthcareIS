@@ -67,12 +67,7 @@ namespace WPFHospitalEditor
 
             foreach (MapObject mapObject in allMapObjects)
             {
-                if (isNoNameObject(mapObject))
-                {
-                    MessageBox.Show("Wanted objects are shown on this map.");
-                    return;
-                }
-                else if (textBoxEmpty(mapObject))
+                if (textBoxEmpty(mapObject))
                 {
                     searchResult.Add(mapObject);
                 }
@@ -99,12 +94,12 @@ namespace WPFHospitalEditor
 
         }
 
-        private bool isNoNameObject(MapObject mapObject)
+        private bool isNoNameObject(MapObjectType mop)
         {
-            return searchInputComboBox.Text.Equals(MapObjectType.ParkingSlot.ToString()) ||
-                   searchInputComboBox.Text.Equals(MapObjectType.Parking.ToString()) ||
-                   searchInputComboBox.Text.Equals(MapObjectType.Road.ToString()) ||
-                   searchInputComboBox.Text.Equals(MapObjectType.WaitingRoom.ToString());
+            return mop.Equals(MapObjectType.Parking) ||
+                   mop.Equals(MapObjectType.ParkingSlot) ||
+                   mop.Equals(MapObjectType.Road) ||
+                   mop.Equals(MapObjectType.WaitingRoom);
         }
 
         private bool bothParametersActive(MapObject mapObject)
@@ -126,7 +121,10 @@ namespace WPFHospitalEditor
         {
             foreach (MapObjectType mop in Enum.GetValues(typeof(MapObjectType)))
             {
-                searchInputComboBox.Items.Add(mop);
+                if(!isNoNameObject(mop))
+                {
+                    searchInputComboBox.Items.Add(mop);
+                } 
             }
         }
     }
