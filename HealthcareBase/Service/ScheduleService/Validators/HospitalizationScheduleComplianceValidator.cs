@@ -42,10 +42,6 @@ namespace HealthcareBase.Service.ScheduleService.Validators
                 context.HospitalizationService.GetByPatientAndTime(hospitalization.Patient,
                     hospitalization.TimeInterval);
             throwIfConflicts(patientConflicts);
-            var equipmentInUseConflicts =
-                context.HospitalizationService.GetByEquipmentInUseAndTime(hospitalization.EquipmentInUse,
-                    hospitalization.TimeInterval);
-            throwIfConflicts(equipmentInUseConflicts);
         }
 
         private void ThrowIfSchedulingConflicts(IEnumerable<Hospitalization> conflictList)
