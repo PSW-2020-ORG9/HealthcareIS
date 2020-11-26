@@ -3,6 +3,11 @@ import CreateFeedback from '../views/CreateFeedback.vue'
 import ObserveFeedback from '../views/ObserveFeedback.vue'
 import ObserveMedicalRecord from '../views/ObserveMedicalRecord.vue'
 import DocSearch from '../views/DocSearch.vue'
+import SurveyPreview from '../views/SurveyPreview.vue'
+import RegisterPatient from '../views/registration/RegisterPatient.vue'
+import PersonalInfromation from '../views/registration/PersonalInformation.vue'
+import HealthStatus from '../views/registration/HealthStatus.vue'
+import AccountDetails from '../views/registration/AccountDetails.vue'
 
 const routes = [
   {
@@ -25,7 +30,37 @@ const routes = [
     path: '/doc-search',
     name: 'DocSearch',
     component: DocSearch
+  },
+  {
+    path:'/survey-preview',
+    name:'SurveyPreview',
+    component: SurveyPreview
+  },
+  {
+    path:'/register',
+    component: RegisterPatient,
+    children:[
+      {
+        path:'',
+        name:'personalInformation',
+        component:PersonalInfromation
+      }
+      ,
+      {
+        path:'health-status',
+        name:'healthStatus',
+        component:HealthStatus
+      }
+      ,
+      {
+        path:'account-details',
+        name:'accountDetails',
+        component:AccountDetails
+      }
+    ]
   }
+  
+  
 ]
 
 const router = createRouter({
