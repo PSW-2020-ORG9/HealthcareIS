@@ -3,7 +3,7 @@
 // Created: 02 June 2020 11:15:37
 // Purpose: Definition of Class DoctorAvailabilityCalculatorDecorator
 
-namespace Service.ScheduleService.AvailabilityCalculators
+namespace HealthcareBase.Service.ScheduleService.AvailabilityCalculators
 {
     public class DoctorAvailabilityCalculatorDecorator : DoctorAvailabilityCalculator
     {

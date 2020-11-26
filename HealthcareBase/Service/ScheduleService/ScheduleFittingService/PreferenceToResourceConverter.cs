@@ -6,13 +6,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Model.HospitalResources;
-using Model.Users.Employee;
-using Model.Utilities;
-using Service.HospitalResourcesService.RoomService;
-using Service.UsersService.EmployeeService;
+using HealthcareBase.Model.HospitalResources;
+using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Model.Utilities;
+using HealthcareBase.Service.HospitalResourcesService.RoomService;
+using HealthcareBase.Service.UsersService.EmployeeService;
 
-namespace Service.ScheduleService.ScheduleFittingService
+namespace HealthcareBase.Service.ScheduleService.ScheduleFittingService
 {
     public class PreferenceToResourceConverter
     {
@@ -29,14 +29,13 @@ namespace Service.ScheduleService.ScheduleFittingService
 
         public ProcedureResourcesDTO ConvertProcedurePreference(ProcedurePreferenceDTO preference)
         {
-            var qualifiedDoctors = doctorService.GetQualified(preference.Type);
             var appropriateRooms = roomService.GetAppropriate(preference.Type);
 
             var resources = new ProcedureResourcesDTO
             {
                 Patient = preference.Patient,
                 Type = preference.Type,
-                Doctors = ConvertDoctors(preference.Preference.PreferredDoctor, qualifiedDoctors),
+                Doctors = ConvertDoctors(preference.Preference.PreferredDoctor, new List<Doctor>()),
                 Rooms = ConvertRooms(preference.Preference.PreferredRoom, appropriateRooms),
                 Timing = ConvertTiming(preference)
             };

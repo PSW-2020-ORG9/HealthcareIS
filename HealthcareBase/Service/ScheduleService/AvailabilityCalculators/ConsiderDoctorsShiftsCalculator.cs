@@ -4,9 +4,9 @@
 // Purpose: Definition of Class ConsiderDoctorsShiftsCalculator
 
 using System.Linq;
-using Model.Utilities;
+using HealthcareBase.Model.Utilities;
 
-namespace Service.ScheduleService.AvailabilityCalculators
+namespace HealthcareBase.Service.ScheduleService.AvailabilityCalculators
 {
     public class ConsiderDoctorsShiftsCalculator : DoctorAvailabilityCalculator
     {

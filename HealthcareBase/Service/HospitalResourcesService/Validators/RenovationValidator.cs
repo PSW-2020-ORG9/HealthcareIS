@@ -1,17 +1,17 @@
-﻿using Model.CustomExceptions;
-using Model.HospitalResources;
-using Repository.Generics;
-using Repository.HospitalResourcesRepository;
+﻿using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.HospitalResources;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.HospitalResourcesRepository;
 
-namespace Service.HospitalResourcesService.Validators
+namespace HealthcareBase.Service.HospitalResourcesService.Validators
 {
     public class RenovationValidator
     {
-        private readonly RepositoryWrapper<RoomRepository> roomRepository;
+        private readonly RepositoryWrapper<IRoomRepository> roomRepository;
 
-        public RenovationValidator(RoomRepository roomRepository)
+        public RenovationValidator(IRoomRepository roomRepository)
         {
-            this.roomRepository = new RepositoryWrapper<RoomRepository>(roomRepository);
+            this.roomRepository = new RepositoryWrapper<IRoomRepository>(roomRepository);
         }
 
         public void ValidateRenovation(Renovation renovation)

@@ -3,26 +3,26 @@
 // Created: 28 May 2020 16:44:45
 // Purpose: Definition of Class PatientRegistrationService
 
-using Model.CustomExceptions;
-using Model.Users.Patient;
-using Model.Users.UserAccounts;
-using Repository.Generics;
-using Repository.UsersRepository.EmployeesAndPatientsRepository;
-using Repository.UsersRepository.UserAccountsRepository;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.Users.Patient;
+using HealthcareBase.Model.Users.UserAccounts;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository.Interface;
+using HealthcareBase.Repository.UsersRepository.UserAccountsRepository;
 
-namespace Service.UsersService.PatientService
+namespace HealthcareBase.Service.UsersService.PatientService
 {
     public class PatientRegistrationService
     {
-        private readonly RepositoryWrapper<PatientAccountRepository> patientAccountRepository;
-        private readonly RepositoryWrapper<PatientRepository> patientRepository;
+        private readonly RepositoryWrapper<IPatientAccountRepository> patientAccountRepository;
+        private readonly RepositoryWrapper<IPatientRepository> patientRepository;
 
         public PatientRegistrationService(
-            PatientAccountRepository patientAccountRepository,
-            PatientRepository patientRepository)
+            IPatientAccountRepository patientAccountRepository,
+            IPatientRepository patientRepository)
         {
-            this.patientAccountRepository = new RepositoryWrapper<PatientAccountRepository>(patientAccountRepository);
-            this.patientRepository = new RepositoryWrapper<PatientRepository>(patientRepository);
+            this.patientAccountRepository = new RepositoryWrapper<IPatientAccountRepository>(patientAccountRepository);
+            this.patientRepository = new RepositoryWrapper<IPatientRepository>(patientRepository);
         }
 
         public bool IsRegistered(string jmbg)

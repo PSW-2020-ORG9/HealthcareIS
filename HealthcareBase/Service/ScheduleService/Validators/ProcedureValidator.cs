@@ -1,35 +1,35 @@
 ﻿using System.Linq;
-using Model.CustomExceptions;
-using Model.HospitalResources;
-using Model.Schedule.Procedures;
-using Model.Users.Employee;
-using Repository.Generics;
-using Repository.HospitalResourcesRepository;
-using Repository.ScheduleRepository.ProceduresRepository;
-using Repository.UsersRepository.EmployeesAndPatientsRepository;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.HospitalResources;
+using HealthcareBase.Model.Schedule.Procedures;
+using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.HospitalResourcesRepository;
+using HealthcareBase.Repository.ScheduleRepository.ProceduresRepository.Interface;
+using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository.Interface;
 
-namespace Service.ScheduleService.Validators
+namespace HealthcareBase.Service.ScheduleService.Validators
 {
     public class ProcedureValidator
     {
-        private readonly RepositoryWrapper<DoctorRepository> doctorRepository;
-        private readonly RepositoryWrapper<ExaminationRepository> examinationRepository;
-        private readonly RepositoryWrapper<PatientRepository> patientRepository;
-        private readonly RepositoryWrapper<ProcedureTypeRepository> procedureTypeRepository;
-        private readonly RepositoryWrapper<RoomRepository> roomRepository;
+        private readonly RepositoryWrapper<IDoctorRepository> doctorRepository;
+        private readonly RepositoryWrapper<IExaminationRepository> examinationRepository;
+        private readonly RepositoryWrapper<IPatientRepository> patientRepository;
+        private readonly RepositoryWrapper<IProcedureTypeRepository> procedureTypeRepository;
+        private readonly RepositoryWrapper<IRoomRepository> roomRepository;
 
         public ProcedureValidator(
-            DoctorRepository doctorRepository,
-            RoomRepository roomRepository,
-            PatientRepository patientRepository,
-            ProcedureTypeRepository procedureTypeRepository,
-            ExaminationRepository examinationRepository)
+            IDoctorRepository IDoctorRepository,
+            IRoomRepository roomRepository,
+            IPatientRepository IPatientRepository,
+            IProcedureTypeRepository procedureTypeRepository,
+            IExaminationRepository examinationRepository)
         {
-            this.doctorRepository = new RepositoryWrapper<DoctorRepository>(doctorRepository);
-            this.roomRepository = new RepositoryWrapper<RoomRepository>(roomRepository);
-            this.patientRepository = new RepositoryWrapper<PatientRepository>(patientRepository);
-            this.procedureTypeRepository = new RepositoryWrapper<ProcedureTypeRepository>(procedureTypeRepository);
-            this.examinationRepository = new RepositoryWrapper<ExaminationRepository>(examinationRepository);
+            this.doctorRepository = new RepositoryWrapper<IDoctorRepository>(IDoctorRepository);
+            this.roomRepository = new RepositoryWrapper<IRoomRepository>(roomRepository);
+            this.patientRepository = new RepositoryWrapper<IPatientRepository>(IPatientRepository);
+            this.procedureTypeRepository = new RepositoryWrapper<IProcedureTypeRepository>(procedureTypeRepository);
+            this.examinationRepository = new RepositoryWrapper<IExaminationRepository>(examinationRepository);
         }
 
         public void ValidateProcedure(Procedure procedure)
@@ -76,27 +76,18 @@ namespace Service.ScheduleService.Validators
 
         private void ValidateDoctorSuitability(ProcedureType procedureType, Doctor doctor)
         {
-            var matchingSpecialties = procedureType.QualifiedSpecialties.Intersect(doctor.Specialties);
-            if (!matchingSpecialties.Any())
-                throw new ValidationException();
         }
 
         private void ValidateRoomTypeSuitability(ProcedureType procedureType, Room room)
         {
-            if (procedureType.Kind == ProcedureKind.Examination && room.Purpose != RoomType.examinationRoom)
+            if (procedureType.Kind == ProcedureKind.Examination && room.Purpose != RoomType.ExaminationRoom)
                 throw new ValidationException();
-            if (procedureType.Kind == ProcedureKind.Surgery && room.Purpose != RoomType.operatingRoom)
+            if (procedureType.Kind == ProcedureKind.Surgery && room.Purpose != RoomType.SurgeryRoom)
                 throw new ValidationException();
         }
 
         private void ValidateEquipmentSuitability(ProcedureType procedureType, Room room)
         {
-            if (procedureType.NecessaryEquipment
-                .Select(type => room.Equipment.Count(unit => unit.EquipmentType.Equals(type)) != 0)
-                .Any(roomContainsEquipmentOfNecessaryType => !roomContainsEquipmentOfNecessaryType))
-            {
-                throw new ValidationException();
-            }
         }
     }
 }

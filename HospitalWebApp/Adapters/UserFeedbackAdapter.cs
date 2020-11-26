@@ -1,6 +1,6 @@
 using System;
+using HealthcareBase.Model.Users.UserFeedback;
 using HospitalWebApp.Dtos;
-using Model.Users.UserFeedback;
 
 namespace HospitalWebApp.Adapters
 {
@@ -15,7 +15,7 @@ namespace HospitalWebApp.Adapters
                 isPublic = dto.IsPublic,
                 isPublished = dto.IsPublished,
                 UserComment = dto.UserComment,
-                UserId = dto.UserId
+                PatientAccountId = dto.UserId
             };
         }
     }

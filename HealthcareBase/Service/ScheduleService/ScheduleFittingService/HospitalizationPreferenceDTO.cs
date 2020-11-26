@@ -3,11 +3,11 @@
 // Created: 02 June 2020 08:50:59
 // Purpose: Definition of Class HospitalizationPreferenceDTO
 
-using Model.Schedule.Hospitalizations;
-using Model.Schedule.SchedulingPreferences;
-using Model.Users.Patient;
+using HealthcareBase.Model.Schedule.Hospitalizations;
+using HealthcareBase.Model.Schedule.SchedulingPreferences;
+using HealthcareBase.Model.Users.Patient;
 
-namespace Service.ScheduleService.ScheduleFittingService
+namespace HealthcareBase.Service.ScheduleService.ScheduleFittingService
 {
     public class HospitalizationPreferenceDTO
     {

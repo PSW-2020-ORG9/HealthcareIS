@@ -1,22 +1,19 @@
-﻿using HealthcareBase.Model.Database;
+﻿using System.Linq;
+using HealthcareBase.Model.Database;
+using HealthcareBase.Model.Users.UserFeedback;
+using HealthcareBase.Repository.Generics;
 using Microsoft.EntityFrameworkCore;
-using Model.Users.UserFeedback;
-using Repository.Generics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace Repository.UsersRepository.UserFeedbackRepository
+namespace HealthcareBase.Repository.UsersRepository.UserFeedbackRepository
 {
-    public class UserFeedbackSqlRepository : GenericSqlRepository<UserFeedback, int>, UserFeedbackRepository
+    public class UserFeedbackSqlRepository : GenericSqlRepository<UserFeedback, int>, IUserFeedbackRepository
     {
         public UserFeedbackSqlRepository(IContextFactory contextFactory) : base(contextFactory) { }
 
 
-        public override IQueryable<UserFeedback> IncludeFields(IQueryable<UserFeedback> query) 
+        protected override IQueryable<UserFeedback> IncludeFields(IQueryable<UserFeedback> query) 
         {
-            return query.Include(uf => uf.User);
+            return query.Include(uf => uf.PatientAccount);
                 
             
         }

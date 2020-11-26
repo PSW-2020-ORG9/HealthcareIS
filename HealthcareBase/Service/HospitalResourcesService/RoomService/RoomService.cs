@@ -6,50 +6,50 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Model.CustomExceptions;
-using Model.HospitalResources;
-using Model.Schedule.Hospitalizations;
-using Model.Schedule.Procedures;
-using Model.Utilities;
-using Repository.Generics;
-using Repository.HospitalResourcesRepository;
-using Repository.ScheduleRepository.HospitalizationsRepository;
-using Repository.ScheduleRepository.ProceduresRepository;
-using Service.ScheduleService;
-using Service.ScheduleService.AvailabilityCalculators;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.HospitalResources;
+using HealthcareBase.Model.Schedule.Hospitalizations;
+using HealthcareBase.Model.Schedule.Procedures;
+using HealthcareBase.Model.Utilities;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.HospitalResourcesRepository;
+using HealthcareBase.Repository.ScheduleRepository.HospitalizationsRepository;
+using HealthcareBase.Repository.ScheduleRepository.ProceduresRepository.Interface;
+using HealthcareBase.Service.ScheduleService;
+using HealthcareBase.Service.ScheduleService.AvailabilityCalculators;
 
-namespace Service.HospitalResourcesService.RoomService
+namespace HealthcareBase.Service.HospitalResourcesService.RoomService
 {
     public class RoomService
     {
         private readonly CurrentScheduleContext currentScheduleContext;
-        private readonly RepositoryWrapper<DepartmentRepository> departmentRepository;
-        private readonly RepositoryWrapper<EquipmentUnitRepository> equipmentUnitRepository;
-        private readonly RepositoryWrapper<ExaminationRepository> examinationRepository;
-        private readonly RepositoryWrapper<HospitalizationRepository> hospitalizationRepository;
-        private readonly RepositoryWrapper<RenovationRepository> renovationRepository;
-        private readonly RepositoryWrapper<RoomRepository> roomRepository;
-        private readonly RepositoryWrapper<SurgeryRepository> surgeryRepository;
+        private readonly RepositoryWrapper<IDepartmentRepository> departmentRepository;
+        private readonly RepositoryWrapper<IEquipmentUnitRepository> equipmentUnitRepository;
+        private readonly RepositoryWrapper<IExaminationRepository> examinationRepository;
+        private readonly RepositoryWrapper<IHospitalizationRepository> hospitalizationRepository;
+        private readonly RepositoryWrapper<IRenovationRepository> renovationRepository;
+        private readonly RepositoryWrapper<IRoomRepository> roomRepository;
+        private readonly RepositoryWrapper<ISurgeryRepository> surgeryRepository;
 
         public RoomService(
-            RoomRepository roomRepository,
-            RenovationRepository renovationRepository,
-            EquipmentUnitRepository equipmentUnitRepository,
-            DepartmentRepository departmentRepository,
+            IRoomRepository roomRepository,
+            IRenovationRepository renovationRepository,
+            IEquipmentUnitRepository equipmentUnitRepository,
+            IDepartmentRepository departmentRepository,
             CurrentScheduleContext currentScheduleContext,
-            ExaminationRepository examinationRepository,
-            SurgeryRepository surgeryRepository,
-            HospitalizationRepository hospitalizationRepository)
+            IExaminationRepository examinationRepository,
+            ISurgeryRepository surgeryRepository,
+            IHospitalizationRepository hospitalizationRepository)
         {
-            this.roomRepository = new RepositoryWrapper<RoomRepository>(roomRepository);
-            this.renovationRepository = new RepositoryWrapper<RenovationRepository>(renovationRepository);
-            this.equipmentUnitRepository = new RepositoryWrapper<EquipmentUnitRepository>(equipmentUnitRepository);
-            this.departmentRepository = new RepositoryWrapper<DepartmentRepository>(departmentRepository);
+            this.roomRepository = new RepositoryWrapper<IRoomRepository>(roomRepository);
+            this.renovationRepository = new RepositoryWrapper<IRenovationRepository>(renovationRepository);
+            this.equipmentUnitRepository = new RepositoryWrapper<IEquipmentUnitRepository>(equipmentUnitRepository);
+            this.departmentRepository = new RepositoryWrapper<IDepartmentRepository>(departmentRepository);
             this.currentScheduleContext = currentScheduleContext;
-            this.examinationRepository = new RepositoryWrapper<ExaminationRepository>(examinationRepository);
-            this.surgeryRepository = new RepositoryWrapper<SurgeryRepository>(surgeryRepository);
+            this.examinationRepository = new RepositoryWrapper<IExaminationRepository>(examinationRepository);
+            this.surgeryRepository = new RepositoryWrapper<ISurgeryRepository>(surgeryRepository);
             this.hospitalizationRepository =
-                new RepositoryWrapper<HospitalizationRepository>(hospitalizationRepository);
+                new RepositoryWrapper<IHospitalizationRepository>(hospitalizationRepository);
         }
 
         public RoomAvailabilityDTO GetRoomAvailability(Room room, TimeInterval time)
@@ -68,36 +68,12 @@ namespace Service.HospitalResourcesService.RoomService
 
         public IEnumerable<Room> GetAppropriate(ProcedureType procedureType)
         {
-            var appropriate = new List<Room>();
-            foreach (var room in roomRepository.Repository.GetByEquipment(procedureType.NecessaryEquipment))
-            {
-                if (procedureType.Kind == ProcedureKind.Examination && room.Purpose != RoomType.examinationRoom)
-                    continue;
-                if (procedureType.Kind == ProcedureKind.Surgery && room.Purpose != RoomType.operatingRoom)
-                    continue;
-
-                appropriate.Add(room);
-            }
-
-            return appropriate;
+            return new List<Room>();
         }
 
         public IEnumerable<Room> GetAppropriate(HospitalizationType hospitalizationType)
         {
-            var appropriate = new List<Room>();
-            foreach (var room in roomRepository.Repository.GetByEquipment(hospitalizationType.NecessaryEquipment))
-            {
-                if (room.Purpose != RoomType.recoveryRoom)
-                    continue;
-                if (room.Department is null)
-                    continue;
-                if (!hospitalizationType.AppropriateDepartments.Contains(room.Department))
-                    continue;
-
-                appropriate.Add(room);
-            }
-
-            return appropriate;
+            return new List<Room>();
         }
 
         public IEnumerable<Room> GetByEquipment(IEnumerable<EquipmentType> equipment)
@@ -207,7 +183,6 @@ namespace Service.HospitalResourcesService.RoomService
             room = roomRepository.Repository.GetByID(room.GetKey());
 
             equipmentUnit.CurrentLocation = room;
-            room.AddEquipment(equipmentUnit);
             equipmentUnitRepository.Repository.Update(equipmentUnit);
 
             return room;

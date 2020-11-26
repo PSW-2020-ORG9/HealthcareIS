@@ -1,18 +1,16 @@
-﻿using HealthcareBase.Model.Database;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
-using Microsoft.VisualBasic.CompilerServices;
-using Model.Users.Employee;
- 
-namespace Repository.Generics
+using HealthcareBase.Model.Database;
+using HealthcareBase.Repository.Generics.Interface;
+using Microsoft.EntityFrameworkCore;
+
+namespace HealthcareBase.Repository.Generics
 {
     public class GenericSqlRepository<T, ID> 
         : IWrappableRepository<T, ID> 
-        where T : class, Entity<ID>
+        where T : class, IEntity<ID>
         where ID : IComparable
     {
         private readonly IContextFactory _contextFactory;
@@ -64,7 +62,14 @@ namespace Repository.Generics
  
         public IEnumerable<T> GetMatching(Expression<Func<T, bool>> condition)
             => IncludeFields(Query()).Where(condition);
- 
+
+        public IEnumerable<T> GetMatching(IEnumerable<Expression<Func<T, bool>>> expressions)
+        {
+            IQueryable<T> query = IncludeFields(Query());
+            expressions.ToList().ForEach(expression => query = query.Where(expression));
+            return query;
+        }
+
         public IEnumerable<T> GetAll() 
             => IncludeFields(Query());
  
@@ -74,7 +79,7 @@ namespace Repository.Generics
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public virtual IQueryable<T> IncludeFields(IQueryable<T> query)
+        protected virtual IQueryable<T> IncludeFields(IQueryable<T> query)
         {
             return query;
         }

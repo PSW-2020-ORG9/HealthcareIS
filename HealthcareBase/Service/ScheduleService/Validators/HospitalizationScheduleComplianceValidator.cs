@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Model.CustomExceptions;
-using Model.Schedule.Hospitalizations;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.Schedule.Hospitalizations;
 
-namespace Service.ScheduleService.Validators
+namespace HealthcareBase.Service.ScheduleService.Validators
 {
     public class HospitalizationScheduleComplianceValidator
     {
@@ -42,10 +42,6 @@ namespace Service.ScheduleService.Validators
                 context.HospitalizationService.GetByPatientAndTime(hospitalization.Patient,
                     hospitalization.TimeInterval);
             throwIfConflicts(patientConflicts);
-            var equipmentInUseConflicts =
-                context.HospitalizationService.GetByEquipmentInUseAndTime(hospitalization.EquipmentInUse,
-                    hospitalization.TimeInterval);
-            throwIfConflicts(equipmentInUseConflicts);
         }
 
         private void ThrowIfSchedulingConflicts(IEnumerable<Hospitalization> conflictList)

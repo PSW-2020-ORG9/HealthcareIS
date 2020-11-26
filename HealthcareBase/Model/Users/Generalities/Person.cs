@@ -7,12 +7,12 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Model.Users.Patient;
-using Repository.Generics;
+using HealthcareBase.Model.Users.Patient;
+using HealthcareBase.Repository.Generics;
 
-namespace Model.Users.Generalities
+namespace HealthcareBase.Model.Users.Generalities
 {
-    public class Person : Entity<string>
+    public class Person : IEntity<string>
     {
         [Key]
         public string Jmbg { get; set; }
@@ -26,7 +26,7 @@ namespace Model.Users.Generalities
         public int Age { get; set; }
         
         [Column(TypeName = "nvarchar(24)")]
-        public MaritalStatus MartialStatus { get; set; }
+        public MaritalStatus MaritalStatus { get; set; }
 
         [Column(TypeName = "nvarchar(24)")]
         public Gender Gender { get; set; }

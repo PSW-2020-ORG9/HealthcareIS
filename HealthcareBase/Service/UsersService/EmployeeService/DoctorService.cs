@@ -5,39 +5,21 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Model.CustomExceptions;
-using Model.Schedule.Procedures;
-using Model.Users.Employee;
-using Repository.Generics;
-using Repository.UsersRepository.EmployeesAndPatientsRepository;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.Schedule.Procedures;
+using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository.Interface;
 
-namespace Service.UsersService.EmployeeService
+namespace HealthcareBase.Service.UsersService.EmployeeService
 {
     public class DoctorService
     {
-        private readonly RepositoryWrapper<DoctorRepository> doctorRepository;
+        private readonly RepositoryWrapper<IDoctorRepository> doctorRepository;
 
-        public DoctorService(DoctorRepository doctorRepository)
+        public DoctorService(IDoctorRepository doctorRepository)
         {
-            this.doctorRepository = new RepositoryWrapper<DoctorRepository>(doctorRepository);
-        }
-
-        public IEnumerable<Doctor> GetQualified(ProcedureType procedureType)
-        {
-            var qualified = new List<Doctor>();
-            foreach (var doctor in doctorRepository.Repository.GetAll())
-            {
-                if (!doctor.Status.Equals(EmployeeStatus.Current))
-                    continue;
-                var matchingSpeicalties =
-                    procedureType.QualifiedSpecialties.Intersect(doctor.Specialties);
-                if (matchingSpeicalties.Count() == 0)
-                    continue;
-
-                qualified.Add(doctor);
-            }
-
-            return qualified;
+            this.doctorRepository = new RepositoryWrapper<IDoctorRepository>(doctorRepository);
         }
 
         public Doctor GetByID(int id)

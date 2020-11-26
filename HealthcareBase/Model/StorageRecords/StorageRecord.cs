@@ -5,11 +5,11 @@
 
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Repository.Generics;
+using HealthcareBase.Repository.Generics;
 
-namespace Model.StorageRecords
+namespace HealthcareBase.Model.StorageRecords
 {
-    public abstract class StorageRecord : Entity<int>
+    public abstract class StorageRecord : IEntity<int>
     {
         protected int availableAmount;
         protected int id;

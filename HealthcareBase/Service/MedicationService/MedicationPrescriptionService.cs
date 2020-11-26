@@ -4,54 +4,29 @@
 // Purpose: Definition of Class MedicationPrescriptionService
 
 using System.Collections.Generic;
-using Model.CustomExceptions;
-using Model.Medication;
-using Model.Users.Patient;
-using Repository.Generics;
-using Repository.MedicationRepository;
+using HealthcareBase.Model.Medication;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.MedicationRepository.Interface;
 
-namespace Service.MedicationService
+namespace HealthcareBase.Service.MedicationService
 {
     public class MedicationPrescriptionService
     {
-        private readonly RepositoryWrapper<MedicationPrescriptionRepository> medicationPrescriptionRepository;
-        private readonly NotificationService.NotificationService notificationService;
+        private readonly RepositoryWrapper<IMedicationPrescriptionRepository> _medicationPrescriptionWrapper;
 
         public MedicationPrescriptionService(
-            MedicationPrescriptionRepository medicationPrescriptionRepository,
-            NotificationService.NotificationService notificationService
+            IMedicationPrescriptionRepository medicationPrescriptionRepository
         )
         {
-            this.medicationPrescriptionRepository =
-                new RepositoryWrapper<MedicationPrescriptionRepository>(medicationPrescriptionRepository);
-            this.notificationService = notificationService;
+            this._medicationPrescriptionWrapper =
+                new RepositoryWrapper<IMedicationPrescriptionRepository>(medicationPrescriptionRepository);
         }
 
-        public MedicationPrescription GetByID(int id)
-        {
-            return medicationPrescriptionRepository.Repository.GetByID(id);
-        }
+        public IEnumerable<MedicationPrescription> GetByName(string nameQuery)
+            => _medicationPrescriptionWrapper.Repository.GetMatching(
+                prescription => prescription.Medication.Name.Contains(nameQuery));
 
         public IEnumerable<MedicationPrescription> GetAll()
-        {
-            return medicationPrescriptionRepository.Repository.GetAll();
-        }
-
-        public IEnumerable<MedicationPrescription> GetByPatient(Patient patient)
-        {
-            return medicationPrescriptionRepository.Repository.GetByPatient(patient);
-        }
-
-        public MedicationPrescription Create(MedicationPrescription medicationPrescription)
-        {
-            if (medicationPrescription is null)
-                throw new BadRequestException();
-
-            var createdMedicationPrescription =
-                medicationPrescriptionRepository.Repository.Create(medicationPrescription);
-            notificationService.Notify(createdMedicationPrescription);
-
-            return createdMedicationPrescription;
-        }
+            => _medicationPrescriptionWrapper.Repository.GetAll();
     }
 }

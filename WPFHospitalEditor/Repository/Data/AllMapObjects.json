@@ -11454,7 +11454,7 @@
       },
       "Id": 16,
       "Name": "Examination 2",
-      "Description": "1-0&Working Hours=09:00 - 21:00;Computers=1;Stethoscopes=9;Thermometers=5;Chairs=6",
+      "Description": "1-0&Working Hours=09:00 - 21:00;Computers=1;Stethoscopes=9;Thermometers=5;Chairs=6;",
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {

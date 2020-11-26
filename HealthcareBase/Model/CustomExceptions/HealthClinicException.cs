@@ -5,7 +5,7 @@
 
 using System;
 
-namespace Model.CustomExceptions
+namespace HealthcareBase.Model.CustomExceptions
 {
     public class HealthClinicException : Exception
     {

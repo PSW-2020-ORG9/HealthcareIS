@@ -3,7 +3,7 @@
 // Created: 02 June 2020 13:52:02
 // Purpose: Definition of Class ValidationException
 
-namespace Model.CustomExceptions
+namespace HealthcareBase.Model.CustomExceptions
 {
     public class ValidationException : HealthClinicException
     {

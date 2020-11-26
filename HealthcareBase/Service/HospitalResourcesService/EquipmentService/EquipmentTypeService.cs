@@ -5,32 +5,32 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Model.CustomExceptions;
-using Model.HospitalResources;
-using Repository.Generics;
-using Repository.HospitalResourcesRepository;
-using Repository.ScheduleRepository.HospitalizationsRepository;
-using Repository.ScheduleRepository.ProceduresRepository;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.HospitalResources;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.HospitalResourcesRepository;
+using HealthcareBase.Repository.ScheduleRepository.HospitalizationsRepository;
+using HealthcareBase.Repository.ScheduleRepository.ProceduresRepository.Interface;
 
-namespace Service.HospitalResourcesService.EquipmentService
+namespace HealthcareBase.Service.HospitalResourcesService.EquipmentService
 {
     public class EquipmentTypeService
     {
         private readonly EquipmentService equipmentService;
-        private readonly RepositoryWrapper<EquipmentTypeRepository> equipmentTypeRepository;
-        private readonly RepositoryWrapper<HospitalizationTypeRepository> hospitalizationTypeRepository;
-        private readonly RepositoryWrapper<ProcedureTypeRepository> procedureTypeRepository;
+        private readonly RepositoryWrapper<IEquipmentTypeRepository> equipmentTypeRepository;
+        private readonly RepositoryWrapper<IHospitalizationTypeRepository> hospitalizationTypeRepository;
+        private readonly RepositoryWrapper<IProcedureTypeRepository> procedureTypeRepository;
 
         public EquipmentTypeService(
-            EquipmentTypeRepository equipmentTypeRepository,
-            HospitalizationTypeRepository hospitalizationTypeRepository,
-            ProcedureTypeRepository procedureTypeRepository,
+            IEquipmentTypeRepository equipmentTypeRepository,
+            IHospitalizationTypeRepository hospitalizationTypeRepository,
+            IProcedureTypeRepository procedureTypeRepository,
             EquipmentService equipmentService)
         {
-            this.equipmentTypeRepository = new RepositoryWrapper<EquipmentTypeRepository>(equipmentTypeRepository);
+            this.equipmentTypeRepository = new RepositoryWrapper<IEquipmentTypeRepository>(equipmentTypeRepository);
             this.hospitalizationTypeRepository =
-                new RepositoryWrapper<HospitalizationTypeRepository>(hospitalizationTypeRepository);
-            this.procedureTypeRepository = new RepositoryWrapper<ProcedureTypeRepository>(procedureTypeRepository);
+                new RepositoryWrapper<IHospitalizationTypeRepository>(hospitalizationTypeRepository);
+            this.procedureTypeRepository = new RepositoryWrapper<IProcedureTypeRepository>(procedureTypeRepository);
             this.equipmentService = equipmentService;
         }
 
@@ -70,22 +70,11 @@ namespace Service.HospitalResourcesService.EquipmentService
 
         private void DeleteFromHospitalizationTypes(EquipmentType equipmentType)
         {
-            foreach (var hospitalizationType in hospitalizationTypeRepository.Repository.GetAll())
-                if (hospitalizationType.NecessaryEquipment.Contains(equipmentType))
-                {
-                    hospitalizationType.RemoveNecessaryEquipment(equipmentType);
-                    hospitalizationTypeRepository.Repository.Update(hospitalizationType);
-                }
+            
         }
 
         private void DeleteFromProcedureTypes(EquipmentType equipmentType)
         {
-            foreach (var procedureType in procedureTypeRepository.Repository.GetAll())
-                if (procedureType.NecessaryEquipment.Contains(equipmentType))
-                {
-                    procedureType.RemoveNecessaryEquipment(equipmentType);
-                    procedureTypeRepository.Repository.Update(procedureType);
-                }
         }
     }
 }

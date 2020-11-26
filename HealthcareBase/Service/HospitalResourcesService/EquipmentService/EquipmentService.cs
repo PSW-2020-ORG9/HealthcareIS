@@ -4,29 +4,29 @@
 // Purpose: Definition of Class EquipmentService
 
 using System.Collections.Generic;
-using Model.CustomExceptions;
-using Model.HospitalResources;
-using Repository.Generics;
-using Repository.HospitalResourcesRepository;
-using Repository.ScheduleRepository.HospitalizationsRepository;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.HospitalResources;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.HospitalResourcesRepository;
+using HealthcareBase.Repository.ScheduleRepository.HospitalizationsRepository;
 
-namespace Service.HospitalResourcesService.EquipmentService
+namespace HealthcareBase.Service.HospitalResourcesService.EquipmentService
 {
     public class EquipmentService
     {
-        private readonly RepositoryWrapper<EquipmentTypeRepository> equipmentTypeRepository;
-        private readonly RepositoryWrapper<EquipmentUnitRepository> equipmentUnitRepository;
-        private readonly RepositoryWrapper<HospitalizationRepository> hospitalizationRepository;
+        private readonly RepositoryWrapper<IEquipmentTypeRepository> equipmentTypeRepository;
+        private readonly RepositoryWrapper<IEquipmentUnitRepository> equipmentUnitRepository;
+        private readonly RepositoryWrapper<IHospitalizationRepository> hospitalizationRepository;
 
         public EquipmentService(
-            EquipmentUnitRepository equipmentUnitRepository,
-            EquipmentTypeRepository equipmentTypeRepository,
-            HospitalizationRepository hospitalizationRepository)
+            IEquipmentUnitRepository equipmentUnitRepository,
+            IEquipmentTypeRepository equipmentTypeRepository,
+            IHospitalizationRepository hospitalizationRepository)
         {
-            this.equipmentUnitRepository = new RepositoryWrapper<EquipmentUnitRepository>(equipmentUnitRepository);
-            this.equipmentTypeRepository = new RepositoryWrapper<EquipmentTypeRepository>(equipmentTypeRepository);
+            this.equipmentUnitRepository = new RepositoryWrapper<IEquipmentUnitRepository>(equipmentUnitRepository);
+            this.equipmentTypeRepository = new RepositoryWrapper<IEquipmentTypeRepository>(equipmentTypeRepository);
             this.hospitalizationRepository =
-                new RepositoryWrapper<HospitalizationRepository>(hospitalizationRepository);
+                new RepositoryWrapper<IHospitalizationRepository>(hospitalizationRepository);
         }
 
         public EquipmentUnit GetByID(int id)
@@ -65,12 +65,6 @@ namespace Service.HospitalResourcesService.EquipmentService
 
         private void DeleteFromHospitalizations(EquipmentUnit equipmentUnit)
         {
-            foreach (var hospitalization in hospitalizationRepository.Repository.GetAll())
-                if (hospitalization.EquipmentInUse.Contains(equipmentUnit))
-                {
-                    hospitalization.RemoveEquipmentInUse(equipmentUnit);
-                    hospitalizationRepository.Repository.Update(hospitalization);
-                }
         }
 
         public void DeleteByType(EquipmentType equipmentType)

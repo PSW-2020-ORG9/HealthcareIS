@@ -1,7 +1,7 @@
 ﻿using HealthcareBase.Model.Database;
 using Microsoft.EntityFrameworkCore;
 
-namespace Repository.Generics
+namespace HealthcareBase.Repository.Generics
 {
     public class MySqlContextFactory : IContextFactory
     {
