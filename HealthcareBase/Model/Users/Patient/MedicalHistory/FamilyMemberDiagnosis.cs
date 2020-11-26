@@ -3,21 +3,21 @@
 // Created: 21 April 2020 15:23:25
 // Purpose: Definition of Class FamilyMember
 
-using Microsoft.EntityFrameworkCore;
-using Model.Miscellaneous;
-using Repository.Generics;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using HealthcareBase.Model.Miscellaneous;
+using HealthcareBase.Repository.Generics;
 
-namespace Model.Users.Patient.MedicalHistory
+namespace HealthcareBase.Model.Users.Patient.MedicalHistory
 {
-    public class FamilyMemberDiagnosis : Entity<int>
+    public class FamilyMemberDiagnosis : IEntity<int>
     {
         [Key]
         public int Id { get; set; }
         public string FamilyRelation { get; set; }
         public int DiscoveredAtAge { get; set; }
         public bool Lethal { get; set; }
+        public string Description { get; set; }
 
         [ForeignKey("Diagnosis")]
         public string DiagnosisId { get; set; }

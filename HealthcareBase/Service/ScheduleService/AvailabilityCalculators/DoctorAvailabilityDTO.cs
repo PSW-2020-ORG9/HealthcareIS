@@ -3,10 +3,10 @@
 // Created: 02 June 2020 10:39:21
 // Purpose: Definition of Class DoctorAvailabilityDTO
 
-using Model.Users.Employee;
-using Model.Utilities;
+using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Model.Utilities;
 
-namespace Service.ScheduleService.AvailabilityCalculators
+namespace HealthcareBase.Service.ScheduleService.AvailabilityCalculators
 {
     public class DoctorAvailabilityDTO
     {

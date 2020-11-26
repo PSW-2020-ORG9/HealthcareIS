@@ -5,9 +5,9 @@
 
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using Model.HospitalResources;
+using HealthcareBase.Model.HospitalResources;
 
-namespace Model.Users.Employee
+namespace HealthcareBase.Model.Users.Employee
 {
     public class Doctor : Employee
     {

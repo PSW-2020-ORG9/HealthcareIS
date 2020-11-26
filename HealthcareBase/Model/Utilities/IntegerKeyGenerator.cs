@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Model.Utilities
+namespace HealthcareBase.Model.Utilities
 {
     internal class IntegerKeyGenerator
     {

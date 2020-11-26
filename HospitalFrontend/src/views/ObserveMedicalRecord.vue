@@ -36,7 +36,7 @@
                         </tr>
                         <tr>
                             <th class="text-info">Address:</th>
-                            <td>{{patient.person.cityOfResidence.name + ' ' + patient.person.address}}</td>
+                            <td>{{patient.person.cityOfResidence.name + ', ' + patient.person.address}}</td>
                         </tr>
                         <tr>
                             <th class="text-info">Date of birth:</th>
@@ -54,7 +54,7 @@
                             <th colspan="2">Allergies</th>
                         </tr>
                     </thead>
-                    <tbody v-if="patient.medicalHistory.allergies.length == 0">
+                    <tbody v-if="patient.medicalRecord.allergies.length == 0">
                         <th>No recorded patient allergies.</th>
                     </tbody>
                     <tbody v-else>
@@ -62,7 +62,7 @@
                             <th class="text-info">Allergen</th>
                             <th class="text-info">Intensity</th>
                         </tr>
-                        <tr v-for="allergyManifestation in patient.medicalHistory.allergies" v-bind:key="allergyManifestation.id">
+                        <tr v-for="allergyManifestation in patient.medicalRecord.allergies" v-bind:key="allergyManifestation.id">
                             <td>
                                 {{allergyManifestation.allergy.allergen}}
                             </td>
@@ -76,21 +76,19 @@
             <div class="row">
                 <table class="table text-left bg-light m-1">
                     <thead>
-                        <th colspan="3">Diagnosis history</th>
+                        <th colspan="2">Diagnosis history</th>
                     </thead>
-                    <tbody v-if="patient.medicalHistory.personalHistory.diagnoses.length == 0">
+                    <tbody v-if="patient.medicalRecord.examinations.length == 0">
                         <th>No recorded patient history.</th>
                     </tbody>
                     <tbody v-else>
                         <tr>
                             <th class="text-info">Name</th>
-                            <th class="text-info">Type</th>
                             <th class="text-info">Description</th>
                         </tr>
-                        <tr v-for="diagnosisDetails in patient.medicalHistory.personalHistory.diagnoses" v-bind:key="diagnosisDetails.id">
-                            <td>{{diagnosisDetails.diagnosis.name}}</td>
-                            <td>{{diagnosisTypes[diagnosisDetails.type]}}</td>
-                            <td>{{diagnosisDetails.diagnosis.description}}</td>
+                        <tr v-for="diagnosis in getDiagnoses()" v-bind:key="diagnosis.id">
+                            <td>{{diagnosis.name}}</td>
+                            <td>{{diagnosis.description}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -108,7 +106,6 @@ export default {
         return {
             patient: null,
             intensities: ["Mild", "Medium", "Strong", "Severe"],
-            diagnosisTypes: ["Chronic", "Acute"]
         }
     },
     methods: {
@@ -122,6 +119,15 @@ export default {
             let dateObj = new Date(date)
             let parsedDate = "" + dateObj.getDate() + "." + (dateObj.getMonth() + 1) + "." + dateObj.getFullYear() + "."
             return parsedDate
+        },
+        getDiagnoses: function () {
+            let diagnoses = []
+            this.patient.medicalRecord.examinations.forEach(examination =>
+                examination.examinationReport.diagnoses.forEach(diagnosis =>
+                    diagnoses.push(diagnosis)
+                )
+            )
+            return diagnoses
         }
     },
     mounted: function () {

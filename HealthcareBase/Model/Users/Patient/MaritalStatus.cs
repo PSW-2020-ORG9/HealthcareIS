@@ -1,4 +1,4 @@
-﻿namespace Model.Users.Patient
+﻿namespace HealthcareBase.Model.Users.Patient
 {
     public enum MaritalStatus
     {

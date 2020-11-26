@@ -5,27 +5,27 @@
 
 using System;
 using System.Collections.Generic;
-using Model.CustomExceptions;
-using Model.HospitalResources;
-using Model.Utilities;
-using Repository.Generics;
-using Repository.HospitalResourcesRepository;
-using Service.HospitalResourcesService.Validators;
+using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.HospitalResources;
+using HealthcareBase.Model.Utilities;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.HospitalResourcesRepository;
+using HealthcareBase.Service.HospitalResourcesService.Validators;
 
-namespace Service.HospitalResourcesService.RoomService
+namespace HealthcareBase.Service.HospitalResourcesService.RoomService
 {
     public class RenovationService
     {
-        private readonly RepositoryWrapper<RenovationRepository> renovationRepository;
+        private readonly RepositoryWrapper<IRenovationRepository> renovationRepository;
         private readonly RenovationValidator renovationValidator;
         private readonly TimeSpan timeLimit;
 
         public RenovationService(
-            RenovationRepository renovationRepository,
+            IRenovationRepository renovationRepository,
             RenovationValidator renovationValidator,
             TimeSpan timeLimit)
         {
-            this.renovationRepository = new RepositoryWrapper<RenovationRepository>(renovationRepository);
+            this.renovationRepository = new RepositoryWrapper<IRenovationRepository>(renovationRepository);
             this.renovationValidator = renovationValidator;
             this.timeLimit = timeLimit;
         }

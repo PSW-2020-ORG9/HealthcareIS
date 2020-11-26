@@ -3,7 +3,7 @@
 // Created: 27 May 2020 21:59:05
 // Purpose: Definition of Class ProcedurePriority
 
-namespace Model.Schedule.Procedures
+namespace HealthcareBase.Model.Schedule.Procedures
 {
     public enum ProcedurePriority
     {

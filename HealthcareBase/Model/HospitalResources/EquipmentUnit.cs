@@ -6,12 +6,12 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Model.Schedule.Hospitalizations;
-using Repository.Generics;
+using HealthcareBase.Model.Schedule.Hospitalizations;
+using HealthcareBase.Repository.Generics;
 
-namespace Model.HospitalResources
+namespace HealthcareBase.Model.HospitalResources
 {
-    public class EquipmentUnit : Entity<int>
+    public class EquipmentUnit : IEntity<int>
     {
         public EquipmentUnit(DateTime acquisitionDate, string manufacturer, Room currentLocation,
             EquipmentType equipmentType)
@@ -37,8 +37,6 @@ namespace Model.HospitalResources
         [ForeignKey("EquipmentType")]
         public int? EquipmentTypeId { get; set; }
         public EquipmentType EquipmentType { get; set; }
-
-        public Room Room { get; set; }
 
         public Hospitalization Hospitalization { get; set; }
 

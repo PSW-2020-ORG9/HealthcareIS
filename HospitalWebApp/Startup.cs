@@ -1,17 +1,22 @@
 using System;
 using System.Runtime.InteropServices;
 using HealthcareBase.Model.Database;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.Generics.Interface;
+using HealthcareBase.Repository.MedicationRepository;
+using HealthcareBase.Repository.ScheduleRepository.ProceduresRepository;
 using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository;
+using HealthcareBase.Repository.UsersRepository.UserFeedbackRepository;
+using HealthcareBase.Service.MedicationService;
+using HealthcareBase.Service.ScheduleService.ProcedureService;
+using HealthcareBase.Service.UsersService.PatientService;
+using HealthcareBase.Service.UsersService.UserFeedbackService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json.Linq;
-using Repository.Generics;
-using Repository.UsersRepository.UserFeedbackRepository;
-using Service.UsersService.PatientService;
-using Service.UsersService.UserFeedbackService;
 
 namespace HospitalWebApp
 {
@@ -38,7 +43,7 @@ namespace HospitalWebApp
             if (_connectionString == null) throw new ApplicationException("Missing database connection string");
 
             AddServices(services);
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
             {
@@ -75,11 +80,18 @@ namespace HospitalWebApp
         {
             var patientRepository = new PatientSqlRepository(GetContext());
             var userFeedbackRepository = new UserFeedbackSqlRepository(GetContext());
+            var prescriptionRepository = new MedicationPrescriptionSqlRepository(GetContext());
+            var examinationRepository = new ExaminationSqlRepository(GetContext());
+            
             var userFeedbackService = new UserFeedbackService(userFeedbackRepository);
             var patientService = new PatientService(patientRepository, null, null, null);
-
+            var prescriptionService = new MedicationPrescriptionService(prescriptionRepository);
+            var examinationService = new ExaminationService(examinationRepository, null, null, null, null, TimeSpan.Zero);
+            
             services.Add(new ServiceDescriptor(typeof(UserFeedbackService), userFeedbackService));
             services.Add(new ServiceDescriptor(typeof(PatientService), patientService));
+            services.Add(new ServiceDescriptor(typeof(MedicationPrescriptionService), prescriptionService));
+            services.Add(new ServiceDescriptor(typeof(ExaminationService), examinationService));
         }
 
         private IPreparable CreateRepository(Type repositoryClass)

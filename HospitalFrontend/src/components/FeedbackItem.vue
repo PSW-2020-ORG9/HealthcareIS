@@ -3,7 +3,7 @@
 
   <div class="item card">
     <div class="d-flex justify-content-between bg-info">
-      <h5 v-if="!feedback.isAnonymous" class="card-header text-left  text-white">{{feedback.user.username}}</h5>
+      <h5 v-if="!feedback.isAnonymous" class="card-header text-left  text-white">{{feedback.patientAccount.username}}</h5>
       <h5 v-else class="card-header text-left  text-white">Anonymous</h5>
       <p class="card-header  text-white text-right">{{feedback.date}}</p>
     </div>

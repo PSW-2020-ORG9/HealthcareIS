@@ -3,11 +3,11 @@
 // Created: 02 June 2020 02:15:17
 // Purpose: Definition of Class RecommendationRequestDTO
 
-using Model.Users.Employee;
-using Model.Users.Patient;
-using Model.Utilities;
+using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Model.Users.Patient;
+using HealthcareBase.Model.Utilities;
 
-namespace Service.ScheduleService.PatientRecommendationService
+namespace HealthcareBase.Service.ScheduleService.PatientRecommendationService
 {
     public class RecommendationRequestDTO
     {

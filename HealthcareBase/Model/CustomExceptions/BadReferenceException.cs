@@ -1,4 +1,4 @@
-﻿namespace Model.CustomExceptions
+﻿namespace HealthcareBase.Model.CustomExceptions
 {
     internal class BadReferenceException : ValidationException
     {

@@ -4,19 +4,19 @@
 // Purpose: Definition of Class DiagnosisService
 
 using System.Collections.Generic;
-using Model.Miscellaneous;
-using Repository.Generics;
-using Repository.MiscellaneousRepository;
+using HealthcareBase.Model.Miscellaneous;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.MiscellaneousRepository;
 
-namespace Service.MiscellaneousService
+namespace HealthcareBase.Service.MiscellaneousService
 {
     public class DiagnosisService
     {
-        private readonly RepositoryWrapper<DiagnosisRepository> diagnosisRepository;
+        private readonly RepositoryWrapper<IDiagnosisRepository> diagnosisRepository;
 
-        public DiagnosisService(DiagnosisRepository diagnosisRepository)
+        public DiagnosisService(IDiagnosisRepository diagnosisRepository)
         {
-            this.diagnosisRepository = new RepositoryWrapper<DiagnosisRepository>(diagnosisRepository);
+            this.diagnosisRepository = new RepositoryWrapper<IDiagnosisRepository>(diagnosisRepository);
         }
 
         public Diagnosis GetByID(string id)

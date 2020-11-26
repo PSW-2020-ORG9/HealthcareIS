@@ -1,20 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Model.Users.UserAccounts;
-using Repository.Generics;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Model.Users.Generalities
+namespace HealthcareBase.Model.Users.Generalities
 {
-    public class Citizenship : Entity<int>
+    public class Citizenship
     {
-        [Key] 
-        public int Id { get; set; }
-
+        public string PersonJmbg { get; set; }
+        
         [ForeignKey("Country")]
         public int CountryID { get; set; }
         public Country Country { get; set; }
-
-        public int GetKey() => Id;
-        public void SetKey(int id) => Id = id;
     }
 }

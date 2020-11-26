@@ -6,11 +6,11 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Repository.Generics;
+using HealthcareBase.Repository.Generics;
 
-namespace Model.HospitalResources
+namespace HealthcareBase.Model.HospitalResources
 {
-    public class Room : Entity<int>
+    public class Room : IEntity<int>
     {
         private List<EquipmentUnit> equipment;
 

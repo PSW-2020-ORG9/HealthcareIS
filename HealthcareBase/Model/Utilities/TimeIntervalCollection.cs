@@ -3,12 +3,12 @@
 // Created: 02 June 2020 03:26:54
 // Purpose: Definition of Class TimeIntervalCollection
 
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
-namespace Model.Utilities
+namespace HealthcareBase.Model.Utilities
 {
     [Owned]
     public class TimeIntervalCollection

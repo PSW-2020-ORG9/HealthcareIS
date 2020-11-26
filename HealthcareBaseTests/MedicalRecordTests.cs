@@ -1,31 +1,30 @@
-using Model.Users.Generalities;
-using Model.Users.Patient;
 using Moq;
-using Repository.ScheduleRepository.HospitalizationsRepository;
-using Repository.ScheduleRepository.ProceduresRepository;
-using Repository.UsersRepository.EmployeesAndPatientsRepository;
-using Service.UsersService.PatientService;
 using System.Collections.Generic;
+using HealthcareBase.Model.Users.Patient;
+using HealthcareBase.Repository.ScheduleRepository.HospitalizationsRepository;
+using HealthcareBase.Repository.ScheduleRepository.ProceduresRepository.Interface;
+using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository.Interface;
+using HealthcareBase.Service.UsersService.PatientService;
 using Xunit;
 
 namespace HealthcareBaseTests
 {
     public class MedicalRecordTests
     {
-        private Mock<PatientRepository> _patientStubRepository;
-        private Mock<ExaminationRepository> _examinationStubRepository;
-        private Mock<SurgeryRepository> _surgeryStubRepository;
-        private Mock<HospitalizationRepository> _hospitalizationStubRepository;
+        private Mock<IPatientRepository> _patientStubRepository;
+        private Mock<IExaminationRepository> _examinationStubRepository;
+        private Mock<ISurgeryRepository> _surgeryStubRepository;
+        private Mock<IHospitalizationRepository> _hospitalizationStubRepository;
 
         private void PrepareStubs()
         {
-            _patientStubRepository = new Mock<PatientRepository>();
-            _examinationStubRepository = new Mock<ExaminationRepository>();
-            _surgeryStubRepository = new Mock<SurgeryRepository>();
-            _hospitalizationStubRepository = new Mock<HospitalizationRepository>();
+            _patientStubRepository = new Mock<IPatientRepository>();
+            _examinationStubRepository = new Mock<IExaminationRepository>();
+            _surgeryStubRepository = new Mock<ISurgeryRepository>();
+            _hospitalizationStubRepository = new Mock<IHospitalizationRepository>();
 
             Patient p = new Patient();
-            p.MedicalRecordID = 1;
+            p.Id = 1;
 
             List<Patient> patients = new List<Patient>();
             patients.Add(p);

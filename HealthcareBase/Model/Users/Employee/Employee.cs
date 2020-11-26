@@ -3,26 +3,26 @@
 // Created: 18 April 2020 19:42:16
 // Purpose: Definition of Class Employee
 
-using Model.Users.Generalities;
-using Repository.Generics;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using HealthcareBase.Model.Users.Generalities;
+using HealthcareBase.Repository.Generics;
 
-namespace Model.Users.Employee
+namespace HealthcareBase.Model.Users.Employee
 {
-    public class Employee : Entity<int>
+    public abstract class Employee : IEntity<int>
     {
         [Key]
-        public int EmployeeID { get; set; }
+        public int Id { get; set; }
         
         [ForeignKey("Person")]
-        public string PersonJmbg { get; set; }
+        public string Jmbg { get; set; }
         public Person Person { get; set; }
 
         [Column(TypeName = "nvarchar(24)")]
         public EmployeeStatus Status { get; set; }
 
-        public int GetKey() => EmployeeID;
-        public void SetKey(int id) => EmployeeID = id;
+        public int GetKey() => Id;
+        public void SetKey(int id) => Id = id;
     }
 }
