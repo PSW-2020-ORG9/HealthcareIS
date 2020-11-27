@@ -65,7 +65,7 @@ namespace HealthcareBase.Service.HospitalResourcesService.RoomService
 
             return calculator.Calculate(initialAvailability, currentScheduleContext);
         }
-
+        
         public IEnumerable<Room> GetAppropriate(ProcedureType procedureType)
         {
             return new List<Room>();

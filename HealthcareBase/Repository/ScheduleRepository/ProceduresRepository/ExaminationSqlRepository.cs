@@ -5,6 +5,7 @@ using HealthcareBase.Model.Database;
 using HealthcareBase.Model.HospitalResources;
 using HealthcareBase.Model.Schedule.Procedures;
 using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Model.Users.Employee.Doctors;
 using HealthcareBase.Model.Users.Patient;
 using HealthcareBase.Model.Utilities;
 using HealthcareBase.Repository.Generics;
@@ -26,10 +27,14 @@ namespace HealthcareBase.Repository.ScheduleRepository.ProceduresRepository
                 .Include(examination => examination.ExaminationReport)
                 .ThenInclude(report => report.Prescriptions)
                 .ThenInclude(prescription => prescription.Instructions)
-                
+
                 .Include(examination => examination.ExaminationReport)
                 .ThenInclude(report => report.Prescriptions)
                 .ThenInclude(prescription => prescription.Medication)
+
+                .Include(examination => examination.ExaminationReport)
+                .ThenInclude(report => report.Prescriptions)
+                .ThenInclude(prescription => prescription.Diagnosis)
 
                 .Include(examination => examination.Doctor)
                 .ThenInclude(doctor => doctor.Person)
@@ -39,9 +44,14 @@ namespace HealthcareBase.Repository.ScheduleRepository.ProceduresRepository
 
                 .Include(examination => examination.Doctor)
                 .ThenInclude(doctor => doctor.Specialties)
+                .ThenInclude(specialty => specialty.Specialty)
 
-               .Include(examination => examination.Patient)
-               .ThenInclude(patient => patient.Person); 
+                .Include(examination => examination.Patient)
+                .ThenInclude(patient => patient.Person)
+
+                .Include(examination => examination.ProcedureDetails)
+                .ThenInclude(details => details.RequiredSpecialty);
+
         }
 
         public IEnumerable<Examination> GetByDoctorAndTime(Doctor doctor, TimeInterval time)

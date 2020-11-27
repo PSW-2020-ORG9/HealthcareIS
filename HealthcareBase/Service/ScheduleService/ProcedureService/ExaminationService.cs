@@ -3,12 +3,14 @@
 // Created: 28 May 2020 12:23:43
 // Purpose: Definition of Class ExaminationService
 
+
 using System;
 using System.Collections.Generic;
 using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.Filters;
 using HealthcareBase.Model.Miscellaneous;
 using HealthcareBase.Model.Schedule.Procedures;
-using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Model.Users.Employee.Doctors;
 using HealthcareBase.Model.Users.Patient;
 using HealthcareBase.Model.Utilities;
 using HealthcareBase.Repository.Generics;
@@ -29,20 +31,23 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
             IExaminationRepository examinationRepository,
             IDiagnosisRepository diagnosisRepository,
             IPatientRepository patientRepository,
-            ProcedureScheduleComplianceValidator scheduleValidator, ProcedureValidator procedureValidator,
+            ProcedureScheduleComplianceValidator scheduleValidator,
             TimeSpan timeLimit
-        ) : base(scheduleValidator, procedureValidator, timeLimit)
+        ) : base(timeLimit)
         {
             this._examinationWrapper = new RepositoryWrapper<IExaminationRepository>(examinationRepository);
             this._diagnosisWrapper = new RepositoryWrapper<IDiagnosisRepository>(diagnosisRepository);
             this._patientWrapper = new RepositoryWrapper<IPatientRepository>(patientRepository);
         }
 
-        public IEnumerable<Examination> GetByDoctorCredentials(DoctorCredentialsDto doctorCredentialsDto)
-        {
-            return _examinationWrapper.Repository.GetMatching(doctorCredentialsDto.GetFilterExpression());
-        }
+        public IEnumerable<Examination> SimpleSearch(ExaminationSimpleFilterDto filterDto)
+            => _examinationWrapper.Repository.GetMatching(filterDto.GetFilterExpression());
+        
+        public IEnumerable<Examination> AdvancedSearch(ExaminationAdvancedFilterDto filterDto)
+            => _examinationWrapper.Repository.GetMatching(filterDto.GetFilterExpression());
 
+        
+        // Old code
         public override Examination GetByID(int id)
         {
             return _examinationWrapper.Repository.GetByID(id);
