@@ -267,7 +267,6 @@ export default {
         handleExaminations(response) {
             if (response.data && response.data.length) {
               response.data.forEach(exam => {
-                console.log(exam);
                 this.examinations.push(exam);
               })
             }
