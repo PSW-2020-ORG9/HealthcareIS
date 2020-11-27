@@ -11,4 +11,7 @@ export default{
 
     docSearchPrescriptionSimple: prescriptionsUrl + '/simple',
     docSearchExaminationSimple: examinationsUrl + '/simple',
+
+    docSearchPrescriptionAdvanced: prescriptionsUrl + "/advanced",
+    docSearchExaminationAdvanced: examinationsUrl + "/advanced",
 }
