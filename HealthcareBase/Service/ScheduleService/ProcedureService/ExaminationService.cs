@@ -40,11 +40,11 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
             this._patientWrapper = new RepositoryWrapper<IPatientRepository>(patientRepository);
         }
 
-        public IEnumerable<Examination> SimpleSearch(ExaminationSimpleFilterDto examinationSimpleFilterDto)
-            => _examinationWrapper.Repository.GetMatching(examinationSimpleFilterDto.GetFilterExpression());
+        public IEnumerable<Examination> SimpleSearch(ExaminationSimpleFilterDto filterDto)
+            => _examinationWrapper.Repository.GetMatching(filterDto.GetFilterExpression());
         
-        public IEnumerable<Examination> AdvancedSearch(ExaminationAdvancedFilterDto dto)
-            => _examinationWrapper.Repository.GetMatching(dto.GetFilterExpression());
+        public IEnumerable<Examination> AdvancedSearch(ExaminationAdvancedFilterDto filterDto)
+            => _examinationWrapper.Repository.GetMatching(filterDto.GetFilterExpression());
 
         
         // Old code

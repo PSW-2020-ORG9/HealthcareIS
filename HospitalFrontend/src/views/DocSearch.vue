@@ -1,6 +1,6 @@
 <template>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-  
+
     <h2 class="mb-5"> Search your own medical documentation</h2>
 
     <div v-if="simpleQueryOpened">
@@ -66,7 +66,7 @@
                         <td class="row mb-2" style="background-color: rgb(238, 238, 238); padding-left: 25px; margin-right: 10px;">
                             <div class="col">
                                 <div class="row font-weight-bold">
-                                    {{prescription.medication.name}} 
+                                    {{prescription.medication.name}}
                                 </div>
                                 <div class="container mt-3">
                                     <div class="row mb-2">
@@ -117,14 +117,14 @@
                                 Description: {{exam.procedureDetails.description}}
                               </div>
                                 <div class="row mt-2">
-                                    Anamnesis: {{exam.examinationReport.anamnesis}} 
+                                    Anamnesis: {{exam.examinationReport.anamnesis}}
                                 </div>
-                                <div class="row mt-2"> 
+                                <div class="row mt-2">
                                     Diagnoses:
                                 </div>
                                 <div class="container">
                                     <div class="row mb-2">
-                                        <table class="table"> 
+                                        <table class="table">
                                             <tr v-for="(diagnosis, index) in exam.examinationReport.diagnoses" :key="index">
                                                 <td class="mb-2">
                                                     <div class="container text-left">
@@ -142,7 +142,7 @@
                                 </div>
                                 <div class="container">
                                     <div class="row">
-                                        <table class="table"> 
+                                        <table class="table">
                                             <tr v-for="(prescription, index) in exam.examinationReport.prescriptions" :key="index">
                                                 <td class="mb-2">
                                                     <div class="container text-left">
@@ -191,7 +191,7 @@ export default {
             prescriptionStatusQuery: "All",
             prescriptionManufacturerQuery: "",
             prescriptionDiagnosisQuery: "",
-            
+
             rendered: false,
             simpleQueryOpened: true
         }
@@ -203,7 +203,7 @@ export default {
                 this.getAllPrescriptions();
                 return;
             }
-            axios.get(api.docSearchPrescriptionSimple 
+            axios.get(api.docSearchPrescriptionSimple
                 + "?" + "medicationName=" + this.prescriptionNameQuery
             )
             .then(response => this.handlePrescriptions(response))
@@ -267,6 +267,7 @@ export default {
         handleExaminations(response) {
             if (response.data && response.data.length) {
               response.data.forEach(exam => {
+                console.log(exam);
                 this.examinations.push(exam);
               })
             }
@@ -294,7 +295,7 @@ export default {
             this.simpleQueryOpened = true;
         }
     },
-    mounted() { 
+    mounted() {
         this.rendered = true;
         this.getAllExaminations();
         this.getAllPrescriptions();

@@ -15,7 +15,7 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
             //ProcedureScheduleComplianceValidator scheduleValidator, ProcedureValidator procedureValidator,
             TimeSpan timeLimit)
         {
-            this.scheduleValidator = scheduleValidator;
+            //this.scheduleValidator = scheduleValidator;
             //this.procedureValidator = procedureValidator;
             this.timeLimit = timeLimit;
         }

@@ -43,13 +43,13 @@ namespace HospitalWebApp.Controllers
 
         [HttpPost]
         [Route("prescription/advanced")]
-        public IActionResult PrescriptionAdvancedSearch(PrescriptionAdvancedFilterDto dto)
-            => Ok(_medicationPrescriptionService.AdvancedSearch(dto));
+        public IActionResult PrescriptionAdvancedSearch(PrescriptionAdvancedFilterDto filterDto)
+            => Ok(_medicationPrescriptionService.AdvancedSearch(filterDto));
 
         [HttpPost]
         [Route("examination/advanced")]
-        public IActionResult ExaminationAdvancedSearch(ExaminationAdvancedFilterDto dto)
-            => Ok(_examinationService.AdvancedSearch(dto));
+        public IActionResult ExaminationAdvancedSearch(ExaminationAdvancedFilterDto filterDto)
+            => Ok(_examinationService.AdvancedSearch(filterDto));
         
         [HttpGet]
         [Route("prescription")]

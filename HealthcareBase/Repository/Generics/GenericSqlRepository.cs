@@ -70,6 +70,9 @@ namespace HealthcareBase.Repository.Generics
             return query;
         }
 
+        public int CountMatching(Expression<Func<T, bool>> condition)
+            => IncludeFields(Query()).Where(condition).Count();
+        
         public IEnumerable<T> GetAll() 
             => IncludeFields(Query());
  

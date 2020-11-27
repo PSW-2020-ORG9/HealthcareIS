@@ -19,7 +19,7 @@ namespace HealthcareBase.Model.Schedule.Procedures
         public string Description { get; set; }
         public TimeSpan Duration { get; set; }
         
-        [Column(TypeName = "nvarchar(24)")]
+        [Column(TypeName = "nvarchar(12)")]
         public ProcedurePriority Priority { get; set; }
 
         [ForeignKey("RequiredSpecialty")]
