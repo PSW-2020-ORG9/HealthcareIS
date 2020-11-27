@@ -5,10 +5,12 @@ using HealthcareBase.Repository.Generics.Interface;
 using HealthcareBase.Repository.MedicationRepository;
 using HealthcareBase.Repository.ScheduleRepository.ProceduresRepository;
 using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository;
+using HealthcareBase.Repository.UsersRepository.GeneralitiesRepository;
 using HealthcareBase.Repository.UsersRepository.SurveyRepository;
 using HealthcareBase.Repository.UsersRepository.SurveyRepository.SurveyEntryRepository.RatedSectionRepository;
 using HealthcareBase.Repository.UsersRepository.UserFeedbackRepository;
 using HealthcareBase.Service.MedicationService;
+using HealthcareBase.Service.MiscellaneousService;
 using HealthcareBase.Service.ScheduleService.ProcedureService;
 using HealthcareBase.Service.UsersService.EmployeeService;
 using HealthcareBase.Service.UsersService.PatientService;
@@ -97,16 +99,23 @@ namespace HospitalWebApp
             var userFeedbackRepository = new UserFeedbackSqlRepository(GetContext());
             var prescriptionRepository = new MedicationPrescriptionSqlRepository(GetContext());
             var examinationRepository = new ExaminationSqlRepository(GetContext());
+            var cityRepository = new CitySqlRepository(GetContext());
+            var countryRepository = new CountrySqlRepository(GetContext());
             
             var userFeedbackService = new UserFeedbackService(userFeedbackRepository);
             var patientService = new PatientService(patientRepository, null, null, null);
             var prescriptionService = new MedicationPrescriptionService(prescriptionRepository);
-            var examinationService = new ExaminationService(examinationRepository, null, null, null, TimeSpan.Zero);
-            
+
+            var examinationService = new ExaminationService(examinationRepository, null, null, null,  TimeSpan.Zero);
+            var cityService = new CityService(cityRepository);
+            var countryService = new CountryService(countryRepository);
+
             services.Add(new ServiceDescriptor(typeof(UserFeedbackService), userFeedbackService));
             services.Add(new ServiceDescriptor(typeof(PatientService), patientService));
             services.Add(new ServiceDescriptor(typeof(MedicationPrescriptionService), prescriptionService));
             services.Add(new ServiceDescriptor(typeof(ExaminationService), examinationService));
+            services.Add(new ServiceDescriptor(typeof(CityService),cityService));
+            services.Add(new ServiceDescriptor(typeof(CountryService),countryService));
         }
 
         private IPreparable CreateRepository(Type repositoryClass)

@@ -3,6 +3,7 @@
 // Created: 27 May 2020 19:14:10
 // Purpose: Definition of Class PatientAccountService
 
+using System;
 using System.Linq;
 using HealthcareBase.Model.CustomExceptions;
 using HealthcareBase.Model.Users.Employee;
@@ -16,7 +17,7 @@ using HealthcareBase.Repository.UsersRepository.UserFeedbackRepository;
 
 namespace HealthcareBase.Service.UsersService.PatientService
 {
-    public class PatientAccountService
+    public class PatientAccountService:IPatientAccountService
     {
         private readonly RepositoryWrapper<IPatientAccountRepository> patientAccountRepository;
         private readonly RepositoryWrapper<IPatientSurveyResponseRepository> patientSurveyResponseRepository;
@@ -30,6 +31,10 @@ namespace HealthcareBase.Service.UsersService.PatientService
                 new RepositoryWrapper<IPatientSurveyResponseRepository>(patientSurveyResponseRepository);
         }
 
+        public void CreateAccount(PatientAccount patientAccount)
+        {
+            patientAccountRepository.Repository.Create(patientAccount);
+        }
         public void DeleteAccount(PatientAccount patientAccount)
         {
             patientAccountRepository.Repository.Delete(patientAccount);
@@ -78,6 +83,20 @@ namespace HealthcareBase.Service.UsersService.PatientService
             }
             return patientAccountRepository.Repository.Update(acc);
         }
-        
+
+        public void RecordSurveyResponse(PatientSurveyResponse surveyResponse)
+        {
+            patientSurveyResponseRepository.Repository.Create(surveyResponse);
+        }
+
+        public void ActivateAccount(Guid guid)
+        {
+           var patientAccount = patientAccountRepository.Repository
+                                .GetMatching(p => p.UserGuid.Equals(guid))
+                                .First();
+           patientAccount.IsActivated = true;
+           patientAccountRepository.Repository.Update(patientAccount);
+
+        }
     }
 }

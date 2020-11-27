@@ -3,9 +3,9 @@ using EntityFramework.Exceptions.Common;
 using HealthcareBase.Model.CustomExceptions;
 using HealthcareBase.Model.Users.UserFeedback;
 using HealthcareBase.Service.UsersService.UserFeedbackService;
-using HospitalWebApp.Adapters;
 using HospitalWebApp.Dtos;
 using HospitalWebApp.Validators;
+using HospitalWebApp.Mappers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HospitalWebApp.Controllers
@@ -37,7 +37,7 @@ namespace HospitalWebApp.Controllers
             {
                 // TODO Anonymous user logic
                 UserFeedbackValidator.Validate(userFeedbackDto);
-                var userFeedback = UserFeedbackAdapter.DtoToObject(userFeedbackDto);
+                var userFeedback = UserFeedbackMapper.DtoToObject(userFeedbackDto);
                 return Ok(_userFeedbackService.Create(userFeedback));
             }
             catch (ReferenceConstraintException)
