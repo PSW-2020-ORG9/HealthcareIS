@@ -4,7 +4,7 @@ using HealthcareBase.Repository.Generics.Interface;
 
 namespace HealthcareBase.Repository.UsersRepository.SurveyRepository.SurveyEntryRepository.RatedSectionRepository
 {
-    public interface RatedSectionRepository : IWrappableRepository<RatedSurveySection, int>
+    public interface IRatedSectionRepository : IWrappableRepository<RatedSurveySection, int>
     {
     }
 }

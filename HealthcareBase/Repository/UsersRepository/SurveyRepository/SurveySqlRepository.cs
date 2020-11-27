@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HealthcareBase.Repository.UsersRepository.SurveyRepository
 {
-    public class SurveySqlRepository : GenericSqlRepository<Survey, int>, SurveyRepository
+    public class SurveySqlRepository : GenericSqlRepository<Survey, int>, ISurveyRepository
     {
         public SurveySqlRepository(IContextFactory contextFactory) : base(contextFactory)
         {

@@ -8,11 +8,11 @@ namespace HealthcareBase.Service.UsersService.UserFeedbackService.SurveyService.
 {
     public class RatedSectionService : IRatedSectionService
     {
-        private readonly RepositoryWrapper<RatedSectionRepository> ratedSectionRepository;
+        private readonly RepositoryWrapper<IRatedSectionRepository> ratedSectionRepository;
 
-        public RatedSectionService(RatedSectionRepository repository)
+        public RatedSectionService(IRatedSectionRepository repository)
         {
-            ratedSectionRepository = new RepositoryWrapper<RatedSectionRepository>(repository);
+            ratedSectionRepository = new RepositoryWrapper<IRatedSectionRepository>(repository);
         }
         /// <summary>
         /// Gets average survey section rating

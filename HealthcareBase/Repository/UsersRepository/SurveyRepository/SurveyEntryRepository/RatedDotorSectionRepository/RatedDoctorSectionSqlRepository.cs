@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HealthcareBase.Repository.UsersRepository.SurveyRepository.SurveyEntryRepository.RatedDotorSectionRepository
 {
-    public class RatedDoctorSectionSqlRepository:GenericSqlRepository<DoctorSurveySection,int>,RatedDoctorSectionRepository
+    public class RatedDoctorSectionSqlRepository:GenericSqlRepository<DoctorSurveySection,int>,IRatedDoctorSectionRepository
     {
         public RatedDoctorSectionSqlRepository(IContextFactory contextFactory) : base(contextFactory)
         {

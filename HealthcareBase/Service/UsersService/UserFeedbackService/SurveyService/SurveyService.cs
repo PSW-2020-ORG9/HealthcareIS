@@ -6,11 +6,11 @@ namespace HealthcareBase.Service.UsersService.UserFeedbackService.SurveyService
 {
     public class SurveyService:ISurveyService
     {
-        private readonly RepositoryWrapper<SurveyRepository> surveyRepository;
+        private readonly RepositoryWrapper<ISurveyRepository> surveyRepository;
 
-        public SurveyService(SurveyRepository repository)
+        public SurveyService(ISurveyRepository repository)
         {
-            surveyRepository=new RepositoryWrapper<SurveyRepository>(repository);
+            surveyRepository=new RepositoryWrapper<ISurveyRepository>(repository);
         }
         /// <summary>
         /// Gets predefinded survey object according to passed surveyId.
