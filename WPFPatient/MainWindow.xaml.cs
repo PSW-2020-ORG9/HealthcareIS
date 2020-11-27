@@ -12,12 +12,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using WPFHospitalEditor.Repository;
-using WPFHospitalEditor.Service;
+using WPFHospitalEditor;
 using WPFHospitalEditor.Controller;
 using WPFHospitalEditor.MapObjectModel;
 
-namespace WPFHospitalEditor
+namespace WPFPatient
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -28,13 +27,14 @@ namespace WPFHospitalEditor
         {
             InitializeComponent();
         }
+
         private void hospitalMapPressed(object sender, RoutedEventArgs e)
         {
             MapObjectController mapObjectController = new MapObjectController();
             List<MapObject> allMapObjects = mapObjectController.getAllMapObjects();
-            HospitalMap startWindow = new HospitalMap(allMapObjects);
+            HospitalMap hospitalMap = new HospitalMap(allMapObjects, Role.Patient);
             this.Close();
-            startWindow.ShowDialog();
+            hospitalMap.ShowDialog();
         }
     }
 }

@@ -5,6 +5,7 @@
 
 using HealthcareBase.Model.Blog;
 using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Model.Users.Employee.Doctors;
 using HealthcareBase.Repository.Generics.Interface;
 
 namespace HealthcareBase.Repository.BlogRepository

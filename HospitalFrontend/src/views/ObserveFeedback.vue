@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import FeedbackItem from '../components/FeedbackItem.vue'
+import FeedbackItem from '../components/FeedbackItem'
 import axios from 'axios';
 import api from '../constant/api.js'
 

@@ -6,6 +6,7 @@
 using System.Linq;
 using HealthcareBase.Model.CustomExceptions;
 using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Model.Users.Employee.Doctors;
 using HealthcareBase.Model.Users.Patient;
 using HealthcareBase.Model.Users.UserAccounts;
 using HealthcareBase.Model.Users.UserFeedback;
@@ -77,10 +78,6 @@ namespace HealthcareBase.Service.UsersService.PatientService
             }
             return patientAccountRepository.Repository.Update(acc);
         }
-
-        public void RecordSurveyResponse(PatientSurveyResponse surveyResponse)
-        {
-            patientSurveyResponseRepository.Repository.Create(surveyResponse);
-        }
+        
     }
 }

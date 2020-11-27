@@ -3,6 +3,7 @@ using HealthcareBase.Model.CustomExceptions;
 using HealthcareBase.Model.HospitalResources;
 using HealthcareBase.Model.Schedule.Procedures;
 using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Model.Users.Employee.Doctors;
 using HealthcareBase.Repository.Generics;
 using HealthcareBase.Repository.HospitalResourcesRepository;
 using HealthcareBase.Repository.ScheduleRepository.ProceduresRepository.Interface;
@@ -15,38 +16,26 @@ namespace HealthcareBase.Service.ScheduleService.Validators
         private readonly RepositoryWrapper<IDoctorRepository> doctorRepository;
         private readonly RepositoryWrapper<IExaminationRepository> examinationRepository;
         private readonly RepositoryWrapper<IPatientRepository> patientRepository;
-        private readonly RepositoryWrapper<IProcedureTypeRepository> procedureTypeRepository;
         private readonly RepositoryWrapper<IRoomRepository> roomRepository;
 
         public ProcedureValidator(
             IDoctorRepository IDoctorRepository,
             IRoomRepository roomRepository,
             IPatientRepository IPatientRepository,
-            IProcedureTypeRepository procedureTypeRepository,
             IExaminationRepository examinationRepository)
         {
             this.doctorRepository = new RepositoryWrapper<IDoctorRepository>(IDoctorRepository);
             this.roomRepository = new RepositoryWrapper<IRoomRepository>(roomRepository);
             this.patientRepository = new RepositoryWrapper<IPatientRepository>(IPatientRepository);
-            this.procedureTypeRepository = new RepositoryWrapper<IProcedureTypeRepository>(procedureTypeRepository);
             this.examinationRepository = new RepositoryWrapper<IExaminationRepository>(examinationRepository);
         }
 
         public void ValidateProcedure(Procedure procedure)
         {
-            if (procedure is null)
-                return;
-            ValidateRequiredFields(procedure);
-            ValidateAndUpdateReferences(procedure);
-            ValidateDoctorSuitability(procedure.ProcedureType, procedure.Doctor);
-            ValidateRoomTypeSuitability(procedure.ProcedureType, procedure.Room);
-            ValidateEquipmentSuitability(procedure.ProcedureType, procedure.Room);
         }
 
         private void ValidateRequiredFields(Procedure procedure)
         {
-            if (procedure.ProcedureType is null)
-                throw new FieldRequiredException();
             if (procedure.Doctor is null)
                 throw new FieldRequiredException();
             if (procedure.Patient is null)
@@ -64,7 +53,6 @@ namespace HealthcareBase.Service.ScheduleService.Validators
                 procedure.Doctor = doctorRepository.Repository.GetByID(procedure.Doctor.GetKey());
                 procedure.Room = roomRepository.Repository.GetByID(procedure.Room.GetKey());
                 procedure.Patient = patientRepository.Repository.GetByID(procedure.Patient.GetKey());
-                procedure.ProcedureType = procedureTypeRepository.Repository.GetByID(procedure.ProcedureType.GetKey());
                 if (procedure.ReferredFrom != null)
                     procedure.ReferredFrom = examinationRepository.Repository.GetByID(procedure.ReferredFrom.GetKey());
             }

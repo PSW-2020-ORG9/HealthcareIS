@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using HealthcareBase.Model.HospitalResources;
 
-namespace HealthcareBase.Model.Users.Employee
+namespace HealthcareBase.Model.Users.Employee.Doctors
 {
     public class Doctor : Employee
     {
@@ -15,6 +15,6 @@ namespace HealthcareBase.Model.Users.Employee
         public int DepartmentId { get; set; }
         public Department Department { get; set; }
 
-        public IEnumerable<Specialty> Specialties { get; set; }
+        public IEnumerable<DoctorSpecialty> Specialties { get; set; }
     }
 }

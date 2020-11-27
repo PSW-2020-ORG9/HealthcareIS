@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using HealthcareBase.Model.Schedule.Procedures;
 using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Model.Users.Employee.Doctors;
 using HealthcareBase.Model.Utilities;
 using HealthcareBase.Repository.Generics;
 using HealthcareBase.Repository.ScheduleRepository.ProceduresRepository.Interface;
@@ -20,9 +21,9 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
 
         public SurgeryService(
             ISurgeryRepository surgeryRepository,
-            ProcedureScheduleComplianceValidator scheduleValidator, ProcedureValidator procedureValidator,
+            ProcedureScheduleComplianceValidator scheduleValidator,
             TimeSpan timeLimit
-        ) : base(scheduleValidator, procedureValidator, timeLimit)
+        ) : base(timeLimit)
         {
             this.surgeryRepository = new RepositoryWrapper<ISurgeryRepository>(surgeryRepository);
         }

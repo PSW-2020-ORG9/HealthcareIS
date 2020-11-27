@@ -11,7 +11,7 @@ namespace HealthcareBase.Service.ScheduleService.PatientRecommendationService
 {
     public interface RecommendationStrategy
     {
-        ProcedureType PatientDefault { get; set; }
+        ProcedureDetails PatientDefault { get; set; }
         ProcedurePreferenceDTO TransformRequest(RecommendationRequestDTO request);
 
         Examination ChooseBest(IEnumerable<Examination> potentialRecommendations);
