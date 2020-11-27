@@ -13,9 +13,6 @@ namespace WPFHospitalEditor
     /// </summary>
     public partial class AdditionalInformation : Window
     {
-        const int buttonWidth = 100;
-        const int buttonHeight = 25;
-
         private MapObject mapObject;
         private List<string> labelContent = new List<string>();
         private List<string> value = new List<string>();
@@ -52,7 +49,6 @@ namespace WPFHospitalEditor
         {
             mapObject.Description = descriptionParts[0] + "&";
 
-
             for (int i = 0; i < labels.Count; i++)
             {
                 mapObject.Description += labels[i].Content + "=" + textBoxes[i].Text + ";";             
@@ -64,7 +60,6 @@ namespace WPFHospitalEditor
             int lenght = mapObject.Description.Length;
             mapObject.Description.Substring(0, lenght - 1);          
             Close();
-
         }
 
         private void refreshMap()
@@ -110,35 +105,33 @@ namespace WPFHospitalEditor
         private void addOkButton(string[] contentRows)
         {
             Button ok = new Button();
-            ok.Content = "OK";
-            ok.BorderThickness = new Thickness(0);
             ok.HorizontalAlignment = HorizontalAlignment.Right;
-            ok.VerticalAlignment = VerticalAlignment.Center;
-            ok.Background = Brushes.SkyBlue;
-            ok.Width = buttonWidth;
-            ok.Height = buttonHeight;
-            ok.Foreground = Brushes.White;
             ok.Click += Done_Click;
             Grid.SetRow(ok, contentRows.Length + 2);
             Grid.SetColumn(ok, 2);
-            DynamicGrid.Children.Add(ok);
+            setButtonsCommonAttributes(ok, "Ok");
         }
 
         private void addCancelButton(string[] contentRows)
         {
             Button cancel = new Button();
-            cancel.Content = "Cancel";
-            cancel.BorderThickness = new Thickness(0);
             cancel.HorizontalAlignment = HorizontalAlignment.Left;
-            cancel.VerticalAlignment = VerticalAlignment.Center;
-            cancel.Background = Brushes.SkyBlue;
-            cancel.Width = buttonWidth;
-            cancel.Height = buttonHeight;
-            cancel.Foreground = Brushes.White;
             cancel.Click += Close_Click;
             Grid.SetRow(cancel, contentRows.Length + 2);
             Grid.SetColumn(cancel, 1);
-            DynamicGrid.Children.Add(cancel);
+            setButtonsCommonAttributes(cancel, "Cancel");
+        }
+
+        private void setButtonsCommonAttributes(Button button, string name)
+        {
+            button.BorderThickness = new Thickness(0);
+            button.Content = name;
+            button.VerticalAlignment = VerticalAlignment.Center;
+            button.Background = Brushes.SkyBlue;
+            button.Width = AllConstants.additionalInformationsbuttonWidth;
+            button.Height = AllConstants.additionalInformationsbuttonHeight;
+            button.Foreground = Brushes.White;
+            DynamicGrid.Children.Add(button);
         }
 
         private void insertData()
