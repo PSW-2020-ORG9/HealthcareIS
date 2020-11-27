@@ -15,6 +15,11 @@ html {
 body {
 	font-family: montserrat, arial, verdana;
 }
+
+.image-preview {
+	width: 50%;
+}
+
 /*form styles*/
 #msform {
 	width: 700px;
@@ -92,7 +97,7 @@ body {
 	color: black;
 	text-transform: uppercase;
 	font-size: 9px;
-	width: 33.33%;
+	width: 25%;
 	float: left;
 	position: relative;
 }
@@ -144,3 +149,5 @@ body {
 	display: table;
 	clear: both;
   }
+
+

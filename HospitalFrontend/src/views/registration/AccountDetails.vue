@@ -42,9 +42,11 @@
                 
         </div>
         <router-link to="/register/health-status">
-         <input type="button" name="previous" class="previous action-button" value="Previous" />
+            <input type="button" name="previous" class="previous action-button" value="Previous" />
         </router-link>
-        <input type="submit" name="submit" class="submit action-button" value="Submit" />
+        <router-link to="/register/profile-picture">
+            <input type="button" name="next" class="next action-button" value="Next" />
+        </router-link>
     </fieldset>
 </template>
 

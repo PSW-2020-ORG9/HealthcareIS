@@ -4,6 +4,7 @@
         <li v-bind:class="{active : isPersonalInfo()}">Personal Information</li>
         <li v-bind:class="{active : isHealthStatus()}">Health Status</li>
         <li v-bind:class="{active : isAccDetails()}">Account Details</li>
+		<li v-bind:class="{active : isProfilePicture()}">Profile Picture</li>
     </ul>
 	<router-view v-slot="slotProps">
 		<transition name="router-anim" enter-active-class="animate__animated animate__fadeIn">
@@ -25,6 +26,9 @@ export default {
 		},
 		isAccDetails:function(){
 			return this.$route.name === 'accountDetails'
+		},
+		isProfilePicture: function () {
+			return this.$route.name === 'profilePicture'
 		}
 
 	}

@@ -8,6 +8,7 @@ import RegisterPatient from '../views/registration/RegisterPatient.vue'
 import PersonalInfromation from '../views/registration/PersonalInformation.vue'
 import HealthStatus from '../views/registration/HealthStatus.vue'
 import AccountDetails from '../views/registration/AccountDetails.vue'
+import ProfilePicture from '../views/registration/ProfilePicture.vue'
 
 const routes = [
   {
@@ -56,6 +57,12 @@ const routes = [
         path:'account-details',
         name:'accountDetails',
         component:AccountDetails
+      }
+      ,
+      {
+        path:'profile-picture',
+        name:'profilePicture',
+        component: ProfilePicture
       }
     ]
   }
