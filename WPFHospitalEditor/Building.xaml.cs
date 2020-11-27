@@ -19,8 +19,9 @@ namespace WPFHospitalEditor
         private List<MapObject> allBuildingObjects = new List<MapObject>();
         public List<MapObject> floorBuildingObjects = new List<MapObject>();
         MapObjectController mapObjectController = new MapObjectController();
+        private string role;
 
-        public Building(List<MapObject> buildingObjects, int selectedFloor)
+        public Building(List<MapObject> buildingObjects, int selectedFloor, string role)
         {
             allBuildingObjects = buildingObjects;
             InitializeComponent();
@@ -29,6 +30,7 @@ namespace WPFHospitalEditor
             setFloorComboBox();
             floor.SelectedIndex = selectedFloor;
             floorBuildingObjects = buildingFloors[floor.SelectedIndex].getAllFloorMapObjects();
+            this.role = role;
         }
         
         private void populateBuildingFloors(List<MapObject> allBuildingObjects)
@@ -175,7 +177,7 @@ namespace WPFHospitalEditor
         private void openAdditionalInformationDialog(MapObject mapObject)
         {
             int index = floor.SelectedIndex;
-            AdditionalInformation additionalInformation = new AdditionalInformation(mapObject, this, index);
+            AdditionalInformation additionalInformation = new AdditionalInformation(mapObject, this, index, role);
             additionalInformation.Owner = this;
             additionalInformation.ShowDialog(); 
         }                     

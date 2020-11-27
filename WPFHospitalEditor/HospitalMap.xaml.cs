@@ -17,13 +17,15 @@ namespace WPFHospitalEditor
         public static Canvas canvasHospitalMap;
         MapObjectController mapObjectController = new MapObjectController();
         public static List<MapObject> searchResult = new List<MapObject>();
+        private string role;
 
-        public HospitalMap(List<MapObject> allMapObjects)
+        public HospitalMap(List<MapObject> allMapObjects, string role)
         {                     
             InitializeComponent();
             setTypeComboBox();
             CanvasService.addObjectToCanvas(mapObjectController.getOutterMapObjects(allMapObjects), canvas);
             canvasHospitalMap = canvas;
+            this.role = role;
         }
         
         private void selectBuilding(object sender, MouseButtonEventArgs e)
@@ -47,7 +49,7 @@ namespace WPFHospitalEditor
                 }                
             }
             canvas.Children.Clear();
-            Building building = new Building(buildingObjects, 0);
+            Building building = new Building(buildingObjects, 0, role);
             building.Owner = this;
             this.Hide();
             building.ShowDialog();
@@ -90,8 +92,6 @@ namespace WPFHospitalEditor
             {
                 MessageBox.Show("There is nothing we could find.");
             }
-
-
         }
 
         private bool isNoNameObject(MapObjectType mop)

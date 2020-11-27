@@ -24,11 +24,13 @@ namespace WPFHospitalEditor
         private string[] descriptionParts;
         private string[] contentRows;
         private MapObject oldMapObject;
+        private string role;
 
         MapObjectController mapObjectController = new MapObjectController();
 
-        public AdditionalInformation(MapObject mapObject, Building building, int floor)
+        public AdditionalInformation(MapObject mapObject, Building building, int floor, string role)
         {
+            this.role = role;
             this.floor = floor;
             this.building = building;
             InitializeComponent();
@@ -88,18 +90,39 @@ namespace WPFHospitalEditor
 
         private void createRowContent(string[] contentRows)
         {
-            for (int i = 0; i < contentRows.Length; i++)
+            if (PatientIsLogged())
             {
-                if (contentRows[i].Equals(""))
-                    break;
-
-                string[] label = contentRows[i].Split("=");
-                labelContent.Add(label[0]);
-                value.Add(label[1]);
+                if(StringContainsWorkingHours(contentRows[0])) setRowContent(0);
+            } else
+            {
+                for (int i = 0; i < contentRows.Length; i++)
+                {
+                    if (contentRows[i].Equals("")) break;
+                    setRowContent(i);
+                }
             }
             insertData();
             addCancelButton(contentRows);
             addOkButton(contentRows);
+        }
+
+        private bool PatientIsLogged()
+        {
+            if (role.Equals("patient")) return true;
+            return false;
+        }
+
+        private bool StringContainsWorkingHours(string str)
+        {
+            if (str.Contains("Working Hours")) return true;
+            return false;
+        }
+
+        private void setRowContent(int row)
+        {
+            string[] label = contentRows[row].Split("=");
+            labelContent.Add(label[0]);
+            value.Add(label[1]);
         }
 
         private void addOkButton(string[] contentRows)
@@ -149,6 +172,7 @@ namespace WPFHospitalEditor
             textBox.Text = value[i];
             textBox.HorizontalContentAlignment = HorizontalAlignment.Center;
             textBox.VerticalAlignment = VerticalAlignment.Center;
+            if (PatientIsLogged()) textBox.IsReadOnly = true;
             Grid.SetRow(textBox, i + 2);
             Grid.SetColumn(textBox, 2);
             textBoxes.Add(textBox);
@@ -177,6 +201,7 @@ namespace WPFHospitalEditor
             name.Foreground = new SolidColorBrush(Colors.Black);
             name.VerticalAlignment = VerticalAlignment.Center;
             name.HorizontalAlignment = HorizontalAlignment.Center;
+            if (PatientIsLogged()) name.IsReadOnly = true;
             Grid.SetRow(name, 1);
             Grid.SetColumnSpan(name, 2);
             Grid.SetColumn(name, 1);
