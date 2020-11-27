@@ -17,9 +17,9 @@ namespace WPFHospitalEditor
         public static Canvas canvasHospitalMap;
         MapObjectController mapObjectController = new MapObjectController();
         public static List<MapObject> searchResult = new List<MapObject>();
-        private string role;
+        private Role role;
 
-        public HospitalMap(List<MapObject> allMapObjects, string role)
+        public HospitalMap(List<MapObject> allMapObjects, Role role)
         {                     
             InitializeComponent();
             setTypeComboBox();

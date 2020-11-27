@@ -32,7 +32,7 @@ namespace WPFPatient
         {
             MapObjectController mapObjectController = new MapObjectController();
             List<MapObject> allMapObjects = mapObjectController.getAllMapObjects();
-            HospitalMap hospitalMap = new HospitalMap(allMapObjects, "patient");
+            HospitalMap hospitalMap = new HospitalMap(allMapObjects, Role.Patient);
             this.Close();
             hospitalMap.ShowDialog();
         }

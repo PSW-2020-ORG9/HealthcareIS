@@ -24,11 +24,11 @@ namespace WPFHospitalEditor
         private string[] descriptionParts;
         private string[] contentRows;
         private MapObject oldMapObject;
-        private string role;
+        private Role role;
 
         MapObjectController mapObjectController = new MapObjectController();
 
-        public AdditionalInformation(MapObject mapObject, Building building, int floor, string role)
+        public AdditionalInformation(MapObject mapObject, Building building, int floor, Role role)
         {
             this.role = role;
             this.floor = floor;
@@ -108,7 +108,7 @@ namespace WPFHospitalEditor
 
         private bool PatientIsLogged()
         {
-            if (role.Equals("patient")) return true;
+            if (role == Role.Patient) return true;
             return false;
         }
 

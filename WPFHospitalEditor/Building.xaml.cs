@@ -19,9 +19,9 @@ namespace WPFHospitalEditor
         private List<MapObject> allBuildingObjects = new List<MapObject>();
         public List<MapObject> floorBuildingObjects = new List<MapObject>();
         MapObjectController mapObjectController = new MapObjectController();
-        private string role;
+        private Role role;
 
-        public Building(List<MapObject> buildingObjects, int selectedFloor, string role)
+        public Building(List<MapObject> buildingObjects, int selectedFloor, Role role)
         {
             allBuildingObjects = buildingObjects;
             InitializeComponent();

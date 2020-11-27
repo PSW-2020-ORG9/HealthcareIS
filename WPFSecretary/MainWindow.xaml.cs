@@ -32,7 +32,7 @@ namespace WPFSecretary
         {
             MapObjectController mapObjectController = new MapObjectController();
             List<MapObject> allMapObjects = mapObjectController.getAllMapObjects();
-            HospitalMap hospitalMap = new HospitalMap(allMapObjects, "secretary");
+            HospitalMap hospitalMap = new HospitalMap(allMapObjects, Role.Secretary);
             this.Close();
             hospitalMap.ShowDialog();
         }

@@ -32,7 +32,7 @@ namespace WPFDoctor
         {
             MapObjectController mapObjectController = new MapObjectController();
             List<MapObject> allMapObjects = mapObjectController.getAllMapObjects();
-            HospitalMap hospitalMap = new HospitalMap(allMapObjects, "doctor");
+            HospitalMap hospitalMap = new HospitalMap(allMapObjects, Role.Doctor);
             this.Close();
             hospitalMap.ShowDialog();
         }
