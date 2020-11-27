@@ -1,4 +1,5 @@
-﻿using HealthcareBase.Model.HospitalResources;
+﻿using HealthcareBase.Model.EditorDtos;
+using HealthcareBase.Model.HospitalResources;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -8,12 +9,12 @@ namespace WPFHospitalEditor.Service
 {
    public  class EquipmentServerService
     {
-        public IEnumerable<EquipmentUnit> getEquipmentByRoomId(int roomId)
+        public IEnumerable<EquipmentDto> getEquipmentByRoomId(int roomId)
         {
             var client = new RestSharp.RestClient("http://localhost:****/");
             var request = new RestRequest("api/Equipment/getByRoomId" + roomId, Method.GET);
-            var response = client.Get<List<EquipmentUnit>>(request);
-            IEnumerable<EquipmentUnit> result = response.Data;
+            var response = client.Get<List<EquipmentDto>>(request);
+            IEnumerable<EquipmentDto> result = response.Data;
             return result;
         }
     }

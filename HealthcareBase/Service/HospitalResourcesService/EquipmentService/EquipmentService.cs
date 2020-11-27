@@ -74,5 +74,10 @@ namespace HealthcareBase.Service.HospitalResourcesService.EquipmentService
                 if (equipmentUnit.EquipmentType.Equals(equipmentType))
                     Delete(equipmentUnit);
         }
+
+        public IEnumerable<EquipmentUnit> GetEquipmentByRoomId(int roomId)
+        {
+            return equipmentUnitRepository.Repository.GetMatching(equipmentUnit => equipmentUnit.CurrentLocation.Id == roomId);
+        }
     }
 }
