@@ -11,7 +11,7 @@ namespace HealthcareBase.Service.ScheduleService.ScheduleFittingService
 {
     public class ProcedurePreferenceDTO
     {
-        public ProcedureType Type { get; set; }
+        public ProcedureDetails Details { get; set; }
 
         public Patient Patient { get; set; }
 

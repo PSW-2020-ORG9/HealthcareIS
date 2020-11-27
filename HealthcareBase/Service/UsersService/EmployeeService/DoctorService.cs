@@ -6,14 +6,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using HealthcareBase.Model.CustomExceptions;
-using HealthcareBase.Model.Schedule.Procedures;
 using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Model.Users.Employee.Doctors;
 using HealthcareBase.Repository.Generics;
 using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository.Interface;
 
 namespace HealthcareBase.Service.UsersService.EmployeeService
 {
-    public class DoctorService
+    public class DoctorService:IDoctorService
     {
         private readonly RepositoryWrapper<IDoctorRepository> doctorRepository;
 

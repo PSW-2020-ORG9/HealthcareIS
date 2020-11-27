@@ -2,7 +2,6 @@
 // Author:  Lana
 // Created: 20 April 2020 23:19:05
 // Purpose: Definition of Class MedicationPrescription
-
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -17,7 +16,6 @@ namespace HealthcareBase.Model.Medication
         [Key]
         public int Id { get; set; }
         public int MedicalRecordId { get; set; }
-        public DateTime Date { get; set; }
         
         [ForeignKey("ExaminationReport")]
         public int ExaminationReportId { get; set; }

@@ -1,8 +1,7 @@
-using System;
 using HealthcareBase.Model.CustomExceptions;
 using HospitalWebApp.Dtos;
 
-namespace HealthcareBase.Service.ValidationService
+namespace HospitalWebApp.Validators
 {
     public static class UserFeedbackValidator
     {
