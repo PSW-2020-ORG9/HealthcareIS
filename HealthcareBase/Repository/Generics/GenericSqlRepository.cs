@@ -61,15 +61,21 @@ namespace HealthcareBase.Repository.Generics
             => GetAll().FirstOrDefault(entity => entity.GetKey().Equals(id));
  
         public IEnumerable<T> GetMatching(Expression<Func<T, bool>> condition)
-            => IncludeFields(Query()).Where(condition);
+            => IncludeFields(Query()).Where(condition).ToList();
 
         public IEnumerable<T> GetMatching(IEnumerable<Expression<Func<T, bool>>> conditions)
         {
             IQueryable<T> query = IncludeFields(Query());
             conditions.ToList().ForEach(condition => query = query.Where(condition));
-            return query;
+            return query.ToList();
         }
 
+        public IEnumerable<Dto> GetColumnsForMatching<Dto>(
+            Expression<Func<T, bool>> condition,
+            Expression<Func<T, Dto>> selection
+        )
+            => IncludeFields(Query()).Where(condition).Select(selection).ToList();
+        
         public int CountMatching(Expression<Func<T, bool>> condition)
             => IncludeFields(Query()).Where(condition).Count();
 
@@ -81,7 +87,7 @@ namespace HealthcareBase.Repository.Generics
         }
 
         public IEnumerable<T> GetAll() 
-            => IncludeFields(Query());
+            => IncludeFields(Query()).ToList();
  
         /// <summary>
         /// Method which allows extending Repository classes to include custom fields
