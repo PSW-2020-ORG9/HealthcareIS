@@ -3,9 +3,9 @@ using EntityFramework.Exceptions.Common;
 using HealthcareBase.Model.CustomExceptions;
 using HealthcareBase.Model.Users.UserFeedback;
 using HealthcareBase.Service.UsersService.UserFeedbackService;
-using HealthcareBase.Service.ValidationService;
 using HospitalWebApp.Adapters;
 using HospitalWebApp.Dtos;
+using HospitalWebApp.Validators;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HospitalWebApp.Controllers

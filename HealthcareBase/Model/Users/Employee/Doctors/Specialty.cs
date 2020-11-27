@@ -6,7 +6,7 @@
 using System.ComponentModel.DataAnnotations;
 using HealthcareBase.Repository.Generics;
 
-namespace HealthcareBase.Model.Users.Employee
+namespace HealthcareBase.Model.Users.Employee.Doctors
 {
     public class Specialty : IEntity<int>
     {

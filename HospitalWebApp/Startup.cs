@@ -86,7 +86,7 @@ namespace HospitalWebApp
             var userFeedbackService = new UserFeedbackService(userFeedbackRepository);
             var patientService = new PatientService(patientRepository, null, null, null);
             var prescriptionService = new MedicationPrescriptionService(prescriptionRepository);
-            var examinationService = new ExaminationService(examinationRepository, null, null, null, null, TimeSpan.Zero);
+            var examinationService = new ExaminationService(examinationRepository, null, null, null, TimeSpan.Zero);
             
             services.Add(new ServiceDescriptor(typeof(UserFeedbackService), userFeedbackService));
             services.Add(new ServiceDescriptor(typeof(PatientService), patientService));

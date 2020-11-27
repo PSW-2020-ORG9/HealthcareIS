@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using HealthcareBase.Model.HospitalResources;
 using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Model.Users.Employee.Doctors;
 using HealthcareBase.Model.Users.Patient;
 using HealthcareBase.Model.Utilities;
 using HealthcareBase.Repository.Generics;
@@ -27,9 +28,9 @@ namespace HealthcareBase.Model.Schedule.Procedures
         public int PatientId { get; set; }
         public Patient Patient { get; set; }
         
-        [ForeignKey("ProcedureType")]
-        public int ProcedureTypeId { get; set; }
-        public ProcedureType ProcedureType { get; set; }
+        [ForeignKey("ProcedureDetails")]
+        public int ProcedureDetailsId { get; set; }
+        public ProcedureDetails ProcedureDetails { get; set; }
 
         [ForeignKey("Room")]
         public int RoomId { get; set; }

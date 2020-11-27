@@ -19,18 +19,15 @@ namespace HealthcareBase.Service.HospitalResourcesService.EquipmentService
         private readonly EquipmentService equipmentService;
         private readonly RepositoryWrapper<IEquipmentTypeRepository> equipmentTypeRepository;
         private readonly RepositoryWrapper<IHospitalizationTypeRepository> hospitalizationTypeRepository;
-        private readonly RepositoryWrapper<IProcedureTypeRepository> procedureTypeRepository;
 
         public EquipmentTypeService(
             IEquipmentTypeRepository equipmentTypeRepository,
             IHospitalizationTypeRepository hospitalizationTypeRepository,
-            IProcedureTypeRepository procedureTypeRepository,
             EquipmentService equipmentService)
         {
             this.equipmentTypeRepository = new RepositoryWrapper<IEquipmentTypeRepository>(equipmentTypeRepository);
             this.hospitalizationTypeRepository =
                 new RepositoryWrapper<IHospitalizationTypeRepository>(hospitalizationTypeRepository);
-            this.procedureTypeRepository = new RepositoryWrapper<IProcedureTypeRepository>(procedureTypeRepository);
             this.equipmentService = equipmentService;
         }
 

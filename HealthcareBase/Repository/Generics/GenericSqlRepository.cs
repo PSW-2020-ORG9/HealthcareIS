@@ -63,11 +63,21 @@ namespace HealthcareBase.Repository.Generics
         public IEnumerable<T> GetMatching(Expression<Func<T, bool>> condition)
             => IncludeFields(Query()).Where(condition);
 
-        public IEnumerable<T> GetMatching(IEnumerable<Expression<Func<T, bool>>> expressions)
+        public IEnumerable<T> GetMatching(IEnumerable<Expression<Func<T, bool>>> conditions)
         {
             IQueryable<T> query = IncludeFields(Query());
-            expressions.ToList().ForEach(expression => query = query.Where(expression));
+            conditions.ToList().ForEach(condition => query = query.Where(condition));
             return query;
+        }
+
+        public int CountMatching(Expression<Func<T, bool>> condition)
+            => IncludeFields(Query()).Where(condition).Count();
+
+        public int CountMatching(IEnumerable<Expression<Func<T, bool>>> conditions)
+        {
+            IQueryable<T> query = IncludeFields(Query());
+            conditions.ToList().ForEach(condition => query = query.Where(condition));
+            return query.Count();
         }
 
         public IEnumerable<T> GetAll() 
