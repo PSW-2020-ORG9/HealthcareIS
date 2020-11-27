@@ -16,6 +16,7 @@ namespace HealthcareBase.Repository.Generics.Interface
         IEnumerable<T> GetMatching(Expression<Func<T, bool>> condition);
         IEnumerable<T> GetMatching(IEnumerable<Expression<Func<T, bool>>> conditions);
         int CountMatching(Expression<Func<T, bool>> condition);
+        int CountMatching(IEnumerable<Expression<Func<T, bool>>> conditions);
         T GetByID(ID id);
         T Create(T entity);
         T Update(T entity);
