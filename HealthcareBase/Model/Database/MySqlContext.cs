@@ -1,4 +1,3 @@
-﻿using Microsoft.EntityFrameworkCore;
 using EntityFramework.Exceptions.MySQL.Pomelo;
 using HealthcareBase.Model.Blog;
 using HealthcareBase.Model.HospitalResources;
@@ -14,8 +13,12 @@ using HealthcareBase.Model.Users.Generalities;
 using HealthcareBase.Model.Users.Patient;
 using HealthcareBase.Model.Users.Patient.MedicalHistory;
 using HealthcareBase.Model.Users.Patient.MedicalHistory.Relationship;
+using HealthcareBase.Model.Users.Survey;
+using HealthcareBase.Model.Users.Survey.SurveyEntry;
 using HealthcareBase.Model.Users.UserAccounts;
 using HealthcareBase.Model.Users.UserFeedback;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace HealthcareBase.Model.Database
 {
@@ -68,6 +71,13 @@ namespace HealthcareBase.Model.Database
         public DbSet<Specialty> Specialties { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Country> Countries { get; set; }
+        public DbSet<Survey> Surveys { get; set; }
+        public DbSet<SurveySection> SurveySections { get; set; }
+        public DbSet<SurveyQuestion> SurveyQuestions { get; set; }
+        public DbSet<SurveyResponse> SurveyResponses { get; set; }
+        public DbSet<RatedSurveySection> RatedSurveySections { get; set; }
+        public DbSet<RatedSurveyQuestion> RatedSurveyQuestions { get; set; }
+        public DbSet<DoctorSurveySection> doctorSurveySections { get; set; }
         public DbSet<Citizenship> Citizenships { get; set; }
         public DbSet<PatientSurveyResponse> PatientSurveyResponses { get; set; }
         public DbSet<UserFeedback> UserFeedbacks { get; set; }

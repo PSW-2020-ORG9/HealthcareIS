@@ -2,7 +2,6 @@
 // Author:  Lana
 // Created: 21 April 2020 11:34:46
 // Purpose: Definition of Class PatientAccount
-
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 

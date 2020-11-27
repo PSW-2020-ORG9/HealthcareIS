@@ -78,10 +78,6 @@ namespace HealthcareBase.Service.UsersService.PatientService
             }
             return patientAccountRepository.Repository.Update(acc);
         }
-
-        public void RecordSurveyResponse(PatientSurveyResponse surveyResponse)
-        {
-            patientSurveyResponseRepository.Repository.Create(surveyResponse);
-        }
+        
     }
 }
