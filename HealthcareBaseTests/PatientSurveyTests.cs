@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Model.Users.Employee.Doctors;
 using HealthcareBase.Model.Users.Generalities;
 using HealthcareBase.Model.Users.Survey;
 using HealthcareBase.Model.Users.Survey.DTOs;

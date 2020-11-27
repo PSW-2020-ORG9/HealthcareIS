@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using HealthcareBase.Model.Database;
-using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Model.Users.Employee.Doctors;
 using HealthcareBase.Repository.Generics;
 using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository.Interface;
 using Microsoft.EntityFrameworkCore;

@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Model.Users.Employee.Doctors;
 
 namespace HealthcareBase.Service.UsersService.EmployeeService
 {
