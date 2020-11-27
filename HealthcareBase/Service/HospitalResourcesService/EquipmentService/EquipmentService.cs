@@ -14,19 +14,11 @@ namespace HealthcareBase.Service.HospitalResourcesService.EquipmentService
 {
     public class EquipmentService
     {
-        private readonly RepositoryWrapper<IEquipmentTypeRepository> equipmentTypeRepository;
         private readonly RepositoryWrapper<IEquipmentUnitRepository> equipmentUnitRepository;
-        private readonly RepositoryWrapper<IHospitalizationRepository> hospitalizationRepository;
 
-        public EquipmentService(
-            IEquipmentUnitRepository equipmentUnitRepository,
-            IEquipmentTypeRepository equipmentTypeRepository,
-            IHospitalizationRepository hospitalizationRepository)
+        public EquipmentService(IEquipmentUnitRepository equipmentUnitRepository)
         {
             this.equipmentUnitRepository = new RepositoryWrapper<IEquipmentUnitRepository>(equipmentUnitRepository);
-            this.equipmentTypeRepository = new RepositoryWrapper<IEquipmentTypeRepository>(equipmentTypeRepository);
-            this.hospitalizationRepository =
-                new RepositoryWrapper<IHospitalizationRepository>(hospitalizationRepository);
         }
 
         public EquipmentUnit GetByID(int id)
@@ -41,11 +33,7 @@ namespace HealthcareBase.Service.HospitalResourcesService.EquipmentService
 
         public EquipmentUnit Create(EquipmentUnit equipmentUnit)
         {
-            if (equipmentUnit is null)
-                throw new BadRequestException();
-            if (!equipmentTypeRepository.Repository.ExistsByID(equipmentUnit.EquipmentType.GetKey()))
-                equipmentUnit.EquipmentType = equipmentTypeRepository.Repository.Create(equipmentUnit.EquipmentType);
-            return equipmentUnitRepository.Repository.Create(equipmentUnit);
+            return new EquipmentUnit();
         }
 
         public EquipmentUnit Update(EquipmentUnit equipmentUnit)
@@ -69,10 +57,7 @@ namespace HealthcareBase.Service.HospitalResourcesService.EquipmentService
 
         public void DeleteByType(EquipmentType equipmentType)
         {
-            equipmentType = equipmentTypeRepository.Repository.GetByID(equipmentType.GetKey());
-            foreach (var equipmentUnit in equipmentUnitRepository.Repository.GetAll())
-                if (equipmentUnit.EquipmentType.Equals(equipmentType))
-                    Delete(equipmentUnit);
+           
         }
 
         public IEnumerable<EquipmentUnit> GetEquipmentByRoomId(int roomId)
