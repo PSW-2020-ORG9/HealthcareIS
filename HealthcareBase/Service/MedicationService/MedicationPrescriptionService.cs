@@ -4,6 +4,7 @@
 // Purpose: Definition of Class MedicationPrescriptionService
 
 using System.Collections.Generic;
+using HealthcareBase.Model.Filters;
 using HealthcareBase.Model.Medication;
 using HealthcareBase.Repository.Generics;
 using HealthcareBase.Repository.MedicationRepository.Interface;
@@ -22,9 +23,12 @@ namespace HealthcareBase.Service.MedicationService
                 new RepositoryWrapper<IMedicationPrescriptionRepository>(medicationPrescriptionRepository);
         }
 
-        public IEnumerable<MedicationPrescription> GetByName(string nameQuery)
+        public IEnumerable<MedicationPrescription> SimpleSearch(string nameQuery)
             => _medicationPrescriptionWrapper.Repository.GetMatching(
                 prescription => prescription.Medication.Name.Contains(nameQuery));
+
+        public IEnumerable<MedicationPrescription> AdvancedSearch(PrescriptionAdvancedFilterDto filterDto)
+            => _medicationPrescriptionWrapper.Repository.GetMatching(filterDto.GetFilterExpression());
 
         public IEnumerable<MedicationPrescription> GetAll()
             => _medicationPrescriptionWrapper.Repository.GetAll();

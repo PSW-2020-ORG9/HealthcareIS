@@ -7,16 +7,16 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
 {
     public abstract class AbstractProcedureSchedulingService<T> where T : Procedure
     {
-        private readonly ProcedureValidator procedureValidator;
+        //private readonly ProcedureValidator procedureValidator;
         private readonly ProcedureScheduleComplianceValidator scheduleValidator;
         private readonly TimeSpan timeLimit;
 
         protected AbstractProcedureSchedulingService(
-            ProcedureScheduleComplianceValidator scheduleValidator, ProcedureValidator procedureValidator,
+            //ProcedureScheduleComplianceValidator scheduleValidator, ProcedureValidator procedureValidator,
             TimeSpan timeLimit)
         {
-            this.scheduleValidator = scheduleValidator;
-            this.procedureValidator = procedureValidator;
+            //this.scheduleValidator = scheduleValidator;
+            //this.procedureValidator = procedureValidator;
             this.timeLimit = timeLimit;
         }
 
@@ -54,7 +54,6 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
         private void ValidateForScheduling(Procedure procedure)
         {
             ValidateTimeLimit(procedure);
-            procedureValidator.ValidateProcedure(procedure);
             scheduleValidator.ValidateComplianceForScheduling(procedure);
             ValidateTimeLimit(procedure);
         }
@@ -64,7 +63,6 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
             Procedure oldProcedure = GetByID(procedure.GetKey());
             ValidateTimeLimit(oldProcedure);
             ValidateTimeLimit(procedure);
-            procedureValidator.ValidateProcedure(procedure);
             ValidateUpdateAllowed(oldProcedure, procedure);
             scheduleValidator.ValidateComplianceForRescheduling(procedure);
             ValidateTimeLimit(oldProcedure);
@@ -75,7 +73,7 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
         {
             if (!oldProcedure.Patient.Equals(newProcedure.Patient))
                 throw new BadRequestException();
-            if (!oldProcedure.ProcedureType.Equals(newProcedure.ProcedureType))
+            if (!oldProcedure.ProcedureDetails.Equals(newProcedure.ProcedureDetails))
                 throw new BadRequestException();
             if (oldProcedure.ReferredFrom != null && !oldProcedure.ReferredFrom.Equals(newProcedure.ReferredFrom))
                 throw new BadRequestException();

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using HealthcareBase.Model.HospitalResources;
 using HealthcareBase.Model.Schedule.Procedures;
 using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Model.Users.Employee.Doctors;
 using HealthcareBase.Model.Users.Patient;
 using HealthcareBase.Model.Utilities;
 using HealthcareBase.Repository.Generics.Interface;

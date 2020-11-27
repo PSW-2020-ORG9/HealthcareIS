@@ -5,6 +5,7 @@
 
 using System.Collections.Generic;
 using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Model.Users.Employee.Doctors;
 using HealthcareBase.Model.Utilities;
 using HealthcareBase.Repository.Generics.Interface;
 

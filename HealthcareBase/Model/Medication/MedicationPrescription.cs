@@ -16,7 +16,6 @@ namespace HealthcareBase.Model.Medication
         [Key]
         public int Id { get; set; }
         public int MedicalRecordId { get; set; }
-        public DateTime Date { get; set; }
         
         [ForeignKey("ExaminationReport")]
         public int ExaminationReportId { get; set; }

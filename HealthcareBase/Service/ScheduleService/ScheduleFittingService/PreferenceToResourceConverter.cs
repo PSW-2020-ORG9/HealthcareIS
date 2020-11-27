@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using HealthcareBase.Model.HospitalResources;
 using HealthcareBase.Model.Users.Employee;
+using HealthcareBase.Model.Users.Employee.Doctors;
 using HealthcareBase.Model.Utilities;
 using HealthcareBase.Service.HospitalResourcesService.RoomService;
 using HealthcareBase.Service.UsersService.EmployeeService;
@@ -29,14 +30,10 @@ namespace HealthcareBase.Service.ScheduleService.ScheduleFittingService
 
         public ProcedureResourcesDTO ConvertProcedurePreference(ProcedurePreferenceDTO preference)
         {
-            var appropriateRooms = roomService.GetAppropriate(preference.Type);
-
             var resources = new ProcedureResourcesDTO
             {
                 Patient = preference.Patient,
-                Type = preference.Type,
                 Doctors = ConvertDoctors(preference.Preference.PreferredDoctor, new List<Doctor>()),
-                Rooms = ConvertRooms(preference.Preference.PreferredRoom, appropriateRooms),
                 Timing = ConvertTiming(preference)
             };
 
