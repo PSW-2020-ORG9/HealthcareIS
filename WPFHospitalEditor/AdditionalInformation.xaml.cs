@@ -13,9 +13,6 @@ namespace WPFHospitalEditor
     /// </summary>
     public partial class AdditionalInformation : Window
     {
-        const int buttonWidth = 100;
-        const int buttonHeight = 25;
-
         private MapObject mapObject;
         private List<string> labelContent = new List<string>();
         private List<string> value = new List<string>();
@@ -27,11 +24,13 @@ namespace WPFHospitalEditor
         private string[] descriptionParts;
         private string[] contentRows;
         private MapObject oldMapObject;
+        private Role role;
 
         MapObjectController mapObjectController = new MapObjectController();
 
-        public AdditionalInformation(MapObject mapObject, Building building, int floor)
+        public AdditionalInformation(MapObject mapObject, Building building, int floor, Role role)
         {
+            this.role = role;
             this.floor = floor;
             this.building = building;
             InitializeComponent();
@@ -52,7 +51,6 @@ namespace WPFHospitalEditor
         {
             mapObject.Description = descriptionParts[0] + "&";
 
-
             for (int i = 0; i < labels.Count; i++)
             {
                 mapObject.Description += labels[i].Content + "=" + textBoxes[i].Text + ";";             
@@ -64,7 +62,6 @@ namespace WPFHospitalEditor
             int lenght = mapObject.Description.Length;
             mapObject.Description.Substring(0, lenght - 1);          
             Close();
-
         }
 
         private void refreshMap()
@@ -93,52 +90,71 @@ namespace WPFHospitalEditor
 
         private void createRowContent(string[] contentRows)
         {
-            for (int i = 0; i < contentRows.Length; i++)
+            if (PatientIsLogged())
             {
-                if (contentRows[i].Equals(""))
-                    break;
-
-                string[] label = contentRows[i].Split("=");
-                labelContent.Add(label[0]);
-                value.Add(label[1]);
+                if(StringContainsWorkingHours(contentRows[0])) setRowContent(0);
+            } else
+            {
+                for (int i = 0; i < contentRows.Length; i++)
+                {
+                    if (contentRows[i].Equals("")) break;
+                    setRowContent(i);
+                }
             }
             insertData();
             addCancelButton(contentRows);
             addOkButton(contentRows);
         }
 
+        private bool PatientIsLogged()
+        {
+            if (role == Role.Patient) return true;
+            return false;
+        }
+
+        private bool StringContainsWorkingHours(string str)
+        {
+            if (str.Contains("Working Hours")) return true;
+            return false;
+        }
+
+        private void setRowContent(int row)
+        {
+            string[] label = contentRows[row].Split("=");
+            labelContent.Add(label[0]);
+            value.Add(label[1]);
+        }
+
         private void addOkButton(string[] contentRows)
         {
             Button ok = new Button();
-            ok.Content = "OK";
-            ok.BorderThickness = new Thickness(0);
             ok.HorizontalAlignment = HorizontalAlignment.Right;
-            ok.VerticalAlignment = VerticalAlignment.Center;
-            ok.Background = Brushes.SkyBlue;
-            ok.Width = buttonWidth;
-            ok.Height = buttonHeight;
-            ok.Foreground = Brushes.White;
             ok.Click += Done_Click;
             Grid.SetRow(ok, contentRows.Length + 2);
             Grid.SetColumn(ok, 2);
-            DynamicGrid.Children.Add(ok);
+            setButtonsCommonAttributes(ok, "Ok");
         }
 
         private void addCancelButton(string[] contentRows)
         {
             Button cancel = new Button();
-            cancel.Content = "Cancel";
-            cancel.BorderThickness = new Thickness(0);
             cancel.HorizontalAlignment = HorizontalAlignment.Left;
-            cancel.VerticalAlignment = VerticalAlignment.Center;
-            cancel.Background = Brushes.SkyBlue;
-            cancel.Width = buttonWidth;
-            cancel.Height = buttonHeight;
-            cancel.Foreground = Brushes.White;
             cancel.Click += Close_Click;
             Grid.SetRow(cancel, contentRows.Length + 2);
             Grid.SetColumn(cancel, 1);
-            DynamicGrid.Children.Add(cancel);
+            setButtonsCommonAttributes(cancel, "Cancel");
+        }
+
+        private void setButtonsCommonAttributes(Button button, string name)
+        {
+            button.BorderThickness = new Thickness(0);
+            button.Content = name;
+            button.VerticalAlignment = VerticalAlignment.Center;
+            button.Background = Brushes.SkyBlue;
+            button.Width = AllConstants.additionalInformationsbuttonWidth;
+            button.Height = AllConstants.additionalInformationsbuttonHeight;
+            button.Foreground = Brushes.White;
+            DynamicGrid.Children.Add(button);
         }
 
         private void insertData()
@@ -156,6 +172,7 @@ namespace WPFHospitalEditor
             textBox.Text = value[i];
             textBox.HorizontalContentAlignment = HorizontalAlignment.Center;
             textBox.VerticalAlignment = VerticalAlignment.Center;
+            if (PatientIsLogged()) textBox.IsReadOnly = true;
             Grid.SetRow(textBox, i + 2);
             Grid.SetColumn(textBox, 2);
             textBoxes.Add(textBox);
@@ -184,6 +201,7 @@ namespace WPFHospitalEditor
             name.Foreground = new SolidColorBrush(Colors.Black);
             name.VerticalAlignment = VerticalAlignment.Center;
             name.HorizontalAlignment = HorizontalAlignment.Center;
+            if (PatientIsLogged()) name.IsReadOnly = true;
             Grid.SetRow(name, 1);
             Grid.SetColumnSpan(name, 2);
             Grid.SetColumn(name, 1);
