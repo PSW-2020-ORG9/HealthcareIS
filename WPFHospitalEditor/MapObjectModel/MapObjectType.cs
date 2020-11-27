@@ -18,7 +18,8 @@
         NeurologyRoom,
         DermatologyRoom,
         OphthalmologyRoom,
-        OnDuty
+        OnDuty,
+        Selected
     }
 
 }

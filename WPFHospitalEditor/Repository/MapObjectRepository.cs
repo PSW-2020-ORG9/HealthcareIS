@@ -39,11 +39,22 @@ namespace WPFHospitalEditor.Repository
         {
             mapObj.Description = mapObjForUpdate.Description;
             mapObj.Name = mapObjForUpdate.Name;
+            mapObj.selected = mapObjForUpdate.selected;
         }
         
         public List<MapObject> getAllMapObjects()
         {
-            return getAll();
+            List<MapObject> allMapObjectsToReturn = new List<MapObject>();
+            var allMapObjects = getAll();
+            foreach (MapObject mapObject in allMapObjects)
+            {
+                if (mapObject.selected)
+                {
+                    mapObject.rectangle.Fill = MapObjectColors.getInstance().getColor(MapObjectType.Selected);
+                }
+                allMapObjectsToReturn.Add(mapObject);
+            }
+            return allMapObjectsToReturn;
         }
 
         public List<MapObject> getAll()
@@ -61,14 +72,20 @@ namespace WPFHospitalEditor.Repository
             }
         }
 
-        public List<MapObject> getOutterMapObjects(List<MapObject> allMapObjects)
+        public List<MapObject> getOutterMapObjects()
         {
             List<MapObject> allOuterMapObjects = new List<MapObject>();
+            var allMapObjects = getAll().ToList();
             foreach (MapObject mapObject in allMapObjects)
             {
                 if (mapObject.Description.Equals(""))
                 {
+                    if (mapObject.selected)
+                    {
+                        mapObject.rectangle.Fill = MapObjectColors.getInstance().getColor(MapObjectType.Selected);
+                    }
                     allOuterMapObjects.Add(mapObject);
+
                 }
             }
             return allOuterMapObjects;
@@ -99,6 +116,18 @@ namespace WPFHospitalEditor.Repository
                 }
             }
             return null;
+        }
+        public void setAllSelectedFieldsToFalse()
+        {
+            var allMapObjects = getAll().ToList();
+            foreach (MapObject mapObjectIteration in allMapObjects)
+            {
+                if (mapObjectIteration.selected == true)
+                {
+                    mapObjectIteration.selected = false;
+                    update(mapObjectIteration);
+                }
+            }
         }
     }
 }

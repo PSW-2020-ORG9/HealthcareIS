@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using WPFHospitalEditor.Controller;
 
 namespace WPFDirector
 {
@@ -13,5 +14,10 @@ namespace WPFDirector
     /// </summary>
     public partial class App : Application
     {
+        private void Application_Exit_Director(object sender, ExitEventArgs e)
+        {
+            MapObjectController mapObjectController = new MapObjectController();
+            mapObjectController.setAllSelectedFieldsToFalse();
+        }
     }
 }

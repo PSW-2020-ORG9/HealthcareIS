@@ -148,6 +148,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 3,
       "Name": "",
       "Description": "",
@@ -462,6 +463,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 4,
       "Name": "",
       "Description": "",
@@ -776,6 +778,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 5,
       "Name": "",
       "Description": "",
@@ -1090,6 +1093,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 6,
       "Name": "",
       "Description": "",
@@ -1404,6 +1408,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 1,
       "Name": "Building 1",
       "Description": "",
@@ -1718,6 +1723,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 2,
       "Name": "Building 2",
       "Description": "",
@@ -2032,6 +2038,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 7,
       "Name": "",
       "Description": "",
@@ -2346,6 +2353,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 8,
       "Name": "",
       "Description": "",
@@ -2660,6 +2668,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 9,
       "Name": "",
       "Description": "",
@@ -2974,6 +2983,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 10,
       "Name": "",
       "Description": "",
@@ -3288,6 +3298,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 0,
       "Name": "",
       "Description": "",
@@ -3602,6 +3613,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 0,
       "Name": "",
       "Description": "",
@@ -3916,6 +3928,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 0,
       "Name": "",
       "Description": "",
@@ -4230,6 +4243,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 0,
       "Name": "",
       "Description": "",
@@ -4544,6 +4558,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 0,
       "Name": "",
       "Description": "",
@@ -4858,6 +4873,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 0,
       "Name": "",
       "Description": "",
@@ -5172,6 +5188,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 0,
       "Name": "",
       "Description": "",
@@ -5486,6 +5503,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 0,
       "Name": "",
       "Description": "",
@@ -5800,6 +5818,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 0,
       "Name": "",
       "Description": "",
@@ -6114,6 +6133,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 0,
       "Name": "",
       "Description": "",
@@ -6428,6 +6448,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 0,
       "Name": "",
       "Description": "",
@@ -6742,6 +6763,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 0,
       "Name": "",
       "Description": "",
@@ -7056,6 +7078,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 0,
       "Name": "",
       "Description": "",
@@ -7370,6 +7393,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 0,
       "Name": "",
       "Description": "",
@@ -7684,6 +7708,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 0,
       "Name": "",
       "Description": "",
@@ -7998,6 +8023,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 0,
       "Name": "",
       "Description": "",
@@ -8312,6 +8338,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 0,
       "Name": "",
       "Description": "",
@@ -8626,6 +8653,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 0,
       "Name": "",
       "Description": "",
@@ -8940,6 +8968,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 0,
       "Name": "",
       "Description": "",
@@ -9254,6 +9283,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 0,
       "Name": "",
       "Description": "",
@@ -9568,6 +9598,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 0,
       "Name": "",
       "Description": "",
@@ -9882,6 +9913,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 0,
       "Name": "",
       "Description": "",
@@ -10196,6 +10228,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 0,
       "Name": "",
       "Description": "",
@@ -10510,6 +10543,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 0,
       "Name": "",
       "Description": "",
@@ -10824,6 +10858,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 12,
       "Name": "Informations 1",
       "Description": "1-0&Working Hours=07:00 - 00:00",
@@ -11138,6 +11173,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 15,
       "Name": "Examination 1",
       "Description": "1-0&Working Hours=09:00 - 21:00;Computers=2;Stethoscopes=13;Thermometers=4;Chairs=4;",
@@ -11452,9 +11488,10 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 16,
       "Name": "Examination 2",
-      "Description": "1-0&Working Hours=09:00 - 21:00;Computers=1;Stethoscopes=9;Thermometers=5;Chairs=6;",
+      "Description": "1-0&Working Hours=09:00 - 21:00;Computers=1;Stethoscopes=9;Thermometers=5;Chairs=6",
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -11766,6 +11803,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 17,
       "Name": "Examination 3",
       "Description": "1-0&Working Hours=09:00 - 21:00;Computers=3;Stethoscopes=5;Thermometers=7;Chairs=8;",
@@ -12080,6 +12118,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 18,
       "Name": "Surgery room 1",
       "Description": "1-0&Working Hours=09:00 - 019:00;Bandages=50;Anaesthesis=100;EKG=1;Tables=1",
@@ -12394,6 +12433,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 19,
       "Name": "Surgery room 2",
       "Description": "1-0&Working Hours=09:00 - 019:00;Bandages=50;Anaesthesis=100;EKG=1;Tables=1",
@@ -12708,6 +12748,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 13,
       "Name": "Toilet 1",
       "Description": "1-0&",
@@ -13022,6 +13063,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 20,
       "Name": "Dentist room 1",
       "Description": "1-0&Working Hours=09:00 - 19:00;Masks=100;Anaesthesis=100;Chairs=3;Brushes=20;",
@@ -13336,6 +13378,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 21,
       "Name": "Dentist room 2",
       "Description": "1-0&Working Hours=09:00 - 19:00;Masks=100;Anaesthesis=100;Chairs=3;Brushes=20;",
@@ -13650,6 +13693,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 22,
       "Name": "Canteen 1",
       "Description": "1-0&Working Hours=09:00 - 18:00;Meals=50;Drinks=100;Tables=10;Chairs=40",
@@ -13964,6 +14008,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 11,
       "Name": "Elevator 1",
       "Description": "1-0&Max weight=480kg;",
@@ -14278,6 +14323,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 24,
       "Name": "Informations 2",
       "Description": "1-1&Working Hours=07:00 - 00:00",
@@ -14592,6 +14638,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 25,
       "Name": "Toilet 2",
       "Description": "1-1&",
@@ -14906,6 +14953,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 23,
       "Name": "Elevator 2",
       "Description": "1-1&Max weight=480kg",
@@ -15220,6 +15268,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 26,
       "Name": "Recovery room 1",
       "Description": "1-1&All beds=20;Available beds=7",
@@ -15534,6 +15583,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 27,
       "Name": "On duty 1",
       "Description": "1-1&Working Hours=00:00 - 24:00",
@@ -15848,6 +15898,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 28,
       "Name": "Recovery room 2",
       "Description": "1-1&All beds=20;Available beds=7",
@@ -16162,6 +16213,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 29,
       "Name": "Recovery room 3",
       "Description": "1-1&All beds=20;Available beds=8",
@@ -16476,6 +16528,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 30,
       "Name": "Recovery room 4",
       "Description": "1-1&All beds=20;Available beds=9",
@@ -16790,6 +16843,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 31,
       "Name": "Recovery room 5",
       "Description": "1-1&All beds=201;Available beds=10;",
@@ -17104,6 +17158,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 32,
       "Name": "On duty 2",
       "Description": "1-1&Working Hours=00:00 - 24:00",
@@ -17418,6 +17473,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 33,
       "Name": "Recovery room 5",
       "Description": "1-1&All beds=20;Available=11",
@@ -17732,6 +17788,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 34,
       "Name": "Elevator 3",
       "Description": "2-0&Max weight=480kg;",
@@ -18046,6 +18103,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 35,
       "Name": "Informations 3",
       "Description": "2-0&Working Hours=07:00 - 00:00",
@@ -18360,6 +18418,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 36,
       "Name": "Toilet 3",
       "Description": "2-0&",
@@ -18674,6 +18733,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 37,
       "Name": "Examination room 4",
       "Description": "2-0&Working Hours=09:00 - 21:00;Computers=2;Stethoscopes=3;Thermometers=5;Chairs=6",
@@ -18988,9 +19048,10 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 38,
       "Name": "Examination room 5",
-      "Description": "2-0&Working Hours=09:00 - 21:00;Computers=2;Stethoscopes=3;Thermometers=7;Chairs=4;",
+      "Description": "2-0&Working Hours=09:00 - 21:00;Computers=2;Stethoscopes=3;Thermometers=7;Chairs=4",
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -19302,6 +19363,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 39,
       "Name": "On Duty 3",
       "Description": "2-0&Working Hours=00:00 - 24:00",
@@ -19616,6 +19678,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 40,
       "Name": "Dentist room 3",
       "Description": "2-0&Working Hours=09:00 - 19:00;Masks=100;Anaesthesis=100;Chairs=3;Brushes=20",
@@ -19930,6 +19993,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 41,
       "Name": "Neurology 1",
       "Description": "2-0&Working Hours=09:00 - 21:00;Computers=2;Stethoscopes=3;Thermometers=5;Chairs=6;",
@@ -20244,6 +20308,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 42,
       "Name": "Dermatology 1",
       "Description": "2-0&Working Hours=09:00 - 21:00;Computers=2;Magnifiers=3;Bandages=5;Chairs=6",
@@ -20558,6 +20623,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 43,
       "Name": "Ophthalmology 1",
       "Description": "2-0&Working Hours=09:00 - 21:00;Computers=2;Lenses=3;Eye drops=5;Chairs=6",
@@ -20872,6 +20938,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 44,
       "Name": "Elevator 4",
       "Description": "2-1&Max weight=480kg",
@@ -21186,6 +21253,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 45,
       "Name": "Informations 4",
       "Description": "2-1&Working Hours=07:00 - 00:00",
@@ -21500,6 +21568,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 46,
       "Name": "Toilet 4",
       "Description": "2-1&",
@@ -21814,6 +21883,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 47,
       "Name": "Recovery room 7",
       "Description": "2-1&All beds=20;Available beds=7",
@@ -22128,6 +22198,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 48,
       "Name": "Recovery room 8",
       "Description": "2-1&All beds=20;Available beds=8",
@@ -22442,6 +22513,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 49,
       "Name": "On Duty 4",
       "Description": "2-1&Working Hours=00:00 - 24:00",
@@ -22756,6 +22828,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 50,
       "Name": "Canteen 2",
       "Description": "2-1&Working Hours=09:00 - 18:00;Meals=50;Drinks=100;Tables=10;Chairs=40;",
@@ -23070,6 +23143,7 @@
         },
         "IsSealed": false
       },
+      "selected": false,
       "Id": 51,
       "Name": "Recovery room 9",
       "Description": "2-1&All beds=20;Available beds=9",

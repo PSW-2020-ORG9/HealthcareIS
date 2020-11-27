@@ -17,8 +17,9 @@ namespace WPFHospitalEditor.MapObjectModel
         public MapObjectMetrics MapObjectMetrics { get; set; }
         public MapObjectType MapObjectType { get; set; }
         public MapObjectDoor MapObjectDoor { get; set; }
+        public bool selected;
 
-        public MapObject(String name, int Id, MapObjectMetrics MapObjectMetrics, MapObjectType MapObjectType, MapObjectDoor MapObjectDoor, String Description)
+        public MapObject(String name, int Id, MapObjectMetrics MapObjectMetrics, MapObjectType MapObjectType, MapObjectDoor MapObjectDoor, String Description, bool selected)
         {
             this.Name = name;
             this.Id = Id;
@@ -27,6 +28,7 @@ namespace WPFHospitalEditor.MapObjectModel
             this.MapObjectDoor = MapObjectDoor;
             this.Description = Description;
             setMapObjectProperties(MapObjectMetrics);
+            this.selected = selected;
         }
 
         public void setMapObjectProperties(MapObjectMetrics mapObjectMetrics)

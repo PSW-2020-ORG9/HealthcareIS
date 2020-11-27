@@ -10,6 +10,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WPFHospitalEditor.MapObjectModel;
+using WPFHospitalEditor.Controller;
+using WPFHospitalEditor.Service;
 
 namespace WPFHospitalEditor
 {
@@ -19,13 +21,20 @@ namespace WPFHospitalEditor
     public partial class SearchResultDialog : Window
     {
         List<Button> advanceSearchButtons = new List<Button>();
+        private Dictionary<int, MapObject> row = new Dictionary<int, MapObject>();
         int firstContentRowNumber = 2;
+        MapObjectController mapObjectController = new MapObjectController();
+        private HospitalMap hospitalMap;
+        private Role role;
 
-        public SearchResultDialog()
+
+        public SearchResultDialog(HospitalMap hospitalMap, Role role)
         {
             this.Height = (HospitalMap.searchResult.Count + 1) * 50 + 10;
             InitializeComponent();
             CreateDynamicGrid();
+            this.role = role;
+            this.hospitalMap = hospitalMap;
         }
 
         private void CreateDynamicGrid()
@@ -37,20 +46,24 @@ namespace WPFHospitalEditor
 
         private void createRowContent()
         {
+            row.Clear();
+            int i = 2;
             foreach (MapObject mapObject in HospitalMap.searchResult)
             {
                 if (mapObject.MapObjectType.Equals(MapObjectType.Building))
                 {
                     createBuildingRowData(mapObject);
+                    row.Add(i, mapObject);
+                    i++;
                 }
                 else
                 {
                     createRowData(mapObject);
+                    row.Add(i, mapObject);
+                    i++;
                 }
             }
-        }
-
-        
+        }    
 
         private int createRowData(MapObject mapObject)
         {
@@ -138,6 +151,48 @@ namespace WPFHospitalEditor
             Grid.SetColumn(advancedSearch, 4);
 
             DynamicGrid.Children.Add(advancedSearch);
+
+            advancedSearch.Click += (s, e) =>
+            {
+                if (row.ContainsKey(Grid.GetRow(advancedSearch)))
+                {
+                    row[Grid.GetRow(advancedSearch)].selected = true;
+                    mapObjectController.update(row[Grid.GetRow(advancedSearch)]);
+                    if (row[Grid.GetRow(advancedSearch)].Description.Equals(""))
+                    {
+                        CanvasService.addObjectToCanvas(mapObjectController.getOutterMapObjects(), HospitalMap.canvasHospitalMap);
+                        this.Close();
+                    }
+                    else
+                    {
+                        string[] split = getBuildingAndFloor(row[Grid.GetRow(advancedSearch)]).Split("-");
+                        List<MapObject> chosenBuilding = findBuilding(split[0]);
+                        Building buildingFromSearch = new Building(chosenBuilding, int.Parse(split[1]), role);
+                        Building.canvasBuilding.Children.Clear();
+                        CanvasService.addObjectToCanvas(getObjects(split[0], split[1]), Building.canvasBuilding);
+                        buildingFromSearch.Owner = hospitalMap;
+                        buildingFromSearch.Show();
+                        hospitalMap.Hide();
+                        this.Close();
+                    }
+                }
+            };
+        }
+        public List<MapObject> findBuilding(String building)
+        {
+            string[] split1;
+            string[] split2;
+            List<MapObject> buildingObjects = new List<MapObject>();
+            foreach (MapObject mo in mapObjectController.getAllMapObjects())
+            {
+                split1 = mo.Description.Split("&");
+                split2 = split1[0].Split("-");
+                if (split2[0].Equals(building))
+                {
+                    buildingObjects.Add(mo);
+                }
+            }
+            return buildingObjects;
         }
 
         private static void adjustAdvancedSearchButtonProperties(Button advancedSearch)
@@ -202,6 +257,36 @@ namespace WPFHospitalEditor
         {
             HospitalMap.searchResult.Clear();
             Close();
+        }
+
+        private String getBuildingAndFloor(MapObject mapObjectCheck)
+        {
+            String[] buildingAndFloor = mapObjectCheck.Description.Split("&");
+            return buildingAndFloor[0];
+        }
+
+        private List<MapObject> getObjects(String building, String floor)
+        {
+            List<MapObject> objectsToDisplay = new List<MapObject>();
+            List<MapObject> allMapObjects = mapObjectController.getAllMapObjects();
+            foreach (MapObject mapObjectIteration in allMapObjects)
+            {
+                if (checkBuildingAndFloor(building, floor, mapObjectIteration))
+                {
+                    objectsToDisplay.Add(mapObjectIteration);
+                }
+            }
+            return objectsToDisplay;
+        }
+
+        private bool checkBuildingAndFloor(String building, String floor, MapObject mapObjectForChecking)
+        {
+            string[] split = getBuildingAndFloor(mapObjectForChecking).Split("-");
+            if (building.Equals(split[0]) && floor.Equals(split[1]))
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

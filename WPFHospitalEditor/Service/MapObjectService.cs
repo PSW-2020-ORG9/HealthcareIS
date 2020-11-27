@@ -20,13 +20,17 @@ namespace WPFHospitalEditor.Service
         {
             return MapObjectRepository.update(mapObject);
         }
-        public List<MapObject> getOutterMapObjects(List<MapObject> allMapObjects)
+        public List<MapObject> getOutterMapObjects()
         {
-            return MapObjectRepository.getOutterMapObjects(allMapObjects);
+            return MapObjectRepository.getOutterMapObjects();
         }
         public MapObject findMapObjectById(int id)
         {
             return MapObjectRepository.findMapObjectById(id);
+        }
+        public void setAllSelectedFieldsToFalse()
+        {
+            MapObjectRepository.setAllSelectedFieldsToFalse();
         }
     }
 }

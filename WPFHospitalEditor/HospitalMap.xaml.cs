@@ -23,7 +23,7 @@ namespace WPFHospitalEditor
         {                     
             InitializeComponent();
             setTypeComboBox();
-            CanvasService.addObjectToCanvas(mapObjectController.getOutterMapObjects(allMapObjects), canvas);
+            CanvasService.addObjectToCanvas(mapObjectController.getOutterMapObjects(), canvas);
             canvasHospitalMap = canvas;
             this.role = role;
         }
@@ -66,6 +66,7 @@ namespace WPFHospitalEditor
         {
             searchResult.Clear();
             List<MapObject> allMapObjects = mapObjectController.getAllMapObjects();
+            mapObjectController.setAllSelectedFieldsToFalse();
 
             foreach (MapObject mapObject in allMapObjects)
             {
@@ -85,7 +86,7 @@ namespace WPFHospitalEditor
 
             if (searchResult.Count > 0)
             {
-                SearchResultDialog searchResultDialog = new SearchResultDialog();
+                SearchResultDialog searchResultDialog = new SearchResultDialog(this, role);
                 searchResultDialog.ShowDialog();
             }
             else
