@@ -10,6 +10,7 @@ namespace HealthcareBase.Model.Users.UserAccounts.Registration
     public class PatientRegistrationDTO
     {
         public string Jmbg { get; set; }
+        public string InsuranceNumber { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public DateTime DateOfBirth { get; set; }

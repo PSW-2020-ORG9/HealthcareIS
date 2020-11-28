@@ -25,6 +25,7 @@ namespace HospitalWebApp.Mappers
                 Patient = new Patient
                 {
                     Jmbg = dto.Jmbg,
+                    InsuranceNumber = dto.InsuranceNumber,
                     Status = PatientStatus.Alive,
                     Person = new Person
                     {

@@ -8,9 +8,9 @@
                 <input type="text" name="midname" placeholder="Middle Name" v-model="personalInformation.MiddleName" />
                 <input type="text" name="lname" placeholder="Last Name" v-model="personalInformation.Surname" />
                 <input type="text" name="pin" placeholder="Personal identity number" v-model="personalInformation.Jmbg" />
+                <input type="text" name="inumber" placeholder="Insurance number" v-model="personalInformation.InsuranceNumber" />
                 <input type="date" name="dateofbirth" placeholder="Date of birth" v-model="personalInformation.DateOfBirth" />
                 <input type="text" name="phone" placeholder="Phone" v-model="personalInformation.TelephoneNumber" />
-                <textarea name="address" placeholder="Address" v-model="personalInformation.Address"></textarea>
             </div>
             <div class="col">
                 <select name="maritalstatus" required v-model="personalInformation.MaritalStatus">
@@ -33,8 +33,8 @@
                 <select name="rescity" required v-if="!cityOfResidenceDisabled" v-on:change="bindCityOfResidence">
                     <option value="" disabled selected>City of residence</option>
                     <option v-bind:value="city.id" v-for="(city,index) in citiesOfResidence" v-bind:key="index">{{city.name}}</option>
-                   
                 </select>
+                <input type="text" name="address" placeholder="Address" v-model="personalInformation.Address" />
                 <select name="birthcountry" v-on:change="fetchCityOfBirth" required>
                     <option value="" disabled selected>Country of birth</option>
                     <option v-bind:value="country.id" v-for="(country,index) in countries" v-bind:key="index">{{country.name}}</option>
@@ -82,6 +82,7 @@ export default {
             MiddleName:'',
             Surname:'',
             Jmbg:'',
+            InsuranceNumber:'',
             DateOfBirth:'',
             TelephoneNumber:'',
             Address:'',
@@ -130,7 +131,7 @@ export default {
         },
         areFieldsValid(){
             if(this.personalInformation.Name != '' && this.personalInformation.MiddleName!=''
-             && this.personalInformation.Surname!='' && this.personalInformation.Jmbg!='' 
+             && this.personalInformation.Surname!='' && this.personalInformation.Jmbg!='' && this.personalInformation.InsuranceNumber!=''
              && this.personalInformation.DateOfBirth!='' && this.personalInformation.DateOfBirth!=''
              && this.personalInformation.TelephoneNumber!='' && this.personalInformation.Address!=''
              && this.personalInformation.MaritalStatus!='' && this.personalInformation.Gender!='' && this.personalInformation.CityOfResidenceId!=null
