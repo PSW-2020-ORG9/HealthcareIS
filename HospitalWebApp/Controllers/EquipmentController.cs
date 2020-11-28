@@ -5,8 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HealthcareBase.Model.EditorDtos;
-using HealthcareBase.Model.HospitalResources;
-using HealthcareBase.Model.EditorAdapters;
 
 namespace HospitalWebApp.Controllers
 {
@@ -25,8 +23,8 @@ namespace HospitalWebApp.Controllers
         [Route("getByRoomId/{roomId}")]
         public IActionResult GetEquipmentByRoomId(int roomId)
         {
-            IEnumerable<EquipmentUnit> eqUnits = _equipmentService.GetEquipmentByRoomId(roomId);
-            IEnumerable<EquipmentDto> eqDtos = EquipmentAdapter.ObjectsToDto(eqUnits);
+            IEnumerable<EquipmentDto> eqDtos = _equipmentService.GetEquipmentByRoomId(roomId);
+            //IEnumerable<EquipmentDto> eqDtos = EquipmentAdapter.ObjectsToDto(eqUnits);
             if (eqDtos != null) return Ok(eqDtos);
             return BadRequest("Equipment not found.");
         }

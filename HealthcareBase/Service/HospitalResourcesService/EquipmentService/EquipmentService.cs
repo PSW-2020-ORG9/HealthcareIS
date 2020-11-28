@@ -5,6 +5,7 @@
 
 using System.Collections.Generic;
 using HealthcareBase.Model.CustomExceptions;
+using HealthcareBase.Model.EditorDtos;
 using HealthcareBase.Model.HospitalResources;
 using HealthcareBase.Repository.Generics;
 using HealthcareBase.Repository.HospitalResourcesRepository;
@@ -60,9 +61,17 @@ namespace HealthcareBase.Service.HospitalResourcesService.EquipmentService
            
         }
 
-        public IEnumerable<EquipmentUnit> GetEquipmentByRoomId(int roomId)
+        public IEnumerable<EquipmentDto> GetEquipmentByRoomId(int roomId)
         {
-            return equipmentUnitRepository.Repository.GetMatching(equipmentUnit => equipmentUnit.CurrentLocation.Id == roomId);
+            return equipmentUnitRepository.Repository.GetColumnsForMatching(
+                condition: equipment => equipment.Id == roomId,
+                selection: equipment => new EquipmentDto()
+                {
+                    Id = equipment.Id,
+                    RoomId = equipment.EquipmentType.Id,
+                    Name = equipment.EquipmentType.Name
+                }
+            );
         }
     }
 }
