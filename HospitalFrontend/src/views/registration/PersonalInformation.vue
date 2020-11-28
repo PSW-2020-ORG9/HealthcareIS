@@ -26,22 +26,22 @@
                     <option value="Female">Female</option>
                     <option value="Other">Other</option>
                 </select>
-                 <select name="rescountry" required>
+                 <select name="rescountry" required v-on:change="fetchCityOfResidence">
                     <option value="" disabled selected>Country of residence</option>
-                    <option v-bind:value="country.id" v-on:click="fetchCityOfResidence(country.id)" v-for="(country,index) in countries" v-bind:key="index">{{country.name}}</option>
+                    <option v-bind:value="country.id" v-for="(country,index) in countries" v-bind:key="index">{{country.name}}</option>
                 </select>
-                <select name="rescity" required v-if="!cityOfResidenceDisabled">
+                <select name="rescity" required v-if="!cityOfResidenceDisabled" v-on:change="bindCityOfResidence">
                     <option value="" disabled selected>City of residence</option>
-                    <option v-bind:value="city.id" v-on:click="bindCityOfResidence(city.id)" v-for="(city,index) in citiesOfResidence" v-bind:key="index">{{city.name}}</option>
+                    <option v-bind:value="city.id" v-for="(city,index) in citiesOfResidence" v-bind:key="index">{{city.name}}</option>
                    
                 </select>
-                <select name="birthcountry" required>
+                <select name="birthcountry" v-on:change="fetchCityOfBirth" required>
                     <option value="" disabled selected>Country of birth</option>
-                    <option v-bind:value="country.id" v-on:click="fetchCityOfBirth(country.id)" v-for="(country,index) in countries" v-bind:key="index">{{country.name}}</option>
+                    <option v-bind:value="country.id" v-for="(country,index) in countries" v-bind:key="index">{{country.name}}</option>
                 </select>
-                <select name="birthcity" required v-if="!cityOfBirthDisabled">
+                <select name="birthcity" required v-if="!cityOfBirthDisabled" v-on:change="bindCityOfBirth">
                     <option value="" disabled selected>City of birth</option>
-                    <option v-bind:value="city.id" v-on:click="bindCityOfBirth(city.id)" v-for="(city,index) in citiesOfBirth" v-bind:key="index">{{city.name}}</option>
+                    <option v-bind:value="city.id" v-for="(city,index) in citiesOfBirth" v-bind:key="index">{{city.name}}</option>
                 </select>
                 <!--div class="dropdown">
                     <button class="btn  dropdown-toggle" type="button" id="citizenshipsMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -108,25 +108,25 @@ export default {
                 this.countriesFetched=true
             })
         },
-        fetchCityOfResidence:function(countryOfResidenceId){
-            this.personalInformation.CountryOfResidenceId=countryOfResidenceId
-            axios.get(api.citiesByCountry+countryOfResidenceId).then(response=>{
+        fetchCityOfResidence:function(e){
+            this.personalInformation.CountryOfResidenceId = e.target.value
+            axios.get(api.citiesByCountry + e.target.value).then(response => {
                 this.citiesOfResidence=response.data
                 this.cityOfResidenceDisabled=false
             })
         },
-        fetchCityOfBirth:function(countryOfBirthId){
-            this.personalInformation.CountryOfBirthId = countryOfBirthId
-            axios.get(api.citiesByCountry+countryOfBirthId).then(response=>{
+        fetchCityOfBirth:function(e){
+            this.personalInformation.CountryOfBirthId = e.target.value
+            axios.get(api.citiesByCountry + e.target.value).then(response => {
                 this.citiesOfBirth=response.data
                 this.cityOfBirthDisabled=false
             })
         },
-        bindCityOfResidence:function(cityOfResidenceId){
-            this.personalInformation.CityOfResidenceId=cityOfResidenceId
+        bindCityOfResidence:function(e){
+            this.personalInformation.CityOfResidenceId = e.target.value
         },
-        bindCityOfBirth:function(cityOfBirthId){
-            this.personalInformation.CityOfBirthId=cityOfBirthId
+        bindCityOfBirth:function(e){
+            this.personalInformation.CityOfBirthId = e.target.value
         },
         areFieldsValid(){
             console.log(this.personalInformation)
