@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Media;
 using WPFHospitalEditor.MapObjectModel;
+using WPFHospitalEditor.Service;
 
 namespace WPFHospitalEditor.Repository
 {
@@ -40,30 +41,15 @@ namespace WPFHospitalEditor.Repository
         {
             mapObj.Description = mapObjForUpdate.Description;
             mapObj.Name = mapObjForUpdate.Name;
-            mapObj.selected = mapObjForUpdate.selected;
         }
         public List<MapObject> getAllMapObjects()
         {
             List<MapObject> allMapObjectsToReturn = new List<MapObject>();
             var allMapObjects = getAll();
-            if(SearchResultDialog.selectedObject == null)
+            foreach (MapObject mapObject in allMapObjects)
             {
-                foreach (MapObject mapObject in allMapObjects)
-                {
-                    allMapObjectsToReturn.Add(mapObject);
-                }
-            }
-            else
-            {
-                foreach (MapObject mapObject in allMapObjects)
-                {
-                    if (SearchResultDialog.selectedObject.Id == mapObject.Id)
-                    {
-                        mapObject.rectangle.Fill = Brushes.Red;
-                    }
-                    allMapObjectsToReturn.Add(mapObject);
-                }
-            }
+                allMapObjectsToReturn.Add(mapObject);
+            }          
             return allMapObjectsToReturn;
         }
 
@@ -86,30 +72,13 @@ namespace WPFHospitalEditor.Repository
         {
             List<MapObject> allOuterMapObjects = new List<MapObject>();
             var allMapObjects = getAll().ToList();
-            if (SearchResultDialog.selectedObject == null)
+            foreach (MapObject mapObject in allMapObjects)
             {
-                foreach (MapObject mapObject in allMapObjects)
+                if (mapObject.Description.Equals(""))
                 {
-                    if (mapObject.Description.Equals(""))
-                    {
-                        allOuterMapObjects.Add(mapObject);
-                    }
+                    allOuterMapObjects.Add(mapObject);
                 }
-            }
-            else
-            {
-                foreach (MapObject mapObject in allMapObjects)
-                {
-                    if (mapObject.Description.Equals(""))
-                    {
-                        if (SearchResultDialog.selectedObject.Id == mapObject.Id)
-                        {
-                            mapObject.rectangle.Fill = Brushes.Red;
-                        }
-                        allOuterMapObjects.Add(mapObject);
-                    }
-                }
-            }
+            }           
             return allOuterMapObjects;
         }
 
