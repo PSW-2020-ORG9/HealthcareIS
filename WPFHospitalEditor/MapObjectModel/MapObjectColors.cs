@@ -28,7 +28,6 @@ namespace WPFHospitalEditor.MapObjectModel
             mapObjectTypesColors.Add(MapObjectType.NeurologyRoom, Brushes.LightSalmon);
             mapObjectTypesColors.Add(MapObjectType.DermatologyRoom, Brushes.LightGreen);
             mapObjectTypesColors.Add(MapObjectType.OphthalmologyRoom, Brushes.SteelBlue);
-            mapObjectTypesColors.Add(MapObjectType.Selected, Brushes.Red);
         }
 
         public static MapObjectColors getInstance()

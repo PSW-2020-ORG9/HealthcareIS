@@ -28,9 +28,5 @@ namespace WPFHospitalEditor.Service
         {
             return MapObjectRepository.findMapObjectById(id);
         }
-        public void setAllSelectedFieldsToFalse()
-        {
-            MapObjectRepository.setAllSelectedFieldsToFalse();
-        }
     }
 }

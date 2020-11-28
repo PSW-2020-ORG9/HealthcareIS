@@ -26,18 +26,18 @@ namespace WPFHospitalEditor
         MapObjectController mapObjectController = new MapObjectController();
         private HospitalMap hospitalMap;
         private Role role;
-
+        public static MapObject selectedObject = null;
 
         public SearchResultDialog(HospitalMap hospitalMap, Role role)
         {
             this.Height = (HospitalMap.searchResult.Count + 1) * 50 + 10;
             InitializeComponent();
-            CreateDynamicGrid();
+            DefineDynamicGrid();
             this.role = role;
             this.hospitalMap = hospitalMap;
         }
 
-        private void CreateDynamicGrid()
+        private void DefineDynamicGrid()
         {
             createRows();
             createRowContent();
@@ -47,21 +47,19 @@ namespace WPFHospitalEditor
         private void createRowContent()
         {
             row.Clear();
-            int i = 2;
+            int key = 2;
             foreach (MapObject mapObject in HospitalMap.searchResult)
             {
                 if (mapObject.MapObjectType.Equals(MapObjectType.Building))
                 {
                     createBuildingRowData(mapObject);
-                    row.Add(i, mapObject);
-                    i++;
                 }
                 else
                 {
-                    createRowData(mapObject);
-                    row.Add(i, mapObject);
-                    i++;
+                    createRowData(mapObject);                 
                 }
+                row.Add(key, mapObject);
+                key++;
             }
         }    
 
@@ -139,7 +137,7 @@ namespace WPFHospitalEditor
             name.VerticalAlignment = VerticalAlignment.Center;
         }
 
-        private void addAdvancedSearchButton()
+        private void addAdvancedSearchButton()          
         {
             Button advancedSearch = new Button();
 
@@ -151,45 +149,53 @@ namespace WPFHospitalEditor
             Grid.SetColumn(advancedSearch, 4);
 
             DynamicGrid.Children.Add(advancedSearch);
-
             advancedSearch.Click += (s, e) =>
             {
+                MapObject chosenMapObject = row[Grid.GetRow(advancedSearch)];
                 if (row.ContainsKey(Grid.GetRow(advancedSearch)))
                 {
-                    row[Grid.GetRow(advancedSearch)].selected = true;
-                    mapObjectController.update(row[Grid.GetRow(advancedSearch)]);
-                    if (row[Grid.GetRow(advancedSearch)].Description.Equals(""))
+                    selectedObject = chosenMapObject;
+                    mapObjectController.update(chosenMapObject);
+
+                    if (chosenMapObject.Description.Equals(""))
                     {
                         CanvasService.addObjectToCanvas(mapObjectController.getOutterMapObjects(), HospitalMap.canvasHospitalMap);
                         this.Close();
                     }
                     else
                     {
-                        string[] split = getBuildingAndFloor(row[Grid.GetRow(advancedSearch)]).Split("-");
-                        List<MapObject> chosenBuilding = findBuilding(split[0]);
-                        Building buildingFromSearch = new Building(chosenBuilding, int.Parse(split[1]), role);
-                        Building.canvasBuilding.Children.Clear();
-                        CanvasService.addObjectToCanvas(getObjects(split[0], split[1]), Building.canvasBuilding);
-                        buildingFromSearch.Owner = hospitalMap;
-                        buildingFromSearch.Show();
+                        String building = getBuildingAndFloor(selectedObject).Item1;
+                        String floor = getBuildingAndFloor(selectedObject).Item2;
+                        List<MapObject> chosenBuilding = findBuilding(building);
+                        displayBuildingAndFloorBasedOnSelectedObject(chosenBuilding, int.Parse(floor), role, int.Parse(building));
+                        
                         hospitalMap.Hide();
                         this.Close();
                     }
                 }
             };
         }
+        
+        public void displayBuildingAndFloorBasedOnSelectedObject(List<MapObject> chosenBuilding,int  floor, Role role, int building)
+        {
+            Building buildingFromSearch = new Building(chosenBuilding, floor, role);
+            Building.canvasBuilding.Children.Clear();
+            CanvasService.addObjectToCanvas(getObjects(building.ToString(), floor.ToString()), Building.canvasBuilding);
+            buildingFromSearch.Owner = hospitalMap;
+            buildingFromSearch.Show();
+        }
         public List<MapObject> findBuilding(String building)
         {
             string[] split1;
             string[] split2;
             List<MapObject> buildingObjects = new List<MapObject>();
-            foreach (MapObject mo in mapObjectController.getAllMapObjects())
+            foreach (MapObject maoObjectIterate in mapObjectController.getAllMapObjects())
             {
-                split1 = mo.Description.Split("&");
+                split1 = maoObjectIterate.Description.Split("&");
                 split2 = split1[0].Split("-");
                 if (split2[0].Equals(building))
                 {
-                    buildingObjects.Add(mo);
+                    buildingObjects.Add(maoObjectIterate);
                 }
             }
             return buildingObjects;
@@ -258,11 +264,11 @@ namespace WPFHospitalEditor
             HospitalMap.searchResult.Clear();
             Close();
         }
-
-        private String getBuildingAndFloor(MapObject mapObjectCheck)
+        private Tuple<String, String> getBuildingAndFloor(MapObject mapObjectCheck)
         {
             String[] buildingAndFloor = mapObjectCheck.Description.Split("&");
-            return buildingAndFloor[0];
+            String[] buildingAndFloorSplited = buildingAndFloor[0].Split("-");
+            return Tuple.Create(buildingAndFloorSplited[0], buildingAndFloorSplited[1]);
         }
 
         private List<MapObject> getObjects(String building, String floor)
@@ -271,7 +277,7 @@ namespace WPFHospitalEditor
             List<MapObject> allMapObjects = mapObjectController.getAllMapObjects();
             foreach (MapObject mapObjectIteration in allMapObjects)
             {
-                if (checkBuildingAndFloor(building, floor, mapObjectIteration))
+                if (isBuildingAndFloorEqual(building, floor, mapObjectIteration))
                 {
                     objectsToDisplay.Add(mapObjectIteration);
                 }
@@ -279,10 +285,9 @@ namespace WPFHospitalEditor
             return objectsToDisplay;
         }
 
-        private bool checkBuildingAndFloor(String building, String floor, MapObject mapObjectForChecking)
+        private bool isBuildingAndFloorEqual(String building, String floor, MapObject mapObjectForChecking)
         {
-            string[] split = getBuildingAndFloor(mapObjectForChecking).Split("-");
-            if (building.Equals(split[0]) && floor.Equals(split[1]))
+            if (building.Equals(getBuildingAndFloor(mapObjectForChecking).Item1) && floor.Equals(getBuildingAndFloor(mapObjectForChecking).Item2))
             {
                 return true;
             }

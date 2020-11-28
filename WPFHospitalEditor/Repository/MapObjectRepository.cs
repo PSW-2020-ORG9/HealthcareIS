@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows.Media;
 using WPFHospitalEditor.MapObjectModel;
 
 namespace WPFHospitalEditor.Repository
@@ -41,18 +42,27 @@ namespace WPFHospitalEditor.Repository
             mapObj.Name = mapObjForUpdate.Name;
             mapObj.selected = mapObjForUpdate.selected;
         }
-        
         public List<MapObject> getAllMapObjects()
         {
             List<MapObject> allMapObjectsToReturn = new List<MapObject>();
             var allMapObjects = getAll();
-            foreach (MapObject mapObject in allMapObjects)
+            if(SearchResultDialog.selectedObject == null)
             {
-                if (mapObject.selected)
+                foreach (MapObject mapObject in allMapObjects)
                 {
-                    mapObject.rectangle.Fill = MapObjectColors.getInstance().getColor(MapObjectType.Selected);
+                    allMapObjectsToReturn.Add(mapObject);
                 }
-                allMapObjectsToReturn.Add(mapObject);
+            }
+            else
+            {
+                foreach (MapObject mapObject in allMapObjects)
+                {
+                    if (SearchResultDialog.selectedObject.Id == mapObject.Id)
+                    {
+                        mapObject.rectangle.Fill = Brushes.Red;
+                    }
+                    allMapObjectsToReturn.Add(mapObject);
+                }
             }
             return allMapObjectsToReturn;
         }
@@ -76,16 +86,28 @@ namespace WPFHospitalEditor.Repository
         {
             List<MapObject> allOuterMapObjects = new List<MapObject>();
             var allMapObjects = getAll().ToList();
-            foreach (MapObject mapObject in allMapObjects)
+            if (SearchResultDialog.selectedObject == null)
             {
-                if (mapObject.Description.Equals(""))
+                foreach (MapObject mapObject in allMapObjects)
                 {
-                    if (mapObject.selected)
+                    if (mapObject.Description.Equals(""))
                     {
-                        mapObject.rectangle.Fill = MapObjectColors.getInstance().getColor(MapObjectType.Selected);
+                        allOuterMapObjects.Add(mapObject);
                     }
-                    allOuterMapObjects.Add(mapObject);
-
+                }
+            }
+            else
+            {
+                foreach (MapObject mapObject in allMapObjects)
+                {
+                    if (mapObject.Description.Equals(""))
+                    {
+                        if (SearchResultDialog.selectedObject.Id == mapObject.Id)
+                        {
+                            mapObject.rectangle.Fill = Brushes.Red;
+                        }
+                        allOuterMapObjects.Add(mapObject);
+                    }
                 }
             }
             return allOuterMapObjects;
@@ -116,18 +138,6 @@ namespace WPFHospitalEditor.Repository
                 }
             }
             return null;
-        }
-        public void setAllSelectedFieldsToFalse()
-        {
-            var allMapObjects = getAll().ToList();
-            foreach (MapObject mapObjectIteration in allMapObjects)
-            {
-                if (mapObjectIteration.selected == true)
-                {
-                    mapObjectIteration.selected = false;
-                    update(mapObjectIteration);
-                }
-            }
         }
     }
 }

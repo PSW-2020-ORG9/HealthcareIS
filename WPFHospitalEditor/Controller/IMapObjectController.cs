@@ -11,6 +11,5 @@ namespace WPFHospitalEditor.Controller
         MapObject update(MapObject mapObject);
         List<MapObject> getOutterMapObjects();
         MapObject findMapObjectById(int id);
-        void setAllSelectedFieldsToFalse();
     }
 }

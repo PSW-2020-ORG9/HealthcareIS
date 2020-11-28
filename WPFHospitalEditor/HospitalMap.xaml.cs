@@ -15,9 +15,9 @@ namespace WPFHospitalEditor
     public partial class HospitalMap : Window
     {       
         public static Canvas canvasHospitalMap;
-        MapObjectController mapObjectController = new MapObjectController();
-        public static List<MapObject> searchResult = new List<MapObject>();
+        MapObjectController mapObjectController = new MapObjectController();      
         private Role role;
+        public static List<MapObject> searchResult = new List<MapObject>();
 
         public HospitalMap(List<MapObject> allMapObjects, Role role)
         {                     
@@ -64,10 +64,9 @@ namespace WPFHospitalEditor
 
         private void Basic_Search(object sender, RoutedEventArgs e)
         {
+
             searchResult.Clear();
             List<MapObject> allMapObjects = mapObjectController.getAllMapObjects();
-            mapObjectController.setAllSelectedFieldsToFalse();
-
             foreach (MapObject mapObject in allMapObjects)
             {
                 if (textBoxEmpty(mapObject))
