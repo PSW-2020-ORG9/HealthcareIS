@@ -18,7 +18,7 @@ namespace HospitalWebApp.Mappers
                 Username = dto.Username,
                 Password = dto.Password,
                 Email = dto.Email,
-                UserGuid = new Guid(),
+                UserGuid = Guid.NewGuid(),
                 FavouriteDoctors = new List<FavoriteDoctor>(),
                 IsActivated = false,
                 RespondedToSurvey = false,

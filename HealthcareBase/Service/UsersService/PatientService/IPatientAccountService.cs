@@ -16,6 +16,6 @@ namespace HealthcareBase.Service.UsersService.PatientService
         public PatientAccount ChangePassword(PatientAccount account, string newPassword);
         public PatientAccount AddFavouriteDoctor(Doctor doctor, PatientAccount account);
         public PatientAccount RemoveFavoriteDoctor(Doctor doctor, PatientAccount account);
-        public void ActivateAccount(int patientId);
+        public void ActivateAccount(Guid guid);
     }
 }

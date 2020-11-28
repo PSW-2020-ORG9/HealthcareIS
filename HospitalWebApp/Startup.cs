@@ -50,7 +50,7 @@ namespace HospitalWebApp
             if (_connectionString == null) throw new ApplicationException("Missing database connection string");
             
             services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-            
+
             AddServices(services);
             AddCustomSerializers(services);
             ConfigureCors(services);
@@ -96,7 +96,7 @@ namespace HospitalWebApp
         private void AddServices(IServiceCollection services)
         {
             AddSurveyServices(services);
-            
+
             var patientRepository = new PatientSqlRepository(GetContext());
             var userFeedbackRepository = new UserFeedbackSqlRepository(GetContext());
             var prescriptionRepository = new MedicationPrescriptionSqlRepository(GetContext());
@@ -109,7 +109,7 @@ namespace HospitalWebApp
             var patientService = new PatientService(patientRepository, null, null, null);
             var prescriptionService = new MedicationPrescriptionService(prescriptionRepository);
             var patientAccountService = new PatientAccountService(patientAccountRepository);
-            var patientRegistrationService = new PatientRegistrationService(patientAccountService);
+            var patientRegistrationService = new PatientRegistrationService(patientAccountService, new RegistrationNotifier());
 
             var examinationService = new ExaminationService(examinationRepository, null, null, null,  TimeSpan.Zero);
             var cityService = new CityService(cityRepository);

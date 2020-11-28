@@ -14,22 +14,23 @@ namespace HealthcareBaseTests
         {
             var mockNotifier = new Mock<IRegistrationNotifier>();
             var mockPatientAccountService = new Mock<IPatientAccountService>();
-            const int id = 1;
+            Guid guid = Guid.NewGuid();
             const string email = "mail@mailprovider.com";
             const string emailTemplatePath = "/path/to/the/resource";
 
             var patientRegistrationService
                 = new PatientRegistrationService(mockPatientAccountService.Object,mockNotifier.Object);
-            patientRegistrationService.RegisterPatient(CreatePatientAccount(id,email),emailTemplatePath  );
+            patientRegistrationService.RegisterPatient(CreatePatientAccount(guid,email),emailTemplatePath  );
             
-            mockNotifier.Verify(n=>n.SendActivationEmail(id,"mail@mailprovider.com","/path/to/the/resource"));
+            mockNotifier.Verify(n=>n.SendActivationEmail(guid,"mail@mailprovider.com","/path/to/the/resource"));
         }
 
-        private static PatientAccount CreatePatientAccount(int id, string email)
+        private static PatientAccount CreatePatientAccount(Guid guid, string email)
         {
             return new PatientAccount
             {
-                Id=id,
+                Id = 1,
+                UserGuid = guid,
                 Email = email
             };
         }

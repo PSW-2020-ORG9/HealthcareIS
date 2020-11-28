@@ -9,11 +9,6 @@ namespace HealthcareBase.Service.UsersService.RegistrationService
         private readonly IPatientAccountService patientAccountService;
         private readonly IRegistrationNotifier registrationNotifier;
 
-        public PatientRegistrationService(IPatientAccountService patientAccountService)
-        {
-            this.patientAccountService = patientAccountService;
-            registrationNotifier = new RegistrationNotifier();
-        }
         public PatientRegistrationService(IPatientAccountService patientAccountService,IRegistrationNotifier registrationNotifier)
         {
             this.patientAccountService = patientAccountService;
@@ -24,14 +19,14 @@ namespace HealthcareBase.Service.UsersService.RegistrationService
         {
             var createdPatientAccount = patientAccountService.CreateAccount(patientAccount);
             registrationNotifier
-                .SendActivationEmail(patientAccount.Id,
+                .SendActivationEmail(patientAccount.UserGuid,
                     patientAccount.Email,
                     emailTemplatePath);
         }
 
-        public void ActivatePatient(int patientId)
+        public void ActivatePatient(Guid guid)
         {
-            patientAccountService.ActivateAccount(patientId);
+            patientAccountService.ActivateAccount(guid);
         }
 
     }

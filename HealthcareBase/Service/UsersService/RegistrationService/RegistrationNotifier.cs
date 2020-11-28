@@ -12,10 +12,14 @@ namespace HealthcareBase.Service.UsersService.RegistrationService
     {
         private readonly SmtpClient SmtpClient;
         private static MailMessage MailMessage;
-        private const string ActivationEndpoint = "http://localhost:5000/patient/activate/";
+        private readonly string _activationEndpoint;
 
-        public RegistrationNotifier()
+        public RegistrationNotifier() : this("http://localhost:5000/patient/activate/") {   }
+
+        //TODO: Inject dynamicaly constructed activation endpoint string from web server
+        public RegistrationNotifier(string activationEndpoint)
         {
+            _activationEndpoint = activationEndpoint;
             SmtpClient = new SmtpClient("smtp.gmail.com")
             {
                 Port = 587,
@@ -30,9 +34,9 @@ namespace HealthcareBase.Service.UsersService.RegistrationService
             };
         }
         
-        public void SendActivationEmail(int patientId, string patientEmail,string emailTemplatePath)
+        public void SendActivationEmail(Guid guid, string patientEmail,string emailTemplatePath)
         {
-            ConfigureEmailTemplate(patientId,emailTemplatePath,patientEmail);
+            ConfigureEmailTemplate(guid, emailTemplatePath, patientEmail);
             SendEmail();
         }
 
@@ -41,12 +45,12 @@ namespace HealthcareBase.Service.UsersService.RegistrationService
             SmtpClient.Send(MailMessage);
         }
 
-        private static void ConfigureEmailTemplate(int patientId, string emailTemplatePath,string patientEmail)
+        private void ConfigureEmailTemplate(Guid guid, string emailTemplatePath,string patientEmail)
         {
             var verificationHtml = new HtmlDocument();
             verificationHtml.Load(emailTemplatePath);
             verificationHtml.GetElementbyId("activationPath")
-                .SetAttributeValue("href", ActivationEndpoint + patientId);
+                .SetAttributeValue("href", _activationEndpoint + guid);
             MailMessage.Body = verificationHtml.DocumentNode.OuterHtml;
             MailMessage.To.Add(patientEmail);
 

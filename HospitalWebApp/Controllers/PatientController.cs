@@ -57,10 +57,10 @@ namespace HospitalWebApp.Controllers
         }
 
         [HttpGet]
-        [Route("activate/{id}")]
-        public IActionResult ActivatePatient(int id)
+        [Route("activate/{guid}")]
+        public IActionResult ActivatePatient(Guid guid)
         {
-            _patientRegistrationService.ActivatePatient(id);
+            _patientRegistrationService.ActivatePatient(guid);
             return Redirect("http://localhost:8080/#/successfully-registered");
 
         }

@@ -87,10 +87,10 @@ namespace HealthcareBase.Service.UsersService.PatientService
         }
         
 
-        public void ActivateAccount(int patientId)
+        public void ActivateAccount(Guid guid)
         {
            var patientAccount = patientAccountRepository.Repository
-                                .GetMatching(p => p.Id == patientId)
+                                .GetMatching(p => p.UserGuid == guid)
                                 .First();
            patientAccount.IsActivated = true;
            patientAccountRepository.Repository.Update(patientAccount);
