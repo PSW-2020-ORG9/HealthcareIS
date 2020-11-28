@@ -9,6 +9,7 @@ import PersonalInfromation from '../views/registration/PersonalInformation.vue'
 import HealthStatus from '../views/registration/HealthStatus.vue'
 import AccountDetails from '../views/registration/AccountDetails.vue'
 import ProfilePicture from '../views/registration/ProfilePicture.vue'
+import SuccessfullyRegistered from '../views/registration/SuccessfullyRegistered.vue'
 
 const routes = [
   {
@@ -16,6 +17,12 @@ const routes = [
     name: 'ObserveFeedback',
     component: ObserveFeedback
   },
+  {
+    path: '/successfully-registered',
+    name: 'SuccessfullyRegistered',
+    component: SuccessfullyRegistered
+  }
+  ,
   {
     
     path: '/create-feedback',

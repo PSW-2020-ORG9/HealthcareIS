@@ -22,16 +22,16 @@ namespace HealthcareBase.Service.UsersService.RegistrationService
 
         public void RegisterPatient(PatientAccount patientAccount,string emailTemplatePath)
         {
-            patientAccountService.CreateAccount(patientAccount);
+            var createdPatientAccount = patientAccountService.CreateAccount(patientAccount);
             registrationNotifier
-                .SendActivationEmail(patientAccount.UserGuid,
+                .SendActivationEmail(patientAccount.Id,
                     patientAccount.Email,
                     emailTemplatePath);
         }
 
-        public void ActivatePatient(Guid guid)
+        public void ActivatePatient(int patientId)
         {
-            patientAccountService.ActivateAccount(guid);
+            patientAccountService.ActivateAccount(patientId);
         }
 
     }

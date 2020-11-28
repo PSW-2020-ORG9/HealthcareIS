@@ -10,6 +10,7 @@ using HealthcareBase.Service.UsersService.PatientService;
 using HospitalWebApp.Mappers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting;
 using PatientRegistrationService = HealthcareBase.Service.UsersService.RegistrationService.PatientRegistrationService;
 
 namespace HospitalWebApp.Controllers
@@ -20,10 +21,14 @@ namespace HospitalWebApp.Controllers
     {
         private readonly PatientService _patientService;
         private readonly PatientRegistrationService patientRegistrationService;
+        private readonly IHostEnvironment _hostEnvironment;
 
-        public PatientController(PatientService patientService)
+        public PatientController(PatientService patientService,PatientRegistrationService patientRegistrationService,IHostEnvironment _hostEnvironment
+        )
         {
+            this._hostEnvironment = _hostEnvironment;
             _patientService = patientService;
+            this.patientRegistrationService = patientRegistrationService;
         }
 
         [HttpGet]
@@ -40,17 +45,18 @@ namespace HospitalWebApp.Controllers
         public IActionResult RegisterPatient(PatientRegistrationDTO dto)
         {
             var patientAccount = PatientAccountMapper.DtoToObject(dto);
-            var emailTemplatePath = Path.Join("..","Resources","verification-mail.html");
+            var emailTemplatePath = Path.Join(_hostEnvironment.ContentRootPath,"Resources","verification-mail.html");
+            Console.WriteLine(emailTemplatePath);
             patientRegistrationService.RegisterPatient(patientAccount,emailTemplatePath);
             return Ok();
         }
 
         [HttpGet]
-        [Route("/activate/{guid}")]
-        public IActionResult ActivatePatient(Guid guid)
+        [Route("activate/{id}")]
+        public IActionResult ActivatePatient(int id)
         {
-            patientRegistrationService.ActivatePatient(guid);
-            return Redirect("http://localhost:8000/register/activated");
+            patientRegistrationService.ActivatePatient(id);
+            return Redirect("http://localhost:8080/#/successfully-registered");
 
         }
     }

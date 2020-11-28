@@ -33,6 +33,8 @@ namespace HospitalWebApp.Mappers
                         Citizenships = dto.Citizenships,
                         CityOfBirthId = dto.CityOfBirthId,
                         CityOfResidenceId = dto.CityOfResidenceId,
+                        CountryOfBirthId = dto.CountryOfBirthId,
+                        CountryOfResidenceId = dto.CountryOfResidenceId,
                         DateOfBirth = dto.DateOfBirth,
                         Gender = dto.Gender,
                         Jmbg = dto.Jmbg,

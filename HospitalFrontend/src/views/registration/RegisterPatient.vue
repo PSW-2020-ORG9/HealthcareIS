@@ -1,8 +1,8 @@
 <template>
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 	<form id="msform">
     <ul id="progressbar">
         <li v-bind:class="{active : isPersonalInfo()}">Personal Information</li>
-        <li v-bind:class="{active : isHealthStatus()}">Health Status</li>
         <li v-bind:class="{active : isAccDetails()}">Account Details</li>
 		<li v-bind:class="{active : isProfilePicture()}">Profile Picture</li>
     </ul>

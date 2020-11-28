@@ -20,10 +20,8 @@
                 </div>
             </form>
         </div>
-        <router-link to="/register/account-details">
-            <input type="button" name="previous" class="previous action-button" value="Previous" />
-        </router-link>
-        <input type="submit" name="submit" class="submit action-button" value="Submit" />
+        <input type="button" name="previous" class="previous action-button" value="Previous" @click="goToPreviousPage()"/>
+        <input type="button" name="submit" class="submit action-button" value="Submit" @click="registerPatient()" />
     </fieldset>
 </template>
 
@@ -31,6 +29,7 @@
 import axios from 'axios'
 import Toastify from 'toastify-js'
 import api from '../../constant/api.js'
+import moment from 'moment'
 
 export default {
     data: function () {
@@ -60,16 +59,16 @@ export default {
                 .then(response => {
                     this.isSaving = false
                     this.imageUrl = response.data.data.link
-                    this.toastSuccess()
+                    this.toastSuccess("Image successfully uploaded!")
                 })
                 .catch(err => {
                     this.isSaving = false
-                    this.toastError()
+                    this.toastError("An error ocurred while uploading an image!")
                 })
         },
-        toastSuccess:function(){
+        toastSuccess:function(succesMsg){
         Toastify({
-              text: "Image succesfully uploaded.",
+              text: succesMsg,
               duration: '2000',
               newWindow: true,
               close: true,
@@ -80,7 +79,7 @@ export default {
       },
       toastError:function(errorMsg){
         Toastify({
-              text: "Error while uploading image.",
+              text: errorMsg,
               duration: '2000',
               newWindow: true,
               close: true,
@@ -89,7 +88,45 @@ export default {
               backgroundColor: "linear-gradient(to right, #C37D92, #d89a9e)"
             }).showToast()
       }
+      ,
+      goToPreviousPage:function(){
+          this.$router.push('/register/account-details')
+      }
+      ,
+      isImageUrlPresent(){
+        if(this.imageUrl=="")
+            return false
+        return true
+      }
+      ,
+      registerPatient:function(){
+        if(!this.isImageUrlPresent()){
+            this.toastError('Upload your profile picture!')
+            return
+        }
+        this.postPatientAccount()
+        
+      }
+      ,
+      postPatientAccount:function(){
+        let patientAccountDto={...this.$store.state.patientRegistrationDto.PersonalInformation, ...this.$store.state.patientRegistrationDto.accountDetails}
+        var today = moment()
+        var dateOfBirth = moment(patientAccountDto["DateOfBirth"],'YYYY-MM-DD')
+        patientAccountDto["Age"] = today.diff(dateOfBirth,'years')
+        patientAccountDto["Citizenships"] = []
+        patientAccountDto["Allergies"] = []
+        patientAccountDto["AvatarUrl"] = this.imageUrl
+        
+         axios.post(api.patientRegistration,patientAccountDto).then(response=>{
+            this.toastSuccess('Account successfully created!')
+            this.toastSuccess('Please check your email so you can finish your registration')
+            this.$router.push('/register')
+         })
+
+      }
+      
     }
+    
 }
 </script>
 

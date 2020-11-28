@@ -22,7 +22,7 @@ body {
   min-height: 100vh;
   text-align: center;
   color: #2c3e50;
-  background-color: #b9fccf;
+
 }
 #nav {
   padding: 30px;

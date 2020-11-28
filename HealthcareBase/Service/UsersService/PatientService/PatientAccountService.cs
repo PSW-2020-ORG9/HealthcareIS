@@ -20,20 +20,17 @@ namespace HealthcareBase.Service.UsersService.PatientService
     public class PatientAccountService:IPatientAccountService
     {
         private readonly RepositoryWrapper<IPatientAccountRepository> patientAccountRepository;
-        private readonly RepositoryWrapper<IPatientSurveyResponseRepository> patientSurveyResponseRepository;
 
         public PatientAccountService(
-            IPatientAccountRepository patientAccountRepository,
-            IPatientSurveyResponseRepository patientSurveyResponseRepository)
+            IPatientAccountRepository patientAccountRepository)
         {
             this.patientAccountRepository = new RepositoryWrapper<IPatientAccountRepository>(patientAccountRepository);
-            this.patientSurveyResponseRepository =
-                new RepositoryWrapper<IPatientSurveyResponseRepository>(patientSurveyResponseRepository);
+            
         }
 
-        public void CreateAccount(PatientAccount patientAccount)
+        public PatientAccount CreateAccount(PatientAccount patientAccount)
         {
-            patientAccountRepository.Repository.Create(patientAccount);
+            return patientAccountRepository.Repository.Create(patientAccount);
         }
         public void DeleteAccount(PatientAccount patientAccount)
         {
@@ -83,16 +80,12 @@ namespace HealthcareBase.Service.UsersService.PatientService
             }
             return patientAccountRepository.Repository.Update(acc);
         }
+        
 
-        public void RecordSurveyResponse(PatientSurveyResponse surveyResponse)
-        {
-            patientSurveyResponseRepository.Repository.Create(surveyResponse);
-        }
-
-        public void ActivateAccount(Guid guid)
+        public void ActivateAccount(int patientId)
         {
            var patientAccount = patientAccountRepository.Repository
-                                .GetMatching(p => p.UserGuid.Equals(guid))
+                                .GetMatching(p => p.Id == patientId)
                                 .First();
            patientAccount.IsActivated = true;
            patientAccountRepository.Repository.Update(patientAccount);

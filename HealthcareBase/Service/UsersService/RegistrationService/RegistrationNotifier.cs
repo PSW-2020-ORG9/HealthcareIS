@@ -30,9 +30,9 @@ namespace HealthcareBase.Service.UsersService.RegistrationService
             };
         }
         
-        public void SendActivationEmail(Guid patientGuid, string patientEmail,string emailTemplatePath)
+        public void SendActivationEmail(int patientId, string patientEmail,string emailTemplatePath)
         {
-            ConfigureEmailTemplate(patientGuid,emailTemplatePath,patientEmail);
+            ConfigureEmailTemplate(patientId,emailTemplatePath,patientEmail);
             SendEmail();
         }
 
@@ -41,12 +41,12 @@ namespace HealthcareBase.Service.UsersService.RegistrationService
             SmtpClient.Send(MailMessage);
         }
 
-        private static void ConfigureEmailTemplate(Guid patientGuid, string emailTemplatePath,string patientEmail)
+        private static void ConfigureEmailTemplate(int patientId, string emailTemplatePath,string patientEmail)
         {
             var verificationHtml = new HtmlDocument();
             verificationHtml.Load(emailTemplatePath);
             verificationHtml.GetElementbyId("activationPath")
-                .SetAttributeValue("href", ActivationEndpoint + patientGuid);
+                .SetAttributeValue("href", ActivationEndpoint + patientId);
             MailMessage.Body = verificationHtml.DocumentNode.OuterHtml;
             MailMessage.To.Add(patientEmail);
 

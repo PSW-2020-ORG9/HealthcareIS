@@ -1,58 +1,88 @@
 <template>
     <fieldset>
-        <h2 class="fs-title">Personal Details</h2>
-        <h3 class="fs-subtitle">We will never sell it</h3>
-        <div class="row">
-            <div class="col">
-                <input type="text" name="fname" placeholder="First Name" />
-                <input type="text" name="midname" placeholder="Middle Name" />
-                <input type="text" name="lname" placeholder="Last Name" />
-                <input type="text" name="pin" placeholder="Personal identity number" />
-                <input type="date" name="dateofbirth" placeholder="Date of birth" />
-                <input type="text" name="phone" placeholder="Phone" />
-                <textarea name="address" placeholder="Address"></textarea>
-            </div>
-            <div class="col">
-                <select name="drinks" required>
-                    <option value="" disabled selected>Marital status</option>
-                    <option value="married">Married</option>
-                    <option value="single">Single</option>
-                    <option value="widowed">Widowed</option>
-                    <option value="divorced">Divorced</option>
-                </select>
-                <select name="gender" required>
-                    <option value="" disabled selected>Gender</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Other</option>
-                </select>
-                <select name="rescity" required>
-                    <option value="" disabled selected>City of residence</option>
-                    <option value="male">Novi Sad</option>
-                    <option value="female">Beograd</option>
-                    <option value="other">Sremska Mitrovica</option>
-                </select>
-                <select name="birthcity" required>
-                    <option value="" disabled selected>City of birth</option>
-                    <option value="male">Novi Sad</option>
-                    <option value="female">Beograd</option>
-                    <option value="other">Sremska Mitrovica</option>
-                </select>
-            </div>
-                
-        </div>
-        <router-link to="/register/health-status">
-            <input type="button" name="previous" class="previous action-button" value="Previous" />
-        </router-link>
-        <router-link to="/register/profile-picture">
-            <input type="button" name="next" class="next action-button" value="Next" />
-        </router-link>
-    </fieldset>
+    <h2 class="fs-title">Account Details</h2>
+    <h3 class="fs-subtitle">Enter your login credentials</h3>
+    <input type="text" name="email" placeholder="Email" v-model="accountDetails.Email"/>
+    <input type="text" name="username" placeholder="Username" v-model="accountDetails.Username" />
+    <input type="password" name="pass" placeholder="Password" v-model="accountDetails.Password"/>
+    <input type="password" name="cpass" placeholder="Confirm Password" v-model="PasswordConfirmation"/>
+    <input type="button" name="previous" class="previous action-button" value="Previous" @click="goToPreviousPage()" />
+    <input type="button" name="next" class="next action-button" value="Next" @click="goToNextPage()"/>
+  </fieldset>
 </template>
 
 <script>
+import Toastify from 'toastify-js'
 export default {
-    name:"AccountDetails"
+    name:"AccountDetails",
+    data:function(){
+        return{
+             accountDetails:{
+                Username:'',
+                Password:'',
+                Email:''
+            },
+            PasswordConfirmation:''
+        }
+    }
+    ,
+    methods:{
+        toastErrorMessage:function(message){
+            Toastify({
+                    text: message,
+                    duration: '2000',
+                    newWindow: true,
+                    close: true,
+                    gravity: 'top',
+                    position: 'center',
+                    backgroundColor: "linear-gradient(to right, #C37D92, #d89a9e)"
+                }).showToast()
+        }
+        ,
+        isPasswordValid:function(){
+            return this.PasswordConfirmation==this.accountDetails.Password
+        },
+        isEmailValid:function(){
+            if(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(this.accountDetails.Email))
+                return true
+            return false
+        }
+        ,
+        areAnyOfTheFieldsEmpty:function(){
+            if(this.accountDetails.Email=="" || this.accountDetails.Username=="" || this.accountDetails.Password=="" || this.PasswordConfirmation=="")
+                return true
+            return false
+        }
+        ,
+        goToNextPage:function(){
+            if(this.areAnyOfTheFieldsEmpty()){
+                this.toastErrorMessage('You must fill all the fields before continuing!')
+                return
+            }
+            if(!this.isEmailValid()){
+                this.toastErrorMessage('Email is not valid.')
+                return
+            }
+            if(!this.isPasswordValid()){
+                this.toastErrorMessage('Passwords must match!')
+                return
+            }
+            
+
+            this.$store.commit('setAccountDetails', this.accountDetails)
+            this.$router.push('/register/profile-picture')
+        }
+        ,
+        goToPreviousPage:function(){
+            this.$store.commit('setAccountDetails', this.accountDetails)
+            this.$router.push('/register/')
+        }
+    }
+    ,
+    mounted() {
+        this.accountDetails = this.$store.state.patientRegistrationDto.accountDetails
+    }
+
 }
 </script>
 

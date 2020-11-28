@@ -4,6 +4,6 @@ namespace HealthcareBase.Service.UsersService.RegistrationService
 {
     public interface IRegistrationNotifier
     {
-        public void SendActivationEmail(Guid patientGuid, string patientEmail, string emailTemplatePath); 
+        public void SendActivationEmail(int patientId, string patientEmail, string emailTemplatePath); 
     }
 }
