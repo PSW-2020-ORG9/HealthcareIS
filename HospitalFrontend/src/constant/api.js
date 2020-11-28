@@ -3,6 +3,7 @@ let examinationsUrl = server + '/docsearch/examination'
 let prescriptionsUrl = server + '/docsearch/prescription'
 let feedbacksUrl = server + '/feedback'
 let patientUrl =   server + '/patient'
+let patientAccountUrl = server + '/patient/account'
 let surveyPreviewUrl = server+'/survey/preview/admin/1'
 let imageUploadUrl = 'https://api.imgur.com/3/image'
 let clientId = '9a86c8e89e7d2ea'
@@ -13,6 +14,7 @@ let registrationUrl = patientUrl + '/register'
 export default{
     feedback: feedbacksUrl ,
     patient: patientUrl,
+    patientAccount: patientAccountUrl,
     patientRegistration: registrationUrl,
     surveyPreview: surveyPreviewUrl,
 

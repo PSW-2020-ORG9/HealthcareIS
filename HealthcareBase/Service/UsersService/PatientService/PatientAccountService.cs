@@ -42,6 +42,11 @@ namespace HealthcareBase.Service.UsersService.PatientService
             return patientAccountRepository.Repository.GetByPatient(patient);
         }
 
+        public PatientAccount GetAccount(int patientId)
+        {
+            return patientAccountRepository.Repository.GetByPatientId(patientId);
+        }
+
         public PatientAccount ChangePassword(PatientAccount account, string newPassword)
         {
             if (newPassword == null)

@@ -20,15 +20,20 @@ namespace HospitalWebApp.Controllers
     public class PatientController : ControllerBase
     {
         private readonly PatientService _patientService;
-        private readonly PatientRegistrationService patientRegistrationService;
+        private readonly PatientRegistrationService _patientRegistrationService;
         private readonly IHostEnvironment _hostEnvironment;
+        private readonly IPatientAccountService _patientAccountService;
 
-        public PatientController(PatientService patientService,PatientRegistrationService patientRegistrationService,IHostEnvironment _hostEnvironment
+        public PatientController(PatientService patientService,
+            PatientRegistrationService patientRegistrationService,
+            IHostEnvironment hostEnvironment,
+            IPatientAccountService patientAccountService
         )
         {
-            this._hostEnvironment = _hostEnvironment;
+            _hostEnvironment = hostEnvironment;
             _patientService = patientService;
-            this.patientRegistrationService = patientRegistrationService;
+            _patientRegistrationService = patientRegistrationService;
+            _patientAccountService = patientAccountService;
         }
 
         [HttpGet]
@@ -47,7 +52,7 @@ namespace HospitalWebApp.Controllers
             var patientAccount = PatientAccountMapper.DtoToObject(dto);
             var emailTemplatePath = Path.Join(_hostEnvironment.ContentRootPath,"Resources","verification-mail.html");
             Console.WriteLine(emailTemplatePath);
-            patientRegistrationService.RegisterPatient(patientAccount,emailTemplatePath);
+            _patientRegistrationService.RegisterPatient(patientAccount,emailTemplatePath);
             return Ok();
         }
 
@@ -55,8 +60,18 @@ namespace HospitalWebApp.Controllers
         [Route("activate/{id}")]
         public IActionResult ActivatePatient(int id)
         {
-            patientRegistrationService.ActivatePatient(id);
+            _patientRegistrationService.ActivatePatient(id);
             return Redirect("http://localhost:8080/#/successfully-registered");
+
+        }
+
+        [HttpGet]
+        [Route("account/{id}")]
+        public IActionResult FindPatientAccount(int id)
+        {
+            PatientAccount pa = _patientAccountService.GetAccount(id);
+            if(pa != null) return Ok(pa);
+            return BadRequest("Patient account not found.");
 
         }
     }

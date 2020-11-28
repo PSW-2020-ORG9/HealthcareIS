@@ -3,6 +3,9 @@
     <div v-if="patient" class="d-flex justify-content-center">
         <div>
             <div class="row">
+                <div style="width: 15vw">
+                    <img class="w-100 rounded p-1 border border-light" v-bind:src="profilePicture"/>
+                </div>
                 <table class="table w-auto text-left bg-light m-1">
                     <thead>
                         <tr>
@@ -41,6 +44,10 @@
                         <tr>
                             <th class="text-info">Date of birth:</th>
                             <td>{{parseDate(patient.person.dateOfBirth)}}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-info">City of birth:</th>
+                            <td>{{patient.person.cityOfBirth.name}}</td>
                         </tr>
                         <tr>
                             <th class="text-info">Phone number:</th>
@@ -105,6 +112,7 @@ export default {
     data: function () {
         return {
             patient: null,
+            profilePicture: '',
             intensities: ["Mild", "Medium", "Strong", "Severe"],
         }
     },
@@ -113,6 +121,7 @@ export default {
             let url = api.patient + '/find/' + id
             axios.get(url).then(response => {
                 this.patient = response.data
+                this.fetchProfilePicture();
             })
         },
         parseDate: function (date) {
@@ -128,6 +137,14 @@ export default {
                 )
             )
             return diagnoses
+        },
+        fetchProfilePicture: function () {
+            let url = api.patientAccount + '/' + this.patient.id
+            axios.get(url).then(response => {
+                console.log(response.data)
+                this.profilePicture = response.data.avatarUrl
+            })
+
         }
     },
     mounted: function () {

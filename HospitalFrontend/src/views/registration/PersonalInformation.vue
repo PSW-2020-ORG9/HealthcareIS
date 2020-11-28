@@ -129,7 +129,6 @@ export default {
             this.personalInformation.CityOfBirthId = e.target.value
         },
         areFieldsValid(){
-            console.log(this.personalInformation)
             if(this.personalInformation.Name != '' && this.personalInformation.MiddleName!=''
              && this.personalInformation.Surname!='' && this.personalInformation.Jmbg!='' 
              && this.personalInformation.DateOfBirth!='' && this.personalInformation.DateOfBirth!=''

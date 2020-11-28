@@ -2,6 +2,7 @@ using HealthcareBase.Model.Database;
 using HealthcareBase.Model.Users.Patient;
 using HealthcareBase.Model.Users.UserAccounts;
 using HealthcareBase.Repository.Generics;
+using System.Linq;
 
 namespace HealthcareBase.Repository.UsersRepository.UserAccountsRepository
 {
@@ -32,8 +33,9 @@ namespace HealthcareBase.Repository.UsersRepository.UserAccountsRepository
         }
 
         public PatientAccount GetByPatient(Patient patient)
-        {
-            throw new System.NotImplementedException();
-        }
+            => GetByPatientId(patient.GetKey());
+
+        public PatientAccount GetByPatientId(int id)
+            => GetMatching(patientAccount => patientAccount.PatientId == id).FirstOrDefault();
     }
 }

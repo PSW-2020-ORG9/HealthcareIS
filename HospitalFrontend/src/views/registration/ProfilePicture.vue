@@ -4,7 +4,7 @@
         <h2 class="fs-title">Profile Picture</h2>
         <div class="container">
             <div v-if="imageUrl">
-                <img class="image-preview rounded-circle m-2" v-bind:src="imageUrl"/>
+                <img class="image-preview rounded p-1 border border-light m-2" v-bind:src="imageUrl"/>
             </div>
             <!--UPLOAD-->
             <form enctype="multipart/form-data">

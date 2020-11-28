@@ -117,6 +117,7 @@ namespace HospitalWebApp
 
             services.Add(new ServiceDescriptor(typeof(UserFeedbackService), userFeedbackService));
             services.Add(new ServiceDescriptor(typeof(PatientService), patientService));
+            services.Add(new ServiceDescriptor(typeof(IPatientAccountService), patientAccountService));
             services.Add(new ServiceDescriptor(typeof(MedicationPrescriptionService), prescriptionService));
             services.Add(new ServiceDescriptor(typeof(ExaminationService), examinationService));
             services.Add(new ServiceDescriptor(typeof(CityService),cityService));
