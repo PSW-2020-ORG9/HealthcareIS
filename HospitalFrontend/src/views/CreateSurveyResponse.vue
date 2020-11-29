@@ -42,6 +42,7 @@
 
 import axios from 'axios'
 import api from '../constant/api.js'
+import Toastify from 'toastify-js'
 
 
 
@@ -119,10 +120,35 @@ export default {
         },
         saveSurveyResponse: function () {
             axios.post(api.survey + '/response', this.surveyResponse)
-            .then(response => {
-                console.log(response.data)
-            })
-        }
+            .then(response => this.toastSuccess())
+            .catch(err => {
+                    this.toastError()
+                    console.log(err.response)
+                }
+            )
+        },
+        toastSuccess: function () {
+            Toastify({
+                text: "Survey succesfully sent!",
+                duration: '2000',
+                newWindow: true,
+                close: true,
+                gravity: 'top',
+                position: 'center',
+                backgroundColor: "linear-gradient(to right, #00b09b, #7ecc92)"
+            }).showToast()
+        },
+        toastError: function () {
+            Toastify({
+                text: "Error while sending survey!",
+                duration: '2000',
+                newWindow: true,
+                close: true,
+                gravity: 'top',
+                position: 'center',
+                backgroundColor: "linear-gradient(to right, #C37D92, #d89a9e)"
+            }).showToast()
+        },
     },
     mounted: function () {
         this.getSurvey();
