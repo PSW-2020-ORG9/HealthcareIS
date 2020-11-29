@@ -11,6 +11,7 @@ namespace HealthcareBase.Repository.UsersRepository.GeneralitiesRepository
 {
     public interface ICityRepository : IWrappableRepository<City, int>
     {
-        IEnumerable<City> GetByCountry(Country country);
+        IEnumerable<City> GetByCountry(int countryId);
+        
     }
 }

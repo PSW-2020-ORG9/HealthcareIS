@@ -29,9 +29,9 @@ namespace HealthcareBase.Service.MiscellaneousService
             return cityRepository.Repository.GetAll();
         }
 
-        public IEnumerable<City> GetByCountry(Country country)
+        public IEnumerable<City> GetByCountry(int countryId)
         {
-            return cityRepository.Repository.GetByCountry(country);
+            return cityRepository.Repository.GetByCountry(countryId);
         }
     }
 }

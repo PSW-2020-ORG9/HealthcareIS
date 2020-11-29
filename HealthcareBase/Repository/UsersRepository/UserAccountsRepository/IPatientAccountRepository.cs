@@ -20,5 +20,7 @@ namespace HealthcareBase.Repository.UsersRepository.UserAccountsRepository
         PatientAccount GetByUsernameAndPassword(string username, string password);
 
         PatientAccount GetByPatient(Patient patient);
+
+        PatientAccount GetByPatientId(int id);
     }
 }

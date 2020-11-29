@@ -2,9 +2,9 @@ using System;
 using HealthcareBase.Model.Users.UserFeedback;
 using HospitalWebApp.Dtos;
 
-namespace HospitalWebApp.Adapters
+namespace HospitalWebApp.Mappers
 {
-    public class UserFeedbackAdapter
+    public class UserFeedbackMapper
     {
         public static UserFeedback DtoToObject(UserFeedbackDto dto)
         {
