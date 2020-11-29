@@ -9,7 +9,7 @@ namespace WPFHospitalEditor.Controller
     {
         List<MapObject> getAllMapObjects();
         MapObject update(MapObject mapObject);
-        List<MapObject> getOutterMapObjects(List<MapObject> allMapObjects);
+        List<MapObject> getOutterMapObjects();
         MapObject findMapObjectById(int id);
     }
 }

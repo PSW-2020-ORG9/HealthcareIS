@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows.Media;
 using WPFHospitalEditor.MapObjectModel;
 using WPFHospitalEditor.Repository;
 
@@ -13,20 +14,31 @@ namespace WPFHospitalEditor.Service
 
         public List<MapObject> getAllMapObjects()
         {
-            return MapObjectRepository.getAllMapObjects();
+            return colorSelectedObject(MapObjectRepository.getAllMapObjects());
         }
 
         public MapObject update(MapObject mapObject)
         {
             return MapObjectRepository.update(mapObject);
         }
-        public List<MapObject> getOutterMapObjects(List<MapObject> allMapObjects)
+        public List<MapObject> getOutterMapObjects()
         {
-            return MapObjectRepository.getOutterMapObjects(allMapObjects);
+            return colorSelectedObject(MapObjectRepository.getOutterMapObjects());
         }
         public MapObject findMapObjectById(int id)
         {
             return MapObjectRepository.findMapObjectById(id);
+        }
+        private List<MapObject> colorSelectedObject(List<MapObject> allMapObjects)
+        {
+            foreach (MapObject mapObject in allMapObjects)
+            {               
+                if(SearchResultDialog.selectedObjectId == mapObject.Id)
+                {
+                    mapObject.rectangle.Fill = Brushes.Red;
+                }              
+            }
+            return allMapObjects;
         }
     }
 }
