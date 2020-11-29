@@ -11,8 +11,8 @@ namespace WPFHospitalEditor.Service
     {
         public IEnumerable<EquipmentDto> getEquipmentByRoomId(int roomId)
         {
-            var client = new RestClient("http://localhost:****/");
-            var request = new RestRequest("api/Equipment/getByRoomId" + roomId, Method.GET);
+            var client = new RestClient("http://localhost:5290/");
+            var request = new RestRequest("Equipment/getByRoomId/" + roomId, Method.GET);
             var response = client.Get<List<EquipmentDto>>(request);
             IEnumerable<EquipmentDto> result = response.Data;
             return result;
