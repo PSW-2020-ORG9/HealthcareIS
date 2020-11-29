@@ -1,3 +1,4 @@
+using HealthcareBase.Model.Users.Survey;
 using HealthcareBase.Model.Users.Survey.DTOs;
 using HealthcareBase.Service.UsersService.UserFeedbackService.SurveyService;
 using HospitalWebApp.Mappers;
@@ -11,11 +12,13 @@ namespace HospitalWebApp.Controllers
     {
         private readonly SurveyPreviewBuilder surveyPreviewBuilder;
         private readonly ISurveyResponseService _surveyResponseService;
+        private readonly ISurveyService _surveyService;
         
-        public SurveyController(SurveyPreviewBuilder surveyPreviewBuilder, ISurveyResponseService surveyResponseService)
+        public SurveyController(SurveyPreviewBuilder surveyPreviewBuilder, ISurveyResponseService surveyResponseService, ISurveyService surveyService)
         {
             this.surveyPreviewBuilder = surveyPreviewBuilder;
             _surveyResponseService = surveyResponseService;
+            _surveyService = surveyService;
         }
         /// <summary>
         /// Gets suitable SurveyDto depending on passed survey id.
@@ -29,8 +32,17 @@ namespace HospitalWebApp.Controllers
             return Ok(surveyPreviewBuilder.Build(id));
         }
 
+        [HttpGet]
+        [Route("find/{id}")]
+        public IActionResult GetSurvey(int id)
+        {
+            Survey survey = _surveyService.GetById(id);
+            if (survey != null) return Ok(survey);
+            return BadRequest("Survey with id " + id + " not found.");
+        }
+
         [HttpPost]
-        [Route("survey-response")]
+        [Route("response")]
         public IActionResult CreateSurveyResponse(SurveyResponseDTO dto)
         {
             return Ok(_surveyResponseService.CreateSurveyResponse(SurveyResponseMapper.DtoToObject(dto)));

@@ -4,6 +4,7 @@ import ObserveFeedback from '../views/ObserveFeedback.vue'
 import SurveyPreview from '../views/SurveyPreview.vue'
 import ObserveMedicalRecord from '../views/ObserveMedicalRecord.vue'
 import DocSearch from '../views/DocSearch.vue'
+import CreateSurveyResponse from '../views/CreateSurveyResponse.vue'
 
 const routes = [
   {
@@ -32,6 +33,12 @@ const routes = [
     path:'/survey-preview',
     name:'SurveyPreview',
     component: SurveyPreview
+  }
+  ,
+  {
+    path: '/survey',
+    name: 'CreateSurveyResponse',
+    component: CreateSurveyResponse
   }
 ]
 
