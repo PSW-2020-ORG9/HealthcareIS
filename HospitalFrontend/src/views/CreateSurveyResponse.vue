@@ -4,51 +4,38 @@
 
     <h2>How satisfied or dissatisfied are you with the following: </h2>
 
-    <div v-if="survey" id="surveysectionlist" class="container w-50" >
-       <div v-for="surveySection in survey.surveySections" v-bind:key="surveySection.Id" v-bind:surveySection="surveySection" >
-
-            <div  id="surveyquestionslist" class="list-group container my-4">
-        <table class="table">
-            <thead class="thead-dark">
-                <tr>
-                    <th class="text-left" scope="col">{{surveySection.sectionName}}</th>
-                </tr>
-            </thead>
-        </table>
-        <div class="mb-3" v-for="surveyQuestion in surveySection.surveyQuestions" v-bind:key="surveyQuestion.id">
-           <div class="text-justify"> {{surveyQuestion.question}} </div>
-                <div class="form-check form-check-inline text-right">
-                    <input class="form-check-input" type="radio" v-bind:name=" 'radiogroup' +surveyQuestion.id" id="radio1" value="1">
-                    <label class="form-check-label" for="radio1">1</label>
+    <div v-if="survey" id="surveysectionlist" class="container w-50">
+       <div class="bg-light rounded" v-for="surveySection in survey.surveySections" v-bind:key="surveySection.Id" v-bind:surveySection="surveySection" >
+            <div class="list-group my-4">
+                <div class="bg-secondary col d-flex justify-content-left rounded-top">
+                    <h5 class="text-left text-white m-1">{{surveySection.sectionName}}</h5>
                 </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" v-bind:name="'radiogroup'+surveyQuestion.id" id="radio2" value="2">
-                    <label class="form-check-label" for="radio2">2</label>
+                <div class="mb-3" v-for="surveyQuestion in surveySection.surveyQuestions" v-bind:key="surveyQuestion.id">
+                    <div class="my-1"> {{surveyQuestion.question}} </div>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input ml-2" v-bind:name="'group' + surveyQuestion.id" 
+                            v-on:click="rateQuestion(surveySection, surveyQuestion.id, 1)">
+                        <label class="form-check-label">1</label>
+                        <input type="radio" class="form-check-input ml-2" v-bind:name="'group' + surveyQuestion.id"
+                            v-on:click="rateQuestion(surveySection, surveyQuestion.id, 2)">
+                        <label class="form-check-label">2</label>
+                        <input type="radio" class="form-check-input ml-2" v-bind:name="'group' + surveyQuestion.id"
+                            v-on:click="rateQuestion(surveySection, surveyQuestion.id, 3)">
+                        <label class="form-check-label">3</label>
+                        <input type="radio" class="form-check-input ml-2" v-bind:name="'group' + surveyQuestion.id"
+                            v-on:click="rateQuestion(surveySection, surveyQuestion.id, 4)">
+                        <label class="form-check-label">4</label>
+                        <input type="radio" class="form-check-input ml-2" v-bind:name="'group' + surveyQuestion.id"
+                            v-on:click="rateQuestion(surveySection, surveyQuestion.id, 5)">
+                        <label class="form-check-label">5</label>
+                    </div>
                 </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" v-bind:name="'radiogroup'+surveyQuestion.id" id="radio3" value="3" >
-                    <label class="form-check-label" for="radio3">3</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" v-bind:name="'radiogroup'+surveyQuestion.id" id="radio4" value="4" >
-                    <label class="form-check-label" for="radio4">4</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" v-bind:name="'radiogroup'+surveyQuestion.id" id="radio5" value="5" >
-                    <label class="form-check-label" for="radio5">5</label>
-                </div>
-             </div>
-         </div>
-
-
-
-
-
-       </div>
+            </div>
+        </div>
+        <button type="button" class="btn btn-success btn-lg mb-5" v-on:click="saveSurveyResponse">Submit survey</button>
     </div>
-    
 
-    <button type="button" class="btn btn-primary btn-lg">Submit survey</button>
+    
 </template>
 
 <script>
@@ -61,46 +48,85 @@ import api from '../constant/api.js'
 export default {
 
     name:'CreateSurveyResponse',
-    data:function(){
+    data:function() {
         return{          
-            survey: {
-                SurveySections:[],
-                Id:null
-            },
-
-            surveyResponse:
-            {
-                SubmittedAt:"",
-                SurveyId:null,
-                RatedSurveySections:null,
-                DoctorSurveySection:null,
-                PatientAccountId:1
-
-
+            survey: null,
+            surveyResponse: {
+                surveyId:null,
+                ratedSurveySections:[],
+                doctorSurveySection:null,
+                patientAccountId:1
             }
         }
-
     },
-    components:{
-        
-    },
-    methods:
-    {
-        getSurvey:function()
-        {
+    methods: {
+        getSurvey: function () {
             axios.get(api.survey + '/find/1').then((response)=>{
                 this.survey = response.data;
+                this.surveyResponse.surveyId = this.survey.id
             })
         },
+        rateQuestion: function (section, questionId, rating) {
+            if (section.isDoctorSection) {
+                if (this.surveyResponse.doctorSurveySection == null) {
+                    this.surveyResponse.doctorSurveySection = {
+                        doctorId: 1,
+                        surveySectionId: section.id,
+                        ratedSurveyQuestions: [{
+                            surveyQuestionId: questionId,
+                            rating: rating
+                        }]
+                    }
+                    return
+                }
+                for(let i = 0; i < this.surveyResponse.doctorSurveySection.ratedSurveyQuestions.length; i++) {
+                    if(this.surveyResponse.doctorSurveySection.ratedSurveyQuestions[i].surveyQuestionId == questionId) {
+                        this.surveyResponse.doctorSurveySection.ratedSurveyQuestions[i].rating = rating
+                        return
+                    }
+                }
+                this.surveyResponse.doctorSurveySection.ratedSurveyQuestions.push({
+                            surveyQuestionId: questionId,
+                            rating: rating
+                        })
+                return
+            }
+            for(let i = 0; i < this.surveyResponse.ratedSurveySections.length; i++) {
+                if (this.surveyResponse.ratedSurveySections[i].surveySectionId == section.id) {
+                    if(this.surveyResponse.ratedSurveySections[i].ratedSurveyQuestions != []) {
+                        for(let j = 0; j < this.surveyResponse.ratedSurveySections[i].ratedSurveyQuestions.length; j++) {
+                            if (this.surveyResponse.ratedSurveySections[i].ratedSurveyQuestions[j].surveyQuestionId == questionId) {
+                                this.surveyResponse.ratedSurveySections[i].ratedSurveyQuestions[j].rating = rating
+                                return
+                            }
+                        }
+                    }
+                    this.surveyResponse.ratedSurveySections[i].ratedSurveyQuestions.push({
+                        surveyQuestionId: questionId,
+                        rating: rating
+                    })
+                    return
+                }
+            }
+            this.surveyResponse.ratedSurveySections.push({
+                surveySectionId: section.id,
+                ratedSurveyQuestions: [{
+                        surveyQuestionId: questionId,
+                        rating: rating
+                    }
+                ]
+            })
+        },
+        saveSurveyResponse: function () {
+            axios.post(api.survey + '/response', this.surveyResponse)
+            .then(response => {
+                console.log(response.data)
+            })
+        }
     },
-    mounted:function(){
+    mounted: function () {
         this.getSurvey();
-    }
-
-
-
-
-    
+    } 
 }
 </script>
 
