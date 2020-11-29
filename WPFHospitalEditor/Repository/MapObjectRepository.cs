@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows.Media;
 using WPFHospitalEditor.MapObjectModel;
+using WPFHospitalEditor.Service;
 
 namespace WPFHospitalEditor.Repository
 {
@@ -15,7 +17,7 @@ namespace WPFHospitalEditor.Repository
         public MapObject update(MapObject mapObject)
         {
             
-            var allMapObjects = getAll().ToList(); 
+            var allMapObjects = getAllMapObjects().ToList(); 
             {
                 foreach (MapObject mapObj in allMapObjects)
                 {
@@ -40,13 +42,8 @@ namespace WPFHospitalEditor.Repository
             mapObj.Description = mapObjForUpdate.Description;
             mapObj.Name = mapObjForUpdate.Name;
         }
-        
-        public List<MapObject> getAllMapObjects()
-        {
-            return getAll();
-        }
 
-        public List<MapObject> getAll()
+        public List<MapObject> getAllMapObjects()
         {
             string jsonString = File.Exists(path) ? File.ReadAllText(path) : "";
             var settings = new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.All };
@@ -61,16 +58,17 @@ namespace WPFHospitalEditor.Repository
             }
         }
 
-        public List<MapObject> getOutterMapObjects(List<MapObject> allMapObjects)
+        public List<MapObject> getOutterMapObjects()
         {
             List<MapObject> allOuterMapObjects = new List<MapObject>();
+            var allMapObjects = getAllMapObjects().ToList();
             foreach (MapObject mapObject in allMapObjects)
             {
                 if (mapObject.Description.Equals(""))
                 {
                     allOuterMapObjects.Add(mapObject);
                 }
-            }
+            }           
             return allOuterMapObjects;
         }
 
@@ -88,7 +86,7 @@ namespace WPFHospitalEditor.Repository
         }
         public MapObject findMapObjectById(int id)
         {
-            var allMapObjects = getAll().ToList();
+            var allMapObjects = getAllMapObjects().ToList();
             {
                 foreach (MapObject mapObj in allMapObjects)
                 {

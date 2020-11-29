@@ -18,9 +18,9 @@ namespace WPFHospitalEditor.Controller
         {
             return IMapObjectService.update(mapObject);
         }
-        public List<MapObject> getOutterMapObjects(List<MapObject> allMapObjects)
+        public List<MapObject> getOutterMapObjects()
         {
-            return IMapObjectService.getOutterMapObjects(allMapObjects);
+            return IMapObjectService.getOutterMapObjects();
         }
         public MapObject findMapObjectById(int id)
         {

@@ -20,6 +20,7 @@ namespace WPFHospitalEditor
         public List<MapObject> floorBuildingObjects = new List<MapObject>();
         MapObjectController mapObjectController = new MapObjectController();
         private Role role;
+        public static Canvas canvasBuilding;
 
         public Building(List<MapObject> buildingObjects, int selectedFloor, Role role)
         {
@@ -31,6 +32,7 @@ namespace WPFHospitalEditor
             floor.SelectedIndex = selectedFloor;
             floorBuildingObjects = buildingFloors[floor.SelectedIndex].getAllFloorMapObjects();
             this.role = role;
+            canvasBuilding = canvas;
         }
         
         private void populateBuildingFloors(List<MapObject> allBuildingObjects)
@@ -72,7 +74,7 @@ namespace WPFHospitalEditor
         {
             clearAll();           
             this.Close();
-            CanvasService.addObjectToCanvas(mapObjectController.getOutterMapObjects(mapObjectController.getAllMapObjects()), HospitalMap.canvasHospitalMap);
+            CanvasService.addObjectToCanvas(mapObjectController.getOutterMapObjects(), HospitalMap.canvasHospitalMap);
             Owner.Show();
         }
 
