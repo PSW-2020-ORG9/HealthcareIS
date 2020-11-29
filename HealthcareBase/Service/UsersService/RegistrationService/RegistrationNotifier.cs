@@ -14,24 +14,25 @@ namespace HealthcareBase.Service.UsersService.RegistrationService
         private static MailMessage MailMessage;
         private readonly string _activationEndpoint;
 
-        public RegistrationNotifier() : this("http://localhost:5000/patient/activate/") {   }
+        public RegistrationNotifier() : this(Environment.GetEnvironmentVariable("PSW_ACTIVATION_ENDPOINT")) {   }
 
         //TODO: Inject dynamicaly constructed activation endpoint string from web server
         public RegistrationNotifier(string activationEndpoint)
         {
             _activationEndpoint = activationEndpoint;
-            SmtpClient = new SmtpClient("smtp.gmail.com")
+            SmtpClient = new SmtpClient(Environment.GetEnvironmentVariable("PSW_SMTP_HOST_SERVER"))
             {
                 Port = 587,
-                Credentials = new NetworkCredential("psw.healthcareis.info@gmail.com", "healthcareis"),
+                Credentials = new NetworkCredential(Environment.GetEnvironmentVariable("PSW_EMAIL_USERNAME"), Environment.GetEnvironmentVariable("PSW_EMAIL_PASSWORD")),
                 EnableSsl = true,
             };
             MailMessage = new MailMessage
             {
-                From = new MailAddress("psw.healthcareis.info@gmail.com"),
+                From = new MailAddress(Environment.GetEnvironmentVariable("PSW_EMAIL_USERNAME")),
                 Subject = "Welcome to HealthCare Web!",
                 IsBodyHtml = true
             };
+            Console.WriteLine();
         }
         
         public void SendActivationEmail(Guid guid, string patientEmail,string emailTemplatePath)
