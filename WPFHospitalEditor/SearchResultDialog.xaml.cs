@@ -156,7 +156,7 @@ namespace WPFHospitalEditor
                 if (row.ContainsKey(Grid.GetRow(advancedSearch)))
                 {
                     MapObject chosenMapObject = row[Grid.GetRow(advancedSearch)];
-                    selectedObjectId = row[Grid.GetRow(advancedSearch)].Id;
+                    selectedObjectId = chosenMapObject.Id;
                     mapObjectController.update(chosenMapObject);
 
                     if (chosenMapObject.Description.Equals(""))
@@ -188,16 +188,19 @@ namespace WPFHospitalEditor
         }
         public List<MapObject> findBuilding(String building)
         {
-            string[] split1;
-            string[] split2;
+            Tuple<String, String> buildingAndFloorIteration;
+            String buildingIterate = "";
             List<MapObject> buildingObjects = new List<MapObject>();
-            foreach (MapObject maoObjectIterate in mapObjectController.getAllMapObjects())
+            foreach (MapObject mapObjectIterate in mapObjectController.getAllMapObjects())
             {
-                split1 = maoObjectIterate.Description.Split("&");
-                split2 = split1[0].Split("-");
-                if (split2[0].Equals(building))
+                buildingAndFloorIteration = getBuildingAndFloor(mapObjectIterate);
+                if (buildingAndFloorIteration != null)
                 {
-                    buildingObjects.Add(maoObjectIterate);
+                    buildingIterate = buildingAndFloorIteration.Item1;
+                    if (buildingIterate.Equals(building))
+                    {
+                        buildingObjects.Add(mapObjectIterate);
+                    }
                 }
             }
             return buildingObjects;
@@ -296,9 +299,15 @@ namespace WPFHospitalEditor
 
         private bool isBuildingAndFloorEqual(String building, String floor, MapObject mapObjectForChecking)
         {
-            if (getBuildingAndFloor(mapObjectForChecking) != null)
+
+            Tuple<String, String> buildingAndFloorForChecking = getBuildingAndFloor(mapObjectForChecking);
+
+            if (buildingAndFloorForChecking != null)
             {
-                if (building.Equals(getBuildingAndFloor(mapObjectForChecking).Item1) && floor.Equals(getBuildingAndFloor(mapObjectForChecking).Item2))
+                String buildingForChecking = buildingAndFloorForChecking.Item1;
+                String floorForChecking = buildingAndFloorForChecking.Item2;
+
+                if (building.Equals(buildingForChecking) && floor.Equals(floorForChecking))
                 {
                     return true;
                 }
