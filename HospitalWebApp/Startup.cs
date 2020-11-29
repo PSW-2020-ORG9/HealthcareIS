@@ -5,13 +5,17 @@ using HealthcareBase.Repository.Generics.Interface;
 using HealthcareBase.Repository.MedicationRepository;
 using HealthcareBase.Repository.ScheduleRepository.ProceduresRepository;
 using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository;
+using HealthcareBase.Repository.UsersRepository.GeneralitiesRepository;
 using HealthcareBase.Repository.UsersRepository.SurveyRepository;
 using HealthcareBase.Repository.UsersRepository.SurveyRepository.SurveyEntryRepository.RatedSectionRepository;
+using HealthcareBase.Repository.UsersRepository.UserAccountsRepository;
 using HealthcareBase.Repository.UsersRepository.UserFeedbackRepository;
 using HealthcareBase.Service.MedicationService;
+using HealthcareBase.Service.MiscellaneousService;
 using HealthcareBase.Service.ScheduleService.ProcedureService;
 using HealthcareBase.Service.UsersService.EmployeeService;
 using HealthcareBase.Service.UsersService.PatientService;
+using HealthcareBase.Service.UsersService.RegistrationService;
 using HealthcareBase.Service.UsersService.UserFeedbackService;
 using HealthcareBase.Service.UsersService.UserFeedbackService.SurveyService;
 using HealthcareBase.Service.UsersService.UserFeedbackService.SurveyService.SurveyEntryService;
@@ -21,7 +25,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Newtonsoft.Json.Linq;
 
 namespace HospitalWebApp
 {
@@ -46,7 +49,7 @@ namespace HospitalWebApp
             if (_connectionString == null) throw new ApplicationException("Missing database connection string");
             
             services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-            
+
             AddServices(services);
             AddCustomSerializers(services);
             ConfigureCors(services);
@@ -92,21 +95,34 @@ namespace HospitalWebApp
         private void AddServices(IServiceCollection services)
         {
             AddSurveyServices(services);
-            
+
             var patientRepository = new PatientSqlRepository(GetContext());
             var userFeedbackRepository = new UserFeedbackSqlRepository(GetContext());
             var prescriptionRepository = new MedicationPrescriptionSqlRepository(GetContext());
             var examinationRepository = new ExaminationSqlRepository(GetContext());
+            var cityRepository = new CitySqlRepository(GetContext());
+            var countryRepository = new CountrySqlRepository(GetContext());
+            var patientAccountRepository = new PatientAccountSqlRepository(GetContext());
             
             var userFeedbackService = new UserFeedbackService(userFeedbackRepository);
             var patientService = new PatientService(patientRepository, null, null, null);
             var prescriptionService = new MedicationPrescriptionService(prescriptionRepository);
-            var examinationService = new ExaminationService(examinationRepository, null, null, null, TimeSpan.Zero);
-            
+            var patientAccountService = new PatientAccountService(patientAccountRepository);
+            var patientRegistrationService = new PatientRegistrationService(patientAccountService, new RegistrationNotifier(Environment.GetEnvironmentVariable("PSW_ACTIVATION_ENDPOINT")));
+
+            var examinationService = new ExaminationService(examinationRepository, null, null, null,  TimeSpan.Zero);
+            var cityService = new CityService(cityRepository);
+            var countryService = new CountryService(countryRepository);
+
             services.Add(new ServiceDescriptor(typeof(UserFeedbackService), userFeedbackService));
             services.Add(new ServiceDescriptor(typeof(PatientService), patientService));
+            services.Add(new ServiceDescriptor(typeof(IPatientAccountService), patientAccountService));
             services.Add(new ServiceDescriptor(typeof(MedicationPrescriptionService), prescriptionService));
             services.Add(new ServiceDescriptor(typeof(ExaminationService), examinationService));
+            services.Add(new ServiceDescriptor(typeof(CityService),cityService));
+            services.Add(new ServiceDescriptor(typeof(CountryService),countryService));
+            services.Add(new ServiceDescriptor(typeof(PatientRegistrationService), patientRegistrationService));
+
         }
 
         private IPreparable CreateRepository(Type repositoryClass)

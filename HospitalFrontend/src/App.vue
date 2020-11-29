@@ -6,7 +6,8 @@
     <router-link to="/create-feedback" style="margin-right: 5px; margin-left: 5px;">Create feedback</router-link> &middot;
     <router-link to="/survey-preview" style="margin-right: 5px; margin-left: 5px;">Survey preview</router-link> &middot;
     <router-link to="/medical-record" style="margin-right: 5px; margin-left: 5px;"> Observe medical record </router-link> &middot;
-    <router-link to="/doc-search" style="margin-right: 5px; margin-left: 5px;">Search medical documentation </router-link>
+    <router-link to="/doc-search" style="margin-right: 5px; margin-left: 5px;">Search medical documentation </router-link> &middot;
+    <router-link to="/register" style="margin-right: 5px; margin-left: 5px;">Patient registration </router-link>
   </div>
   <router-view/>
   </div>
@@ -21,7 +22,7 @@ body {
   min-height: 100vh;
   text-align: center;
   color: #2c3e50;
-  background-color: #b9fccf;
+
 }
 #nav {
   padding: 30px;
