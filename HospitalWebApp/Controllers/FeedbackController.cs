@@ -1,5 +1,4 @@
-﻿using System;
-using EntityFramework.Exceptions.Common;
+﻿using EntityFramework.Exceptions.Common;
 using HealthcareBase.Model.CustomExceptions;
 using HealthcareBase.Model.Users.UserFeedback;
 using HealthcareBase.Service.UsersService.UserFeedbackService;

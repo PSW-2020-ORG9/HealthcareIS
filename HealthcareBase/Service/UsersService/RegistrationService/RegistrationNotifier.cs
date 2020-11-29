@@ -22,7 +22,7 @@ namespace HealthcareBase.Service.UsersService.RegistrationService
             _activationEndpoint = activationEndpoint;
             SmtpClient = new SmtpClient(Environment.GetEnvironmentVariable("PSW_SMTP_HOST_SERVER"))
             {
-                Port = 587,
+                Port = Convert.ToInt32(Environment.GetEnvironmentVariable("PSW_SMTP_SSL_PORT")),
                 Credentials = new NetworkCredential(Environment.GetEnvironmentVariable("PSW_EMAIL_USERNAME"), Environment.GetEnvironmentVariable("PSW_EMAIL_PASSWORD")),
                 EnableSsl = true,
             };
@@ -32,7 +32,6 @@ namespace HealthcareBase.Service.UsersService.RegistrationService
                 Subject = "Welcome to HealthCare Web!",
                 IsBodyHtml = true
             };
-            Console.WriteLine();
         }
         
         public void SendActivationEmail(Guid guid, string patientEmail,string emailTemplatePath)

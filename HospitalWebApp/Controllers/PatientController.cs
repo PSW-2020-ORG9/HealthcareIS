@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using HealthcareBase.Model.Users.Patient;
 using HealthcareBase.Model.Users.UserAccounts;
 using HealthcareBase.Model.Users.UserAccounts.Registration;
 using HealthcareBase.Service.UsersService.PatientService;
+using HealthcareBase.Service.UsersService.RegistrationService;
 using HospitalWebApp.Mappers;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
-using PatientRegistrationService = HealthcareBase.Service.UsersService.RegistrationService.PatientRegistrationService;
+
 
 namespace HospitalWebApp.Controllers
 {
@@ -51,7 +48,6 @@ namespace HospitalWebApp.Controllers
         {
             var patientAccount = PatientAccountMapper.DtoToObject(dto);
             var emailTemplatePath = Path.Join(_hostEnvironment.ContentRootPath,"Resources","verification-mail.html");
-            Console.WriteLine(emailTemplatePath);
             _patientRegistrationService.RegisterPatient(patientAccount,emailTemplatePath);
             return Ok();
         }

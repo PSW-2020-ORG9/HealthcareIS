@@ -141,7 +141,6 @@ export default {
         fetchProfilePicture: function () {
             let url = api.patientAccount + '/' + this.patient.id
             axios.get(url).then(response => {
-                console.log(response.data)
                 this.profilePicture = response.data.avatarUrl
             })
 

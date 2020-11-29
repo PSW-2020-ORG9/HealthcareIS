@@ -43,23 +43,6 @@
                     <option value="" disabled selected>City of birth</option>
                     <option v-bind:value="city.id" v-for="(city,index) in citiesOfBirth" v-bind:key="index">{{city.name}}</option>
                 </select>
-                <!--div class="dropdown">
-                    <button class="btn  dropdown-toggle" type="button" id="citizenshipsMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Citizenships
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item row" >
-                            <div class="col">
-                                <input type="checkbox" aria-label="Checkbox for following text input" class="checkbox">
-                            </div>
-                            <div class="col">
-                                <h4>action</h4>
-                            </div>
-                        </a>
-                        <a class="dropdown-item">Another action</a>
-                        <a class="dropdown-item">Something else here</a>
-                    </div>
-                </div-->
 
             </div>
         </div>

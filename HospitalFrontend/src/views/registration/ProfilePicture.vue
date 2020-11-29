@@ -44,7 +44,6 @@ export default {
         fileChange: function (image) {
             if (!image.length) return
             let formData = new FormData()
-            console.log(image);
             formData.append("image", image[0])
 
             this.save(formData)
