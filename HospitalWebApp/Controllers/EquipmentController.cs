@@ -2,9 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using HealthcareBase.Model.EditorDtos;
+using HealthcareBase.Dto;
 
 namespace HospitalWebApp.Controllers
 {
@@ -23,7 +21,7 @@ namespace HospitalWebApp.Controllers
         [Route("getByRoomId/{roomId}")]
         public IActionResult GetEquipmentByRoomId(int roomId)
         {
-            IEnumerable<EquipmentDto> eqDtos = _equipmentService.GetEquipmentByRoomId(roomId);
+            Dictionary<String,EquipmentDto> eqDtos = _equipmentService.GetEquipmentWithQuantityByRoomId(roomId);
             if (eqDtos != null) return Ok(eqDtos);
             return BadRequest("Equipment not found.");
         }

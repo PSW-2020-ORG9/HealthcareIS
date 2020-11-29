@@ -1,8 +1,6 @@
-﻿using HealthcareBase.Model.EditorDtos;
-using HealthcareBase.Model.HospitalResources;
+﻿using HealthcareBase.Dto;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using WPFHospitalEditor.Service;
 
 namespace WPFHospitalEditor.Controller
@@ -11,7 +9,7 @@ namespace WPFHospitalEditor.Controller
     {
         public EquipmentServerService EquipmentServerService = new EquipmentServerService();
 
-        public IEnumerable<EquipmentDto> getEquipmentByRoomId(int roomId)
+        public Dictionary<String,EquipmentDto> getEquipmentByRoomId(int roomId)
         {
             return EquipmentServerService.getEquipmentByRoomId(roomId);
         }

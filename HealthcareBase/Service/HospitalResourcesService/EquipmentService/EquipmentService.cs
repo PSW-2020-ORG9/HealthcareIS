@@ -5,11 +5,10 @@
 
 using System.Collections.Generic;
 using HealthcareBase.Model.CustomExceptions;
-using HealthcareBase.Model.EditorDtos;
+using HealthcareBase.Dto;
 using HealthcareBase.Model.HospitalResources;
 using HealthcareBase.Repository.Generics;
 using HealthcareBase.Repository.HospitalResourcesRepository;
-using HealthcareBase.Repository.ScheduleRepository.HospitalizationsRepository;
 
 namespace HealthcareBase.Service.HospitalResourcesService.EquipmentService
 {
@@ -64,14 +63,29 @@ namespace HealthcareBase.Service.HospitalResourcesService.EquipmentService
         public IEnumerable<EquipmentDto> GetEquipmentByRoomId(int roomId)
         {
             return equipmentUnitRepository.Repository.GetColumnsForMatching(
-                condition: equipment => equipment.Id == roomId,
+                condition: equipment => equipment.CurrentLocationId == roomId,
                 selection: equipment => new EquipmentDto()
                 {
                     Id = equipment.Id,
-                    RoomId = equipment.EquipmentType.Id,
+                    RoomId = equipment.CurrentLocation.Id,
                     Name = equipment.EquipmentType.Name
                 }
             );
+        }
+
+        public Dictionary<string,EquipmentDto> GetEquipmentWithQuantityByRoomId(int roomId)
+        {
+            Dictionary<string, EquipmentDto> allEquipment = new Dictionary<string, EquipmentDto>();
+            foreach (EquipmentDto equipment in GetEquipmentByRoomId(roomId)) 
+            {
+                if (!allEquipment.ContainsKey(equipment.Name))
+                {
+                    allEquipment[equipment.Name] = equipment;
+
+                }
+                allEquipment[equipment.Name].Quantity += 1;
+            }
+            return allEquipment;
         }
     }
 }
