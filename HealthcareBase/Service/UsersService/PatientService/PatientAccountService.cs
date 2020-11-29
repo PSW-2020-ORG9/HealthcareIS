@@ -19,15 +19,11 @@ namespace HealthcareBase.Service.UsersService.PatientService
     public class PatientAccountService
     {
         private readonly RepositoryWrapper<IPatientAccountRepository> patientAccountRepository;
-        private readonly RepositoryWrapper<IPatientSurveyResponseRepository> patientSurveyResponseRepository;
 
         public PatientAccountService(
-            IPatientAccountRepository patientAccountRepository,
-            IPatientSurveyResponseRepository patientSurveyResponseRepository)
+            IPatientAccountRepository patientAccountRepository)
         {
             this.patientAccountRepository = new RepositoryWrapper<IPatientAccountRepository>(patientAccountRepository);
-            this.patientSurveyResponseRepository =
-                new RepositoryWrapper<IPatientSurveyResponseRepository>(patientSurveyResponseRepository);
         }
 
         public void DeleteAccount(PatientAccount patientAccount)
