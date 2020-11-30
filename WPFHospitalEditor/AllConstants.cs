@@ -11,5 +11,6 @@ namespace WPFHospitalEditor
         public readonly static string MAPOBJECT_PATH = $"..{separator}..{separator}..{separator}..{separator}WPFHospitalEditor{separator}Repository{separator}Data{separator}AllMapObjects.json";
         public const int additionalInformationsbuttonWidth = 100;
         public const int additionalInformationsbuttonHeight = 25;
+        public const string connectionUrl = "http://localhost:5290/";
     }
 }
