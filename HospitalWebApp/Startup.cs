@@ -10,6 +10,7 @@ using HealthcareBase.Repository.UsersRepository.SurveyRepository;
 using HealthcareBase.Repository.UsersRepository.SurveyRepository.SurveyEntryRepository.RatedSectionRepository;
 using HealthcareBase.Repository.UsersRepository.UserAccountsRepository;
 using HealthcareBase.Repository.UsersRepository.UserFeedbackRepository;
+using HealthcareBase.Service.HospitalResourcesService.EquipmentService;
 using HealthcareBase.Service.MedicationService;
 using HealthcareBase.Service.MiscellaneousService;
 using HealthcareBase.Service.ScheduleService.ProcedureService;
@@ -25,6 +26,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using HealthcareBase.Repository.HospitalResourcesRepository;
 
 namespace HospitalWebApp
 {
@@ -100,6 +102,7 @@ namespace HospitalWebApp
             var userFeedbackRepository = new UserFeedbackSqlRepository(GetContext());
             var prescriptionRepository = new MedicationPrescriptionSqlRepository(GetContext());
             var examinationRepository = new ExaminationSqlRepository(GetContext());
+            var equipmentRepository = new EquipmentSqlRepository(GetContext());
             var cityRepository = new CitySqlRepository(GetContext());
             var countryRepository = new CountrySqlRepository(GetContext());
             var patientAccountRepository = new PatientAccountSqlRepository(GetContext());
@@ -109,6 +112,7 @@ namespace HospitalWebApp
             var userFeedbackService = new UserFeedbackService(userFeedbackRepository);
             var patientService = new PatientService(patientRepository, null, null, null);
             var prescriptionService = new MedicationPrescriptionService(prescriptionRepository);
+            var equipmentService = new EquipmentService(equipmentRepository);
             var patientAccountService = new PatientAccountService(patientAccountRepository);
             var patientRegistrationService = new PatientRegistrationService(patientAccountService, new RegistrationNotifier(Environment.GetEnvironmentVariable("PSW_ACTIVATION_ENDPOINT")));
 
@@ -124,6 +128,7 @@ namespace HospitalWebApp
             services.Add(new ServiceDescriptor(typeof(IPatientAccountService), patientAccountService));
             services.Add(new ServiceDescriptor(typeof(MedicationPrescriptionService), prescriptionService));
             services.Add(new ServiceDescriptor(typeof(ExaminationService), examinationService));
+            services.Add(new ServiceDescriptor(typeof(EquipmentService), equipmentService));
             services.Add(new ServiceDescriptor(typeof(CityService),cityService));
             services.Add(new ServiceDescriptor(typeof(CountryService),countryService));
             services.Add(new ServiceDescriptor(typeof(PatientRegistrationService), patientRegistrationService));

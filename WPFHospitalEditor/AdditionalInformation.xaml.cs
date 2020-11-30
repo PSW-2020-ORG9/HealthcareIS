@@ -5,6 +5,8 @@ using System.Windows.Media;
 using WPFHospitalEditor.MapObjectModel;
 using WPFHospitalEditor.Service;
 using WPFHospitalEditor.Controller;
+using HealthcareBase.Dto;
+using System.Linq;
 
 namespace WPFHospitalEditor
 {
@@ -25,19 +27,22 @@ namespace WPFHospitalEditor
         private string[] contentRows;
         private MapObject oldMapObject;
         private Role role;
+        private IEnumerable<EquipmentDto> allEquipment;
 
         MapObjectController mapObjectController = new MapObjectController();
+        EquipmentServerController equipmentServerController = new EquipmentServerController();
 
         public AdditionalInformation(MapObject mapObject, Building building, int floor, Role role)
         {
             this.role = role;
             this.floor = floor;
             this.building = building;
+            this.allEquipment = equipmentServerController.getEquipmentByRoomId(mapObject.Id);
             InitializeComponent();
             this.mapObject = mapObject;
             descriptionParts = mapObject.Description.Split("&");
             contentRows = descriptionParts[1].Split(";");
-            this.Height = (contentRows.Length + 2) * 50 + 30;
+            this.Height = (contentRows.Length + 2) * 50 + 60;
             ModifyDynamicWPFGrid(contentRows);
             oldMapObject = mapObject;
         }
@@ -102,8 +107,12 @@ namespace WPFHospitalEditor
                 }
             }
             insertData();
+            if (this.allEquipment.Count() != 0)
+            {
+                addEquipmentButton(contentRows);
+            }
             addCancelButton(contentRows);
-            addOkButton(contentRows);
+            addOkButton(contentRows);     
         }
 
         private bool PatientIsLogged()
@@ -130,9 +139,19 @@ namespace WPFHospitalEditor
             Button ok = new Button();
             ok.HorizontalAlignment = HorizontalAlignment.Right;
             ok.Click += Done_Click;
-            Grid.SetRow(ok, contentRows.Length + 2);
+            Grid.SetRow(ok, contentRows.Length + 3);
             Grid.SetColumn(ok, 2);
             setButtonsCommonAttributes(ok, "Ok");
+        }
+
+        private void addEquipmentButton(string[] contentRows)
+        {
+                Button btnEquipment = new Button();
+                btnEquipment.HorizontalAlignment = HorizontalAlignment.Left;
+                btnEquipment.Click += btnEquipment_Click;
+                Grid.SetRow(btnEquipment, contentRows.Length + 2);
+                Grid.SetColumn(btnEquipment, 1);
+                setButtonsCommonAttributes(btnEquipment, "Show Equipment");
         }
 
         private void addCancelButton(string[] contentRows)
@@ -140,7 +159,7 @@ namespace WPFHospitalEditor
             Button cancel = new Button();
             cancel.HorizontalAlignment = HorizontalAlignment.Left;
             cancel.Click += Close_Click;
-            Grid.SetRow(cancel, contentRows.Length + 2);
+            Grid.SetRow(cancel, contentRows.Length + 3);
             Grid.SetColumn(cancel, 1);
             setButtonsCommonAttributes(cancel, "Cancel");
         }
@@ -155,6 +174,7 @@ namespace WPFHospitalEditor
             button.Height = AllConstants.additionalInformationsbuttonHeight;
             button.Foreground = Brushes.White;
             DynamicGrid.Children.Add(button);
+
         }
 
         private void insertData()
@@ -211,7 +231,7 @@ namespace WPFHospitalEditor
         private void createRows(string[] contentRows)
         {
             createOneRow(2);
-            for (int i = 0; i <= contentRows.Length + 1; i++)
+            for (int i = 0; i <= contentRows.Length + 2; i++)
             {
                 createOneRow(50);
             }
@@ -237,6 +257,12 @@ namespace WPFHospitalEditor
             ColumnDefinition borderColumn1 = new ColumnDefinition();
             borderColumn1.Width = new GridLength(width);
             DynamicGrid.ColumnDefinitions.Add(borderColumn1);
-        }       
+        }
+
+        private void btnEquipment_Click(object sender, RoutedEventArgs e)
+        {
+            EquipmentWindow equipment = new EquipmentWindow(allEquipment);
+            equipment.Show();
+        }
     }
 }
