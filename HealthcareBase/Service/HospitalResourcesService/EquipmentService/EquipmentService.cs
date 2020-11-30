@@ -15,10 +15,12 @@ namespace HealthcareBase.Service.HospitalResourcesService.EquipmentService
     public class EquipmentService
     {
         private readonly RepositoryWrapper<IEquipmentUnitRepository> equipmentUnitRepository;
+        private readonly RepositoryWrapper<IEquipmentTypeRepository> equipmentTypeRepository;
 
         public EquipmentService(IEquipmentUnitRepository equipmentUnitRepository)
         {
             this.equipmentUnitRepository = new RepositoryWrapper<IEquipmentUnitRepository>(equipmentUnitRepository);
+            this.equipmentTypeRepository = new RepositoryWrapper<IEquipmentTypeRepository>(equipmentTypeRepository);
         }
 
         public EquipmentUnit GetByID(int id)
@@ -33,6 +35,10 @@ namespace HealthcareBase.Service.HospitalResourcesService.EquipmentService
 
         public EquipmentUnit Create(EquipmentUnit equipmentUnit)
         {
+            if (equipmentUnit is null)
+                throw new BadRequestException();
+            if (!equipmentTypeRepository.Repository.ExistsByID(equipmentUnit.EquipmentType.GetKey()))
+                equipmentUnit.EquipmentType = equipmentTypeRepository.Repository.Create(equipmentUnit.EquipmentType);
             return equipmentUnitRepository.Repository.Create(equipmentUnit);
         }
 
