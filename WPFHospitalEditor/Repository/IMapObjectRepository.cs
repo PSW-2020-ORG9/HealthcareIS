@@ -10,8 +10,7 @@ namespace WPFHospitalEditor.Repository
         List<MapObject> getAllMapObjects();
         MapObject update(MapObject mapObject);
         void saveAll(List<MapObject> entities);
-        List<MapObject> getAll();
-        List<MapObject> getOutterMapObjects(List<MapObject> allMapObjects);
+        List<MapObject> getOutterMapObjects();
         MapObject findMapObjectById(int id);
     }
 }

@@ -30,10 +30,18 @@ namespace HealthcareBase.Model.Users.Generalities
 
         [Column(TypeName = "nvarchar(24)")]
         public Gender Gender { get; set; }
+        
+        [ForeignKey("CountryOfResidence")]
+        public int CountryOfResidenceId { get; set; }
+        public Country CountryOfResidence { get; set; }
 
         [ForeignKey("CityOfResidence")]
         public int CityOfResidenceId { get; set; }
         public City CityOfResidence { get; set; }
+        
+        [ForeignKey("CountryOfBirth")]
+        public int CountryOfBirthId { get; set; }
+        public Country CountryOfBirth{ get; set; }
         
         [ForeignKey("CityOfBirth")]
         public int CityOfBirthId { get; set; }
