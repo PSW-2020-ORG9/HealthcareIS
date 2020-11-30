@@ -1,4 +1,4 @@
-﻿using EntityFramework.Exceptions.MySQL.Pomelo;
+using EntityFramework.Exceptions.MySQL.Pomelo;
 using HealthcareBase.Model.Blog;
 using HealthcareBase.Model.HospitalResources;
 using HealthcareBase.Model.Medication;

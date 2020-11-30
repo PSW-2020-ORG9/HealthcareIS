@@ -22,7 +22,7 @@
                                             <StarRating :star-size="20" :show-rating="false" :inline="true"
                                                 v-model:rating="surveySection.averageRating"></StarRating>
                                             <div class="col mt-1">
-                                                {{surveySection.averageRating+"/"+"5"}}
+                                                {{parseFloat(surveySection.averageRating.toFixed(2))+"/"+"5"}}
                                             </div>
 
                                         </div>
@@ -43,7 +43,7 @@
                                                     :inline="true" v-model:rating="question.questionAverage">
                                                 </StarRating>
                                                 <div class="ml-1">
-                                                    {{question.questionAverage + "/5" }}
+                                                    {{parseFloat(question.questionAverage.toFixed(2)) + "/5" }}
                                                 </div>
                                             </div>
                                             <hr class="my-4">
@@ -90,7 +90,7 @@
                                             <StarRating :star-size="20" :show-rating="false" :inline="true"
                                                 v-model:rating="doctorSection.averageRating"></StarRating>
                                             <div class="col mt-1">
-                                                {{doctorSection.averageRating+"/"+"5"}}
+                                                {{parseFloat(doctorSection.averageRating.toFixed(2))+"/"+"5"}}
                                             </div>
                                         </div>
                                     </div>
@@ -110,7 +110,7 @@
                                                     :inline="true" v-model:rating="question.questionAverage">
                                                 </StarRating>
                                                 <div class="ml-1">
-                                                    {{question.questionAverage + "/5" }}
+                                                    {{parseFloat(question.questionAverage.toFixed(2)) + "/5" }}
                                                 </div>
                                             </div>
                                             <hr class="my-4">
@@ -181,7 +181,7 @@ export default {
             if(sum==0)
                 return 0
 
-            return (rate / sum ) * 100
+            return parseFloat(((rate / sum ) * 100).toFixed(2))
 
 
         }
