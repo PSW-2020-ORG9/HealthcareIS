@@ -107,7 +107,7 @@ namespace WPFHospitalEditor
                 }
             }
             insertData();
-            if (this.allEquipment != null)
+            if (this.allEquipment.Count != 0)
             {
                 addEquipmentButton(contentRows);
             }
@@ -261,7 +261,7 @@ namespace WPFHospitalEditor
 
         private void btnEquipment_Click(object sender, RoutedEventArgs e)
         {
-            Equipment equipment = new Equipment(allEquipment);
+            EquipmentWindow equipment = new EquipmentWindow(allEquipment);
             equipment.Show();
         }
     }

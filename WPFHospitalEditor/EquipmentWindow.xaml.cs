@@ -11,7 +11,7 @@ namespace WPFHospitalEditor
     /// <summary>
     /// Interaction logic for Equipment.xaml
     /// </summary>
-    public partial class Equipment : Window
+    public partial class EquipmentWindow : Window
     {
         Dictionary<String,EquipmentDto> allEquipment = new Dictionary<string, EquipmentDto>();
         private List<string> labelContent = new List<string>();
@@ -19,7 +19,7 @@ namespace WPFHospitalEditor
         private List<Label> labels = new List<Label>();
         private List<TextBox> textBoxes = new List<TextBox>();
 
-        public Equipment(Dictionary<String, EquipmentDto> allEquipment)
+        public EquipmentWindow(Dictionary<String, EquipmentDto> allEquipment)
         {
             InitializeComponent();
             this.allEquipment = allEquipment;
@@ -70,7 +70,6 @@ namespace WPFHospitalEditor
         {
                 for (int i = 0; i < rowNumbers; i++)
                 {
-                    if (allEquipment.Count() == 0) break;
                     setRowContent(i);
                 }
             
