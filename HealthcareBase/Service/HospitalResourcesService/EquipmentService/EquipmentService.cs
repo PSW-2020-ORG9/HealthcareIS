@@ -9,6 +9,7 @@ using HealthcareBase.Dto;
 using HealthcareBase.Model.HospitalResources;
 using HealthcareBase.Repository.Generics;
 using HealthcareBase.Repository.HospitalResourcesRepository;
+using System.Linq;
 
 namespace HealthcareBase.Service.HospitalResourcesService.EquipmentService
 {
@@ -20,7 +21,6 @@ namespace HealthcareBase.Service.HospitalResourcesService.EquipmentService
         public EquipmentService(IEquipmentUnitRepository equipmentUnitRepository)
         {
             this.equipmentUnitRepository = new RepositoryWrapper<IEquipmentUnitRepository>(equipmentUnitRepository);
-            this.equipmentTypeRepository = new RepositoryWrapper<IEquipmentTypeRepository>(equipmentTypeRepository);
         }
 
         public EquipmentUnit GetByID(int id)
@@ -66,7 +66,7 @@ namespace HealthcareBase.Service.HospitalResourcesService.EquipmentService
            
         }
 
-        public IEnumerable<EquipmentDto> GetEquipmentByRoomId(int roomId)
+        private IEnumerable<EquipmentDto> GetEquipmentByRoomId(int roomId)
         {
             return equipmentUnitRepository.Repository.GetColumnsForMatching(
                 condition: equipment => equipment.CurrentLocationId == roomId,
@@ -77,10 +77,10 @@ namespace HealthcareBase.Service.HospitalResourcesService.EquipmentService
                     Name = equipment.EquipmentType.Name,
                     Quantity = 0
                 }
-            ); ;
+            );
         }
 
-        public Dictionary<string,EquipmentDto> GetEquipmentWithQuantityByRoomId(int roomId)
+        public IEnumerable<EquipmentDto> GetEquipmentWithQuantityByRoomId(int roomId)
         {
             Dictionary<string, EquipmentDto> allEquipment = new Dictionary<string, EquipmentDto>();
             foreach (EquipmentDto equipment in GetEquipmentByRoomId(roomId)) 
@@ -92,7 +92,7 @@ namespace HealthcareBase.Service.HospitalResourcesService.EquipmentService
                 }
                 allEquipment[equipment.Name].Quantity += 1;
             }
-            return allEquipment;
+            return allEquipment.Values.ToList();
         }
     }
 }

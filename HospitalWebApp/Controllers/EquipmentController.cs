@@ -21,7 +21,7 @@ namespace HospitalWebApp.Controllers
         [Route("getByRoomId/{roomId}")]
         public IActionResult GetEquipmentByRoomId(int roomId)
         {
-            Dictionary<String,EquipmentDto> eqDtos = _equipmentService.GetEquipmentWithQuantityByRoomId(roomId);
+            IEnumerable<EquipmentDto> eqDtos = _equipmentService.GetEquipmentWithQuantityByRoomId(roomId);
             if (eqDtos != null) return Ok(eqDtos);
             return BadRequest("Equipment not found.");
         }

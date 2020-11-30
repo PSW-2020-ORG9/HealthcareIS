@@ -5,8 +5,8 @@ using System.Windows.Media;
 using WPFHospitalEditor.MapObjectModel;
 using WPFHospitalEditor.Service;
 using WPFHospitalEditor.Controller;
-using System;
 using HealthcareBase.Dto;
+using System.Linq;
 
 namespace WPFHospitalEditor
 {
@@ -27,7 +27,7 @@ namespace WPFHospitalEditor
         private string[] contentRows;
         private MapObject oldMapObject;
         private Role role;
-        private Dictionary<String, EquipmentDto> allEquipment = new Dictionary<string, EquipmentDto>();
+        private IEnumerable<EquipmentDto> allEquipment;
 
         MapObjectController mapObjectController = new MapObjectController();
         EquipmentServerController equipmentServerController = new EquipmentServerController();
@@ -107,7 +107,7 @@ namespace WPFHospitalEditor
                 }
             }
             insertData();
-            if (this.allEquipment.Count != 0)
+            if (this.allEquipment.Count() != 0)
             {
                 addEquipmentButton(contentRows);
             }

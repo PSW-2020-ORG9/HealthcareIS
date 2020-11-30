@@ -1,5 +1,4 @@
 ﻿using HealthcareBase.Dto;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -13,13 +12,13 @@ namespace WPFHospitalEditor
     /// </summary>
     public partial class EquipmentWindow : Window
     {
-        Dictionary<String,EquipmentDto> allEquipment = new Dictionary<string, EquipmentDto>();
+        IEnumerable<EquipmentDto> allEquipment ;
         private List<string> labelContent = new List<string>();
         private List<string> value = new List<string>();
         private List<Label> labels = new List<Label>();
         private List<TextBox> textBoxes = new List<TextBox>();
 
-        public EquipmentWindow(Dictionary<String, EquipmentDto> allEquipment)
+        public EquipmentWindow(IEnumerable<EquipmentDto> allEquipment)
         {
             InitializeComponent();
             this.allEquipment = allEquipment;
@@ -79,8 +78,8 @@ namespace WPFHospitalEditor
 
         private void setRowContent(int row)
         {
-            labelContent.Add(allEquipment.ElementAt(row).Value.Name);
-            value.Add(allEquipment.ElementAt(row).Value.Quantity.ToString());
+            labelContent.Add(allEquipment.ElementAt(row).Name);
+            value.Add(allEquipment.ElementAt(row).Quantity.ToString());
         }
 
         private void insertData()
