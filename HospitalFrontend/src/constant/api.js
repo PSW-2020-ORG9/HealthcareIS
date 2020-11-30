@@ -10,6 +10,7 @@ let clientId = '9a86c8e89e7d2ea'
 let countriesUrl=server+'/country'
 let citiesByCountryId = server + '/city/by-country/'
 let registrationUrl = patientUrl + '/register'
+let surveyUrl = server + '/survey'
 
 export default{
     feedback: feedbacksUrl ,
@@ -20,6 +21,8 @@ export default{
 
     countries:countriesUrl,
     citiesByCountry:citiesByCountryId,
+    
+    survey: surveyUrl,
     
     examinations: examinationsUrl,
     prescriptions: prescriptionsUrl,

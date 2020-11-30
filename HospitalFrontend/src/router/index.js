@@ -10,6 +10,7 @@ import HealthStatus from '../views/registration/HealthStatus.vue'
 import AccountDetails from '../views/registration/AccountDetails.vue'
 import ProfilePicture from '../views/registration/ProfilePicture.vue'
 import SuccessfullyRegistered from '../views/registration/SuccessfullyRegistered.vue'
+import CreateSurveyResponse from '../views/CreateSurveyResponse.vue'
 
 const routes = [
   {
@@ -73,8 +74,12 @@ const routes = [
       }
     ]
   }
-  
-  
+  ,
+  {
+    path: '/survey',
+    name: 'CreateSurveyResponse',
+    component: CreateSurveyResponse
+  }
 ]
 
 const router = createRouter({

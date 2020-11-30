@@ -16,6 +16,9 @@ namespace HealthcareBase.Model.Users.Survey.SurveyEntry
         public Survey Survey { get; set; }
         public IEnumerable<RatedSurveySection> RatedSurveySections { get; set; }
         public DoctorSurveySection DoctorSurveySection { get; set; }
+
+        [ForeignKey("PatientAccount")]
+        public int PatientAccountId { get; set; }
         public PatientAccount PatientAccount { get; set; }
         public int GetKey() => Id;
 
