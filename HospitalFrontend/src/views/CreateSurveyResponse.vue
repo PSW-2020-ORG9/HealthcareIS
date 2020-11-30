@@ -121,11 +121,7 @@ export default {
         saveSurveyResponse: function () {
             axios.post(api.survey + '/response', this.surveyResponse)
             .then(response => this.toastSuccess())
-            .catch(err => {
-                    this.toastError()
-                    console.log(err.response)
-                }
-            )
+            .catch(err => this.toastError())
         },
         toastSuccess: function () {
             Toastify({
