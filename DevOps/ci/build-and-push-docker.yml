@@ -4,11 +4,13 @@ steps:
 - task: DownloadBuildArtifacts@0
   displayName: 'Download Build Artifacts'
   inputs:
-    buildType: specific
+    buildType: 'specific'
     project: 'b1b2ce57-5a6f-427b-8869-dc3414677299'
-    pipeline: 8
+    pipeline: '10'
     specificBuildWithTriggering: true
-    downloadType: specific
+    buildVersionToDownload: 'latest'
+    downloadType: 'specific'
+    downloadPath: '$(System.ArtifactsDirectory)'
 
 - task: Docker@2
   displayName: 'Docker build pswdb'
