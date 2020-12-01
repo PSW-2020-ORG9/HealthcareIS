@@ -1,5 +1,8 @@
 trigger:
-- master
+ branches:
+   include:
+     - master
+
 pr: none
 
 pool:
