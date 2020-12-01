@@ -1,0 +1,136 @@
+trigger:
+- master
+pr: none
+
+pool:
+  vmImage: windows-2019
+  name: Azure Pipelines
+  demands:
+  - java
+  - npm
+
+steps:
+- task: UseDotNet@2
+  displayName: '.NET Core SDK 2.0.0'
+  inputs:
+    version: 2.0.0
+
+- task: UseDotNet@2
+  displayName: '.NET Core SDK 3.1.2'
+  inputs:
+    version: 3.1.200
+    performMultiLevelLookup: true
+
+- task: DotNetCoreCLI@2
+  displayName: Restore
+  inputs:
+    command: restore
+    projects: |
+     **/*.sln
+     
+
+- task: SonarSource.sonarcloud.14d9cde6-c1da-4d55-aa01-2965cd301255.SonarCloudPrepare@1
+  displayName: '.NET Prepare analysis on SonarCloud'
+  inputs:
+    SonarCloud: sonarcloud
+    organization: igorsikuljak
+    projectKey: 'igorsikuljak_HealthcareIS'
+    projectName: HealthcareIS
+
+- task: DotNetCoreCLI@2
+  displayName: Build
+  inputs:
+    projects: |
+     **/*.sln
+     
+    arguments: '--configuration Release'
+
+- task: SonarSource.sonarcloud.ce096e50-6155-4de8-8800-4221aaeed4a1.SonarCloudAnalyze@1
+  displayName: '.NET Run Code Analysis'
+
+- task: SonarSource.sonarcloud.38b27399-a642-40af-bb7d-9971f69712e8.SonarCloudPublish@1
+  displayName: '.NET Publish Quality Gate Result'
+
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet ef install'
+  inputs:
+    command: custom
+    custom: tool
+    arguments: 'install --global dotnet-ef'
+
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet ef sql db scheme'
+  inputs:
+    command: custom
+    custom: ef
+    arguments: 'dbcontext script -o HealthcareBase/dbscheme.sql --project HealthcareBase'
+
+- task: DotNetCoreCLI@2
+  displayName: Test
+  inputs:
+    command: test
+    projects: '**/*Tests/*.csproj'
+
+- task: Npm@1
+  displayName: 'npm install'
+  inputs:
+    workingDir: HospitalFrontend/
+    verbose: false
+
+- task: SonarSource.sonarcloud.14d9cde6-c1da-4d55-aa01-2965cd301255.SonarCloudPrepare@1
+  displayName: 'Frontend Prepare analysis on SonarCloud'
+  inputs:
+    SonarCloud: 'sonarcloud-frontend'
+    organization: igorsikuljak
+    scannerMode: CLI
+    configMode: manual
+    cliProjectKey: 'igorsikuljak_HealthcareIS_Frontend'
+    cliProjectName: 'HealthcareIS Frontend'
+    cliSources: HospitalFrontend/src
+
+- task: Npm@1
+  displayName: 'npm build'
+  inputs:
+    command: custom
+    workingDir: HospitalFrontend
+    verbose: false
+    customCommand: 'run build'
+
+- task: SonarSource.sonarcloud.ce096e50-6155-4de8-8800-4221aaeed4a1.SonarCloudAnalyze@1
+  displayName: 'Frontend Run Code Analysis'
+
+- task: SonarSource.sonarcloud.38b27399-a642-40af-bb7d-9971f69712e8.SonarCloudPublish@1
+  displayName: 'Frontend Publish Quality Gate Result'
+
+- bash: |
+   mkdir temp
+   cp -r HospitalFrontend/dist/* temp
+   rm -rf HospitalFrontend/dist
+   mkdir HospitalFrontend/dist
+   mkdir HospitalFrontend/dist/dist
+   cp -r temp/* HospitalFrontend/dist/dist
+  displayName: 'Publish preparation'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish base'
+  inputs:
+    PathtoPublish: HealthcareBase/bin/Release
+    ArtifactName: dropbase
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish web'
+  inputs:
+    PathtoPublish: HospitalWebApp/bin/Release
+    ArtifactName: dropweb
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish db scheme'
+  inputs:
+    PathtoPublish: HealthcareBase/dbscheme.sql
+    ArtifactName: dropdb
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish frontend'
+  inputs:
+    PathtoPublish: HospitalFrontend/dist
+    ArtifactName: dropfront
