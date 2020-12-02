@@ -9,11 +9,8 @@ using HealthcareBase.Service.ScheduleService.ScheduleFittingService;
 
 namespace HealthcareBase.Service.ScheduleService.PatientRecommendationService
 {
-    public interface RecommendationStrategy
+    public interface IRecommendationStrategy
     {
-        ProcedureDetails PatientDefault { get; set; }
-        ProcedurePreferenceDTO TransformRequest(RecommendationRequestDTO request);
-
-        Examination ChooseBest(IEnumerable<Examination> potentialRecommendations);
+        Examination ChooseBest(Examination examination);
     }
 }

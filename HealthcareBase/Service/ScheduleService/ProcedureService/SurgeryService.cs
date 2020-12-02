@@ -63,5 +63,15 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
         {
             surgeryRepository.Repository.Delete(procedure);
         }
+
+        protected override void Validate(Surgery procedure)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void ValidateProcedure(Surgery procedure)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
