@@ -18,7 +18,7 @@ namespace HospitalWebApp.Controllers
 
         [HttpGet]
         [Route("getAll")]
-        public IActionResult GetEquipmentByRoomId(int roomId)
+        public IActionResult GetAllMedication()
         {
             IEnumerable<MedicationDto> medDtos = _medicationService.GetAllMedicineWithQuantity();
             if (medDtos != null) return Ok(medDtos);
