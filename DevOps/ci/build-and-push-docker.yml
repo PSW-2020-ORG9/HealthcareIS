@@ -1,0 +1,57 @@
+pr: none
+
+# pipeline is an expansion of CI, and is triggered as such
+
+pool:
+  vmImage: 'ubuntu-16.04'
+steps:
+- task: DownloadBuildArtifacts@0
+  displayName: 'Download Build Artifacts'
+  inputs:
+    buildType: 'specific'
+    project: 'b1b2ce57-5a6f-427b-8869-dc3414677299'
+    pipeline: '10'
+    specificBuildWithTriggering: true
+    buildVersionToDownload: 'latest'
+    downloadType: 'specific'
+    downloadPath: '$(System.ArtifactsDirectory)'
+
+- task: Docker@2
+  displayName: 'Docker build pswdb'
+  inputs:
+    containerRegistry: psw
+    repository: fmaster/pswdb
+    command: build
+    Dockerfile: DevOps/docker/DBDockerfile
+    buildContext: '$(System.ArtifactsDirectory)/dropdb'
+    tags: latest
+    addPipelineData: false
+
+- task: Docker@2
+  displayName: 'Docker build pswfrontend'
+  inputs:
+    containerRegistry: psw
+    repository: fmaster/pswfrontend
+    command: build
+    Dockerfile: DevOps/docker/FrontDockerfile
+    buildContext: '$(System.ArtifactsDirectory)/dropfront'
+    tags: latest
+    addPipelineData: false
+
+- task: Docker@2
+  displayName: 'Docker push pswdb'
+  inputs:
+    containerRegistry: psw
+    repository: fmaster/pswdb
+    command: push
+    tags: latest
+    addPipelineData: false
+
+- task: Docker@2
+  displayName: 'Docker push pswfrontend'
+  inputs:
+    containerRegistry: psw
+    repository: fmaster/pswfrontend
+    command: push
+    tags: latest
+    addPipelineData: false
