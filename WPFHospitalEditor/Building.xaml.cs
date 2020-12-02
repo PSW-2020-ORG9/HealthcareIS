@@ -178,8 +178,7 @@ namespace WPFHospitalEditor
         
         private void openAdditionalInformationDialog(MapObject mapObject)
         {
-            int index = floor.SelectedIndex;
-            AdditionalInformation additionalInformation = new AdditionalInformation(mapObject, this, index, role);
+            AdditionalInformation additionalInformation = new AdditionalInformation(mapObject, this, role);
             additionalInformation.Owner = this;
             additionalInformation.ShowDialog(); 
         }                     

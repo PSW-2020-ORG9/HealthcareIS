@@ -8,7 +8,16 @@
         Title="AdditionalInformation" Height="400" Width="350" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen">
     <Border BorderThickness="10" BorderBrush="#FF8BD9E0" x:Name="Border">
         <Grid x:Name="DynamicGrid" Background="#FFC6F5F8">
-            
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="5,0,0,0">
+                <TextBox x:Name="Name"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                <Button x:Name="Equipment" Click="BtnEquipment_Click" Content="Equipment"/>
+                <Button x:Name="Cancel" Click="Cancel_Click" Content="Cancel" HorizontalAlignment="Left" Margin="0,5,0,0"/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                <Button x:Name="Ok" Content="Ok" Click="Done_Click" HorizontalAlignment="Right"/>
+            </StackPanel>
         </Grid>
     </Border>
 </Window>
