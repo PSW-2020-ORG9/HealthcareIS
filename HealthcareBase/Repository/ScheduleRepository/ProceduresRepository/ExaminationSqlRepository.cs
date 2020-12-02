@@ -54,12 +54,18 @@ namespace HealthcareBase.Repository.ScheduleRepository.ProceduresRepository
 
         }
 
-        public IEnumerable<Examination> GetByDoctorAndDate(Doctor doctor, IEnumerable<DateTime> dates)
+
+        public IEnumerable<Examination> GetByDoctorAndDates(Doctor doctor, IEnumerable<DateTime> dates)
         {
             throw new NotImplementedException();
         }
-
+        
         public IEnumerable<Examination> GetByPatientId(int patientId)
             => GetMatching(examination => examination.PatientId == patientId);
+        public IEnumerable<Examination> GetByDoctorAndDate(Doctor doctor, DateTime date)
+        {
+            return GetMatching(e => e.Doctor.Id == doctor.Id
+                                && e.TimeInterval.Start.Date.Equals(date));
+        }
     }
 }

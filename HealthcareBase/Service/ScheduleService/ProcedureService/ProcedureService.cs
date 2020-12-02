@@ -38,10 +38,10 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
             return allProcedures;
         }
 
-        public IEnumerable<Procedure> GetByDoctorAndDate(Doctor doctor, IEnumerable<DateTime> dates)
+        public IEnumerable<Procedure> GetByDoctorAndDates(Doctor doctor, IEnumerable<DateTime> dates)
         {
             var procedures = new List<Procedure>();
-            procedures.AddRange(examinationRepository.Repository.GetByDoctorAndDate(doctor, dates));
+            procedures.AddRange(examinationRepository.Repository.GetByDoctorAndDates(doctor, dates));
             procedures.AddRange(surgeryRepository.Repository.GetByDoctorAndDate(doctor, dates));
             return procedures;
         }
