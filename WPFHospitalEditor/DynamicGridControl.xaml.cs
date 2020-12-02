@@ -15,13 +15,15 @@ namespace WPFHospitalEditor
         private List<Label> labels = new List<Label>();
         private List<TextBox> textBoxes = new List<TextBox>();
         private Role role;
+        private Boolean isEquipmentOrMedicine;
 
-        public DynamicGridControl(String[] contentRows, String separator, Role role)
+        public DynamicGridControl(String[] contentRows, String separator, Role role, Boolean isEquipmentOrMedicine)
         {
             InitializeComponent();
             this.contentRows = contentRows;
             this.separator = separator;
             this.role = role;
+            this.isEquipmentOrMedicine = isEquipmentOrMedicine;
             GridControl.Children.Clear();
             createRows(contentRows);
             AddRowContent();
@@ -59,7 +61,7 @@ namespace WPFHospitalEditor
             textBox.VerticalAlignment = VerticalAlignment.Center;
             Grid.SetRow(textBox, i + 2);
             Grid.SetColumn(textBox, 2);
-            if (role.Equals(Role.Patient))
+            if (role.Equals(Role.Patient) || isEquipmentOrMedicine == true)
             {
                 textBox.IsReadOnly = true;
             }

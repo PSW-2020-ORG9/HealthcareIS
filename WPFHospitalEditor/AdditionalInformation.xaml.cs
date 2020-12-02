@@ -37,7 +37,7 @@ namespace WPFHospitalEditor
             this.oldMapObject = mapObject;
             this.role = role;
             this.allEquipment = equipmentServerController.getEquipmentByRoomId(mapObject.Id);
-            DynamicGridControl dynamicGridControl = new DynamicGridControl(contentRows, "=", role);
+            DynamicGridControl dynamicGridControl = new DynamicGridControl(contentRows, "=", role, false);
             DynamicGrid.Children.Add(dynamicGridControl);
             this.gridControl = dynamicGridControl;
             this.Height = (contentRows.Length + 2) * 50 + 60;       
@@ -112,8 +112,18 @@ namespace WPFHospitalEditor
 
         private void BtnEquipment_Click(object sender, RoutedEventArgs e)
         {
-            EquipmentWindow equipment = new EquipmentWindow(allEquipment);
-            equipment.Show();
+            EquipmentWindow equipment = new EquipmentWindow(EquipmentToContentRows(), "=", role);
+            equipment.ShowDialog();
+        }
+
+        private string[] EquipmentToContentRows()
+        {
+            string[] contentRows = new string [allEquipment.Count()];
+            for (int i = 0; i < allEquipment.Count(); i++)
+            {
+                contentRows[i] = allEquipment.ElementAt(i).Name + "=" + allEquipment.ElementAt(i).Quantity;
+            }
+            return contentRows;
         }
     }
 }

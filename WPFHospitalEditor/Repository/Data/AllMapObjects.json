@@ -11139,8 +11139,8 @@
         "IsSealed": false
       },
       "Id": 15,
-      "Name": "Examination 1",
-      "Description": "1-0&Working Hours=09:00 - 21:00;Computers=2;Stethoscopes=13;Thermometers=4;Chairs=4;",
+      "Name": "Examination room 1",
+      "Description": "1-0&Working Hours=09:00 - 21:00",
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -11453,8 +11453,8 @@
         "IsSealed": false
       },
       "Id": 16,
-      "Name": "Examination 111",
-      "Description": "1-0&Working Hours=09:00 - 21:00;Computers=111;Stethoscopes=9;Thermometers=5;Chairs=1111;",
+      "Name": "Examination room 2",
+      "Description": "1-0&Working Hours=09:00 - 21:00",
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -11628,7 +11628,7 @@
         "RenderedGeometry": "System.Windows.Media.RectangleGeometry",
         "GeometryTransform": "Identity",
         "Stretch": 1,
-        "Fill": "#FFFFFF00",
+        "Fill": "#FF4682B4",
         "Stroke": "#FF000000",
         "StrokeThickness": 1.0,
         "StrokeStartLineCap": 0,
@@ -11767,13 +11767,13 @@
         "IsSealed": false
       },
       "Id": 17,
-      "Name": "Examination 3",
-      "Description": "1-0&Working Hours=09:00 - 21:00;Computers=3;Stethoscopes=5;Thermometers=7;Chairs=8;",
+      "Name": "Ophtamology room 1",
+      "Description": "1-0&Working Hours=09:00 - 21:00",
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
           "$type": "WPFHospitalEditor.MapObjectModel.MapObjectCoordinates, WPFHospitalEditor",
-          "X": 280.0,
+          "X": 300.0,
           "Y": 0.0
         },
         "MapObjectDimensions": {
@@ -11782,7 +11782,7 @@
           "Height": 120.0
         }
       },
-      "MapObjectType": 11,
+      "MapObjectType": 15,
       "MapObjectDoor": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDoor, WPFHospitalEditor",
         "rectangle": {
@@ -12082,7 +12082,7 @@
       },
       "Id": 18,
       "Name": "Surgery room 1",
-      "Description": "1-0&Working Hours=09:00 - 019:00;Bandages=50;Anaesthesis=100;EKG=1;Tables=1",
+      "Description": "1-0&Working Hours=09:00 - 19:00",
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -12396,7 +12396,7 @@
       },
       "Id": 19,
       "Name": "Surgery room 2",
-      "Description": "1-0&Working Hours=09:00 - 019:00;Bandages=50;Anaesthesis=100;EKG=1;Tables=1",
+      "Description": "1-0&Working Hours=09:00 - 19:00",
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -13024,7 +13024,7 @@
       },
       "Id": 20,
       "Name": "Dentist room 1",
-      "Description": "1-0&Working Hours=09:00 - 19:00;Masks=100;Anaesthesis=100;Chairs=3;Brushes=20;",
+      "Description": "1-0&Working Hours=09:00 - 19:00",
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -13338,7 +13338,7 @@
       },
       "Id": 21,
       "Name": "Dentist room 2",
-      "Description": "1-0&Working Hours=09:00 - 19:00;Masks=100;Anaesthesis=100;Chairs=3;Brushes=20;",
+      "Description": "1-0&Working Hours=09:00 - 19:00",
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -13652,7 +13652,7 @@
       },
       "Id": 22,
       "Name": "Canteen 1",
-      "Description": "1-0&Working Hours=09:00 - 18:00;Meals=50;Drinks=100;Tables=10;Chairs=40",
+      "Description": "1-0&Working Hours=09:00 - 18:00",
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -15222,7 +15222,7 @@
       },
       "Id": 26,
       "Name": "Recovery room 1",
-      "Description": "1-1&All beds=20;Available beds=7",
+      "Description": "1-1&",
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -15535,7 +15535,7 @@
         "IsSealed": false
       },
       "Id": 27,
-      "Name": "On duty 1",
+      "Name": "On Duty 1",
       "Description": "1-1&Working Hours=00:00 - 24:00",
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
@@ -15850,7 +15850,7 @@
       },
       "Id": 28,
       "Name": "Recovery room 2",
-      "Description": "1-1&All beds=20;Available beds=7",
+      "Description": "1-1&",
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -16164,7 +16164,7 @@
       },
       "Id": 29,
       "Name": "Recovery room 3",
-      "Description": "1-1&All beds=20;Available beds=8",
+      "Description": "1-1&",
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -16478,7 +16478,7 @@
       },
       "Id": 30,
       "Name": "Recovery room 4",
-      "Description": "1-1&All beds=20;Available beds=9",
+      "Description": "1-1&",
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -16792,7 +16792,7 @@
       },
       "Id": 31,
       "Name": "Recovery room 5",
-      "Description": "1-1&All beds=201;Available beds=10;",
+      "Description": "1-1&",
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -17420,7 +17420,7 @@
       },
       "Id": 33,
       "Name": "Recovery room 5",
-      "Description": "1-1&All beds=20;Available=11",
+      "Description": "1-1&",
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -18675,8 +18675,8 @@
         "IsSealed": false
       },
       "Id": 37,
-      "Name": "Examination room 4",
-      "Description": "2-0&Working Hours=09:00 - 21:00;Computers=2;Stethoscopes=3;Thermometers=5;Chairs=6",
+      "Name": "Examination room 3",
+      "Description": "2-0&Working Hours=09:00 - 21:00",
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -18989,8 +18989,8 @@
         "IsSealed": false
       },
       "Id": 38,
-      "Name": "Examination room 5",
-      "Description": "2-0&Working Hours=09:00 - 21:00;Computers=2;Stethoscopes=3;Thermometers=7;Chairs=4",
+      "Name": "Examination room 4",
+      "Description": "2-0&Working Hours=09:00 - 21:00",
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -19618,7 +19618,7 @@
       },
       "Id": 40,
       "Name": "Dentist room 3",
-      "Description": "2-0&Working Hours=09:00 - 19:00;Masks=100;Anaesthesis=100;Chairs=3;Brushes=20",
+      "Description": "2-0&Working Hours=09:00 - 19:00",
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -19932,7 +19932,7 @@
       },
       "Id": 41,
       "Name": "Neurology 1",
-      "Description": "2-0&Working Hours=09:00 - 21:00;Computers=2;Stethoscopes=3;Thermometers=5;Chairs=6;",
+      "Description": "2-0&Working Hours=09:00 - 21:00",
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -20246,7 +20246,7 @@
       },
       "Id": 42,
       "Name": "Dermatology 1",
-      "Description": "2-0&Working Hours=09:00 - 21:00;Computers=2;Magnifiers=3;Bandages=5;Chairs=6",
+      "Description": "2-0&Working Hours=09:00 - 21:00",
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -20559,13 +20559,13 @@
         "IsSealed": false
       },
       "Id": 43,
-      "Name": "Ophthalmology 1",
-      "Description": "2-0&Working Hours=09:00 - 21:00;Computers=2;Lenses=3;Eye drops=5;Chairs=6",
+      "Name": "Ophtalmology room 1",
+      "Description": "2-0&Working Hours=09:00 - 21:00",
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
           "$type": "WPFHospitalEditor.MapObjectModel.MapObjectCoordinates, WPFHospitalEditor",
-          "X": 500.0,
+          "X": 520.0,
           "Y": 280.0
         },
         "MapObjectDimensions": {
@@ -21816,7 +21816,7 @@
       },
       "Id": 47,
       "Name": "Recovery room 7",
-      "Description": "2-1&All beds=20;Available beds=7",
+      "Description": "2-1&",
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -22130,7 +22130,7 @@
       },
       "Id": 48,
       "Name": "Recovery room 8",
-      "Description": "2-1&All beds=20;Available beds=8",
+      "Description": "2-1&",
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -22758,7 +22758,7 @@
       },
       "Id": 50,
       "Name": "Canteen 2",
-      "Description": "2-1&Working Hours=09:00 - 18:00;Meals=50;Drinks=100;Tables=10;Chairs=40;",
+      "Description": "2-1&Working Hours=09:00 - 18:00",
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -23072,7 +23072,7 @@
       },
       "Id": 51,
       "Name": "Recovery room 9",
-      "Description": "2-1&All beds=20;Available beds=9",
+      "Description": "2-1&",
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
