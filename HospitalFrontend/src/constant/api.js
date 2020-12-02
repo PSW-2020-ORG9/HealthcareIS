@@ -11,6 +11,7 @@ let countriesUrl=server+'/country'
 let citiesByCountryId = server + '/city/by-country/'
 let registrationUrl = patientUrl + '/register'
 let surveyUrl = server + '/survey'
+let patientExaminationsUrl = server + '/examination'
 
 export default{
     feedback: feedbacksUrl ,
@@ -34,5 +35,7 @@ export default{
     docSearchExaminationAdvanced: examinationsUrl + "/advanced",
 
     imageUpload: imageUploadUrl,
-    authorization: 'Client-ID ' + clientId 
+    authorization: 'Client-ID ' + clientId,
+
+    patientExaminations: patientExaminationsUrl
 }
