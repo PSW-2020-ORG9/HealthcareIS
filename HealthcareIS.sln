@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HospitalWebApp", "HospitalW
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthcareBaseTests", "HealthcareBaseTests\HealthcareBaseTests.csproj", "{9564E34A-6EF5-4E4E-A250-2A348C5A031D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HospitalWebAppTests", "HospitalWebAppTests\HospitalWebAppTests.csproj", "{51B18CC7-B280-4A8F-A019-CAE492B7ACDF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HospitalWebAppIntegrationTests", "HospitalWebAppTests\HospitalWebAppIntegrationTests.csproj", "{51B18CC7-B280-4A8F-A019-CAE492B7ACDF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFDirector", "WPFDirector\WPFDirector.csproj", "{0DC96460-ED74-4960-BA6C-2331AC5B4D25}"
 EndProject
