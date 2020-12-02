@@ -10,11 +10,11 @@ namespace HospitalWebApp.Controllers
     public class DocSearchController : ControllerBase
     {
         private readonly MedicationPrescriptionService _medicationPrescriptionService;
-        private readonly ExaminationService _examinationService;
+        private readonly ExaminationSchedulingService _examinationService;
 
         public DocSearchController(
             MedicationPrescriptionService medicationPrescriptionService,
-            ExaminationService examinationService)
+            ExaminationSchedulingService examinationService)
         {
             _medicationPrescriptionService = medicationPrescriptionService;
             _examinationService = examinationService;

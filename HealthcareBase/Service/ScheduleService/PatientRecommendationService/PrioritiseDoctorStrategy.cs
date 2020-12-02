@@ -3,6 +3,7 @@
 // Created: 02 June 2020 02:58:44
 // Purpose: Definition of Class PrioritiseDoctorStrategy
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using HealthcareBase.Model.Schedule.Procedures;
@@ -11,31 +12,11 @@ using HealthcareBase.Service.ScheduleService.ScheduleFittingService;
 
 namespace HealthcareBase.Service.ScheduleService.PatientRecommendationService
 {
-    public class PrioritiseDoctorStrategy : RecommendationStrategy
+    public class PrioritiseDoctorStrategy : IRecommendationStrategy
     {
-        public ProcedureDetails PatientDefault { get; set; }
-
-        public ProcedurePreferenceDTO TransformRequest(RecommendationRequestDTO request)
+        public Examination ChooseBest(Examination examination)
         {
-            var preference = new ProcedurePreferenceDTO
-            {
-                Details = PatientDefault,
-                Patient = request.Patient,
-                Preference = new ProcedureSchedulingPreference
-                {
-                    PreferredDoctor = request.Doctor,
-                    PreferredTime = null,
-                    PreferredRoom = null
-                }
-            };
-            return preference;
-        }
-
-        public Examination ChooseBest(IEnumerable<Examination> potentialRecommendations)
-        {
-            if (potentialRecommendations.Count() > 0)
-                return potentialRecommendations.ToList()[0];
-            return null;
+            throw new NotImplementedException();
         }
     }
 }
