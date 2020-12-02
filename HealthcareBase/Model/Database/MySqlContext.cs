@@ -27,8 +27,8 @@ namespace HealthcareBase.Model.Database
         private readonly string _connectionString;
 
         // Database access strings
-        private readonly string db = "dbpsw";
-        private readonly string pass = "1234567";
+        private readonly string db = "";
+        private readonly string pass = "";
 
         public MySqlContext()
         {

@@ -4,12 +4,12 @@ using System.Collections.Generic;
 
 namespace WPFHospitalEditor.Service
 {
-   public  class MedicationServerService
+   public class MedicationServerService
     {
-        public IEnumerable<MedicationDto> getAllMedication()
+        public IEnumerable<MedicationDto> GetAllMedication()
         {
             var client = new RestClient(AllConstants.connectionUrl);
-            var request = new RestRequest("Medication/getAll/", Method.GET);
+            var request = new RestRequest("Medication/getAll", Method.GET);
             var response = client.Get<IEnumerable<MedicationDto>>(request);
             return response.Data;
         }

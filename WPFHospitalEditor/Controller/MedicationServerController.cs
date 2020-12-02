@@ -6,11 +6,11 @@ namespace WPFHospitalEditor.Controller
 {
     public class MedicationServerController
     {
-        public MedicationServerService medicationServerService = new MedicationServerService();
+        private MedicationServerService medicationServerService = new MedicationServerService();
 
-        public IEnumerable<MedicationDto> getAllMedication()
+        public IEnumerable<MedicationDto> GetAllMedication()
         {
-            return medicationServerService.getAllMedication();
+            return medicationServerService.GetAllMedication();
         }
     }
 }

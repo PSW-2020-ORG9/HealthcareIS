@@ -7,9 +7,9 @@ namespace WPFHospitalEditor
     /// <summary>
     /// Interaction logic for Equipment.xaml
     /// </summary>
-    public partial class EquipmentWindow : Window
+    public partial class EquipmentAndMedicationWindow : Window
     {
-        public EquipmentWindow(String[] contentRows, String separator, Role role)
+        public EquipmentAndMedicationWindow(String[] contentRows)
         {
             InitializeComponent();
             DynamicGridControl dynamicGridControl = new DynamicGridControl(contentRows, true);
@@ -21,6 +21,5 @@ namespace WPFHospitalEditor
         {
             this.Close();
         }
-
     }
 }

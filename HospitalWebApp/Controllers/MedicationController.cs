@@ -7,7 +7,7 @@ namespace HospitalWebApp.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class MedicationController :ControllerBase
+    public class MedicationController : ControllerBase
     {
         private readonly MedicationService _medicationService;
 
