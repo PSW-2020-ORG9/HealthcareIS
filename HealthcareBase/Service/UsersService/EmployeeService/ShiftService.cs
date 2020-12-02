@@ -32,12 +32,7 @@ namespace HealthcareBase.Service.UsersService.EmployeeService
 
         public Shift Create(Shift shift)
         {
-            var overlappingShifts =
-                shiftRepository.Repository.GetByDoctorAndTimeOverlap(shift.Doctor, shift.TimeInterval);
-            if (overlappingShifts.Count() != 0)
-                throw new ScheduleViolationException();
-
-            return shiftRepository.Repository.Create(shift);
+            throw new NotImplementedException();
         }
 
         public Shift GetByID(int id)
@@ -52,11 +47,7 @@ namespace HealthcareBase.Service.UsersService.EmployeeService
 
         public void Delete(Shift shift)
         {
-            var procedures = procedureService.GetByDoctorAndTime(shift.Doctor, shift.TimeInterval);
-            if (procedures.Count() != 0)
-                throw new ScheduleViolationException();
-
-            shiftRepository.Repository.Delete(shift);
+            throw new NotImplementedException();
         }
 
         public IEnumerable<Shift> EditShifts(ChangeShiftRequestDTO requestDTO)

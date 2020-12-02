@@ -17,17 +17,19 @@ using HealthcareBase.Repository.Generics;
 using HealthcareBase.Repository.MiscellaneousRepository;
 using HealthcareBase.Repository.ScheduleRepository.ProceduresRepository.Interface;
 using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository.Interface;
+using HealthcareBase.Service.ScheduleService.PatientRecommendationService;
 using HealthcareBase.Service.ScheduleService.Validators;
 
 namespace HealthcareBase.Service.ScheduleService.ProcedureService
 {
-    public class ExaminationService : AbstractProcedureSchedulingService<Examination>
+    public class ExaminationSchedulingService : AbstractProcedureSchedulingService<Examination>
     {
         private readonly RepositoryWrapper<IDiagnosisRepository> _diagnosisWrapper;
         private readonly RepositoryWrapper<IExaminationRepository> _examinationWrapper;
         private readonly RepositoryWrapper<IPatientRepository> _patientWrapper;
+        private IRecommendationStrategy _strategy;
 
-        public ExaminationService(
+        public ExaminationSchedulingService(
             IExaminationRepository examinationRepository,
             IDiagnosisRepository diagnosisRepository,
             IPatientRepository patientRepository,
@@ -35,9 +37,9 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
             TimeSpan timeLimit
         ) : base(timeLimit)
         {
-            this._examinationWrapper = new RepositoryWrapper<IExaminationRepository>(examinationRepository);
-            this._diagnosisWrapper = new RepositoryWrapper<IDiagnosisRepository>(diagnosisRepository);
-            this._patientWrapper = new RepositoryWrapper<IPatientRepository>(patientRepository);
+            _examinationWrapper = new RepositoryWrapper<IExaminationRepository>(examinationRepository);
+            _diagnosisWrapper = new RepositoryWrapper<IDiagnosisRepository>(diagnosisRepository);
+            _patientWrapper = new RepositoryWrapper<IPatientRepository>(patientRepository);
         }
 
         public IEnumerable<Examination> SimpleSearch(ExaminationSimpleFilterDto filterDto)
@@ -53,46 +55,23 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
             return _examinationWrapper.Repository.GetByID(id);
         }
 
+        private void SetStrategy(IRecommendationStrategy strategy)
+        {
+            _strategy = strategy;
+        }
+
+        public Examination GetRecommendation(RecommendationPriority priority, Examination examination)
+        {
+            if (priority == RecommendationPriority.Doctor)
+                _strategy = new PrioritiseDoctorStrategy();
+            else _strategy = new PrioritiseTimeStrategy();
+
+            return _strategy.ChooseBest(examination);
+        }
+
         public IEnumerable<Examination> GetAll()
         {
             return _examinationWrapper.Repository.GetAll();
-        }
-
-        public IEnumerable<Examination> GetByDate(DateTime date)
-        {
-            return _examinationWrapper.Repository.GetMatching(examination =>
-                examination.TimeInterval.Start.Date.Equals(date.Date));
-        }
-
-        public IEnumerable<Examination> GetByDoctorAndTime(Doctor doctor, TimeInterval time)
-        {
-            return _examinationWrapper.Repository.GetByDoctorAndTime(doctor, time);
-        }
-
-        public Examination RecordAnamnesisAndDiagnosos(AnamnesisAndDiagnosisDTO anamnesisAndDiagnosis)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void RecordDiagnosisInPatientHistory(Patient patient, Diagnosis diagnosis)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void ValidateAnamnesisAndDiagnosis(AnamnesisAndDiagnosisDTO anamnesisAndDiagnosis)
-        {
-            if (anamnesisAndDiagnosis.Examination is null)
-                throw new BadRequestException();
-            if (anamnesisAndDiagnosis.Diagnosis is null)
-                throw new BadRequestException();
-
-            anamnesisAndDiagnosis.Examination =
-                _examinationWrapper.Repository.GetByID(anamnesisAndDiagnosis.Examination.GetKey());
-            anamnesisAndDiagnosis.Diagnosis =
-                _diagnosisWrapper.Repository.GetByID(anamnesisAndDiagnosis.Diagnosis.GetKey());
-
-            if (anamnesisAndDiagnosis.Examination.TimeInterval.Start > DateTime.Now)
-                throw new TimingException();
         }
 
         protected override Examination Create(Examination procedure)
@@ -108,6 +87,16 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
         protected override void Delete(Examination procedure)
         {
             _examinationWrapper.Repository.Delete(procedure);
+        }
+
+        protected override void Validate(Examination procedure)
+        {
+            throw new NotImplementedException(); 
+        }
+
+        protected override void ValidateProcedure(Examination procedure)
+        {
+            throw new NotImplementedException();
         }
     }
 }

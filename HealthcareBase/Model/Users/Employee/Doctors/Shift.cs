@@ -18,33 +18,11 @@ namespace HealthcareBase.Model.Users.Employee.Doctors
         [ForeignKey("AssignedExamRoom")]
         public int AssignedExamRoomId { get; set; }
         public Room AssignedExamRoom { get; set; }
-
-        [ForeignKey("Doctor")]
         public int DoctorId { get; set; }
-        public Doctor Doctor { get; set; }
 
         [Key]
         public int Id { get; set; }
-
-        public int GetKey()
-        {
-            return Id;
-        }
-
-        public void SetKey(int id)
-        {
-            Id = id;
-        }
-
-        public override bool Equals(object obj)
-        {
-            return obj is Shift shift &&
-                   Id == shift.Id;
-        }
-
-        public override int GetHashCode()
-        {
-            return 1877310944 + Id.GetHashCode();
-        }
+        public int GetKey() => Id;
+        public void SetKey(int id) => Id = id;
     }
 }

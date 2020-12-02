@@ -42,11 +42,6 @@ namespace HealthcareBase.Model.Schedule.Procedures
 
         [Column(TypeName = "nvarchar(12)")]
         public ProcedurePriority Priority { get; set; }
-
-        public bool AvoidChangingTime { get; set; }
-        public bool AvoidChangingRoom { get; set; }
-        public bool AvoidChangingDoctor { get; set; }
-
         public int GetKey() => Id;
         public void SetKey(int id) => Id = id;
     }
