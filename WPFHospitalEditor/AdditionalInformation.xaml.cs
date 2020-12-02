@@ -7,6 +7,7 @@ using WPFHospitalEditor.Service;
 using WPFHospitalEditor.Controller;
 using HealthcareBase.Dto;
 using System.Linq;
+using System;
 
 namespace WPFHospitalEditor
 {
@@ -16,60 +17,56 @@ namespace WPFHospitalEditor
     public partial class AdditionalInformation : Window
     {
         private MapObject mapObject;
-        private List<string> labelContent = new List<string>();
-        private List<string> value = new List<string>();
-        private List<Label> labels = new List<Label>();
-        private List<TextBox> textBoxes = new List<TextBox>();
-        private TextBox name = new TextBox();
-        private int floor;
         private Building building;
         private string[] descriptionParts;
         private string[] contentRows;
         private MapObject oldMapObject;
         private Role role;
         private IEnumerable<EquipmentDto> allEquipment;
+        private DynamicGridControl gridControl;
 
         MapObjectController mapObjectController = new MapObjectController();
         EquipmentServerController equipmentServerController = new EquipmentServerController();
 
-        public AdditionalInformation(MapObject mapObject, Building building, int floor, Role role)
+        public AdditionalInformation(MapObject mapObject, Building building, Role role)
         {
-            this.role = role;
-            this.floor = floor;
-            this.building = building;
-            this.allEquipment = equipmentServerController.getEquipmentByRoomId(mapObject.Id);
             InitializeComponent();
             this.mapObject = mapObject;
-            descriptionParts = mapObject.Description.Split("&");
-            contentRows = descriptionParts[1].Split(";");
-            this.Height = (contentRows.Length + 2) * 50 + 60;
-            ModifyDynamicWPFGrid(contentRows);
-            oldMapObject = mapObject;
+            this.building = building;
+            this.descriptionParts = mapObject.Description.Split("&");
+            this.contentRows = descriptionParts[1].Split(";");
+            this.oldMapObject = mapObject;
+            this.role = role;
+            this.allEquipment = equipmentServerController.getEquipmentByRoomId(mapObject.Id);
+            DynamicGridControl dynamicGridControl = new DynamicGridControl(contentRows, IsReadOnly());
+            DynamicGrid.Children.Add(dynamicGridControl);         
+            this.gridControl = dynamicGridControl;
+            this.Height = (contentRows.Length +1) * 50 + 60;       
+            SetNameCommonAttributes();
+            if (IsReadOnly())
+            {
+                Equipment.Visibility = Visibility.Hidden;
+            }         
         }
 
-        private void Close_Click(object sender, RoutedEventArgs e)
+        private void Cancel_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            this.Close();
         }
 
         private void Done_Click(object sender, RoutedEventArgs e)
         {
-            mapObject.Description = descriptionParts[0] + "&";
-
-            for (int i = 0; i < labels.Count; i++)
-            {
-                mapObject.Description += labels[i].Content + "=" + textBoxes[i].Text + ";";             
-                mapObject.Name = this.name.Text;
-                mapObject.nameOnMap.Text = mapObject.Name;
-            }
-
-            updateAdditionalInformation();
-            int lenght = mapObject.Description.Length;
-            mapObject.Description.Substring(0, lenght - 1);          
-            Close();
+            string description = gridControl.GetAllContent();
+            mapObject.Description = descriptionParts[0] + "&" + description;       
+            mapObject.Name = this.Name.Text;
+            mapObject.nameOnMap.Text = mapObject.Name;
+            UpdateAdditionalInformation();
+            int length = mapObject.Description.Length;
+            mapObject.Description.Substring(0, length - 1);          
+            this.Close();
         }
 
-        private void refreshMap()
+        private void RefreshMap()
         {
             building.floorBuildingObjects.Remove(oldMapObject);
             building.floorBuildingObjects.Add(mapObject);
@@ -77,192 +74,51 @@ namespace WPFHospitalEditor
             CanvasService.addObjectToCanvas(building.floorBuildingObjects, building.canvas);
         }      
 
-        private void updateAdditionalInformation()
+        private void UpdateAdditionalInformation()
         {
             mapObjectController.update(mapObject);
-            refreshMap();
+            RefreshMap();
         }
 
-        private void ModifyDynamicWPFGrid(string[] contentRows)
+        private void SetNameCommonAttributes()
         {
-            var bc = new BrushConverter();
-            createColumns();
-            createRows(contentRows);
-            addMapObjectName(mapObject, bc);
-            createRowContent(contentRows);
-            Border.Child = DynamicGrid;
-        }
-
-        private void createRowContent(string[] contentRows)
-        {
-            if (PatientIsLogged())
+            BrushConverter bc = new BrushConverter();
+            Name.Text = mapObject.Name;
+            Name.Background = (Brush)bc.ConvertFrom("#FFC6F5F8");
+            Name.FontSize = 18;
+            Name.FontWeight = FontWeights.Bold;
+            Name.Foreground = new SolidColorBrush(Colors.Black);
+            Name.VerticalAlignment = VerticalAlignment.Center;
+            Name.HorizontalAlignment = HorizontalAlignment.Center;
+            if (role.Equals(Role.Patient))
             {
-                if(StringContainsWorkingHours(contentRows[0])) setRowContent(0);
-            } else
-            {
-                for (int i = 0; i < contentRows.Length; i++)
-                {
-                    if (contentRows[i].Equals("")) break;
-                    setRowContent(i);
-                }
+                Name.IsReadOnly = true;
             }
-            insertData();
-            if (this.allEquipment.Count() != 0)
-            {
-                addEquipmentButton(contentRows);
-            }
-            addCancelButton(contentRows);
-            addOkButton(contentRows);     
         }
 
-        private bool PatientIsLogged()
+        private void BtnEquipment_Click(object sender, RoutedEventArgs e)
         {
-            if (role == Role.Patient) return true;
+            EquipmentWindow equipment = new EquipmentWindow(EquipmentToContentRows(), "=", role);
+            equipment.ShowDialog();
+        }
+
+        private string[] EquipmentToContentRows()
+        {
+            string[] contentRows = new string [allEquipment.Count()];
+            for (int i = 0; i < allEquipment.Count(); i++)
+            {
+                contentRows[i] = allEquipment.ElementAt(i).Name + "=" + allEquipment.ElementAt(i).Quantity;
+            }
+            return contentRows;
+        }
+
+        private Boolean IsReadOnly()
+        {
+            if (role == Role.Patient)
+            {
+                return true;    
+            }
             return false;
-        }
-
-        private bool StringContainsWorkingHours(string str)
-        {
-            if (str.Contains("Working Hours")) return true;
-            return false;
-        }
-
-        private void setRowContent(int row)
-        {
-            string[] label = contentRows[row].Split("=");
-            labelContent.Add(label[0]);
-            value.Add(label[1]);
-        }
-
-        private void addOkButton(string[] contentRows)
-        {
-            Button ok = new Button();
-            ok.HorizontalAlignment = HorizontalAlignment.Right;
-            ok.Click += Done_Click;
-            Grid.SetRow(ok, contentRows.Length + 3);
-            Grid.SetColumn(ok, 2);
-            setButtonsCommonAttributes(ok, "Ok");
-        }
-
-        private void addEquipmentButton(string[] contentRows)
-        {
-                Button btnEquipment = new Button();
-                btnEquipment.HorizontalAlignment = HorizontalAlignment.Left;
-                btnEquipment.Click += btnEquipment_Click;
-                Grid.SetRow(btnEquipment, contentRows.Length + 2);
-                Grid.SetColumn(btnEquipment, 1);
-                setButtonsCommonAttributes(btnEquipment, "Show Equipment");
-        }
-
-        private void addCancelButton(string[] contentRows)
-        {
-            Button cancel = new Button();
-            cancel.HorizontalAlignment = HorizontalAlignment.Left;
-            cancel.Click += Close_Click;
-            Grid.SetRow(cancel, contentRows.Length + 3);
-            Grid.SetColumn(cancel, 1);
-            setButtonsCommonAttributes(cancel, "Cancel");
-        }
-
-        private void setButtonsCommonAttributes(Button button, string name)
-        {
-            button.BorderThickness = new Thickness(0);
-            button.Content = name;
-            button.VerticalAlignment = VerticalAlignment.Center;
-            button.Background = Brushes.SkyBlue;
-            button.Width = AllConstants.additionalInformationsbuttonWidth;
-            button.Height = AllConstants.additionalInformationsbuttonHeight;
-            button.Foreground = Brushes.White;
-            DynamicGrid.Children.Add(button);
-
-        }
-
-        private void insertData()
-        {
-            for (int i = 0; i < labelContent.Count; i++)
-            {
-                insertLabel(i);
-                insertTextBox(i);
-            }
-        }
-
-        private void insertTextBox(int i)
-        {
-            TextBox textBox = new TextBox();
-            textBox.Text = value[i];
-            textBox.HorizontalContentAlignment = HorizontalAlignment.Center;
-            textBox.VerticalAlignment = VerticalAlignment.Center;
-            if (PatientIsLogged()) textBox.IsReadOnly = true;
-            Grid.SetRow(textBox, i + 2);
-            Grid.SetColumn(textBox, 2);
-            textBoxes.Add(textBox);
-            DynamicGrid.Children.Add(textBox);
-        }
-
-        private void insertLabel(int i)
-        {
-            Label label = new Label();
-            label.Content = labelContent[i];
-            label.HorizontalContentAlignment = HorizontalAlignment.Center;
-            label.VerticalAlignment = VerticalAlignment.Center;
-            label.FontSize = 20;
-            Grid.SetRow(label, i + 2);
-            Grid.SetColumn(label, 1);
-            labels.Add(label);
-            DynamicGrid.Children.Add(label);
-        }
-
-        private void addMapObjectName(MapObject mapObject, BrushConverter bc)
-        {
-            name.Text = mapObject.Name;
-            name.Background = (Brush)bc.ConvertFrom("#FFC6F5F8");
-            name.FontSize = 18;
-            name.FontWeight = FontWeights.Bold;
-            name.Foreground = new SolidColorBrush(Colors.Black);
-            name.VerticalAlignment = VerticalAlignment.Center;
-            name.HorizontalAlignment = HorizontalAlignment.Center;
-            if (PatientIsLogged()) name.IsReadOnly = true;
-            Grid.SetRow(name, 1);
-            Grid.SetColumnSpan(name, 2);
-            Grid.SetColumn(name, 1);
-            DynamicGrid.Children.Add(name);
-        }
-
-        private void createRows(string[] contentRows)
-        {
-            createOneRow(2);
-            for (int i = 0; i <= contentRows.Length + 2; i++)
-            {
-                createOneRow(50);
-            }
-        }
-
-        private void createOneRow(int height)
-        {
-            RowDefinition gridRow1 = new RowDefinition();
-            gridRow1.Height = new GridLength(height);
-            DynamicGrid.RowDefinitions.Add(gridRow1);
-        }
-
-        private void createColumns()
-        {
-            createOneColumn(15);
-            createOneColumn(150);
-            createOneColumn(150);
-            createOneColumn(20);
-        }
-
-        private void createOneColumn(int width)
-        {
-            ColumnDefinition borderColumn1 = new ColumnDefinition();
-            borderColumn1.Width = new GridLength(width);
-            DynamicGrid.ColumnDefinitions.Add(borderColumn1);
-        }
-
-        private void btnEquipment_Click(object sender, RoutedEventArgs e)
-        {
-            EquipmentWindow equipment = new EquipmentWindow(allEquipment);
-            equipment.Show();
         }
     }
 }
