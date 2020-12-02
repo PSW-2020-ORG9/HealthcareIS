@@ -14,10 +14,9 @@ namespace WPFHospitalEditor
         public EquipmentWindow(String[] contentRows, String separator, Role role)
         {
             InitializeComponent();
-            DynamicGridControl dynamicGridControl = new DynamicGridControl(contentRows, "=", role, true);
+            DynamicGridControl dynamicGridControl = new DynamicGridControl(contentRows, true);
             DynamicGrid.Children.Add(dynamicGridControl);
-            this.Height = (contentRows.Count() + 2) * 50 + 30;
-            SetButtonsCommonAttributes(Close);
+            this.Height = (contentRows.Count() + 1) * 50 + 30;
         }
 
         private void Close_Click(object sender, RoutedEventArgs e)
@@ -25,14 +24,5 @@ namespace WPFHospitalEditor
             this.Close();
         }
 
-        private void SetButtonsCommonAttributes(Button button)
-        {
-            button.BorderThickness = new Thickness(0);
-            button.VerticalAlignment = VerticalAlignment.Center;
-            button.Background = Brushes.SkyBlue;
-            button.Width = AllConstants.additionalInformationsbuttonWidth;
-            button.Height = AllConstants.additionalInformationsbuttonHeight;
-            button.Foreground = Brushes.White;
-        }
     }
 }

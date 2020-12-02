@@ -7,6 +7,7 @@ using WPFHospitalEditor.Service;
 using WPFHospitalEditor.Controller;
 using HealthcareBase.Dto;
 using System.Linq;
+using System;
 
 namespace WPFHospitalEditor
 {
@@ -37,15 +38,12 @@ namespace WPFHospitalEditor
             this.oldMapObject = mapObject;
             this.role = role;
             this.allEquipment = equipmentServerController.getEquipmentByRoomId(mapObject.Id);
-            DynamicGridControl dynamicGridControl = new DynamicGridControl(contentRows, "=", role, false);
-            DynamicGrid.Children.Add(dynamicGridControl);
+            DynamicGridControl dynamicGridControl = new DynamicGridControl(contentRows, IsReadOnly());
+            DynamicGrid.Children.Add(dynamicGridControl);         
             this.gridControl = dynamicGridControl;
-            this.Height = (contentRows.Length + 2) * 50 + 60;       
-            SetButtonsCommonAttributes(Ok);
-            SetButtonsCommonAttributes(Cancel);
-            SetButtonsCommonAttributes(Equipment);
+            this.Height = (contentRows.Length +1) * 50 + 60;       
             SetNameCommonAttributes();
-            if (role == Role.Patient)
+            if (IsReadOnly())
             {
                 Equipment.Visibility = Visibility.Hidden;
             }         
@@ -59,9 +57,7 @@ namespace WPFHospitalEditor
         private void Done_Click(object sender, RoutedEventArgs e)
         {
             string description = gridControl.GetAllContent();
-            mapObject.Description = "";
-            mapObject.Description = descriptionParts[0] + "&";
-            mapObject.Description += description;          
+            mapObject.Description = descriptionParts[0] + "&" + description;       
             mapObject.Name = this.Name.Text;
             mapObject.nameOnMap.Text = mapObject.Name;
             UpdateAdditionalInformation();
@@ -82,16 +78,6 @@ namespace WPFHospitalEditor
         {
             mapObjectController.update(mapObject);
             RefreshMap();
-        }
-
-        private void SetButtonsCommonAttributes(Button button)
-        {
-            button.BorderThickness = new Thickness(0);
-            button.VerticalAlignment = VerticalAlignment.Center;
-            button.Background = Brushes.SkyBlue;
-            button.Width = AllConstants.additionalInformationsbuttonWidth;
-            button.Height = AllConstants.additionalInformationsbuttonHeight;
-            button.Foreground = Brushes.White;
         }
 
         private void SetNameCommonAttributes()
@@ -124,6 +110,15 @@ namespace WPFHospitalEditor
                 contentRows[i] = allEquipment.ElementAt(i).Name + "=" + allEquipment.ElementAt(i).Quantity;
             }
             return contentRows;
+        }
+
+        private Boolean IsReadOnly()
+        {
+            if (role == Role.Patient)
+            {
+                return true;    
+            }
+            return false;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -11,19 +12,16 @@ namespace WPFHospitalEditor
     public partial class DynamicGridControl : UserControl
     {
         private String[] contentRows;
-        private String separator;
+        private const String separator = "=";
         private List<Label> labels = new List<Label>();
         private List<TextBox> textBoxes = new List<TextBox>();
-        private Role role;
-        private Boolean isEquipmentOrMedicine;
+        private Boolean isReadOnly;
 
-        public DynamicGridControl(String[] contentRows, String separator, Role role, Boolean isEquipmentOrMedicine)
+        public DynamicGridControl(String[] contentRows, Boolean isReadOnly)
         {
             InitializeComponent();
             this.contentRows = contentRows;
-            this.separator = separator;
-            this.role = role;
-            this.isEquipmentOrMedicine = isEquipmentOrMedicine;
+            this.isReadOnly = isReadOnly;
             GridControl.Children.Clear();
             createRows(contentRows);
             AddRowContent();
@@ -47,7 +45,7 @@ namespace WPFHospitalEditor
             label.HorizontalContentAlignment = HorizontalAlignment.Center;
             label.VerticalAlignment = VerticalAlignment.Center;
             label.FontSize = 20;
-            Grid.SetRow(label, i + 2);
+            Grid.SetRow(label, i);
             Grid.SetColumn(label, 1);
             labels.Add(label);
             GridControl.Children.Add(label);
@@ -59,9 +57,9 @@ namespace WPFHospitalEditor
             textBox.Text = textBoxContent;
             textBox.HorizontalContentAlignment = HorizontalAlignment.Center;
             textBox.VerticalAlignment = VerticalAlignment.Center;
-            Grid.SetRow(textBox, i + 2);
+            Grid.SetRow(textBox, i);
             Grid.SetColumn(textBox, 2);
-            if (role.Equals(Role.Patient) || isEquipmentOrMedicine == true)
+            if (isReadOnly)
             {
                 textBox.IsReadOnly = true;
             }
@@ -71,8 +69,8 @@ namespace WPFHospitalEditor
 
         private void createRows(string[] contentRows)
         {
-            createOneRow(2);
-            for (int i = 0; i < contentRows.Length + 2; i++)
+           // createOneRow(2);
+            for (int i = 0; i < contentRows.Length; i++)
             {
                 createOneRow(50);
             }
@@ -87,12 +85,12 @@ namespace WPFHospitalEditor
 
         public String GetAllContent()
         {
-            String result = "";
+            StringBuilder stringBuilder = new StringBuilder("");
             for (int i = 0; i < labels.Count; i++)
             {
-                result += labels[i].Content.ToString() + separator + textBoxes[i].Text + ";";
+                stringBuilder.Append(labels[i].Content.ToString() + separator + textBoxes[i].Text + ";");
             }
-            return result;
+            return stringBuilder.ToString();
         }
     }
 }

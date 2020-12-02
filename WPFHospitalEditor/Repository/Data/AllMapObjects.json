@@ -11140,7 +11140,7 @@
       },
       "Id": 15,
       "Name": "Examination room 1",
-      "Description": "1-0&Working Hours=09:00 - 21:00",
+      "Description": "1-0&Working Hours=09:00 - 21:00;",
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -11454,7 +11454,7 @@
       },
       "Id": 16,
       "Name": "Examination room 2",
-      "Description": "1-0&Working Hours=09:00 - 21:00",
+      "Description": "1-0&Working Hours=09:00 - 21:00;",
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -11768,7 +11768,7 @@
       },
       "Id": 17,
       "Name": "Ophtamology room 1",
-      "Description": "1-0&Working Hours=09:00 - 21:00",
+      "Description": "1-0&Working Hours=09:00 - 21:00;",
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -12082,7 +12082,7 @@
       },
       "Id": 18,
       "Name": "Surgery room 1",
-      "Description": "1-0&Working Hours=09:00 - 19:00",
+      "Description": "1-0&Working Hours=09:00 - 19:00;",
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -12396,7 +12396,7 @@
       },
       "Id": 19,
       "Name": "Surgery room 2",
-      "Description": "1-0&Working Hours=09:00 - 19:00",
+      "Description": "1-0&Working Hours=09:00 - 19:00;",
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -13338,7 +13338,7 @@
       },
       "Id": 21,
       "Name": "Dentist room 2",
-      "Description": "1-0&Working Hours=09:00 - 19:00",
+      "Description": "1-0&Working Hours=09:00 - 19:00;",
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
