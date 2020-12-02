@@ -68,12 +68,6 @@ steps:
     custom: ef
     arguments: 'dbcontext script -o HealthcareBase/dbscheme.sql --project HealthcareBase'
 
-- task: DotNetCoreCLI@2
-  displayName: Test
-  inputs:
-    command: test
-    projects: '**/*Tests/*.csproj'
-
 - task: Npm@1
   displayName: 'npm install'
   inputs:
