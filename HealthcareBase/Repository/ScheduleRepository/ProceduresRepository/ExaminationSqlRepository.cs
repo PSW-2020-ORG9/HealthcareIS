@@ -54,29 +54,12 @@ namespace HealthcareBase.Repository.ScheduleRepository.ProceduresRepository
 
         }
 
-        public IEnumerable<Examination> GetByDoctorAndTime(Doctor doctor, TimeInterval time)
-        {
-            throw new NotImplementedException();
-        }
-
         public IEnumerable<Examination> GetByDoctorAndDate(Doctor doctor, IEnumerable<DateTime> dates)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Examination> GetByRoomAndTime(Room room, TimeInterval time)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Examination> GetByPatientAndTime(Patient patient, TimeInterval time)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Examination> GetByPatient(Patient patient)
-        {
-            throw new NotImplementedException();
-        }
+        public IEnumerable<Examination> GetByPatientId(int patientId)
+            => GetMatching(examination => examination.PatientId == patientId);
     }
 }

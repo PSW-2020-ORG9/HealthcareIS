@@ -17,14 +17,7 @@ namespace HealthcareBase.Repository.ScheduleRepository.ProceduresRepository.Inte
 {
     public interface IExaminationRepository : IWrappableRepository<Examination, int>
     {
-        IEnumerable<Examination> GetByDoctorAndTime(Doctor doctor, TimeInterval time);
-
         IEnumerable<Examination> GetByDoctorAndDate(Doctor doctor, IEnumerable<DateTime> dates);
-
-        IEnumerable<Examination> GetByRoomAndTime(Room room, TimeInterval time);
-
-        IEnumerable<Examination> GetByPatientAndTime(Patient patient, TimeInterval time);
-
-        IEnumerable<Examination> GetByPatient(Patient patient);
+        IEnumerable<Examination> GetByPatientId(int patientId);
     }
 }

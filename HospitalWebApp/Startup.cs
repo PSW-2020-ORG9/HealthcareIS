@@ -116,7 +116,7 @@ namespace HospitalWebApp
             var patientAccountService = new PatientAccountService(patientAccountRepository);
             var patientRegistrationService = new PatientRegistrationService(patientAccountService, new RegistrationNotifier(Environment.GetEnvironmentVariable("PSW_ACTIVATION_ENDPOINT")));
 
-            var examinationService = new ExaminationSchedulingService(examinationRepository, null, null, null,  TimeSpan.Zero);
+            var examinationService = new ExaminationService(examinationRepository);
             var cityService = new CityService(cityRepository);
             var countryService = new CountryService(countryRepository);
 
@@ -127,13 +127,13 @@ namespace HospitalWebApp
             services.Add(new ServiceDescriptor(typeof(PatientService), patientService));
             services.Add(new ServiceDescriptor(typeof(IPatientAccountService), patientAccountService));
             services.Add(new ServiceDescriptor(typeof(MedicationPrescriptionService), prescriptionService));
-            services.Add(new ServiceDescriptor(typeof(ExaminationSchedulingService), examinationService));
             services.Add(new ServiceDescriptor(typeof(EquipmentService), equipmentService));
             services.Add(new ServiceDescriptor(typeof(CityService),cityService));
             services.Add(new ServiceDescriptor(typeof(CountryService),countryService));
             services.Add(new ServiceDescriptor(typeof(PatientRegistrationService), patientRegistrationService));
             services.Add(new ServiceDescriptor(typeof(ISurveyResponseService), surveyResponseService));
             services.Add(new ServiceDescriptor(typeof(ISurveyService), surveyService));
+            services.Add(new ServiceDescriptor(typeof(ExaminationService), examinationService));
         }
 
         private IPreparable CreateRepository(Type repositoryClass)
