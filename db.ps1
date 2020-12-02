@@ -12,7 +12,6 @@ if ($param -eq 'dev' -or $param -eq 'test' -or $param -eq 'master') {
     } else {
         $project = 'HospitalWebAppIntegrationTests'
     }
-    Write-Output $project
     if($param -ne 'master'){
         dotnet ef dbcontext script -o $($project + '/dbscheme.sql') --project $project
         Copy-Item DevOps/docker/DBDockerfile $($project + '/Dockerfile')
