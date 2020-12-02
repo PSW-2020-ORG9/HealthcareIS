@@ -61,8 +61,7 @@ namespace WPFHospitalEditor
             mapObject.Name = this.Name.Text;
             mapObject.nameOnMap.Text = mapObject.Name;
             UpdateAdditionalInformation();
-            int length = mapObject.Description.Length;
-            mapObject.Description.Substring(0, length - 1);          
+            mapObject.Description = mapObject.Description.Substring(0, mapObject.Description.Length - 1);
             this.Close();
         }
 

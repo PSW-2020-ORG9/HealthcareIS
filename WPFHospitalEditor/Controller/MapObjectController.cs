@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using WPFHospitalEditor.MapObjectModel;
 using WPFHospitalEditor.Service;
 
@@ -8,7 +6,7 @@ namespace WPFHospitalEditor.Controller
 {
     public class MapObjectController : IMapObjectController
     {
-        public IMapObjectService IMapObjectService = new MapObjectService();
+        private IMapObjectService IMapObjectService = new MapObjectService();
 
         public List<MapObject> getAllMapObjects()
         {

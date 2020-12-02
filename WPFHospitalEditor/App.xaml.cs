@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
-using WPFHospitalEditor.Controller;
-using WPFHospitalEditor.MapObjectModel;
+﻿using System.Windows;
 
 namespace WPFHospitalEditor
 {

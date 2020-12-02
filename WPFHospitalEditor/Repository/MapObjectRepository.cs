@@ -1,28 +1,21 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Windows.Media;
 using WPFHospitalEditor.MapObjectModel;
-using WPFHospitalEditor.Service;
 
 namespace WPFHospitalEditor.Repository
 {
     public class MapObjectRepository : IMapObjectRepository
     {
-        private string path = AllConstants.MAPOBJECT_PATH;
+        private readonly string path = AllConstants.MAPOBJECT_PATH;
 
         public MapObject update(MapObject mapObject)
-        {
-            
+        {           
             var allMapObjects = getAllMapObjects().ToList(); 
+            foreach (MapObject mapObj in allMapObjects)
             {
-                foreach (MapObject mapObj in allMapObjects)
-                {
                     updateMapObjectIfFound(mapObj, mapObject);
-                }
             }
             saveAll(allMapObjects);
             return mapObject;
@@ -87,13 +80,11 @@ namespace WPFHospitalEditor.Repository
         public MapObject findMapObjectById(int id)
         {
             var allMapObjects = getAllMapObjects().ToList();
+            foreach (MapObject mapObj in allMapObjects)
             {
-                foreach (MapObject mapObj in allMapObjects)
+                if(mapObj.Id == id)
                 {
-                    if(mapObj.Id == id)
-                    {
-                        return mapObj;
-                    }
+                    return mapObj;
                 }
             }
             return null;
