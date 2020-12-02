@@ -26,7 +26,15 @@ steps:
     buildContext: '$(System.ArtifactsDirectory)/dropdb'
     tags: latest
     addPipelineData: false
-
+- task: Docker@2
+  inputs:
+    containerRegistry: 'psw'
+    repository: 'fmaster/pswaspnet'
+    command: 'build'
+    Dockerfile: 'DevOps/docker/AspNetDockerfile'
+    buildContext: '$(System.ArtifactsDirectory)/dropweb'
+    tags: 'latest'
+    addPipelineData: false
 - task: Docker@2
   displayName: 'Docker build pswfrontend'
   inputs:
@@ -46,7 +54,13 @@ steps:
     command: push
     tags: latest
     addPipelineData: false
-
+- task: Docker@2
+  inputs:
+    containerRegistry: 'psw'
+    repository: 'fmaster/pswaspnet'
+    command: 'push'
+    tags: 'latest'
+    addPipelineData: false
 - task: Docker@2
   displayName: 'Docker push pswfrontend'
   inputs:
