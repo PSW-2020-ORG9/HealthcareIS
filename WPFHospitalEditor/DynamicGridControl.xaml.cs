@@ -12,7 +12,6 @@ namespace WPFHospitalEditor
     public partial class DynamicGridControl : UserControl
     {
         private String[] contentRows;
-        private const String separator = "=";
         private List<Label> labels = new List<Label>();
         private List<TextBox> textBoxes = new List<TextBox>();
         private Boolean isReadOnly;
@@ -32,7 +31,7 @@ namespace WPFHospitalEditor
             for (int i = 0; i < contentRows.Length; i++)
             {
                 if (contentRows[i].Equals("")) break;
-                String[] rowContent = contentRows[i].Split(separator);
+                String[] rowContent = contentRows[i].Split(AllConstants.descriptionSeparator);
                 insertLabel(rowContent[0], i);
                 insertTextBox(rowContent[1], i);
             }
@@ -87,7 +86,7 @@ namespace WPFHospitalEditor
             StringBuilder stringBuilder = new StringBuilder("");
             for (int i = 0; i < labels.Count; i++)
             {
-                stringBuilder.Append(labels[i].Content.ToString() + separator + textBoxes[i].Text + ";");
+                stringBuilder.Append(labels[i].Content.ToString() + AllConstants.descriptionSeparator + textBoxes[i].Text + ";");
             }
             return stringBuilder.ToString();
         }
