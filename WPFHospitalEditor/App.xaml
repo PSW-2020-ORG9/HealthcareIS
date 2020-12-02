@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:WPFHospitalEditor"
              StartupUri="HospitalMap.xaml">
     <Application.Resources>
-         
+        
     </Application.Resources>
 </Application>

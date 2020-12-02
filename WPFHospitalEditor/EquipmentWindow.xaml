@@ -6,8 +6,21 @@
         xmlns:local="clr-namespace:WPFHospitalEditor"
         mc:Ignorable="d"
         Title="Equipment" Height="400" Width="350" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Background" Value="SkyBlue"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+    </Window.Resources>
     <Border BorderThickness="10" BorderBrush="#FF8BD9E0" x:Name="Border">
         <Grid x:Name="DynamicGrid" Background="#FFC6F5F8">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                <Button x:Name="Close" Content="Close" Click="Close_Click" HorizontalAlignment="Right"/>
+            </StackPanel>
         </Grid>
     </Border>
 </Window>
