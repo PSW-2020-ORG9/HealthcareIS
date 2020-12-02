@@ -69,7 +69,6 @@ namespace WPFHospitalEditor
 
         private void createRows(string[] contentRows)
         {
-           // createOneRow(2);
             for (int i = 0; i < contentRows.Length; i++)
             {
                 createOneRow(50);

@@ -16,7 +16,6 @@ namespace WPFHospitalEditor
     public partial class Building : Window
     {
         private Dictionary<int, Floor> buildingFloors = new Dictionary<int, Floor>();
-        private List<MapObject> allBuildingObjects = new List<MapObject>();
         public List<MapObject> floorBuildingObjects = new List<MapObject>();
         MapObjectController mapObjectController = new MapObjectController();
         private Role role;
@@ -24,7 +23,6 @@ namespace WPFHospitalEditor
 
         public Building(List<MapObject> buildingObjects, int selectedFloor, Role role)
         {
-            allBuildingObjects = buildingObjects;
             InitializeComponent();
             clearAll();          
             populateBuildingFloors(buildingObjects);            
@@ -119,7 +117,7 @@ namespace WPFHospitalEditor
 
         private void addingRowsToGrid(HashSet<MapObjectType> mapObjectTypes)
         {
-            int numberOfRows = (int)(mapObjectTypes.Count / legend.ColumnDefinitions.Count) + 1;
+            int numberOfRows = (mapObjectTypes.Count / legend.ColumnDefinitions.Count) + 1;
             for (int i = 0; i < numberOfRows; i++)
             {
                 legend.RowDefinitions.Add(new RowDefinition() { });
@@ -152,7 +150,7 @@ namespace WPFHospitalEditor
 
         private void settingPosition(int index, Rectangle rectangle, TextBlock textblock)
         {
-            int row = (int)(index / legend.ColumnDefinitions.Count);
+            int row = (index / legend.ColumnDefinitions.Count);
             int column = index - row * legend.ColumnDefinitions.Count;
             rectangle.SetValue(Grid.ColumnProperty, column);
             rectangle.SetValue(Grid.RowProperty, row);

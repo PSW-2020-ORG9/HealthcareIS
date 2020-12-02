@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Windows.Controls;
 using System.Windows.Input;
 using WPFHospitalEditor.MapObjectModel;
 
 namespace WPFHospitalEditor.Service
 {
-    class CanvasService
+    public class CanvasService
     {
         public static void addObjectToCanvas(List<MapObject> objectsToShow, Canvas canvas)
         {

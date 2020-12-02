@@ -6,7 +6,7 @@ namespace WPFHospitalEditor.Controller
 {
    public class EquipmentServerController
     {
-        public EquipmentServerService EquipmentServerService = new EquipmentServerService();
+        private EquipmentServerService EquipmentServerService = new EquipmentServerService();
 
         public IEnumerable<EquipmentDto> getEquipmentByRoomId(int roomId)
         {
