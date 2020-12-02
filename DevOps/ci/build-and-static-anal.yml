@@ -112,18 +112,32 @@ steps:
    mkdir HospitalFrontend/dist
    mkdir HospitalFrontend/dist/dist
    cp -r temp/* HospitalFrontend/dist/dist
+   rm -rf temp
+   cd HealthcareBase
+   dotnet publish -c Release -o ./bin/Publish
+   cd ..
+   cd HospitalWebApp
+   dotnet publish -c Release -o ./bin/Publish
+   cd ..
+   mkdir temp
+   cp -r HospitalWebApp/bin/Publish/* temp
+   rm -rf HospitalWebApp/bin/Publish
+   mkdir HospitalWebApp/bin/Publish
+   mkdir HospitalWebApp/bin/Publish/Publish
+   cp -r temp/* HospitalWebApp/bin/Publish/Publish
+   rm -rf temp
   displayName: 'Publish preparation'
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish base'
   inputs:
-    PathtoPublish: HealthcareBase/bin/Release
+    PathtoPublish: HealthcareBase/bin/Publish
     ArtifactName: dropbase
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish web'
   inputs:
-    PathtoPublish: HospitalWebApp/bin/Release
+    PathtoPublish: HospitalWebApp/bin/Publish
     ArtifactName: dropweb
 
 - task: PublishBuildArtifacts@1
