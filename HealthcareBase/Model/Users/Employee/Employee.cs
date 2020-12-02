@@ -24,5 +24,11 @@ namespace HealthcareBase.Model.Users.Employee
 
         public int GetKey() => Id;
         public void SetKey(int id) => Id = id;
+        public override bool Equals(object? obj)
+        {
+            if (!(obj is Employee employee))
+                return false;
+            return Id.Equals(employee.Id);
+        }
     }
 }

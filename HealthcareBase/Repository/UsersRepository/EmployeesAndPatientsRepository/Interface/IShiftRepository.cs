@@ -3,6 +3,7 @@
 // Created: 27 May 2020 23:43:54
 // Purpose: Definition of Interface ShiftRepository
 
+using System;
 using System.Collections.Generic;
 using HealthcareBase.Model.Users.Employee;
 using HealthcareBase.Model.Users.Employee.Doctors;
@@ -18,5 +19,7 @@ namespace HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsReposito
         IEnumerable<Shift> GetByDoctorAndTimeContaining(Doctor doctor, TimeInterval time);
 
         IEnumerable<Shift> GetByDoctorAndTimeOverlap(Doctor doctor, TimeInterval time);
+
+        IEnumerable<Shift> GetByShiftStart(DateTime shiftStart);
     }
 }
