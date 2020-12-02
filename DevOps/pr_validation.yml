@@ -2,6 +2,10 @@ pr:
 - master
 
 steps:
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: 'rm -rf *IntegrationTests'
 - task: DotNetCoreCLI@2
   inputs:
     command: 'test'
