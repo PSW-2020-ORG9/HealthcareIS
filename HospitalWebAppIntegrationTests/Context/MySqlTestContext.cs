@@ -3,9 +3,6 @@ using HealthcareBase.Model.Users.Generalities;
 using HealthcareBase.Model.Users.Patient;
 using HealthcareBase.Model.Users.Patient.MedicalHistory;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace HospitalWebAppIntegrationTests.Context
 {

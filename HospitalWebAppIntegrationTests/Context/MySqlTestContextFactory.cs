@@ -1,8 +1,5 @@
 ﻿using HealthcareBase.Model.Database;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace HospitalWebAppIntegrationTests.Context
 {
@@ -15,9 +12,7 @@ namespace HospitalWebAppIntegrationTests.Context
         }
         public DbContext CreateContext()
         {
-            DbContext context = new MySqlTestContext(_connectionString);
-            context.Database.EnsureCreated();
-            return context;
+            return new MySqlTestContext(_connectionString);
         }
     }
 }
