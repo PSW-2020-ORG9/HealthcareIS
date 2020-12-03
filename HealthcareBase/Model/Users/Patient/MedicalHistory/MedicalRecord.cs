@@ -17,9 +17,6 @@ namespace HealthcareBase.Model.Users.Patient.MedicalHistory
         public int Id { get; set; }
 
         public IEnumerable<AllergyManifestation> Allergies { get; set; }
-        public IEnumerable<Examination> Examinations { get; set; }
-        public IEnumerable<Surgery> Surgeries { get; set; }
-
         public IEnumerable<FamilyMemberDiagnosis> FamilyMemberDiagnoses { get; set; }
 
         public int GetKey() => Id;

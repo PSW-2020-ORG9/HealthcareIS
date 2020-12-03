@@ -108,6 +108,7 @@ namespace HospitalWebApp
             var patientAccountRepository = new PatientAccountSqlRepository(GetContext());
             var surveyResponseRepository = new SurveyResponseSqlRepository(GetContext());
             var surveyRepository = new SurveySqlRepository(GetContext());
+            var shiftRepository = new ShiftSqlRepository(GetContext());
             
             var userFeedbackService = new UserFeedbackService(userFeedbackRepository);
             var patientService = new PatientService(patientRepository, null, null, null);
@@ -115,6 +116,7 @@ namespace HospitalWebApp
             var equipmentService = new EquipmentService(equipmentRepository);
             var patientAccountService = new PatientAccountService(patientAccountRepository);
             var patientRegistrationService = new PatientRegistrationService(patientAccountService, new RegistrationNotifier(Environment.GetEnvironmentVariable("PSW_ACTIVATION_ENDPOINT")));
+            var doctorAvailabilityService = new DoctorAvailabilityService(shiftRepository,examinationRepository);
 
             var examinationService = new ExaminationService(examinationRepository);
             var cityService = new CityService(cityRepository);
@@ -134,6 +136,7 @@ namespace HospitalWebApp
             services.Add(new ServiceDescriptor(typeof(ISurveyResponseService), surveyResponseService));
             services.Add(new ServiceDescriptor(typeof(ISurveyService), surveyService));
             services.Add(new ServiceDescriptor(typeof(ExaminationService), examinationService));
+            services.Add(new ServiceDescriptor(typeof(DoctorAvailabilityService), doctorAvailabilityService));
         }
 
         private IPreparable CreateRepository(Type repositoryClass)

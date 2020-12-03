@@ -19,7 +19,9 @@ namespace HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsReposito
         protected override IQueryable<Shift> IncludeFields(IQueryable<Shift> query)
         {
             return query.Include(s => s.Doctor)
-                        .ThenInclude(d=>d.Person);
+                .ThenInclude(d => d.Person)
+                .Include(d => d.Doctor)
+                .ThenInclude(d => d.Department);
         }
 
         public IEnumerable<Shift> GetByDoctor(Doctor doctor)

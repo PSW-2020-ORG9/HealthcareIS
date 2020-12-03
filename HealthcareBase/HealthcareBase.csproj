@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Migrations" />
     <Folder Include="Service\UsersService\RegistrationService\Resources" />
   </ItemGroup>
 

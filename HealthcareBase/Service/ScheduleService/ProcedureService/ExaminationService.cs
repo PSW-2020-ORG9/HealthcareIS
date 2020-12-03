@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
+using HealthcareBase.Model.CustomExceptions;
 using HealthcareBase.Model.Filters;
 using HealthcareBase.Model.Schedule.Procedures;
 using HealthcareBase.Repository.Generics;
@@ -40,7 +43,33 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
         
         protected override void ValidateProcedure(Examination procedure)
         {
-            throw new System.NotImplementedException();
+            if(procedure == null)
+                throw new NullReferenceException();
+        }
+
+        protected override void ValidateForScheduling(Examination procedure)
+        {
+            ValidateInterval(procedure);
+            ValidateTimeConstraint(procedure);
+            
+        }
+
+        private static void ValidateTimeConstraint(Examination procedure)
+        {
+            double difference = (procedure.TimeInterval.Start - DateTime.Now).TotalHours;
+            if (difference <= Examination.TimeConstraint.TotalHours)
+                throw new ScheduleViolationException("Examination " +
+                    "cannot be scheduled because it violates time constraint.");
+        }
+
+        private void ValidateInterval(Procedure procedure)
+        {
+            var examinations =
+                _wrapper.Repository.GetByDoctorAndExaminationStart(procedure.DoctorId, procedure.TimeInterval.Start);
+            if(examinations.Count() != 0)
+                throw new ScheduleViolationException("Examination for " +
+                                    "this doctor and interval already exists.");
+                
         }
 
         public bool Cancel(int examinationId)

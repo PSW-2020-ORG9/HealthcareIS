@@ -34,14 +34,6 @@ namespace HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsReposito
                         .ThenInclude(a => a.Allergy)
 
                 .Include(p => p.MedicalRecord)
-                    .ThenInclude(mr => mr.Examinations)
-                        .ThenInclude(e => e.ExaminationReport)
-                            .ThenInclude(er => er.Diagnoses)
-
-                .Include(p => p.MedicalRecord)
-                    .ThenInclude(mr => mr.Surgeries)
-
-                .Include(p => p.MedicalRecord)
                     .ThenInclude(mh => mh.FamilyMemberDiagnoses);
         }
 

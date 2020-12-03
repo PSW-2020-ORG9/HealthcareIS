@@ -11,10 +11,10 @@ namespace HealthcareBase.Model.Schedule.Procedures
     public class Examination : Procedure
     {
         [ForeignKey("ExaminationReport")]
-        public int ExaminationReportId { get; set; }
+        public int? ExaminationReportId { get; set; }
         public static TimeSpan MinimalTimeFrame = new TimeSpan(0,30,0);
+        public static TimeSpan TimeConstraint = new TimeSpan(24,0,0);
         public ExaminationReport ExaminationReport { get; set; }
         public bool IsCanceled { get; set; }
-        public int MedicalRecordId { get; set; }
     }
 }

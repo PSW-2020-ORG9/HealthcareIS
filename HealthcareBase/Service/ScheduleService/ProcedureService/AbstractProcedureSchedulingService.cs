@@ -12,6 +12,7 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
         protected abstract T Create(T procedure);
         protected abstract T Update(T procedure);
         protected abstract void ValidateProcedure(T procedure);
+        protected abstract void ValidateForScheduling(T procedure);
 
         public T Schedule(T procedure)
         {
@@ -26,9 +27,6 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
             ValidateForScheduling(procedure);
         }
 
-        private void ValidateForScheduling(Procedure procedure)
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }

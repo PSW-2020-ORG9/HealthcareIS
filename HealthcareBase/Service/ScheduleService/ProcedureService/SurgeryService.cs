@@ -62,5 +62,10 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
         {
             throw new NotImplementedException();
         }
+
+        protected override void ValidateForScheduling(Surgery procedure)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
