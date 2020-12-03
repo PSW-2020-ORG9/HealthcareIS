@@ -32,14 +32,12 @@ namespace HospitalWebApp
 {
     public class Startup
     {
-        private string _connectionString;
+        private readonly string _connectionString;
 
-        public Startup(IConfiguration configuration)
+        public Startup(IWebHostEnvironment env)
         {
-            var builder = new ConfigurationBuilder()
-                .AddJsonFile("connections.json", optional: true);
-            Configuration = builder.Build();
-            
+            _connectionString = CreateConnectionStringFromEnvironment();
+            if (_connectionString == null) throw new ApplicationException("Missing database connection string");
         }
 
         public IConfiguration Configuration { get; }
@@ -47,9 +45,6 @@ namespace HospitalWebApp
         // This method gets called at runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            _connectionString = CreateConnectionStringFromEnvironment() ?? Configuration["MySql"];
-            if (_connectionString == null) throw new ApplicationException("Missing database connection string");
-            
             services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             AddServices(services);
