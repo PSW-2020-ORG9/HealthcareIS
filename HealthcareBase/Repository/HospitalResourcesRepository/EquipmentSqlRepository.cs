@@ -22,6 +22,7 @@ namespace HealthcareBase.Repository.HospitalResourcesRepository
             return query.
                 Include(unit => unit.CurrentLocation)
                 .ThenInclude(location => location.Department)
+
                 .Include(unit => unit.EquipmentType);
         }
     }
