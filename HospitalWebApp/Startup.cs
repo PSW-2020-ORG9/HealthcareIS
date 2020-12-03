@@ -36,7 +36,11 @@ namespace HospitalWebApp
 
         public Startup(IWebHostEnvironment env)
         {
-            _connectionString = CreateConnectionStringFromEnvironment();
+            var builder = new ConfigurationBuilder()
+                    .AddJsonFile("connections.json", optional: true);
+            Configuration = builder.Build();
+
+            _connectionString = CreateConnectionStringFromEnvironment() ?? Configuration["MySql"];
             if (_connectionString == null) throw new ApplicationException("Missing database connection string");
         }
 
