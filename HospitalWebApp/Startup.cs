@@ -98,6 +98,7 @@ namespace HospitalWebApp
             var prescriptionRepository = new MedicationPrescriptionSqlRepository(GetContext());
             var examinationRepository = new ExaminationSqlRepository(GetContext());
             var equipmentRepository = new EquipmentSqlRepository(GetContext());
+            var medicationRepository = new MedicationSqlRepository(GetContext());
             var cityRepository = new CitySqlRepository(GetContext());
             var countryRepository = new CountrySqlRepository(GetContext());
             var patientAccountRepository = new PatientAccountSqlRepository(GetContext());
@@ -108,6 +109,7 @@ namespace HospitalWebApp
             var patientService = new PatientService(patientRepository, null, null, null);
             var prescriptionService = new MedicationPrescriptionService(prescriptionRepository);
             var equipmentService = new EquipmentService(equipmentRepository);
+            var medicationService = new MedicationService(medicationRepository);
             var patientAccountService = new PatientAccountService(patientAccountRepository);
             var patientRegistrationService = new PatientRegistrationService(patientAccountService, new RegistrationNotifier(Environment.GetEnvironmentVariable("PSW_ACTIVATION_ENDPOINT")));
 
@@ -124,6 +126,7 @@ namespace HospitalWebApp
             services.Add(new ServiceDescriptor(typeof(MedicationPrescriptionService), prescriptionService));
             services.Add(new ServiceDescriptor(typeof(ExaminationSchedulingService), examinationService));
             services.Add(new ServiceDescriptor(typeof(EquipmentService), equipmentService));
+            services.Add(new ServiceDescriptor(typeof(MedicationService), medicationService));
             services.Add(new ServiceDescriptor(typeof(CityService),cityService));
             services.Add(new ServiceDescriptor(typeof(CountryService),countryService));
             services.Add(new ServiceDescriptor(typeof(PatientRegistrationService), patientRegistrationService));
