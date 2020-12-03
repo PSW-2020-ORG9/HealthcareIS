@@ -62,9 +62,9 @@ namespace HealthcareBase.Repository.ScheduleRepository.ProceduresRepository
         
         public IEnumerable<Examination> GetByPatientId(int patientId)
             => GetMatching(examination => examination.PatientId == patientId);
-        public IEnumerable<Examination> GetByDoctorAndDate(Doctor doctor, DateTime date)
+        public IEnumerable<Examination> GetByDoctorAndDate(int doctorId, DateTime date)
         {
-            return GetMatching(e => e.Doctor.Id == doctor.Id
+            return GetMatching(e => e.Doctor.Id == doctorId
                                 && e.TimeInterval.Start.Date.Equals(date));
         }
     }

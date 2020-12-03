@@ -96,7 +96,7 @@ namespace HealthcareBase.Service.UsersService.EmployeeService
 
         public IEnumerable<Shift> GetByDoctorAndTimeContaining(Doctor doctor, TimeInterval time)
         {
-            return shiftRepository.Repository.GetByDoctorAndTimeContaining(doctor, time);
+            throw new NotImplementedException();
         }
 
         public IEnumerable<Shift> GetByDoctor(Doctor doctor)

@@ -22,7 +22,45 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
             _shiftWrapper = new RepositoryWrapper<IShiftRepository>(shiftRepository);
             _examinationWrapper = new RepositoryWrapper<IExaminationRepository>(examinationRepository);
         }
-        
+
+       
+        /// <summary>
+        /// Gets all available intervals for scheduling
+        /// </summary>
+        /// <param name="DoctorId">For a certain doctor</param>
+        /// <param name="date">On a certain day</param>
+        /// <returns></returns>
+        public IEnumerable<TimeInterval> GetAvailableIntervals(int doctorId, DateTime date)
+        {
+            var intervals = new List<TimeInterval>();
+            var shifts =
+                _shiftWrapper.Repository.GetByDoctorAndShiftStart(doctorId, date);
+            foreach (var shift in shifts)
+            {
+                var examinations =
+                    _examinationWrapper.Repository.GetByDoctorAndDate(shift.Doctor.Id,shift.TimeInterval.Start.Date);
+                FindAvailableIntervals(shift,examinations,intervals);
+            }
+
+            return intervals;
+        }
+
+        private void FindAvailableIntervals(Shift shift, IEnumerable<Examination> examinations, ICollection<TimeInterval> intervals)
+        {
+            foreach (var timeFrame in EachTimeFrame(shift.TimeInterval.Start, shift.TimeInterval.End))
+            {
+                if (ContainsTimeFrame(examinations, timeFrame)) continue;
+                
+                intervals.Add(new TimeInterval(timeFrame,timeFrame.Add(Examination.MinimalTimeFrame)));
+                
+            }
+        }
+
+        /// <summary>
+        /// Finds all available doctors on certain day
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
         public IEnumerable<Doctor> GetAvailableByDay(DateTime date)
         {
             var shifts = _shiftWrapper.Repository.GetByShiftStart(date);
@@ -31,7 +69,7 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
             foreach (var shift in shifts)
             {
                 var examinations =
-                    _examinationWrapper.Repository.GetByDoctorAndDate(shift.Doctor,shift.TimeInterval.Start.Date);
+                    _examinationWrapper.Repository.GetByDoctorAndDate(shift.Doctor.Id,shift.TimeInterval.Start.Date);
                 FindAvailableDoctors(shift, examinations, availableDoctors);
             }
             return availableDoctors;
@@ -46,7 +84,12 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
                 break;
             }
         }
-
+        /// <summary>
+        /// Checks if examination in passed time period exists
+        /// </summary>
+        /// <param name="examinations"></param>
+        /// <param name="timeFrame"></param>
+        /// <returns></returns>
         private static bool ContainsTimeFrame(IEnumerable<Examination> examinations, DateTime timeFrame)
         {
             return examinations.Any(examination => Overlaps(examination.TimeInterval, timeFrame));
@@ -56,6 +99,12 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
             return DateTime.Compare(interval.Start, timeFrame) == 0
                    && DateTime.Compare(interval.End, timeFrame.Add(Examination.MinimalTimeFrame)) == 0;
         }
+        /// <summary>
+        /// Segments time interval according to MinimalTimeFrame (Minimal examination length)
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <returns></returns>
         private IEnumerable<DateTime> EachTimeFrame(DateTime from, DateTime to)
         {
             for (var timeFrame = from; timeFrame < to; timeFrame = timeFrame.Add(Examination.MinimalTimeFrame))

@@ -27,9 +27,10 @@ namespace HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsReposito
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Shift> GetByDoctorAndTimeContaining(Doctor doctor, TimeInterval time)
+        public IEnumerable<Shift> GetByDoctorAndShiftStart(int doctorId, DateTime shiftStart)
         {
-            throw new NotImplementedException();
+            return GetMatching(s => s.DoctorId == doctorId
+                                    && s.TimeInterval.Start.Date.Equals(shiftStart.Date));
         }
 
         public IEnumerable<Shift> GetByDoctorAndTimeOverlap(Doctor doctor, TimeInterval time)

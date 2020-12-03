@@ -19,7 +19,7 @@ namespace HealthcareBase.Repository.ScheduleRepository.ProceduresRepository.Inte
     {
         IEnumerable<Examination> GetByDoctorAndDates(Doctor doctor, IEnumerable<DateTime> dates);
         IEnumerable<Examination> GetByPatientId(int patientId);
-        IEnumerable<Examination> GetByDoctorAndDate(Doctor doctor, DateTime date);
+        public IEnumerable<Examination> GetByDoctorAndDate(int doctorId, DateTime date);
 
     }
 }

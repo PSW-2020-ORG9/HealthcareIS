@@ -16,7 +16,7 @@ namespace HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsReposito
     {
         IEnumerable<Shift> GetByDoctor(Doctor doctor);
 
-        IEnumerable<Shift> GetByDoctorAndTimeContaining(Doctor doctor, TimeInterval time);
+        IEnumerable<Shift> GetByDoctorAndShiftStart(int doctorId, DateTime shiftStart);
 
         IEnumerable<Shift> GetByDoctorAndTimeOverlap(Doctor doctor, TimeInterval time);
 
