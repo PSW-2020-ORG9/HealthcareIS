@@ -26,7 +26,7 @@ namespace HealthcareBase.Service.MedicationService
             return medicationRepository.Repository.GetByID(id);
         }
 
-        public IEnumerable<MedicationDto> GetAll()
+        private IEnumerable<MedicationDto> GetAll()
         {
             return medicationRepository.Repository.GetColumnsForMatching(
                condition: medication => medication.Id != 0,

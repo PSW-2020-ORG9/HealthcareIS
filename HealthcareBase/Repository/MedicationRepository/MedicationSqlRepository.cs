@@ -21,7 +21,7 @@ namespace HealthcareBase.Repository.MedicationRepository
 
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            throw new NotImplementedException();
         }
 
         public override string ToString()
@@ -31,7 +31,7 @@ namespace HealthcareBase.Repository.MedicationRepository
 
         protected override IQueryable<Medication> IncludeFields(IQueryable<Medication> query)
         {
-            return query;
+            throw new NotImplementedException();
         }
     }
 }
