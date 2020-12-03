@@ -42,12 +42,13 @@ namespace HospitalWebApp
         public Startup(IWebHostEnvironment env)
         {
             var builder = new ConfigurationBuilder()
-                    .AddJsonFile("connections.json", optional: true);
+                    .AddJsonFile("connections.json", optional:true);
             Configuration = builder.Build();
 
             if (env.EnvironmentName == "Testing")
             {
                 _connectionString = CreateConnectionStringFromEnvironment(true) ?? Configuration["MySqlTest"];
+                if (_connectionString == null) throw new ApplicationException("Connection string is null");
                 getContext = GetTestContext;
                 lock(_mutex)
                 {
@@ -56,14 +57,13 @@ namespace HospitalWebApp
                     getContext().CreateContext().Database.EnsureDeleted();
                     getContext().CreateContext().Database.EnsureCreated();
                 }
-                
             }
             else
             {
                 _connectionString = CreateConnectionStringFromEnvironment() ?? Configuration["MySql"];
+                if (_connectionString == null) throw new ApplicationException("Connection string is null");
                 getContext = GetContext;
             }
-            if (_connectionString == null) throw new ApplicationException("Missing database connection string");
         }
 
         public IConfiguration Configuration { get; }
