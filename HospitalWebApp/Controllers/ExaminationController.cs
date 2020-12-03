@@ -39,9 +39,9 @@ namespace HospitalWebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult ScheduleExamination(ScheduledExaminationDTO scheduledExaminationDto)
+        public IActionResult ScheduleExamination(ScheduledExaminationDTO dto)
         {
-            var examination = ExaminationMapper.DtoToObject(scheduledExaminationDto);
+            var examination = ExaminationMapper.DtoToObject(dto);
             try
             {
                 examination = _examinationService.Schedule(examination);
@@ -56,7 +56,6 @@ namespace HospitalWebApp.Controllers
             }
 
             return Ok(examination);
-
         }
     }
 }

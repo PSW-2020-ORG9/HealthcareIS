@@ -12,7 +12,7 @@ namespace HealthcareBase.Model.Schedule.Procedures
     {
         [ForeignKey("ExaminationReport")]
         public int? ExaminationReportId { get; set; }
-        public static TimeSpan MinimalTimeFrame = new TimeSpan(0,30,0);
+        public static TimeSpan TimeFrameSize = new TimeSpan(0,30,0);
         public static TimeSpan TimeConstraint = new TimeSpan(24,0,0);
         public ExaminationReport ExaminationReport { get; set; }
         public bool IsCanceled { get; set; }

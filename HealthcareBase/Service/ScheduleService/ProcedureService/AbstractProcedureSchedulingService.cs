@@ -1,12 +1,20 @@
 ﻿using System;
 using HealthcareBase.Model.CustomExceptions;
 using HealthcareBase.Model.Schedule.Procedures;
-using HealthcareBase.Service.ScheduleService.Validators;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository.Interface;
 
 namespace HealthcareBase.Service.ScheduleService.ProcedureService
 {
     public abstract class AbstractProcedureSchedulingService<T> where T : Procedure
     {
+        private readonly RepositoryWrapper<IShiftRepository> _shiftWrapper;
+
+        public AbstractProcedureSchedulingService(IShiftRepository shiftRepository)
+        {
+            _shiftWrapper = new RepositoryWrapper<IShiftRepository>(shiftRepository);
+        }
+        
         protected AbstractProcedureSchedulingService() { }
         public abstract T GetByID(int id);
         protected abstract T Create(T procedure);
@@ -17,6 +25,7 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
         public T Schedule(T procedure)
         {
             Validate(procedure);
+            LinkRoomToProcedure(procedure);
             var createdProcedure = Create(procedure);
             return createdProcedure;
         }
@@ -27,6 +36,11 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
             ValidateForScheduling(procedure);
         }
 
-
+        private void LinkRoomToProcedure(Procedure procedure)
+        {
+            procedure.RoomId = _shiftWrapper.Repository.GetAssignedRoomId(
+                procedure.DoctorId, procedure.TimeInterval.Start.Date
+            );
+        }
     }
 }

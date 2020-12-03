@@ -118,7 +118,7 @@ namespace HospitalWebApp
             var patientRegistrationService = new PatientRegistrationService(patientAccountService, new RegistrationNotifier(Environment.GetEnvironmentVariable("PSW_ACTIVATION_ENDPOINT")));
             var doctorAvailabilityService = new DoctorAvailabilityService(shiftRepository,examinationRepository);
 
-            var examinationService = new ExaminationService(examinationRepository);
+            var examinationService = new ExaminationService(examinationRepository, shiftRepository);
             var cityService = new CityService(cityRepository);
             var countryService = new CountryService(countryRepository);
 

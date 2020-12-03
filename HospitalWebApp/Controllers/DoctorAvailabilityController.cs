@@ -15,6 +15,7 @@ namespace HospitalWebApp.Controllers
         {
             this.doctorAvailabilityService = doctorAvailabilityService;
         }
+        
         [Route("doctor")]
         [HttpGet]
         public IActionResult GetAvailableDoctors([FromQuery] DateTime date)

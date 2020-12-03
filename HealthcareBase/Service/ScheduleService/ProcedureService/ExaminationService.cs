@@ -7,6 +7,7 @@ using HealthcareBase.Model.Filters;
 using HealthcareBase.Model.Schedule.Procedures;
 using HealthcareBase.Repository.Generics;
 using HealthcareBase.Repository.ScheduleRepository.ProceduresRepository.Interface;
+using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository.Interface;
 using HealthcareBase.Service.ScheduleService.PatientRecommendationService;
 
 namespace HealthcareBase.Service.ScheduleService.ProcedureService
@@ -18,7 +19,9 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
         private readonly RepositoryWrapper<IExaminationRepository> _wrapper;
         private IRecommendationStrategy _strategy;
 
-        public ExaminationService(IExaminationRepository examinationRepository)
+        public ExaminationService(
+            IExaminationRepository examinationRepository,
+            IShiftRepository shiftRepository) : base(shiftRepository)
         {
             _wrapper = new RepositoryWrapper<IExaminationRepository>(examinationRepository);
         }
@@ -58,18 +61,17 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
         {
             double difference = (procedure.TimeInterval.Start - DateTime.Now).TotalHours;
             if (difference <= Examination.TimeConstraint.TotalHours)
-                throw new ScheduleViolationException("Examination " +
-                    "cannot be scheduled because it violates time constraint.");
+                throw new ScheduleViolationException("Examination cannot be scheduled because it violates time constraint.");
         }
 
         private void ValidateInterval(Procedure procedure)
         {
+            // TODO Check if procedure start is valid according to Examination.TimeFrameSize
             var examinations =
                 _wrapper.Repository.GetByDoctorAndExaminationStart(procedure.DoctorId, procedure.TimeInterval.Start);
             if(examinations.Count() != 0)
-                throw new ScheduleViolationException("Examination for " +
-                                    "this doctor and interval already exists.");
-                
+                throw new ScheduleViolationException("Examination for this doctor and interval already exists.");
+            
         }
 
         public bool Cancel(int examinationId)

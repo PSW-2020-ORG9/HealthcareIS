@@ -44,5 +44,16 @@ namespace HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsReposito
         {
             return GetMatching(s => s.TimeInterval.Start.Date.Equals(shiftStart.Date));
         }
+
+        public int GetAssignedRoomId(int doctorId, DateTime date)
+        {
+            IEnumerable<Shift> shifts = 
+                GetMatching(shift =>
+                    shift.DoctorId == doctorId
+                    && shift.TimeInterval.Start.Date == date.Date).ToList();
+
+            if (!shifts.Any()) return -1;
+            return shifts.First().AssignedExamRoomId;
+        }
     }
 }

@@ -39,20 +39,19 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
             {
                 var examinations =
                     _examinationWrapper.Repository.GetByDoctorAndDate(shift.Doctor.Id,shift.TimeInterval.Start.Date);
-                FindAvailableIntervals(shift,examinations,intervals);
+                InsertAvailableIntervals(shift,examinations,intervals);
             }
 
             return intervals;
         }
 
-        private void FindAvailableIntervals(Shift shift, IEnumerable<Examination> examinations, ICollection<TimeInterval> intervals)
+        private void InsertAvailableIntervals(Shift shift, IEnumerable<Examination> examinations, ICollection<TimeInterval> intervals)
         {
-            foreach (var timeFrame in EachTimeFrame(shift.TimeInterval.Start, shift.TimeInterval.End))
+            foreach (var timeFrame in EachTimeFrameStart(shift.TimeInterval.Start, shift.TimeInterval.End))
             {
-                if (ContainsTimeFrame(examinations, timeFrame)) continue;
+                if (IsDuringTimeFrame(examinations, timeFrame)) continue;
                 
-                intervals.Add(new TimeInterval(timeFrame,timeFrame.Add(Examination.MinimalTimeFrame)));
-                
+                intervals.Add(new TimeInterval(timeFrame,timeFrame.Add(Examination.TimeFrameSize)));
             }
         }
 
@@ -77,9 +76,9 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
 
         private void FindAvailableDoctors(Shift shift, IEnumerable<Examination> examinations, ICollection<Doctor> availableDoctors)
         {
-            foreach (var timeFrame in EachTimeFrame(shift.TimeInterval.Start, shift.TimeInterval.End))
+            foreach (var timeFrame in EachTimeFrameStart(shift.TimeInterval.Start, shift.TimeInterval.End))
             {
-                if (ContainsTimeFrame(examinations, timeFrame)) continue;
+                if (IsDuringTimeFrame(examinations, timeFrame)) continue;
                 availableDoctors.Add(shift.Doctor);
                 break;
             }
@@ -90,24 +89,26 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
         /// <param name="examinations"></param>
         /// <param name="timeFrame"></param>
         /// <returns></returns>
-        private static bool ContainsTimeFrame(IEnumerable<Examination> examinations, DateTime timeFrame)
+        private static bool IsDuringTimeFrame(IEnumerable<Examination> examinations, DateTime timeFrame)
         {
             return examinations.Any(examination => Overlaps(examination.TimeInterval, timeFrame));
         }
+        
         private static bool Overlaps(TimeInterval interval, DateTime timeFrame)
         {
             return DateTime.Compare(interval.Start, timeFrame) == 0
-                   && DateTime.Compare(interval.End, timeFrame.Add(Examination.MinimalTimeFrame)) == 0;
+                   && DateTime.Compare(interval.End, timeFrame.Add(Examination.TimeFrameSize)) == 0;
         }
+        
         /// <summary>
         /// Segments time interval according to MinimalTimeFrame (Minimal examination length)
         /// </summary>
         /// <param name="from"></param>
         /// <param name="to"></param>
         /// <returns></returns>
-        private IEnumerable<DateTime> EachTimeFrame(DateTime from, DateTime to)
+        private IEnumerable<DateTime> EachTimeFrameStart(DateTime from, DateTime to)
         {
-            for (var timeFrame = from; timeFrame < to; timeFrame = timeFrame.Add(Examination.MinimalTimeFrame))
+            for (var timeFrame = from; timeFrame < to; timeFrame = timeFrame.Add(Examination.TimeFrameSize))
                 yield return timeFrame;
         }
     }

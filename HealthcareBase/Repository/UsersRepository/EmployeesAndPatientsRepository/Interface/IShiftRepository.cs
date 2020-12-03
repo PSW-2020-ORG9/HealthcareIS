@@ -21,5 +21,7 @@ namespace HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsReposito
         IEnumerable<Shift> GetByDoctorAndTimeOverlap(Doctor doctor, TimeInterval time);
 
         IEnumerable<Shift> GetByShiftStart(DateTime shiftStart);
+
+        int GetAssignedRoomId(int doctorId, DateTime date);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using HealthcareBase.Model.Schedule.Procedures;
 using HealthcareBase.Repository.ScheduleRepository.ProceduresRepository.Interface;
+using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository.Interface;
 using HealthcareBase.Service.ScheduleService.ProcedureService;
 using Moq;
 using Xunit;
@@ -10,10 +11,12 @@ namespace HealthcareBaseTests
     public class ExaminationTests
     {
         private Mock<IExaminationRepository> _examinationRepository;
+        private Mock<IShiftRepository> _shiftRepository;
 
         private void PrepareStubs()
         {
             _examinationRepository = new Mock<IExaminationRepository>();
+            _shiftRepository = new Mock<IShiftRepository>();
             
             var examinations = new List<Examination>();
             examinations.Add(new Examination());
@@ -36,7 +39,7 @@ namespace HealthcareBaseTests
         public void Find_patient_examinations_success()
         {
             PrepareStubs();
-            var examinationService = new ExaminationService(_examinationRepository.Object);
+            var examinationService = new ExaminationService(_examinationRepository.Object, _shiftRepository.Object);
 
             var examinations = examinationService.GetByPatientId(1);
             Assert.NotEmpty(examinations);
@@ -46,7 +49,7 @@ namespace HealthcareBaseTests
         public void Find_patient_examinations_fail()
         {
             PrepareStubs();
-            var examinationService = new ExaminationService(_examinationRepository.Object);
+            var examinationService = new ExaminationService(_examinationRepository.Object, _shiftRepository.Object);
 
             var emptyExaminations = examinationService.GetByPatientId(5);
             Assert.Empty(emptyExaminations);
@@ -56,7 +59,7 @@ namespace HealthcareBaseTests
         public void Cancel_patient_examination_success()
         {
             PrepareStubs();
-            var examinationService = new ExaminationService(_examinationRepository.Object);
+            var examinationService = new ExaminationService(_examinationRepository.Object, _shiftRepository.Object);
 
             bool cancelResult = examinationService.Cancel(1);
             Assert.True(cancelResult);
@@ -66,7 +69,7 @@ namespace HealthcareBaseTests
         public void Cancel_patient_examination_fail_already_cancelled()
         {
             PrepareStubs();
-            var examinationService = new ExaminationService(_examinationRepository.Object);
+            var examinationService = new ExaminationService(_examinationRepository.Object, _shiftRepository.Object);
 
             bool cancelResult = examinationService.Cancel(5);
             Assert.False(cancelResult);
@@ -76,7 +79,7 @@ namespace HealthcareBaseTests
         public void Cancel_patient_examination_fail_not_found()
         {
             PrepareStubs();
-            var examinationService = new ExaminationService(_examinationRepository.Object);
+            var examinationService = new ExaminationService(_examinationRepository.Object, _shiftRepository.Object);
 
             bool cancelResult = examinationService.Cancel(10);
             Assert.False(cancelResult);
