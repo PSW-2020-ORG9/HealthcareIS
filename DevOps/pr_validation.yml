@@ -1,11 +1,21 @@
 pr:
 - master
 
+pool:
+  vmImage: windows-2019
+
 steps:
 - task: Bash@3
   inputs:
     targetType: 'inline'
     script: 'rm -rf *IntegrationTests'
+  displayName: Remove Integration Tests
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    projects: '**/*.csproj'
+    arguments: '--configuration Debug'
+  displayName: Full .NET Build
 - task: DotNetCoreCLI@2
   inputs:
     command: 'test'
