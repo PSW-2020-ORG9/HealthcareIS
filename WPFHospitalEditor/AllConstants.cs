@@ -12,5 +12,7 @@ namespace WPFHospitalEditor
         public const int additionalInformationsbuttonWidth = 100;
         public const int additionalInformationsbuttonHeight = 25;
         public const string connectionUrl = "http://localhost:5290/";
+        public const string descriptionSeparator = "=";
+        public const string contentSeparator = "=";
     }
 }

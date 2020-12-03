@@ -22,7 +22,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HealthcareBase.Model.Database
 {
-    class MySqlContext : DbContext
+    public class MySqlContext : DbContext
     {
         private readonly string _connectionString;
 
@@ -115,8 +115,14 @@ namespace HealthcareBase.Model.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            SeedData(modelBuilder);
             SetRelations(modelBuilder);
             SetCompositeKeys(modelBuilder);
+        }
+
+        protected virtual void SeedData(ModelBuilder modelBuilder)
+        {
+            
         }
 
         private static void SetRelations(ModelBuilder modelBuilder)

@@ -32,14 +32,12 @@ namespace HospitalWebApp
 {
     public class Startup
     {
-        private string _connectionString;
+        private readonly string _connectionString;
 
-        public Startup(IConfiguration configuration)
+        public Startup(IWebHostEnvironment env)
         {
-            var builder = new ConfigurationBuilder()
-                .AddJsonFile("connections.json", optional: true);
-            Configuration = builder.Build();
-            
+            _connectionString = CreateConnectionStringFromEnvironment();
+            if (_connectionString == null) throw new ApplicationException("Missing database connection string");
         }
 
         public IConfiguration Configuration { get; }
@@ -47,9 +45,6 @@ namespace HospitalWebApp
         // This method gets called at runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            _connectionString = CreateConnectionStringFromEnvironment() ?? Configuration["MySql"];
-            if (_connectionString == null) throw new ApplicationException("Missing database connection string");
-            
             services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             AddServices(services);
@@ -103,6 +98,7 @@ namespace HospitalWebApp
             var prescriptionRepository = new MedicationPrescriptionSqlRepository(GetContext());
             var examinationRepository = new ExaminationSqlRepository(GetContext());
             var equipmentRepository = new EquipmentSqlRepository(GetContext());
+            var medicationRepository = new MedicationSqlRepository(GetContext());
             var cityRepository = new CitySqlRepository(GetContext());
             var countryRepository = new CountrySqlRepository(GetContext());
             var patientAccountRepository = new PatientAccountSqlRepository(GetContext());
@@ -114,6 +110,7 @@ namespace HospitalWebApp
             var patientService = new PatientService(patientRepository, null, null, null);
             var prescriptionService = new MedicationPrescriptionService(prescriptionRepository);
             var equipmentService = new EquipmentService(equipmentRepository);
+            var medicationService = new MedicationService(medicationRepository);
             var patientAccountService = new PatientAccountService(patientAccountRepository);
             var patientRegistrationService = new PatientRegistrationService(patientAccountService, new RegistrationNotifier(Environment.GetEnvironmentVariable("PSW_ACTIVATION_ENDPOINT")));
             var doctorAvailabilityService = new DoctorAvailabilityService(shiftRepository,examinationRepository);
@@ -130,6 +127,7 @@ namespace HospitalWebApp
             services.Add(new ServiceDescriptor(typeof(IPatientAccountService), patientAccountService));
             services.Add(new ServiceDescriptor(typeof(MedicationPrescriptionService), prescriptionService));
             services.Add(new ServiceDescriptor(typeof(EquipmentService), equipmentService));
+            services.Add(new ServiceDescriptor(typeof(MedicationService), medicationService));
             services.Add(new ServiceDescriptor(typeof(CityService),cityService));
             services.Add(new ServiceDescriptor(typeof(CountryService),countryService));
             services.Add(new ServiceDescriptor(typeof(PatientRegistrationService), patientRegistrationService));

@@ -12,10 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Repository\Data\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\HealthcareBase\HealthcareBase.csproj" />
   </ItemGroup>
 

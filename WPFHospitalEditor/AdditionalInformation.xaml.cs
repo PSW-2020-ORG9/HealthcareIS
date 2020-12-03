@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media;
 using WPFHospitalEditor.MapObjectModel;
 using WPFHospitalEditor.Service;
@@ -16,6 +15,10 @@ namespace WPFHospitalEditor
     /// </summary>
     public partial class AdditionalInformation : Window
     {
+        MapObjectController mapObjectController = new MapObjectController();
+        EquipmentServerController equipmentServerController = new EquipmentServerController();
+        IMedicationServerController medicationServerController = new MedicationServerController();
+
         private MapObject mapObject;
         private Building building;
         private string[] descriptionParts;
@@ -23,10 +26,8 @@ namespace WPFHospitalEditor
         private MapObject oldMapObject;
         private Role role;
         private IEnumerable<EquipmentDto> allEquipment;
+        private IEnumerable<MedicationDto> allMedications;
         private DynamicGridControl gridControl;
-
-        MapObjectController mapObjectController = new MapObjectController();
-        EquipmentServerController equipmentServerController = new EquipmentServerController();
 
         public AdditionalInformation(MapObject mapObject, Building building, Role role)
         {
@@ -37,16 +38,14 @@ namespace WPFHospitalEditor
             this.contentRows = descriptionParts[1].Split(";");
             this.oldMapObject = mapObject;
             this.role = role;
-            this.allEquipment = equipmentServerController.getEquipmentByRoomId(mapObject.Id);
-            DynamicGridControl dynamicGridControl = new DynamicGridControl(contentRows, IsReadOnly());
+            this.allEquipment = equipmentServerController.GetEquipmentByRoomId(mapObject.Id);
+            this.allMedications = medicationServerController.GetAllMedication();
+            DynamicGridControl dynamicGridControl = new DynamicGridControl(contentRows, IsPatientLogged());
             DynamicGrid.Children.Add(dynamicGridControl);         
             this.gridControl = dynamicGridControl;
             this.Height = (contentRows.Length +1) * 50 + 60;       
             SetNameCommonAttributes();
-            if (IsReadOnly())
-            {
-                Equipment.Visibility = Visibility.Hidden;
-            }         
+            setButtonsVisibility();
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
@@ -97,8 +96,13 @@ namespace WPFHospitalEditor
 
         private void BtnEquipment_Click(object sender, RoutedEventArgs e)
         {
-            EquipmentWindow equipment = new EquipmentWindow(EquipmentToContentRows(), "=", role);
+            EquipmentAndMedicationWindow equipment = new EquipmentAndMedicationWindow(EquipmentToContentRows());
             equipment.ShowDialog();
+        }
+        private void BtnMedications_Click(object sender, RoutedEventArgs e)
+        {
+            EquipmentAndMedicationWindow medications = new EquipmentAndMedicationWindow(MedicationsToContentRows());
+            medications.ShowDialog();
         }
 
         private string[] EquipmentToContentRows()
@@ -106,18 +110,37 @@ namespace WPFHospitalEditor
             string[] contentRows = new string [allEquipment.Count()];
             for (int i = 0; i < allEquipment.Count(); i++)
             {
-                contentRows[i] = allEquipment.ElementAt(i).Name + "=" + allEquipment.ElementAt(i).Quantity;
+                contentRows[i] = allEquipment.ElementAt(i).Name + AllConstants.contentSeparator + allEquipment.ElementAt(i).Quantity;
             }
             return contentRows;
         }
 
-        private Boolean IsReadOnly()
+        private string[] MedicationsToContentRows()
         {
-            if (role == Role.Patient)
+            string[] contentRows = new string[allMedications.Count()];
+            for (int i = 0; i < allMedications.Count(); i++)
             {
-                return true;    
+                contentRows[i] = allMedications.ElementAt(i).Name + AllConstants.contentSeparator + allMedications.ElementAt(i).Quantity;
             }
+            return contentRows;
+        }
+
+        private void setButtonsVisibility()
+        {
+            if (allEquipment.Count() == 0 || isMapObjectTypeStorageRoom() || IsPatientLogged()) Equipment.Visibility = Visibility.Hidden;
+            if (allMedications.Count() == 0 || !isMapObjectTypeStorageRoom() || IsPatientLogged()) Medication.Visibility = Visibility.Hidden;
+        }
+
+        private Boolean IsPatientLogged()
+        {
+            if (role == Role.Patient) return true;
             return false;
         }
+
+        private bool isMapObjectTypeStorageRoom()
+        {
+            if (mapObject.MapObjectType == MapObjectType.StorageRoom) return true;
+            return false;
+        } 
     }
 }
