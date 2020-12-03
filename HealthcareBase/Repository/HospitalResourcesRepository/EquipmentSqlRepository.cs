@@ -2,20 +2,13 @@
 using HealthcareBase.Model.HospitalResources;
 using HealthcareBase.Repository.Generics;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace HealthcareBase.Repository.HospitalResourcesRepository
 {
-    public class EquipmentSqlRepository : GenericSqlRepository<EquipmentUnit, int>, IEquipmentUnitRepository
+    public class EquipmentSqlRepository : GenericSqlRepository<EquipmentUnit, int>
     {
         public EquipmentSqlRepository(IContextFactory contextFactory) : base(contextFactory) { }
-
-        public IEnumerable<EquipmentUnit> GetByCurrentLocationWithoutParse(Room room)
-        {
-            throw new NotImplementedException();
-        }
 
         protected override IQueryable<EquipmentUnit> IncludeFields(IQueryable<EquipmentUnit> query)
         {
