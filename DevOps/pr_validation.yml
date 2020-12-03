@@ -6,6 +6,13 @@ steps:
   inputs:
     targetType: 'inline'
     script: 'rm -rf *IntegrationTests'
+  displayName: Remove Integration Tests
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    projects: '**/*.csproj'
+    arguments: '--configuration Debug'
+  displayName: Full .NET Build
 - task: DotNetCoreCLI@2
   inputs:
     command: 'test'
