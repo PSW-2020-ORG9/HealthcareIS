@@ -3,9 +3,7 @@ using HealthcareBase.Model.Medication;
 using HealthcareBase.Repository.Generics;
 using HealthcareBase.Repository.MedicationRepository.Interface;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace HealthcareBase.Repository.MedicationRepository
 {

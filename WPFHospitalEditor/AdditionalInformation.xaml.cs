@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media;
 using WPFHospitalEditor.MapObjectModel;
 using WPFHospitalEditor.Service;
@@ -18,7 +17,7 @@ namespace WPFHospitalEditor
     {
         MapObjectController mapObjectController = new MapObjectController();
         EquipmentServerController equipmentServerController = new EquipmentServerController();
-        MedicationServerController medicationServerController = new MedicationServerController();
+        IMedicationServerController medicationServerController = new MedicationServerController();
 
         private MapObject mapObject;
         private Building building;

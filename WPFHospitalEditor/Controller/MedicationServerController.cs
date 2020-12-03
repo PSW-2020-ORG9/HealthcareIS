@@ -4,9 +4,9 @@ using WPFHospitalEditor.Service;
 
 namespace WPFHospitalEditor.Controller
 {
-    public class MedicationServerController
+    public class MedicationServerController : IMedicationServerController
     {
-        private MedicationServerService medicationServerService = new MedicationServerService();
+        private IMedicationServerService medicationServerService = new MedicationServerService();
 
         public IEnumerable<MedicationDto> GetAllMedication()
         {

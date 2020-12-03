@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace WPFHospitalEditor.Service
 {
-   public class MedicationServerService
+   public class MedicationServerService : IMedicationServerService
     {
         public IEnumerable<MedicationDto> GetAllMedication()
         {

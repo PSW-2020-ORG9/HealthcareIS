@@ -6,24 +6,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using HealthcareBase.Dto;
-using HealthcareBase.Model.Medication;
 using HealthcareBase.Repository.Generics;
 using HealthcareBase.Repository.MedicationRepository.Interface;
+using HealthcareBase.Service.MedicationService.Interface;
 
 namespace HealthcareBase.Service.MedicationService
 {
-    public class MedicationService
+    public class MedicationService : IMedicationService
     {
         private readonly RepositoryWrapper<IMedicationRepository> medicationRepository;
 
         public MedicationService(IMedicationRepository medicationRepository)
         {
             this.medicationRepository = new RepositoryWrapper<IMedicationRepository>(medicationRepository);
-        }
-
-        public Medication GetByID(int id)
-        {
-            return medicationRepository.Repository.GetByID(id);
         }
 
         private IEnumerable<MedicationDto> GetAll()
@@ -40,7 +35,7 @@ namespace HealthcareBase.Service.MedicationService
                }
            );
         }
-        public IEnumerable<MedicationDto> GetAllMedicineWithQuantity()
+        public IEnumerable<MedicationDto> GetAllMedicationsWithQuantity()
         {
             Dictionary<string, MedicationDto> allMedication = new Dictionary<string, MedicationDto>();
             foreach (MedicationDto medication in GetAll())
