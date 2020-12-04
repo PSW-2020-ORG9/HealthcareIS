@@ -21,10 +21,11 @@ namespace WPFHospitalEditor
         IMapObjectController mapObjectController = new MapObjectController();
         private HospitalMap hospitalMap;
         private Role role;
+        ScrollViewer viewer = new ScrollViewer();
 
         public EquipmentSearchResultDialog(HospitalMap hospitalMap, Role role)
         {
-            this.Height = (HospitalMap.equipmentSearchResult.Count + 1) * 40 + 10;
+            this.Height = AllConstants.SearchDialogHeight;
             InitializeComponent();
             DefineDynamicGrid();
             this.role = role;
@@ -35,7 +36,9 @@ namespace WPFHospitalEditor
         {
             createRows();
             createRowContent();
-            Border.Child = DynamicGrid;
+            viewer.Content = DynamicGrid;
+            viewer.BorderBrush = Brushes.AliceBlue;
+            Border.Child = viewer;
         }
 
         private void createRowContent()
@@ -204,11 +207,10 @@ namespace WPFHospitalEditor
             }
         }
 
-        private void GoToObjectLocation_Click(object sender, RoutedEventArgs e)
+        private void Close_Click(object sender, RoutedEventArgs e)
         {
             SearchResultDialog.selectedObjectId = -1;
             CanvasService.addObjectToCanvas(mapObjectController.getOutterMapObjects(), HospitalMap.canvasHospitalMap);
-            HospitalMap.searchResult.Clear();
             Close();
         }
         private Tuple<String, String> getBuildingAndFloor(MapObject mapObjectCheck)

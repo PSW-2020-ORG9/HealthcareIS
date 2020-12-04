@@ -148,7 +148,7 @@ namespace WPFHospitalEditor
             {
                 equipmentSearchResult = equipmentServerController.getEquipmentByType(equipmentSearchComboBox.Text).ToList();
                 EquipmentSearchResultDialog equipmentDialog = new EquipmentSearchResultDialog(this, role);
-                equipmentDialog.Show();
+                equipmentDialog.ShowDialog();
             }
         }
 

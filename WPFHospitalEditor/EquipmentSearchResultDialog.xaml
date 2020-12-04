@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFHospitalEditor"
         mc:Ignorable="d"
-        Title="EquipmentSearchResultDialog" Width="285" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen">
-    <Border BorderThickness="10" BorderBrush="#FF8BD9E0" x:Name="Border">
+        Title="EquipmentSearchResultDialog" Width="300" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen">
+    <Border BorderThickness="10" BorderBrush="#FF8BD9E0" x:Name="Border" >
         <Grid x:Name="DynamicGrid" Background="#FFC6F5F8">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2"></ColumnDefinition>
@@ -24,7 +24,7 @@
             <Label Grid.Row="1" Grid.Column="1" Content="Name" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold"></Label>
             <Label Grid.Row="1" Grid.Column="2" Content="Amount" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold"></Label>
             <Label Grid.Row="1" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold"></Label>
-            <Button x:Name="GoToObjectLocation" Content="X" Grid.Row="1" Grid.Column="3" Background="red" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" Width="25" Height="25" FontWeight="Bold" FontSize="16" Click="GoToObjectLocation_Click"></Button>
+            <Button x:Name="close" Content="X" Grid.Row="1" Grid.Column="3" Background="red" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" Width="25" Height="25" FontWeight="Bold" FontSize="16" Click="Close_Click"></Button>
             <Separator Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3" VerticalAlignment="Bottom"></Separator>
         </Grid>
     </Border>
