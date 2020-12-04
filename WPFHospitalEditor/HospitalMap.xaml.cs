@@ -6,6 +6,8 @@ using System.Windows.Input;
 using WPFHospitalEditor.MapObjectModel;
 using WPFHospitalEditor.Service;
 using WPFHospitalEditor.Controller;
+using WPFHospitalEditor.Controller.Interface;
+using HealthcareBase.Dto;
 
 namespace WPFHospitalEditor
 {
@@ -13,19 +15,24 @@ namespace WPFHospitalEditor
     /// Interaction logic for HospitalMap.xaml
     /// </summary>
     public partial class HospitalMap : Window
-    {       
-        public static Canvas canvasHospitalMap;
-        MapObjectController mapObjectController = new MapObjectController();      
+    {
+        IEquipmentServerController equipmentServerController = new EquipmentServerController();
+        IMapObjectController mapObjectController = new MapObjectController();
+
+        public static Canvas canvasHospitalMap;  
         private Role role;
         public static List<MapObject> searchResult = new List<MapObject>();
+        public static List<EquipmentDto> equipmentSearchResult = new List<EquipmentDto>();
+
 
         public HospitalMap(List<MapObject> allMapObjects, Role role)
         {                     
             InitializeComponent();
-            setTypeComboBox();
+            setMapObjectTypeComboBox();
             CanvasService.addObjectToCanvas(mapObjectController.getOutterMapObjects(), canvas);
             canvasHospitalMap = canvas;
             this.role = role;
+            if (IsPatientLogged()) equipmentAndMedicineSearchStackPanel.Visibility = Visibility.Hidden;
         }
         
         private void selectBuilding(object sender, MouseButtonEventArgs e)
@@ -64,8 +71,9 @@ namespace WPFHospitalEditor
 
         private void Basic_Search(object sender, RoutedEventArgs e)
         {
-
             searchResult.Clear();
+            equipmentSearchResult.Clear();
+            SearchResultDialog.selectedObjectId = -1;
             List<MapObject> allMapObjects = mapObjectController.getAllMapObjects();
             foreach (MapObject mapObject in allMapObjects)
             {
@@ -117,7 +125,7 @@ namespace WPFHospitalEditor
             return mapObject.MapObjectType.ToString().Equals(searchInputComboBox.Text) && searchInputTB.Text.Equals("");
         }
 
-        private void setTypeComboBox()
+        private void setMapObjectTypeComboBox()
         {
             foreach (MapObjectType mop in Enum.GetValues(typeof(MapObjectType)))
             {
@@ -126,6 +134,20 @@ namespace WPFHospitalEditor
                     searchInputComboBox.Items.Add(mop);
                 } 
             }
+        }
+
+/*        private void setEquipmentTypeComboBox()
+        {
+            foreach ()
+            {
+                
+            }
+        }*/
+
+        private Boolean IsPatientLogged()
+        {
+            if (role == Role.Patient) return true;
+            return false;
         }
     }
 }

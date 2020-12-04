@@ -18,7 +18,6 @@ namespace HealthcareBase.Service.HospitalResourcesService.EquipmentService
     {
         private readonly EquipmentService equipmentService;
         private readonly RepositoryWrapper<IEquipmentTypeRepository> equipmentTypeRepository;
-        private readonly RepositoryWrapper<IHospitalizationTypeRepository> hospitalizationTypeRepository;
 
         public EquipmentTypeService(
             IEquipmentTypeRepository equipmentTypeRepository,
@@ -26,8 +25,6 @@ namespace HealthcareBase.Service.HospitalResourcesService.EquipmentService
             EquipmentService equipmentService)
         {
             this.equipmentTypeRepository = new RepositoryWrapper<IEquipmentTypeRepository>(equipmentTypeRepository);
-            this.hospitalizationTypeRepository =
-                new RepositoryWrapper<IHospitalizationTypeRepository>(hospitalizationTypeRepository);
             this.equipmentService = equipmentService;
         }
 

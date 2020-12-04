@@ -8,6 +8,6 @@ namespace WPFHospitalEditor.Controller.Interface
     public interface IEquipmentServerController
     {
         IEnumerable<EquipmentDto> GetEquipmentByRoomId(int roomId);
-        IEnumerable<EquipmentDto> getEquipmentsByType(string equipmentType);
+        IEnumerable<EquipmentDto> getEquipmentByType(string equipmentType);
     }
 }

@@ -96,7 +96,7 @@ namespace HealthcareBase.Service.HospitalResourcesService.EquipmentService
             return allEquipment.Values.ToList();
         }
 
-        private IEnumerable<EquipmentDto> GetEquipmentsByType(string equipmentType)
+        private IEnumerable<EquipmentDto> GetEquipmentByType(string equipmentType)
         {
             return equipmentUnitRepository.Repository.GetColumnsForMatching(
                 condition: equipment => equipment.EquipmentType.Name.Equals(equipmentType),
@@ -113,7 +113,7 @@ namespace HealthcareBase.Service.HospitalResourcesService.EquipmentService
         public IEnumerable<EquipmentDto> GetEquipmentWithQuantityByType(string equipmentType)
         {
             Dictionary<int, EquipmentDto> allEquipment = new Dictionary<int, EquipmentDto>();
-            foreach (EquipmentDto equipment in GetEquipmentsByType(equipmentType))
+            foreach (EquipmentDto equipment in GetEquipmentByType(equipmentType))
             {
                 if (!allEquipment.ContainsKey(equipment.RoomId))
                 {

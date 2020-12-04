@@ -15,9 +15,9 @@ namespace WPFHospitalEditor.Controller
             return EquipmentServerService.GetEquipmentByRoomId(roomId);
         }
 
-        public IEnumerable<EquipmentDto> getEquipmentsByType(string equipmentType)
+        public IEnumerable<EquipmentDto> getEquipmentByType(string equipmentType)
         {
-            return EquipmentServerService.getEquipmentsByType(equipmentType);
+            return EquipmentServerService.getEquipmentByType(equipmentType);
         }
 
     }
