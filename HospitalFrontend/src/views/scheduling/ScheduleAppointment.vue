@@ -2,9 +2,9 @@
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 	<form id="msform">
     <ul id="progressbar">
-        <li v-bind:class="{active : isPersonalInfo()}">Personal Information</li>
-        <li v-bind:class="{active : isAccDetails()}">Account Details</li>
-		<li v-bind:class="{active : isProfilePicture()}">Profile Picture</li>
+        <li v-bind:class="{active : isDateSelect()}">Date Selection</li>
+        <li v-bind:class="{active : isDoctorSelect()}">Doctor Selection</li>
+		<li v-bind:class="{active : isAppointmentSelect()}">Appointment Selection</li>
     </ul>
 	<router-view v-slot="slotProps">
 		<transition name="router-anim" enter-active-class="animate__animated animate__fadeIn">
@@ -16,21 +16,17 @@
 
 <script>
 export default {
-	name:"RegisterPatient",
+	name:"ScheduleAppointment",
 	methods:{
-		isPersonalInfo:function(){
-			return this.$route.name === 'personalInformation'
+		isDateSelect:function(){
+			return this.$route.name === 'chooseDate'
 		},
-		isHealthStatus:function(){
-			return this.$route.name === 'healthStatus'
+		isDoctorSelect:function(){
+			return this.$route.name === 'chooseDoctor'
 		},
-		isAccDetails:function(){
-			return this.$route.name === 'accountDetails'
-		},
-		isProfilePicture: function () {
-			return this.$route.name === 'profilePicture'
+		isAppointmentSelect:function(){
+			return this.$route.name === 'chooseAppointment'
 		}
-
 	}
 }
 

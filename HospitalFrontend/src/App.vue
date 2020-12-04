@@ -8,7 +8,8 @@
     <router-link to="/survey-preview" style="margin-right: 5px; margin-left: 5px;">Survey preview</router-link> &middot;
     <router-link to="/medical-record" style="margin-right: 5px; margin-left: 5px;"> Observe medical record </router-link> &middot;
     <router-link to="/doc-search" style="margin-right: 5px; margin-left: 5px;">Search medical documentation </router-link> &middot;
-    <router-link to="/register" style="margin-right: 5px; margin-left: 5px;">Patient registration </router-link>
+    <router-link to="/register" style="margin-right: 5px; margin-left: 5px;">Patient registration </router-link> &middot;
+    <router-link to="/schedule" style="margin-right: 5px; margin-left: 5px;">Schedule Appointment </router-link>
   </div>
   <router-view/>
   </div>

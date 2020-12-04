@@ -11,6 +11,8 @@ let countriesUrl=server+'/country'
 let citiesByCountryId = server + '/city/by-country/'
 let registrationUrl = patientUrl + '/register'
 let surveyUrl = server + '/survey'
+let doctorAvailabiltyUrl = server + '/available/'
+let examinationUrl = server + '/examination'
 
 export default{
     feedback: feedbacksUrl ,
@@ -25,6 +27,7 @@ export default{
     survey: surveyUrl,
     
     examinations: examinationsUrl,
+    examination: examinationUrl,
     prescriptions: prescriptionsUrl,
 
     docSearchPrescriptionSimple: prescriptionsUrl + '/simple',
@@ -34,5 +37,14 @@ export default{
     docSearchExaminationAdvanced: examinationsUrl + "/advanced",
 
     imageUpload: imageUploadUrl,
-    authorization: 'Client-ID ' + clientId 
+    authorization: 'Client-ID ' + clientId,
+
+    availableDoctorUrl:function(date){
+        return doctorAvailabiltyUrl + 'doctor?date=' + date
+    }
+    ,
+    availableIntervalUrl:function(date,doctorId){
+        return doctorAvailabiltyUrl + 'interval?date=' + date + '&doctorId=' + doctorId
+    }
+
 }

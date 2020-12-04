@@ -1,0 +1,81 @@
+<template>
+   <fieldset>
+        <h2 class="fs-title">Appointment selection</h2>
+        <h3 class="fs-subtitle">Select an appointment which suits you best</h3>
+        <select name="appointments">
+            <option value="">Select an appointent...</option>
+            <option v-bind:value="index" v-for="(appointment,index) in availableAppointments"
+            @click="selectAppointment(appointment)" v-bind:key="index">{{this.formAppointmentString(appointment)}}</option>
+        </select>
+        <input type="button" name="previous" class="previous action-button" value="Previous" @click="goToPrevPage()" />
+        <input type="button" name="next" class="next action-button" value="Schedule" @click="scheduleAppointment()"/>
+    </fieldset>
+</template>
+
+<script>
+import api from '../../constant/api.js'
+import axios from 'axios'
+import moment from 'moment'
+import Toastify from 'toastify-js'
+
+export default {
+    name:"ChooseAppointment",
+    data:function(){
+        return{
+            availableAppointments:[],
+            selectedAppointment:null
+        }
+    }
+    ,
+    beforeRouteEnter (to, from, next) {
+        next(vm=>{
+            vm.availableAppointments = vm.$store.state.availableAppointments
+        })
+    }
+    ,
+    methods: {
+        
+        goToPrevPage:function(){
+            this.$router.push('/schedule/choose-doctor')
+        }
+        ,
+        formAppointmentString:function(appointment){
+            let appointmentStart=moment(appointment.start)
+            let appointmentEnd=moment(appointment.end)
+            return appointmentStart.format("dddd, MMMM Do YYYY") +
+             " ["+appointmentStart.format("h:mm")+" - "+appointmentEnd.format("h:mm")+"]"
+        }
+        ,
+        selectAppointment:function(appointment){
+            this.selectedAppointment=appointment
+        }
+        ,
+        toastSuccess:function(succesMsg){
+            Toastify({
+                text: succesMsg,
+                duration: '2000',
+                newWindow: true,
+                close: true,
+                gravity: 'top',
+                position: 'center',
+                backgroundColor: "linear-gradient(to right, #00b09b, #7ecc92)"
+                }).showToast()
+        },
+        scheduleAppointment:function(){
+            let appointmentDto=this.$store.state.scheduledExaminationDTO
+            appointmentDto['StartTime']=this.selectedAppointment.start
+            let selectedAppointment=this.selectedAppointment
+
+            axios.post(api.examination,appointmentDto).then(response=>{
+                this.toastSuccess('Appointment on '+this.formAppointmentString(selectedAppointment)+' succesfully scheduled!')
+                this.$store.commit('clearAppointmentInfo')
+                this.$router.push('/schedule/')
+         })
+        }
+    },
+}
+</script>
+
+<style>
+     @import '../../styles/multipart-form-style.css';
+</style>
