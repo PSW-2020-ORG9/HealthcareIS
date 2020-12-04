@@ -1,7 +1,6 @@
-﻿using HealthcareBase.Model.HospitalResources;
-using System;
+﻿using HealthcareBase.Dto;
+using HealthcareBase.Model.HospitalResources;
 using System.Collections.Generic;
-using System.Text;
 
 namespace HealthcareBase.Service.HospitalResourcesService.EquipmentService.Interface
 {
@@ -12,5 +11,6 @@ namespace HealthcareBase.Service.HospitalResourcesService.EquipmentService.Inter
         EquipmentType Create(EquipmentType equipmentType);
         EquipmentType Update(EquipmentType equipmentType);
         void Delete(EquipmentType equipmentType);
+        IEnumerable<EquipmentTypeDto> GetAllEquipmentTypes();
     }
 }
