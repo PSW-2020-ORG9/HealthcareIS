@@ -1,11 +1,12 @@
 ﻿using HealthcareBase.Dto;
 using System.Collections.Generic;
+using WPFHospitalEditor.Controller.Interface;
 using WPFHospitalEditor.Service;
 using WPFHospitalEditor.Service.Interface;
 
 namespace WPFHospitalEditor.Controller
 {
-    public class EquipmentTypeServerController
+    public class EquipmentTypeServerController : IEquipmentTypeServerController
     {
         private IEquipmentTypeServerService EquipmentTypeServerService = new EquipmentTypeServerService();
 

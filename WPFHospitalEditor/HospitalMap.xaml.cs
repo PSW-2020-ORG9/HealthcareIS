@@ -18,6 +18,7 @@ namespace WPFHospitalEditor
     {
         IEquipmentServerController equipmentServerController = new EquipmentServerController();
         IMapObjectController mapObjectController = new MapObjectController();
+        IEquipmentTypeServerController equipmentTypeServerController = new EquipmentTypeServerController();
 
         public static Canvas canvasHospitalMap;  
         private Role role;
@@ -29,6 +30,7 @@ namespace WPFHospitalEditor
         {                     
             InitializeComponent();
             setMapObjectTypeComboBox();
+            setEquipmentTypeComboBox();
             CanvasService.addObjectToCanvas(mapObjectController.getOutterMapObjects(), canvas);
             canvasHospitalMap = canvas;
             this.role = role;
@@ -141,13 +143,13 @@ namespace WPFHospitalEditor
 
         }
 
-/*        private void setEquipmentTypeComboBox()
+        private void setEquipmentTypeComboBox()
         {
-            foreach ()
+            foreach (EquipmentTypeDto eqTD in equipmentTypeServerController.GetAllEquipmentTypes())
             {
-                
+                equipmentSearchComboBox.Items.Add(eqTD.Name);
             }
-        }*/
+        }
 
         private Boolean IsPatientLogged()
         {
