@@ -1,10 +1,12 @@
 ﻿using HealthcareBase.Model.Database;
 using HealthcareBase.Model.HospitalResources;
+using HealthcareBase.Model.Miscellaneous;
 using HealthcareBase.Model.Schedule.Procedures;
 using HealthcareBase.Model.Users.Employee.Doctors;
 using HealthcareBase.Model.Users.Generalities;
 using HealthcareBase.Model.Users.Patient;
 using HealthcareBase.Model.Users.Patient.MedicalHistory;
+using HealthcareBase.Model.Users.Patient.MedicalHistory.Relationship;
 using HealthcareBase.Model.Utilities;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -38,16 +40,11 @@ namespace HospitalWebApp.Context
                 CityOfResidenceId = 1,
                 Gender = Gender.Other
             });
-            modelBuilder.Entity<MedicalRecord>().HasData(new MedicalRecord
-            {
-                Id = 1
-            });
             modelBuilder.Entity<Patient>().HasData(new Patient
             {
                 Id = 1,
                 Jmbg = "123",
                 InsuranceNumber = "124125",
-                MedicalRecordId = 1
             });
             modelBuilder.Entity<Department>().HasData(new Department
             {
@@ -102,6 +99,25 @@ namespace HospitalWebApp.Context
                     Start = new DateTime(2022, 1, 1, 8, 0, 0),
                     End = new DateTime(2022, 1, 1, 8, 30, 0),
                 });
+            });
+            modelBuilder.Entity<Allergy>().HasData(new Allergy
+            {
+                Id = 1,
+                Allergen = "Peanuts",
+                Symptoms = "Death",
+                Prevention = "None"
+            }, new Allergy
+            {
+                Id = 2,
+                Allergen = "Dust",
+                Symptoms = "Sneezing and teary eyes",
+                Prevention = "Antihistamines"
+            });
+            modelBuilder.Entity<AllergyManifestation>().HasData(new AllergyManifestation
+            {
+                PatientId = 1,
+                AllergyId = 1,
+                Intensity = AllergyIntensity.Severe
             });
         }
     }

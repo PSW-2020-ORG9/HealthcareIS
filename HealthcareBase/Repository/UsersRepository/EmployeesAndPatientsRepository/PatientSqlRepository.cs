@@ -29,12 +29,11 @@ namespace HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsReposito
                         .ThenInclude(cz => cz.Country)
 
                 // Medical record
-                .Include(p => p.MedicalRecord)
-                    .ThenInclude(mr => mr.Allergies)
-                        .ThenInclude(a => a.Allergy)
-
-                .Include(p => p.MedicalRecord)
-                    .ThenInclude(mh => mh.FamilyMemberDiagnoses);
+                .Include(p => p.Allergies)
+                    .ThenInclude(a => a.Allergy)
+                .Include(p => p.Examinations)
+                    .ThenInclude(e => e.ExaminationReport)
+                        .ThenInclude(er => er.Diagnoses);
         }
 
         public bool ExistsByJMBG(string jmbg)
@@ -42,12 +41,5 @@ namespace HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsReposito
 
         public Patient GetByJMBG(string jmbg)
             => GetMatching(p => p.Person.Jmbg == jmbg).FirstOrDefault();
-
-        public int GetMedicalRecordId(int patientId)
-        {
-            var foundPatient = GetByID(patientId);
-            if (foundPatient == null) return -1;
-            return foundPatient.MedicalRecordId;
-        }
     }
 }
