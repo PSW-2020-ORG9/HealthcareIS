@@ -136,6 +136,11 @@ namespace WPFHospitalEditor
             }
         }
 
+        public void Equipment_Search(object sender, RoutedEventArgs e)
+        {
+
+        }
+
 /*        private void setEquipmentTypeComboBox()
         {
             foreach ()
