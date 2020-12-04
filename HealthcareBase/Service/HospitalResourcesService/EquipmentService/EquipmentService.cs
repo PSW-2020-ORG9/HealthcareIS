@@ -104,7 +104,8 @@ namespace HealthcareBase.Service.HospitalResourcesService.EquipmentService
                 {
                     Id = equipment.Id,
                     RoomId = equipment.CurrentLocation.Id,
-                    Name = equipment.EquipmentType.Name
+                    Name = equipment.EquipmentType.Name,
+                    Quantity = 0
                 }
             );
         }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace WPFHospitalEditor.Service
 {
-   public  class EquipmentServerService
+   public class EquipmentServerService
     {
         public IEnumerable<EquipmentDto> GetEquipmentByRoomId(int roomId)
         {

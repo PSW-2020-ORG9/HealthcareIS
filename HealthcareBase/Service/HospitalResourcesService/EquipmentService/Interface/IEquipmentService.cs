@@ -1,8 +1,6 @@
 ﻿using HealthcareBase.Dto;
 using HealthcareBase.Model.HospitalResources;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace HealthcareBase.Service.HospitalResourcesService.EquipmentService.Interface
 {
@@ -15,7 +13,7 @@ namespace HealthcareBase.Service.HospitalResourcesService.EquipmentService.Inter
         void Delete(EquipmentUnit equipmentUnit);
         void DeleteByType(EquipmentType equipmentType);
         IEnumerable<EquipmentDto> GetEquipmentWithQuantityByRoomId(int roomId);
-        Dictionary<int, EquipmentDto> GetEquipmentWithQuantityByType(string equipmentType);
+        IEnumerable<EquipmentDto> GetEquipmentWithQuantityByType(string equipmentType);
 
     }
 }
