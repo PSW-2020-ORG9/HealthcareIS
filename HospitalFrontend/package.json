@@ -3,15 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "serve": "preprocess src/api_preprocess/api.js . -SERVER_URI=localhost:5000 > src/constant/api.js && vue-cli-service serve",
+    "build": "cross-var preprocess src/api_preprocess/api.js . -SERVER_URI=$ASPNET_HOST:$ASPNET_PORT > src/constant/api.js && vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "axios": "^0.21.0",
     "core-js": "^3.6.5",
+    "cross-var": "^1.1.0",
     "jquery": "^3.5.1",
     "moment": "^2.29.1",
+    "preprocessor": "^1.4.0",
     "toastify-js": "^1.9.3",
     "vue": "^3.0.0",
     "vue-axios": "^3.1.3",
