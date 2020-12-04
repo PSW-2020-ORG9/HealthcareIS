@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using HealthcareBase.Dto;
+using HealthcareBase.Service.HospitalResourcesService.EquipmentService.Interface;
 
 namespace HospitalWebApp.Controllers
 {
@@ -9,7 +10,7 @@ namespace HospitalWebApp.Controllers
     [Route("[controller]")]
     public class EquipmentController : ControllerBase
     {
-        private readonly EquipmentService _equipmentService;
+        private readonly IEquipmentService _equipmentService;
 
         public EquipmentController(EquipmentService equipmentService)
         {
