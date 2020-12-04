@@ -7,6 +7,7 @@ using WPFHospitalEditor.Controller;
 using HealthcareBase.Dto;
 using System.Linq;
 using System;
+using WPFHospitalEditor.Controller.Interface;
 
 namespace WPFHospitalEditor
 {
@@ -15,8 +16,8 @@ namespace WPFHospitalEditor
     /// </summary>
     public partial class AdditionalInformation : Window
     {
-        MapObjectController mapObjectController = new MapObjectController();
-        EquipmentServerController equipmentServerController = new EquipmentServerController();
+        IMapObjectController mapObjectController = new MapObjectController();
+        IEquipmentServerController equipmentServerController = new EquipmentServerController();
         IMedicationServerController medicationServerController = new MedicationServerController();
 
         private MapObject mapObject;
