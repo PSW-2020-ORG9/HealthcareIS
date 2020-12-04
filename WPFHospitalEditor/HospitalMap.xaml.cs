@@ -8,6 +8,7 @@ using WPFHospitalEditor.Service;
 using WPFHospitalEditor.Controller;
 using WPFHospitalEditor.Controller.Interface;
 using HealthcareBase.Dto;
+using System.Linq;
 
 namespace WPFHospitalEditor
 {
@@ -73,9 +74,7 @@ namespace WPFHospitalEditor
 
         private void Basic_Search(object sender, RoutedEventArgs e)
         {
-            searchResult.Clear();
-            equipmentSearchResult.Clear();
-            SearchResultDialog.selectedObjectId = -1;
+            clearAllResults();
             List<MapObject> allMapObjects = mapObjectController.getAllMapObjects();
             foreach (MapObject mapObject in allMapObjects)
             {
@@ -140,7 +139,17 @@ namespace WPFHospitalEditor
 
         public void Equipment_Search(object sender, RoutedEventArgs e)
         {
-
+            clearAllResults();
+            if (NoEquipmentTypeIsPicked())
+            {
+                MessageBox.Show("No equipment is picked.");
+            }
+            else
+            {
+                equipmentSearchResult = equipmentServerController.getEquipmentByType(equipmentSearchComboBox.Text).ToList();
+                EquipmentSearchResultDialog equipmentDialog = new EquipmentSearchResultDialog(this, role);
+                equipmentDialog.Show();
+            }
         }
 
         private void setEquipmentTypeComboBox()
@@ -154,6 +163,19 @@ namespace WPFHospitalEditor
         private Boolean IsPatientLogged()
         {
             if (role == Role.Patient) return true;
+            return false;
+        }
+
+        private void clearAllResults()
+        {
+            searchResult.Clear();
+            equipmentSearchResult.Clear();
+            SearchResultDialog.selectedObjectId = -1;
+        }
+
+        private Boolean NoEquipmentTypeIsPicked()
+        {
+            if (equipmentSearchComboBox.Text.Equals("Pick equipment type")) return true;
             return false;
         }
     }
