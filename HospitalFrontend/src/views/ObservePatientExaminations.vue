@@ -36,6 +36,7 @@ export default {
     mounted: function () {
         axios.get(api.patientExaminations + '/patient/1').then(response => {
             this.examinations = response.data
+            console.log(response.data)
         })
     },
     methods: {
