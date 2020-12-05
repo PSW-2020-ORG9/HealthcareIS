@@ -6,7 +6,7 @@
     "serve": "preprocess src/api_preprocess/api.js . -SERVER_URI=localhost:5000 > src/constant/api.js && vue-cli-service serve",
     "build": "preprocess src/api_preprocess/api.js . -SERVER_URI=localhost:5000 > src/constant/api.js && vue-cli-service build",
     "purebuild": "vue-cli-service build",
-    "dockerbuild": "cross-var preprocess src/api_preprocess/api.js . -SERVER_URI=$ASPNET_HOST:$ASPNET_PORT > src/constant/api.js && vue-cli-service build",
+    "dockerbuild": "mkdir src/constant && cross-var preprocess src/api_preprocess/api.js . -SERVER_URI=$ASPNET_HOST:$ASPNET_PORT > src/constant/api.js && vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
