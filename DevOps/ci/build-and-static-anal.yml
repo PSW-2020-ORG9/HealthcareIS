@@ -80,6 +80,7 @@ steps:
     script: |
       npm -g install preprocessor
       cd HospitalFrontend
+      mkdir src/constant
       preprocess src/api_preprocess/api.js . -SERVER_URI=localhost:5000 > src/constant/api.js
       rm -rf src/api_preprocess
       ls src
