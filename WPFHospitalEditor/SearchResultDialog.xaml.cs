@@ -17,7 +17,7 @@ namespace WPFHospitalEditor
     {
         private MapObjectController mapObjectController = new MapObjectController();
 
-        private List<Button> advanceSearchButtons = new List<Button>();
+        private List<Button> advancedSearchButtons = new List<Button>();
         private HospitalMap hospitalMap;
 
         private Dictionary<int, MapObject> row = new Dictionary<int, MapObject>();
@@ -131,7 +131,7 @@ namespace WPFHospitalEditor
 
             adjustAdvancedSearchButtonProperties(advancedSearch);
 
-            advanceSearchButtons.Add(advancedSearch);
+            advancedSearchButtons.Add(advancedSearch);
 
             Grid.SetRow(advancedSearch, firstContentRowNumber);
             Grid.SetColumn(advancedSearch, 4);
@@ -155,8 +155,8 @@ namespace WPFHospitalEditor
                     {
                         String building = getBuildingAndFloor(chosenMapObject).Item1;
                         String floor = getBuildingAndFloor(chosenMapObject).Item2;
-                        List<MapObject> chosenBuilding = findBuilding(building);
-                        displayBuildingAndFloorBasedOnSelectedObject(chosenBuilding, int.Parse(floor), HospitalMap.role, int.Parse(building));
+                        List<MapObject> chosenBuilding = findMapObjectsInBuilding(building);
+                        displayBuildingAndFloorBasedOnSelectedObject(chosenBuilding, int.Parse(floor), int.Parse(building));
                         
                         hospitalMap.Hide();
                         this.Close();
@@ -165,7 +165,7 @@ namespace WPFHospitalEditor
             };
         }
         
-        public void displayBuildingAndFloorBasedOnSelectedObject(List<MapObject> chosenBuilding,int  floor, Role role, int building)
+        public void displayBuildingAndFloorBasedOnSelectedObject(List<MapObject> chosenBuilding,int  floor, int building)
         {
             Building buildingFromSearch = new Building(chosenBuilding, floor);
             Building.canvasBuilding.Children.Clear();
@@ -173,18 +173,18 @@ namespace WPFHospitalEditor
             buildingFromSearch.Owner = hospitalMap;
             buildingFromSearch.Show();
         }
-        public List<MapObject> findBuilding(String building)
+        public List<MapObject> findMapObjectsInBuilding(String building)
         {
             Tuple<String, String> buildingAndFloorIteration;
-            String buildingIterate = "";
+            String buildingId = "";
             List<MapObject> buildingObjects = new List<MapObject>();
             foreach (MapObject mapObjectIterate in mapObjectController.getAllMapObjects())
             {
                 buildingAndFloorIteration = getBuildingAndFloor(mapObjectIterate);
                 if (buildingAndFloorIteration != null)
                 {
-                    buildingIterate = buildingAndFloorIteration.Item1;
-                    if (buildingIterate.Equals(building))
+                    buildingId = buildingAndFloorIteration.Item1;
+                    if (buildingId.Equals(building))
                     {
                         buildingObjects.Add(mapObjectIterate);
                     }

@@ -18,7 +18,6 @@ namespace WPFHospitalEditor
         private Dictionary<int, Floor> buildingFloors = new Dictionary<int, Floor>();
         public List<MapObject> floorBuildingObjects = new List<MapObject>();
         MapObjectController mapObjectController = new MapObjectController();
-        private Role role;
         public static Canvas canvasBuilding;
 
         public Building(List<MapObject> buildingObjects, int selectedFloor)
@@ -29,7 +28,6 @@ namespace WPFHospitalEditor
             setFloorComboBox();
             floor.SelectedIndex = selectedFloor;
             floorBuildingObjects = buildingFloors[floor.SelectedIndex].getAllFloorMapObjects();
-            this.role = HospitalMap.role;
             canvasBuilding = canvas;
         }
         
