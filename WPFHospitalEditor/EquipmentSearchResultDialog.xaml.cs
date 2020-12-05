@@ -21,7 +21,6 @@ namespace WPFHospitalEditor
         IMapObjectController mapObjectController = new MapObjectController();
         private HospitalMap hospitalMap;
         private Role role;
-        ScrollViewer viewer = new ScrollViewer();
 
         public EquipmentSearchResultDialog(HospitalMap hospitalMap, Role role)
         {
@@ -36,9 +35,7 @@ namespace WPFHospitalEditor
         {
             createRows();
             createRowContent();
-            viewer.Content = DynamicGrid;
-            viewer.BorderBrush = Brushes.AliceBlue;
-            Border.Child = viewer;
+            scrollViewer.Content = DynamicGrid;
         }
 
         private void createRowContent()

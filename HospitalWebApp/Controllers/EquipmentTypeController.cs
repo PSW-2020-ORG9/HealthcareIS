@@ -19,7 +19,7 @@ namespace HospitalWebApp.Controllers
         }
 
         [HttpGet]
-        [Route("GetAll")]
+        [Route("getAll")]
         public IActionResult GetAllEquipmentTypes()
         {
             IEnumerable<EquipmentTypeDto> eqTDtos = _equipmentTypeService.GetAllEquipmentTypes();

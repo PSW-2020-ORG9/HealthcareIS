@@ -54,12 +54,7 @@ namespace HealthcareBase.Service.HospitalResourcesService.EquipmentService
         {
             if (equipmentUnit is null)
                 throw new BadRequestException();
-            DeleteFromHospitalizations(equipmentUnit);
             equipmentUnitRepository.Repository.Delete(equipmentUnit);
-        }
-
-        private void DeleteFromHospitalizations(EquipmentUnit equimpentUnit)
-        {
         }
 
         public void DeleteByType(EquipmentType equipmentType)

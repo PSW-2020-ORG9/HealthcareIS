@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         Title="EquipmentSearchResultDialog" Width="300" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen">
     <Border BorderThickness="10" BorderBrush="#FF8BD9E0" x:Name="Border" >
-        <Grid x:Name="DynamicGrid" Background="#FFC6F5F8">
+        <ScrollViewer x:Name="scrollViewer">
+            <Grid x:Name="DynamicGrid" Background="#FFC6F5F8">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2"></ColumnDefinition>
                 <ColumnDefinition Width="115"></ColumnDefinition>
@@ -27,5 +28,6 @@
             <Button x:Name="close" Content="X" Grid.Row="1" Grid.Column="3" Background="red" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" Width="25" Height="25" FontWeight="Bold" FontSize="16" Click="Close_Click"></Button>
             <Separator Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3" VerticalAlignment="Bottom"></Separator>
         </Grid>
+        </ScrollViewer>
     </Border>
 </Window>
