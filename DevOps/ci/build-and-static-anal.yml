@@ -110,13 +110,6 @@ steps:
   displayName: 'Frontend Publish Quality Gate Result'
 
 - bash: |
-   mkdir temp
-   cp -r HospitalFrontend/dist/* temp
-   rm -rf HospitalFrontend/dist
-   mkdir HospitalFrontend/dist
-   mkdir HospitalFrontend/dist/dist
-   cp -r temp/* HospitalFrontend/dist/dist
-   rm -rf temp
    cd HealthcareBase
    dotnet publish -c Release -o ./bin/Publish
    cd ..
@@ -149,9 +142,3 @@ steps:
   inputs:
     PathtoPublish: HealthcareBase/dbscheme.sql
     ArtifactName: dropdb
-
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish frontend'
-  inputs:
-    PathtoPublish: HospitalFrontend/dist
-    ArtifactName: dropfront
