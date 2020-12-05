@@ -72,18 +72,17 @@ steps:
     workingDir: HospitalFrontend/
     verbose: false
 
-#- task: Bash@3
-#  inputs:
-#    targetType: 'inline'
-#    script: |
-#      npm -g install preprocessor
-#      cd HospitalFrontend
-#      mkdir src/constant
-#      preprocess src/api_preprocess/api.js . -SERVER_URI=localhost:5000 > src/constant/api.js
-#      rm -rf src/api_preprocess
-#      ls src
-#      ls src/constant
-#  displayName: 'npm preprocess'
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      npm -g install preprocessor
+      cd HospitalFrontend
+      mkdir src/constant || ls
+      preprocess src/api_preprocess/api.js . -SERVER_URI=localhost:5000 > src/constant/api.js
+      rm -rf src/api_preprocess
+      cd ..
+  displayName: 'npm preprocess'
 
 - task: SonarSource.sonarcloud.14d9cde6-c1da-4d55-aa01-2965cd301255.SonarCloudPrepare@1
   displayName: 'Frontend Prepare analysis on SonarCloud'
@@ -102,7 +101,7 @@ steps:
     command: custom
     workingDir: HospitalFrontend
     verbose: false
-    customCommand: 'run dockerbuild'
+    customCommand: 'run purebuild'
 
 - task: SonarSource.sonarcloud.ce096e50-6155-4de8-8800-4221aaeed4a1.SonarCloudAnalyze@1
   displayName: 'Frontend Run Code Analysis'
