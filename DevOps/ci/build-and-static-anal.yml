@@ -30,7 +30,6 @@ steps:
     command: restore
     projects: |
      **/*.sln
-     
 
 - task: SonarSource.sonarcloud.14d9cde6-c1da-4d55-aa01-2965cd301255.SonarCloudPrepare@1
   displayName: '.NET Prepare analysis on SonarCloud'
@@ -45,7 +44,6 @@ steps:
   inputs:
     projects: |
      **/*.sln
-     
     arguments: '--configuration Release'
 
 - task: SonarSource.sonarcloud.ce096e50-6155-4de8-8800-4221aaeed4a1.SonarCloudAnalyze@1
@@ -74,6 +72,18 @@ steps:
     workingDir: HospitalFrontend/
     verbose: false
 
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      npm -g install preprocessor
+      cd HospitalFrontend
+      mkdir src/constant || ls
+      preprocess src/api_preprocess/api.js . -SERVER_URI=localhost:5000 > src/constant/api.js
+      rm -rf src/api_preprocess
+      cd ..
+  displayName: 'npm preprocess'
+
 - task: SonarSource.sonarcloud.14d9cde6-c1da-4d55-aa01-2965cd301255.SonarCloudPrepare@1
   displayName: 'Frontend Prepare analysis on SonarCloud'
   inputs:
@@ -91,7 +101,7 @@ steps:
     command: custom
     workingDir: HospitalFrontend
     verbose: false
-    customCommand: 'run build'
+    customCommand: 'run purebuild'
 
 - task: SonarSource.sonarcloud.ce096e50-6155-4de8-8800-4221aaeed4a1.SonarCloudAnalyze@1
   displayName: 'Frontend Run Code Analysis'
@@ -100,13 +110,6 @@ steps:
   displayName: 'Frontend Publish Quality Gate Result'
 
 - bash: |
-   mkdir temp
-   cp -r HospitalFrontend/dist/* temp
-   rm -rf HospitalFrontend/dist
-   mkdir HospitalFrontend/dist
-   mkdir HospitalFrontend/dist/dist
-   cp -r temp/* HospitalFrontend/dist/dist
-   rm -rf temp
    cd HealthcareBase
    dotnet publish -c Release -o ./bin/Publish
    cd ..
@@ -139,9 +142,3 @@ steps:
   inputs:
     PathtoPublish: HealthcareBase/dbscheme.sql
     ArtifactName: dropdb
-
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish frontend'
-  inputs:
-    PathtoPublish: HospitalFrontend/dist
-    ArtifactName: dropfront
