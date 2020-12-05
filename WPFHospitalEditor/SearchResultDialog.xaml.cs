@@ -15,24 +15,33 @@ namespace WPFHospitalEditor
     /// </summary>
     public partial class SearchResultDialog : Window
     {
-        MapObjectController mapObjectController = new MapObjectController();
+        private MapObjectController mapObjectController = new MapObjectController();
 
-        List<Button> advanceSearchButtons = new List<Button>();
+        private List<Button> advanceSearchButtons = new List<Button>();
         private HospitalMap hospitalMap;
 
         private Dictionary<int, MapObject> row = new Dictionary<int, MapObject>();
-        int firstContentRowNumber = 2;
+        private int firstContentRowNumber = 2;
         public static int selectedObjectId = -1;
         private int columnsNumber;
+        private SearchType searchType;
 
-        String[] contentRows;
+        private String[] contentRows;
+
+
+        private const int COL_NAME = 0;
+        private const int COL_AMOUNT = 1;
+        private const int COL_BUILDING = 2;
+        private const int COL_FLOOR = 3;
+        private const int COL_ID = 4;
 
 
         public SearchResultDialog(HospitalMap hospitalMap, SearchType searchType)
         {
             this.Height = AllConstants.SearchDialogHeight;
+            this.searchType = searchType;
             InitializeComponent();
-            SetContentRowsAndColumnsNumber(searchType);
+            SetContentRowsAndColumnsNumber();
             DefineDynamicGrid();
             this.hospitalMap = hospitalMap;
         }
@@ -52,7 +61,7 @@ namespace WPFHospitalEditor
             {
                 String []oneRowContents = oneRow.Split(AllConstants.contentSeparator);
                 createRowData(oneRowContents);
-                row.Add(key, mapObjectController.findMapObjectById(int.Parse(oneRowContents[4])));
+                row.Add(key, mapObjectController.findMapObjectById(int.Parse(oneRowContents[COL_ID])));
                 key++;
             }
         }    
@@ -81,7 +90,7 @@ namespace WPFHospitalEditor
 
         private void adjustLabelProperties(string[] oneRowContents, Label label, int i)
         {
-            if(columnsNumber == 2)
+            if(searchType == SearchType.EquipmentSearch)
             {
                 i = i + 3;
             }
@@ -90,22 +99,22 @@ namespace WPFHospitalEditor
                 case 1:
                 case 4:
                     {
-                        label.Content = oneRowContents[0];
+                        label.Content = oneRowContents[COL_NAME];
                     }
                     break;
                 case 2:
                     {
-                        label.Content = oneRowContents[2];
+                        label.Content = oneRowContents[COL_BUILDING];
                     }
                     break;
                 case 3:
                     {
-                        label.Content = oneRowContents[3];
+                        label.Content = oneRowContents[COL_FLOOR];
                     }
                     break;
                 case 5:
                     {
-                        label.Content = oneRowContents[1];
+                        label.Content = oneRowContents[COL_AMOUNT];
                     }
                     break;
                 default:
@@ -279,7 +288,7 @@ namespace WPFHospitalEditor
             return false;
         }
 
-        private void SetContentRowsAndColumnsNumber(SearchType searchType)
+        private void SetContentRowsAndColumnsNumber()
         {
             switch (searchType)
             {
