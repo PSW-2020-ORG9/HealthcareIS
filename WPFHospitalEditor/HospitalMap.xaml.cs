@@ -22,7 +22,7 @@ namespace WPFHospitalEditor
         IEquipmentTypeServerController equipmentTypeServerController = new EquipmentTypeServerController();
 
         public static Canvas canvasHospitalMap;  
-        private Role role;
+        public static Role role;
         public static List<MapObject> searchResult = new List<MapObject>();
         public static List<EquipmentDto> equipmentSearchResult = new List<EquipmentDto>();
 
@@ -34,7 +34,7 @@ namespace WPFHospitalEditor
             setEquipmentTypeComboBox();
             CanvasService.addObjectToCanvas(mapObjectController.getOutterMapObjects(), canvas);
             canvasHospitalMap = canvas;
-            this.role = role;
+            HospitalMap.role = role;
             if (IsPatientLogged()) equipmentAndMedicineSearchStackPanel.Visibility = Visibility.Hidden;
         }
         
@@ -59,7 +59,7 @@ namespace WPFHospitalEditor
                 }                
             }
             canvas.Children.Clear();
-            Building building = new Building(buildingObjects, 0, role);
+            Building building = new Building(buildingObjects, 0);
             building.Owner = this;
             this.Hide();
             building.ShowDialog();
@@ -94,7 +94,7 @@ namespace WPFHospitalEditor
 
             if (searchResult.Count > 0)
             {
-                SearchResultDialog searchResultDialog = new SearchResultDialog(this, role);
+                SearchResultDialog searchResultDialog = new SearchResultDialog(this, SearchType.MapObjectSearch);
                 searchResultDialog.ShowDialog();
             }
             else
@@ -147,7 +147,7 @@ namespace WPFHospitalEditor
             else
             {
                 equipmentSearchResult = equipmentServerController.getEquipmentByType(equipmentSearchComboBox.Text).ToList();
-                EquipmentSearchResultDialog equipmentDialog = new EquipmentSearchResultDialog(this, role);
+                SearchResultDialog equipmentDialog = new SearchResultDialog(this, SearchType.EquipmentSearch);
                 equipmentDialog.ShowDialog();
             }
         }

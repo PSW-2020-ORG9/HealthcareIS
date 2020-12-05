@@ -30,7 +30,7 @@ namespace WPFHospitalEditor
         private IEnumerable<MedicationDto> allMedications;
         private DynamicGridControl gridControl;
 
-        public AdditionalInformation(MapObject mapObject, Building building, Role role)
+        public AdditionalInformation(MapObject mapObject, Building building)
         {
             InitializeComponent();
             this.mapObject = mapObject;
@@ -38,7 +38,7 @@ namespace WPFHospitalEditor
             this.descriptionParts = mapObject.Description.Split("&");
             this.contentRows = descriptionParts[1].Split(";");
             this.oldMapObject = mapObject;
-            this.role = role;
+            this.role = HospitalMap.role;
             this.allEquipment = equipmentServerController.GetEquipmentByRoomId(mapObject.Id);
             this.allMedications = medicationServerController.GetAllMedication();
             DynamicGridControl dynamicGridControl = new DynamicGridControl(contentRows, IsPatientLogged());
