@@ -11453,7 +11453,7 @@
         "IsSealed": false
       },
       "Id": 16,
-      "Name": "Examination 2",
+      "Name": "Examination room 2",
       "Description": "1-0&Working Hours=09:00 - 21:00;",
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",

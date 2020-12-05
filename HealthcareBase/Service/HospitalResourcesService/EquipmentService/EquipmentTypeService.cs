@@ -4,31 +4,23 @@
 // Purpose: Definition of Class EquipmentTypeService
 
 using System.Collections.Generic;
-using System.Linq;
+using HealthcareBase.Dto;
 using HealthcareBase.Model.CustomExceptions;
 using HealthcareBase.Model.HospitalResources;
 using HealthcareBase.Repository.Generics;
 using HealthcareBase.Repository.HospitalResourcesRepository;
 using HealthcareBase.Repository.ScheduleRepository.HospitalizationsRepository;
-using HealthcareBase.Repository.ScheduleRepository.ProceduresRepository.Interface;
+using HealthcareBase.Service.HospitalResourcesService.EquipmentService.Interface;
 
 namespace HealthcareBase.Service.HospitalResourcesService.EquipmentService
 {
-    public class EquipmentTypeService
+    public class EquipmentTypeService : IEquipmentTypeService
     {
-        private readonly EquipmentService equipmentService;
         private readonly RepositoryWrapper<IEquipmentTypeRepository> equipmentTypeRepository;
-        private readonly RepositoryWrapper<IHospitalizationTypeRepository> hospitalizationTypeRepository;
 
-        public EquipmentTypeService(
-            IEquipmentTypeRepository equipmentTypeRepository,
-            IHospitalizationTypeRepository hospitalizationTypeRepository,
-            EquipmentService equipmentService)
+        public EquipmentTypeService(IEquipmentTypeRepository equipmentTypeRepository)
         {
             this.equipmentTypeRepository = new RepositoryWrapper<IEquipmentTypeRepository>(equipmentTypeRepository);
-            this.hospitalizationTypeRepository =
-                new RepositoryWrapper<IHospitalizationTypeRepository>(hospitalizationTypeRepository);
-            this.equipmentService = equipmentService;
         }
 
         public EquipmentType GetByID(int id)
@@ -59,7 +51,6 @@ namespace HealthcareBase.Service.HospitalResourcesService.EquipmentService
         {
             if (equipmentType is null)
                 throw new BadRequestException();
-            equipmentService.DeleteByType(equipmentType);
             DeleteFromHospitalizationTypes(equipmentType);
             DeleteFromProcedureTypes(equipmentType);
             equipmentTypeRepository.Repository.Delete(equipmentType);
@@ -72,6 +63,18 @@ namespace HealthcareBase.Service.HospitalResourcesService.EquipmentService
 
         private void DeleteFromProcedureTypes(EquipmentType equipmentType)
         {
+        }
+
+        public IEnumerable<EquipmentTypeDto> GetAllEquipmentTypes()
+        {
+            return equipmentTypeRepository.Repository.GetColumnsForMatching(
+                condition: equipmentType => equipmentType.Id != -1,
+                selection: equipmentType => new EquipmentTypeDto()
+                {
+                    Id = equipmentType.Id,
+                    Name = equipmentType.Name,
+                }
+            );
         }
     }
 }

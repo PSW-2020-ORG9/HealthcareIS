@@ -7,6 +7,7 @@ using WPFHospitalEditor.Controller;
 using HealthcareBase.Dto;
 using System.Linq;
 using System;
+using WPFHospitalEditor.Controller.Interface;
 
 namespace WPFHospitalEditor
 {
@@ -15,8 +16,8 @@ namespace WPFHospitalEditor
     /// </summary>
     public partial class AdditionalInformation : Window
     {
-        MapObjectController mapObjectController = new MapObjectController();
-        EquipmentServerController equipmentServerController = new EquipmentServerController();
+        IMapObjectController mapObjectController = new MapObjectController();
+        IEquipmentServerController equipmentServerController = new EquipmentServerController();
         IMedicationServerController medicationServerController = new MedicationServerController();
 
         private MapObject mapObject;
@@ -24,12 +25,11 @@ namespace WPFHospitalEditor
         private string[] descriptionParts;
         private string[] contentRows;
         private MapObject oldMapObject;
-        private Role role;
         private IEnumerable<EquipmentDto> allEquipment;
         private IEnumerable<MedicationDto> allMedications;
         private DynamicGridControl gridControl;
 
-        public AdditionalInformation(MapObject mapObject, Building building, Role role)
+        public AdditionalInformation(MapObject mapObject, Building building)
         {
             InitializeComponent();
             this.mapObject = mapObject;
@@ -37,7 +37,6 @@ namespace WPFHospitalEditor
             this.descriptionParts = mapObject.Description.Split("&");
             this.contentRows = descriptionParts[1].Split(";");
             this.oldMapObject = mapObject;
-            this.role = role;
             this.allEquipment = equipmentServerController.GetEquipmentByRoomId(mapObject.Id);
             this.allMedications = medicationServerController.GetAllMedication();
             DynamicGridControl dynamicGridControl = new DynamicGridControl(contentRows, IsPatientLogged());
@@ -88,7 +87,7 @@ namespace WPFHospitalEditor
             Name.Foreground = new SolidColorBrush(Colors.Black);
             Name.VerticalAlignment = VerticalAlignment.Center;
             Name.HorizontalAlignment = HorizontalAlignment.Center;
-            if (role.Equals(Role.Patient))
+            if (HospitalMap.role.Equals(Role.Patient))
             {
                 Name.IsReadOnly = true;
             }
@@ -133,7 +132,7 @@ namespace WPFHospitalEditor
 
         private Boolean IsPatientLogged()
         {
-            if (role == Role.Patient) return true;
+            if (HospitalMap.role == Role.Patient) return true;
             return false;
         }
 

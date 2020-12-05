@@ -6,6 +6,9 @@ using System.Windows.Input;
 using WPFHospitalEditor.MapObjectModel;
 using WPFHospitalEditor.Service;
 using WPFHospitalEditor.Controller;
+using WPFHospitalEditor.Controller.Interface;
+using HealthcareBase.Dto;
+using System.Linq;
 
 namespace WPFHospitalEditor
 {
@@ -13,19 +16,26 @@ namespace WPFHospitalEditor
     /// Interaction logic for HospitalMap.xaml
     /// </summary>
     public partial class HospitalMap : Window
-    {       
-        public static Canvas canvasHospitalMap;
-        MapObjectController mapObjectController = new MapObjectController();      
-        private Role role;
+    {
+        IEquipmentServerController equipmentServerController = new EquipmentServerController();
+        IMapObjectController mapObjectController = new MapObjectController();
+        IEquipmentTypeServerController equipmentTypeServerController = new EquipmentTypeServerController();
+
+        public static Canvas canvasHospitalMap;  
+        public static Role role;
         public static List<MapObject> searchResult = new List<MapObject>();
+        public static List<EquipmentDto> equipmentSearchResult = new List<EquipmentDto>();
+
 
         public HospitalMap(List<MapObject> allMapObjects, Role role)
         {                     
             InitializeComponent();
-            setTypeComboBox();
+            setMapObjectTypeComboBox();
+            setEquipmentTypeComboBox();
             CanvasService.addObjectToCanvas(mapObjectController.getOutterMapObjects(), canvas);
             canvasHospitalMap = canvas;
-            this.role = role;
+            HospitalMap.role = role;
+            if (IsPatientLogged()) equipmentAndMedicineSearchStackPanel.Visibility = Visibility.Hidden;
         }
         
         private void selectBuilding(object sender, MouseButtonEventArgs e)
@@ -49,7 +59,7 @@ namespace WPFHospitalEditor
                 }                
             }
             canvas.Children.Clear();
-            Building building = new Building(buildingObjects, 0, role);
+            Building building = new Building(buildingObjects, 0);
             building.Owner = this;
             this.Hide();
             building.ShowDialog();
@@ -64,8 +74,7 @@ namespace WPFHospitalEditor
 
         private void Basic_Search(object sender, RoutedEventArgs e)
         {
-
-            searchResult.Clear();
+            clearAllResults();
             List<MapObject> allMapObjects = mapObjectController.getAllMapObjects();
             foreach (MapObject mapObject in allMapObjects)
             {
@@ -85,7 +94,7 @@ namespace WPFHospitalEditor
 
             if (searchResult.Count > 0)
             {
-                SearchResultDialog searchResultDialog = new SearchResultDialog(this, role);
+                SearchResultDialog searchResultDialog = new SearchResultDialog(this, SearchType.MapObjectSearch);
                 searchResultDialog.ShowDialog();
             }
             else
@@ -117,7 +126,7 @@ namespace WPFHospitalEditor
             return mapObject.MapObjectType.ToString().Equals(searchInputComboBox.Text) && searchInputTB.Text.Equals("");
         }
 
-        private void setTypeComboBox()
+        private void setMapObjectTypeComboBox()
         {
             foreach (MapObjectType mop in Enum.GetValues(typeof(MapObjectType)))
             {
@@ -126,6 +135,48 @@ namespace WPFHospitalEditor
                     searchInputComboBox.Items.Add(mop);
                 } 
             }
+        }
+
+        public void Equipment_Search(object sender, RoutedEventArgs e)
+        {
+            clearAllResults();
+            if (NoEquipmentTypeIsPicked())
+            {
+                MessageBox.Show("No equipment is picked.");
+            }
+            else
+            {
+                equipmentSearchResult = equipmentServerController.getEquipmentByType(equipmentSearchComboBox.Text).ToList();
+                SearchResultDialog equipmentDialog = new SearchResultDialog(this, SearchType.EquipmentSearch);
+                equipmentDialog.ShowDialog();
+            }
+        }
+
+        private void setEquipmentTypeComboBox()
+        {
+            foreach (EquipmentTypeDto eqTD in equipmentTypeServerController.GetAllEquipmentTypes())
+            {
+                equipmentSearchComboBox.Items.Add(eqTD.Name);
+            }
+        }
+
+        private Boolean IsPatientLogged()
+        {
+            if (role == Role.Patient) return true;
+            return false;
+        }
+
+        private void clearAllResults()
+        {
+            searchResult.Clear();
+            equipmentSearchResult.Clear();
+            SearchResultDialog.selectedObjectId = -1;
+        }
+
+        private Boolean NoEquipmentTypeIsPicked()
+        {
+            if (equipmentSearchComboBox.Text.Equals("Pick equipment type")) return true;
+            return false;
         }
     }
 }
