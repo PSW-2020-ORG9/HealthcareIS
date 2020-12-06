@@ -20,11 +20,13 @@ namespace WPFHospitalEditor
         IEquipmentServerController equipmentServerController = new EquipmentServerController();
         IMapObjectController mapObjectController = new MapObjectController();
         IEquipmentTypeServerController equipmentTypeServerController = new EquipmentTypeServerController();
+        IMedicationServerController medicationServerController = new MedicationServerController();
 
         public static Canvas canvasHospitalMap;  
         public static Role role;
         public static List<MapObject> searchResult = new List<MapObject>();
         public static List<EquipmentDto> equipmentSearchResult = new List<EquipmentDto>();
+        public static List<MedicationDto> medicationSearchResult = new List<MedicationDto>();
 
 
         public HospitalMap(List<MapObject> allMapObjects, Role role)
@@ -32,6 +34,7 @@ namespace WPFHospitalEditor
             InitializeComponent();
             setMapObjectTypeComboBox();
             setEquipmentTypeComboBox();
+            setMedicationNameComboBox();
             CanvasService.addObjectToCanvas(mapObjectController.getOutterMapObjects(), canvas);
             canvasHospitalMap = canvas;
             HospitalMap.role = role;
@@ -152,11 +155,34 @@ namespace WPFHospitalEditor
             }
         }
 
+        public void Medication_Search(object sender, RoutedEventArgs e)
+        {
+            clearAllResults();
+            if (NoMedicationNameIsPicked())
+            {
+                MessageBox.Show("No medication is picked.");
+            }
+            else
+            {
+                medicationSearchResult = medicationServerController.GetAllMedicationByName(medicationSearchComboBox.Text).ToList();
+                SearchResultDialog medicationDialog = new SearchResultDialog(this, SearchType.MedicationSearch);
+                medicationDialog.ShowDialog();
+            }
+        }
+
         private void setEquipmentTypeComboBox()
         {
             foreach (EquipmentTypeDto eqTD in equipmentTypeServerController.GetAllEquipmentTypes())
             {
                 equipmentSearchComboBox.Items.Add(eqTD.Name);
+            }
+        }
+
+        private void setMedicationNameComboBox()
+        {
+            foreach (MedicationDto medDto in medicationServerController.GetAllMedication())
+            {
+                medicationSearchComboBox.Items.Add(medDto.Name);
             }
         }
 
@@ -170,12 +196,19 @@ namespace WPFHospitalEditor
         {
             searchResult.Clear();
             equipmentSearchResult.Clear();
+            medicationSearchResult.Clear();
             SearchResultDialog.selectedObjectId = -1;
         }
 
         private Boolean NoEquipmentTypeIsPicked()
         {
             if (equipmentSearchComboBox.Text.Equals("Pick equipment type")) return true;
+            return false;
+        }
+
+        private Boolean NoMedicationNameIsPicked()
+        {
+            if (medicationSearchComboBox.Text.Equals("Pick medication name")) return true;
             return false;
         }
     }
