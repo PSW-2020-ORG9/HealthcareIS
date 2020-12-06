@@ -34,6 +34,7 @@ namespace WPFHospitalEditor
         private const int COL_BUILDING = 2;
         private const int COL_FLOOR = 3;
         private const int COL_ID = 4;
+        private const int STORAGEROOM_ID = 17;
 
 
         public SearchResultDialog(HospitalMap hospitalMap, SearchType searchType)
@@ -90,7 +91,7 @@ namespace WPFHospitalEditor
 
         private void adjustLabelProperties(string[] oneRowContents, Label label, int i)
         {
-            if(searchType == SearchType.EquipmentSearch)
+            if(searchType == SearchType.EquipmentSearch || searchType == SearchType.MedicationSearch)
             {
                 i = i + 3;
             }
@@ -302,6 +303,11 @@ namespace WPFHospitalEditor
                         setWindowForEquipment();
                     }
                     break;
+                case SearchType.MedicationSearch:
+                    {
+                        setWindowForMedication();
+                    }
+                    break;
                 default:
                     break;
             }
@@ -323,6 +329,13 @@ namespace WPFHospitalEditor
             FirstColumnHeader.Content = "Name";
             SecondColumnHeader.Content = "Amount";
         }
+        private void setWindowForMedication()
+        {
+            columnsNumber = 2;
+            contentRows = MedicationToContentRows();
+            FirstColumnHeader.Content = "Name";
+            SecondColumnHeader.Content = "Amount";
+        }
 
         private string[] EquipmentToContentRows()
         {
@@ -334,6 +347,20 @@ namespace WPFHospitalEditor
                     + HospitalMap.equipmentSearchResult.ElementAt(i).Quantity 
                     + AllConstants.contentSeparator + Building.findBuilding(mo) 
                     + AllConstants.contentSeparator + Building.findFloor(mo) 
+                    + AllConstants.contentSeparator + mo.Id;
+            }
+            return contentRows;
+        }
+        private string[] MedicationToContentRows()
+        {
+            string[] contentRows = new string[HospitalMap.medicationSearchResult.Count()];
+            for (int i = 0; i < HospitalMap.medicationSearchResult.Count(); i++)
+            {
+                MapObject mo = mapObjectController.findMapObjectById(STORAGEROOM_ID);
+                contentRows[i] = mo.Name + AllConstants.contentSeparator
+                    + HospitalMap.medicationSearchResult.ElementAt(i).Quantity
+                    + AllConstants.contentSeparator + Building.findBuilding(mo)
+                    + AllConstants.contentSeparator + Building.findFloor(mo)
                     + AllConstants.contentSeparator + mo.Id;
             }
             return contentRows;

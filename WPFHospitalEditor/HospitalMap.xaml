@@ -16,6 +16,10 @@
             <Button x:Name="searchButton" Content="Search" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Height="30" Width="60" FontWeight="Bold" FontSize="16" Click="Basic_Search"></Button>
         </StackPanel>
         <StackPanel x:Name="equipmentAndMedicineSearchStackPanel" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,10,0">
+            <ComboBox x:Name="medicationSearchComboBox" HorizontalAlignment="Left" Height="30" Width="200" Margin="20,0,0,0" VerticalContentAlignment="Center" SelectedIndex="0">
+                <ComboBoxItem>Pick medication type</ComboBoxItem>
+            </ComboBox>
+            <Button x:Name="medicationSearchButton" Content="Search" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,15,0" Height="30" Width="60" FontWeight="Bold" FontSize="16" Click="Medication_Search"></Button>
             <ComboBox x:Name="equipmentSearchComboBox" HorizontalAlignment="Right" Height="30" Width="200" Margin="20,0,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" SelectedIndex="0">
                 <ComboBoxItem>Pick equipment type</ComboBoxItem>
             </ComboBox>
