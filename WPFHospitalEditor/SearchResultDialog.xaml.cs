@@ -29,8 +29,8 @@ namespace WPFHospitalEditor
         private String[] contentRows;
 
 
-        private const int COL_NAME = 0;
-        private const int COL_AMOUNT = 1;
+        private const int COL_NAME = 1;
+        private const int COL_AMOUNT = 0;
         private const int COL_BUILDING = 2;
         private const int COL_FLOOR = 3;
         private const int COL_ID = 4;
@@ -300,12 +300,14 @@ namespace WPFHospitalEditor
                     break;
                 case SearchType.EquipmentSearch:
                     {
-                        setWindowForEquipment();
+                        setWindowForEquipmentAndMedication();
+                        contentRows = EquipmentToContentRows();
                     }
                     break;
                 case SearchType.MedicationSearch:
                     {
-                        setWindowForMedication();
+                        setWindowForEquipmentAndMedication();
+                        contentRows = MedicationToContentRows();
                     }
                     break;
                 default:
@@ -322,17 +324,9 @@ namespace WPFHospitalEditor
             ThirdColumnHeader.Content = "Floor";
         }
 
-        private void setWindowForEquipment()
+        private void setWindowForEquipmentAndMedication()
         {
             columnsNumber = 2;
-            contentRows = EquipmentToContentRows();
-            FirstColumnHeader.Content = "Name";
-            SecondColumnHeader.Content = "Amount";
-        }
-        private void setWindowForMedication()
-        {
-            columnsNumber = 2;
-            contentRows = MedicationToContentRows();
             FirstColumnHeader.Content = "Name";
             SecondColumnHeader.Content = "Amount";
         }
@@ -343,39 +337,41 @@ namespace WPFHospitalEditor
             for (int i = 0; i < HospitalMap.equipmentSearchResult.Count(); i++)
             {
                 MapObject mo = mapObjectController.findMapObjectById(HospitalMap.equipmentSearchResult.ElementAt(i).RoomId);
-                contentRows[i] = mo.Name + AllConstants.contentSeparator 
-                    + HospitalMap.equipmentSearchResult.ElementAt(i).Quantity 
-                    + AllConstants.contentSeparator + Building.findBuilding(mo) 
-                    + AllConstants.contentSeparator + Building.findFloor(mo) 
-                    + AllConstants.contentSeparator + mo.Id;
+                contentRows[i] = HospitalMap.equipmentSearchResult.ElementAt(i).Quantity 
+                                 + AllConstants.contentSeparator +
+                                 MapObjectToRow(mo);
             }
             return contentRows;
         }
         private string[] MedicationToContentRows()
         {
             string[] contentRows = new string[HospitalMap.medicationSearchResult.Count()];
+            MapObject mo = mapObjectController.findMapObjectById(STORAGEROOM_ID);
             for (int i = 0; i < HospitalMap.medicationSearchResult.Count(); i++)
             {
-                MapObject mo = mapObjectController.findMapObjectById(STORAGEROOM_ID);
-                contentRows[i] = mo.Name + AllConstants.contentSeparator
-                    + HospitalMap.medicationSearchResult.ElementAt(i).Quantity
-                    + AllConstants.contentSeparator + Building.findBuilding(mo)
-                    + AllConstants.contentSeparator + Building.findFloor(mo)
-                    + AllConstants.contentSeparator + mo.Id;
+                contentRows[i] = HospitalMap.medicationSearchResult.ElementAt(i).Quantity
+                                 + AllConstants.contentSeparator +
+                                 MapObjectToRow(mo);
             }
             return contentRows;
         }
 
+        private string MapObjectToRow(MapObject mo)
+        {
+            string result = mo.Name + AllConstants.contentSeparator
+                            + Building.findBuilding(mo)
+                            + AllConstants.contentSeparator + Building.findFloor(mo)
+                            + AllConstants.contentSeparator + mo.Id;
+            return result;
+        }
         private string[] MapObjectToContentRows()
         {
             string[] contentRows = new string[HospitalMap.searchResult.Count()];
             for (int i = 0; i < HospitalMap.searchResult.Count(); i++)
             {
-                contentRows[i] = HospitalMap.searchResult.ElementAt(i).Name + AllConstants.contentSeparator 
-                    + "0"
-                    + AllConstants.contentSeparator + Building.findBuilding(HospitalMap.searchResult.ElementAt(i)) 
-                    + AllConstants.contentSeparator + Building.findFloor(HospitalMap.searchResult.ElementAt(i)) 
-                    + AllConstants.contentSeparator + HospitalMap.searchResult.ElementAt(i).Id;
+                MapObject mo = HospitalMap.searchResult.ElementAt(i);
+                contentRows[i] = "0" + AllConstants.contentSeparator
+                                  + MapObjectToRow(mo);
             }
             return contentRows;
         }
