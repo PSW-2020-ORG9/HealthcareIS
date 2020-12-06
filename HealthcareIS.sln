@@ -21,6 +21,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFSecretary", "WPFSecretar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFPatient", "WPFPatient\WPFPatient.csproj", "{6DC5961F-A486-44E1-8548-E349DA9E4819}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFHospitalEditorTests", "..\..\New folder (2)\HealthcareIS\WPFHospitalEditorTests\WPFHospitalEditorTests.csproj", "{79CC6ED4-A9B6-482A-927F-1C6E3942DEE5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFHospitalEditorIntegrationTests", "WPFHospitalEditorIntegrationTests\WPFHospitalEditorIntegrationTests.csproj", "{B93B4807-399F-41F0-B9C2-B2567AA86EAB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +67,14 @@ Global
 		{6DC5961F-A486-44E1-8548-E349DA9E4819}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6DC5961F-A486-44E1-8548-E349DA9E4819}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6DC5961F-A486-44E1-8548-E349DA9E4819}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79CC6ED4-A9B6-482A-927F-1C6E3942DEE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79CC6ED4-A9B6-482A-927F-1C6E3942DEE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79CC6ED4-A9B6-482A-927F-1C6E3942DEE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79CC6ED4-A9B6-482A-927F-1C6E3942DEE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B93B4807-399F-41F0-B9C2-B2567AA86EAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B93B4807-399F-41F0-B9C2-B2567AA86EAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B93B4807-399F-41F0-B9C2-B2567AA86EAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B93B4807-399F-41F0-B9C2-B2567AA86EAB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
