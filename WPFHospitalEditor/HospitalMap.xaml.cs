@@ -165,8 +165,8 @@ namespace WPFHospitalEditor
             else
             {
                 medicationSearchResult = medicationServerController.GetAllMedicationByName(medicationSearchComboBox.Text).ToList();
-                SearchResultDialog equipmentDialog = new SearchResultDialog(this, SearchType.MedicationSearch);
-                equipmentDialog.ShowDialog();
+                SearchResultDialog medicationDialog = new SearchResultDialog(this, SearchType.MedicationSearch);
+                medicationDialog.ShowDialog();
             }
         }
 
