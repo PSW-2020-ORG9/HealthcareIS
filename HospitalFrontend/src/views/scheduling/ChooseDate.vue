@@ -56,7 +56,8 @@ export default {
         }
         ,
         goToNextPage:function(){
-            this.getAvailableDoctors() 
+            this.$store.commit('setSelectedDate',this.selectedDate)
+            this.$router.push('/schedule/choose-doctor')
         }
         ,
         getMinDate:function(){       

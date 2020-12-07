@@ -2,7 +2,9 @@
    <fieldset>
         <h2 class="fs-title">Appointment selection</h2>
         <h3 class="fs-subtitle">Select an appointment which suits you best</h3>
-        <select name="appointments">
+
+        <h3 v-if="availableAppointments.length == 0">Sorry, there are no available appointments for selected doctor and selected date :(</h3>
+        <select v-else name="appointments">
             <option value="">Select an appointent...</option>
             <option v-bind:value="index" v-for="(appointment,index) in availableAppointments"
             @click="selectAppointment(appointment)" v-bind:key="index">{{this.formAppointmentString(appointment)}}</option>

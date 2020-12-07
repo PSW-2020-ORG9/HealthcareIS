@@ -13,10 +13,13 @@ let registrationUrl = patientUrl + '/register'
 let surveyUrl = server + '/survey'
 let doctorAvailabiltyUrl = server + '/available/'
 let examinationUrl = server + '/examination'
+let doctorUrl = server + '/doctor'
+let departmentUrl = server + '/department'
 
 export default{
     feedback: feedbacksUrl ,
     patient: patientUrl,
+    department:departmentUrl,
     patientAccount: patientAccountUrl,
     patientRegistration: registrationUrl,
     surveyPreview: surveyPreviewUrl,
@@ -45,6 +48,10 @@ export default{
     ,
     availableIntervalUrl:function(date,doctorId){
         return doctorAvailabiltyUrl + 'interval?date=' + date + '&doctorId=' + doctorId
+    }
+    ,
+    doctorByDepartmentUrl:function(departmentId){
+        return doctorUrl+"?department="+departmentId
     }
 
 }

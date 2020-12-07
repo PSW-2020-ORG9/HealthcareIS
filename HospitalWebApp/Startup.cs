@@ -29,6 +29,8 @@ using Microsoft.Extensions.Hosting;
 using HealthcareBase.Repository.HospitalResourcesRepository;
 using HospitalWebApp.Context;
 using System.Threading;
+using HealthcareBase.Model.Users.Employee.Doctors;
+using HealthcareBase.Service.HospitalResourcesService.RoomService;
 
 namespace HospitalWebApp
 {
@@ -131,6 +133,8 @@ namespace HospitalWebApp
             var surveyResponseRepository = new SurveyResponseSqlRepository(getContext());
             var surveyRepository = new SurveySqlRepository(getContext());
             var shiftRepository = new ShiftSqlRepository(getContext());
+            var departmentRepository = new DepartmentSqlRepository(getContext());
+            var doctorRepository = new DoctorSqlRepository(getContext());
             
             var userFeedbackService = new UserFeedbackService(userFeedbackRepository);
             var patientService = new PatientService(patientRepository, null, null, null);
@@ -140,6 +144,8 @@ namespace HospitalWebApp
             var patientAccountService = new PatientAccountService(patientAccountRepository);
             var patientRegistrationService = new PatientRegistrationService(patientAccountService, new RegistrationNotifier(Environment.GetEnvironmentVariable("PSW_ACTIVATION_ENDPOINT")));
             var doctorAvailabilityService = new DoctorAvailabilityService(shiftRepository,examinationRepository);
+            var departmentService = new DepartmentService(departmentRepository);
+            var doctorService = new DoctorService(doctorRepository);
 
             var examinationService = new ExaminationService(examinationRepository, shiftRepository);
             var cityService = new CityService(cityRepository);
@@ -161,6 +167,8 @@ namespace HospitalWebApp
             services.Add(new ServiceDescriptor(typeof(ISurveyService), surveyService));
             services.Add(new ServiceDescriptor(typeof(ExaminationService), examinationService));
             services.Add(new ServiceDescriptor(typeof(DoctorAvailabilityService), doctorAvailabilityService));
+            services.Add(new ServiceDescriptor(typeof(DepartmentService),departmentService));
+            services.Add(new ServiceDescriptor(typeof(DoctorService),doctorService));
         }
 
         private IPreparable CreateRepository(Type repositoryClass)
