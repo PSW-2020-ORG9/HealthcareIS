@@ -135,11 +135,13 @@ namespace HospitalWebApp
             var shiftRepository = new ShiftSqlRepository(getContext());
             var departmentRepository = new DepartmentSqlRepository(getContext());
             var doctorRepository = new DoctorSqlRepository(getContext());
+            var equipmentTypeRepository = new EquipmentTypeSqlRepository(getContext());
             
             var userFeedbackService = new UserFeedbackService(userFeedbackRepository);
             var patientService = new PatientService(patientRepository, null, null, null);
             var prescriptionService = new MedicationPrescriptionService(prescriptionRepository);
             var equipmentService = new EquipmentService(equipmentRepository);
+            var equipmentTypeService = new EquipmentTypeService(equipmentTypeRepository);
             var medicationService = new MedicationService(medicationRepository);
             var patientAccountService = new PatientAccountService(patientAccountRepository);
             var patientRegistrationService = new PatientRegistrationService(patientAccountService, new RegistrationNotifier(Environment.GetEnvironmentVariable("PSW_ACTIVATION_ENDPOINT")));
@@ -159,6 +161,7 @@ namespace HospitalWebApp
             services.Add(new ServiceDescriptor(typeof(IPatientAccountService), patientAccountService));
             services.Add(new ServiceDescriptor(typeof(MedicationPrescriptionService), prescriptionService));
             services.Add(new ServiceDescriptor(typeof(EquipmentService), equipmentService));
+            services.Add(new ServiceDescriptor(typeof(EquipmentTypeService), equipmentTypeService));
             services.Add(new ServiceDescriptor(typeof(MedicationService), medicationService));
             services.Add(new ServiceDescriptor(typeof(CityService),cityService));
             services.Add(new ServiceDescriptor(typeof(CountryService),countryService));

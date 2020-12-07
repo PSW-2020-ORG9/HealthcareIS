@@ -12,24 +12,10 @@ namespace HealthcareBase.Repository.MedicationRepository
         public MedicationSqlRepository(IContextFactory contextFactory) : base(contextFactory)
         {
         }
-        public override bool Equals(object obj)
-        {
-            return base.Equals(obj);
-        }
-
-        public override int GetHashCode()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override string ToString()
-        {
-            return base.ToString();
-        }
 
         protected override IQueryable<Medication> IncludeFields(IQueryable<Medication> query)
         {
-            throw new NotImplementedException();
+            return query;
         }
     }
 }

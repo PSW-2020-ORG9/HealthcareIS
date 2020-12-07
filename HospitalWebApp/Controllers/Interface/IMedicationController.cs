@@ -1,13 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace HospitalWebApp.Controllers.Interface
 {
     public interface IMedicationController
     {
         IActionResult GetAllMedication();
+        IActionResult GetAllMedicationByName(string name);
     }
 }

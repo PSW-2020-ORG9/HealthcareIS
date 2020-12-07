@@ -10,10 +10,11 @@ using HealthcareBase.Model.HospitalResources;
 using HealthcareBase.Repository.Generics;
 using HealthcareBase.Repository.HospitalResourcesRepository;
 using System.Linq;
+using HealthcareBase.Service.HospitalResourcesService.EquipmentService.Interface;
 
 namespace HealthcareBase.Service.HospitalResourcesService.EquipmentService
 {
-    public class EquipmentService
+    public class EquipmentService : IEquipmentService
     {
         private readonly RepositoryWrapper<IEquipmentUnitRepository> equipmentUnitRepository;
         private readonly RepositoryWrapper<IEquipmentTypeRepository> equipmentTypeRepository;
@@ -53,12 +54,7 @@ namespace HealthcareBase.Service.HospitalResourcesService.EquipmentService
         {
             if (equipmentUnit is null)
                 throw new BadRequestException();
-            DeleteFromHospitalizations(equipmentUnit);
             equipmentUnitRepository.Repository.Delete(equipmentUnit);
-        }
-
-        private void DeleteFromHospitalizations(EquipmentUnit equipmentUnit)
-        {
         }
 
         public void DeleteByType(EquipmentType equipmentType)
@@ -94,5 +90,35 @@ namespace HealthcareBase.Service.HospitalResourcesService.EquipmentService
             }
             return allEquipment.Values.ToList();
         }
+
+        private IEnumerable<EquipmentDto> GetEquipmentByType(string equipmentType)
+        {
+            return equipmentUnitRepository.Repository.GetColumnsForMatching(
+                condition: equipment => equipment.EquipmentType.Name.Equals(equipmentType),
+                selection: equipment => new EquipmentDto()
+                {
+                    Id = equipment.Id,
+                    RoomId = equipment.CurrentLocation.Id,
+                    Name = equipment.EquipmentType.Name,
+                    Quantity = 0
+                }
+            );
+        }
+
+        public IEnumerable<EquipmentDto> GetEquipmentWithQuantityByType(string equipmentType)
+        {
+            Dictionary<int, EquipmentDto> allEquipment = new Dictionary<int, EquipmentDto>();
+            foreach (EquipmentDto equipment in GetEquipmentByType(equipmentType))
+            {
+                if (!allEquipment.ContainsKey(equipment.RoomId))
+                {
+                    allEquipment[equipment.RoomId] = equipment;
+
+                }
+                allEquipment[equipment.RoomId].Quantity += 1;
+            }
+            return allEquipment.Values.ToList();
+        }
+
     }
 }

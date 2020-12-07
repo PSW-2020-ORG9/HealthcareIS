@@ -1,4 +1,4 @@
-let server='http://localhost:5000'
+let server = // #put "'http://" + SERVER_URI + "'"
 let examinationsUrl = server + '/docsearch/examination'
 let prescriptionsUrl = server + '/docsearch/prescription'
 let feedbacksUrl = server + '/feedback'

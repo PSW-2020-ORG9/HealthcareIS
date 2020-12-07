@@ -6,5 +6,6 @@ namespace WPFHospitalEditor.Service
     public interface IMedicationServerService
     {
         IEnumerable<MedicationDto> GetAllMedication();
+        IEnumerable<MedicationDto> GetAllMedicationByName(string name);
     }
 }
