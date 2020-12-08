@@ -46,7 +46,7 @@ steps:
     containerRegistry: 'psw'
     repository: 'pswdb'
     command: 'build'
-    Dockerfile: 'Dockerfile'
+    Dockerfile: 'HospitalWebAppIntegrationTests/Dockerfile'
     buildContext: 'HospitalWebAppIntegrationTests'
     tags: 'latest'
     addPipelineData: false
