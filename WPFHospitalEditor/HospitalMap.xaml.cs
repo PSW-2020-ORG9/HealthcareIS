@@ -77,29 +77,9 @@ namespace WPFHospitalEditor
 
         private void Basic_Search(object sender, RoutedEventArgs e)
         {
-            checkMapObjectSearchInput();
-        }
-
-        public void checkMapObjectSearchInput()
-        {
             clearAllResults();
             List<MapObject> allMapObjects = mapObjectController.getAllMapObjects();
-            foreach (MapObject mapObject in allMapObjects)
-            {
-                if (textBoxEmpty(mapObject))
-                {
-                    searchResult.Add(mapObject);
-                }
-                else if (typeNotChosen(mapObject))
-                {
-                    searchResult.Add(mapObject);
-                }
-                else if (bothParametersActive(mapObject))
-                {
-                    searchResult.Add(mapObject);
-                }
-            }
-
+            searchResult = mapObjectController.checkMapObjectSearchInput(allMapObjects, searchInputTB.Text, searchInputComboBox.Text);
             if (searchResult.Count > 0)
             {
                 SearchResultDialog searchResultDialog = new SearchResultDialog(this, SearchType.MapObjectSearch);
@@ -117,21 +97,6 @@ namespace WPFHospitalEditor
                    mop.Equals(MapObjectType.ParkingSlot) ||
                    mop.Equals(MapObjectType.Road) ||
                    mop.Equals(MapObjectType.WaitingRoom);
-        }
-
-        private bool bothParametersActive(MapObject mapObject)
-        {
-            return mapObject.MapObjectType.ToString().Equals(searchInputComboBox.Text) && mapObject.Name.ToLower().Contains(searchInputTB.Text.ToLower()) && !searchInputTB.Text.Equals("");
-        }
-
-        private bool typeNotChosen(MapObject mapObject)
-        {
-            return mapObject.Name.ToLower().Contains(searchInputTB.Text.ToLower()) && searchInputComboBox.Text.Equals("Pick type of object") && !searchInputTB.Text.Equals("");
-        }
-
-        private bool textBoxEmpty(MapObject mapObject)
-        {
-            return mapObject.MapObjectType.ToString().Equals(searchInputComboBox.Text) && searchInputTB.Text.Equals("");
         }
 
         private void setMapObjectTypeComboBox()

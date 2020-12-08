@@ -77,10 +77,10 @@ namespace WPFHospitalEditor.Repository
                 serializer.Serialize(jwriter, entities);
             }
         }
-        public MapObject findMapObjectById(int id)
+        public MapObject findMapObjectById(int id, List<MapObject> mapObjects)
         {
-            var allMapObjects = getAllMapObjects().ToList();
-            foreach (MapObject mapObj in allMapObjects)
+            //var allMapObjects = getAllMapObjects().ToList();
+            foreach (MapObject mapObj in mapObjects)
             {
                 if(mapObj.Id == id)
                 {

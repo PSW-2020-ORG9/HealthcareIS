@@ -10826,7 +10826,7 @@
       },
       "Id": 12,
       "Name": "Informations 1",
-      "Description": "1-0&Working Hours=07:00 - 00:00",
+      "Description": "1-0&Working Hours=08:00 - 00:00",
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -13966,7 +13966,7 @@
       },
       "Id": 11,
       "Name": "Elevator 1",
-      "Description": "1-0&Max weight=480kg;",
+      "Description": "1-0&Working Hours=08:00 - 00:00",
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {

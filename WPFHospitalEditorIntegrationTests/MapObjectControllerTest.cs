@@ -11,8 +11,8 @@ namespace WPFHospitalEditorIntegrationTests
         public void Find_existing_map_object()
         {
             MapObjectController mapObjectController = new MapObjectController();
-
-            MapObject mapObject = mapObjectController.findMapObjectById(1);
+            var allMapObjects = mapObjectController.getAllMapObjects();
+            MapObject mapObject = mapObjectController.findMapObjectById(1, allMapObjects);
 
             Assert.NotNull(mapObject);
         }
@@ -21,8 +21,8 @@ namespace WPFHospitalEditorIntegrationTests
         public void Find_non_existing_map_object()
         {
             MapObjectController mapObjectController = new MapObjectController();
-
-            MapObject mapObject = mapObjectController.findMapObjectById(101);
+            var allMapObjects = mapObjectController.getAllMapObjects();
+            MapObject mapObject = mapObjectController.findMapObjectById(101, allMapObjects);
 
             Assert.Null(mapObject);
         }
