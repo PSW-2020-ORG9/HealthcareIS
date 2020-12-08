@@ -3,7 +3,6 @@ pr:
 
 pool:
   vmImage: 'ubuntu-16.04'
-  #win is usefull here because it can build wpf
 
 steps:
 - task: UseDotNet@2
@@ -18,44 +17,9 @@ steps:
     custom: tool
     arguments: 'install --global dotnet-ef'
 
-- task: DotNetCoreCLI@2
-  displayName: 'dotnet ef sql db scheme'
-  inputs:
-    command: custom
-    custom: ef
-    arguments: 'dbcontext script -o HealthcareBase/dbscheme.sql --project HealthcareBase'
-
-- task: Docker@2
-  inputs:
-    containerRegistry: 'psw'
-    repository: 'pswdb'
-    command: 'build'
-    Dockerfile: 'DevOps/docker/DBDockerfile'
-    buildContext: 'HealthcareBase/'
-    tags: 'latest'
-    addPipelineData: false
-
 - task: DockerInstaller@0
   inputs:
     dockerVersion: '17.09.0-ce'
-
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
-    script: |
-      docker run --name db -d -e MYSQL_ROOT_PASSWORD=$DB_PSW_DATABASE -e MYSQL_DATABASE=$DB_PSW_DATABASE -p 3306:3306 -p 33060:33060 pswdb
-  displayName: Run DB container
-
-#- task: DotNetCoreCLI@2
-#  inputs:
-#    command: 'build'
-#    projects: |
-#      **/HealthcareBase.csproj
-#      **/HealthcareBaseTests.csproj
-#      **/HospitalWebApp.csproj
-#      **/HospitalWebAppIntegrationTests.csproj
-#    arguments: '--configuration Debug'
-#  displayName: Full .NET Build
 
 - task: DotNetCoreCLI@2
   inputs:
@@ -65,8 +29,33 @@ steps:
   displayName: Unit Tests
 
 - task: DotNetCoreCLI@2
+  displayName: 'dotnet ef sql db scheme'
+  inputs:
+    command: custom
+    custom: ef
+    arguments: 'dbcontext script -o HospitalWebAppIntegrationTests/dbscheme.sql --project HospitalWebAppIntegrationTests'
+
+- task: Docker@2
+  inputs:
+    containerRegistry: 'psw'
+    repository: 'pswdb'
+    command: 'build'
+    Dockerfile: 'DevOps/docker/DBDockerfile'
+    buildContext: 'HospitalWebAppIntegrationTests/'
+    tags: 'latest'
+    addPipelineData: false
+  displayName: build db docker image for integration tests asp
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      docker run --name db -d -e MYSQL_ROOT_PASSWORD=$DB_PSW_DATABASE -e MYSQL_DATABASE=$DB_PSW_DATABASE -p 3306:3306 -p 33060:33060 pswdb
+  displayName: Run DB container
+
+- task: DotNetCoreCLI@2
   inputs:
     command: 'test'
-    projects: '**/*IntegrationTests/*.csproj'
+    projects: '**/HospitalWebAppIntegrationTests/*.csproj'
     testRunTitle: 'PR_RunIntegrationTests'
   displayName: Integration Tests
