@@ -77,6 +77,11 @@ namespace WPFHospitalEditor
 
         private void Basic_Search(object sender, RoutedEventArgs e)
         {
+            checkMapObjectSearchInput();
+        }
+
+        public void checkMapObjectSearchInput()
+        {
             clearAllResults();
             List<MapObject> allMapObjects = mapObjectController.getAllMapObjects();
             foreach (MapObject mapObject in allMapObjects)
@@ -142,6 +147,11 @@ namespace WPFHospitalEditor
 
         public void Equipment_Search(object sender, RoutedEventArgs e)
         {
+            checkEquipmentSearchInput();
+        }
+
+        public void checkEquipmentSearchInput()
+        {
             clearAllResults();
             if (NoEquipmentTypeIsPicked())
             {
@@ -156,6 +166,11 @@ namespace WPFHospitalEditor
         }
 
         public void Medication_Search(object sender, RoutedEventArgs e)
+        {
+            checkMedicineSearchInput();
+        }
+
+        public void checkMedicineSearchInput()
         {
             clearAllResults();
             if (NoMedicationNameIsPicked())
