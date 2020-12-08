@@ -34,13 +34,14 @@ steps:
     command: custom
     custom: ef
     arguments: 'dbcontext script -o HospitalWebAppIntegrationTests/dbscheme.sql --project HospitalWebAppIntegrationTests'
+
 - task: Bash@3
   inputs:
     targetType: 'inline'
     script: |
       cp DevOps/docker/DBDockerfile HospitalWebAppIntegrationTests/Dockerfile
-      ls HospitalWebAppIntegrationTests 
-      ls DevOps/docker
+  displayName: copy dockerfile
+
 - task: Docker@2
   inputs:
     containerRegistry: 'psw'
@@ -51,11 +52,7 @@ steps:
     tags: 'latest'
     addPipelineData: false
   displayName: build db docker image for integration tests asp
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
-    script: |
-      docker images
+
 - task: Bash@3
   inputs:
     targetType: 'inline'
