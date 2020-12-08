@@ -38,8 +38,8 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      cp DevOps/docker/DBDockerfile
-      ls HospitalWebAppIntegrationTests HospitalWebAppIntegrationTests/Dockerfile
+      cp DevOps/docker/DBDockerfile HospitalWebAppIntegrationTests/Dockerfile
+      ls HospitalWebAppIntegrationTests 
       ls DevOps/docker
 - task: Docker@2
   inputs:
