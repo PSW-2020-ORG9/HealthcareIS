@@ -38,14 +38,15 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      ls HospitalWebAppIntegrationTests
+      cp DevOps/docker/DBDockerfile
+      ls HospitalWebAppIntegrationTests HospitalWebAppIntegrationTests/Dockerfile
       ls DevOps/docker
 - task: Docker@2
   inputs:
     containerRegistry: 'psw'
     repository: 'pswdb'
     command: 'build'
-    Dockerfile: 'DevOps/docker/DBDockerfile'
+    Dockerfile: 'Dockerfile'
     buildContext: 'HospitalWebAppIntegrationTests'
     tags: 'latest'
     addPipelineData: false
