@@ -37,19 +37,14 @@
                 </tr>
             </tbody>
         </table>
-
-
         <button class="btn btn-info col" v-on:click="cancelAppointment(examination.id)" v-if="isCancelable()">Cancel appointment</button>
         <div class="col text-danger lead font-weight-bold d-flex justify-content-center" v-else-if="examination.isCanceled">
             <h3 class="align-self-center">Canceled</h3>
         </div>
-
         <button v-else-if="!surveyCompleted" class="btn btn-success col" v-on:click="takeSurvey">Take a survey</button>
-
         <div v-else class="col text-info lead font-weight-bold d-flex justify-content-center">
             <h3 class="align-self-center">Survey completed</h3>
         </div>
-
     </div>
 </template>
 
@@ -67,7 +62,6 @@ export default {
     emits: ['updateExaminations'],
     methods: {
         getDate: function(date) {
-            console.log(this.surveyCompleted)
             let dateObj = new Date(date)
             return dateObj.getDate() + "." + (dateObj.getMonth() + 1) + "." + dateObj.getFullYear() + "."
         },

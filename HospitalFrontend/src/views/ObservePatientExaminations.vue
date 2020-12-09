@@ -64,13 +64,9 @@ export default {
                 }
             })
             axios.post(api.patientExaminationsSurveyResponsesUrl, payload)
-            .catch(error => {
-                alert(error.response.data)
-            })
             .then(response => {
                 if (response.status === 200) {
                     this.surveyStatuses = response.data
-                    response.data.forEach(x => console.log("Status: " + x))
                     this.loaded = true
                 }
             })
