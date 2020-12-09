@@ -99,6 +99,34 @@ namespace HospitalWebApp.Context
                     Start = new DateTime(2022, 1, 1, 8, 0, 0),
                     End = new DateTime(2022, 1, 1, 8, 30, 0),
                 });
+                e.HasData(new Examination
+                {
+                    Id = 2,
+                    DoctorId = 1,
+                    PatientId = 1,
+                    IsCanceled = false,
+                    RoomId = 1,
+                });
+                e.OwnsOne(x => x.TimeInterval).HasData(new
+                {
+                    ExaminationId = 2,
+                    Start = new DateTime(2022, 1, 1, 10, 0, 0),
+                    End = new DateTime(2022, 1, 1, 10, 30, 0),
+                });
+                e.HasData(new Examination
+                {
+                    Id = 3,
+                    DoctorId = 1,
+                    PatientId = 1,
+                    IsCanceled = false,
+                    RoomId = 1,
+                });
+                e.OwnsOne(x => x.TimeInterval).HasData(new
+                {
+                    ExaminationId = 3,
+                    Start = new DateTime(2019, 1, 1, 10, 0, 0),
+                    End = new DateTime(2019, 1, 1, 10, 30, 0),
+                });
             });
             modelBuilder.Entity<Allergy>().HasData(new Allergy
             {

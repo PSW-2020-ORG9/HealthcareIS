@@ -11,23 +11,10 @@ namespace HealthcareBase.Model.Users.Survey
 {
     public class Survey : IEntity<int>
     {
-        
-        public List<SurveySection> SurveySections { get; set; }
         [Key]public int Id { get; set; }
-
+        public List<SurveySection> SurveySections { get; set; }
+        
         public int GetKey() => Id;
-
         public void SetKey(int id) => Id = id;
-
-        public override bool Equals(object obj)
-        {
-            return obj is Survey response &&
-                   Id == response.Id;
-        }
-
-        public override int GetHashCode()
-        {
-            return 1877310944 + Id.GetHashCode();
-        }
     }
 }
