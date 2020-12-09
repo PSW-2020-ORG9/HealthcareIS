@@ -38,10 +38,10 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
             return allProcedures;
         }
 
-        public IEnumerable<Procedure> GetByDoctorAndDate(Doctor doctor, IEnumerable<DateTime> dates)
+        public IEnumerable<Procedure> GetByDoctorAndDates(Doctor doctor, IEnumerable<DateTime> dates)
         {
             var procedures = new List<Procedure>();
-            procedures.AddRange(examinationRepository.Repository.GetByDoctorAndDate(doctor, dates));
+            procedures.AddRange(examinationRepository.Repository.GetByDoctorAndDates(doctor, dates));
             procedures.AddRange(surgeryRepository.Repository.GetByDoctorAndDate(doctor, dates));
             return procedures;
         }
@@ -49,7 +49,6 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
         public IEnumerable<Procedure> GetByDoctorAndTime(Doctor doctor, TimeInterval time)
         {
             var allProcedures = new List<Procedure>();
-            allProcedures.AddRange(examinationRepository.Repository.GetByDoctorAndTime(doctor, time));
             allProcedures.AddRange(surgeryRepository.Repository.GetByDoctorAndTime(doctor, time));
             return allProcedures;
         }
@@ -57,7 +56,6 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
         public IEnumerable<Procedure> GetByRoomAndTime(Room room, TimeInterval time)
         {
             var allProcedures = new List<Procedure>();
-            allProcedures.AddRange(examinationRepository.Repository.GetByRoomAndTime(room, time));
             allProcedures.AddRange(surgeryRepository.Repository.GetByRoomAndTime(room, time));
             return allProcedures;
         }
@@ -65,7 +63,6 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
         public IEnumerable<Procedure> GetByPatientAndTime(Patient patient, TimeInterval time)
         {
             var allProcedures = new List<Procedure>();
-            allProcedures.AddRange(examinationRepository.Repository.GetByPatientAndTime(patient, time));
             allProcedures.AddRange(surgeryRepository.Repository.GetByPatientAndTime(patient, time));
             return allProcedures;
         }

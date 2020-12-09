@@ -21,5 +21,5 @@ export default {
 </script>
 
 <style>
-    @import '../../styles/registration-style.css';
+    @import '../../styles/multipart-form-style.css';
 </style>

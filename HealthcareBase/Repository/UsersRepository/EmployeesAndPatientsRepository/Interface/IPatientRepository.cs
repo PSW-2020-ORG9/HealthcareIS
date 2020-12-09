@@ -12,6 +12,5 @@ namespace HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsReposito
     {
         bool ExistsByJMBG(string jmbg);
         Patient GetByJMBG(string jmbg);
-        int GetMedicalRecordId(int patientId);
     }
 }

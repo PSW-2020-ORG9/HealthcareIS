@@ -29,7 +29,7 @@ namespace HealthcareBase.Model.Schedule.Procedures
         public Patient Patient { get; set; }
         
         [ForeignKey("ProcedureDetails")]
-        public int ProcedureDetailsId { get; set; }
+        public int? ProcedureDetailsId { get; set; }
         public ProcedureDetails ProcedureDetails { get; set; }
 
         [ForeignKey("Room")]

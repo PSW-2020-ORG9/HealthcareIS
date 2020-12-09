@@ -21,9 +21,8 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
 
         public SurgeryService(
             ISurgeryRepository surgeryRepository,
-            ProcedureScheduleComplianceValidator scheduleValidator,
-            TimeSpan timeLimit
-        ) : base(timeLimit)
+            ProcedureScheduleComplianceValidator scheduleValidator
+        ) : base()
         {
             this.surgeryRepository = new RepositoryWrapper<ISurgeryRepository>(surgeryRepository);
         }
@@ -59,17 +58,12 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
             return surgeryRepository.Repository.Update(procedure);
         }
 
-        protected override void Delete(Surgery procedure)
-        {
-            surgeryRepository.Repository.Delete(procedure);
-        }
-
-        protected override void Validate(Surgery procedure)
+        protected override void ValidateProcedure(Surgery procedure)
         {
             throw new NotImplementedException();
         }
 
-        protected override void ValidateProcedure(Surgery procedure)
+        protected override void ValidateForScheduling(Surgery procedure)
         {
             throw new NotImplementedException();
         }

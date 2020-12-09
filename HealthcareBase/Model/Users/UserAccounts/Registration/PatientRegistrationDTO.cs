@@ -24,8 +24,6 @@ namespace HealthcareBase.Model.Users.UserAccounts.Registration
         public int CityOfResidenceId { get; set; }
         public int CityOfBirthId { get; set; }
         
-        public int CountryOfBirthId { get; set; }
-        public int CountryOfResidenceId { get; set; }
         public IEnumerable<AllergyManifestation> Allergies { get; set; } //
         public string Username { get; set; }
         public string Password { get; set; }
