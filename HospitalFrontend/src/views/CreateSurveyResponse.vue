@@ -56,7 +56,8 @@ export default {
                 surveyId:null,
                 ratedSurveySections:[],
                 doctorSurveySection:null,
-                patientAccountId:1
+                patientAccountId:1,
+                doctorId: this.$route.params.doctor
             }
         }
     },
@@ -71,7 +72,7 @@ export default {
             if (section.isDoctorSection) {
                 if (this.surveyResponse.doctorSurveySection == null) {
                     this.surveyResponse.doctorSurveySection = {
-                        doctorId: 1,
+                        doctorId: this.doctorId,
                         surveySectionId: section.id,
                         ratedSurveyQuestions: [{
                             surveyQuestionId: questionId,

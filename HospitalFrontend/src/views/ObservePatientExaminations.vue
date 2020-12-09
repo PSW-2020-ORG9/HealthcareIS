@@ -1,18 +1,19 @@
 <template>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <div>
         <h1>Your appointments</h1>
         <div class="container w-50">
             <div name="passed" class="container bg-light border border-gray">
-                <div class="text-left">Past appointments</div>
+                <div class="text-left text-dark lead">Past appointments</div>
                 <ExaminationItem v-for="examination in getPastAppointments()" v-bind:key="examination.id" v-bind:examination="examination"></ExaminationItem>
             </div>
             <div class="container bg-light border border-gray" name="today">
-                <div class="text-left">Today's appointments</div>
+                <div class="text-left text-success lead">Today's appointments</div>
                 <ExaminationItem v-for="examination in getTodaysAppointments()" v-bind:key="examination.id" v-bind:examination="examination"></ExaminationItem>
             </div>
             <div class="container bg-light border border-gray" name="upcoming">
-                <div class="text-left">Future appointments</div>
-                <ExaminationItem v-for="examination in getFutureAppointments()" v-bind:key="examination.id" v-bind:examination="examination"></ExaminationItem>
+                <div class="text-left text-info lead">Future appointments</div>
+                <ExaminationItem v-for="examination in getFutureAppointments()" v-on:update-examinations="getExaminations()" v-bind:key="examination.id" v-bind:examination="examination"></ExaminationItem>
             </div>
         </div>
     </div>
@@ -22,6 +23,7 @@
 import axios from 'axios'
 import api from '../constant/api.js'
 import ExaminationItem from '../components/ExaminationItem.vue'
+import Toastify from 'toastify-js'
 
 export default {
     name: "ObservePatientExaminations",
@@ -34,11 +36,14 @@ export default {
         ExaminationItem
     },
     mounted: function () {
-        axios.get(api.patientExaminations + '/patient/1').then(response => {
-            this.examinations = response.data
-        })
+        this.getExaminations()
     },
     methods: {
+        getExaminations() {
+            axios.get(api.patientExaminations + '/patient/1').then(response => {
+            this.examinations = response.data
+            })
+        },
         getPastAppointments: function () {
             let pastAppointments = []
             let now = new Date()
@@ -72,7 +77,6 @@ export default {
             })
             return futureAppointments
         }
-    
     }
 }
 </script>
