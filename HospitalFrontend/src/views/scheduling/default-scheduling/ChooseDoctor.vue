@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import api from '../../constant/api.js'
+import api from '../../../constant/api.js'
 import axios from 'axios'
 import Toastify from 'toastify-js'
 import moment from 'moment'
@@ -49,10 +49,10 @@ export default {
     ,
     methods: {
         goToNextPage:function(){
-            this.$router.push('/schedule/choose-appointment')
+            this.$router.push('/schedule-appointment/choose-appointment')
         },
         goToPrevPage:function(){
-            this.$router.push('/schedule/')
+            this.$router.push('/schedule-appointment/')
         },
         chooseDoctor:function(doctorId){
             this.doctorId=doctorId
@@ -81,7 +81,7 @@ export default {
             let date =  moment(this.$store.state.selectedDate).format('YYYY-MM-DD')
             axios.get(api.availableIntervalUrl(date,this.doctorId)).then(response => {
                 this.$store.commit('setAvailableAppointments', response.data)
-                this.$router.push('/schedule/choose-appointment')
+                this.$router.push('/schedule-appointment/choose-appointment')
             })
         }
         ,
@@ -114,5 +114,5 @@ export default {
 </script>
 
 <style>
-     @import '../../styles/multipart-form-style.css';
+     @import '../../../styles/multipart-form-style.css';
 </style>

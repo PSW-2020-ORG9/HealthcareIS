@@ -11,10 +11,14 @@ import AccountDetails from '../views/registration/AccountDetails.vue'
 import ProfilePicture from '../views/registration/ProfilePicture.vue'
 import SuccessfullyRegistered from '../views/registration/SuccessfullyRegistered.vue'
 import CreateSurveyResponse from '../views/CreateSurveyResponse.vue'
-import ScheduleAppointment from '../views/scheduling/ScheduleAppointment.vue'
-import ChooseDate from '../views/scheduling/ChooseDate.vue'
-import ChooseDoctor from '../views/scheduling/ChooseDoctor.vue'
-import ChooseAppointment from '../views/scheduling/ChooseAppointment.vue'
+import ScheduleAppointment from '../views/scheduling/default-scheduling/ScheduleAppointment.vue'
+import ChooseDate from '../views/scheduling/default-scheduling/ChooseDate.vue'
+import ChooseDoctor from '../views/scheduling/default-scheduling/ChooseDoctor.vue'
+import ChooseAppointment from '../views/scheduling/default-scheduling/ChooseAppointment.vue'
+import SchedulingType from '../views/scheduling/SchedulingType.vue'
+import RecommendAppointment from '../views/scheduling/recommendation/RecommendAppointment.vue'
+import AppointmentPreferences from '../views/scheduling/recommendation/AppointmentPreferences.vue'
+import ChooseRecommended from '../views/scheduling/recommendation/ChooseRecommended.vue'
 
 const routes = [
   {
@@ -80,7 +84,13 @@ const routes = [
   }
   ,
   {
-    path:'/schedule',
+    path:'/scheduling-type',
+    component:SchedulingType,
+    name:'schedulingType'
+  }
+  ,
+  {
+    path:'/schedule-appointment',
     component: ScheduleAppointment,
     children:[
       {
@@ -99,6 +109,24 @@ const routes = [
         path:'choose-appointment',
         name:'chooseAppointment',
         component:ChooseAppointment
+      }
+    ]
+  }
+  ,
+  {
+    path:'/recommend-appointment',
+    component:RecommendAppointment,
+    children:[
+      {
+        path:'',
+        name:'appointmentPreferences',
+        component:AppointmentPreferences
+      }
+      ,
+      {
+        path:'choose-recommended',
+        name:'chooseRecommended',
+        component:ChooseRecommended
       }
     ]
   }

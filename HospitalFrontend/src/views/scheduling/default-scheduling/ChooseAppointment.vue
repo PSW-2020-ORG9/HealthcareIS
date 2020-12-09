@@ -5,7 +5,7 @@
 
         <h3 v-if="availableAppointments.length == 0">Sorry, there are no available appointments for selected doctor and selected date :(</h3>
         <select v-else name="appointments">
-            <option value="">Select an appointent...</option>
+            <option value="">Select an appointment...</option>
             <option v-bind:value="index" v-for="(appointment,index) in availableAppointments"
             @click="selectAppointment(appointment)" v-bind:key="index">{{this.formAppointmentString(appointment)}}</option>
         </select>
@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import api from '../../constant/api.js'
+import api from '../../../constant/api.js'
 import axios from 'axios'
 import moment from 'moment'
 import Toastify from 'toastify-js'
@@ -38,7 +38,7 @@ export default {
     methods: {
         
         goToPrevPage:function(){
-            this.$router.push('/schedule/choose-doctor')
+            this.$router.push('/schedule-appointment/choose-doctor')
         }
         ,
         formAppointmentString:function(appointment){
@@ -79,5 +79,5 @@ export default {
 </script>
 
 <style>
-     @import '../../styles/multipart-form-style.css';
+     @import '../../../styles/multipart-form-style.css';
 </style>

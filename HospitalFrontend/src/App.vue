@@ -9,7 +9,7 @@
     <router-link to="/medical-record" style="margin-right: 5px; margin-left: 5px;"> Observe medical record </router-link> &middot;
     <router-link to="/doc-search" style="margin-right: 5px; margin-left: 5px;">Search medical documentation </router-link> &middot;
     <router-link to="/register" style="margin-right: 5px; margin-left: 5px;">Patient registration </router-link> &middot;
-    <router-link to="/schedule" style="margin-right: 5px; margin-left: 5px;">Schedule Appointment </router-link>
+    <router-link to="/scheduling-type" style="margin-right: 5px; margin-left: 5px;">Schedule Appointment </router-link>
   </div>
   <router-view/>
   </div>
