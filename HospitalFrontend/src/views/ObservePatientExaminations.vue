@@ -76,7 +76,7 @@ export default {
             let now = new Date()
             this.examinations.forEach(e => {
                 let dateObj = new Date (e.timeInterval.start)
-                if (dateObj < Date.now()) {
+                if (dateObj.getDate() < now.getDate() && dateObj.getMonth() <= now.getMonth() && dateObj.getFullYear() <= now.getFullYear()) {
                     pastAppointments.push(e)
                 }
             })
@@ -98,7 +98,7 @@ export default {
             let now = new Date()
             this.examinations.forEach(e => {
                 let dateObj = new Date (e.timeInterval.start)
-                if (dateObj > Date.now()) {
+                if (dateObj.getDate() > now.getDate() && dateObj.getMonth() >= now.getMonth() && dateObj.getFullYear() >= now.getFullYear()) {
                     futureAppointments.push(e)
                 }
             })
