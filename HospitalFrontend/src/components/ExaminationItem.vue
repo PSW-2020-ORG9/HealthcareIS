@@ -39,19 +39,15 @@
         </table>
 
 
-        <!-- Cancel V-IF clause -->
         <button class="btn btn-info col" v-on:click="cancelAppointment(examination.id)" v-if="isCancelable()">Cancel appointment</button>
         <div class="col text-danger lead font-weight-bold d-flex justify-content-center" v-else-if="examination.isCanceled">
             <h3 class="align-self-center">Canceled</h3>
         </div>
 
-        <!-- Survey V-IF clause -->
-        <div v-else class="col" style="margin-top: 6%;">
-            <button v-if="!surveyCompleted" class="btn btn-success pl-4 pr-4" v-on:click="takeSurvey">Take a survey</button>
+        <button v-else-if="!surveyCompleted" class="btn btn-success col" v-on:click="takeSurvey">Take a survey</button>
 
-            <div v-else class="col text-info lead font-weight-bold d-flex justify-content-center">
-              <p class="align-self-center">Survey completed</p>
-            </div>
+        <div v-else class="col text-info lead font-weight-bold d-flex justify-content-center">
+            <h3 class="align-self-center">Survey completed</h3>
         </div>
 
     </div>
