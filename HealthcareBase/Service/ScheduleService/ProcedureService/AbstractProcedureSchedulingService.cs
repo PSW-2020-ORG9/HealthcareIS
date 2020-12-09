@@ -1,55 +1,46 @@
 ﻿using System;
 using HealthcareBase.Model.CustomExceptions;
 using HealthcareBase.Model.Schedule.Procedures;
-using HealthcareBase.Service.ScheduleService.Validators;
+using HealthcareBase.Repository.Generics;
+using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository.Interface;
 
 namespace HealthcareBase.Service.ScheduleService.ProcedureService
 {
     public abstract class AbstractProcedureSchedulingService<T> where T : Procedure
     {
-        //private readonly ProcedureValidator procedureValidator;
-        private readonly TimeSpan timeLimit;
+        private readonly RepositoryWrapper<IShiftRepository> _shiftWrapper;
 
-        protected AbstractProcedureSchedulingService(
-            //ProcedureScheduleComplianceValidator scheduleValidator, ProcedureValidator procedureValidator,
-            TimeSpan timeLimit)
+        public AbstractProcedureSchedulingService(IShiftRepository shiftRepository)
         {
-            //this.scheduleValidator = scheduleValidator;
-            //this.procedureValidator = procedureValidator;
-            this.timeLimit = timeLimit;
+            _shiftWrapper = new RepositoryWrapper<IShiftRepository>(shiftRepository);
         }
-
+        
+        protected AbstractProcedureSchedulingService() { }
         public abstract T GetByID(int id);
         protected abstract T Create(T procedure);
         protected abstract T Update(T procedure);
-        protected abstract void Delete(T procedure);
-        protected abstract void Validate(T procedure);
-
         protected abstract void ValidateProcedure(T procedure);
+        protected abstract void ValidateForScheduling(T procedure);
 
         public T Schedule(T procedure)
         {
             Validate(procedure);
+            LinkRoomToProcedure(procedure);
             var createdProcedure = Create(procedure);
             return createdProcedure;
         }
 
-        public void Cancel(T procedure)
+        private void Validate(T procedure)
         {
-            if (procedure is null)
-                throw new BadRequestException();
-            ValidateForCancelling(procedure);
-            Delete(procedure);
+            ValidateProcedure(procedure);
+            ValidateForScheduling(procedure);
         }
 
-        private void ValidateForScheduling(Procedure procedure)
+        private void LinkRoomToProcedure(Procedure procedure)
         {
-            throw new NotImplementedException();
-        }
-
-        private void ValidateForCancelling(Procedure procedure)
-        {
-            throw new NotImplementedException();
+            procedure.RoomId = _shiftWrapper.Repository.GetAssignedRoomId(
+                procedure.DoctorId, procedure.TimeInterval.Start.Date
+            );
         }
     }
 }

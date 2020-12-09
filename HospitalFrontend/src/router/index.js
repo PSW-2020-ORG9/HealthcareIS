@@ -11,6 +11,10 @@ import AccountDetails from '../views/registration/AccountDetails.vue'
 import ProfilePicture from '../views/registration/ProfilePicture.vue'
 import SuccessfullyRegistered from '../views/registration/SuccessfullyRegistered.vue'
 import CreateSurveyResponse from '../views/CreateSurveyResponse.vue'
+import ScheduleAppointment from '../views/scheduling/ScheduleAppointment.vue'
+import ChooseDate from '../views/scheduling/ChooseDate.vue'
+import ChooseDoctor from '../views/scheduling/ChooseDoctor.vue'
+import ChooseAppointment from '../views/scheduling/ChooseAppointment.vue'
 
 const routes = [
   {
@@ -71,6 +75,30 @@ const routes = [
         path:'profile-picture',
         name:'profilePicture',
         component: ProfilePicture
+      }
+    ]
+  }
+  ,
+  {
+    path:'/schedule',
+    component: ScheduleAppointment,
+    children:[
+      {
+        path:'',
+        name:'chooseDate',
+        component:ChooseDate
+      }
+      ,
+      {
+        path:'choose-doctor',
+        name:'chooseDoctor',
+        component:ChooseDoctor
+      }
+      ,
+      {
+        path:'choose-appointment',
+        name:'chooseAppointment',
+        component:ChooseAppointment
       }
     ]
   }

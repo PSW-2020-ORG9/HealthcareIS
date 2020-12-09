@@ -15,7 +15,6 @@ using HealthcareBase.Service.UsersService.PatientService;
 using HealthcareBase.Service.UsersService.RegistrationService;
 using HealthcareBase.Service.UsersService.UserFeedbackService;
 using HealthcareBase.Service.UsersService.UserFeedbackService.SurveyService;
-using HospitalWebAppIntegrationTests.Context;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;

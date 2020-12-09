@@ -27,6 +27,11 @@ namespace HealthcareBase.Service.UsersService.EmployeeService
             return doctorRepository.Repository.GetByID(id);
         }
 
+        public IEnumerable<Doctor> GetByDepartment(int departmentId)
+        {
+            return doctorRepository.Repository.GetMatching(doctor => doctor.DepartmentId == departmentId);
+        }
+
         public IEnumerable<Doctor> GetBySpecialty(Specialty specialty)
         {
             return doctorRepository.Repository.GetBySpecialty(specialty);
