@@ -1,6 +1,6 @@
-namespace HealthcareBase.Model.Schedule.Procedures.DTOs
+namespace HealthcareBase.Model.Users.Employee.Doctors.DTOs
 {
-    public class AvailableDoctorDTO
+    public class DoctorDto
     {
         public int DoctorId { get; set; }
         public string Name { get; set; }

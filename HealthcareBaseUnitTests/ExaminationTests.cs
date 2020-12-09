@@ -31,7 +31,7 @@ namespace HealthcareBaseTests
                 .Returns(new Examination()
                 {
                     IsCanceled = false,
-                    TimeInterval = new TimeInterval(DateTime.Now.AddDays(-3), DateTime.Now)
+                    TimeInterval = new TimeInterval(DateTime.Now.AddDays(3), DateTime.Now)
                 });
             _examinationRepository.Setup(e => e.GetByID(5))
                 .Returns(new Examination() {IsCanceled = true});

@@ -14,5 +14,6 @@ namespace WPFHospitalEditor
         public const string connectionUrl = "http://localhost:5290/";
         public const string descriptionSeparator = "=";
         public const string contentSeparator = "=";
+        public const double SearchDialogHeight = 350;
     }
 }

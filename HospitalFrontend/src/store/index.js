@@ -24,6 +24,17 @@ export default createStore({
         Email:'',
       }      
     }
+    ,
+    scheduledExaminationDTO:{
+      StartTime:'',
+      DoctorId:'',
+      PatientId:1
+    },
+    availableDoctors:[]
+    ,
+    selectedDate:null
+    ,
+    availableAppointments:[]
   },
   mutations: {
     setPersonalInformation(state,payload){
@@ -32,6 +43,28 @@ export default createStore({
     ,
     setAccountDetails(state,payload){
       state.patientRegistrationDto.accountDetails = payload
+    }
+    ,
+    setAvailableDoctors(state,payload){
+      state.availableDoctors = payload
+    }
+    ,
+    setSelectedDate(state,payload){
+      state.selectedDate = payload
+    }
+    ,
+    setDoctorId(state,payload){
+      state.scheduledExaminationDTO.DoctorId=payload
+    }
+    ,
+    setAvailableAppointments(state,payload){
+      state.availableAppointments=payload
+    }
+    ,
+    clearAppointmentInfo(state){
+      state.availableDoctors=[]
+      state.selectedDate=null
+      state.availableAppointments=[]
     }
   },
   actions: {

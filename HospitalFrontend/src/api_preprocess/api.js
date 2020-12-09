@@ -1,4 +1,4 @@
-let server='http://localhost:5000'
+let server = // #put "'http://" + SERVER_URI + "'"
 let examinationsUrl = server + '/docsearch/examination'
 let prescriptionsUrl = server + '/docsearch/prescription'
 let feedbacksUrl = server + '/feedback'
@@ -15,20 +15,26 @@ let patientExaminationsUrl = server + '/examination'
 
 let patientExaminationSurveyResponseUrl = server + "/survey/examination/"
 let patientExaminationsSurveyResponsesUrl = server + "/survey/examination/multiple"
+let doctorAvailabiltyUrl = server + '/available/'
+let examinationUrl = server + '/examination'
+let doctorUrl = server + '/doctor'
+let departmentUrl = server + '/department'
 
 export default{
     feedback: feedbacksUrl ,
     patient: patientUrl,
+    department:departmentUrl,
     patientAccount: patientAccountUrl,
     patientRegistration: registrationUrl,
     surveyPreview: surveyPreviewUrl,
 
     countries:countriesUrl,
     citiesByCountry:citiesByCountryId,
-    
+
     survey: surveyUrl,
-    
+
     examinations: examinationsUrl,
+    examination: examinationUrl,
     prescriptions: prescriptionsUrl,
 
     docSearchPrescriptionSimple: prescriptionsUrl + '/simple',
@@ -43,5 +49,15 @@ export default{
     patientExaminations: patientExaminationsUrl,
 
     patientExaminationSurveyResponseUrl: patientExaminationSurveyResponseUrl,
-    patientExaminationsSurveyResponsesUrl: patientExaminationsSurveyResponsesUrl
+    patientExaminationsSurveyResponsesUrl: patientExaminationsSurveyResponsesUrl,
+
+    availableDoctorUrl:function(date){
+        return doctorAvailabiltyUrl + 'doctor?date=' + date
+    },
+    availableIntervalUrl:function(date,doctorId){
+        return doctorAvailabiltyUrl + 'interval?date=' + date + '&doctorId=' + doctorId
+    },
+    doctorByDepartmentUrl:function(departmentId){
+        return doctorUrl+"?department="+departmentId
+    }
 }

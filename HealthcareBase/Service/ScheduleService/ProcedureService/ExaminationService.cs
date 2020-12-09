@@ -85,6 +85,6 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
         }
 
         private bool IsDateValidForCancelling(Examination examination)
-            => DateTime.Now.CompareTo(examination.TimeInterval.Start.AddDays(2)) > 0;
+            => DateTime.Now.CompareTo(examination.TimeInterval.Start.AddDays(-2)) < 0;
     }
 }

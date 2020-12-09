@@ -29,6 +29,8 @@ using Microsoft.Extensions.Hosting;
 using HealthcareBase.Repository.HospitalResourcesRepository;
 using HospitalWebApp.Context;
 using System.Threading;
+using HealthcareBase.Model.Users.Employee.Doctors;
+using HealthcareBase.Service.HospitalResourcesService.RoomService;
 
 namespace HospitalWebApp
 {
@@ -131,15 +133,21 @@ namespace HospitalWebApp
             var surveyResponseRepository = new SurveyResponseSqlRepository(getContext());
             var surveyRepository = new SurveySqlRepository(getContext());
             var shiftRepository = new ShiftSqlRepository(getContext());
+            var departmentRepository = new DepartmentSqlRepository(getContext());
+            var doctorRepository = new DoctorSqlRepository(getContext());
+            var equipmentTypeRepository = new EquipmentTypeSqlRepository(getContext());
             
             var userFeedbackService = new UserFeedbackService(userFeedbackRepository);
             var patientService = new PatientService(patientRepository, null, null, null);
             var prescriptionService = new MedicationPrescriptionService(prescriptionRepository);
             var equipmentService = new EquipmentService(equipmentRepository);
+            var equipmentTypeService = new EquipmentTypeService(equipmentTypeRepository);
             var medicationService = new MedicationService(medicationRepository);
             var patientAccountService = new PatientAccountService(patientAccountRepository);
             var patientRegistrationService = new PatientRegistrationService(patientAccountService, new RegistrationNotifier(Environment.GetEnvironmentVariable("PSW_ACTIVATION_ENDPOINT")));
             var doctorAvailabilityService = new DoctorAvailabilityService(shiftRepository,examinationRepository);
+            var departmentService = new DepartmentService(departmentRepository);
+            var doctorService = new DoctorService(doctorRepository);
 
             var examinationService = new ExaminationService(examinationRepository, shiftRepository);
             var cityService = new CityService(cityRepository);
@@ -153,6 +161,7 @@ namespace HospitalWebApp
             services.Add(new ServiceDescriptor(typeof(IPatientAccountService), patientAccountService));
             services.Add(new ServiceDescriptor(typeof(MedicationPrescriptionService), prescriptionService));
             services.Add(new ServiceDescriptor(typeof(EquipmentService), equipmentService));
+            services.Add(new ServiceDescriptor(typeof(EquipmentTypeService), equipmentTypeService));
             services.Add(new ServiceDescriptor(typeof(MedicationService), medicationService));
             services.Add(new ServiceDescriptor(typeof(CityService),cityService));
             services.Add(new ServiceDescriptor(typeof(CountryService),countryService));
@@ -161,6 +170,8 @@ namespace HospitalWebApp
             services.Add(new ServiceDescriptor(typeof(ISurveyService), surveyService));
             services.Add(new ServiceDescriptor(typeof(ExaminationService), examinationService));
             services.Add(new ServiceDescriptor(typeof(DoctorAvailabilityService), doctorAvailabilityService));
+            services.Add(new ServiceDescriptor(typeof(DepartmentService),departmentService));
+            services.Add(new ServiceDescriptor(typeof(DoctorService),doctorService));
         }
 
         private IPreparable CreateRepository(Type repositoryClass)

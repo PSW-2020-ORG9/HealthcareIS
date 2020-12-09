@@ -20,7 +20,7 @@ namespace HospitalWebApp.Controllers
         [HttpGet]
         public IActionResult GetAvailableDoctors([FromQuery] DateTime date)
         {
-            var doctorDtos = AvailableDoctorMapper
+            var doctorDtos = DoctorMapper
                 .ObjectToDto(doctorAvailabilityService.GetAvailableByDay(date));
             return Ok(doctorDtos);
         }

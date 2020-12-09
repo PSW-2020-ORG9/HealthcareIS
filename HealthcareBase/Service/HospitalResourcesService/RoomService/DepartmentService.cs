@@ -30,6 +30,11 @@ namespace HealthcareBase.Service.HospitalResourcesService.RoomService
                 new RepositoryWrapper<IHospitalizationTypeRepository>(hospitalizationTypeRepository);
         }
 
+        public DepartmentService(IDepartmentRepository departmentRepository)
+        {
+            this.departmentRepository = new RepositoryWrapper<IDepartmentRepository>(departmentRepository);
+        }
+
         public Department GetByID(int id)
         {
             return departmentRepository.Repository.GetByID(id);

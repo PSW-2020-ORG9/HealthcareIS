@@ -71,6 +71,7 @@ export default {
     emits: ['updateExaminations'],
     methods: {
         getDate: function(date) {
+            console.log(this.surveyCompleted)
             let dateObj = new Date(date)
             return dateObj.getDate() + "." + (dateObj.getMonth() + 1) + "." + dateObj.getFullYear() + "."
         },
@@ -121,7 +122,7 @@ export default {
                 position: 'center',
                 backgroundColor: "linear-gradient(to right, #C37D92, #d89a9e)"
             }).showToast()
-        }
+        },
     },
 }
 </script>
