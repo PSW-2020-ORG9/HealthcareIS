@@ -77,7 +77,7 @@ const routes = [
   }
   ,
   {
-    path: '/survey/:doctor',
+    path: '/survey/:doctor/:examination',
     name: 'CreateSurveyResponse',
     component: CreateSurveyResponse
   }

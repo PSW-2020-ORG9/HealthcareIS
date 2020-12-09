@@ -37,11 +37,23 @@
                 </tr>
             </tbody>
         </table>
+
+
+        <!-- Cancel V-IF clause -->
         <button class="btn btn-info col" v-on:click="cancelAppointment(examination.id)" v-if="isCancelable()">Cancel appointment</button>
         <div class="col text-danger lead font-weight-bold d-flex justify-content-center" v-else-if="examination.isCanceled">
             <h3 class="align-self-center">Canceled</h3>
         </div>
-        <button class="btn btn-success col" v-else v-on:click="takeSurvey">Take a survey</button>
+
+        <!-- Survey V-IF clause -->
+        <div v-else class="col" style="margin-top: 6%;">
+            <button v-if="!surveyCompleted" class="btn btn-success pl-4 pr-4" v-on:click="takeSurvey">Take a survey</button>
+
+            <div v-else class="col text-info lead font-weight-bold d-flex justify-content-center">
+              <p class="align-self-center">Survey completed</p>
+            </div>
+        </div>
+
     </div>
 </template>
 
@@ -53,7 +65,8 @@ import api from '../constant/api.js'
 export default {
     name: "ExaminationItem",
     props: {
-        examination: Object
+        examination: Object,
+        surveyCompleted: Boolean
     },
     emits: ['updateExaminations'],
     methods: {
@@ -85,7 +98,7 @@ export default {
             })
         },
         takeSurvey: function () {
-            this.$router.push('/survey/' + this.examination.doctor.id)
+            this.$router.push('/survey/' + this.examination.doctor.id + "/" + this.examination.id)
         },
         toastSuccess: function () {
             Toastify({

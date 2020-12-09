@@ -13,6 +13,9 @@ let registrationUrl = patientUrl + '/register'
 let surveyUrl = server + '/survey'
 let patientExaminationsUrl = server + '/examination'
 
+let patientExaminationSurveyResponseUrl = server + "/survey/examination/"
+let patientExaminationsSurveyResponsesUrl = server + "/survey/examination/multiple"
+
 export default{
     feedback: feedbacksUrl ,
     patient: patientUrl,
@@ -37,5 +40,8 @@ export default{
     imageUpload: imageUploadUrl,
     authorization: 'Client-ID ' + clientId,
 
-    patientExaminations: patientExaminationsUrl
+    patientExaminations: patientExaminationsUrl,
+
+    patientExaminationSurveyResponseUrl: patientExaminationSurveyResponseUrl,
+    patientExaminationsSurveyResponsesUrl: patientExaminationsSurveyResponsesUrl
 }

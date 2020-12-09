@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using HealthcareBase.Model.Users.Survey;
 using HealthcareBase.Model.Users.Survey.DTOs;
 using HealthcareBase.Service.UsersService.UserFeedbackService.SurveyService;
@@ -47,5 +48,15 @@ namespace HospitalWebApp.Controllers
         {
             return Ok(_surveyResponseService.CreateSurveyResponse(SurveyResponseMapper.DtoToObject(dto)));
         }
+
+        [HttpGet]
+        [Route("examination/{examinationId}")]
+        public IActionResult GetByExaminationId(int examinationId)
+            => Ok(_surveyResponseService.GetByExaminationId(examinationId));
+
+        [HttpPost]
+        [Route("examination/multiple")]
+        public IActionResult ExistByExaminationIds(List<int> examinationIds)
+            => Ok(_surveyResponseService.ExistByExaminationIds(examinationIds));
     }
 }

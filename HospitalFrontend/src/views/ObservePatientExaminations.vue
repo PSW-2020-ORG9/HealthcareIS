@@ -5,15 +5,23 @@
         <div class="container w-50">
             <div name="passed" class="container bg-light border border-gray">
                 <div class="text-left text-dark lead">Past appointments</div>
-                <ExaminationItem v-for="examination in getPastAppointments()" v-bind:key="examination.id" v-bind:examination="examination"></ExaminationItem>
+                <ExaminationItem v-for="(examination, index) in getPastAppointments()"
+                                 v-bind:key="examination.id" v-bind:examination="examination"
+                                 v-bind:survey-completed="surveyStatuses[index]"></ExaminationItem>
             </div>
             <div class="container bg-light border border-gray" name="today">
                 <div class="text-left text-success lead">Today's appointments</div>
-                <ExaminationItem v-for="examination in getTodaysAppointments()" v-bind:key="examination.id" v-bind:examination="examination"></ExaminationItem>
+                <ExaminationItem v-for="(examination, index) in getTodaysAppointments()"
+                                 v-bind:key="examination.id" v-bind:examination="examination"
+                                 v-bind:survey-completed="surveyStatuses[index]"></ExaminationItem>
             </div>
             <div class="container bg-light border border-gray" name="upcoming">
                 <div class="text-left text-info lead">Future appointments</div>
-                <ExaminationItem v-for="examination in getFutureAppointments()" v-on:update-examinations="getExaminations()" v-bind:key="examination.id" v-bind:examination="examination"></ExaminationItem>
+                <ExaminationItem v-for="(examination, index) in getFutureAppointments()"
+                                 v-on:update-examinations="getExaminations()" v-bind:key="examination.id"
+                                 v-bind:examination="examination"
+                                 v-bind:survey-completed="surveyStatuses[index]"
+                ></ExaminationItem>
             </div>
         </div>
     </div>
@@ -29,7 +37,8 @@ export default {
     name: "ObservePatientExaminations",
     data: function () {
         return {
-            examinations: []
+            examinations: [],
+            surveyStatuses: []
         }
     },
     components: {
@@ -40,8 +49,25 @@ export default {
     },
     methods: {
         getExaminations() {
-            axios.get(api.patientExaminations + '/patient/1').then(response => {
-            this.examinations = response.data
+            axios.get(api.patientExaminations + '/patient/1')
+            .then(response => {
+                this.examinations = response.data
+                this.getSurveyStatuses()
+            })
+        },
+        getSurveyStatuses() {
+            let payload = []
+            this.examinations.forEach(examination => {
+                payload.push(examination.id)
+            })
+            axios.post(api.patientExaminationsSurveyResponsesUrl, payload)
+            .catch(error => {
+                alert(error.response.data)
+            })
+            .then(response => {
+                if (response.status === 200) {
+                    this.surveyStatuses = response.data
+                }
             })
         },
         getPastAppointments: function () {
