@@ -149,7 +149,7 @@ namespace HospitalWebApp
             var departmentService = new DepartmentService(departmentRepository);
             var doctorService = new DoctorService(doctorRepository);
 
-            var examinationService = new ExaminationService(examinationRepository, shiftRepository);
+            var examinationService = new ExaminationService(examinationRepository, shiftRepository, doctorRepository);
             var cityService = new CityService(cityRepository);
             var countryService = new CountryService(countryRepository);
 

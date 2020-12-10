@@ -101,7 +101,7 @@ namespace HealthcareBase.Service.UsersService.EmployeeService
 
         public IEnumerable<Shift> GetByDoctor(Doctor doctor)
         {
-            return shiftRepository.Repository.GetByDoctor(doctor);
+            throw new NotImplementedException();
         }
     }
 }

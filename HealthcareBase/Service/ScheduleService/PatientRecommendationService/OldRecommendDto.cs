@@ -10,7 +10,7 @@ using HealthcareBase.Model.Utilities;
 
 namespace HealthcareBase.Service.ScheduleService.PatientRecommendationService
 {
-    public class RecommendationRequestDTO
+    public class OldRecommendationDto
     {
         public Doctor Doctor { get; set; }
 
