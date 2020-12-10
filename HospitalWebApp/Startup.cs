@@ -33,32 +33,20 @@ namespace HospitalWebApp
 {
     public class Startup
     {
-        protected readonly string _connectionString;
-        private static bool _databaseInitialized = false;
-        private static readonly object _mutex = new object();
-        public Startup(IWebHostEnvironment env)
+        private readonly string _connectionString;
+        public Startup()
+        {
+            Configuration = GetConfiguration();
+            _connectionString = CreateConnectionStringFromEnvironment() ?? Configuration["MySql"];
+            if (_connectionString == null) throw new ApplicationException("Connection string is null");
+        }
+
+        protected IConfiguration GetConfiguration()
         {
             var builder = new ConfigurationBuilder()
-                    .AddJsonFile("connections.json", optional:true);
-            Configuration = builder.Build();
+                .AddJsonFile("connections.json", optional: true);
 
-            if (env.EnvironmentName == "Testing")
-            {
-                _connectionString = CreateConnectionStringFromEnvironment(true) ?? Configuration["MySqlTest"];
-                if (_connectionString == null) throw new ApplicationException("Connection string is null");
-                lock(_mutex)
-                {
-                    if (_databaseInitialized) return;
-                    _databaseInitialized = true;
-                    GetContext().CreateContext().Database.EnsureDeleted();
-                    GetContext().CreateContext().Database.EnsureCreated();
-                }
-            }
-            else
-            {
-                _connectionString = CreateConnectionStringFromEnvironment() ?? Configuration["MySql"];
-                if (_connectionString == null) throw new ApplicationException("Connection string is null");
-            }
+            return builder.Build();
         }
 
         public IConfiguration Configuration { get; }
@@ -196,7 +184,7 @@ namespace HospitalWebApp
         /// </summary>
         /// <param name="testing">Determines if the current environment is testing.</param>
         /// <returns></returns>
-        private string CreateConnectionStringFromEnvironment(bool testing = false)
+        protected string CreateConnectionStringFromEnvironment(bool testing = false)
         {
             string server = Environment.GetEnvironmentVariable("DB_PSW_SERVER");
             string port = Environment.GetEnvironmentVariable("DB_PSW_PORT");
