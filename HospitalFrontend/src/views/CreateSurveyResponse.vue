@@ -50,13 +50,15 @@ export default {
 
     name:'CreateSurveyResponse',
     data:function() {
-        return{          
+        return {
             survey: null,
-            surveyResponse: {
+            surveyResponseDto: {
                 surveyId:null,
                 ratedSurveySections:[],
                 doctorSurveySection:null,
-                patientAccountId:1
+                patientAccountId:1,
+                doctorId: this.$route.params.doctor,
+                examinationId: this.$route.params.examination
             }
         }
     },
@@ -64,14 +66,14 @@ export default {
         getSurvey: function () {
             axios.get(api.survey + '/find/1').then((response)=>{
                 this.survey = response.data;
-                this.surveyResponse.surveyId = this.survey.id
+                this.surveyResponseDto.surveyId = this.survey.id
             })
         },
         rateQuestion: function (section, questionId, rating) {
             if (section.isDoctorSection) {
-                if (this.surveyResponse.doctorSurveySection == null) {
-                    this.surveyResponse.doctorSurveySection = {
-                        doctorId: 1,
+                if (this.surveyResponseDto.doctorSurveySection == null) {
+                    this.surveyResponseDto.doctorSurveySection = {
+                        doctorId: this.surveyResponseDto.doctorId,
                         surveySectionId: section.id,
                         ratedSurveyQuestions: [{
                             surveyQuestionId: questionId,
@@ -80,36 +82,36 @@ export default {
                     }
                     return
                 }
-                for(let i = 0; i < this.surveyResponse.doctorSurveySection.ratedSurveyQuestions.length; i++) {
-                    if(this.surveyResponse.doctorSurveySection.ratedSurveyQuestions[i].surveyQuestionId == questionId) {
-                        this.surveyResponse.doctorSurveySection.ratedSurveyQuestions[i].rating = rating
+                for(let i = 0; i < this.surveyResponseDto.doctorSurveySection.ratedSurveyQuestions.length; i++) {
+                    if(this.surveyResponseDto.doctorSurveySection.ratedSurveyQuestions[i].surveyQuestionId == questionId) {
+                        this.surveyResponseDto.doctorSurveySection.ratedSurveyQuestions[i].rating = rating
                         return
                     }
                 }
-                this.surveyResponse.doctorSurveySection.ratedSurveyQuestions.push({
+                this.surveyResponseDto.doctorSurveySection.ratedSurveyQuestions.push({
                             surveyQuestionId: questionId,
                             rating: rating
                         })
                 return
             }
-            for(let i = 0; i < this.surveyResponse.ratedSurveySections.length; i++) {
-                if (this.surveyResponse.ratedSurveySections[i].surveySectionId == section.id) {
-                    if(this.surveyResponse.ratedSurveySections[i].ratedSurveyQuestions != []) {
-                        for(let j = 0; j < this.surveyResponse.ratedSurveySections[i].ratedSurveyQuestions.length; j++) {
-                            if (this.surveyResponse.ratedSurveySections[i].ratedSurveyQuestions[j].surveyQuestionId == questionId) {
-                                this.surveyResponse.ratedSurveySections[i].ratedSurveyQuestions[j].rating = rating
+            for(let i = 0; i < this.surveyResponseDto.ratedSurveySections.length; i++) {
+                if (this.surveyResponseDto.ratedSurveySections[i].surveySectionId == section.id) {
+                    if(this.surveyResponseDto.ratedSurveySections[i].ratedSurveyQuestions != []) {
+                        for(let j = 0; j < this.surveyResponseDto.ratedSurveySections[i].ratedSurveyQuestions.length; j++) {
+                            if (this.surveyResponseDto.ratedSurveySections[i].ratedSurveyQuestions[j].surveyQuestionId == questionId) {
+                                this.surveyResponseDto.ratedSurveySections[i].ratedSurveyQuestions[j].rating = rating
                                 return
                             }
                         }
                     }
-                    this.surveyResponse.ratedSurveySections[i].ratedSurveyQuestions.push({
+                    this.surveyResponseDto.ratedSurveySections[i].ratedSurveyQuestions.push({
                         surveyQuestionId: questionId,
                         rating: rating
                     })
                     return
                 }
             }
-            this.surveyResponse.ratedSurveySections.push({
+            this.surveyResponseDto.ratedSurveySections.push({
                 surveySectionId: section.id,
                 ratedSurveyQuestions: [{
                         surveyQuestionId: questionId,
@@ -119,9 +121,9 @@ export default {
             })
         },
         saveSurveyResponse: function () {
-            axios.post(api.survey + '/response', this.surveyResponse)
-            .then(response => this.toastSuccess())
-            .catch(err => this.toastError())
+            axios.post(api.survey + '/response', this.surveyResponseDto)
+            .then(() =>this.toastSuccess())
+            .catch(() => this.toastError())
         },
         toastSuccess: function () {
             Toastify({

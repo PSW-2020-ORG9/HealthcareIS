@@ -14,5 +14,7 @@ namespace HealthcareBase.Model.Users.Survey.DTOs
         public List<RatedSurveySection> RatedSurveySections { get; set; }
 
         public DoctorSurveySection DoctorSurveySection { get; set; }
+        
+        public int ExaminationId { get; set; }
     }
 }
