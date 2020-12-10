@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "preprocess src/api_preprocess/api.js . -SERVER_URI=localhost:5000 > src/constant/api.js && vue-cli-service serve",
+    "serve": "preprocess src/api_preprocess/api.js . -SERVER_URI=localhost:5290 > src/constant/api.js && vue-cli-service serve",
     "build": "preprocess src/api_preprocess/api.js . -SERVER_URI=localhost:5000 > src/constant/api.js && vue-cli-service build",
     "purebuild": "vue-cli-service build",
     "dockerbuild": "mkdirp src/constant && cross-var preprocess src/api_preprocess/api.js . -SERVER_URI=$ASPNET_HOST:$ASPNET_PORT > src/constant/api.js && vue-cli-service build",
