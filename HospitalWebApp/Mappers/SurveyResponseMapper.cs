@@ -18,7 +18,7 @@ namespace HospitalWebApp.Mappers
                 RatedSurveySections = dto.RatedSurveySections,
                 DoctorSurveySection = dto.DoctorSurveySection,
                 PatientAccountId = dto.PatientAccountId,
-
+                ExaminationId = dto.ExaminationId
             };
         }
     }

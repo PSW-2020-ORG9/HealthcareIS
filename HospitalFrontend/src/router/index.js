@@ -19,6 +19,7 @@ import SchedulingType from '../views/scheduling/SchedulingType.vue'
 import RecommendAppointment from '../views/scheduling/recommendation/RecommendAppointment.vue'
 import AppointmentPreferences from '../views/scheduling/recommendation/AppointmentPreferences.vue'
 import ChooseRecommended from '../views/scheduling/recommendation/ChooseRecommended.vue'
+import ObservePatientExaminations from '../views/ObservePatientExaminations.vue'
 
 const routes = [
   {
@@ -114,27 +115,15 @@ const routes = [
   }
   ,
   {
-    path:'/recommend-appointment',
-    component:RecommendAppointment,
-    children:[
-      {
-        path:'',
-        name:'appointmentPreferences',
-        component:AppointmentPreferences
-      }
-      ,
-      {
-        path:'choose-recommended',
-        name:'chooseRecommended',
-        component:ChooseRecommended
-      }
-    ]
-  }
-  ,
-  {
     path: '/survey',
     name: 'CreateSurveyResponse',
     component: CreateSurveyResponse
+  }
+  ,
+  {
+    path: '/examinations',
+    name: 'ObservePatientExaminations',
+    component: ObservePatientExaminations
   }
 ]
 

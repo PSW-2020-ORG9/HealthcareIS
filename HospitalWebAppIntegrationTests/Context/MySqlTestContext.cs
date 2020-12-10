@@ -7,12 +7,11 @@ using HealthcareBase.Model.Users.Generalities;
 using HealthcareBase.Model.Users.Patient;
 using HealthcareBase.Model.Users.Patient.MedicalHistory;
 using HealthcareBase.Model.Users.Patient.MedicalHistory.Relationship;
-using HealthcareBase.Model.Utilities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 
-namespace HospitalWebApp.Context
+namespace HospitalWebAppIntegrationTests.Context
 {
     internal class MySqlTestContext : MySqlContext
     {
@@ -98,6 +97,34 @@ namespace HospitalWebApp.Context
                     ExaminationId = 1,
                     Start = new DateTime(2022, 1, 1, 8, 0, 0),
                     End = new DateTime(2022, 1, 1, 8, 30, 0),
+                });
+                e.HasData(new Examination
+                {
+                    Id = 2,
+                    DoctorId = 1,
+                    PatientId = 1,
+                    IsCanceled = false,
+                    RoomId = 1,
+                });
+                e.OwnsOne(x => x.TimeInterval).HasData(new
+                {
+                    ExaminationId = 2,
+                    Start = new DateTime(2022, 1, 1, 10, 0, 0),
+                    End = new DateTime(2022, 1, 1, 10, 30, 0),
+                });
+                e.HasData(new Examination
+                {
+                    Id = 3,
+                    DoctorId = 1,
+                    PatientId = 1,
+                    IsCanceled = false,
+                    RoomId = 1,
+                });
+                e.OwnsOne(x => x.TimeInterval).HasData(new
+                {
+                    ExaminationId = 3,
+                    Start = new DateTime(2019, 1, 1, 10, 0, 0),
+                    End = new DateTime(2019, 1, 1, 10, 30, 0),
                 });
             });
             modelBuilder.Entity<Allergy>().HasData(new Allergy
