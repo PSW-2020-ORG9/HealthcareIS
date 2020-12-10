@@ -18,12 +18,12 @@ let patientExaminationsSurveyResponsesUrl = server + "/survey/examination/multip
 let doctorAvailabiltyUrl = server + '/available/'
 let examinationUrl = server + '/examination'
 let doctorUrl = server + '/doctor'
-let departmentUrl = server + '/department'
+let specialtyUrl = server + '/specialty'
 
 export default{
     feedback: feedbacksUrl ,
     patient: patientUrl,
-    department:departmentUrl,
+    specialty:specialtyUrl,
     patientAccount: patientAccountUrl,
     patientRegistration: registrationUrl,
     surveyPreview: surveyPreviewUrl,
@@ -57,7 +57,7 @@ export default{
     availableIntervalUrl:function(date,doctorId){
         return doctorAvailabiltyUrl + 'interval?date=' + date + '&doctorId=' + doctorId
     },
-    doctorByDepartmentUrl:function(departmentId){
-        return doctorUrl+"?department="+departmentId
+    doctorBySpecialtyUrl: function (specialtyId) {
+        return doctorUrl + "/specialty/" + specialtyId
     }
 }

@@ -115,6 +115,24 @@ const routes = [
   }
   ,
   {
+    path:'/recommend-appointment',
+    component:RecommendAppointment,
+    children:[
+      {
+        path:'',
+        name:'appointmentPreferences',
+        component:AppointmentPreferences
+      }
+      ,
+      {
+        path:'choose-recommended',
+        name:'chooseRecommended',
+        component:ChooseRecommended
+      }
+    ]
+  }
+  ,
+  {
     path: '/survey',
     name: 'CreateSurveyResponse',
     component: CreateSurveyResponse

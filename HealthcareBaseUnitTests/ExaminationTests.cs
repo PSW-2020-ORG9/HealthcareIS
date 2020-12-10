@@ -108,7 +108,7 @@ namespace HealthcareBaseTests
         public void Cancel_patient_examination_fail_too_late()
         {
             PrepareStubs();
-            var examinationService = new ExaminationService(_examinationRepository.Object, _shiftRepository.Object);
+            var examinationService = new ExaminationService(_examinationRepository.Object, _shiftRepository.Object, _doctorRepository.Object);
 
             bool cancelResult = examinationService.Cancel(12);
             Assert.False(cancelResult);

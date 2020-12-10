@@ -117,6 +117,7 @@ namespace HospitalWebApp
             var departmentRepository = new DepartmentSqlRepository(GetContext());
             var doctorRepository = new DoctorSqlRepository(GetContext());
             var equipmentTypeRepository = new EquipmentTypeSqlRepository(GetContext());
+            var specialtyRepository = new SpecialtySqlRepository(GetContext());
             
             var userFeedbackService = new UserFeedbackService(userFeedbackRepository);
             var patientService = new PatientService(patientRepository, null, null, null);

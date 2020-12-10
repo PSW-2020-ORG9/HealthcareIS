@@ -7,17 +7,15 @@
             <option value="Period">Time period</option>
         </select>
 
-        <select name="departments" v-if="departmentsFetched">
-            <option value="">Choose department...</option>
-            <option v-bind:value="index" v-for="(department,index) in availableDepartments"
-            @click="chooseDepartment(department.id)" v-bind:key="index">
-                {{department.name}}
+        <select name="specialties" v-on:change="chooseSpecialty" v-if="specialtiesFetched">
+            <option value="">Choose specialty...</option>
+            <option v-bind:value="specialty.id" v-for="specialty in availableSpecialties" v-bind:key="specialty.id">
+                {{specialty.name}}
              </option>
         </select>
-        <select name="doctor" v-if="doctorsFetched">
+        <select name="doctor" v-on:change="chooseDoctor" v-if="doctorsFetched">
             <option value="">Your preffered doctor...</option>
-            <option v-bind:value="index" v-for="(doctor,index) in availableDoctors"
-            @click="chooseDoctor(doctor.doctorId)" v-bind:key="index">
+            <option v-bind:value="doctor.id" v-for="doctor in availableDoctors" v-bind:key="doctor.id">
                 {{"Doktor " + doctor.name + " " + doctor.surname}}
             </option>
         </select>
@@ -52,7 +50,7 @@
         </DatePicker>
         <input type="button" name="next" class="next action-button"  style="width:50%;" value="Recommend me an appointment!"
           @click="recommendAppointments" v-if="this.range.start != null && this.range.end != null
-          && this.preference !='' && this.doctorId!=null && this.departmentId != null" />
+          && this.preference !='' && this.doctorId!=null && this.specialtyId != null" />
     </fieldset>
 </template>
 
@@ -69,12 +67,12 @@ export default {
     data:function(){
         return{
             availableDoctors:[],
-            departmentsFetched:false,
+            specialtiesFetched:false,
             doctorsFetched:false,
             preference:'',
-            availableDepartments:[],
+            availableSpecialties:[],
             doctorId:null,
-            departmentId:null,
+            specialtyId:null,
             mindate:moment().add(1, 'days').toDate(),
             range:{
                 start: moment().add(2, 'days').toDate(),
@@ -86,10 +84,10 @@ export default {
     components:{DatePicker}
     ,
     methods: {
-        getAllDepartments:function(){
-            axios.get(api.department).then(response=>{
-                this.availableDepartments = response.data
-                this.departmentsFetched = true
+        getAllSpecialties:function(){
+            axios.get(api.specialty).then(response=>{
+                this.availableSpecialties = response.data
+                this.specialtiesFetched = true
             })
         }
         ,
@@ -97,20 +95,20 @@ export default {
             return moment().add(1, 'days').toDate()
         }
         ,
-        chooseDepartment:function(id){
-            this.departmentId=id
-            this.getDoctorByDepartment(id)
+        chooseSpecialty: function (e) {
+            this.specialtyId = e.target.value
+            this.getDoctorBySpecialty(this.specialtyId)
         }
         ,
-        getDoctorByDepartment:function(id){
-            axios.get(api.doctorByDepartmentUrl(id)).then(response=>{
+        getDoctorBySpecialty:function(id){
+            axios.get(api.doctorBySpecialtyUrl(id)).then(response=>{
                 this.availableDoctors = response.data
                 this.doctorsFetched = true
             })
         }
         ,
-        chooseDoctor:function(doctorId){
-            this.doctorId=doctorId
+        chooseDoctor: function (e) {
+            this.doctorId = e.target.value
         }
         ,
         recommendAppointments:function(){
@@ -120,7 +118,7 @@ export default {
         }
     },
     mounted:function(){
-        this.getAllDepartments()
+        this.getAllSpecialties()
     }
 }
 </script>
