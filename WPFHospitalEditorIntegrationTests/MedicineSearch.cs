@@ -14,7 +14,7 @@ namespace WPFHospitalEditorIntegrationTests
         {
             MapObjectController mapObjectController = new MapObjectController();
             HospitalMap hospitalMap = new HospitalMap(mapObjectController.getAllMapObjects(), Role.Director);
-            hospitalMap.medicationSearchComboBox.Text = "Pick medication name";
+            hospitalMap.medicationSearchComboBox.Text = AllConstants.emptyComboBox;
 
             hospitalMap.checkMedicineSearchInput();
 

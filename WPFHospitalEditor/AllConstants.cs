@@ -15,5 +15,6 @@ namespace WPFHospitalEditor
         public const string descriptionSeparator = "=";
         public const string contentSeparator = "=";
         public const double SearchDialogHeight = 350;
+        public const string emptyComboBox = "None";
     }
 }

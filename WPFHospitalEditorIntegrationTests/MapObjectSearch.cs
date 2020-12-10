@@ -16,7 +16,7 @@ namespace WPFHospitalEditorIntegrationTests
             MapObjectController mapObjectController = new MapObjectController();
             HospitalMap hospitalMap = new HospitalMap(mapObjectController.getAllMapObjects(), Role.Director);
 
-            mapObjectController.checkMapObjectSearchInput("","Pick type of object");
+            mapObjectController.checkMapObjectSearchInput("", AllConstants.emptyComboBox);
 
             Assert.Empty(HospitalMap.searchResult);
         }
@@ -38,7 +38,7 @@ namespace WPFHospitalEditorIntegrationTests
             MapObjectController mapObjectController = new MapObjectController();
             HospitalMap hospitalMap = new HospitalMap(mapObjectController.getAllMapObjects(), Role.Director);
 
-            mapObjectController.checkMapObjectSearchInput("Info", "Pick type of object");
+            mapObjectController.checkMapObjectSearchInput("Info", AllConstants.emptyComboBox);
 
             Assert.NotEmpty(HospitalMap.searchResult);
         }

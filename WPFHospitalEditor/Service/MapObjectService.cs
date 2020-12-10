@@ -10,13 +10,7 @@ namespace WPFHospitalEditor.Service
 {
     public class MapObjectService : IMapObjectService
     {
-        public MapObjectRepository MapObjectRepository = new MapObjectRepository();
-        public IMapObjectRepository iMapObjectRepository = new MapObjectRepository();
-
-        public MapObjectService()
-        {
-            MapObjectRepository = new MapObjectRepository();
-        }
+        private IMapObjectRepository iMapObjectRepository = null;
 
         public MapObjectService(IMapObjectRepository IMapObjectRepository)
         {
@@ -30,11 +24,11 @@ namespace WPFHospitalEditor.Service
 
         public MapObject update(MapObject mapObject)
         {
-            return MapObjectRepository.update(mapObject);
+            return iMapObjectRepository.update(mapObject);
         }
         public List<MapObject> getOutterMapObjects()
         {
-            return colorSelectedObject(MapObjectRepository.getOutterMapObjects());
+            return colorSelectedObject(iMapObjectRepository.getOutterMapObjects());
         }
         public MapObject findMapObjectById(int id)
         {
@@ -64,25 +58,23 @@ namespace WPFHospitalEditor.Service
         {
             HospitalMap.searchResult.Clear();
             List<MapObject> mapObjects = iMapObjectRepository.getAllMapObjects();
+            if (textBoxInput.Equals("") && comboBoxTextInput.Equals(AllConstants.emptyComboBox)) return;
             foreach (MapObject mapObject in mapObjects)
             {
-                compareInput(mapObject, textBoxInput, comboBoxTextInput);               
+                if(compareInput(mapObject, textBoxInput, comboBoxTextInput))
+                    HospitalMap.searchResult.Add(mapObject);
             }
         }
-        public void compareInput(MapObject mapObject, string textBox, string comboBox)
+
+        private bool compareInput(MapObject mapObject, string textBoxInput, string comboBoxTextInput)
         {
-            if(mapObject.MapObjectType.ToString().Equals(comboBox) && textBox.Equals(""))
+            bool result = mapObject.Name.ToLower().Contains(textBoxInput.ToLower());
+            if(!comboBoxTextInput.Equals(AllConstants.emptyComboBox))
             {
-                HospitalMap.searchResult.Add(mapObject);
+                result = result && mapObject.MapObjectType.ToString().Equals(comboBoxTextInput);
             }
-            else if(mapObject.Name.ToLower().Contains(textBox.ToLower()) && comboBox.Equals("Pick type of object") && !textBox.Equals(""))
-            {
-                HospitalMap.searchResult.Add(mapObject);
-            }
-            else if(mapObject.MapObjectType.ToString().Equals(comboBox) && mapObject.Name.ToLower().Contains(textBox.ToLower()) && !textBox.Equals(""))
-            {
-                HospitalMap.searchResult.Add(mapObject);
-            }
-        }       
+
+            return result;
+        }
     }
 }

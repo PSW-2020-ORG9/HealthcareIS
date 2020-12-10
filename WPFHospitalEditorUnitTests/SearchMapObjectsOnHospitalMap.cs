@@ -18,7 +18,7 @@ namespace WPFHospitalEditorUnitTests
             var mapObjects = createMapObjectList();
 
             MapObjectService mapObjectService = new MapObjectService(createStubRepository());
-            mapObjectService.checkMapObjectSearchInput("Examination", "Pick type of object");
+            mapObjectService.checkMapObjectSearchInput("Examination", AllConstants.emptyComboBox);
 
             HospitalMap.searchResult.ShouldNotBeEmpty();
         }

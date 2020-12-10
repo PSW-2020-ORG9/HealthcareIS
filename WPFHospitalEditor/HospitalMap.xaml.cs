@@ -35,6 +35,7 @@ namespace WPFHospitalEditor
             setMapObjectTypeComboBox();
             setEquipmentTypeComboBox();
             setMedicationNameComboBox();
+            setNonSelectedComboBoxItem();
             CanvasService.addObjectToCanvas(mapObjectController.getOutterMapObjects(), canvas);
             canvasHospitalMap = canvas;
             HospitalMap.role = role;
@@ -181,14 +182,20 @@ namespace WPFHospitalEditor
 
         private Boolean NoEquipmentTypeIsPicked()
         {
-            if (equipmentSearchComboBox.Text.Equals("Pick equipment type")) return true;
+            if (equipmentSearchComboBox.Text.Equals(AllConstants.emptyComboBox)) return true;
             return false;
         }
 
         private Boolean NoMedicationNameIsPicked()
         {
-            if (medicationSearchComboBox.Text.Equals("Pick medication name")) return true;
+            if (medicationSearchComboBox.Text.Equals(AllConstants.emptyComboBox)) return true;
             return false;
+        }
+        private void setNonSelectedComboBoxItem()
+        {
+            emptyMapObjectComboBox.Content = AllConstants.emptyComboBox;
+            emptyMedicationComboBox.Content = AllConstants.emptyComboBox;
+            emptyEquipmentComboBox.Content = AllConstants.emptyComboBox;
         }
     }
 }
