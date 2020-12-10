@@ -50,7 +50,11 @@ namespace HealthcareBase.Repository.ScheduleRepository.ProceduresRepository
                 .ThenInclude(patient => patient.Person)
 
                 .Include(examination => examination.ProcedureDetails)
-                .ThenInclude(details => details.RequiredSpecialty);
+                .ThenInclude(details => details.RequiredSpecialty)
+
+                .Include(examination => examination.Room)
+                .ThenInclude(room => room.Department);
+
 
         }
 

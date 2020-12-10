@@ -79,8 +79,12 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
             var examination = _wrapper.Repository.GetByID(examinationId);
             if (examination == default) return false;
             if (examination.IsCanceled) return false;
+            if (!IsDateValidForCancelling(examination)) return false;
             examination.IsCanceled = true;
             return Update(examination) != default;
         }
+
+        private bool IsDateValidForCancelling(Examination examination)
+            => DateTime.Now.CompareTo(examination.TimeInterval.Start.AddDays(-2)) < 0;
     }
 }
