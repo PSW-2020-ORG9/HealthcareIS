@@ -136,7 +136,8 @@ namespace HospitalWebApp
             var departmentRepository = new DepartmentSqlRepository(getContext());
             var doctorRepository = new DoctorSqlRepository(getContext());
             var equipmentTypeRepository = new EquipmentTypeSqlRepository(getContext());
-            
+            var specialtyRepository = new SpecialtySqlRepository(getContext());
+                
             var userFeedbackService = new UserFeedbackService(userFeedbackRepository);
             var patientService = new PatientService(patientRepository, null, null, null);
             var prescriptionService = new MedicationPrescriptionService(prescriptionRepository);
@@ -156,6 +157,8 @@ namespace HospitalWebApp
             var surveyResponseService = new SurveyResponseService(surveyResponseRepository);
             var surveyService = new SurveyService(surveyRepository);
             
+            var specialtyService = new SpecialtyService(specialtyRepository);
+            
             services.Add(new ServiceDescriptor(typeof(UserFeedbackService), userFeedbackService));
             services.Add(new ServiceDescriptor(typeof(PatientService), patientService));
             services.Add(new ServiceDescriptor(typeof(IPatientAccountService), patientAccountService));
@@ -172,6 +175,7 @@ namespace HospitalWebApp
             services.Add(new ServiceDescriptor(typeof(DoctorAvailabilityService), doctorAvailabilityService));
             services.Add(new ServiceDescriptor(typeof(DepartmentService),departmentService));
             services.Add(new ServiceDescriptor(typeof(DoctorService),doctorService));
+            services.Add(new ServiceDescriptor(typeof(SpecialtyService), specialtyService));
         }
 
         private IPreparable CreateRepository(Type repositoryClass)
