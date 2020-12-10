@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using HealthcareBase.Model.CustomExceptions;
 using HealthcareBase.Model.Filters;
 using HealthcareBase.Model.Schedule.Procedures;
@@ -88,6 +89,7 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
             return Update(examination) != default;
         }
 
+// Recommendations
         public RecommendationDto Recommend(RecommendationRequestDto dto)
         {
             if (dto.TimeInterval == null) return null;
@@ -118,7 +120,13 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
 
         private RecommendationDto RecommendAnyDoctorInTimeInterval(RecommendationRequestDto dto)
         {
-            var allShifts = _shiftWrapper.Repository.GetByTimeInterval(dto.TimeInterval);
+            IEnumerable<Shift> allShifts = _shiftWrapper.Repository
+                .GetMatching(shift =>
+                    shift.Doctor.Specialties.First(specialty => specialty.SpecialtyId == dto.SpecialtyId) != default
+                    && shift.TimeInterval.Start >= dto.TimeInterval.Start
+                    && shift.TimeInterval.Start <= dto.TimeInterval.End
+                );
+
             foreach (var shift in allShifts)
             {
                 var recommendationDto = RecommendForShift(shift);
@@ -186,9 +194,7 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
                 var exam 
                     = _examinationWrapper.Repository.GetByDoctorAndExaminationStart(doctorId, start);
                 if (exam.Any())
-                {
                     start = start.Add(Examination.TimeFrameSize);
-                }
                 else
                     return new TimeInterval(start, start.Add(Examination.TimeFrameSize));
             }

@@ -51,7 +51,7 @@
             </template>
         </DatePicker>
         <input type="button" name="next" class="next action-button"  style="width:50%;" value="Recommend me an appointment!"
-          @click="recommendAppointments" v-if="this.range.start != null && this.range.end != null 
+          @click="recommendAppointments" v-if="this.range.start != null && this.range.end != null
           && this.preference !='' && this.doctorId!=null && this.departmentId != null" />
     </fieldset>
 </template>
