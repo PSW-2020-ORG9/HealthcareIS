@@ -65,4 +65,16 @@ steps:
     command: 'test'
     projects: '**/HospitalWebAppIntegrationTests/*.csproj'
     testRunTitle: 'PR_RunIntegrationTests'
+  env:
+    DB_PSW_DATABASE: $(DB_PSW_DATABASE)
+    DB_PSW_PASSWORD: $(DB_PSW_PASSWORD)
+    DB_PSW_PORT: $(DB_PSW_PORT)
+    DB_PSW_SERVER: $(DB_PSW_SERVER)
+    DB_PSW_TEST_DATABASE: $(DB_PSW_TEST_DATABASE)
+    DB_PSW_USER: $(DB_PSW_USER)
+    PSW_ACTIVATION_ENDPOINT: $(PSW_ACTIVATION_ENDPOINT)
+    PSW_EMAIL_PASSWORD: $(PSW_EMAIL_PASSWORD)
+    PSW_EMAIL_USERNAME: $(PSW_EMAIL_USERNAME)
+    PSW_SMPT_HOST_SERVER: $(PSW_SMPT_HOST_SERVER)
+    PSW_SMPT_SSL_PORT: $(PSW_SMPT_SSL_PORT)
   displayName: Integration Tests
