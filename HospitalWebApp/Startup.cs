@@ -27,18 +27,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using HealthcareBase.Repository.HospitalResourcesRepository;
-using HospitalWebApp.Context;
-using System.Threading;
-using HealthcareBase.Model.Users.Employee.Doctors;
 using HealthcareBase.Service.HospitalResourcesService.RoomService;
 
 namespace HospitalWebApp
 {
     public class Startup
     {
-        private readonly string _connectionString;
-        private delegate IContextFactory GetContextDelegate();
-        private readonly GetContextDelegate getContext;
+        protected readonly string _connectionString;
         private static bool _databaseInitialized = false;
         private static readonly object _mutex = new object();
         public Startup(IWebHostEnvironment env)
@@ -51,20 +46,18 @@ namespace HospitalWebApp
             {
                 _connectionString = CreateConnectionStringFromEnvironment(true) ?? Configuration["MySqlTest"];
                 if (_connectionString == null) throw new ApplicationException("Connection string is null");
-                getContext = GetTestContext;
                 lock(_mutex)
                 {
                     if (_databaseInitialized) return;
                     _databaseInitialized = true;
-                    getContext().CreateContext().Database.EnsureDeleted();
-                    getContext().CreateContext().Database.EnsureCreated();
+                    GetContext().CreateContext().Database.EnsureDeleted();
+                    GetContext().CreateContext().Database.EnsureCreated();
                 }
             }
             else
             {
                 _connectionString = CreateConnectionStringFromEnvironment() ?? Configuration["MySql"];
                 if (_connectionString == null) throw new ApplicationException("Connection string is null");
-                getContext = GetContext;
             }
         }
 
@@ -121,21 +114,21 @@ namespace HospitalWebApp
         {
             AddSurveyServices(services);
 
-            var patientRepository = new PatientSqlRepository(getContext());
-            var userFeedbackRepository = new UserFeedbackSqlRepository(getContext());
-            var prescriptionRepository = new MedicationPrescriptionSqlRepository(getContext());
-            var examinationRepository = new ExaminationSqlRepository(getContext());
-            var equipmentRepository = new EquipmentSqlRepository(getContext());
-            var medicationRepository = new MedicationSqlRepository(getContext());
-            var cityRepository = new CitySqlRepository(getContext());
-            var countryRepository = new CountrySqlRepository(getContext());
-            var patientAccountRepository = new PatientAccountSqlRepository(getContext());
-            var surveyResponseRepository = new SurveyResponseSqlRepository(getContext());
-            var surveyRepository = new SurveySqlRepository(getContext());
-            var shiftRepository = new ShiftSqlRepository(getContext());
-            var departmentRepository = new DepartmentSqlRepository(getContext());
-            var doctorRepository = new DoctorSqlRepository(getContext());
-            var equipmentTypeRepository = new EquipmentTypeSqlRepository(getContext());
+            var patientRepository = new PatientSqlRepository(GetContext());
+            var userFeedbackRepository = new UserFeedbackSqlRepository(GetContext());
+            var prescriptionRepository = new MedicationPrescriptionSqlRepository(GetContext());
+            var examinationRepository = new ExaminationSqlRepository(GetContext());
+            var equipmentRepository = new EquipmentSqlRepository(GetContext());
+            var medicationRepository = new MedicationSqlRepository(GetContext());
+            var cityRepository = new CitySqlRepository(GetContext());
+            var countryRepository = new CountrySqlRepository(GetContext());
+            var patientAccountRepository = new PatientAccountSqlRepository(GetContext());
+            var surveyResponseRepository = new SurveyResponseSqlRepository(GetContext());
+            var surveyRepository = new SurveySqlRepository(GetContext());
+            var shiftRepository = new ShiftSqlRepository(GetContext());
+            var departmentRepository = new DepartmentSqlRepository(GetContext());
+            var doctorRepository = new DoctorSqlRepository(GetContext());
+            var equipmentTypeRepository = new EquipmentTypeSqlRepository(GetContext());
             
             var userFeedbackService = new UserFeedbackService(userFeedbackRepository);
             var patientService = new PatientService(patientRepository, null, null, null);
@@ -193,15 +186,11 @@ namespace HospitalWebApp
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
 
-        private IContextFactory GetContext()
+        protected virtual IContextFactory GetContext()
         {
             return new MySqlContextFactory(_connectionString);
         }
 
-        private IContextFactory GetTestContext()
-        {
-            return new MySqlTestContextFactory(_connectionString);
-        }
         /// <summary>
         /// Creates a connection string from environment variables.
         /// </summary>
