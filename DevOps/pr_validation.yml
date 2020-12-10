@@ -56,6 +56,11 @@ steps:
 - task: Bash@3
   inputs:
     targetType: 'inline'
+    script: 'sleep 10'
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
     script: |
       docker run --name db -d -e MYSQL_ROOT_PASSWORD=$DB_PSW_PASSWORD -e MYSQL_DATABASE=$DB_PSW_TEST_DATABASE -p 3306:3306 -p 33060:33060 pswdb
   displayName: Run DB container
