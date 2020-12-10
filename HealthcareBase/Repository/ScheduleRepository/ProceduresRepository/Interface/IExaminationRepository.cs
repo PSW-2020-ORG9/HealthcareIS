@@ -17,14 +17,10 @@ namespace HealthcareBase.Repository.ScheduleRepository.ProceduresRepository.Inte
 {
     public interface IExaminationRepository : IWrappableRepository<Examination, int>
     {
-        IEnumerable<Examination> GetByDoctorAndTime(Doctor doctor, TimeInterval time);
+        IEnumerable<Examination> GetByDoctorAndDates(Doctor doctor, IEnumerable<DateTime> dates);
+        IEnumerable<Examination> GetByPatientId(int patientId);
+        IEnumerable<Examination> GetByDoctorAndDate(int doctorId, DateTime date);
+        IEnumerable<Examination> GetByDoctorAndExaminationStart(int doctorId, DateTime date);
 
-        IEnumerable<Examination> GetByDoctorAndDate(Doctor doctor, IEnumerable<DateTime> dates);
-
-        IEnumerable<Examination> GetByRoomAndTime(Room room, TimeInterval time);
-
-        IEnumerable<Examination> GetByPatientAndTime(Patient patient, TimeInterval time);
-
-        IEnumerable<Examination> GetByPatient(Patient patient);
     }
 }

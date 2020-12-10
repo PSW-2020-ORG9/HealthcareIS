@@ -37,7 +37,7 @@ namespace HealthcareBase.Service.UsersService.PatientService
         {
             var retPatientDTO = new PatientChartDTO();
 
-            retPatientDTO.Examinations = examinationRepository.Repository.GetByPatient(patient);
+            retPatientDTO.Examinations = examinationRepository.Repository.GetByPatientId(patient.Id);
             retPatientDTO.Surgeries = surgeryRepository.Repository.GetByPatient(patient);
             retPatientDTO.Hospitalizations = hospitalizationRepository.Repository.GetByPatient(patient);
 

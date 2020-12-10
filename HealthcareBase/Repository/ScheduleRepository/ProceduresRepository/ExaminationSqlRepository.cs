@@ -50,33 +50,32 @@ namespace HealthcareBase.Repository.ScheduleRepository.ProceduresRepository
                 .ThenInclude(patient => patient.Person)
 
                 .Include(examination => examination.ProcedureDetails)
-                .ThenInclude(details => details.RequiredSpecialty);
+                .ThenInclude(details => details.RequiredSpecialty)
+
+                .Include(examination => examination.Room)
+                .ThenInclude(room => room.Department);
+
 
         }
 
-        public IEnumerable<Examination> GetByDoctorAndTime(Doctor doctor, TimeInterval time)
+
+        public IEnumerable<Examination> GetByDoctorAndDates(Doctor doctor, IEnumerable<DateTime> dates)
         {
             throw new NotImplementedException();
         }
-
-        public IEnumerable<Examination> GetByDoctorAndDate(Doctor doctor, IEnumerable<DateTime> dates)
+        
+        public IEnumerable<Examination> GetByPatientId(int patientId)
+            => GetMatching(examination => examination.PatientId == patientId);
+        public IEnumerable<Examination> GetByDoctorAndDate(int doctorId, DateTime date)
         {
-            throw new NotImplementedException();
+            return GetMatching(e => e.Doctor.Id == doctorId
+                                && e.TimeInterval.Start.Date.Equals(date));
         }
 
-        public IEnumerable<Examination> GetByRoomAndTime(Room room, TimeInterval time)
+        public IEnumerable<Examination> GetByDoctorAndExaminationStart(int doctorId, DateTime date)
         {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Examination> GetByPatientAndTime(Patient patient, TimeInterval time)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Examination> GetByPatient(Patient patient)
-        {
-            throw new NotImplementedException();
+            return GetMatching(e => e.Doctor.Id == doctorId
+                                    && e.TimeInterval.Start.Equals(date));
         }
     }
 }

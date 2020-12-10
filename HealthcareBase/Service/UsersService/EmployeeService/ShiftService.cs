@@ -53,7 +53,7 @@ namespace HealthcareBase.Service.UsersService.EmployeeService
         public IEnumerable<Shift> EditShifts(ChangeShiftRequestDTO requestDTO)
         {
             IEnumerable<Shift> shifts = requestDTO.Shifts;
-            var procedures = procedureService.GetByDoctorAndDate(requestDTO.Doctor, GetDatesFromShifts(shifts));
+            var procedures = procedureService.GetByDoctorAndDates(requestDTO.Doctor, GetDatesFromShifts(shifts));
 
             foreach (var procedure in procedures) ValidateTimeInterval(requestDTO.Time, procedure);
 
@@ -96,7 +96,7 @@ namespace HealthcareBase.Service.UsersService.EmployeeService
 
         public IEnumerable<Shift> GetByDoctorAndTimeContaining(Doctor doctor, TimeInterval time)
         {
-            return shiftRepository.Repository.GetByDoctorAndTimeContaining(doctor, time);
+            throw new NotImplementedException();
         }
 
         public IEnumerable<Shift> GetByDoctor(Doctor doctor)

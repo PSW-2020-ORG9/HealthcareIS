@@ -1,7 +1,7 @@
 ﻿using HealthcareBase.Model.Database;
 using Microsoft.EntityFrameworkCore;
 
-namespace HospitalWebAppIntegrationTests.Context
+namespace HospitalWebApp.Context
 {
     internal class MySqlTestContextFactory : IContextFactory
     {

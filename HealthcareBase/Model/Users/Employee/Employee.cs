@@ -3,6 +3,7 @@
 // Created: 18 April 2020 19:42:16
 // Purpose: Definition of Class Employee
 
+#nullable enable
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using HealthcareBase.Model.Users.Generalities;
@@ -24,5 +25,11 @@ namespace HealthcareBase.Model.Users.Employee
 
         public int GetKey() => Id;
         public void SetKey(int id) => Id = id;
+        public override bool Equals(object? obj)
+        {
+            if (!(obj is Employee employee))
+                return false;
+            return Id.Equals(employee.Id);
+        }
     }
 }

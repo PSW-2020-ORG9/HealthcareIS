@@ -27,6 +27,7 @@ namespace HospitalWebApp.Mappers
                     Jmbg = dto.Jmbg,
                     InsuranceNumber = dto.InsuranceNumber,
                     Status = PatientStatus.Alive,
+                    Allergies = dto.Allergies,
                     Person = new Person
                     {
                         Address = dto.Address,
@@ -34,8 +35,6 @@ namespace HospitalWebApp.Mappers
                         Citizenships = dto.Citizenships,
                         CityOfBirthId = dto.CityOfBirthId,
                         CityOfResidenceId = dto.CityOfResidenceId,
-                        CountryOfBirthId = dto.CountryOfBirthId,
-                        CountryOfResidenceId = dto.CountryOfResidenceId,
                         DateOfBirth = dto.DateOfBirth,
                         Gender = dto.Gender,
                         Jmbg = dto.Jmbg,
@@ -45,10 +44,6 @@ namespace HospitalWebApp.Mappers
                         MiddleName = dto.MiddleName,
                         MaritalStatus = dto.MaritalStatus,
                     },
-                    MedicalRecord = new MedicalRecord
-                    {
-                        Allergies = dto.Allergies
-                    }
                 }
             };
         }

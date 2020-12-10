@@ -10,11 +10,11 @@ namespace HospitalWebApp.Controllers
     public class DocSearchController : ControllerBase
     {
         private readonly MedicationPrescriptionService _medicationPrescriptionService;
-        private readonly ExaminationSchedulingService _examinationService;
+        private readonly ExaminationService _examinationService;
 
         public DocSearchController(
             MedicationPrescriptionService medicationPrescriptionService,
-            ExaminationSchedulingService examinationService)
+            ExaminationService examinationService)
         {
             _medicationPrescriptionService = medicationPrescriptionService;
             _examinationService = examinationService;
@@ -53,8 +53,8 @@ namespace HospitalWebApp.Controllers
             => Ok(_medicationPrescriptionService.GetAll());
         
         [HttpGet]
-        [Route("examination")]
-        public IActionResult GetAllExaminations()
-            => Ok(_examinationService.GetAll());
+        [Route("examination/{patientId}")]
+        public IActionResult GetPatientExaminations(int patientId)
+            => Ok(_examinationService.GetByPatientId(patientId));
     }
 }

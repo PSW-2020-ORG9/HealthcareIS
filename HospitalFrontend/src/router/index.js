@@ -11,6 +11,11 @@ import AccountDetails from '../views/registration/AccountDetails.vue'
 import ProfilePicture from '../views/registration/ProfilePicture.vue'
 import SuccessfullyRegistered from '../views/registration/SuccessfullyRegistered.vue'
 import CreateSurveyResponse from '../views/CreateSurveyResponse.vue'
+import ObservePatientExaminations from '../views/ObservePatientExaminations.vue'
+import ScheduleAppointment from '../views/scheduling/ScheduleAppointment.vue'
+import ChooseDate from '../views/scheduling/ChooseDate.vue'
+import ChooseDoctor from '../views/scheduling/ChooseDoctor.vue'
+import ChooseAppointment from '../views/scheduling/ChooseAppointment.vue'
 
 const routes = [
   {
@@ -76,9 +81,39 @@ const routes = [
   }
   ,
   {
-    path: '/survey',
+    path:'/schedule',
+    component: ScheduleAppointment,
+    children:[
+      {
+        path:'',
+        name:'chooseDate',
+        component:ChooseDate
+      }
+      ,
+      {
+        path:'choose-doctor',
+        name:'chooseDoctor',
+        component:ChooseDoctor
+      }
+      ,
+      {
+        path:'choose-appointment',
+        name:'chooseAppointment',
+        component:ChooseAppointment
+      }
+    ]
+  }
+  ,
+  {
+    path: '/survey/:doctor/:examination',
     name: 'CreateSurveyResponse',
     component: CreateSurveyResponse
+  }
+  ,
+  {
+    path: '/examinations',
+    name: 'ObservePatientExaminations',
+    component: ObservePatientExaminations
   }
 ]
 

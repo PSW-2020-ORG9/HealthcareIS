@@ -8,7 +8,7 @@ namespace HealthcareBase.Model.Users.Patient.MedicalHistory.Relationship
         [Column(TypeName = "nvarchar(12)")]
         public AllergyIntensity Intensity { get; set; }
         
-        public int MedicalRecordId { get; set; }
+        public int PatientId { get; set; }
         
         [ForeignKey("Allergy")]
         public int AllergyId { get; set; }

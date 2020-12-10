@@ -61,7 +61,7 @@
                             <th colspan="2">Allergies</th>
                         </tr>
                     </thead>
-                    <tbody v-if="patient.medicalRecord.allergies.length == 0">
+                    <tbody v-if="patient.allergies.length == 0">
                         <th>No recorded patient allergies.</th>
                     </tbody>
                     <tbody v-else>
@@ -69,7 +69,7 @@
                             <th class="text-info">Allergen</th>
                             <th class="text-info">Intensity</th>
                         </tr>
-                        <tr v-for="allergyManifestation in patient.medicalRecord.allergies" v-bind:key="allergyManifestation.id">
+                        <tr v-for="allergyManifestation in patient.allergies" v-bind:key="allergyManifestation.id">
                             <td>
                                 {{allergyManifestation.allergy.allergen}}
                             </td>
@@ -85,7 +85,7 @@
                     <thead>
                         <th colspan="2">Diagnosis history</th>
                     </thead>
-                    <tbody v-if="patient.medicalRecord.examinations.length == 0">
+                    <tbody v-if="patient.examinations.length == 0">
                         <th>No recorded patient history.</th>
                     </tbody>
                     <tbody v-else>
@@ -131,7 +131,7 @@ export default {
         },
         getDiagnoses: function () {
             let diagnoses = []
-            this.patient.medicalRecord.examinations.forEach(examination =>
+            this.patient.examinations.forEach(examination =>
                 examination.examinationReport.diagnoses.forEach(diagnosis =>
                     diagnoses.push(diagnosis)
                 )
