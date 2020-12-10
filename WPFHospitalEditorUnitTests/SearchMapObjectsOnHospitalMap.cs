@@ -16,32 +16,27 @@ namespace WPFHospitalEditorUnitTests
         public void Map_object_search_for_existing_object()
         {
             var mapObjects = createMapObjectList();
-            var searchResult = new List<MapObject>();
 
-            MapObjectService mapObjectService = new MapObjectService();
-            mapObjectService.iMapObjectRepository = createStubRepository();
-            searchResult = mapObjectService.checkMapObjectSearchInput(mapObjects, "Informations", "Pick type of object");
+            MapObjectService mapObjectService = new MapObjectService(createStubRepository());
+            mapObjectService.checkMapObjectSearchInput("Examination", "Pick type of object");
 
-            searchResult.ShouldNotBeEmpty();
+            HospitalMap.searchResult.ShouldNotBeEmpty();
         }
 
         [StaFact]
         public void Map_object_search_for_non_existing_object()
         {
             var mapObjects = createMapObjectList();
-            var searchResult = new List<MapObject>();
 
-            MapObjectService mapObjectService = new MapObjectService();
-            mapObjectService.iMapObjectRepository = createStubRepository();
-            searchResult = mapObjectService.checkMapObjectSearchInput(mapObjects, "", "Canteen");
+            MapObjectService mapObjectService = new MapObjectService(createStubRepository());
+            mapObjectService.checkMapObjectSearchInput("", "Canteen");
 
-            searchResult.ShouldBeEmpty();
+            HospitalMap.searchResult.ShouldBeEmpty();
         }
         private IMapObjectRepository createStubRepository()
         {
             var stubRepository = new Mock<IMapObjectRepository>();
             var mapObjects = createMapObjectList();
-
             stubRepository.Setup(m => m.getAllMapObjects()).Returns(mapObjects);
             return stubRepository.Object;
         }
@@ -49,10 +44,10 @@ namespace WPFHospitalEditorUnitTests
         private List<MapObject> createMapObjectList()
         {
             var mapObjects = new List<MapObject>();
-            MapObject elevator1 = new MapObject("Elevator 1", 11, new MapObjectMetrics(new MapObjectCoordinates(750.0, 170.0), new MapObjectDimensions(50.0, 60.0)), MapObjectType.Elevator, new MapObjectDoor(MapObjectDoorOrientation.Left), "1-0&Max weight=480kg");
-            MapObject infos1 = new MapObject("Informations 1", 12, new MapObjectMetrics(new MapObjectCoordinates(0.0, 150.0), new MapObjectDimensions(100.0, 80.0)), MapObjectType.Informations, new MapObjectDoor(MapObjectDoorOrientation.Right), "1-0&Working Hours=07:00 - 00:00");
-            mapObjects.Add(elevator1);
-            mapObjects.Add(infos1);
+            MapObject regular3 = new MapObject("Examination 3", 17, new MapObjectMetrics(new MapObjectCoordinates(280.0, 0.0), new MapObjectDimensions(140.0, 120.0)), MapObjectType.ExaminationRoom, new MapObjectDoor(MapObjectDoorOrientation.Down), "1-0&Working Hours=09:00 - 21:00");
+            MapObject op1 = new MapObject("Surgery room 1", 18, new MapObjectMetrics(new MapObjectCoordinates(460.0, 0.0), new MapObjectDimensions(160.0, 120.0)), MapObjectType.SurgeryRoom, new MapObjectDoor(MapObjectDoorOrientation.Down), "1-0&Working Hours=09:00 - 019:00");
+            mapObjects.Add(regular3);
+            mapObjects.Add(op1);
 
             return mapObjects;
         }

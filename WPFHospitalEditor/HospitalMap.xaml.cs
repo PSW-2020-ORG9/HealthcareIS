@@ -78,8 +78,7 @@ namespace WPFHospitalEditor
         private void Basic_Search(object sender, RoutedEventArgs e)
         {
             clearAllResults();
-            List<MapObject> allMapObjects = mapObjectController.getAllMapObjects();
-            searchResult = mapObjectController.checkMapObjectSearchInput(allMapObjects, searchInputTB.Text, searchInputComboBox.Text);
+            mapObjectController.checkMapObjectSearchInput(searchInputTB.Text, searchInputComboBox.Text);
             if (searchResult.Count > 0)
             {
                 SearchResultDialog searchResultDialog = new SearchResultDialog(this, SearchType.MapObjectSearch);

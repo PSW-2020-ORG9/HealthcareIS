@@ -18,7 +18,6 @@ namespace WPFHospitalEditor
         private MapObjectController mapObjectController = new MapObjectController();
 
         private List<Button> advancedSearchButtons = new List<Button>();
-        private List<MapObject> allMapObjects = new List<MapObject>();
         private HospitalMap hospitalMap;
 
         private Dictionary<int, MapObject> row = new Dictionary<int, MapObject>();
@@ -40,7 +39,6 @@ namespace WPFHospitalEditor
 
         public SearchResultDialog(HospitalMap hospitalMap, SearchType searchType)
         {
-            allMapObjects = mapObjectController.getAllMapObjects();
             this.Height = AllConstants.SearchDialogHeight;
             this.searchType = searchType;
             InitializeComponent();
@@ -64,7 +62,7 @@ namespace WPFHospitalEditor
             {
                 String []oneRowContents = oneRow.Split(AllConstants.contentSeparator);
                 createRowData(oneRowContents);
-                row.Add(key, mapObjectController.findMapObjectById(int.Parse(oneRowContents[COL_ID]), allMapObjects));
+                row.Add(key, mapObjectController.findMapObjectById(int.Parse(oneRowContents[COL_ID])));
                 key++;
             }
         }    
@@ -338,7 +336,7 @@ namespace WPFHospitalEditor
             string[] contentRows = new string[HospitalMap.equipmentSearchResult.Count()];
             for (int i = 0; i < HospitalMap.equipmentSearchResult.Count(); i++)
             {
-                MapObject mo = mapObjectController.findMapObjectById(HospitalMap.equipmentSearchResult.ElementAt(i).RoomId, allMapObjects);
+                MapObject mo = mapObjectController.findMapObjectById(HospitalMap.equipmentSearchResult.ElementAt(i).RoomId);
                 contentRows[i] = HospitalMap.equipmentSearchResult.ElementAt(i).Quantity 
                                  + AllConstants.contentSeparator +
                                  MapObjectToRow(mo);
@@ -348,7 +346,7 @@ namespace WPFHospitalEditor
         private string[] MedicationToContentRows()
         {
             string[] contentRows = new string[HospitalMap.medicationSearchResult.Count()];
-            MapObject mo = mapObjectController.findMapObjectById(STORAGEROOM_ID, allMapObjects);
+            MapObject mo = mapObjectController.findMapObjectById(STORAGEROOM_ID);
             for (int i = 0; i < HospitalMap.medicationSearchResult.Count(); i++)
             {
                 contentRows[i] = HospitalMap.medicationSearchResult.ElementAt(i).Quantity

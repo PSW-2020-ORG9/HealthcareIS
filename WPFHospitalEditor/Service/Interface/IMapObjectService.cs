@@ -8,7 +8,7 @@ namespace WPFHospitalEditor.Service
         List<MapObject> getAllMapObjects();
         MapObject update(MapObject mapObject);
         List<MapObject> getOutterMapObjects();
-        MapObject findMapObjectById(int id, List<MapObject> mapObjects);
-        List<MapObject> checkMapObjectSearchInput(List<MapObject> mapObjects, string textBoxInput, string comboBoxTextInput);
+        MapObject findMapObjectById(int id);
+        void checkMapObjectSearchInput(string textBoxInput, string comboBoxTextInput);
     }
 }

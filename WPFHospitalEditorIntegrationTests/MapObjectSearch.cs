@@ -14,10 +14,9 @@ namespace WPFHospitalEditorIntegrationTests
         public void Search_by_empty_text_box_and_empty_combo_box()
         {
             MapObjectController mapObjectController = new MapObjectController();
-            List<MapObject> allMapObjects = mapObjectController.getAllMapObjects();
             HospitalMap hospitalMap = new HospitalMap(mapObjectController.getAllMapObjects(), Role.Director);
 
-            mapObjectController.checkMapObjectSearchInput(allMapObjects,"","Pick type of object");
+            mapObjectController.checkMapObjectSearchInput("","Pick type of object");
 
             Assert.Empty(HospitalMap.searchResult);
         }
@@ -26,10 +25,9 @@ namespace WPFHospitalEditorIntegrationTests
         public void Search_by_empty_text_box_and_filled_combo_box()
         {
             MapObjectController mapObjectController = new MapObjectController();
-            List<MapObject> allMapObjects = mapObjectController.getAllMapObjects();
             HospitalMap hospitalMap = new HospitalMap(mapObjectController.getAllMapObjects(), Role.Director);
 
-            mapObjectController.checkMapObjectSearchInput(allMapObjects, "", "Informations");
+            mapObjectController.checkMapObjectSearchInput("", "Informations");
 
             Assert.NotEmpty(HospitalMap.searchResult);
         }
@@ -38,10 +36,9 @@ namespace WPFHospitalEditorIntegrationTests
         public void Search_by_filled_text_box_and_empty_combo_box()
         {
             MapObjectController mapObjectController = new MapObjectController();
-            List<MapObject> allMapObjects = mapObjectController.getAllMapObjects();
             HospitalMap hospitalMap = new HospitalMap(mapObjectController.getAllMapObjects(), Role.Director);
 
-            mapObjectController.checkMapObjectSearchInput(allMapObjects, "Info", "Pick type of object");
+            mapObjectController.checkMapObjectSearchInput("Info", "Pick type of object");
 
             Assert.NotEmpty(HospitalMap.searchResult);
         }
@@ -50,10 +47,9 @@ namespace WPFHospitalEditorIntegrationTests
         public void Search_by_filled_text_box_and_filled_combo_box()
         {
             MapObjectController mapObjectController = new MapObjectController();
-            List<MapObject> allMapObjects = mapObjectController.getAllMapObjects();
             HospitalMap hospitalMap = new HospitalMap(mapObjectController.getAllMapObjects(), Role.Director);
 
-            mapObjectController.checkMapObjectSearchInput(allMapObjects, "Informations 1", "Informations");
+            mapObjectController.checkMapObjectSearchInput("Informations 1", "Informations");
 
             Assert.NotEmpty(HospitalMap.searchResult);
         }

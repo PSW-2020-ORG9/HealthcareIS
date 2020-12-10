@@ -1,14 +1,10 @@
-using System;
 using Xunit;
 using WPFHospitalEditor.MapObjectModel;
 using System.Collections.Generic;
-using WPFHospitalEditor;
 using Moq;
 using WPFHospitalEditor.Repository;
 using WPFHospitalEditor.Service;
 using Shouldly;
-using System.Windows;
-using WPFHospitalEditor.Service.Interface;
 
 namespace WPFHospitalEditorUnitTests
 {
@@ -17,25 +13,21 @@ namespace WPFHospitalEditorUnitTests
         [StaFact]
         public void find_existing_object()
         {
-            var mapObjects = createMapObjectList();          
-            MapObjectService mapObjectService = new MapObjectService();
-            mapObjectService.iMapObjectRepository = createStubRepository();
+            MapObjectService mapObjectService = new MapObjectService(createStubRepository());           
+            
+            MapObject mapObject = mapObjectService.findMapObjectById(11);
 
-            MapObject mapObject = mapObjectService.findMapObjectById(13, mapObjects);
-
-            mapObject.ShouldBeNull();
+            mapObject.ShouldNotBeNull();
         }
         
         [StaFact]
         public void find_non_existing_object()
         {
-            var mapObjects = createMapObjectList();
-            MapObjectService mapObjectService = new MapObjectService();
-            mapObjectService.iMapObjectRepository = createStubRepository();
+            MapObjectService mapObjectService = new MapObjectService(createStubRepository());          
 
-            MapObject mapObject = mapObjectService.findMapObjectById(12, mapObjects);
+            MapObject mapObject = mapObjectService.findMapObjectById(13);
 
-            mapObject.ShouldNotBeNull();
+            mapObject.ShouldBeNull();
         }
         
         private IMapObjectRepository createStubRepository()
