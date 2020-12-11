@@ -15,8 +15,11 @@ using HealthcareBase.Service.UsersService.PatientService;
 using HealthcareBase.Service.UsersService.RegistrationService;
 using HealthcareBase.Service.UsersService.UserFeedbackService;
 using HealthcareBase.Service.UsersService.UserFeedbackService.SurveyService;
+using HospitalWebApp;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using System;
@@ -26,9 +29,16 @@ namespace HospitalWebAppIntegrationTests
     public class HospitalWebApplicationFactory<TStartup>
         : WebApplicationFactory<TStartup> where TStartup: class
     {
-        protected override void ConfigureWebHost(IWebHostBuilder builder)
+        protected override IWebHostBuilder CreateWebHostBuilder()
         {
-            builder.UseEnvironment("Testing");
+            return WebHost.CreateDefaultBuilder()
+                .UseStartup<TStartup>()
+                .UseEnvironment("Testing")
+                .UseSolutionRelativeContentRoot("HospitalWebApp")
+                .ConfigureTestServices(services =>
+                {
+                    services.AddMvc().AddApplicationPart(typeof(Startup).Assembly);
+                });
         }
     }
 }

@@ -2,22 +2,71 @@ pr:
 - master
 
 pool:
-  vmImage: windows-2019
+  vmImage: 'ubuntu-16.04'
 
 steps:
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    version: '3.1.200'
+
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet ef install'
+  inputs:
+    command: custom
+    custom: tool
+    arguments: 'install --global dotnet-ef'
+
+- task: DockerInstaller@0
+  inputs:
+    dockerVersion: '17.09.0-ce'
+
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet ef sql db scheme'
+  inputs:
+    command: custom
+    custom: ef
+    arguments: 'dbcontext script -o HospitalWebAppIntegrationTests/dbscheme.sql --project HospitalWebAppIntegrationTests'
+
 - task: Bash@3
   inputs:
     targetType: 'inline'
-    script: 'rm -rf *IntegrationTests'
-  displayName: Remove Integration Tests
-- task: DotNetCoreCLI@2
+    script: |
+      cp DevOps/docker/DBDockerfile HospitalWebAppIntegrationTests/Dockerfile
+  displayName: copy dockerfile
+
+- task: Docker@2
   inputs:
+    containerRegistry: 'psw'
+    repository: 'pswdb'
     command: 'build'
-    projects: '**/*.csproj'
-    arguments: '--configuration Debug'
-  displayName: Full .NET Build
+    Dockerfile: 'HospitalWebAppIntegrationTests/Dockerfile'
+    buildContext: 'HospitalWebAppIntegrationTests'
+    tags: 'latest'
+    addPipelineData: false
+  displayName: build db docker image for integration tests asp
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      docker run --name db -d -e MYSQL_ROOT_PASSWORD=$DB_PSW_PASSWORD -e MYSQL_DATABASE=$DB_PSW_TEST_DATABASE -p 3306:3306 -p 33060:33060 pswdb
+  displayName: Run DB container
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: 'sleep 10'
+
 - task: DotNetCoreCLI@2
   inputs:
     command: 'test'
-    projects: '**/*Tests/*.csproj'
-    testRunTitle: 'PR_RunTests'
+    projects: '**/HospitalWebAppIntegrationTests/*.csproj'
+    testRunTitle: 'PR_RunIntegrationTests'
+  displayName: HospitalWebApp Integration Tests
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'test'
+    projects: '**/WPF*IntegrationTests/*.csproj'
+  displayName: WPF Integration Tests
