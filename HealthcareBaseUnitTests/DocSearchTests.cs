@@ -8,7 +8,7 @@ using HealthcareBase.Service.MedicationService;
 using Moq;
 using Xunit;
 
-namespace HealthcareBaseTests
+namespace HealthcareBaseUnitTests
 {
     public class DocSearchTests
     {

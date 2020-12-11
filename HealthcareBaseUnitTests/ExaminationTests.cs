@@ -8,7 +8,7 @@ using HealthcareBase.Service.ScheduleService.ProcedureService;
 using Moq;
 using Xunit;
 
-namespace HealthcareBaseTests
+namespace HealthcareBaseUnitTests
 {
     public class ExaminationTests
     {

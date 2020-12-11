@@ -17,7 +17,7 @@ using Shouldly;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace HealthcareBaseTests
+namespace HealthcareBaseUnitTests
 {
     public class PatientSurveyTests
     {
