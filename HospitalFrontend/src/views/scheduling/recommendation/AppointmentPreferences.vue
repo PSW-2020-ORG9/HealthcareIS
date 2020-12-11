@@ -4,7 +4,7 @@
         <select name="Preference" v-model="preference">
             <option value="">Choose your preference..</option>
             <option value="Doctor">Doctor</option>
-            <option value="Period">Time period</option>
+            <option value="Time">Date</option>
         </select>
 
         <select name="specialties" v-on:change="chooseSpecialty" v-if="specialtiesFetched">
@@ -15,7 +15,7 @@
         </select>
         <select name="doctor" v-on:change="chooseDoctor" v-if="doctorsFetched">
             <option value="">Your preffered doctor...</option>
-            <option v-bind:value="doctor.id" v-for="doctor in availableDoctors" v-bind:key="doctor.id">
+            <option v-bind:value="doctor.doctorId" v-for="doctor in availableDoctors" v-bind:key="doctor.doctorId">
                 {{"Doktor " + doctor.name + " " + doctor.surname}}
             </option>
         </select>
@@ -58,8 +58,8 @@
 import api from '../../../constant/api.js'
 import axios from 'axios'
 import moment from 'moment'
-import Toastify from 'toastify-js'
 import Datepicker from 'vue3-datepicker'
+import Toastify from 'toastify-js'
 import {Calendar, DatePicker} from 'v-calendar'
 
 export default {
@@ -91,11 +91,24 @@ export default {
             })
         }
         ,
+        
         getMinDate:function(){       
             return moment().add(1, 'days').toDate()
         }
         ,
+        toastSuccess:function(succesMsg){
+            Toastify({
+                text: succesMsg,
+                duration: '2000',
+                newWindow: true,
+                close: true,
+                gravity: 'top',
+                position: 'center',
+                backgroundColor: "linear-gradient(to right, #00b09b, #7ecc92)"
+                }).showToast()
+        },
         chooseSpecialty: function (e) {
+            
             this.specialtyId = e.target.value
             this.getDoctorBySpecialty(this.specialtyId)
         }
@@ -108,12 +121,27 @@ export default {
         }
         ,
         chooseDoctor: function (e) {
+            
             this.doctorId = e.target.value
         }
         ,
         recommendAppointments:function(){
-            //TODO: fetch all appointments and commit them
-            this.$router.push("/recommend-appointment/choose-recommended")
+            let recommendationRequestDto = {
+                DoctorId:this.doctorId,
+                SpecialtyId:this.specialtyId,
+                TimeInterval:{
+                    Start:this.range.start,
+                    End:this.range.end
+                },
+                Preference:this.preference
+            }
+            axios.post(api.examinationRecommendationUrl,recommendationRequestDto).then(response=>{
+                this.$store.commit('setRecommendationDto',response.data)
+                this.$router.push("/recommend-appointment/choose-recommended")
+            })
+
+
+            
 
         }
     },

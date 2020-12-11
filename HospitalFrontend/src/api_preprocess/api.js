@@ -12,6 +12,7 @@ let citiesByCountryId = server + '/city/by-country/'
 let registrationUrl = patientUrl + '/register'
 let surveyUrl = server + '/survey'
 let patientExaminationsUrl = server + '/examination'
+let examinationRecommendationUrl = patientExaminationsUrl + '/recommend'
 
 let patientExaminationSurveyResponseUrl = server + "/survey/examination/"
 let patientExaminationsSurveyResponsesUrl = server + "/survey/examination/multiple"
@@ -35,6 +36,7 @@ export default{
 
     examinations: examinationsUrl,
     examination: examinationUrl,
+    examinationRecommendationUrl : examinationRecommendationUrl,
     prescriptions: prescriptionsUrl,
 
     docSearchPrescriptionSimple: prescriptionsUrl + '/simple',

@@ -3,7 +3,7 @@
     <form id="msform">
         <ul id="progressbar">
             <li v-bind:class="{active : isPrefActive()}" style="width:50%">Appointment Preferences</li>
-            <li v-bind:class="{active : isSelectionActive()}" style="width:50%">Appointment Selection</li>
+            <li v-bind:class="{active : isSelectionActive()}" style="width:50%">Appointment Confirmation</li>
         </ul>
     
     <router-view v-slot="slotProps">

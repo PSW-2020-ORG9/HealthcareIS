@@ -1,4 +1,5 @@
 <template>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <form id="msform">
         <h2 class="fs-title">Choose scheduling type</h2>
         <router-link to="/schedule-appointment">
