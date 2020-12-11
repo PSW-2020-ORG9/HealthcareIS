@@ -16,3 +16,8 @@ steps:
     projects: '**/*UnitTests/*.csproj'
     testRunTitle: 'PR_RunUnitTests'
   displayName: Unit Tests
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'test'
+    projects: '**/WPF*IntegrationTests/*.csproj'
+  displayName: WPF Integration Tests
