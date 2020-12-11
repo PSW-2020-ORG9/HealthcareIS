@@ -22,13 +22,6 @@ steps:
     dockerVersion: '17.09.0-ce'
 
 - task: DotNetCoreCLI@2
-  inputs:
-    command: 'test'
-    projects: '**/*UnitTests/*.csproj'
-    testRunTitle: 'PR_RunUnitTests'
-  displayName: Unit Tests
-
-- task: DotNetCoreCLI@2
   displayName: 'dotnet ef sql db scheme'
   inputs:
     command: custom
