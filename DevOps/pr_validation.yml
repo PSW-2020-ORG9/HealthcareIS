@@ -70,4 +70,10 @@ steps:
     command: 'test'
     projects: '**/HospitalWebAppIntegrationTests/*.csproj'
     testRunTitle: 'PR_RunIntegrationTests'
-  displayName: Integration Tests
+  displayName: HospitalWebApp Integration Tests
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'test'
+    projects: '**/WPF*IntegrationTests/*.csproj'
+  displayName: WPF Integration Tests
