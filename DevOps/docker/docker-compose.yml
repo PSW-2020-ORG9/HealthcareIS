@@ -1,0 +1,50 @@
+version: "3.8"
+services:
+  mysql:
+    image: fmaster/pswdb
+    container_name: mysql
+    networks:
+      - network
+    environment:
+      MYSQL_ROOT_PASSWORD: NOVISADSTAGOD
+      MYSQL_DATABASE: clinic
+    ports:
+      - 3306:3306
+      - 33060:33060
+
+  web:
+    image: fmaster/pswaspnet
+    container_name: webapp
+    restart: on-failure
+    networks:
+      - network
+    ports:
+      - 5000:80
+    environment:
+      DB_PSW_SERVER: mysql
+      DB_PSW_DATABASE: clinic
+      DB_PSW_USER: root
+      DB_PSW_PASSWORD: NOVISADSTAGOD
+      DB_PSW_PORT: 3306
+      PSW_ACTIVATION_ENDPOINT: http://localhost/patient/activate/
+      PSW_SMTP_HOST_SERVER: smtp.gmail.com
+      PSW_SMTP_SSL_PORT: 587
+      PSW_EMAIL_USERNAME: psw.healthcareis.info@gmail.com
+      PSW_EMAIL_PASSWORD: healthcareis
+    depends_on:
+      - mysql
+
+  nginx:
+    image: fmaster/pswfrontend
+    container_name: front
+    networks:
+      - network
+    ports:
+      - 8080:80
+    restart: always
+
+
+networks:
+  network:
+    name: network
+    driver: bridge
