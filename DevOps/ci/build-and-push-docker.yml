@@ -35,16 +35,6 @@ steps:
     buildContext: '$(System.ArtifactsDirectory)/dropweb'
     tags: 'latest'
     addPipelineData: false
-- task: Docker@2
-  displayName: 'Docker build pswfrontend'
-  inputs:
-    containerRegistry: psw
-    repository: fmaster/pswfrontend
-    command: build
-    Dockerfile: DevOps/docker/FrontDockerfile
-    buildContext: '$(System.ArtifactsDirectory)/dropfront'
-    tags: latest
-    addPipelineData: false
 
 - task: Docker@2
   displayName: 'Docker push pswdb'
@@ -60,12 +50,4 @@ steps:
     repository: 'fmaster/pswaspnet'
     command: 'push'
     tags: 'latest'
-    addPipelineData: false
-- task: Docker@2
-  displayName: 'Docker push pswfrontend'
-  inputs:
-    containerRegistry: psw
-    repository: fmaster/pswfrontend
-    command: push
-    tags: latest
     addPipelineData: false
