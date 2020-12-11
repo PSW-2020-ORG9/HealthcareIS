@@ -2,17 +2,15 @@
    <fieldset>
         <h2 class="fs-title">Doctor selection</h2>
         <h3 class="fs-subtitle">Choose your favourite doctor!</h3>
-        <select name="departments" v-if="departmentsFetched">
-            <option value="">Choose department...</option>
-            <option v-bind:value="index" v-for="(department,index) in availableDepartments"
-            @click="chooseDepartment(department.id)" v-bind:key="index">
-                {{department.name}}
+        <select v-on:change="chooseSpecialty" name="specialties" v-if="specialtiesFetched">
+            <option value="">Choose specialty...</option>
+            <option v-bind:value="specialty.id" v-for="specialty in availableSpecialties" v-bind:key="specialty.id">
+                {{specialty.name}}
              </option>
         </select>
-        <select name="doctor" v-if="doctorsFetched">
+        <select v-on:change="chooseDoctor" name="doctor" v-if="doctorsFetched">
             <option value="">Your preffered doctor...</option>
-            <option v-bind:value="index" v-for="(doctor,index) in availableDoctors"
-            @click="chooseDoctor(doctor.doctorId)" v-bind:key="index">
+            <option v-bind:value="doctor.doctorId" v-for="doctor in availableDoctors" v-bind:key="doctor.doctorId">
                 {{"Doktor " + doctor.name + " " + doctor.surname}}
             </option>
         </select>
@@ -32,11 +30,11 @@ export default {
     data:function(){
         return{
             availableDoctors:[],
-            departmentsFetched:false,
+            specialtiesFetched:false,
             doctorsFetched:false,
-            availableDepartments:[],
+            availableSpecialties:[],
             doctorId:null,
-            departmentId:null,
+            specialtyId:null,
         }
     }
     ,
@@ -54,9 +52,9 @@ export default {
         goToPrevPage:function(){
             this.$router.push('/schedule-appointment/')
         },
-        chooseDoctor:function(doctorId){
-            this.doctorId=doctorId
-            this.$store.commit('setDoctorId', doctorId)
+        chooseDoctor: function (e) {
+            this.doctorId = e.target.value
+            this.$store.commit('setDoctorId', this.doctorId)
             
         }
         ,
@@ -73,7 +71,7 @@ export default {
         }
         ,
         getAvailableAppointments:function(){
-            if(this.doctorId == null || this.departmentId == null){
+            if(this.doctorId == null || this.specialtyId == null){
                 this.toastErrorMessage("Please select preffered doctor.")
                 return
             }
@@ -85,20 +83,20 @@ export default {
             })
         }
         ,
-        getAllDepartments:function(){
-            axios.get(api.department).then(response=>{
-                this.availableDepartments = response.data
-                this.departmentsFetched = true
+        getAllSpecialties:function(){
+            axios.get(api.specialty).then(response=>{
+                this.availableSpecialties = response.data
+                this.specialtiesFetched = true
             })
         }
         ,
-        chooseDepartment:function(id){
-            this.departmentId=id
-            this.getDoctorByDepartment(id)
+        chooseSpecialty: function (e) {
+            this.specialtyId = e.target.value
+            this.getDoctorBySpecialty(this.specialtyId)
         }
         ,
-        getDoctorByDepartment:function(id){
-            axios.get(api.doctorByDepartmentUrl(id)).then(response=>{
+        getDoctorBySpecialty:function(id){
+            axios.get(api.doctorBySpecialtyUrl(id)).then(response=>{
                 this.availableDoctors = response.data
                 this.doctorsFetched = true
             })
@@ -107,7 +105,7 @@ export default {
     }
     ,
     mounted:function(){
-        this.getAllDepartments()
+        this.getAllSpecialties()
     }
     
 }

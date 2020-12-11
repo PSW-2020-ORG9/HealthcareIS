@@ -4,13 +4,12 @@
         <h3 class="fs-subtitle">Select an appointment which suits you best</h3>
 
         <h3 v-if="availableAppointments.length == 0">Sorry, there are no available appointments for selected doctor and selected date :(</h3>
-        <select v-else name="appointments">
-            <option value="">Select an appointment...</option>
-            <option v-bind:value="index" v-for="(appointment,index) in availableAppointments"
-            @click="selectAppointment(appointment)" v-bind:key="index">{{this.formAppointmentString(appointment)}}</option>
+        <select v-model="selectedAppointment" v-else name="appointments">
+            <option value=''>Select an appointment...</option>
+            <option v-bind:value="appointment" v-for="(appointment,index) in availableAppointments" v-bind:key="index">{{this.formAppointmentString(appointment)}}</option>
         </select>
         <input type="button" name="previous" class="previous action-button" value="Previous" @click="goToPrevPage()" />
-        <input type="button" name="next" class="next action-button" value="Schedule" @click="scheduleAppointment()"/>
+        <input v-if="selectedAppointment != ''" type="button" name="next" class="next action-button" value="Schedule" @click="scheduleAppointment()"/>
     </fieldset>
 </template>
 
@@ -25,7 +24,7 @@ export default {
     data:function(){
         return{
             availableAppointments:[],
-            selectedAppointment:null
+            selectedAppointment: ''
         }
     }
     ,
@@ -48,8 +47,8 @@ export default {
              " ["+appointmentStart.format("h:mm")+" - "+appointmentEnd.format("h:mm")+"]"
         }
         ,
-        selectAppointment:function(appointment){
-            this.selectedAppointment=appointment
+        selectAppointment: function (e) {
+            this.selectedAppointment = e.target.value
         }
         ,
         toastSuccess:function(succesMsg){
@@ -71,7 +70,7 @@ export default {
             axios.post(api.examination,appointmentDto).then(response=>{
                 this.toastSuccess('Appointment on '+this.formAppointmentString(selectedAppointment)+' succesfully scheduled!')
                 this.$store.commit('clearAppointmentInfo')
-                this.$router.push('/schedule/')
+                this.$router.push('/scheduling-type')
          })
         }
     },

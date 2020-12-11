@@ -131,11 +131,13 @@ export default {
         },
         getDiagnoses: function () {
             let diagnoses = []
-            this.patient.examinations.forEach(examination =>
-                examination.examinationReport.diagnoses.forEach(diagnosis =>
-                    diagnoses.push(diagnosis)
-                )
-            )
+            this.patient.examinations.forEach(examination => {
+                if (examination.examinationReport) {
+                    examination.examinationReport.diagnoses.forEach(diagnosis =>
+                        diagnoses.push(diagnosis)
+                    )
+                }
+            })
             return diagnoses
         },
         fetchProfilePicture: function () {
