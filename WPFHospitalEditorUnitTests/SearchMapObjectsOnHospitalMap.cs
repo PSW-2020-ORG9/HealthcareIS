@@ -16,22 +16,24 @@ namespace WPFHospitalEditorUnitTests
         public void Map_object_search_for_existing_object()
         {
             var mapObjects = createMapObjectList();
+            var searchedMapObjects = new List<MapObject>();
 
             MapObjectService mapObjectService = new MapObjectService(createStubRepository());
-            mapObjectService.checkMapObjectSearchInput("Examination", AllConstants.emptyComboBox);
+            searchedMapObjects = mapObjectService.searchForMapObjects("Examination", AllConstants.emptyComboBox);
 
-            HospitalMap.searchResult.ShouldNotBeEmpty();
+            searchedMapObjects.ShouldNotBeEmpty();
         }
 
         [StaFact]
         public void Map_object_search_for_non_existing_object()
         {
             var mapObjects = createMapObjectList();
+            var searchedMapObjects = new List<MapObject>();
 
             MapObjectService mapObjectService = new MapObjectService(createStubRepository());
-            mapObjectService.checkMapObjectSearchInput("", "Canteen");
+            searchedMapObjects = mapObjectService.searchForMapObjects("", "Canteen");
 
-            HospitalMap.searchResult.ShouldBeEmpty();
+            searchedMapObjects.ShouldBeEmpty();
         }
         private IMapObjectRepository createStubRepository()
         {

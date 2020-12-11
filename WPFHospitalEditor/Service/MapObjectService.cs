@@ -32,15 +32,7 @@ namespace WPFHospitalEditor.Service
         }
         public MapObject findMapObjectById(int id)
         {
-            var allMapObjects = iMapObjectRepository.getAllMapObjects();
-            foreach (MapObject mapObj in allMapObjects)
-            {
-                if (mapObj.Id == id)
-                {
-                    return mapObj;
-                }
-            }
-            return null;
+            return iMapObjectRepository.findMapObjectById(id);
         }
         private List<MapObject> colorSelectedObject(List<MapObject> allMapObjects)
         {
@@ -54,24 +46,25 @@ namespace WPFHospitalEditor.Service
             return allMapObjects;
         }
 
-        public void checkMapObjectSearchInput(string textBoxInput, string comboBoxTextInput)
+        public List<MapObject> searchForMapObjects(string name, string type)
         {
-            HospitalMap.searchResult.Clear();
-            List<MapObject> mapObjects = iMapObjectRepository.getAllMapObjects();
-            if (textBoxInput.Equals("") && comboBoxTextInput.Equals(AllConstants.emptyComboBox)) return;
-            foreach (MapObject mapObject in mapObjects)
+            var mapObjects = new List<MapObject>();
+            List<MapObject> allMapObjects = iMapObjectRepository.getAllMapObjects();
+            if (name.Equals("") && type.Equals(AllConstants.emptyComboBox)) return mapObjects;
+            foreach (MapObject mapObject in allMapObjects)
             {
-                if(compareInput(mapObject, textBoxInput, comboBoxTextInput))
-                    HospitalMap.searchResult.Add(mapObject);
+                if(compareInput(mapObject, name, type))
+                    mapObjects.Add(mapObject);
             }
+            return mapObjects;
         }
 
-        private bool compareInput(MapObject mapObject, string textBoxInput, string comboBoxTextInput)
+        private bool compareInput(MapObject mapObject, string name, string type)
         {
-            bool result = mapObject.Name.ToLower().Contains(textBoxInput.ToLower());
-            if(!comboBoxTextInput.Equals(AllConstants.emptyComboBox))
+            bool result = mapObject.Name.ToLower().Contains(name.ToLower());
+            if(!type.Equals(AllConstants.emptyComboBox))
             {
-                result = result && mapObject.MapObjectType.ToString().Equals(comboBoxTextInput);
+                result = result && mapObject.MapObjectType.ToString().Equals(type);
             }
 
             return result;

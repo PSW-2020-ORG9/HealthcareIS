@@ -14,44 +14,48 @@ namespace WPFHospitalEditorIntegrationTests
         public void Search_by_empty_text_box_and_empty_combo_box()
         {
             MapObjectController mapObjectController = new MapObjectController();
+            var searchedMapObjects = new List<MapObject>();
             HospitalMap hospitalMap = new HospitalMap(mapObjectController.getAllMapObjects(), Role.Director);
 
-            mapObjectController.checkMapObjectSearchInput("", AllConstants.emptyComboBox);
+            searchedMapObjects = mapObjectController.searchForMapObjects("", AllConstants.emptyComboBox);
 
-            Assert.Empty(HospitalMap.searchResult);
+            Assert.Empty(searchedMapObjects);
         }
 
         [StaFact]
         public void Search_by_empty_text_box_and_filled_combo_box()
         {
             MapObjectController mapObjectController = new MapObjectController();
+            var searchedMapObjects = new List<MapObject>();
             HospitalMap hospitalMap = new HospitalMap(mapObjectController.getAllMapObjects(), Role.Director);
 
-            mapObjectController.checkMapObjectSearchInput("", "Informations");
+            searchedMapObjects = mapObjectController.searchForMapObjects("", "Informations");
 
-            Assert.NotEmpty(HospitalMap.searchResult);
+            Assert.NotEmpty(searchedMapObjects);
         }
 
         [StaFact]
         public void Search_by_filled_text_box_and_empty_combo_box()
         {
             MapObjectController mapObjectController = new MapObjectController();
+            var searchedMapObjects = new List<MapObject>();
             HospitalMap hospitalMap = new HospitalMap(mapObjectController.getAllMapObjects(), Role.Director);
 
-            mapObjectController.checkMapObjectSearchInput("Info", AllConstants.emptyComboBox);
+            searchedMapObjects = mapObjectController.searchForMapObjects("Info", AllConstants.emptyComboBox);
 
-            Assert.NotEmpty(HospitalMap.searchResult);
+            Assert.NotEmpty(searchedMapObjects);
         }
 
         [StaFact]
         public void Search_by_filled_text_box_and_filled_combo_box()
         {
             MapObjectController mapObjectController = new MapObjectController();
+            var searchedMapObjects = new List<MapObject>();
             HospitalMap hospitalMap = new HospitalMap(mapObjectController.getAllMapObjects(), Role.Director);
 
-            mapObjectController.checkMapObjectSearchInput("Informations 1", "Informations");
+            searchedMapObjects = mapObjectController.searchForMapObjects("Informations 1", "Informations");
 
-            Assert.NotEmpty(HospitalMap.searchResult);
+            Assert.NotEmpty(searchedMapObjects);
         }
     }
 }

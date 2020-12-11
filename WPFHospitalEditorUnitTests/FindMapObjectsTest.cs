@@ -37,6 +37,8 @@ namespace WPFHospitalEditorUnitTests
             var mapObjects = createMapObjectList();
 
             stubRepository.Setup(m => m.getAllMapObjects()).Returns(mapObjects);
+            stubRepository.Setup(m => m.findMapObjectById(11)).Returns(mapObjects[0]);
+
             return stubRepository.Object;
         }
 
