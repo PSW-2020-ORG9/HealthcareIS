@@ -71,7 +71,6 @@ export default createStore({
     ,
     setRecommendationDto(state,payload){
       state.recommendationDto = payload
-      console.log(payload)
     }
   },
   actions: {
