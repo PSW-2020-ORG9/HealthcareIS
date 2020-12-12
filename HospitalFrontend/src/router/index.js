@@ -133,7 +133,7 @@ const routes = [
   }
   ,
   {
-    path: '/survey',
+    path: '/survey/:doctor/:examination',
     name: 'CreateSurveyResponse',
     component: CreateSurveyResponse
   }

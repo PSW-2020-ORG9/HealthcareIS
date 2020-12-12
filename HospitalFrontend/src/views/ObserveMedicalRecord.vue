@@ -116,6 +116,7 @@ export default {
             intensities: ["Mild", "Medium", "Strong", "Severe"],
         }
     },
+    emits: ['updateExaminations'],
     methods: {
         getPatient: function (id) {
             let url = api.patient + '/find/' + id

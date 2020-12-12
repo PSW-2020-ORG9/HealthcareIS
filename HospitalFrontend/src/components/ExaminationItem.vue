@@ -41,9 +41,12 @@
         <div class="col text-danger lead font-weight-bold d-flex justify-content-center" v-else-if="examination.isCanceled">
             <h3 class="align-self-center">Canceled</h3>
         </div>
-        <button v-else-if="!surveyCompleted" class="btn btn-success col" v-on:click="takeSurvey">Take a survey</button>
-        <div v-else class="col text-info lead font-weight-bold d-flex justify-content-center">
+        <button v-else-if="!surveyCompleted && isPassed()" class="btn btn-success col" v-on:click="takeSurvey">Take a survey</button>
+        <div v-else-if="surveyCompleted" class="col text-info lead font-weight-bold d-flex justify-content-center">
             <h3 class="align-self-center">Survey completed</h3>
+        </div>
+        <div v-else class="col text-success lead font-weight-bold d-flex justify-content-center">
+            <h3 class="align-self-center">Upcoming</h3>
         </div>
     </div>
 </template>
@@ -59,7 +62,6 @@ export default {
         examination: Object,
         surveyCompleted: Boolean
     },
-    emits: ['updateExaminations'],
     methods: {
         getDate: function(date) {
             let dateObj = new Date(date)
@@ -77,6 +79,12 @@ export default {
             next48hours.setDate(next48hours.getDate() + 2)
             if(dateObj.getTime() < next48hours.getTime()) return false
             return true
+        },
+        isPassed: function () {
+            if (this.examination.isCanceled) return false
+            let dateObj = new Date(this.examination.timeInterval.start)
+            if(dateObj < Date.now()) return true
+            return false
         },
         cancelAppointment: function (id) {
             axios.get(api.patientExaminations + '/cancel/' + id)
