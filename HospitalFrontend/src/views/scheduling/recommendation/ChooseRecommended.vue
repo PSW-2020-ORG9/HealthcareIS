@@ -1,16 +1,15 @@
 <template>
   <fieldset>
         <h2 class="fs-title">Appointment selection</h2>
-        <h3 v-if="recommendedAppointment!=null" class="fs-subtitle">We found you an appointment!</h3>
-        <div v-if="recommendedAppointment!=null" class="col">
-            <div class="row ml-1">
-                <p>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;Doctor : {{recommendedAppointment.doctor.person.name + " " + 
-                recommendedAppointment.doctor.person.surname}}</p>
-            </div>
-            <div class="row ml-1">
-                <p>&middot;&nbsp;&nbsp;Recommended appointment :
-                {{formAppointmentString(recommendedAppointment.timeInterval)}}</p>
-            </div>
+       
+        <div v-if="recommendedAppointments!=null">
+            <h3  class="fs-subtitle">We found you an appointment!</h3>
+                <select v-model="selectedAppointment" >
+                    <option value=''>Select an appointment...</option>
+                    <option v-bind:value="appointment" v-for="(appointment,index) in availableAppointments" v-bind:key="index">
+                        {{this.formAppointmentString(appointment)}}
+                    </option>
+                </select>
         </div>
         <h3 v-else>Sorry, there are no available appointments that match your preferences</h3>
         <input type="button" name="previous" style="width:50%;" class="previous action-button" value="Change your preferences" @click="goToPrevPage()" />
@@ -27,13 +26,13 @@ export default {
     name:'ChooseRecommended',
     data:function(){
         return{
-            recommendedAppointment:null
+            recommendedAppointments:null,
+            selectedAppointment: ''
         }
     },
      beforeRouteEnter (to, from, next) {
         next(vm=>{
-            vm.recommendedAppointment = vm.$store.state.recommendationDto
-            console.log(vm.recommendedAppointment)
+            vm.recommendedAppointments = vm.$store.state.recommendationDto
         })
     },
     methods: {
@@ -52,16 +51,25 @@ export default {
                 backgroundColor: "linear-gradient(to right, #00b09b, #7ecc92)"
                 }).showToast()
         },
-        formAppointmentString:function(timeInterval){
+        formAppointmentString:function(appointment){
+            
+            //TODO: format dropdown list item
+            /*
             let appointmentStart=moment(timeInterval.start)
             let appointmentEnd=moment(timeInterval.end)
+            
             return appointmentStart.format("dddd, MMMM Do YYYY") +
              " "+appointmentStart.format("h:mm")+" - "+appointmentEnd.format("h:mm")
+            */
         },
+        selectAppointment: function (e) {
+            this.selectedAppointment = e.target.value
+        }
+        ,
         scheduleAppointment:function(){
             let scheduledExaminationDto = {
-                StartTime:this.recommendedAppointment.timeInterval.start,
-                DoctorId:this.recommendedAppointment.doctor.id,
+                StartTime:this.selectedAppointment.timeInterval.start,
+                DoctorId:this.selectedAppointment.doctor.id,
                 PatientId:1
             }
             let recommendedAppointment=this.recommendedAppointment
