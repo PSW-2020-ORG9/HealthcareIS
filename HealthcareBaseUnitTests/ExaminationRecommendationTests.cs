@@ -69,8 +69,8 @@ namespace HealthcareBaseUnitTests
                 TimeInterval = timeInterval
             };
 
-            RecommendationDto result = examinationService.Recommend(dto);
-            Assert.NotNull(result);
+            List<RecommendationDto> result = examinationService.Recommend(dto);
+            Assert.NotEmpty(result);
         }
 
         [Fact]
@@ -86,8 +86,8 @@ namespace HealthcareBaseUnitTests
                 TimeInterval = timeInterval
             };
 
-            RecommendationDto result = examinationService.Recommend(dto);
-            Assert.NotNull(result);
+            List<RecommendationDto> result = examinationService.Recommend(dto);
+            Assert.NotEmpty(result);
         }
     }
 }

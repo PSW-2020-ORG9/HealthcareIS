@@ -93,36 +93,40 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
         private bool IsDateValidForCancelling(Examination examination)
             => DateTime.Now.CompareTo(examination.TimeInterval.Start.AddDays(-2)) < 0;
 
+
+        private const int RecommendationBatchSize = 5;
 // Recommendations
-        public RecommendationDto Recommend(RecommendationRequestDto dto)
+        public List<RecommendationDto> Recommend(RecommendationRequestDto dto)
         {
             if (dto.TimeInterval == null) return null;
             return dto.Preference == RecommendationPreference.Time ? RecommendWithTime(dto) : RecommendWithDoctor(dto);
         }
 
-        private RecommendationDto RecommendWithTime(RecommendationRequestDto dto)
+        private List<RecommendationDto> RecommendWithTime(RecommendationRequestDto dto)
         {
-            var selectedDoctorRecommendation = RecommendForDoctorInTimeInterval(dto.DoctorId, dto.TimeInterval);
-            if (selectedDoctorRecommendation != null)
-                return selectedDoctorRecommendation;
-
-            return RecommendAnyDoctorInTimeInterval(dto);
+            List<RecommendationDto> recommendations = new List<RecommendationDto>();
+            
+            recommendations.AddRange(RecommendForDoctorInTimeInterval(dto.DoctorId, dto.TimeInterval));
+            if (recommendations.Count < RecommendationBatchSize)
+                recommendations.AddRange(RecommendAnyDoctorInTimeInterval(dto));
+            
+            return recommendations;
         }
 
-        private RecommendationDto RecommendWithDoctor(RecommendationRequestDto dto)
+        private List<RecommendationDto> RecommendWithDoctor(RecommendationRequestDto dto)
         {
-            RecommendationDto inSpecifiedInterval = RecommendForDoctorInTimeInterval(dto.DoctorId, dto.TimeInterval);
-            if (inSpecifiedInterval != null)
-                return inSpecifiedInterval;
+            List<RecommendationDto> recommendations = new List<RecommendationDto>();
+            
+            recommendations.AddRange(RecommendForDoctorInTimeInterval(dto.DoctorId, dto.TimeInterval));
+            if (recommendations.Count < RecommendationBatchSize)
+                recommendations.AddRange(RecommendForDoctorAnyTimeInterval(dto.DoctorId, dto.TimeInterval));
+            if (recommendations.Count < RecommendationBatchSize)
+                recommendations.AddRange(RecommendAnyDoctorInTimeInterval(dto));
 
-            RecommendationDto anyInterval = RecommendForDoctorAnyTimeInterval(dto.DoctorId, dto.TimeInterval);
-            if (anyInterval != null)
-                return anyInterval;
-
-            return RecommendAnyDoctorInTimeInterval(dto);
+            return recommendations;
         }
 
-        private RecommendationDto RecommendAnyDoctorInTimeInterval(RecommendationRequestDto dto)
+        private List<RecommendationDto> RecommendAnyDoctorInTimeInterval(RecommendationRequestDto dto)
         {
             IEnumerable<Shift> allShifts = _shiftWrapper.Repository
                 .GetMatching(shift =>
@@ -131,32 +135,35 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
                     && shift.TimeInterval.Start <= dto.TimeInterval.End
                 );
 
+            List<RecommendationDto> recommendations = new List<RecommendationDto>();
             foreach (var shift in allShifts)
             {
-                var recommendationDto = RecommendForShift(shift);
-                if (recommendationDto != null)
-                    return recommendationDto;
+                if (recommendations.Count < RecommendationBatchSize)
+                    recommendations.AddRange(RecommendForShift(shift));
+                else
+                    break;
             }
-            return null;
+
+            return recommendations;
         }
 
-        private RecommendationDto RecommendForDoctorInTimeInterval(int doctorId, TimeInterval interval)
+        private List<RecommendationDto> RecommendForDoctorInTimeInterval(int doctorId, TimeInterval interval)
         {
-            var selectedDoctorShifts =
-                _shiftWrapper.Repository.GetByDoctorIdAndTimeInterval(doctorId, interval).ToList();
-            if (selectedDoctorShifts.Any())
+            var selectedDoctorShifts = _shiftWrapper.Repository.GetByDoctorIdAndTimeInterval(doctorId, interval).ToList();
+            List<RecommendationDto> recommendations = new List<RecommendationDto>();
+            
+            foreach (var shift in selectedDoctorShifts)
             {
-                foreach (var shift in selectedDoctorShifts)
-                {
-                    var recommendationDto = RecommendForShift(shift);
-                    if (recommendationDto != null)
-                        return recommendationDto;
-                }
+                if (recommendations.Count < RecommendationBatchSize)
+                    recommendations.AddRange(RecommendForShift(shift));
+                else
+                    break;
             }
-            return null;
+
+            return recommendations;
         }
 
-        private RecommendationDto RecommendForDoctorAnyTimeInterval(int doctorId, TimeInterval interval)
+        private List<RecommendationDto> RecommendForDoctorAnyTimeInterval(int doctorId, TimeInterval interval)
         {
             var selectedDoctorShifts = _shiftWrapper.Repository.GetByDoctorIdAndTimeInterval(
                 doctorId,
@@ -166,43 +173,51 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
                     End = interval.End.AddMonths(1)
                 }
             );
+            List<RecommendationDto> recommendations = new List<RecommendationDto>();
+            
             foreach (var shift in selectedDoctorShifts)
             {
-                var timeSlot = RecommendForShift(shift);
-                if (timeSlot != null)
-                    return timeSlot;
+                if (recommendations.Count < RecommendationBatchSize)
+                    recommendations.AddRange(RecommendForShift(shift));
+                else
+                    break;
             }
-            return null;
+            return recommendations;
         }
 
-        private RecommendationDto RecommendForShift(Shift shift)
+        private List<RecommendationDto> RecommendForShift(Shift shift)
         {
-            var timeSlot = GetFirstAvailableTimeSlot(shift.DoctorId, shift.TimeInterval);
-            if (timeSlot != null)
+            List<RecommendationDto> recommendations = new List<RecommendationDto>();
+            
+            var timeSlots = GetAvailableTimeSlots(shift.DoctorId, shift.TimeInterval);
+            foreach (var timeSlot in timeSlots)
             {
                 var doctor = _doctorWrapper.Repository.GetByID(shift.DoctorId);
-                return new RecommendationDto()
+                recommendations.Add(new RecommendationDto()
                 {
                     Doctor = doctor,
                     TimeInterval = timeSlot
-                };
+                });
             }
-            return null;
+
+            return recommendations;
         }
         
-        private TimeInterval GetFirstAvailableTimeSlot(int doctorId, TimeInterval timeInterval)
+        private List<TimeInterval> GetAvailableTimeSlots(int doctorId, TimeInterval timeInterval)
         {
+            List<TimeInterval> intervals = new List<TimeInterval>();
+            
             var start = timeInterval.Start;
-            while (start.Date <= timeInterval.End.Date)
+            while (start <= timeInterval.End)
             {
                 var exam 
                     = _examinationWrapper.Repository.GetByDoctorAndExaminationStart(doctorId, start);
-                if (exam.Any())
-                    start = start.Add(Examination.TimeFrameSize);
-                else
-                    return new TimeInterval(start, start.Add(Examination.TimeFrameSize));
+                if (!exam.Any())      
+                    intervals.Add(new TimeInterval(start, start.Add(Examination.TimeFrameSize)));
+                start = start.Add(Examination.TimeFrameSize);
             }
-            return null;
+            
+            return intervals;
         }
     }
 }
