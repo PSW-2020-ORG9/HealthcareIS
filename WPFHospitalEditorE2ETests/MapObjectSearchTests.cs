@@ -15,7 +15,6 @@ namespace WPFHospitalEditorE2ETests
         {
             MapObjectController mapObjectController = new MapObjectController();
             var searchedMapObjects = new List<MapObject>();
-            HospitalMap hospitalMap = new HospitalMap(mapObjectController.getAllMapObjects(), Role.Director);
 
             searchedMapObjects = mapObjectController.searchForMapObjects("", AllConstants.emptyComboBox);
 
@@ -27,7 +26,6 @@ namespace WPFHospitalEditorE2ETests
         {
             MapObjectController mapObjectController = new MapObjectController();
             var searchedMapObjects = new List<MapObject>();
-            HospitalMap hospitalMap = new HospitalMap(mapObjectController.getAllMapObjects(), Role.Director);
 
             searchedMapObjects = mapObjectController.searchForMapObjects("", "Informations");
 
@@ -39,7 +37,6 @@ namespace WPFHospitalEditorE2ETests
         {
             MapObjectController mapObjectController = new MapObjectController();
             var searchedMapObjects = new List<MapObject>();
-            HospitalMap hospitalMap = new HospitalMap(mapObjectController.getAllMapObjects(), Role.Director);
 
             searchedMapObjects = mapObjectController.searchForMapObjects("Info", AllConstants.emptyComboBox);
 
@@ -51,7 +48,6 @@ namespace WPFHospitalEditorE2ETests
         {
             MapObjectController mapObjectController = new MapObjectController();
             var searchedMapObjects = new List<MapObject>();
-            HospitalMap hospitalMap = new HospitalMap(mapObjectController.getAllMapObjects(), Role.Director);
 
             searchedMapObjects = mapObjectController.searchForMapObjects("Informations 1", "Informations");
 

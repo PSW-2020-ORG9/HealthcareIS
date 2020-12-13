@@ -48,9 +48,9 @@ namespace WPFHospitalEditor.Service
 
         public List<MapObject> searchForMapObjects(string name, string type)
         {
-            var mapObjects = new List<MapObject>();
-            List<MapObject> allMapObjects = iMapObjectRepository.getAllMapObjects();
+            var mapObjects = new List<MapObject>();           
             if (name.Equals("") && type.Equals(AllConstants.emptyComboBox)) return mapObjects;
+            List<MapObject> allMapObjects = iMapObjectRepository.getAllMapObjects();
             foreach (MapObject mapObject in allMapObjects)
             {
                 if(compareInput(mapObject, name, type))
