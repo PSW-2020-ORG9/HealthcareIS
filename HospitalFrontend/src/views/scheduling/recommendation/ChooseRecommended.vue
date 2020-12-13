@@ -2,18 +2,18 @@
   <fieldset>
         <h2 class="fs-title">Appointment selection</h2>
        
-        <div v-if="recommendedAppointments!=null">
+        <div v-if="appointmentsFetched">
             <h3  class="fs-subtitle">We found you an appointment!</h3>
                 <select v-model="selectedAppointment" >
                     <option value=''>Select an appointment...</option>
-                    <option v-bind:value="appointment" v-for="(appointment,index) in availableAppointments" v-bind:key="index">
+                    <option v-bind:value="appointment" v-for="(appointment,index) in recommendedAppointments" v-bind:key="index">
                         {{this.formAppointmentString(appointment)}}
                     </option>
                 </select>
         </div>
         <h3 v-else>Sorry, there are no available appointments that match your preferences</h3>
         <input type="button" name="previous" style="width:50%;" class="previous action-button" value="Change your preferences" @click="goToPrevPage()" />
-        <input v-if="recommendedAppointment!=null"  type="button" name="next" class="next action-button" value="Schedule" @click="scheduleAppointment()" />
+        <input v-if="selectedAppointment!=''"  type="button" name="next" class="next action-button" value="Schedule" @click="scheduleAppointment()" />
     </fieldset>
 </template>
 
@@ -27,12 +27,16 @@ export default {
     data:function(){
         return{
             recommendedAppointments:null,
+            appointmentsFetched:false,
             selectedAppointment: ''
         }
     },
      beforeRouteEnter (to, from, next) {
         next(vm=>{
             vm.recommendedAppointments = vm.$store.state.recommendationDto
+            if(vm.recommendedAppointments != null)
+                if(vm.recommendedAppointments.length != 0)
+                    vm.appointmentsFetched=true
         })
     },
     methods: {
@@ -53,15 +57,22 @@ export default {
         },
         formAppointmentString:function(appointment){
             
-            //TODO: format dropdown list item
-            /*
-            let appointmentStart=moment(timeInterval.start)
-            let appointmentEnd=moment(timeInterval.end)
             
-            return appointmentStart.format("dddd, MMMM Do YYYY") +
-             " "+appointmentStart.format("h:mm")+" - "+appointmentEnd.format("h:mm")
-            */
+            let appointmentStart=moment(appointment.timeInterval.start)
+            let appointmentEnd=moment(appointment.timeInterval.end)
+            
+            return "Doktor: " + appointment.doctor.person.name + " " + appointment.doctor.person.surname + " - "
+             +appointmentStart.format("dddd, MMMM Do YYYY") +
+             " ["+appointmentStart.format("h:mm")+" - "+appointmentEnd.format("h:mm")+"]"
         },
+        formNotificationString:function(appointment){
+            let appointmentStart=moment(appointment.timeInterval.start)
+            let appointmentEnd=moment(appointment.timeInterval.end)
+
+            return 'Appointment on ' + appointmentStart.format("dddd, MMMM Do YYYY") 
+            +' at ' + appointmentStart.format("h:mm") + ' successfully scheduled '
+        }
+        ,
         selectAppointment: function (e) {
             this.selectedAppointment = e.target.value
         }
@@ -72,9 +83,9 @@ export default {
                 DoctorId:this.selectedAppointment.doctor.id,
                 PatientId:1
             }
-            let recommendedAppointment=this.recommendedAppointment
+            let selectedAppointment=this.selectedAppointment
             axios.post(api.examination,scheduledExaminationDto).then(response=>{
-                this.toastSuccess('Appointment on '+this.formAppointmentString(recommendedAppointment.timeInterval)+' succesfully scheduled!')
+                this.toastSuccess(this.formNotificationString(selectedAppointment))
                 this.$router.push('/scheduling-type/')
             
             })
