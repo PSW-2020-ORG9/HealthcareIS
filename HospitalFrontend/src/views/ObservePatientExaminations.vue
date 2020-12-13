@@ -11,16 +11,16 @@
             </div>
             <div class="container bg-light border border-gray" name="today">
                 <div class="text-left text-success lead">Today's appointments</div>
-                <ExaminationItem v-for="(examination, index) in getTodaysAppointments()"
+                <ExaminationItem v-for="examination in getTodaysAppointments()"
                                  v-bind:key="examination.id" v-bind:examination="examination"
-                                 v-bind:surveyCompleted="surveyStatuses[index]"></ExaminationItem>
+                                 v-bind:surveyCompleted="false"></ExaminationItem>
             </div>
             <div class="container bg-light border border-gray" name="upcoming">
                 <div class="text-left text-info lead">Future appointments</div>
-                <ExaminationItem v-for="(examination, index) in getFutureAppointments()"
+                <ExaminationItem v-for="examination in getFutureAppointments()"
                                  v-on:update-examinations="getExaminations()" v-bind:key="examination.id"
                                  v-bind:examination="examination"
-                                 v-bind:surveyCompleted="surveyStatuses[index]"
+                                 v-bind:surveyCompleted="false"
                 ></ExaminationItem>
             </div>
         </div>
@@ -53,6 +53,7 @@ export default {
             axios.get(api.patientExaminations + '/patient/1')
             .then(response => {
                 this.examinations = response.data
+                this.sortAppointments(this.examinations)
                 this.getSurveyStatuses()
             })
         },
@@ -76,7 +77,7 @@ export default {
             let now = new Date()
             this.examinations.forEach(e => {
                 let dateObj = new Date (e.timeInterval.start)
-                if (dateObj.getDate() < now.getDate() && dateObj.getMonth() <= now.getMonth() && dateObj.getFullYear() <= now.getFullYear()) {
+                if (dateObj < now) {
                     pastAppointments.push(e)
                 }
             })
@@ -87,7 +88,7 @@ export default {
             let now = new Date()
             this.examinations.forEach(e => {
                 let dateObj = new Date (e.timeInterval.start)
-                if (dateObj.getDate() == now.getDate() && dateObj.getMonth() == now.getMonth() && dateObj.getFullYear() == now.getFullYear()) {
+                if (dateObj > now && dateObj.getDate() == now.getDate() && dateObj.getMonth() == now.getMonth() && dateObj.getFullYear() == now.getFullYear()) {
                     todaysAppointments.push(e)
                 }
             })
@@ -103,6 +104,9 @@ export default {
                 }
             })
             return futureAppointments
+        },
+        sortAppointments: function (appointments) {
+            return appointments.sort((a1, a2) => new Date(a1.timeInterval.start) - new Date(a2.timeInterval.start))
         }
     }
 }

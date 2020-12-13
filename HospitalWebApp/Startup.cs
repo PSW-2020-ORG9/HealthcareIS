@@ -117,6 +117,7 @@ namespace HospitalWebApp
             var departmentRepository = new DepartmentSqlRepository(GetContext());
             var doctorRepository = new DoctorSqlRepository(GetContext());
             var equipmentTypeRepository = new EquipmentTypeSqlRepository(GetContext());
+            var specialtyRepository = new SpecialtySqlRepository(GetContext());
             
             var userFeedbackService = new UserFeedbackService(userFeedbackRepository);
             var patientService = new PatientService(patientRepository, null, null, null);
@@ -130,12 +131,14 @@ namespace HospitalWebApp
             var departmentService = new DepartmentService(departmentRepository);
             var doctorService = new DoctorService(doctorRepository);
 
-            var examinationService = new ExaminationService(examinationRepository, shiftRepository);
+            var examinationService = new ExaminationService(examinationRepository, shiftRepository, doctorRepository);
             var cityService = new CityService(cityRepository);
             var countryService = new CountryService(countryRepository);
 
             var surveyResponseService = new SurveyResponseService(surveyResponseRepository);
             var surveyService = new SurveyService(surveyRepository);
+            
+            var specialtyService = new SpecialtyService(specialtyRepository);
             
             services.Add(new ServiceDescriptor(typeof(UserFeedbackService), userFeedbackService));
             services.Add(new ServiceDescriptor(typeof(PatientService), patientService));
@@ -153,6 +156,7 @@ namespace HospitalWebApp
             services.Add(new ServiceDescriptor(typeof(DoctorAvailabilityService), doctorAvailabilityService));
             services.Add(new ServiceDescriptor(typeof(DepartmentService),departmentService));
             services.Add(new ServiceDescriptor(typeof(DoctorService),doctorService));
+            services.Add(new ServiceDescriptor(typeof(SpecialtyService), specialtyService));
         }
 
         private IPreparable CreateRepository(Type repositoryClass)

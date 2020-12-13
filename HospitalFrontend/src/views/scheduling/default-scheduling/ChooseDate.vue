@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import api from '../../constant/api.js'
+import api from '../../../constant/api.js'
 import axios from 'axios'
 import Toastify from 'toastify-js'
 import moment from 'moment'
@@ -39,7 +39,7 @@ export default {
         
                 this.$store.commit('setAvailableDoctors', response.data)
                 this.$store.commit('setSelectedDate',selectedDate)
-                this.$router.push('/schedule/choose-doctor')
+                this.$router.push('/schedule-appointment/choose-doctor')
             })
         }
         ,
@@ -57,7 +57,7 @@ export default {
         ,
         goToNextPage:function(){
             this.$store.commit('setSelectedDate',this.selectedDate)
-            this.$router.push('/schedule/choose-doctor')
+            this.$router.push('/schedule-appointment/choose-doctor')
         }
         ,
         getMinDate:function(){       
@@ -74,5 +74,5 @@ export default {
 </script>
 
 <style>
-     @import '../../styles/multipart-form-style.css';
+     @import '../../../styles/multipart-form-style.css';
 </style>

@@ -35,6 +35,8 @@ export default createStore({
     selectedDate:null
     ,
     availableAppointments:[]
+    ,
+    recommendationDto:null
   },
   mutations: {
     setPersonalInformation(state,payload){
@@ -65,6 +67,10 @@ export default createStore({
       state.availableDoctors=[]
       state.selectedDate=null
       state.availableAppointments=[]
+    }
+    ,
+    setRecommendationDto(state,payload){
+      state.recommendationDto = payload
     }
   },
   actions: {

@@ -7,7 +7,7 @@ using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository.I
 using HealthcareBase.Service.UsersService.PatientService;
 using Xunit;
 
-namespace HealthcareBaseTests
+namespace HealthcareBaseUnitTests
 {
     public class MedicalRecordTests
     {

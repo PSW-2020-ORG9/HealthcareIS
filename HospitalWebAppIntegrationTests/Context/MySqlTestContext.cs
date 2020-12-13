@@ -39,6 +39,13 @@ namespace HospitalWebAppIntegrationTests.Context
                 CityOfResidenceId = 1,
                 Gender = Gender.Other
             });
+            modelBuilder.Entity<Person>().HasData(new Person
+            {
+                Jmbg = "1234",
+                CityOfBirthId = 1,
+                CityOfResidenceId = 1,
+                Gender = Gender.Other
+            });
             modelBuilder.Entity<Patient>().HasData(new Patient
             {
                 Id = 1,
@@ -65,14 +72,58 @@ namespace HospitalWebAppIntegrationTests.Context
                     Start = new DateTime(2022, 1, 1, 8, 0, 0),
                     End = new DateTime(2022, 1, 1, 16, 0, 0),
                 });
-            }
-            );
+                s.HasData(new Shift
+                {
+                    Id = 2,
+                    AssignedExamRoomId = 1,
+                    DoctorId = 1,
+                });
+                s.OwnsOne(x => x.TimeInterval).HasData(new
+                {
+                    ShiftId = 2,
+                    Start = new DateTime(2022, 1, 2, 8, 0, 0),
+                    End = new DateTime(2022, 1, 2, 16, 0, 0)
+                });
+                s.HasData(new Shift
+                {
+                    Id = 3,
+                    AssignedExamRoomId = 1,
+                    DoctorId = 2,
+                });
+                s.OwnsOne(x => x.TimeInterval).HasData(new
+                {
+                    ShiftId = 3,
+                    Start = new DateTime(2022, 1, 5, 8, 0, 0),
+                    End = new DateTime(2022, 1, 5, 16, 0, 0)
+                });
+            });
+            modelBuilder.Entity<Specialty>().HasData(new Specialty
+            {
+                Id = 1,
+                Name = "Cardiologist",
+                Description = ""
+            });
             modelBuilder.Entity<Doctor>().HasData(new Doctor
             {
                 Id = 1,
                 Jmbg = "123",
                 DepartmentId = 1,
-                Specialties = new List<DoctorSpecialty>(),
+            });
+            modelBuilder.Entity<DoctorSpecialty>().HasData(new DoctorSpecialty
+            {
+                DoctorId = 1,
+                SpecialtyId = 1
+            });
+            modelBuilder.Entity<Doctor>().HasData(new Doctor
+            {
+                Id = 2,
+                Jmbg = "1234",
+                DepartmentId = 1,
+            });
+            modelBuilder.Entity<DoctorSpecialty>().HasData(new DoctorSpecialty
+            {
+                DoctorId = 2,
+                SpecialtyId = 1
             });
             modelBuilder.Entity<Room>().HasData(new Room
             {
@@ -81,6 +132,7 @@ namespace HospitalWebAppIntegrationTests.Context
                 Name = "C1",
                 Purpose = RoomType.SurgeryRoom
             });
+            
             //Theses test values for examination will stop being valid on 1. Jan 2022.
             modelBuilder.Entity<Examination>(e =>
             {
