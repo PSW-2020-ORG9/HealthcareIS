@@ -11,7 +11,7 @@
         <select v-on:change="chooseDoctor" name="doctor" v-if="doctorsFetched">
             <option value="">Your preffered doctor...</option>
             <option v-bind:value="doctor.doctorId" v-for="doctor in availableDoctors" v-bind:key="doctor.doctorId">
-                {{"Doktor " + doctor.name + " " + doctor.surname}}
+                {{"Doctor " + doctor.name + " " + doctor.surname}}
             </option>
         </select>
         <input type="button" name="previous" class="previous action-button" value="Previous" @click="goToPrevPage()" />

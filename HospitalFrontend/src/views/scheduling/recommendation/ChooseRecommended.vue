@@ -61,7 +61,7 @@ export default {
             let appointmentStart=moment(appointment.timeInterval.start)
             let appointmentEnd=moment(appointment.timeInterval.end)
             
-            return "Doktor: " + appointment.doctor.person.name + " " + appointment.doctor.person.surname + " - "
+            return "Doctor: " + appointment.doctor.person.name + " " + appointment.doctor.person.surname + " - "
              +appointmentStart.format("dddd, MMMM Do YYYY") +
              " ["+appointmentStart.format("h:mm")+" - "+appointmentEnd.format("h:mm")+"]"
         },

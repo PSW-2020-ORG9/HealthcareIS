@@ -16,7 +16,7 @@
         <select name="doctor" v-on:change="chooseDoctor" v-if="doctorsFetched">
             <option value="">Your preffered doctor...</option>
             <option v-bind:value="doctor.doctorId" v-for="doctor in availableDoctors" v-bind:key="doctor.doctorId">
-                {{"Doktor " + doctor.name + " " + doctor.surname}}
+                {{"Doctor " + doctor.name + " " + doctor.surname}}
             </option>
         </select>
         <DatePicker :min-date="new Date()" v-model="range" is-range>
