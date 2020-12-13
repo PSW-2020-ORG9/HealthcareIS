@@ -112,11 +112,6 @@ namespace WPFHospitalEditor
 
         public void Equipment_Search(object sender, RoutedEventArgs e)
         {
-            checkEquipmentSearchInput();
-        }
-
-        public void checkEquipmentSearchInput()
-        {
             clearAllResults();
             if (NoEquipmentTypeIsPicked())
             {
@@ -131,11 +126,6 @@ namespace WPFHospitalEditor
         }
 
         public void Medication_Search(object sender, RoutedEventArgs e)
-        {
-            checkMedicineSearchInput();
-        }
-
-        public void checkMedicineSearchInput()
         {
             clearAllResults();
             if (NoMedicationNameIsPicked())

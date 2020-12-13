@@ -3,9 +3,9 @@ using WPFHospitalEditor.Controller;
 using WPFHospitalEditor.MapObjectModel;
 using Xunit;
 
-namespace WPFHospitalEditorIntegrationTests
+namespace WPFHospitalEditorE2ETests
 {
-    public class MapObjectControllerTest
+    public class MapObjectControllerTests
     {
         [StaFact]
         public void Find_existing_map_object()
