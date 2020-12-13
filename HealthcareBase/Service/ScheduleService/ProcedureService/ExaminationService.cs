@@ -74,7 +74,7 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
         {
             // TODO Check if procedure start is valid according to Examination.TimeFrameSize
             var examinations =
-                _examinationWrapper.Repository.GetByDoctorAndExaminationStart(procedure.DoctorId, procedure.TimeInterval.Start);
+                _examinationWrapper.Repository.GetByDoctorAndExaminationStart(procedure.DoctorId, procedure.TimeInterval.Start).Where(e => !e.IsCanceled);
             if(examinations.Count() != 0)
                 throw new ScheduleViolationException("Examination for this doctor and interval already exists.");
             
@@ -231,7 +231,7 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
             while (start < timeInterval.End  &&  maxSlots > 0)
             {
                 var exam 
-                    = _examinationWrapper.Repository.GetByDoctorAndExaminationStart(doctorId, start);
+                    = _examinationWrapper.Repository.GetByDoctorAndExaminationStart(doctorId, start).Where(e => !e.IsCanceled);
                 if (!exam.Any())
                 {
                     intervals.Add(new TimeInterval(start, start.Add(Examination.TimeFrameSize)));
