@@ -5,10 +5,10 @@ using Xunit;
 namespace HospitalWebAppIntegrationTests
 {
     public class ExaminationCancelingTests
-    : IClassFixture<HospitalWebApplicationFactory<Startup>>
+    : IClassFixture<HospitalWebApplicationFactory<TestStartup>>
     {
-        private readonly HospitalWebApplicationFactory<Startup> _factory;
-        public ExaminationCancelingTests(HospitalWebApplicationFactory<Startup> factory)
+        private readonly HospitalWebApplicationFactory<TestStartup> _factory;
+        public ExaminationCancelingTests(HospitalWebApplicationFactory<TestStartup> factory)
         {
             _factory = factory;
         }

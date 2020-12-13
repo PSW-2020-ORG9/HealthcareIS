@@ -7,12 +7,11 @@ using HealthcareBase.Model.Users.Generalities;
 using HealthcareBase.Model.Users.Patient;
 using HealthcareBase.Model.Users.Patient.MedicalHistory;
 using HealthcareBase.Model.Users.Patient.MedicalHistory.Relationship;
-using HealthcareBase.Model.Utilities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 
-namespace HospitalWebApp.Context
+namespace HospitalWebAppIntegrationTests.Context
 {
     internal class MySqlTestContext : MySqlContext
     {
