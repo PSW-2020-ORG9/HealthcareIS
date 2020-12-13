@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using System;
 
 namespace HospitalWebApp
 {
@@ -13,7 +14,12 @@ namespace HospitalWebApp
         public static IHostBuilder CreateHostBuilder(string[] args)
         {
             return Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
+                .ConfigureWebHostDefaults(webBuilder => { 
+                    var port = Environment.GetEnvironmentVariable("PORT");
+
+                    if(port == null) webBuilder.UseStartup<Startup>();
+                    else webBuilder.UseStartup<Startup>().UseUrls("http://*:" + port);
+                });
         }
     }
 }
