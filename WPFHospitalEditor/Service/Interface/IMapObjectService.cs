@@ -9,5 +9,6 @@ namespace WPFHospitalEditor.Service
         MapObject update(MapObject mapObject);
         List<MapObject> getOutterMapObjects();
         MapObject findMapObjectById(int id);
+        List<MapObject> searchForMapObjects(string name, string type);
     }
 }

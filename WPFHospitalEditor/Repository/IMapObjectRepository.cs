@@ -5,7 +5,7 @@ using WPFHospitalEditor.MapObjectModel;
 
 namespace WPFHospitalEditor.Repository
 {
-    interface IMapObjectRepository
+    public interface IMapObjectRepository
     {
         List<MapObject> getAllMapObjects();
         MapObject update(MapObject mapObject);
