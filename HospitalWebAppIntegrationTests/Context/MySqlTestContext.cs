@@ -15,6 +15,7 @@ namespace HospitalWebAppIntegrationTests.Context
 {
     internal class MySqlTestContext : MySqlContext
     {
+        public MySqlTestContext() { }
         public MySqlTestContext(string connectionString) : base(connectionString) { }
         protected override void SeedData(ModelBuilder modelBuilder)
         {
