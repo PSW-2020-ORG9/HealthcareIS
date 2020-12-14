@@ -33,16 +33,21 @@ namespace HospitalWebApp
 {
     public class Startup
     {
-        private readonly string _connectionString;
+        private string _connectionString;
         public Startup(IWebHostEnvironment env)
         {
             Configuration = GetConfiguration();
 
+            PrepareDatabase();
+        }
+
+        protected virtual void PrepareDatabase()
+        {
             _connectionString = CreateConnectionStringFromEnvironment() ?? Configuration["MySql"];
 
             if (_connectionString == null) throw new ApplicationException("Connection string is null");
 
-            if (env.IsDevelopment()) GetContext().CreateContext().Database.EnsureCreated();
+            GetContext().CreateContext().Database.EnsureCreated();
         }
 
         protected IConfiguration GetConfiguration()
