@@ -31,12 +31,16 @@ services:
       PSW_SMTP_SSL_PORT: 587
       PSW_EMAIL_USERNAME: psw.healthcareis.info@gmail.com
       PSW_EMAIL_PASSWORD: healthcareis
+      ASPNETCORE_URLS: http://*:$PORT
+      PORT: 80
     depends_on:
       - mysql
 
   nginx:
     image: fmaster/pswfrontend
     container_name: front
+    environment:
+      PORT: 80
     networks:
       - network
     ports:
