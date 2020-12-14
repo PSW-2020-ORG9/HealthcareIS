@@ -34,7 +34,7 @@ namespace HospitalWebApp
     public class Startup
     {
         private string _connectionString;
-        public Startup(IWebHostEnvironment env)
+        public Startup()
         {
             Configuration = GetConfiguration();
 

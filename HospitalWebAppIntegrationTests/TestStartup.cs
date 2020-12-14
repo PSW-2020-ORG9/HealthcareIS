@@ -13,10 +13,6 @@ namespace HospitalWebAppIntegrationTests
         private string _connectionString;
         private static bool _databaseInitialized = false;
         private static readonly object _mutex = new object();
-        public TestStartup(IWebHostEnvironment env): base(env) 
-        {
-            PrepareDatabase();
-        }
 
         protected override void PrepareDatabase()
         {
