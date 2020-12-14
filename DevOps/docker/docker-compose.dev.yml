@@ -1,0 +1,60 @@
+version: "3.8"
+services:
+  mysql:
+    build:
+      context: ../../HealthcareBase
+      dockerfile: DBDockerfile
+    container_name: mysql
+    networks:
+      - network
+    environment:
+      MYSQL_ROOT_PASSWORD: NOVISADSTAGOD
+      MYSQL_DATABASE: clinic
+    ports:
+      - 3306:3306
+      - 33060:33060
+
+  web:
+    build:
+      context: ../../HospitalWebApp/bin
+      dockerfile: AspNetDockerfile
+    container_name: webapp
+    restart: on-failure
+    networks:
+      - network
+    ports:
+      - 5000:80
+    environment:
+      DB_PSW_SERVER: mysql
+      DB_PSW_DATABASE: clinic
+      DB_PSW_USER: root
+      DB_PSW_PASSWORD: NOVISADSTAGOD
+      DB_PSW_PORT: 3306
+      PSW_ACTIVATION_ENDPOINT: http://localhost/patient/activate/
+      PSW_SMTP_HOST_SERVER: smtp.gmail.com
+      PSW_SMTP_SSL_PORT: 587
+      PSW_EMAIL_USERNAME: psw.healthcareis.info@gmail.com
+      PSW_EMAIL_PASSWORD: healthcareis
+      ASPNETCORE_URLS: http://*:$PORT
+      PORT: 80
+    depends_on:
+      - mysql
+
+  nginx:
+    build:
+      context: ../../HospitalFrontend
+      dockerfile: FrontDockerfile
+    container_name: front
+    environment:
+      PORT: 80
+    networks:
+      - network
+    ports:
+      - 8080:80
+    restart: always
+
+
+networks:
+  network:
+    name: network
+    driver: bridge
