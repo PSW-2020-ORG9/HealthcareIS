@@ -25,10 +25,12 @@ namespace HealthcareBase.Model.Database
     public class MySqlContext : DbContext
     {
         private readonly string _connectionString;
+        private readonly string db = "";
+        private readonly string pass = "";
 
         public MySqlContext()
         {
-            _connectionString = "";
+            _connectionString = "server=localhost;port=3306;database=" + db + ";user=root;password=" + pass;
         }
 
         public MySqlContext(string connectionString)
