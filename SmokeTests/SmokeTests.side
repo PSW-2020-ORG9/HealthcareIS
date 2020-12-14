@@ -119,19 +119,6 @@
       ],
       "value": ""
     }, {
-      "id": "d9304121-4293-4468-9da2-8f0a97b1986f",
-      "comment": "",
-      "command": "mouseOver",
-      "target": "name=next",
-      "targets": [
-        ["name=next", "name"],
-        ["css=.next", "css:finder"],
-        ["xpath=//input[@name='next']", "xpath:attributes"],
-        ["xpath=//form[@id='msform']/fieldset/input", "xpath:idRelative"],
-        ["xpath=//fieldset/input", "xpath:position"]
-      ],
-      "value": ""
-    }, {
       "id": "09631569-8208-4b9f-8c69-2adb7a7ebc7d",
       "comment": "",
       "command": "click",
@@ -151,45 +138,6 @@
       "target": "name=specialties",
       "targets": [],
       "value": "label=Ophthalmologist"
-    }, {
-      "id": "50bb4380-2ee5-427d-a393-8ac399a55ffc",
-      "comment": "",
-      "command": "click",
-      "target": "name=specialties",
-      "targets": [
-        ["name=specialties", "name"],
-        ["css=select", "css:finder"],
-        ["xpath=//select[@name='specialties']", "xpath:attributes"],
-        ["xpath=//form[@id='msform']/fieldset/select", "xpath:idRelative"],
-        ["xpath=//select", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "3b0f6145-d3e5-43b3-b4bb-f6ce4f673753",
-      "comment": "",
-      "command": "mouseOver",
-      "target": "name=previous",
-      "targets": [
-        ["name=previous", "name"],
-        ["css=.previous", "css:finder"],
-        ["xpath=//input[@name='previous']", "xpath:attributes"],
-        ["xpath=//form[@id='msform']/fieldset/input", "xpath:idRelative"],
-        ["xpath=//input", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "f985b5a5-104e-4e8d-a49c-9e9bd6861178",
-      "comment": "",
-      "command": "mouseOut",
-      "target": "name=previous",
-      "targets": [
-        ["name=previous", "name"],
-        ["css=.previous", "css:finder"],
-        ["xpath=//input[@name='previous']", "xpath:attributes"],
-        ["xpath=//form[@id='msform']/fieldset/input", "xpath:idRelative"],
-        ["xpath=//input", "xpath:position"]
-      ],
-      "value": ""
     }, {
       "id": "43cbb303-d9f8-476e-aebb-3bf34077311c",
       "comment": "",
