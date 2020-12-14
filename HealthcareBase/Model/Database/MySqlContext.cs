@@ -26,6 +26,8 @@ namespace HealthcareBase.Model.Database
     {
         private readonly string _connectionString;
 
+        public MySqlContext() { }
+
         public MySqlContext(string connectionString)
         {
             _connectionString = connectionString;
