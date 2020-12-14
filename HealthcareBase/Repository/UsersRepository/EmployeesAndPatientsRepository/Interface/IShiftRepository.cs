@@ -14,14 +14,10 @@ namespace HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsReposito
 {
     public interface IShiftRepository : IWrappableRepository<Shift, int>
     {
-        IEnumerable<Shift> GetByDoctor(Doctor doctor);
-
+        IEnumerable<Shift> GetByTimeInterval(TimeInterval interval);
         IEnumerable<Shift> GetByDoctorAndShiftStart(int doctorId, DateTime shiftStart);
-
-        IEnumerable<Shift> GetByDoctorAndTimeOverlap(Doctor doctor, TimeInterval time);
-
         IEnumerable<Shift> GetByShiftStart(DateTime shiftStart);
-
+        public IEnumerable<Shift> GetByDoctorIdAndTimeInterval(int doctorId, TimeInterval interval);
         int GetAssignedRoomId(int doctorId, DateTime date);
     }
 }

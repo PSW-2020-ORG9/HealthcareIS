@@ -5,12 +5,11 @@ namespace WPFHospitalEditor.MapObjectModel
 {
     public class MapObjectColors
     {
-        public static Dictionary<MapObjectType, Brush> mapObjectTypesColors = new Dictionary<MapObjectType, Brush>();
+        private Dictionary<MapObjectType, Brush> mapObjectTypesColors = new Dictionary<MapObjectType, Brush>();
         private static MapObjectColors instance = null;
 
         private MapObjectColors()
         {
-            mapObjectTypesColors = new Dictionary<MapObjectType, Brush>();
             mapObjectTypesColors.Add(MapObjectType.Building, Brushes.SkyBlue);
             mapObjectTypesColors.Add(MapObjectType.Parking, Brushes.Gray);
             mapObjectTypesColors.Add(MapObjectType.Road, Brushes.Gray);
@@ -42,5 +41,6 @@ namespace WPFHospitalEditor.MapObjectModel
         {
             return mapObjectTypesColors[mapObjectType];
         }
+        
     }
 }

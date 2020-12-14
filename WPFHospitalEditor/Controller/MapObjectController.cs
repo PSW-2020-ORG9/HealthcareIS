@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using WPFHospitalEditor.MapObjectModel;
 using WPFHospitalEditor.Service;
+using WPFHospitalEditor.Repository;
 
 namespace WPFHospitalEditor.Controller
 {
     public class MapObjectController : IMapObjectController
     {
-        private IMapObjectService IMapObjectService = new MapObjectService();
+        private IMapObjectService IMapObjectService = new MapObjectService(new MapObjectRepository());
 
         public List<MapObject> getAllMapObjects()
         {
@@ -23,6 +24,10 @@ namespace WPFHospitalEditor.Controller
         public MapObject findMapObjectById(int id)
         {
             return IMapObjectService.findMapObjectById(id);
+        }
+        public List<MapObject> searchForMapObjects(string name, string type)
+        {
+            return IMapObjectService.searchForMapObjects(name, type);
         }
     }
 }

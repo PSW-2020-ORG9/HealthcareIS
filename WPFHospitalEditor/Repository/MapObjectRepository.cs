@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Windows;
 using WPFHospitalEditor.MapObjectModel;
 
 namespace WPFHospitalEditor.Repository
@@ -76,13 +77,14 @@ namespace WPFHospitalEditor.Repository
             {
                 serializer.Serialize(jwriter, entities);
             }
-        }
+        }   
+        
         public MapObject findMapObjectById(int id)
         {
-            var allMapObjects = getAllMapObjects().ToList();
+            var allMapObjects = getAllMapObjects();
             foreach (MapObject mapObj in allMapObjects)
             {
-                if(mapObj.Id == id)
+                if (mapObj.Id == id)
                 {
                     return mapObj;
                 }

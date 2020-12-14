@@ -16,8 +16,13 @@ namespace HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsReposito
 
         protected override IQueryable<Doctor> IncludeFields(IQueryable<Doctor> query)
         {
-            return query.Include(d => d.Person)
-                .Include(d=>d.Department);
+            return query
+                .Include(doctor => doctor.Person)
+                
+                .Include(doctor => doctor.Department)
+                
+                .Include(doctor => doctor.Specialties)
+                .ThenInclude(specialty => specialty.Specialty);
         }
 
         public IEnumerable<Doctor> GetBySpecialty(Specialty specialty)

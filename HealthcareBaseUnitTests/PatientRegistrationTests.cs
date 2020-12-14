@@ -5,7 +5,7 @@ using HealthcareBase.Service.UsersService.RegistrationService;
 using Moq;
 using Xunit;
 
-namespace HealthcareBaseTests
+namespace HealthcareBaseUnitTests
 {
     public class PatientRegistrationTests
     {

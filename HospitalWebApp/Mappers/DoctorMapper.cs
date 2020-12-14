@@ -13,10 +13,9 @@ namespace HospitalWebApp.Mappers
            return doctors.Select(doctor =>
                new DoctorDto
                {
-                   DepartmentName = doctor.Department.Name,
                    DoctorId = doctor.Id,
                    Name = doctor.Person.Name,
-                   Surname = doctor.Person.Surname
+                   Surname = doctor.Person.Surname,
                }).ToList();
         }
     }

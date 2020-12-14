@@ -12,7 +12,7 @@ using Moq;
 using Shouldly;
 using Xunit;
 
-namespace HealthcareBaseTests
+namespace HealthcareBaseUnitTests
 {
     public class DoctorAvailabilityTests
     {

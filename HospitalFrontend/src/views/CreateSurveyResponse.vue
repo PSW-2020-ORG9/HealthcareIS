@@ -122,7 +122,10 @@ export default {
         },
         saveSurveyResponse: function () {
             axios.post(api.survey + '/response', this.surveyResponseDto)
-            .then(() =>this.toastSuccess())
+            .then(() => {
+                this.toastSuccess()
+                this.$router.push('/examinations')
+            })
             .catch(() => this.toastError())
         },
         toastSuccess: function () {

@@ -1,5 +1,6 @@
 ﻿using HealthcareBase.Dto;
 using System.Collections.Generic;
+using WPFHospitalEditor.MapObjectModel;
 
 namespace WPFHospitalEditor.Controller
 {

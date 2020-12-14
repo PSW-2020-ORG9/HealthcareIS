@@ -1,3 +1,4 @@
+using System.Linq;
 using HealthcareBase.Service.UsersService.EmployeeService;
 using HospitalWebApp.Mappers;
 using Microsoft.AspNetCore.Mvc;
@@ -16,9 +17,14 @@ namespace HospitalWebApp.Controllers
             this.doctorService = doctorService;
         }
         [HttpGet]
-        public IActionResult GetAll([FromQuery] int department)
+        [Route("specialty/{specialtyId}")]
+        public IActionResult GetBySpecialty(int specialtyId)
         {
-            return Ok(DoctorMapper.ObjectToDto(doctorService.GetByDepartment(department)));
+            if (specialtyId <= 0) return BadRequest("Bad specialty.");
+            var doctors = doctorService.GetBySpecialty(specialtyId);
+            var doctorDtoList = DoctorMapper.ObjectToDto(doctors);
+            doctorDtoList.ToList().ForEach(dto => dto.SpecialtyId = specialtyId);
+            return Ok(doctorDtoList);
         }
     }
 }
