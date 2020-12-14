@@ -13,7 +13,7 @@ namespace HospitalWebAppIntegrationTests
         private readonly string _connectionString;
         private static bool _databaseInitialized = false;
         private static readonly object _mutex = new object();
-        public TestStartup() 
+        public TestStartup(IWebHostEnvironment env): base(env) 
         {
             _connectionString = CreateConnectionStringFromEnvironment(true) ?? Configuration["MySqlTest"];
             if (_connectionString == null) throw new ApplicationException("Connection string is null");
