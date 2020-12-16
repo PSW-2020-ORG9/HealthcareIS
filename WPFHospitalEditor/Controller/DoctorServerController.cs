@@ -11,9 +11,9 @@ namespace WPFHospitalEditor.Controller
     {
         private IDoctorServerService doctorServerService = new DoctorServerService();
 
-        public IEnumerable<DoctorDto> GetDepartmentDoctors(int departmentId)
+        public IEnumerable<DoctorDto> GetDoctorsByDepartment(int departmentId)
         {
-            return doctorServerService.GetDepartmentDoctors(departmentId);
+            return doctorServerService.GetDoctorsByDepartment(departmentId);
         }
         public Doctor getDoctorById(int doctorId)
         {

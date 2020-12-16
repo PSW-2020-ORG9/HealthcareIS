@@ -8,7 +8,7 @@ namespace WPFHospitalEditor.Service
 {
     public class DoctorServerService : IDoctorServerService
     {
-        public IEnumerable<DoctorDto> GetDepartmentDoctors(int departmentId)
+        public IEnumerable<DoctorDto> GetDoctorsByDepartment(int departmentId)
         {
             var client = new RestClient(AllConstants.connectionUrl);
             var request = new RestRequest("Doctor/getDoctorsByDepartment/" + departmentId, Method.GET);

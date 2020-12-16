@@ -6,7 +6,7 @@ namespace WPFHospitalEditor.Service.Interface
 {
     public interface IDoctorServerService
     {
-        IEnumerable<DoctorDto> GetDepartmentDoctors(int departmentId);
+        IEnumerable<DoctorDto> GetDoctorsByDepartment(int departmentId);
         Doctor getDoctorById(int doctorId);
     }
 }

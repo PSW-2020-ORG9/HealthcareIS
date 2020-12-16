@@ -37,6 +37,7 @@ namespace WPFHospitalEditor
             setMapObjectTypeComboBox();
             setEquipmentTypeComboBox();
             setMedicationNameComboBox();
+            setDoctorNameComboBox();
             setNonSelectedComboBoxItem();
             CanvasService.addObjectToCanvas(mapObjectController.getOutterMapObjects(), canvas);
             canvasHospitalMap = canvas;
@@ -166,7 +167,7 @@ namespace WPFHospitalEditor
 
         private void setDoctorNameComboBox()
         {
-            foreach (DoctorDto docDto in doctorServerController.GetDepartmentDoctors(regularExaminationDepartment))
+            foreach (DoctorDto docDto in doctorServerController.GetDoctorsByDepartment(regularExaminationDepartment))
             {
                 doctorsComboBox.Items.Add(docDto.Name + " " + docDto.Surname);
             }

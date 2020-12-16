@@ -6,7 +6,7 @@ namespace WPFHospitalEditor.Controller.Interface
 {
     public interface IDoctorServerController
     {
-        IEnumerable<DoctorDto> GetDepartmentDoctors(int departmentId);
+        IEnumerable<DoctorDto> GetDoctorsByDepartment(int departmentId);
         Doctor getDoctorById(int doctorId);
     }
 }
