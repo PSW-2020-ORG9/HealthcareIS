@@ -9,6 +9,7 @@ using WPFHospitalEditor.Controller;
 using WPFHospitalEditor.Controller.Interface;
 using HealthcareBase.Dto;
 using System.Linq;
+using HealthcareBase.Model.Users.Employee.Doctors.DTOs;
 
 namespace WPFHospitalEditor
 {
@@ -21,13 +22,14 @@ namespace WPFHospitalEditor
         IMapObjectController mapObjectController = new MapObjectController();
         IEquipmentTypeServerController equipmentTypeServerController = new EquipmentTypeServerController();
         IMedicationServerController medicationServerController = new MedicationServerController();
+        IDoctorServerController doctorServerController = new DoctorServerController();
 
         public static Canvas canvasHospitalMap;  
         public static Role role;
         public static List<MapObject> searchResult = new List<MapObject>();
         public static List<EquipmentDto> equipmentSearchResult = new List<EquipmentDto>();
         public static List<MedicationDto> medicationSearchResult = new List<MedicationDto>();
-
+        private const int regularExaminationDepartment = 1;
 
         public HospitalMap(List<MapObject> allMapObjects, Role role)
         {                     
@@ -40,6 +42,7 @@ namespace WPFHospitalEditor
             canvasHospitalMap = canvas;
             HospitalMap.role = role;
             if (IsPatientLogged()) equipmentAndMedicineSearchStackPanel.Visibility = Visibility.Hidden;
+            if (!IsSecretaryLogged()) appointmentSearchStackPanel.Visibility = Visibility.Hidden;
         }
         
         private void selectBuilding(object sender, MouseButtonEventArgs e)
@@ -99,17 +102,6 @@ namespace WPFHospitalEditor
                    mop.Equals(MapObjectType.WaitingRoom);
         }
 
-        private void setMapObjectTypeComboBox()
-        {
-            foreach (MapObjectType mop in Enum.GetValues(typeof(MapObjectType)))
-            {
-                if(!isNoNameObject(mop))
-                {
-                    searchInputComboBox.Items.Add(mop);
-                } 
-            }
-        }
-
         public void Equipment_Search(object sender, RoutedEventArgs e)
         {
             clearAllResults();
@@ -140,6 +132,22 @@ namespace WPFHospitalEditor
             }
         }
 
+        public void appointmentSearch_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void setMapObjectTypeComboBox()
+        {
+            foreach (MapObjectType mop in Enum.GetValues(typeof(MapObjectType)))
+            {
+                if(!isNoNameObject(mop))
+                {
+                    searchInputComboBox.Items.Add(mop);
+                } 
+            }
+        }
+
         private void setEquipmentTypeComboBox()
         {
             foreach (EquipmentTypeDto eqTD in equipmentTypeServerController.GetAllEquipmentTypes())
@@ -156,9 +164,23 @@ namespace WPFHospitalEditor
             }
         }
 
+        private void setDoctorNameComboBox()
+        {
+            foreach (DoctorDto docDto in doctorServerController.GetDepartmentDoctors(regularExaminationDepartment))
+            {
+                doctorsComboBox.Items.Add(docDto.Name + " " + docDto.Surname);
+            }
+        }
+
         private Boolean IsPatientLogged()
         {
             if (role == Role.Patient) return true;
+            return false;
+        }
+
+        private Boolean IsSecretaryLogged()
+        {
+            if (role == Role.Secretary) return true;
             return false;
         }
 
