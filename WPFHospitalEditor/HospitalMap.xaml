@@ -38,8 +38,8 @@
         <StackPanel Height="51" Orientation="Horizontal">
             <ComboBox x:Name="doctorsComboBox" x:FieldModifier="public" Height="30" Width="200" VerticalContentAlignment="Center" SelectedIndex="0" Margin="20,0,0,0">
             </ComboBox>
-            <TextBox Height="30" Width="200" x:FieldModifier="public" Margin="20,0,0,0" Name="startDateTextBox" ></TextBox>
-            <TextBox Height="30" Width="200" x:FieldModifier="public" Margin="20,0,0,0" Name="endDateTextBox" ></TextBox>
+            <DatePicker Height="30" Width="200" x:FieldModifier="public" Margin="20,0,0,0" Name="startDatePicker" ></DatePicker>
+            <DatePicker Height="30" Width="200" x:FieldModifier="public" Margin="20,0,0,0" Name="endDatePicker" ></DatePicker>
             <ComboBox x:Name="PriorityComboBox" x:FieldModifier="public" Height="30" Width="120" VerticalContentAlignment="Center" Margin="20,0,0,0" SelectedIndex="0">
                 <ComboBoxItem Content="Priority: Doctor"/>
                 <ComboBoxItem Content="Priority: Time"/>

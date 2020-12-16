@@ -7,5 +7,6 @@ namespace HealthcareBase.Model.Schedule.SchedulingPreferences
     {
         public Doctor Doctor { get; set; }
         public TimeInterval TimeInterval { get; set; }
+        public int RoomId { get; set; }
     }
 }

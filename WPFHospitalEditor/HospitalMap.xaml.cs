@@ -10,6 +10,9 @@ using WPFHospitalEditor.Controller.Interface;
 using HealthcareBase.Dto;
 using System.Linq;
 using HealthcareBase.Model.Users.Employee.Doctors.DTOs;
+using HealthcareBase.Model.Schedule.SchedulingPreferences;
+using HealthcareBase.Model.Utilities;
+using HospitalWebApp.Dtos;
 
 namespace WPFHospitalEditor
 {
@@ -23,12 +26,14 @@ namespace WPFHospitalEditor
         IEquipmentTypeServerController equipmentTypeServerController = new EquipmentTypeServerController();
         IMedicationServerController medicationServerController = new MedicationServerController();
         IDoctorServerController doctorServerController = new DoctorServerController();
+        ISchedulingServerController schedulingController = new SchedulingServerController();
 
         public static Canvas canvasHospitalMap;  
         public static Role role;
         public static List<MapObject> searchResult = new List<MapObject>();
         public static List<EquipmentDto> equipmentSearchResult = new List<EquipmentDto>();
         public static List<MedicationDto> medicationSearchResult = new List<MedicationDto>();
+        public static List<RecommendationDto> appointemntSearchResult = new List<RecommendationDto>();
         private const int regularExaminationDepartment = 1;
 
         public HospitalMap(List<MapObject> allMapObjects, Role role)
@@ -135,7 +140,34 @@ namespace WPFHospitalEditor
 
         public void appointmentSearch_Click(object sender, RoutedEventArgs e)
         {
+            clearAllResults();
+            if (InvalidInputForAppointment())
+            {
+                MessageBox.Show("Invalid input.");
+            }
+            else
+            {
+                int index = doctorsComboBox.SelectedIndex - 1;
+                int doctorId = doctorServerController.GetDoctorsByDepartment(regularExaminationDepartment).ElementAt(index).DoctorId;
 
+                RecommendationRequestDto recommendationRequestDto = new RecommendationRequestDto()
+                {
+                    DoctorId = doctorServerController.GetDoctorsByDepartment(regularExaminationDepartment).ElementAt(index).DoctorId,
+                    SpecialtyId = regularExaminationDepartment,
+                    TimeInterval = new TimeInterval(startDatePicker.DisplayDate, endDatePicker.DisplayDate),
+                    Preference = setPriorityFromComboBox()
+                };
+
+                appointemntSearchResult = schedulingController.getAppointments(recommendationRequestDto);
+
+                foreach (var appointment in appointemntSearchResult)
+                {
+                    appointment.RoomId = 15;
+                }
+
+                SearchResultDialog appointmentDialog = new SearchResultDialog(this, SearchType.AppointmentSearch);
+                appointmentDialog.ShowDialog();
+            }
         }
 
         private void setMapObjectTypeComboBox()
@@ -209,6 +241,18 @@ namespace WPFHospitalEditor
             emptyMapObjectComboBox.Content = AllConstants.emptyComboBox;
             emptyMedicationComboBox.Content = AllConstants.emptyComboBox;
             emptyEquipmentComboBox.Content = AllConstants.emptyComboBox;
+        }
+
+        private bool InvalidInputForAppointment()
+        {
+            if (doctorsComboBox.Text.Equals("") || startDatePicker.Text.Equals("") || endDatePicker.Text.Equals("")) return true;
+            return false;
+        }
+
+        private RecommendationPreference setPriorityFromComboBox()
+        {
+            if (PriorityComboBox.SelectedIndex == 0) return RecommendationPreference.Doctor;
+            return RecommendationPreference.Time;
         }
     }
 }
