@@ -35,6 +35,8 @@ namespace WPFHospitalEditor
         private const int COL_FLOOR = 3;
         private const int COL_ID = 4;
         private const int STORAGEROOM_ID = 17;
+        private const int COL_DOCTOR = 5;
+        private const int COL_TIMEINTERVAL = 6;
 
 
         public SearchResultDialog(HospitalMap hospitalMap, SearchType searchType)
@@ -95,8 +97,13 @@ namespace WPFHospitalEditor
             {
                 i = i + 3;
             }
-            switch(i)
+            else if (searchType == SearchType.AppointmentSearch)
             {
+                i = i + 5;
+            }
+            switch (i)
+            {
+                case 6:
                 case 1:
                 case 4:
                     {
@@ -116,6 +123,16 @@ namespace WPFHospitalEditor
                 case 5:
                     {
                         label.Content = oneRowContents[COL_AMOUNT];
+                    }
+                    break;
+                case 7:
+                    {
+                        label.Content = oneRowContents[COL_DOCTOR];
+                    }
+                    break;
+                case 8:
+                    {
+                        label.Content = oneRowContents[COL_TIMEINTERVAL];
                     }
                     break;
                 default:
@@ -310,6 +327,12 @@ namespace WPFHospitalEditor
                         contentRows = MedicationToContentRows();
                     }
                     break;
+                case SearchType.AppointmentSearch:
+                    {
+                        setWindowForAppointmentSearch();
+                        contentRows = AppointmentToContentRows();
+                    }
+                    break;
                 default:
                     break;
             }
@@ -329,6 +352,14 @@ namespace WPFHospitalEditor
             columnsNumber = 2;
             FirstColumnHeader.Content = "Name";
             SecondColumnHeader.Content = "Amount";
+        }
+
+        private void setWindowForAppointmentSearch()
+        {
+            columnsNumber = 3;
+            FirstColumnHeader.Content = "Room";
+            SecondColumnHeader.Content = "Doctor";
+            ThirdColumnHeader.Content = "Time interval";
         }
 
         private string[] EquipmentToContentRows()
@@ -364,6 +395,7 @@ namespace WPFHospitalEditor
                             + AllConstants.contentSeparator + mo.Id;
             return result;
         }
+
         private string[] MapObjectToContentRows()
         {
             string[] contentRows = new string[HospitalMap.searchResult.Count()];
@@ -372,6 +404,23 @@ namespace WPFHospitalEditor
                 MapObject mo = HospitalMap.searchResult.ElementAt(i);
                 contentRows[i] = "0" + AllConstants.contentSeparator
                                   + MapObjectToRow(mo);
+            }
+            return contentRows;
+        }
+
+        private string[] AppointmentToContentRows()
+        {
+            string[] contentRows = new string[HospitalMap.appointemntSearchResult.Count()];
+            for (int i = 0; i < HospitalMap.appointemntSearchResult.Count(); i++)
+            {
+                MapObject mo = mapObjectController.findMapObjectById(HospitalMap.appointemntSearchResult.ElementAt(i).RoomId);
+                string doctor = HospitalMap.appointemntSearchResult.ElementAt(i).Doctor.Person.Name + " " + HospitalMap.appointemntSearchResult.ElementAt(i).Doctor.Person.Surname;
+                string timeInterval = HospitalMap.appointemntSearchResult.ElementAt(i).TimeInterval.Start.ToString() + "-" + HospitalMap.appointemntSearchResult.ElementAt(i).TimeInterval.End.ToString();
+                contentRows[i] = "0"
+                                 + AllConstants.contentSeparator
+                                 + MapObjectToRow(mo)
+                                 + AllConstants.contentSeparator + doctor
+                                 + AllConstants.contentSeparator + timeInterval;
             }
             return contentRows;
         }

@@ -13,6 +13,7 @@ using HealthcareBase.Model.Users.Employee.Doctors.DTOs;
 using HealthcareBase.Model.Schedule.SchedulingPreferences;
 using HealthcareBase.Model.Utilities;
 using HospitalWebApp.Dtos;
+using System.Diagnostics;
 
 namespace WPFHospitalEditor
 {
@@ -146,25 +147,19 @@ namespace WPFHospitalEditor
                 MessageBox.Show("Invalid input.");
             }
             else
-            {
-                int index = doctorsComboBox.SelectedIndex - 1;
-                int doctorId = doctorServerController.GetDoctorsByDepartment(regularExaminationDepartment).ElementAt(index).DoctorId;
-
+            {   
+                int index = doctorsComboBox.SelectedIndex;
+                DateTime startDate = DateTime.ParseExact(startDatePicker.Text + " 08:00", "MM/dd/yyyy HH:mm", null);
+                DateTime endDate = DateTime.ParseExact(endDatePicker.Text + " 16:00", "MM/dd/yyyy HH:mm", null);
                 RecommendationRequestDto recommendationRequestDto = new RecommendationRequestDto()
                 {
                     DoctorId = doctorServerController.GetDoctorsByDepartment(regularExaminationDepartment).ElementAt(index).DoctorId,
                     SpecialtyId = regularExaminationDepartment,
-                    TimeInterval = new TimeInterval(startDatePicker.DisplayDate, endDatePicker.DisplayDate),
-                    Preference = setPriorityFromComboBox()
+                    TimeInterval = new TimeInterval(startDate, endDate),
+                    Preference = GetRecommendationPreference()
                 };
 
                 appointemntSearchResult = schedulingController.getAppointments(recommendationRequestDto);
-
-                foreach (var appointment in appointemntSearchResult)
-                {
-                    appointment.RoomId = 15;
-                }
-
                 SearchResultDialog appointmentDialog = new SearchResultDialog(this, SearchType.AppointmentSearch);
                 appointmentDialog.ShowDialog();
             }
@@ -249,7 +244,7 @@ namespace WPFHospitalEditor
             return false;
         }
 
-        private RecommendationPreference setPriorityFromComboBox()
+        private RecommendationPreference GetRecommendationPreference()
         {
             if (PriorityComboBox.SelectedIndex == 0) return RecommendationPreference.Doctor;
             return RecommendationPreference.Time;
