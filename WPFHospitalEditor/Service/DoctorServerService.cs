@@ -16,7 +16,7 @@ namespace WPFHospitalEditor.Service
             return response.Data;
         }
 
-        public Doctor getDoctorById(int doctorId)
+        public Doctor GetDoctorById(int doctorId)
         {
             var client = new RestClient(AllConstants.connectionUrl);
             var request = new RestRequest("Doctor/getDoctorById/" + doctorId, Method.GET);

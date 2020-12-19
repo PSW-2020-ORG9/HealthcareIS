@@ -6,6 +6,6 @@ namespace WPFHospitalEditor.Service.Interface
 {
     public interface ISchedulingServerService
     {
-        List<RecommendationDto> getAppointments(RecommendationRequestDto recDto);
+        List<RecommendationDto> GetAppointments(RecommendationRequestDto recDto);
     }
 }

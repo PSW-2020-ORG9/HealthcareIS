@@ -149,8 +149,8 @@ namespace WPFHospitalEditor
             else
             {   
                 int index = doctorsComboBox.SelectedIndex;
-                DateTime startDate = DateTime.ParseExact(startDatePicker.Text + " 08:00", "MM/dd/yyyy HH:mm", null);
-                DateTime endDate = DateTime.ParseExact(endDatePicker.Text + " 16:00", "MM/dd/yyyy HH:mm", null);
+                DateTime startDate = DateTime.ParseExact(startDatePicker.Text + AllConstants.DayStart, "MM/dd/yyyy HH:mm", null);
+                DateTime endDate = DateTime.ParseExact(endDatePicker.Text + AllConstants.DayEnd, "MM/dd/yyyy HH:mm", null);
                 RecommendationRequestDto recommendationRequestDto = new RecommendationRequestDto()
                 {
                     DoctorId = doctorServerController.GetDoctorsByDepartment(regularExaminationDepartment).ElementAt(index).DoctorId,
@@ -158,10 +158,17 @@ namespace WPFHospitalEditor
                     TimeInterval = new TimeInterval(startDate, endDate),
                     Preference = GetRecommendationPreference()
                 };
-
-                appointemntSearchResult = schedulingController.getAppointments(recommendationRequestDto);
-                SearchResultDialog appointmentDialog = new SearchResultDialog(this, SearchType.AppointmentSearch);
-                appointmentDialog.ShowDialog();
+                if (schedulingController.GetAppointments(recommendationRequestDto) != null)
+                {
+                    appointemntSearchResult = schedulingController.GetAppointments(recommendationRequestDto);
+                    SearchResultDialog appointmentDialog = new SearchResultDialog(this, SearchType.AppointmentSearch);
+                    appointmentDialog.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Nema slobodnih termina za traženi period!");
+                }
+               
             }
         }
 

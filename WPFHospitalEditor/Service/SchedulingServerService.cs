@@ -10,7 +10,7 @@ namespace WPFHospitalEditor.Service
 {
     public class SchedulingServerService : ISchedulingServerService
     {
-        public List<RecommendationDto> getAppointments(RecommendationRequestDto recDto)
+        public List<RecommendationDto> GetAppointments(RecommendationRequestDto recDto)
         {
             var client = new RestClient(AllConstants.connectionUrl);
             var request = new RestRequest("Examination/recommend", Method.POST);

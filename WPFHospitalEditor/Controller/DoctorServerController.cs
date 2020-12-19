@@ -15,9 +15,9 @@ namespace WPFHospitalEditor.Controller
         {
             return doctorServerService.GetDoctorsByDepartment(departmentId);
         }
-        public Doctor getDoctorById(int doctorId)
+        public Doctor GetDoctorById(int doctorId)
         {
-            return doctorServerService.getDoctorById(doctorId);
+            return doctorServerService.GetDoctorById(doctorId);
         }
     }
 }
