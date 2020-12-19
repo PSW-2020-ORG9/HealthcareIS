@@ -36,7 +36,7 @@ namespace HospitalWebApp.Controllers
         {
             IEnumerable<DoctorDto> docDtos = doctorService.GetDoctorsByDepartment(departmentId);
             if (docDtos != null) return Ok(docDtos);
-            return BadRequest("EquipmentType not found.");
+            return BadRequest("Doctors not found.");
         }
 
         [HttpGet]
