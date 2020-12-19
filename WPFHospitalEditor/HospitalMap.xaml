@@ -35,7 +35,7 @@
             </ComboBox>
             <Button x:Name="equipmentSearchButton" Content="Search" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Height="30" Width="60" FontWeight="Bold" FontSize="16" Click="Equipment_Search"></Button>
         </StackPanel>
-        <StackPanel Height="51" Orientation="Horizontal">
+        <StackPanel x:Name="appointmentSearchStackPanel"  Height="51" Orientation="Horizontal">
             <ComboBox x:Name="doctorsComboBox" x:FieldModifier="public" Height="30" Width="200" VerticalContentAlignment="Center" SelectedIndex="0" Margin="20,0,0,0">
             </ComboBox>
             <DatePicker Height="30" Width="200" x:FieldModifier="public" Margin="20,0,0,0" Name="startDatePicker" ></DatePicker>
@@ -44,9 +44,7 @@
                 <ComboBoxItem Content="Priority: Doctor"/>
                 <ComboBoxItem Content="Priority: Time"/>
             </ComboBox>
-            <StackPanel x:Name="appointmentSearchStackPanel">
-                <Button x:Name="appointmentSearch" Content="Search" Height="30" Width="60" FontWeight="Bold" FontSize="16" Margin="20,10,0,0" Click="appointmentSearch_Click" />
-            </StackPanel>
+            <Button x:Name="appointmentSearch" Content="Search" Height="30" Width="60" FontWeight="Bold" FontSize="16" Margin="20,10,0,0" Click="appointmentSearch_Click" />
         </StackPanel >
         <Canvas MinHeight="550" Margin="0,0,0,20" Background="LightGreen" MouseLeftButtonDown="selectBuilding" Name="canvas" ToolTip="My Tool Tip" ToolTipService.InitialShowDelay="1" ToolTipService.IsEnabled="False"/>
     </StackPanel>

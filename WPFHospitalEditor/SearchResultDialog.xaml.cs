@@ -7,6 +7,8 @@ using WPFHospitalEditor.MapObjectModel;
 using WPFHospitalEditor.Controller;
 using WPFHospitalEditor.Service;
 using System.Linq;
+using HealthcareBase.Model.Schedule.SchedulingPreferences;
+using HealthcareBase.Dto;
 
 namespace WPFHospitalEditor
 {
@@ -367,8 +369,9 @@ namespace WPFHospitalEditor
             string[] contentRows = new string[HospitalMap.equipmentSearchResult.Count()];
             for (int i = 0; i < HospitalMap.equipmentSearchResult.Count(); i++)
             {
-                MapObject mo = mapObjectController.findMapObjectById(HospitalMap.equipmentSearchResult.ElementAt(i).RoomId);
-                contentRows[i] = HospitalMap.equipmentSearchResult.ElementAt(i).Quantity 
+                EquipmentDto equipmentDto = HospitalMap.equipmentSearchResult.ElementAt(i);
+                MapObject mo = mapObjectController.findMapObjectById(equipmentDto.RoomId);
+                contentRows[i] = equipmentDto.Quantity 
                                  + AllConstants.contentSeparator +
                                  MapObjectToRow(mo);
             }
@@ -380,7 +383,8 @@ namespace WPFHospitalEditor
             MapObject mo = mapObjectController.findMapObjectById(STORAGEROOM_ID);
             for (int i = 0; i < HospitalMap.medicationSearchResult.Count(); i++)
             {
-                contentRows[i] = HospitalMap.medicationSearchResult.ElementAt(i).Quantity
+                MedicationDto medicationDto = HospitalMap.medicationSearchResult.ElementAt(i);
+                contentRows[i] = medicationDto.Quantity
                                  + AllConstants.contentSeparator +
                                  MapObjectToRow(mo);
             }
@@ -410,12 +414,13 @@ namespace WPFHospitalEditor
 
         private string[] AppointmentToContentRows()
         {
-            string[] contentRows = new string[HospitalMap.appointemntSearchResult.Count()];
-            for (int i = 0; i < HospitalMap.appointemntSearchResult.Count(); i++)
+            string[] contentRows = new string[HospitalMap.appointmentSearchResult.Count()];
+            for (int i = 0; i < HospitalMap.appointmentSearchResult.Count(); i++)
             {
-                MapObject mo = mapObjectController.findMapObjectById(HospitalMap.appointemntSearchResult.ElementAt(i).RoomId);
-                string doctor = HospitalMap.appointemntSearchResult.ElementAt(i).Doctor.Person.Name + " " + HospitalMap.appointemntSearchResult.ElementAt(i).Doctor.Person.Surname;
-                string timeInterval = HospitalMap.appointemntSearchResult.ElementAt(i).TimeInterval.Start.ToString() + "-" + HospitalMap.appointemntSearchResult.ElementAt(i).TimeInterval.End.ToString();
+                RecommendationDto recommendationDto = HospitalMap.appointmentSearchResult.ElementAt(i);
+                MapObject mo = mapObjectController.findMapObjectById(recommendationDto.RoomId);
+                string doctor = recommendationDto.Doctor.Person.Name + " " + recommendationDto.Doctor.Person.Surname;
+                string timeInterval = recommendationDto.TimeInterval.Start.ToString() + "-" + recommendationDto.TimeInterval.End.ToString();
                 contentRows[i] = "0"
                                  + AllConstants.contentSeparator
                                  + MapObjectToRow(mo)

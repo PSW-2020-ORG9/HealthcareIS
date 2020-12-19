@@ -65,9 +65,7 @@ namespace HospitalWebApp.Controllers
         [Route("recommend")]
         public IActionResult RecommendExamination(RecommendationRequestDto dto)
         {
-            Debug.Write(Ok(_examinationService.Recommend(dto)[0].RoomId)+ "sobica");
             return Ok(_examinationService.Recommend(dto));
         }
-       // => Ok(_examinationService.Recommend(dto));
     }
 }

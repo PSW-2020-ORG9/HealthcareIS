@@ -34,7 +34,7 @@ namespace WPFHospitalEditor
         public static List<MapObject> searchResult = new List<MapObject>();
         public static List<EquipmentDto> equipmentSearchResult = new List<EquipmentDto>();
         public static List<MedicationDto> medicationSearchResult = new List<MedicationDto>();
-        public static List<RecommendationDto> appointemntSearchResult = new List<RecommendationDto>();
+        public static List<RecommendationDto> appointmentSearchResult = new List<RecommendationDto>();
         private const int regularExaminationDepartment = 1;
 
         public HospitalMap(List<MapObject> allMapObjects, Role role)
@@ -48,8 +48,8 @@ namespace WPFHospitalEditor
             CanvasService.addObjectToCanvas(mapObjectController.getOutterMapObjects(), canvas);
             canvasHospitalMap = canvas;
             HospitalMap.role = role;
-            if (IsPatientLogged()) equipmentAndMedicineSearchStackPanel.Visibility = Visibility.Hidden;
-            if (!IsSecretaryLogged()) appointmentSearchStackPanel.Visibility = Visibility.Hidden;
+            if (IsRoleLogged(Role.Patient)) equipmentAndMedicineSearchStackPanel.Visibility = Visibility.Hidden;
+            if (!IsRoleLogged(Role.Secretary)) appointmentSearchStackPanel.Visibility = Visibility.Hidden;
         }
         
         private void selectBuilding(object sender, MouseButtonEventArgs e)
@@ -147,26 +147,27 @@ namespace WPFHospitalEditor
                 MessageBox.Show("Invalid input.");
             }
             else
-            {   
-                int index = doctorsComboBox.SelectedIndex;
+            {
+                int DoctorId = int.Parse(doctorsComboBox.SelectedItem.ToString().Split(" ")[0]);
                 DateTime startDate = DateTime.ParseExact(startDatePicker.Text + AllConstants.DayStart, "MM/dd/yyyy HH:mm", null);
                 DateTime endDate = DateTime.ParseExact(endDatePicker.Text + AllConstants.DayEnd, "MM/dd/yyyy HH:mm", null);
                 RecommendationRequestDto recommendationRequestDto = new RecommendationRequestDto()
                 {
-                    DoctorId = doctorServerController.GetDoctorsByDepartment(regularExaminationDepartment).ElementAt(index).DoctorId,
+                    DoctorId = DoctorId,
                     SpecialtyId = regularExaminationDepartment,
                     TimeInterval = new TimeInterval(startDate, endDate),
                     Preference = GetRecommendationPreference()
                 };
-                if (schedulingController.GetAppointments(recommendationRequestDto) != null)
+
+                appointmentSearchResult = schedulingController.GetAppointments(recommendationRequestDto);
+                if (appointmentSearchResult != null)
                 {
-                    appointemntSearchResult = schedulingController.GetAppointments(recommendationRequestDto);
                     SearchResultDialog appointmentDialog = new SearchResultDialog(this, SearchType.AppointmentSearch);
                     appointmentDialog.ShowDialog();
                 }
                 else
                 {
-                    MessageBox.Show("Nema slobodnih termina za traženi period!");
+                    MessageBox.Show("There are no available appointments for chosen period!");
                 }
                
             }
@@ -203,19 +204,13 @@ namespace WPFHospitalEditor
         {
             foreach (DoctorDto docDto in doctorServerController.GetDoctorsByDepartment(regularExaminationDepartment))
             {
-                doctorsComboBox.Items.Add(docDto.Name + " " + docDto.Surname);
+                doctorsComboBox.Items.Add(docDto.DoctorId + " " + docDto.Name + " " + docDto.Surname);
             }
         }
 
-        private Boolean IsPatientLogged()
+        private Boolean IsRoleLogged(Role r)
         {
-            if (role == Role.Patient) return true;
-            return false;
-        }
-
-        private Boolean IsSecretaryLogged()
-        {
-            if (role == Role.Secretary) return true;
+            if (role == r) return true;
             return false;
         }
 

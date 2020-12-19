@@ -38,7 +38,7 @@ namespace HospitalWebApp.Controllers
             if (docDtos != null) return Ok(docDtos);
             return BadRequest("Doctors not found.");
         }
-
+     
         [HttpGet]
         [Route("getDoctorById/{doctorId}")]
         public IActionResult GetDoctorById(int doctorId)
