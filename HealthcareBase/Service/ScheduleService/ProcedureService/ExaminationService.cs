@@ -205,7 +205,8 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
                 recommendations.Add(new RecommendationDto()
                 {
                     Doctor = doctor,
-                    TimeInterval = timeSlot
+                    TimeInterval = timeSlot,
+                    RoomId = shift.AssignedExamRoomId
                 });
             }
 
