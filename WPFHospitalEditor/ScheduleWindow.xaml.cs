@@ -1,4 +1,5 @@
-﻿using HealthcareBase.Model.Schedule.SchedulingPreferences;
+﻿using HealthcareBase.Model.Schedule.Procedures;
+using HealthcareBase.Model.Schedule.SchedulingPreferences;
 using HealthcareBase.Model.Users.Patient;
 using System;
 using System.Collections.Generic;
@@ -43,9 +44,10 @@ namespace WPFHospitalEditor
             else { 
                 String patient = patients.SelectedItem.ToString();
                 int patientID = int.Parse(patient.Split(" ")[0]);
-                if (examinationServerController.ScheduleExamination(recommendationDto.TimeInterval.Start, recommendationDto.Doctor.Id, patientID).Equals("OK"))
+                Examination examination = examinationServerController.ScheduleExamination(recommendationDto.TimeInterval.Start, recommendationDto.Doctor.Id, patientID);
+                if (examination != null)
                 {
-                    MessageBox.Show("Examination has been scheduled succesfuly!");
+                    MessageBox.Show("Examination has been scheduled successfuly!");
                 }
                 else
                 {

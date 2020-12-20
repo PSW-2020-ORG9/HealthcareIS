@@ -160,7 +160,7 @@ namespace WPFHospitalEditor
                 };
 
                 appointmentSearchResult = schedulingController.GetAppointments(recommendationRequestDto);
-                if (appointmentSearchResult.Count != 0)
+                if (appointmentSearchResult != null)
                 {
                     SearchResultDialog appointmentDialog = new SearchResultDialog(this, SearchType.AppointmentSearch);
                     appointmentDialog.ShowDialog();

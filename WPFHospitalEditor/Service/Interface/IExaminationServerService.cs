@@ -1,9 +1,10 @@
-﻿using System;
+﻿using HealthcareBase.Model.Schedule.Procedures;
+using System;
 
 namespace WPFHospitalEditor.Service.Interface
 {
     public interface IExaminationServerService
     {
-        public string ScheduleExamination(DateTime startTime, int DoctorId, int patientId);
+        public Examination ScheduleExamination(DateTime startTime, int DoctorId, int patientId);
     }
 }
