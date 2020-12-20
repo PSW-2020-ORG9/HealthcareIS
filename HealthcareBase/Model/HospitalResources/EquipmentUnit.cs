@@ -6,7 +6,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using HealthcareBase.Model.Schedule.Hospitalizations;
 using HealthcareBase.Repository.Generics;
 
 namespace HealthcareBase.Model.HospitalResources

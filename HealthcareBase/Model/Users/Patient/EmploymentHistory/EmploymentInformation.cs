@@ -48,9 +48,8 @@ namespace HealthcareBase.Model.Users.Patient.EmploymentHistory
         {
             if (oldEmployment == null)
                 return;
-            if (employmentHistory != null)
-                if (employmentHistory.Contains(oldEmployment))
-                    employmentHistory.Remove(oldEmployment);
+            if (employmentHistory != null && employmentHistory.Contains(oldEmployment))
+                employmentHistory.Remove(oldEmployment);
         }
 
         public void RemoveAllEmployments()

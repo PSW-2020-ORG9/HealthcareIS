@@ -1,5 +1,6 @@
 <template>
     <fieldset>
+        <legend></legend>
         <h2 class="fs-title">Social Profiles</h2>
         <h3 class="fs-subtitle">Your presence on the social network</h3>
         <input type="text" name="twitter" placeholder="Twitter" />

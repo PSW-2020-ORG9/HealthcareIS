@@ -3,6 +3,7 @@
 // Created: 18 April 2020 18:19:45
 // Purpose: Definition of Class ConsumableStorageRecord
 
+using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using HealthcareBase.Model.HospitalResources;
 
@@ -22,7 +23,7 @@ namespace HealthcareBase.Model.StorageRecords
 
         public override int GetHashCode()
         {
-            return 1877310944 + id.GetHashCode();
+            throw new NotImplementedException();
         }
     }
 }

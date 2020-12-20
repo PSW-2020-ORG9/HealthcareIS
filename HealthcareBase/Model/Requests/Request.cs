@@ -22,52 +22,24 @@ namespace HealthcareBase.Model.Requests
         protected RequestStatus status;
 
         [Column(TypeName = "nvarchar(24)")]
-        public RequestStatus Status
-        {
-            get => status;
-            set => status = value;
-        }
+        public RequestStatus Status { get; set; }
 
-        public DateTime CreationDate
-        {
-            get => creationDate;
-            set => creationDate = value;
-        }
+        public DateTime CreationDate { get; set; }
 
-        public DateTime ReviewDate
-        {
-            get => reviewDate;
-            set => reviewDate = value;
-        }
+        public DateTime ReviewDate { get; set; }
 
-        public string ReviewerComment
-        {
-            get => reviewerComment;
-            set => reviewerComment = value;
-        }
+        public string ReviewerComment { get; set; }
 
         [ForeignKey("Sender")]
         public int SenderId { get; set; }
-        public AdministrationAccount Sender
-        {
-            get => sender;
-            set => sender = value;
-        }
+        public AdministrationAccount Sender { get; set; }
 
         [ForeignKey("Reviewer")]
         public int ReviewerId { get; set; }
-        public AdministrationAccount Reviewer
-        {
-            get => reviewer;
-            set => reviewer = value;
-        }
+        public AdministrationAccount Reviewer { get; set; }
 
         [Key]
-        public int Id
-        {
-            get => id;
-            set => id = value;
-        }
+        public int Id { get; set; }
 
         public int GetKey()
         {
@@ -87,7 +59,7 @@ namespace HealthcareBase.Model.Requests
 
         public override int GetHashCode()
         {
-            return 1877310944 + id.GetHashCode();
+            throw new NotImplementedException();
         }
     }
 }

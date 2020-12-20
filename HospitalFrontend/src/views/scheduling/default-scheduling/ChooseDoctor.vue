@@ -1,5 +1,6 @@
 <template>
-   <fieldset>
+    <fieldset>
+        <legend></legend>
         <h2 class="fs-title">Doctor selection</h2>
         <h3 class="fs-subtitle">Choose your favourite doctor!</h3>
         <select v-on:change="chooseSpecialty" name="specialties" v-if="specialtiesFetched">

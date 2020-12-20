@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HealthcareBase.Model.HospitalResources;
-using HealthcareBase.Model.Users.Employee;
 using HealthcareBase.Model.Users.Employee.Doctors;
 using HealthcareBase.Model.Utilities;
 using HealthcareBase.Service.HospitalResourcesService.RoomService;

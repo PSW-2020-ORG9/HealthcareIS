@@ -1,5 +1,6 @@
 <template>
-   <fieldset>
+    <fieldset>
+        <legend></legend>
         <h2 class="fs-title">Appointment selection</h2>
         <h3 class="fs-subtitle">Select an appointment which suits you best</h3>
 

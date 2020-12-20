@@ -1,4 +1,4 @@
-﻿using System.Linq;
+﻿using System;
 using HealthcareBase.Model.CustomExceptions;
 using HealthcareBase.Model.HospitalResources;
 using HealthcareBase.Model.Schedule.Procedures;
@@ -32,6 +32,7 @@ namespace HealthcareBase.Service.ScheduleService.Validators
 
         public void ValidateProcedure(Procedure procedure)
         {
+            throw new NotImplementedException();
         }
 
         private void ValidateRequiredFields(Procedure procedure)
@@ -64,6 +65,7 @@ namespace HealthcareBase.Service.ScheduleService.Validators
 
         private void ValidateDoctorSuitability(ProcedureType procedureType, Doctor doctor)
         {
+            throw new NotImplementedException();
         }
 
         private void ValidateRoomTypeSuitability(ProcedureType procedureType, Room room)
@@ -76,6 +78,7 @@ namespace HealthcareBase.Service.ScheduleService.Validators
 
         private void ValidateEquipmentSuitability(ProcedureType procedureType, Room room)
         {
+            throw new NotImplementedException();
         }
     }
 }
