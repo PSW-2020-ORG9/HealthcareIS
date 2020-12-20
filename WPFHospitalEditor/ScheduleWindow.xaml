@@ -22,9 +22,12 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0">
                     <ComboBox Name="patients" Width="200"/>
                 </StackPanel>
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                <Label x:Name="appointmentInfo" Content="dick" HorizontalAlignment="Center" VerticalAlignment="Bottom"></Label>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
                     <Button x:Name="closeBtn" Content="Close" Click="Close_Click" HorizontalAlignment="Left" Margin="5"/>
                     <Button x:Name="scheduleBtn" Content="Schedule" Click="scheduleBtn_Click" HorizontalAlignment="Right" Margin="5"/>
+                </StackPanel>
                 </StackPanel>
             </Grid>
         </Border>

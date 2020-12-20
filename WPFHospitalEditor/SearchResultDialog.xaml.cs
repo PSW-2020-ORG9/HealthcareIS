@@ -35,6 +35,7 @@ namespace WPFHospitalEditor
         {
             InitializeComponent();
             this.searchType = searchType;
+
             this.displayBtnRow = new Dictionary<int, MapObject>();
             this.scheduleBtnRow = new Dictionary<int, RecommendationDto>();
             this.Height = AllConstants.SearchDialogHeight;
@@ -162,6 +163,7 @@ namespace WPFHospitalEditor
                     RecommendationDto chosenRecommendation = scheduleBtnRow[Grid.GetRow(scheduleBtn)];
                     ScheduleWindow scheduleWindow = new ScheduleWindow(chosenRecommendation);
                     scheduleWindow.ShowDialog();
+                    this.Close();
                 }
             };
 
