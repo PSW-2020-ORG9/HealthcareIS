@@ -1,5 +1,6 @@
 <template>
-   <fieldset v-if="countriesFetched">
+    <fieldset v-if="countriesFetched">
+        <legend></legend>
         <h2 class="fs-title">Personal Information</h2>
         <h3 class="fs-subtitle">We will never sell it</h3>
         <div class="row">

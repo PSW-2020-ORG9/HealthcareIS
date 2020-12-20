@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFPatient", "WPFPatient\WP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFHospitalEditorUnitTests", "WPFHospitalEditorUnitTests\WPFHospitalEditorUnitTests.csproj", "{658EC0BF-D3BC-47F3-B8F3-1D5DB3C27455}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFHospitalEditorE2ETests", "WPFHospitalEditorE2ETests\WPFHospitalEditorE2ETests.csproj", "{37713638-861F-4748-8DEE-6E14FA060317}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFHospitalEditorE2ETests", "WPFHospitalEditorE2ETests\WPFHospitalEditorE2ETests.csproj", "{37713638-861F-4748-8DEE-6E14FA060317}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

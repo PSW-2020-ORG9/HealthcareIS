@@ -1,14 +1,15 @@
 <template>
     <fieldset>
-    <h2 class="fs-title">Account Details</h2>
-    <h3 class="fs-subtitle">Enter your login credentials</h3>
-    <input type="text" name="email" placeholder="Email" v-model="accountDetails.Email"/>
-    <input type="text" name="username" placeholder="Username" v-model="accountDetails.Username" />
-    <input type="password" name="pass" placeholder="Password" v-model="accountDetails.Password"/>
-    <input type="password" name="cpass" placeholder="Confirm Password" v-model="PasswordConfirmation"/>
-    <input type="button" name="previous" class="previous action-button" value="Previous" @click="goToPreviousPage()" />
-    <input type="button" name="next" class="next action-button" value="Next" @click="goToNextPage()"/>
-  </fieldset>
+        <legend></legend>
+        <h2 class="fs-title">Account Details</h2>
+        <h3 class="fs-subtitle">Enter your login credentials</h3>
+        <input type="text" name="email" placeholder="Email" v-model="accountDetails.Email"/>
+        <input type="text" name="username" placeholder="Username" v-model="accountDetails.Username" />
+        <input type="password" name="pass" placeholder="Password" v-model="accountDetails.Password"/>
+        <input type="password" name="cpass" placeholder="Confirm Password" v-model="PasswordConfirmation"/>
+        <input type="button" name="previous" class="previous action-button" value="Previous" @click="goToPreviousPage()" />
+        <input type="button" name="next" class="next action-button" value="Next" @click="goToNextPage()"/>
+    </fieldset>
 </template>
 
 <script>

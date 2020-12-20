@@ -3,7 +3,6 @@
 // Created: 02 June 2020 10:39:21
 // Purpose: Definition of Class DoctorAvailabilityDTO
 
-using HealthcareBase.Model.Users.Employee;
 using HealthcareBase.Model.Users.Employee.Doctors;
 using HealthcareBase.Model.Utilities;
 

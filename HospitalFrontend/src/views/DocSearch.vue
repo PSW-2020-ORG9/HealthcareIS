@@ -61,6 +61,7 @@
         <div class="row">
             <div class="col">
                 <table class="table">
+                    <caption></caption>
                     <tbody>
                     <tr v-for="(prescription, index) in prescriptions" :key="index">
                         <td class="row mb-2" style="background-color: rgb(238, 238, 238); padding-left: 25px; margin-right: 10px;">
@@ -103,6 +104,7 @@
 
             <div class="col">
                 <table class="table">
+                    <caption></caption>
                     <tbody>
                     <tr v-for="(exam, index) in examinations" :key="index">
                         <td class="row mb-2" style="background-color: rgb(238, 238, 238); padding-left: 25px; margin-right: 10px;">
@@ -125,6 +127,7 @@
                                 <div class="container">
                                     <div class="row mb-2">
                                         <table class="table">
+                                            <caption></caption>
                                             <tr v-for="(diagnosis, index) in exam.examinationReport.diagnoses" :key="index">
                                                 <td class="mb-2">
                                                     <div class="container text-left">
@@ -143,6 +146,7 @@
                                 <div class="container">
                                     <div class="row">
                                         <table class="table">
+                                            <caption></caption>
                                             <tr v-for="(prescription, index) in exam.examinationReport.prescriptions" :key="index">
                                                 <td class="mb-2">
                                                     <div class="container text-left">

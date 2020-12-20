@@ -17,7 +17,6 @@ namespace HealthcareBase.Service.UsersService.RegistrationService
 
         public void RegisterPatient(PatientAccount patientAccount,string emailTemplatePath)
         {
-            var createdPatientAccount = patientAccountService.CreateAccount(patientAccount);
             registrationNotifier
                 .SendActivationEmail(patientAccount.UserGuid,
                     patientAccount.Email,

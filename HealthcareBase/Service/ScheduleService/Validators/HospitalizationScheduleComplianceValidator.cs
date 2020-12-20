@@ -31,7 +31,7 @@ namespace HealthcareBase.Service.ScheduleService.Validators
         {
             var conflictsWithRenovations =
                 context.RenovationService.GetByRoomAndTime(hospitalization.Room, hospitalization.TimeInterval);
-            if (conflictsWithRenovations.Count() > 0)
+            if (conflictsWithRenovations.Any())
                 throw new ScheduleViolationException();
         }
 
@@ -46,14 +46,14 @@ namespace HealthcareBase.Service.ScheduleService.Validators
 
         private void ThrowIfSchedulingConflicts(IEnumerable<Hospitalization> conflictList)
         {
-            if (conflictList.Count() > 0)
+            if (conflictList.Any())
                 throw new ScheduleViolationException();
         }
 
         private void ThrowIfReschedulingConflicts(Hospitalization hospitalization,
             IEnumerable<Hospitalization> conflictList)
         {
-            if (conflictList.Count() == 0)
+            if (!conflictList.Any())
                 return;
             if (conflictList.Count() == 1 && conflictList.ToList()[0].Equals(hospitalization))
                 return;

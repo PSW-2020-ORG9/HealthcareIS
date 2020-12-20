@@ -3,7 +3,6 @@
 // Created: 21 April 2020 00:09:43
 // Purpose: Definition of Class Shift
 
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using HealthcareBase.Model.HospitalResources;

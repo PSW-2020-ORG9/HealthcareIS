@@ -1,10 +1,8 @@
 ﻿using HealthcareBase.Model.Users.Survey.SurveyEntry;
 using HealthcareBase.Repository.Generics;
 using HealthcareBase.Repository.UsersRepository.SurveyRepository;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace HealthcareBase.Service.UsersService.UserFeedbackService.SurveyService
 {

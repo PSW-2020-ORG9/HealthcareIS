@@ -127,24 +127,24 @@ namespace HealthcareBase.Service.ScheduleService.ScheduleFittingService
             var duration = resources.Details.Duration;
 
             foreach (var room in rooms)
-            foreach (var doctor in doctors)
-            {
-                var matched =
-                    patient.Availability.Overlap(room.Availability).Overlap(doctor.Availability);
-                foreach (var slot in MakeSlots(matched.Intervals, duration))
+                foreach (var doctor in doctors)
                 {
-                    var toAdd = CreateProcedure(resources.Details);
-                    toAdd.TimeInterval = slot;
-                    toAdd.Patient = patient.Patient;
-                    toAdd.Doctor = doctor.Doctor;
-                    toAdd.Room = room.Room;
+                    var matched =
+                        patient.Availability.Overlap(room.Availability).Overlap(doctor.Availability);
+                    foreach (var slot in MakeSlots(matched.Intervals, duration))
+                    {
+                        var toAdd = CreateProcedure();
+                        toAdd.TimeInterval = slot;
+                        toAdd.Patient = patient.Patient;
+                        toAdd.Doctor = doctor.Doctor;
+                        toAdd.Room = room.Room;
+                    }
                 }
-            }
 
             return hospitalizations;
         }
 
-        private Procedure CreateProcedure(ProcedureDetails details)
+        private Procedure CreateProcedure()
         {
             return new Surgery();
         }

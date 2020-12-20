@@ -4,6 +4,7 @@
 // Purpose: Definition of Class Employee
 
 #nullable enable
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using HealthcareBase.Model.Users.Generalities;
@@ -30,6 +31,16 @@ namespace HealthcareBase.Model.Users.Employee
             if (!(obj is Employee employee))
                 return false;
             return Id.Equals(employee.Id);
+        }
+
+        public override int GetHashCode()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string? ToString()
+        {
+            throw new NotImplementedException();
         }
     }
 }

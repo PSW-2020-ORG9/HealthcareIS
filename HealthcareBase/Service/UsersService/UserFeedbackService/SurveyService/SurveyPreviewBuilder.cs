@@ -126,17 +126,7 @@ namespace HealthcareBase.Service.UsersService.UserFeedbackService.SurveyService
                 SurveyQuestions = BuildSurveyQuestions(surveySection.SurveyQuestions),
             };
         }
-        /// <summary>
-        /// Constructs a list of survey section DTO objects.
-        /// </summary>
-        /// <param name="surveyQuestions"></param>
-        /// <returns></returns>
-        private List<SurveyQuestionDTO> BuildSurveyQuestions(IEnumerable<SurveyQuestion> surveyQuestions)
-        {
-            return surveyQuestions
-                .Select(surveyQuestion => BuildSurveyQuestionDto(surveyQuestion))
-                .ToList();
-        }
+
         /// <summary>
         /// Constructs a single survey question DTO object.
         /// </summary>
@@ -152,6 +142,16 @@ namespace HealthcareBase.Service.UsersService.UserFeedbackService.SurveyService
                 Question = surveyQuestion.Question
             };
         }
-        
+        /// <summary>
+        /// Constructs a list of survey section DTO objects.
+        /// </summary>
+        /// <param name="surveyQuestions"></param>
+        /// <returns></returns>
+        private List<SurveyQuestionDTO> BuildSurveyQuestions(IEnumerable<SurveyQuestion> surveyQuestions)
+        {
+            return surveyQuestions
+                .Select(surveyQuestion => BuildSurveyQuestionDto(surveyQuestion))
+                .ToList();
+        }
     }
 }

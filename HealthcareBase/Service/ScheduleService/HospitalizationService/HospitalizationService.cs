@@ -37,7 +37,6 @@ namespace HealthcareBase.Service.ScheduleService.HospitalizationService
 
         public IEnumerable<Hospitalization> GetByDate(DateTime date)
         {
-            var realDate = date.Date;
             return hospitalizationRepository.Repository.GetMatching(hospitalization =>
                 hospitalization.TimeInterval.Start.Date <= date
                 && hospitalization.TimeInterval.End.Date >= date);

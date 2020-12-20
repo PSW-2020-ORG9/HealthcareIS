@@ -1,5 +1,6 @@
 <template>
-  <fieldset>
+    <fieldset>
+        <legend></legend>
         <h2 class="fs-title">Appointment selection</h2>
        
         <div v-if="appointmentsFetched">

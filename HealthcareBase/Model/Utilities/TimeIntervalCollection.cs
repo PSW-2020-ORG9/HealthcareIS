@@ -48,33 +48,30 @@ namespace HealthcareBase.Model.Utilities
             var newIntervals = new List<TimeInterval>();
 
             foreach (var interval1 in intervals)
-            foreach (var interval2 in intervals)
-                if (!interval1.Overlaps(interval2))
-                {
-                }
-                else if (interval1.Contains(interval2))
-                {
-                    newIntervals.Add(interval2);
-                }
-                else if (interval2.Contains(interval1))
-                {
-                    newIntervals.Add(interval1);
-                }
-                else if (interval1.Start < interval2.Start)
-                {
-                    if (!interval1.End.Equals(interval2.Start))
-                        newIntervals.Add(new TimeInterval
-                        {
-                            Start = interval2.Start,
-                            End = interval1.End
-                        });
-                    if (!interval2.End.Equals(interval1.Start))
-                        newIntervals.Add(new TimeInterval
-                        {
-                            Start = interval1.Start,
-                            End = interval2.End
-                        });
-                }
+                foreach (var interval2 in intervals)
+                    if (interval1.Contains(interval2))
+                    {
+                        newIntervals.Add(interval2);
+                    }
+                    else if (interval2.Contains(interval1))
+                    {
+                        newIntervals.Add(interval1);
+                    }
+                    else if (interval1.Start < interval2.Start)
+                    {
+                        if (!interval1.End.Equals(interval2.Start))
+                            newIntervals.Add(new TimeInterval
+                            {
+                                Start = interval2.Start,
+                                End = interval1.End
+                            });
+                        if (!interval2.End.Equals(interval1.Start))
+                            newIntervals.Add(new TimeInterval
+                            {
+                                Start = interval1.Start,
+                                End = interval2.End
+                            });
+                    }
 
             intervals = newIntervals;
             return this;
