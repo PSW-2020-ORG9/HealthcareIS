@@ -4,11 +4,7 @@
 // Purpose: Definition of Class PrioritiseDoctorStrategy
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using HealthcareBase.Model.Schedule.Procedures;
-using HealthcareBase.Model.Schedule.SchedulingPreferences;
-using HealthcareBase.Service.ScheduleService.ScheduleFittingService;
 
 namespace HealthcareBase.Service.ScheduleService.PatientRecommendationService
 {

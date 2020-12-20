@@ -9,6 +9,7 @@ using HealthcareBase.Dto;
 using HealthcareBase.Model.HospitalResources;
 using HealthcareBase.Repository.Generics;
 using HealthcareBase.Repository.HospitalResourcesRepository;
+using System;
 using System.Linq;
 using HealthcareBase.Service.HospitalResourcesService.EquipmentService.Interface;
 
@@ -59,7 +60,7 @@ namespace HealthcareBase.Service.HospitalResourcesService.EquipmentService
 
         public void DeleteByType(EquipmentType equipmentType)
         {
-           
+            throw new NotImplementedException();
         }
 
         private IEnumerable<EquipmentDto> GetEquipmentByRoomId(int roomId)

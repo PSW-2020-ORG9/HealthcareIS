@@ -4,11 +4,8 @@
 // Purpose: Definition of Class ProcedureType
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using HealthcareBase.Model.HospitalResources;
-using HealthcareBase.Model.Users.Employee;
 using HealthcareBase.Repository.Generics;
 
 namespace HealthcareBase.Model.Schedule.Procedures

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using HealthcareBase.Model.CustomExceptions;
 using HealthcareBase.Model.Filters;
 using HealthcareBase.Model.Schedule.Procedures;
@@ -12,7 +11,6 @@ using HealthcareBase.Repository.Generics;
 using HealthcareBase.Repository.ScheduleRepository.ProceduresRepository.Interface;
 using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository.Interface;
 using HospitalWebApp.Dtos;
-using Microsoft.EntityFrameworkCore.Internal;
 
 namespace HealthcareBase.Service.ScheduleService.ProcedureService
 {
@@ -141,7 +139,7 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
 
         private List<RecommendationDto> RecommendForDoctorInTimeInterval(RecommendationRequestDto dto, int remainingSlots)
         {
-            if (remainingSlots == 0) return new List<RecommendationDto>();;
+            if (remainingSlots == 0) return new List<RecommendationDto>();
             
             var selectedDoctorShifts = 
                 _shiftWrapper.Repository.GetByDoctorIdAndTimeInterval(dto.DoctorId, dto.TimeInterval).ToList();
@@ -151,7 +149,7 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
 
         private List<RecommendationDto> RecommendForDoctorAnyTimeInterval(RecommendationRequestDto dto, int remainingSlots)
         {
-            if (remainingSlots == 0) return new List<RecommendationDto>();;
+            if (remainingSlots == 0) return new List<RecommendationDto>();
             
             var selectedDoctorShifts = _shiftWrapper.Repository.GetByDoctorIdAndTimeInterval(
                 dto.DoctorId,

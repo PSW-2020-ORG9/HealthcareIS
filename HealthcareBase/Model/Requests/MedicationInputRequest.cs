@@ -6,7 +6,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using HealthcareBase.Model.Users.Employee;
 using HealthcareBase.Model.Users.Employee.Doctors;
 
 namespace HealthcareBase.Model.Requests
@@ -55,9 +54,8 @@ namespace HealthcareBase.Model.Requests
         {
             if (oldSpecialty == null)
                 return;
-            if (reviewableBy != null)
-                if (reviewableBy.Contains(oldSpecialty))
-                    reviewableBy.Remove(oldSpecialty);
+            if (reviewableBy != null && reviewableBy.Contains(oldSpecialty))
+                reviewableBy.Remove(oldSpecialty);
         }
 
         public void RemoveAllSpecialties()

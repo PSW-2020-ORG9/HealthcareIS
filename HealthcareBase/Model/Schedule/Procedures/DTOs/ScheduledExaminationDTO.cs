@@ -1,5 +1,4 @@
 using System;
-using HealthcareBase.Model.Utilities;
 
 namespace HealthcareBase.Model.Schedule.Procedures.DTOs
 {

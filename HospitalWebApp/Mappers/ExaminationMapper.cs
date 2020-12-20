@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using HealthcareBase.Model.Schedule.Procedures;
 using HealthcareBase.Model.Schedule.Procedures.DTOs;
 using HealthcareBase.Model.Utilities;

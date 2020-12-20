@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using HealthcareBase.Model.Users.Generalities;
 using HealthcareBase.Model.Users.Patient;
-using HealthcareBase.Model.Users.Patient.MedicalHistory;
 using HealthcareBase.Model.Users.UserAccounts;
 using HealthcareBase.Model.Users.UserAccounts.Registration;
 

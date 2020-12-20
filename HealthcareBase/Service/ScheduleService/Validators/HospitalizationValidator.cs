@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.Collections.Generic;
 using HealthcareBase.Model.CustomExceptions;
 using HealthcareBase.Model.HospitalResources;
 using HealthcareBase.Model.Schedule.Hospitalizations;
@@ -36,7 +36,7 @@ namespace HealthcareBase.Service.ScheduleService.Validators
                 return;
             ValidateRequiredFields(hospitalization);
             ValidateAndUpdateReferences(hospitalization);
-            ValidateRoomSuitability(hospitalization.HospitalizationType, hospitalization.Room);
+            ValidateRoomSuitability(hospitalization.Room);
         }
 
         private void ValidateRequiredFields(Hospitalization hospitalization)
@@ -59,7 +59,6 @@ namespace HealthcareBase.Service.ScheduleService.Validators
                 hospitalization.Patient = patientRepository.Repository.GetByID(hospitalization.Patient.GetKey());
                 hospitalization.HospitalizationType =
                     hospitalizationTypeRepository.Repository.GetByID(hospitalization.HospitalizationType.GetKey());
-                var equipmentInUse = new List<EquipmentUnit>();
             }
             catch (BadRequestException)
             {
@@ -67,7 +66,7 @@ namespace HealthcareBase.Service.ScheduleService.Validators
             }
         }
 
-        private void ValidateRoomSuitability(HospitalizationType hospitalizationType, Room room)
+        private void ValidateRoomSuitability(Room room)
         {
             if (!room.Purpose.Equals(RoomType.RecoveryRoom))
                 throw new ValidationException();
@@ -78,7 +77,7 @@ namespace HealthcareBase.Service.ScheduleService.Validators
         private void ValidateEquipmentSuitability(HospitalizationType hospitalizationType,
             IEnumerable<EquipmentUnit> equipment)
         {
-            
+            throw new NotImplementedException();
         }
 
         private void ValidateEquipmentLocation(Room room, IEnumerable<EquipmentUnit> equipment)
