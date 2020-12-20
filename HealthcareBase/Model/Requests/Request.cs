@@ -87,7 +87,7 @@ namespace HealthcareBase.Model.Requests
 
         public override int GetHashCode()
         {
-            return 1877310944 + id.GetHashCode();
+            throw new NotImplementedException();
         }
     }
 }

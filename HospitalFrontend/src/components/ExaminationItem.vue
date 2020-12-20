@@ -1,6 +1,7 @@
 <template>
     <div class="bg-light row rounded border border-info mt-1">
         <table class="table col-9 h-100">
+            <caption></caption>
             <thead>
                 <tr class="table-info">
                     <th scope="col">

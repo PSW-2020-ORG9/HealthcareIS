@@ -3,6 +3,7 @@
 // Created: 18 April 2020 18:19:45
 // Purpose: Definition of Class StorageRecord
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using HealthcareBase.Repository.Generics;
@@ -131,7 +132,7 @@ namespace HealthcareBase.Model.StorageRecords
 
         public override int GetHashCode()
         {
-            return 1877310944 + id.GetHashCode();
+            throw new NotImplementedException();
         }
     }
 }

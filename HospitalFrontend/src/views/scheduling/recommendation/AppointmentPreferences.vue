@@ -1,5 +1,6 @@
 <template>
     <fieldset>
+        <legend></legend>
         <h2 class="fs-title">Appointment preferences</h2>
         <select name="Preference" v-model="preference">
             <option value="">Choose your preference..</option>

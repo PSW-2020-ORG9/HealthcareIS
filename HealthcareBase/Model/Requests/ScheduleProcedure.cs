@@ -3,6 +3,7 @@
 // Created: 27 May 2020 20:27:43
 // Purpose: Definition of Class ScheduleProcedure
 
+using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using HealthcareBase.Model.Schedule.Procedures;
 using HealthcareBase.Model.Schedule.SchedulingPreferences;
@@ -30,7 +31,7 @@ namespace HealthcareBase.Model.Requests
 
         public override int GetHashCode()
         {
-            return 1877310944 + id.GetHashCode();
+            throw new NotImplementedException();
         }
     }
 }

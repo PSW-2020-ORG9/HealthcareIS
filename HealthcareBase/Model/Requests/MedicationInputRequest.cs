@@ -3,6 +3,7 @@
 // Created: 27 May 2020 20:29:45
 // Purpose: Definition of Class MedicationInputRequest
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using HealthcareBase.Model.Users.Employee;
@@ -73,7 +74,7 @@ namespace HealthcareBase.Model.Requests
 
         public override int GetHashCode()
         {
-            return 1877310944 + id.GetHashCode();
+            throw new NotImplementedException();
         }
     }
 }

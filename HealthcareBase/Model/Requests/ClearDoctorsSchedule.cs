@@ -3,6 +3,7 @@
 // Created: 27 May 2020 20:22:22
 // Purpose: Definition of Class ClearDoctorsSchedule
 
+using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using HealthcareBase.Model.Users.Employee;
 using HealthcareBase.Model.Users.Employee.Doctors;
@@ -26,7 +27,7 @@ namespace HealthcareBase.Model.Requests
 
         public override int GetHashCode()
         {
-            return 1877310944 + id.GetHashCode();
+            throw new NotImplementedException();
         }
     }
 }
