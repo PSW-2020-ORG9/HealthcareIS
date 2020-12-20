@@ -160,7 +160,7 @@ namespace WPFHospitalEditor
                 };
 
                 appointmentSearchResult = schedulingController.GetAppointments(recommendationRequestDto);
-                if (appointmentSearchResult != null)
+                if (appointmentSearchResult.Count != 0)
                 {
                     SearchResultDialog appointmentDialog = new SearchResultDialog(this, SearchType.AppointmentSearch);
                     appointmentDialog.ShowDialog();
@@ -242,10 +242,21 @@ namespace WPFHospitalEditor
 
         private bool InvalidInputForAppointment()
         {
-            if (doctorsComboBox.Text.Equals("") || startDatePicker.Text.Equals("") || endDatePicker.Text.Equals("")) return true;
+            if (doctorsComboBox.Text.Equals("") || startDatePicker.Text.Equals("") || endDatePicker.Text.Equals("") || InvalidDateInput())
+            {
+                return true;
+            }          
             return false;
         }
 
+        private bool InvalidDateInput()
+        {
+            if (endDatePicker.SelectedDate < startDatePicker.SelectedDate)
+            {
+                return true;
+            }
+            return false;
+        }
         private RecommendationPreference GetRecommendationPreference()
         {
             if (PriorityComboBox.SelectedIndex == 0) return RecommendationPreference.Doctor;
