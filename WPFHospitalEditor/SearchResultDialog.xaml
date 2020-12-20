@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFHospitalEditor"
         mc:Ignorable="d"
-        Title="SearchResultDialog" Width="720" Height="400" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen">
+        Title="SearchResultDialog" Width="750" Height="400" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen">
     <Border BorderThickness="10" BorderBrush="#FF8BD9E0" x:Name="Border">
         <Grid Background="#FFC6F5F8">
             <Grid.ColumnDefinitions>
@@ -49,7 +49,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
-                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition Width="60"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40"/>
@@ -57,7 +57,7 @@
                     </Grid.RowDefinitions>
                     <Label Content="Amount" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold"></Label>
                     <Label Content="Room" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold"></Label>
-                    <ScrollViewer Grid.Row="1" Grid.ColumnSpan="4" Background="#FFC6F5F8">
+                    <ScrollViewer Grid.Row="1" Grid.ColumnSpan="3" Background="#FFC6F5F8">
                         <Grid x:Name="DynamicEquipmentAndMedicationGrid">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
@@ -73,6 +73,7 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                         <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="70"/>
                         <ColumnDefinition Width="60"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
@@ -82,12 +83,13 @@
                     <Label Content="Room" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold"></Label>
                     <Label Content="Doctor" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold"></Label>
                     <Label Content="Time interval" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold"></Label>
-                    <ScrollViewer Grid.Row="1" Grid.ColumnSpan="4" Background="#FFC6F5F8">
+                    <ScrollViewer Grid.Row="1" Grid.ColumnSpan="5" Background="#FFC6F5F8">
                         <Grid x:Name="DynamicAppointmentGrid">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                                 <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="70"/>
                                 <ColumnDefinition Width="40"/>
                             </Grid.ColumnDefinitions>
                         </Grid>
