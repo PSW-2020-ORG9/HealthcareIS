@@ -24,8 +24,8 @@ namespace HealthcareBase.Model.Database
     public class MySqlContext : DbContext
     {
         private readonly string _connectionString;
-        private readonly string db = "baza";
-        private readonly string pass = "1234567";
+        private readonly string db = "";
+        private readonly string pass = "";
 
         public MySqlContext()
         {

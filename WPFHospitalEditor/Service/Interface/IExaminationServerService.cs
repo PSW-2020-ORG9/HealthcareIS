@@ -5,6 +5,6 @@ namespace WPFHospitalEditor.Service.Interface
 {
     public interface IExaminationServerService
     {
-        public Examination ScheduleExamination(DateTime startTime, int DoctorId, int patientId);
+         Examination ScheduleExamination(DateTime startTime, int DoctorId, int patientId);
     }
 }

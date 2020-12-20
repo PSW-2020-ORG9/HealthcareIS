@@ -45,7 +45,7 @@ namespace WPFHospitalEditor
                 String patient = patients.SelectedItem.ToString();
                 int patientID = int.Parse(patient.Split(" ")[0]);
                 Examination examination = examinationServerController.ScheduleExamination(recommendationDto.TimeInterval.Start, recommendationDto.Doctor.Id, patientID);
-                if (examination != null)
+                if (examination!= null)
                 {
                     MessageBox.Show("Examination has been scheduled successfuly!");
                 }

@@ -13,7 +13,6 @@ using HealthcareBase.Model.Users.Employee.Doctors.DTOs;
 using HealthcareBase.Model.Schedule.SchedulingPreferences;
 using HealthcareBase.Model.Utilities;
 using HospitalWebApp.Dtos;
-using System.Diagnostics;
 
 namespace WPFHospitalEditor
 {
