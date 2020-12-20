@@ -5,31 +5,95 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFHospitalEditor"
         mc:Ignorable="d"
-        Title="SearchResultDialog" Width="360" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen">
+        Title="SearchResultDialog" Width="720" Height="400" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen">
     <Border BorderThickness="10" BorderBrush="#FF8BD9E0" x:Name="Border">
-        <ScrollViewer x:Name="scrollViewer" Background="#FFC6F5F8">
-            <Grid x:Name="DynamicGrid" Background="#FFC6F5F8">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2"></ColumnDefinition>
-                    <ColumnDefinition Width="115"></ColumnDefinition>
-                    <ColumnDefinition Width="90"></ColumnDefinition>
-                    <ColumnDefinition Width="65"></ColumnDefinition>
-                    <ColumnDefinition Width="60"></ColumnDefinition>
-                    <ColumnDefinition Width="15"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
+        <Grid Background="#FFC6F5F8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="60"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Button x:Name="close" Content="X" Grid.Row="0" Grid.Column="2" Background="red" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Right" Width="25" Height="25" FontWeight="Bold" FontSize="16" Click="Close_Click"></Button>
+            <Grid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
+                <Grid x:Name="MapObjectGrid" Visibility="Hidden">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="60"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Content="Name" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold"></Label>
+                    <Label Content="Building" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold"></Label>
+                    <Label Content="Floor" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold"></Label>
+                    <ScrollViewer x:Name="scrollViewer" Grid.Row="1" Grid.ColumnSpan="4" Background="#FFC6F5F8">
+                        <Grid x:Name="DynamicMapObjectGrid">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="40"/>
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                    </ScrollViewer>
+                </Grid>
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="2"></RowDefinition>
-                    <RowDefinition Height="40"></RowDefinition>
-                </Grid.RowDefinitions>
+                <Grid x:Name="EquipmentAndMedicationGrid" Visibility="Hidden">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="40"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Content="Amount" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold"></Label>
+                    <Label Content="Room" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold"></Label>
+                    <ScrollViewer Grid.Row="1" Grid.ColumnSpan="4" Background="#FFC6F5F8">
+                        <Grid x:Name="DynamicEquipmentAndMedicationGrid">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="40"/>
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                    </ScrollViewer>
+                </Grid>
 
-                <Label Name="FirstColumnHeader" Grid.Row="1" Grid.Column="1" Content="" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold"></Label>
-                <Label Name="SecondColumnHeader" Grid.Row="1" Grid.Column="2" Content="" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold"></Label>
-                <Label Name="ThirdColumnHeader" Grid.Row="1" Grid.Column="3" Content="" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold"></Label>
-                <Label Grid.Row="1" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold"></Label>
-                <Button x:Name="close" Content="X" Grid.Row="1" Grid.Column="4" Background="red" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" Width="25" Height="25" FontWeight="Bold" FontSize="16" Click="Close_Click"></Button>
-                <Separator Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="4" VerticalAlignment="Bottom"></Separator>
+                <Grid x:Name="AppointmentGrid" Visibility="Hidden">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="60"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Content="Room" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold"></Label>
+                    <Label Content="Doctor" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold"></Label>
+                    <Label Content="Time interval" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold"></Label>
+                    <ScrollViewer Grid.Row="1" Grid.ColumnSpan="4" Background="#FFC6F5F8">
+                        <Grid x:Name="DynamicAppointmentGrid">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="40"/>
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                    </ScrollViewer>
+                </Grid>
             </Grid>
-        </ScrollViewer>
+        </Grid>
     </Border>
 </Window>
