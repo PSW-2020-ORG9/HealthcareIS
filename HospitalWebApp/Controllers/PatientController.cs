@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using HealthcareBase.Model.Users.Patient;
 using HealthcareBase.Model.Users.UserAccounts;
@@ -69,6 +70,15 @@ namespace HospitalWebApp.Controllers
             if(pa != null) return Ok(pa);
             return BadRequest("Patient account not found.");
 
+        }
+
+        [HttpGet]
+        [Route("getAllPatients")]
+        public IActionResult GetAllPatients()
+        {
+            IEnumerable<Patient> patients = _patientService.GetAllActive();
+            if (patients != null) return Ok(patients);
+            return BadRequest("Patients not found.");
         }
     }
 }

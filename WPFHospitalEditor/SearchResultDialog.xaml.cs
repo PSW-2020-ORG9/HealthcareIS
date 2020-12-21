@@ -20,8 +20,11 @@ namespace WPFHospitalEditor
         private MapObjectController mapObjectController = new MapObjectController();
 
         private List<Button> advancedSearchButtons = new List<Button>();
+        private List<Button> scheduleButtons = new List<Button>();
         private HospitalMap hospitalMap;
-        private Dictionary<int, MapObject> row;
+        private Dictionary<int, MapObject> displayBtnRow;
+        private Dictionary<int, RecommendationDto> scheduleBtnRow;
+        private SearchType searchType;
         private int firstContentRowNumber = 0;
         public static int selectedObjectId = -1;
         private String[] contentRows;
@@ -31,7 +34,10 @@ namespace WPFHospitalEditor
         public SearchResultDialog(HospitalMap hospitalMap, SearchType searchType)
         {
             InitializeComponent();
-            this.row = new Dictionary<int, MapObject>();
+            this.searchType = searchType;
+
+            this.displayBtnRow = new Dictionary<int, MapObject>();
+            this.scheduleBtnRow = new Dictionary<int, RecommendationDto>();
             this.Height = AllConstants.SearchDialogHeight;
             this.hospitalMap = hospitalMap;
             ShowDynamicGrid(searchType);
@@ -78,6 +84,11 @@ namespace WPFHospitalEditor
         {
             addLabels(oneRowContents);
             addAdvancedSearchButton();
+            if (searchType == SearchType.AppointmentSearch)
+            {
+                addScheduleButton();
+            }
+                
             addSeparator();
             firstContentRowNumber++;
         }
@@ -99,7 +110,8 @@ namespace WPFHospitalEditor
         private void addAdvancedSearchButton()          
         {
             Button advancedSearchBtn = new Button();
-            adjustAdvancedSearchButtonProperties(advancedSearchBtn);
+            setAdvancedSearchButtonProperties(advancedSearchBtn);
+            setCommonButtonProperties(advancedSearchBtn);
             advancedSearchButtons.Add(advancedSearchBtn);
 
             Grid.SetRow(advancedSearchBtn, firstContentRowNumber);
@@ -109,9 +121,9 @@ namespace WPFHospitalEditor
             advancedSearchBtn.Click += (s, e) =>
             {
                 
-                if (row.ContainsKey(Grid.GetRow(advancedSearchBtn)))
+                if (displayBtnRow.ContainsKey(Grid.GetRow(advancedSearchBtn)))
                 {
-                    MapObject chosenMapObject = row[Grid.GetRow(advancedSearchBtn)];
+                    MapObject chosenMapObject = displayBtnRow[Grid.GetRow(advancedSearchBtn)];
                     selectedObjectId = chosenMapObject.Id;
                     mapObjectController.update(chosenMapObject);
 
@@ -133,7 +145,30 @@ namespace WPFHospitalEditor
                 }
             };
         }
-        
+
+        private void addScheduleButton()
+        {
+            Button scheduleBtn = new Button();
+            setScheduleButtonProperties(scheduleBtn);
+            setCommonButtonProperties(scheduleBtn);
+            scheduleButtons.Add(scheduleBtn);
+            Grid.SetRow(scheduleBtn, firstContentRowNumber);
+            Grid.SetColumn(scheduleBtn, DynamicGrid.ColumnDefinitions.Count - 2);
+            DynamicGrid.Children.Add(scheduleBtn);
+
+            scheduleBtn.Click += (s, e) =>
+            {
+                if (scheduleBtnRow.ContainsKey(Grid.GetRow(scheduleBtn)))
+                {
+                    RecommendationDto chosenRecommendation = scheduleBtnRow[Grid.GetRow(scheduleBtn)];
+                    ScheduleWindow scheduleWindow = new ScheduleWindow(chosenRecommendation);
+                    scheduleWindow.ShowDialog();
+                    this.Close();
+                }
+            };
+
+        }
+
         public void displayBuildingAndFloorBasedOnSelectedObject(List<MapObject> chosenBuilding,int  floor, int building)
         {
             Building buildingFromSearch = new Building(chosenBuilding, floor);
@@ -163,21 +198,34 @@ namespace WPFHospitalEditor
             return buildingObjects;
         }
 
-        private static void adjustAdvancedSearchButtonProperties(Button advancedSearch)
+        private static void setAdvancedSearchButtonProperties(Button advancedSearch)
         {
-            advancedSearch.HorizontalAlignment = HorizontalAlignment.Center;
-            advancedSearch.VerticalAlignment = VerticalAlignment.Center;
             advancedSearch.Content = "+";
             advancedSearch.FontSize = 35;
-            advancedSearch.Foreground = Brushes.White;
-            advancedSearch.Background = Brushes.SkyBlue;
             advancedSearch.FontWeight = FontWeights.UltraBold;
             advancedSearch.Width = 35;
-            advancedSearch.Height = 35;
-            advancedSearch.HorizontalContentAlignment = HorizontalAlignment.Center;
             advancedSearch.VerticalContentAlignment = VerticalAlignment.Top;
-            advancedSearch.BorderThickness = new Thickness(0);
-            advancedSearch.Padding = new Thickness(0, -10, 0, 0);
+        }
+
+        private static void setScheduleButtonProperties(Button scheduleBtn)
+        {
+            scheduleBtn.Content = "Schedule";
+            scheduleBtn.FontSize = 15;
+            scheduleBtn.FontWeight = FontWeights.Normal;
+            scheduleBtn.Width = 70;
+            scheduleBtn.VerticalContentAlignment = VerticalAlignment.Bottom;           
+        }
+
+        private void setCommonButtonProperties(Button button)
+        {
+            button.HorizontalAlignment = HorizontalAlignment.Center;
+            button.VerticalAlignment = VerticalAlignment.Center;
+            button.Foreground = Brushes.White;
+            button.Background = Brushes.SkyBlue;
+            button.Height = 35;
+            button.HorizontalContentAlignment = HorizontalAlignment.Center;
+            button.BorderThickness = new Thickness(0);
+            button.Padding = new Thickness(0, -10, 0, 0);
         }
 
         private void addSeparator()
@@ -287,7 +335,7 @@ namespace WPFHospitalEditor
                 contentRows[i] = equipmentDto.Quantity 
                                  + AllConstants.contentSeparator +
                                  MapObjectToRow(mo);
-                                 row.Add(i, mo);
+                displayBtnRow.Add(i, mo);
             }
             return contentRows;
         }
@@ -301,7 +349,7 @@ namespace WPFHospitalEditor
                 contentRows[i] = medicationDto.Quantity
                                  + AllConstants.contentSeparator +
                                  MapObjectToRow(mo);
-                                 row.Add(i, mo);
+                displayBtnRow.Add(i, mo);
             }
             return contentRows;
         }
@@ -321,7 +369,7 @@ namespace WPFHospitalEditor
             {
                 MapObject mo = HospitalMap.searchResult.ElementAt(i);
                 contentRows[i] = MapObjectToRow(mo);
-                row.Add(i, mo);
+                displayBtnRow.Add(i, mo);
             }
             return contentRows;
         }
@@ -338,7 +386,8 @@ namespace WPFHospitalEditor
                 contentRows[i] = mo.Name
                                 + AllConstants.contentSeparator + doctor
                                  + AllConstants.contentSeparator + timeInterval;
-                row.Add(i, mo);
+                displayBtnRow.Add(i, mo);
+                scheduleBtnRow.Add(i, recommendationDto);
             }
             return contentRows;
         }
