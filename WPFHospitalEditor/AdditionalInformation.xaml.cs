@@ -127,7 +127,7 @@ namespace WPFHospitalEditor
         private void setButtonsVisibility()
         {
             if (!allEquipment.Any() || isMapObjectTypeStorageRoom() || IsPatientLogged()) Equipment.Visibility = Visibility.Hidden;
-            if (!allEquipment.Any() || !isMapObjectTypeStorageRoom() || IsPatientLogged()) Medication.Visibility = Visibility.Hidden;
+            if (!allMedications.Any() || !isMapObjectTypeStorageRoom() || IsPatientLogged()) Medication.Visibility = Visibility.Hidden;
         }
 
         private Boolean IsPatientLogged()
