@@ -9,9 +9,10 @@ steps:
   inputs:
     packageType: 'sdk'
     version: '3.1.200'
+  displayName: Using .NET 3.1.200
 
 - task: DotNetCoreCLI@2
-  displayName: 'dotnet ef install'
+  displayName: 'Install .NET EF'
   inputs:
     command: custom
     custom: tool
@@ -22,7 +23,7 @@ steps:
     dockerVersion: '17.09.0-ce'
 
 - task: DotNetCoreCLI@2
-  displayName: 'dotnet ef sql db scheme'
+  displayName: 'Gen. SQL DB scheme, test data inserts'
   inputs:
     command: custom
     custom: ef
@@ -33,7 +34,7 @@ steps:
     targetType: 'inline'
     script: |
       cp DevOps/docker/DBDockerfile HospitalWebAppIntegrationTests/Dockerfile
-  displayName: copy dockerfile
+  displayName: Place db DockerFile
 
 - task: Docker@2
   inputs:
@@ -44,7 +45,7 @@ steps:
     buildContext: 'HospitalWebAppIntegrationTests'
     tags: 'latest'
     addPipelineData: false
-  displayName: build db docker image for integration tests asp
+  displayName: Build Docker DB image for Int. Tests
 
 - task: Bash@3
   inputs:
@@ -57,10 +58,11 @@ steps:
   inputs:
     targetType: 'inline'
     script: 'sleep 10'
+  displayName: Wait for DB startup
 
 - task: DotNetCoreCLI@2
   inputs:
     command: 'test'
     projects: '**/HospitalWebAppIntegrationTests/*.csproj'
     testRunTitle: 'PR_RunIntegrationTests'
-  displayName: HospitalWebApp Integration Tests
+  displayName: RUN Integration Tests
