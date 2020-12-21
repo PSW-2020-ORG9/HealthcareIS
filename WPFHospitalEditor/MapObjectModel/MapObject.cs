@@ -83,7 +83,6 @@ namespace WPFHospitalEditor.MapObjectModel
 
         public void setMapObjectDoorPosition(MapObjectDoorOrientation mapObjectDoorOrientation)
         {
-            MapObjectCoordinates mocDoor = new MapObjectCoordinates(0, 0);
             switch (mapObjectDoorOrientation)
             {
                 case MapObjectDoorOrientation.Up:

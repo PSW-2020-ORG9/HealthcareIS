@@ -5,7 +5,7 @@ using HealthcareBase.Model.Utilities;
 
 namespace HospitalWebApp.Mappers
 {
-    public class ExaminationMapper
+    public static class ExaminationMapper
     {
         public static Examination DtoToObject(ScheduledExaminationDTO dto)
         {

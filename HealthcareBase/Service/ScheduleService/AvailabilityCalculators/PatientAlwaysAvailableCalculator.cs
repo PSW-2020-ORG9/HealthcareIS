@@ -5,7 +5,7 @@
 
 namespace HealthcareBase.Service.ScheduleService.AvailabilityCalculators
 {
-    public class PatientAlwaysAvailableCalculator : PatientAvailabilityCalculator
+    public class PatientAlwaysAvailableCalculator : IPatientAvailabilityCalculator
     {
         public PatientAvailabilityDTO Calculate(PatientAvailabilityDTO patient, CurrentScheduleContext context)
         {

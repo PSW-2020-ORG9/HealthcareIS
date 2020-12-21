@@ -7,7 +7,7 @@ using HealthcareBase.Model.Users.UserAccounts.Registration;
 
 namespace HospitalWebApp.Mappers
 {
-    public class PatientAccountMapper
+    public static class PatientAccountMapper
     {
         public static PatientAccount DtoToObject(PatientRegistrationDTO dto)
         {

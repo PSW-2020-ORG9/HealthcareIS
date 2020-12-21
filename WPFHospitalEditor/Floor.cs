@@ -5,7 +5,7 @@ namespace WPFHospitalEditor
 {
     public class Floor
     {
-        private List<MapObject> allMapObjectsOnFloor;
+        private readonly List<MapObject> allMapObjectsOnFloor;
 
         public Floor(List<MapObject> allMapObjectsOnFloor)
         {

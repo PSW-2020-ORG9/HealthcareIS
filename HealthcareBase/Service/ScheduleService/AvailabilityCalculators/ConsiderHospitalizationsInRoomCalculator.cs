@@ -14,7 +14,7 @@ namespace HealthcareBase.Service.ScheduleService.AvailabilityCalculators
         private readonly Hospitalization hospitalization;
 
         public ConsiderHospitalizationsInRoomCalculator(Hospitalization hospitalization,
-            RoomAvailabilityCalculator calculator) : base(calculator)
+            IRoomAvailabilityCalculator calculator) : base(calculator)
         {
             this.hospitalization = hospitalization;
         }
@@ -24,7 +24,7 @@ namespace HealthcareBase.Service.ScheduleService.AvailabilityCalculators
             this.hospitalization = hospitalization;
         }
 
-        public ConsiderHospitalizationsInRoomCalculator(RoomAvailabilityCalculator calculator) : base(calculator)
+        public ConsiderHospitalizationsInRoomCalculator(IRoomAvailabilityCalculator calculator) : base(calculator)
         {
         }
 

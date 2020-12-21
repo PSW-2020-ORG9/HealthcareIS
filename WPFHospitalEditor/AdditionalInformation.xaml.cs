@@ -106,28 +106,28 @@ namespace WPFHospitalEditor
 
         private string[] EquipmentToContentRows()
         {
-            string[] contentRows = new string [allEquipment.Count()];
+            string[] equipmentContentRows = new string [allEquipment.Count()];
             for (int i = 0; i < allEquipment.Count(); i++)
             {
-                contentRows[i] = allEquipment.ElementAt(i).Name + AllConstants.contentSeparator + allEquipment.ElementAt(i).Quantity;
+                equipmentContentRows[i] = allEquipment.ElementAt(i).Name + AllConstants.contentSeparator + allEquipment.ElementAt(i).Quantity;
             }
-            return contentRows;
+            return equipmentContentRows;
         }
 
         private string[] MedicationsToContentRows()
         {
-            string[] contentRows = new string[allMedications.Count()];
+            string[] medicationContentRows = new string[allMedications.Count()];
             for (int i = 0; i < allMedications.Count(); i++)
             {
-                contentRows[i] = allMedications.ElementAt(i).Name + AllConstants.contentSeparator + allMedications.ElementAt(i).Quantity;
+                medicationContentRows[i] = allMedications.ElementAt(i).Name + AllConstants.contentSeparator + allMedications.ElementAt(i).Quantity;
             }
-            return contentRows;
+            return medicationContentRows;
         }
 
         private void setButtonsVisibility()
         {
-            if (allEquipment.Count() == 0 || isMapObjectTypeStorageRoom() || IsPatientLogged()) Equipment.Visibility = Visibility.Hidden;
-            if (allMedications.Count() == 0 || !isMapObjectTypeStorageRoom() || IsPatientLogged()) Medication.Visibility = Visibility.Hidden;
+            if (!allEquipment.Any() || isMapObjectTypeStorageRoom() || IsPatientLogged()) Equipment.Visibility = Visibility.Hidden;
+            if (!allMedications.Any() || !isMapObjectTypeStorageRoom() || IsPatientLogged()) Medication.Visibility = Visibility.Hidden;
         }
 
         private Boolean IsPatientLogged()

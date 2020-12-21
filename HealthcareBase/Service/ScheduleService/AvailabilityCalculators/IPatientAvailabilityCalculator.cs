@@ -5,7 +5,7 @@
 
 namespace HealthcareBase.Service.ScheduleService.AvailabilityCalculators
 {
-    public interface PatientAvailabilityCalculator
+    public interface IPatientAvailabilityCalculator
     {
         PatientAvailabilityDTO Calculate(PatientAvailabilityDTO patient, CurrentScheduleContext context);
     }

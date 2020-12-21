@@ -63,7 +63,6 @@ namespace WPFHospitalEditor
         private void goToClickedBuilding(MapObject mapObject)
         {
             List<MapObject> buildingObjects = new List<MapObject>();
-            MapObjectController mapObjectController = new MapObjectController();
             foreach (MapObject mapObjectIteration in mapObjectController.getAllMapObjects())
             {
                 if (mapObject.Id.ToString().Equals(findBuilding(mapObjectIteration)))

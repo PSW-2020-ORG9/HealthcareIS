@@ -8,7 +8,7 @@ using HealthcareBase.Repository.Generics.Interface;
 
 namespace HealthcareBase.Repository.ScheduleRepository.ProceduresRepository.Interface
 {
-    public interface ProcedureTypeRepository : IWrappableRepository<ProcedureDetails, int>
+    public interface IProcedureTypeRepository : IWrappableRepository<ProcedureDetails, int>
     {
         ProcedureDetails GetPatientDefault();
     }

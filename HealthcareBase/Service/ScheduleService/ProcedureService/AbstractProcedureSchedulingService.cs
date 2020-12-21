@@ -9,7 +9,7 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
     {
         protected readonly RepositoryWrapper<IShiftRepository> _shiftWrapper;
 
-        public AbstractProcedureSchedulingService(IShiftRepository shiftRepository)
+        protected AbstractProcedureSchedulingService(IShiftRepository shiftRepository)
         {
             _shiftWrapper = new RepositoryWrapper<IShiftRepository>(shiftRepository);
         }

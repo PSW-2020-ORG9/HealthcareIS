@@ -54,7 +54,7 @@ namespace HealthcareBase.Service.HospitalResourcesService.RoomService
 
         public RoomAvailabilityDTO GetRoomAvailability(Room room, TimeInterval time)
         {
-            RoomAvailabilityCalculator calculator = new ConsiderProceduresInRoomCalculator(
+            IRoomAvailabilityCalculator calculator = new ConsiderProceduresInRoomCalculator(
                 new ConsiderHospitalizationsInRoomCalculator(new ConsiderRenovationsCalculator()));
 
             var initialAvailability = new RoomAvailabilityDTO

@@ -4,7 +4,7 @@ using System;
 
 namespace HospitalWebApp.Mappers
 {
-    public class SurveyResponseMapper
+    public static class SurveyResponseMapper
     {
         public static SurveyResponse DtoToObject(SurveyResponseDTO dto)
         {

@@ -16,7 +16,7 @@ namespace WPFHospitalEditor
     public partial class Building : Window
     {
         private Dictionary<int, Floor> buildingFloors = new Dictionary<int, Floor>();
-        public List<MapObject> floorBuildingObjects = new List<MapObject>();
+        public List<MapObject> floorBuildingObjects;
         MapObjectController mapObjectController = new MapObjectController();
         public static Canvas canvasBuilding;
 

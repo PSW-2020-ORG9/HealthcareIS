@@ -16,18 +16,14 @@ namespace HealthcareBase.Service.HospitalResourcesService.RoomService
     public class DepartmentService
     {
         private readonly RepositoryWrapper<IDepartmentRepository> departmentRepository;
-        private readonly RepositoryWrapper<IHospitalizationTypeRepository> hospitalizationTypeRepository;
         private readonly RepositoryWrapper<IRoomRepository> roomRepository;
 
         public DepartmentService(
             IDepartmentRepository departmentRepository,
-            IRoomRepository roomRepository,
-            IHospitalizationTypeRepository hospitalizationTypeRepository)
+            IRoomRepository roomRepository)
         {
             this.departmentRepository = new RepositoryWrapper<IDepartmentRepository>(departmentRepository);
             this.roomRepository = new RepositoryWrapper<IRoomRepository>(roomRepository);
-            this.hospitalizationTypeRepository =
-                new RepositoryWrapper<IHospitalizationTypeRepository>(hospitalizationTypeRepository);
         }
 
         public DepartmentService(IDepartmentRepository departmentRepository)

@@ -7,7 +7,7 @@ namespace WPFHospitalEditor.Controller
 {
     public class MapObjectController : IMapObjectController
     {
-        private IMapObjectService IMapObjectService = new MapObjectService(new MapObjectRepository());
+        private readonly IMapObjectService IMapObjectService = new MapObjectService(new MapObjectRepository());
 
         public List<MapObject> getAllMapObjects()
         {

@@ -31,7 +31,6 @@
 import axios from 'axios'
 import api from '../constant/api.js'
 import ExaminationItem from '../components/ExaminationItem.vue'
-import Toastify from 'toastify-js'
 
 export default {
     name: "ObservePatientExaminations",
@@ -111,7 +110,3 @@ export default {
     }
 }
 </script>
-
-<style>
-
-</style>

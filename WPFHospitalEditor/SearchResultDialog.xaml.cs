@@ -327,31 +327,31 @@ namespace WPFHospitalEditor
 
         private string[] EquipmentToContentRows()
         {
-            string[] contentRows = new string[HospitalMap.equipmentSearchResult.Count()];
+            string[] equipmentContentRows = new string[HospitalMap.equipmentSearchResult.Count()];
             for (int i = 0; i < HospitalMap.equipmentSearchResult.Count(); i++)
             {
                 EquipmentDto equipmentDto = HospitalMap.equipmentSearchResult.ElementAt(i);
                 MapObject mo = mapObjectController.findMapObjectById(equipmentDto.RoomId);
-                contentRows[i] = equipmentDto.Quantity 
+                equipmentContentRows[i] = equipmentDto.Quantity 
                                  + AllConstants.contentSeparator +
                                  MapObjectToRow(mo);
                 displayBtnRow.Add(i, mo);
             }
-            return contentRows;
+            return equipmentContentRows;
         }
         private string[] MedicationToContentRows()
         {
-            string[] contentRows = new string[HospitalMap.medicationSearchResult.Count()];
+            string[] medicationContentRows = new string[HospitalMap.medicationSearchResult.Count()];
             MapObject mo = mapObjectController.findMapObjectById(STORAGEROOM_ID);
             for (int i = 0; i < HospitalMap.medicationSearchResult.Count(); i++)
             {
                 MedicationDto medicationDto = HospitalMap.medicationSearchResult.ElementAt(i);
-                contentRows[i] = medicationDto.Quantity
+                medicationContentRows[i] = medicationDto.Quantity
                                  + AllConstants.contentSeparator +
                                  MapObjectToRow(mo);
                 displayBtnRow.Add(i, mo);
             }
-            return contentRows;
+            return medicationContentRows;
         }
 
         private string MapObjectToRow(MapObject mo)
@@ -364,32 +364,32 @@ namespace WPFHospitalEditor
 
         private string[] MapObjectToContentRows()
         {
-            string[] contentRows = new string[HospitalMap.searchResult.Count()];
+            string[] mapObjectContentRows = new string[HospitalMap.searchResult.Count()];
             for (int i = 0; i < HospitalMap.searchResult.Count(); i++)
             {
                 MapObject mo = HospitalMap.searchResult.ElementAt(i);
-                contentRows[i] = MapObjectToRow(mo);
+                mapObjectContentRows[i] = MapObjectToRow(mo);
                 displayBtnRow.Add(i, mo);
             }
-            return contentRows;
+            return mapObjectContentRows;
         }
 
         private string[] AppointmentToContentRows()
         {
-            string[] contentRows = new string[HospitalMap.appointmentSearchResult.Count()];
+            string[] appointmentContentRows = new string[HospitalMap.appointmentSearchResult.Count()];
             for (int i = 0; i < HospitalMap.appointmentSearchResult.Count(); i++)
             {
                 RecommendationDto recommendationDto = HospitalMap.appointmentSearchResult.ElementAt(i);
                 MapObject mo = mapObjectController.findMapObjectById(recommendationDto.RoomId);
                 string doctor = recommendationDto.Doctor.Person.Name + " " + recommendationDto.Doctor.Person.Surname;
                 string timeInterval = recommendationDto.TimeInterval.Start.ToString() + "-" + recommendationDto.TimeInterval.End.ToString();
-                contentRows[i] = mo.Name
+                appointmentContentRows[i] = mo.Name
                                 + AllConstants.contentSeparator + doctor
                                  + AllConstants.contentSeparator + timeInterval;
                 displayBtnRow.Add(i, mo);
                 scheduleBtnRow.Add(i, recommendationDto);
             }
-            return contentRows;
+            return appointmentContentRows;
         }
     }
 }

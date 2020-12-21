@@ -12,19 +12,16 @@ namespace HealthcareBase.Service.ScheduleService.Validators
 {
     public class HospitalizationValidator
     {
-        private readonly RepositoryWrapper<IEquipmentUnitRepository> equipmentUnitRepository;
         private readonly RepositoryWrapper<IHospitalizationTypeRepository> hospitalizationTypeRepository;
         private readonly RepositoryWrapper<IPatientRepository> patientRepository;
         private readonly RepositoryWrapper<IRoomRepository> roomRepository;
 
         public HospitalizationValidator(
             IRoomRepository roomRepository,
-            IEquipmentUnitRepository equipmentUnitRepository,
             IPatientRepository IPatientRepository,
             IHospitalizationTypeRepository IHospitalizationTypeRepository)
         {
             this.roomRepository = new RepositoryWrapper<IRoomRepository>(roomRepository);
-            this.equipmentUnitRepository = new RepositoryWrapper<IEquipmentUnitRepository>(equipmentUnitRepository);
             this.patientRepository = new RepositoryWrapper<IPatientRepository>(IPatientRepository);
             this.hospitalizationTypeRepository =
                 new RepositoryWrapper<IHospitalizationTypeRepository>(IHospitalizationTypeRepository);
@@ -72,19 +69,6 @@ namespace HealthcareBase.Service.ScheduleService.Validators
                 throw new ValidationException();
             if (room.Department is null)
                 throw new ValidationException();
-        }
-
-        private void ValidateEquipmentSuitability(HospitalizationType hospitalizationType,
-            IEnumerable<EquipmentUnit> equipment)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void ValidateEquipmentLocation(Room room, IEnumerable<EquipmentUnit> equipment)
-        {
-            foreach (var equipmentUnit in equipment)
-                if (!equipmentUnit.CurrentLocation.Equals(room))
-                    throw new ValidationException();
         }
     }
 }

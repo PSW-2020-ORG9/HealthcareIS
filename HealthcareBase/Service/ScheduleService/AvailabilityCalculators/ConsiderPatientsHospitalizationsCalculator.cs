@@ -14,12 +14,12 @@ namespace HealthcareBase.Service.ScheduleService.AvailabilityCalculators
         private readonly Hospitalization hospitalization;
 
         public ConsiderPatientsHospitalizationsCalculator(Hospitalization hospitalization,
-            PatientAvailabilityCalculator calculator) : base(calculator)
+            IPatientAvailabilityCalculator calculator) : base(calculator)
         {
             this.hospitalization = hospitalization;
         }
 
-        public ConsiderPatientsHospitalizationsCalculator(PatientAvailabilityCalculator calculator) : base(calculator)
+        public ConsiderPatientsHospitalizationsCalculator(IPatientAvailabilityCalculator calculator) : base(calculator)
         {
         }
 

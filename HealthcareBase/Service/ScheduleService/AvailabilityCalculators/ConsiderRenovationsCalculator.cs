@@ -7,7 +7,7 @@ using HealthcareBase.Model.Utilities;
 
 namespace HealthcareBase.Service.ScheduleService.AvailabilityCalculators
 {
-    public class ConsiderRenovationsCalculator : RoomAvailabilityCalculator
+    public class ConsiderRenovationsCalculator : IRoomAvailabilityCalculator
     {
         public RoomAvailabilityDTO Calculate(RoomAvailabilityDTO room, CurrentScheduleContext context)
         {

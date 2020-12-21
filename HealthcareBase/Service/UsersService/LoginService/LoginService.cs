@@ -11,16 +11,12 @@ namespace HealthcareBase.Service.UsersService.LoginService
 {
     public class LoginService
     {
-        private readonly RepositoryWrapper<IAdministrationAccountRepository> employeeAccountRepository;
         private readonly RepositoryWrapper<IPatientAccountRepository> patientAccountRepository;
 
         public LoginService(
-            IPatientAccountRepository patientAccountRepository,
-            IAdministrationAccountRepository administrationAccountRepository)
+            IPatientAccountRepository patientAccountRepository)
         {
             this.patientAccountRepository = new RepositoryWrapper<IPatientAccountRepository>(patientAccountRepository);
-            this.employeeAccountRepository =
-                new RepositoryWrapper<IAdministrationAccountRepository>(administrationAccountRepository);
         }
 
         public PatientAccount LogInPatient(string username, string password)
