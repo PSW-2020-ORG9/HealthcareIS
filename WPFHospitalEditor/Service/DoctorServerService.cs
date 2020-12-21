@@ -23,5 +23,13 @@ namespace WPFHospitalEditor.Service
             var response = client.Get<Doctor>(request);
             return response.Data;
         }
+
+        public IEnumerable<DoctorDto> GetAllSpecialists()
+        {
+            var client = new RestClient(AllConstants.connectionUrl);
+            var request = new RestRequest("Doctor/getAllSpecialists", Method.GET);
+            var response = client.Get<IEnumerable<DoctorDto>>(request);
+            return response.Data;
+        }
     }
 }

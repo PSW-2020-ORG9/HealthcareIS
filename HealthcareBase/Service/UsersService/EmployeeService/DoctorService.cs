@@ -70,5 +70,19 @@ namespace HealthcareBase.Service.UsersService.EmployeeService
                 }
                 );
         }
+
+        public IEnumerable<DoctorDto> GetAllSpecialists()
+        {
+            return doctorRepository.Repository.GetColumnsForMatching(
+                condition: doctor => doctor.DepartmentId != 1,
+                selection: doctor => new DoctorDto()
+                {
+                    Name = doctor.Person.Name,
+                    Surname = doctor.Person.Surname,
+                    DoctorId = doctor.Id,
+                    DepartmentName = doctor.Department.Name
+                }
+                );
+        }
     }
 }
