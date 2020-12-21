@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using HealthcareBase.Model.Schedule.Procedures;
 
 namespace HealthcareBase.Model.Filters

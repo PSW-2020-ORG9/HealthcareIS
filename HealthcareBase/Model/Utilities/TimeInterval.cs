@@ -51,10 +51,7 @@ namespace HealthcareBase.Model.Utilities
 
         public override int GetHashCode()
         {
-            var hashCode = -1676728671;
-            hashCode = hashCode * -1521134295 + Start.GetHashCode();
-            hashCode = hashCode * -1521134295 + End.GetHashCode();
-            return hashCode;
+            throw new NotImplementedException();
         }
     }
 }

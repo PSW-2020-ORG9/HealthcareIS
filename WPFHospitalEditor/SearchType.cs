@@ -4,6 +4,7 @@
     {
         MapObjectSearch,
         EquipmentSearch,
-        MedicationSearch
+        MedicationSearch,
+        AppointmentSearch
     }
 }

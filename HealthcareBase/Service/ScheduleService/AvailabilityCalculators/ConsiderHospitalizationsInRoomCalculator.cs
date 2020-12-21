@@ -43,8 +43,8 @@ namespace HealthcareBase.Service.ScheduleService.AvailabilityCalculators
                 if (hospitalization != null)
                     conflictingHospizalizations.Remove(hospitalization);
 
-                foreach (var hospitalization in conflictingHospizalizations)
-                    newIntervals.SubtractInterval(hospitalization.TimeInterval);
+                foreach (var oneHospitalization in conflictingHospizalizations)
+                    newIntervals.SubtractInterval(oneHospitalization.TimeInterval);
             }
 
             return base.Calculate(new RoomAvailabilityDTO {Room = room.Room, Availability = newIntervals}, context);

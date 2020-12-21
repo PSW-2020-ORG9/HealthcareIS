@@ -8,6 +8,7 @@ using System.Linq;
 using HealthcareBase.Model.CustomExceptions;
 using HealthcareBase.Model.Users.Employee;
 using HealthcareBase.Model.Users.Employee.Doctors;
+using HealthcareBase.Model.Users.Employee.Doctors.DTOs;
 using HealthcareBase.Repository.Generics;
 using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository.Interface;
 
@@ -54,6 +55,20 @@ namespace HealthcareBase.Service.UsersService.EmployeeService
             if (doctor is null)
                 throw new BadRequestException();
             return doctorRepository.Repository.Update(doctor);
+        }
+
+        public IEnumerable<DoctorDto> GetDoctorsByDepartment(int departmentId)
+        {
+            return doctorRepository.Repository.GetColumnsForMatching(
+                condition: doctor => doctor.Id != 0 && doctor.DepartmentId == departmentId,
+                selection: doctor => new DoctorDto()
+                {
+                    DoctorId = doctor.Id,
+                    Name = doctor.Person.Name,
+                    Surname = doctor.Person.Surname,
+                    SpecialtyId = doctor.DepartmentId
+                }
+                );
         }
     }
 }

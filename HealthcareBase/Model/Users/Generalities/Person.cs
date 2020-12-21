@@ -40,6 +40,6 @@ namespace HealthcareBase.Model.Users.Generalities
         public City CityOfBirth { get; set; }
 
         public string GetKey() => Jmbg;
-        public void SetKey(string jmbg) => Jmbg = jmbg;
+        public void SetKey(string id) => Jmbg = id;
     }
 }

@@ -11,7 +11,6 @@ using HealthcareBase.Model.Users.Employee;
 using HealthcareBase.Model.Users.Employee.Doctors;
 using HealthcareBase.Model.Users.Generalities;
 using HealthcareBase.Model.Users.Patient;
-using HealthcareBase.Model.Users.Patient.MedicalHistory;
 using HealthcareBase.Model.Users.Patient.MedicalHistory.Relationship;
 using HealthcareBase.Model.Users.Survey;
 using HealthcareBase.Model.Users.Survey.SurveyEntry;

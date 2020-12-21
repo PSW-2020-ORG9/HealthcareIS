@@ -4,7 +4,6 @@
 // Purpose: Definition of Class PrioritiseTimeStrategy
 
 using System;
-using System.Collections.Generic;
 using HealthcareBase.Model.Schedule.Procedures;
 
 namespace HealthcareBase.Service.ScheduleService.PatientRecommendationService

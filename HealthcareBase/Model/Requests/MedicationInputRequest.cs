@@ -3,9 +3,9 @@
 // Created: 27 May 2020 20:29:45
 // Purpose: Definition of Class MedicationInputRequest
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using HealthcareBase.Model.Users.Employee;
 using HealthcareBase.Model.Users.Employee.Doctors;
 
 namespace HealthcareBase.Model.Requests
@@ -54,9 +54,8 @@ namespace HealthcareBase.Model.Requests
         {
             if (oldSpecialty == null)
                 return;
-            if (reviewableBy != null)
-                if (reviewableBy.Contains(oldSpecialty))
-                    reviewableBy.Remove(oldSpecialty);
+            if (reviewableBy != null && reviewableBy.Contains(oldSpecialty))
+                reviewableBy.Remove(oldSpecialty);
         }
 
         public void RemoveAllSpecialties()
@@ -73,7 +72,7 @@ namespace HealthcareBase.Model.Requests
 
         public override int GetHashCode()
         {
-            return 1877310944 + id.GetHashCode();
+            throw new NotImplementedException();
         }
     }
 }

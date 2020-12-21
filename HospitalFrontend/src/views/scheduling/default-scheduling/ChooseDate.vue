@@ -1,11 +1,10 @@
 <template>
-   <fieldset>
+    <fieldset>
+        <legend></legend>
         <h2 class="fs-title">Date selection</h2>
         <h3 class="fs-subtitle">Choose preffered date</h3>
         <Datepicker v-model="selectedDate" :lowerLimit="getMinDate()"></Datepicker>
         <input type="button" name="next" class="next action-button" value="Next" @click="goToNextPage()"/>
-    
-        
     </fieldset>
 </template>
 

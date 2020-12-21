@@ -3,6 +3,7 @@
 // Created: 27 May 2020 20:22:22
 // Purpose: Definition of Class ClearRoomsSchedule
 
+using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using HealthcareBase.Model.HospitalResources;
 using HealthcareBase.Model.Utilities;
@@ -25,7 +26,7 @@ namespace HealthcareBase.Model.Requests
 
         public override int GetHashCode()
         {
-            return 1877310944 + id.GetHashCode();
+            throw new NotImplementedException();
         }
     }
 }

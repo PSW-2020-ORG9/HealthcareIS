@@ -34,7 +34,7 @@ namespace HealthcareBaseUnitTests
                 },
                 Diagnosis = new Diagnosis()
                 {
-                    Icd = "AVC",
+                    Id = "AVC",
                     Name = "Anksioznost",
                 }
             };
@@ -50,7 +50,7 @@ namespace HealthcareBaseUnitTests
                 },
                 Diagnosis = new Diagnosis()
                 {
-                    Icd = "RRT4",
+                    Id = "RRT4",
                     Name = "Glavobolja",
                 }
             };

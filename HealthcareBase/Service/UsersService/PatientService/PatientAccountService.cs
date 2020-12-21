@@ -10,10 +10,8 @@ using HealthcareBase.Model.Users.Employee;
 using HealthcareBase.Model.Users.Employee.Doctors;
 using HealthcareBase.Model.Users.Patient;
 using HealthcareBase.Model.Users.UserAccounts;
-using HealthcareBase.Model.Users.UserFeedback;
 using HealthcareBase.Repository.Generics;
 using HealthcareBase.Repository.UsersRepository.UserAccountsRepository;
-using HealthcareBase.Repository.UsersRepository.UserFeedbackRepository;
 
 namespace HealthcareBase.Service.UsersService.PatientService
 {

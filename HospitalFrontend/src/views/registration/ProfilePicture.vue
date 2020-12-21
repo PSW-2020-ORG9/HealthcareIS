@@ -1,10 +1,11 @@
 <template>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <fieldset>
+        <legend></legend>
         <h2 class="fs-title">Profile Picture</h2>
         <div class="container">
             <div v-if="imageUrl">
-                <img class="image-preview rounded p-1 border border-light m-2" v-bind:src="imageUrl"/>
+                <img class="image-preview rounded p-1 border border-light m-2" v-bind:src="imageUrl" alt=""/>
             </div>
             <!--UPLOAD-->
             <form enctype="multipart/form-data">

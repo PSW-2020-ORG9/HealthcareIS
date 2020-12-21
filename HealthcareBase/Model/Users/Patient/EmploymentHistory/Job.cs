@@ -50,9 +50,8 @@ namespace HealthcareBase.Model.Users.Patient.EmploymentHistory
         {
             if (oldWorkplaceHazard == null)
                 return;
-            if (hazards != null)
-                if (hazards.Contains(oldWorkplaceHazard))
-                    hazards.Remove(oldWorkplaceHazard);
+            if (hazards != null && hazards.Contains(oldWorkplaceHazard))
+                hazards.Remove(oldWorkplaceHazard);
         }
 
         public void RemoveAllHazards()

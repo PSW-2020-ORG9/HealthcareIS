@@ -117,7 +117,7 @@ namespace HealthcareBase.Service.HospitalResourcesService.RoomService
                 End = DateTime.Now.AddMinutes(5)
             };
             var renovations = renovationRepository.Repository.getByRoomAndTime(room, now);
-            if (renovations.Count() == 0)
+            if (!renovations.Any())
                 return false;
             return true;
         }

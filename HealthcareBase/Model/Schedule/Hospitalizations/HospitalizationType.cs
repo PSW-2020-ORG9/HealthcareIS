@@ -3,7 +3,6 @@
 // Created: 20 April 2020 23:27:02
 // Purpose: Definition of Class HospitalizationType
 
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using HealthcareBase.Model.HospitalResources;

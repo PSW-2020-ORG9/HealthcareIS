@@ -43,8 +43,8 @@ namespace HealthcareBase.Service.ScheduleService.AvailabilityCalculators
                 if (procedure != null)
                     conflictingProcedures.Remove(procedure);
 
-                foreach (var procedure in conflictingProcedures)
-                    newIntervals.SubtractInterval(procedure.TimeInterval);
+                foreach (var oneProcedure in conflictingProcedures)
+                    newIntervals.SubtractInterval(oneProcedure.TimeInterval);
             }
 
             return base.Calculate(new DoctorAvailabilityDTO {Doctor = doctor.Doctor, Availability = newIntervals},

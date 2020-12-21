@@ -3,6 +3,7 @@
 // Created: 18 April 2020 18:19:45
 // Purpose: Definition of Class StorageRecord
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using HealthcareBase.Repository.Generics;
@@ -16,18 +17,10 @@ namespace HealthcareBase.Model.StorageRecords
         protected List<AmountChangeRecord> supplyHistory;
         protected List<AmountChangeRecord> usageHistory;
 
-        public int AvailableAmount
-        {
-            get => availableAmount;
-            set => availableAmount = value;
-        }
+        public int AvailableAmount { get; set; }
 
         [Key]
-        public int Id
-        {
-            get => id;
-            set => id = value;
-        }
+        public int Id { get; set; }
 
         public IEnumerable<AmountChangeRecord> SupplyHistory
         {
@@ -87,9 +80,8 @@ namespace HealthcareBase.Model.StorageRecords
         {
             if (oldAmountChangeRecord == null)
                 return;
-            if (supplyHistory != null)
-                if (supplyHistory.Contains(oldAmountChangeRecord))
-                    supplyHistory.Remove(oldAmountChangeRecord);
+            if (supplyHistory != null && supplyHistory.Contains(oldAmountChangeRecord))
+                supplyHistory.Remove(oldAmountChangeRecord);
         }
 
         public void RemoveAllSupplyHistory()
@@ -112,9 +104,8 @@ namespace HealthcareBase.Model.StorageRecords
         {
             if (oldAmountChangeRecord == null)
                 return;
-            if (usageHistory != null)
-                if (usageHistory.Contains(oldAmountChangeRecord))
-                    usageHistory.Remove(oldAmountChangeRecord);
+            if (usageHistory != null && usageHistory.Contains(oldAmountChangeRecord))
+                usageHistory.Remove(oldAmountChangeRecord);
         }
 
         public void RemoveAllUsageHistory()
@@ -131,7 +122,7 @@ namespace HealthcareBase.Model.StorageRecords
 
         public override int GetHashCode()
         {
-            return 1877310944 + id.GetHashCode();
+            throw new NotImplementedException();
         }
     }
 }
