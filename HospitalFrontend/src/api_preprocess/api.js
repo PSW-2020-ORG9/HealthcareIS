@@ -1,4 +1,4 @@
-let server = // #put "'http://" + SERVER_URI + "'"
+let server = // #put "'" + SERVER_URL + "'"
 let examinationsUrl = server + '/docsearch/examination'
 let prescriptionsUrl = server + '/docsearch/prescription'
 let feedbacksUrl = server + '/feedback'
