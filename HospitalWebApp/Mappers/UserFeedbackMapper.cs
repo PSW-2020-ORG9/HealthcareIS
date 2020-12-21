@@ -4,7 +4,7 @@ using HospitalWebApp.Dtos;
 
 namespace HospitalWebApp.Mappers
 {
-    public class UserFeedbackMapper
+    public static class UserFeedbackMapper
     {
         public static UserFeedback DtoToObject(UserFeedbackDto dto)
         {

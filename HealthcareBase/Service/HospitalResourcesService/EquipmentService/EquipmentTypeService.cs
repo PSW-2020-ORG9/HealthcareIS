@@ -3,13 +3,13 @@
 // Created: 28 May 2020 11:59:51
 // Purpose: Definition of Class EquipmentTypeService
 
+using System;
 using System.Collections.Generic;
 using HealthcareBase.Dto;
 using HealthcareBase.Model.CustomExceptions;
 using HealthcareBase.Model.HospitalResources;
 using HealthcareBase.Repository.Generics;
 using HealthcareBase.Repository.HospitalResourcesRepository;
-using HealthcareBase.Repository.ScheduleRepository.HospitalizationsRepository;
 using HealthcareBase.Service.HospitalResourcesService.EquipmentService.Interface;
 
 namespace HealthcareBase.Service.HospitalResourcesService.EquipmentService
@@ -58,11 +58,12 @@ namespace HealthcareBase.Service.HospitalResourcesService.EquipmentService
 
         private void DeleteFromHospitalizationTypes(EquipmentType equipmentType)
         {
-            
+            throw new NotImplementedException();
         }
 
         private void DeleteFromProcedureTypes(EquipmentType equipmentType)
         {
+            throw new NotImplementedException();
         }
 
         public IEnumerable<EquipmentTypeDto> GetAllEquipmentTypes()

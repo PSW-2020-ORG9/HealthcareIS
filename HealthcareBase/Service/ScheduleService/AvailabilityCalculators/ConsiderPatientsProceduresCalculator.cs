@@ -14,12 +14,12 @@ namespace HealthcareBase.Service.ScheduleService.AvailabilityCalculators
         private readonly Procedure procedure;
 
         public ConsiderPatientsProceduresCalculator(Procedure procedure,
-            PatientAvailabilityCalculator calculator) : base(calculator)
+            IPatientAvailabilityCalculator calculator) : base(calculator)
         {
             this.procedure = procedure;
         }
 
-        public ConsiderPatientsProceduresCalculator(PatientAvailabilityCalculator calculator) : base(calculator)
+        public ConsiderPatientsProceduresCalculator(IPatientAvailabilityCalculator calculator) : base(calculator)
         {
         }
 
@@ -43,8 +43,8 @@ namespace HealthcareBase.Service.ScheduleService.AvailabilityCalculators
                 if (procedure != null)
                     conflictingProcedures.Remove(procedure);
 
-                foreach (var procedure in conflictingProcedures)
-                    newIntervals.SubtractInterval(procedure.TimeInterval);
+                foreach (var oneProcedure in conflictingProcedures)
+                    newIntervals.SubtractInterval(oneProcedure.TimeInterval);
             }
 
             return base.Calculate(new PatientAvailabilityDTO {Patient = patient.Patient, Availability = newIntervals},

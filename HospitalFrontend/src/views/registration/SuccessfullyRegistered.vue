@@ -9,7 +9,3 @@ export default {
     name:'Successfully registered'
 }
 </script>
-
-<style>
-
-</style>

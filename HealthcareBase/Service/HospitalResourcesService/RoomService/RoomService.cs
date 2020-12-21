@@ -54,7 +54,7 @@ namespace HealthcareBase.Service.HospitalResourcesService.RoomService
 
         public RoomAvailabilityDTO GetRoomAvailability(Room room, TimeInterval time)
         {
-            RoomAvailabilityCalculator calculator = new ConsiderProceduresInRoomCalculator(
+            IRoomAvailabilityCalculator calculator = new ConsiderProceduresInRoomCalculator(
                 new ConsiderHospitalizationsInRoomCalculator(new ConsiderRenovationsCalculator()));
 
             var initialAvailability = new RoomAvailabilityDTO
@@ -117,7 +117,7 @@ namespace HealthcareBase.Service.HospitalResourcesService.RoomService
                 End = DateTime.Now.AddMinutes(5)
             };
             var renovations = renovationRepository.Repository.getByRoomAndTime(room, now);
-            if (renovations.Count() == 0)
+            if (!renovations.Any())
                 return false;
             return true;
         }

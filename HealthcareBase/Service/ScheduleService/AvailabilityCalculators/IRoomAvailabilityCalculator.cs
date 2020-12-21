@@ -5,7 +5,7 @@
 
 namespace HealthcareBase.Service.ScheduleService.AvailabilityCalculators
 {
-    public interface RoomAvailabilityCalculator
+    public interface IRoomAvailabilityCalculator
     {
         RoomAvailabilityDTO Calculate(RoomAvailabilityDTO room, CurrentScheduleContext context);
     }

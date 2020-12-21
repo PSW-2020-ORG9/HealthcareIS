@@ -2,7 +2,6 @@
 using HealthcareBase.Model.Medication;
 using HealthcareBase.Repository.Generics;
 using HealthcareBase.Repository.MedicationRepository.Interface;
-using System;
 using System.Linq;
 
 namespace HealthcareBase.Repository.MedicationRepository

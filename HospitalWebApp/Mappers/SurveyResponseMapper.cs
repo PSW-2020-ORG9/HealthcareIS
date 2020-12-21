@@ -1,13 +1,10 @@
 ﻿using HealthcareBase.Model.Users.Survey.DTOs;
 using HealthcareBase.Model.Users.Survey.SurveyEntry;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace HospitalWebApp.Mappers
 {
-    public class SurveyResponseMapper
+    public static class SurveyResponseMapper
     {
         public static SurveyResponse DtoToObject(SurveyResponseDTO dto)
         {

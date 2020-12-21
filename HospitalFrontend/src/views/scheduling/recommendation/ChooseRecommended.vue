@@ -1,5 +1,6 @@
 <template>
-  <fieldset>
+    <fieldset>
+        <legend></legend>
         <h2 class="fs-title">Appointment selection</h2>
        
         <div v-if="appointmentsFetched">
@@ -67,7 +68,6 @@ export default {
         },
         formNotificationString:function(appointment){
             let appointmentStart=moment(appointment.timeInterval.start)
-            let appointmentEnd=moment(appointment.timeInterval.end)
 
             return 'Appointment on ' + appointmentStart.format("dddd, MMMM Do YYYY") 
             +' at ' + appointmentStart.format("h:mm") + ' successfully scheduled '
@@ -93,7 +93,3 @@ export default {
     },
 }
 </script>
-
-<style>
-
-</style>

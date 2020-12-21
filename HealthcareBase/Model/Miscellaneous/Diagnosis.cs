@@ -11,12 +11,12 @@ namespace HealthcareBase.Model.Miscellaneous
     public class Diagnosis : IEntity<string>
     {
         [Key]
-        public string Icd { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public bool IsInjury { get; set; }
         
-        public string GetKey() => Icd;
-        public void SetKey(string icd) => Icd = icd;
+        public string GetKey() => Id;
+        public void SetKey(string id) => Id = id;
     }
 }

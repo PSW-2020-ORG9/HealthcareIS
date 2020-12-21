@@ -57,9 +57,9 @@ namespace HealthcareBaseUnitTests
             return ratingsCount;
         }
 
-        private static Mock<RatedQuestionRepository> CreateSurveyQuestionStubRepository()
+        private static Mock<IRatedQuestionRepository> CreateSurveyQuestionStubRepository()
         {
-            var stubRepository = new Mock<RatedQuestionRepository>();
+            var stubRepository = new Mock<IRatedQuestionRepository>();
             stubRepository.Setup(m => m
                     .GetMatching(It.IsAny<Expression<Func<RatedSurveyQuestion, bool>>>()))
                     .Returns(PopulateRatedSurveyQuestions());

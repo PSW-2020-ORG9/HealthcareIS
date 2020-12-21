@@ -6,7 +6,7 @@ namespace WPFHospitalEditor.Controller
 {
     public class MedicationServerController : IMedicationServerController
     {
-        private IMedicationServerService medicationServerService = new MedicationServerService();
+        private readonly IMedicationServerService medicationServerService = new MedicationServerService();
 
         public IEnumerable<MedicationDto> GetAllMedication()
         {

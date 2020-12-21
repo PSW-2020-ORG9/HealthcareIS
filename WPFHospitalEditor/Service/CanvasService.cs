@@ -6,7 +6,7 @@ using WPFHospitalEditor.MapObjectModel;
 
 namespace WPFHospitalEditor.Service
 {
-    public class CanvasService
+    public static class CanvasService
     {
         public static void addObjectToCanvas(List<MapObject> objectsToShow, Canvas canvas)
         {

@@ -53,26 +53,26 @@ namespace HealthcareBase.Service.ScheduleService.ScheduleFittingService
             return GenerateProcedures(resources, roomAvailabilities, patientAvailability, doctorAvailabilities);
         }
 
-        private RoomAvailabilityCalculator MakeRoomCalculator(Procedure procedure)
+        private IRoomAvailabilityCalculator MakeRoomCalculator(Procedure procedure)
         {
             return new ConsiderProceduresInRoomCalculator(
                 procedure, new ConsiderRenovationsCalculator());
         }
 
-        private PatientAvailabilityCalculator MakePatientCalculator(Procedure procedure)
+        private IPatientAvailabilityCalculator MakePatientCalculator(Procedure procedure)
         {
             return new ConsiderPatientsProceduresCalculator(
                 procedure, new PatientAlwaysAvailableCalculator());
         }
 
-        private DoctorAvailabilityCalculator MakeDoctorCalculator(Procedure procedure)
+        private IDoctorAvailabilityCalculator MakeDoctorCalculator(Procedure procedure)
         {
             return new ConsiderDoctorsProceduresCalcuator(procedure,
                 new ConsiderDoctorsShiftsCalculator());
         }
 
         private IEnumerable<DoctorAvailabilityDTO> CalculateDoctorAvailabilities(ProcedureResourcesDTO resources,
-            DoctorAvailabilityCalculator calculator)
+            IDoctorAvailabilityCalculator calculator)
         {
             var doctorAvailabilities = new List<DoctorAvailabilityDTO>();
             foreach (var doctor in resources.Doctors)
@@ -90,7 +90,7 @@ namespace HealthcareBase.Service.ScheduleService.ScheduleFittingService
         }
 
         private IEnumerable<RoomAvailabilityDTO> CalculateRoomAvailabilites(ProcedureResourcesDTO resources,
-            RoomAvailabilityCalculator calculator)
+            IRoomAvailabilityCalculator calculator)
         {
             var roomAvailabilities = new List<RoomAvailabilityDTO>();
             foreach (var room in resources.Rooms)
@@ -108,7 +108,7 @@ namespace HealthcareBase.Service.ScheduleService.ScheduleFittingService
         }
 
         private PatientAvailabilityDTO CalculatePatientAvailability(ProcedureResourcesDTO resources,
-            PatientAvailabilityCalculator calculator)
+            IPatientAvailabilityCalculator calculator)
         {
             var initialPatientAvailability = new PatientAvailabilityDTO
             {
@@ -127,24 +127,24 @@ namespace HealthcareBase.Service.ScheduleService.ScheduleFittingService
             var duration = resources.Details.Duration;
 
             foreach (var room in rooms)
-            foreach (var doctor in doctors)
-            {
-                var matched =
-                    patient.Availability.Overlap(room.Availability).Overlap(doctor.Availability);
-                foreach (var slot in MakeSlots(matched.Intervals, duration))
+                foreach (var doctor in doctors)
                 {
-                    var toAdd = CreateProcedure(resources.Details);
-                    toAdd.TimeInterval = slot;
-                    toAdd.Patient = patient.Patient;
-                    toAdd.Doctor = doctor.Doctor;
-                    toAdd.Room = room.Room;
+                    var matched =
+                        patient.Availability.Overlap(room.Availability).Overlap(doctor.Availability);
+                    foreach (var slot in MakeSlots(matched.Intervals, duration))
+                    {
+                        var toAdd = CreateProcedure();
+                        toAdd.TimeInterval = slot;
+                        toAdd.Patient = patient.Patient;
+                        toAdd.Doctor = doctor.Doctor;
+                        toAdd.Room = room.Room;
+                    }
                 }
-            }
 
             return hospitalizations;
         }
 
-        private Procedure CreateProcedure(ProcedureDetails details)
+        private Procedure CreateProcedure()
         {
             return new Surgery();
         }

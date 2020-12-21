@@ -14,7 +14,7 @@ namespace HealthcareBase.Service.ScheduleService.AvailabilityCalculators
         private readonly Hospitalization hospitalization;
 
         public ConsiderHospitalizationsInRoomCalculator(Hospitalization hospitalization,
-            RoomAvailabilityCalculator calculator) : base(calculator)
+            IRoomAvailabilityCalculator calculator) : base(calculator)
         {
             this.hospitalization = hospitalization;
         }
@@ -24,7 +24,7 @@ namespace HealthcareBase.Service.ScheduleService.AvailabilityCalculators
             this.hospitalization = hospitalization;
         }
 
-        public ConsiderHospitalizationsInRoomCalculator(RoomAvailabilityCalculator calculator) : base(calculator)
+        public ConsiderHospitalizationsInRoomCalculator(IRoomAvailabilityCalculator calculator) : base(calculator)
         {
         }
 
@@ -43,8 +43,8 @@ namespace HealthcareBase.Service.ScheduleService.AvailabilityCalculators
                 if (hospitalization != null)
                     conflictingHospizalizations.Remove(hospitalization);
 
-                foreach (var hospitalization in conflictingHospizalizations)
-                    newIntervals.SubtractInterval(hospitalization.TimeInterval);
+                foreach (var oneHospitalization in conflictingHospizalizations)
+                    newIntervals.SubtractInterval(oneHospitalization.TimeInterval);
             }
 
             return base.Calculate(new RoomAvailabilityDTO {Room = room.Room, Availability = newIntervals}, context);

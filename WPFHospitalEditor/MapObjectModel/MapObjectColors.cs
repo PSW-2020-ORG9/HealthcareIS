@@ -5,7 +5,7 @@ namespace WPFHospitalEditor.MapObjectModel
 {
     public class MapObjectColors
     {
-        private Dictionary<MapObjectType, Brush> mapObjectTypesColors = new Dictionary<MapObjectType, Brush>();
+        private readonly Dictionary<MapObjectType, Brush> mapObjectTypesColors = new Dictionary<MapObjectType, Brush>();
         private static MapObjectColors instance = null;
 
         private MapObjectColors()

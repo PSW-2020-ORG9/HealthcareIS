@@ -1,8 +1,8 @@
 {
   "id": "9ab76a6e-a415-44e2-bec9-5e72e5b53223",
   "version": "2.0",
-  "name": "SmokeTests",
-  "url": "http://psw-front.herokuapp.com",
+  "name": "E2ETests",
+  "url": "https://psw-front.herokuapp.com",
   "tests": [{
     "id": "1a993f29-f847-491f-ae2c-e858e1a72024",
     "name": "ScheduleImpossibleAppointment",
@@ -273,6 +273,6 @@
     "timeout": 300,
     "tests": ["1a993f29-f847-491f-ae2c-e858e1a72024"]
   }],
-  "urls": ["http://psw-front.herokuapp.com/"],
+  "urls": ["http://psw-front.herokuapp.com/", "https://psw-front.herokuapp.com/"],
   "plugins": []
 }

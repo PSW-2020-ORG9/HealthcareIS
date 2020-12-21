@@ -1,8 +1,6 @@
 ﻿using System;
 using HealthcareBase.Model.CustomExceptions;
-using HealthcareBase.Model.Schedule.Procedures;
 using HealthcareBase.Model.Schedule.Procedures.DTOs;
-using HealthcareBase.Service.ScheduleService.PatientRecommendationService;
 using HealthcareBase.Service.ScheduleService.ProcedureService;
 using HospitalWebApp.Dtos;
 using HospitalWebApp.Mappers;
@@ -63,6 +61,8 @@ namespace HospitalWebApp.Controllers
         [HttpPost]
         [Route("recommend")]
         public IActionResult RecommendExamination(RecommendationRequestDto dto)
-            => Ok(_examinationService.Recommend(dto));
+        {
+            return Ok(_examinationService.Recommend(dto));
+        }
     }
 }

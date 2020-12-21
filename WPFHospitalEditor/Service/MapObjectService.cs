@@ -1,16 +1,14 @@
 ﻿using System.Collections.Generic;
-using System.Windows;
 using System.Windows.Media;
 using WPFHospitalEditor.MapObjectModel;
 using WPFHospitalEditor.Repository;
-using WPFHospitalEditor.Service.Interface;
 
 namespace WPFHospitalEditor.Service
 
 {
     public class MapObjectService : IMapObjectService
     {
-        private IMapObjectRepository iMapObjectRepository = null;
+        private readonly IMapObjectRepository iMapObjectRepository = null;
 
         public MapObjectService(IMapObjectRepository IMapObjectRepository)
         {
@@ -49,7 +47,7 @@ namespace WPFHospitalEditor.Service
         public List<MapObject> searchForMapObjects(string name, string type)
         {
             var mapObjects = new List<MapObject>();           
-            if (name.Equals("") && type.Equals(AllConstants.emptyComboBox)) return mapObjects;
+            if (string.IsNullOrEmpty(name) && type.Equals(AllConstants.emptyComboBox)) return mapObjects;
             List<MapObject> allMapObjects = iMapObjectRepository.getAllMapObjects();
             foreach (MapObject mapObject in allMapObjects)
             {

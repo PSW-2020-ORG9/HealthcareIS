@@ -8,7 +8,7 @@ using HealthcareBase.Model.Utilities;
 
 namespace HealthcareBase.Service.ScheduleService.AvailabilityCalculators
 {
-    public class ConsiderDoctorsShiftsCalculator : DoctorAvailabilityCalculator
+    public class ConsiderDoctorsShiftsCalculator : IDoctorAvailabilityCalculator
     {
         public DoctorAvailabilityDTO Calculate(DoctorAvailabilityDTO doctor, CurrentScheduleContext context)
         {

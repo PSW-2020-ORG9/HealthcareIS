@@ -24,3 +24,4 @@ steps:
       }
   env:
     GHAPITOKEN: $(GHAPIToken)
+  displayName: Enable permissions for Devs

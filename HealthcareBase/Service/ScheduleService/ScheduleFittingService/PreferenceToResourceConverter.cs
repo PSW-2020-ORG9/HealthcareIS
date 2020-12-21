@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HealthcareBase.Model.HospitalResources;
-using HealthcareBase.Model.Users.Employee;
 using HealthcareBase.Model.Users.Employee.Doctors;
 using HealthcareBase.Model.Utilities;
 using HealthcareBase.Service.HospitalResourcesService.RoomService;
@@ -17,13 +16,11 @@ namespace HealthcareBase.Service.ScheduleService.ScheduleFittingService
 {
     public class PreferenceToResourceConverter
     {
-        private readonly DoctorService doctorService;
         private readonly RoomService roomService;
         private readonly TimeSpan timeLimit;
 
-        public PreferenceToResourceConverter(DoctorService doctorService, RoomService roomService, TimeSpan timeLimit)
+        public PreferenceToResourceConverter(RoomService roomService, TimeSpan timeLimit)
         {
-            this.doctorService = doctorService;
             this.roomService = roomService;
             this.timeLimit = timeLimit;
         }

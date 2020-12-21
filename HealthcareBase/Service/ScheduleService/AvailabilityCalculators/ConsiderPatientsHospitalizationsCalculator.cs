@@ -14,12 +14,12 @@ namespace HealthcareBase.Service.ScheduleService.AvailabilityCalculators
         private readonly Hospitalization hospitalization;
 
         public ConsiderPatientsHospitalizationsCalculator(Hospitalization hospitalization,
-            PatientAvailabilityCalculator calculator) : base(calculator)
+            IPatientAvailabilityCalculator calculator) : base(calculator)
         {
             this.hospitalization = hospitalization;
         }
 
-        public ConsiderPatientsHospitalizationsCalculator(PatientAvailabilityCalculator calculator) : base(calculator)
+        public ConsiderPatientsHospitalizationsCalculator(IPatientAvailabilityCalculator calculator) : base(calculator)
         {
         }
 
@@ -42,8 +42,8 @@ namespace HealthcareBase.Service.ScheduleService.AvailabilityCalculators
                     context.HospitalizationService.GetByPatientAndTime(patient.Patient, timeInterval).ToList();
                 if (hospitalization != null)
                     conflictingHospizalizations.Remove(hospitalization);
-                foreach (var hospitalization in conflictingHospizalizations)
-                    newIntervals.SubtractInterval(hospitalization.TimeInterval);
+                foreach (var oneHospitalization in conflictingHospizalizations)
+                    newIntervals.SubtractInterval(oneHospitalization.TimeInterval);
             }
 
             return base.Calculate(new PatientAvailabilityDTO {Patient = patient.Patient, Availability = newIntervals},

@@ -3,8 +3,8 @@
 // Created: 25 May 2020 12:58:01
 // Purpose: Definition of Class DepartmentService
 
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using HealthcareBase.Model.CustomExceptions;
 using HealthcareBase.Model.HospitalResources;
 using HealthcareBase.Repository.Generics;
@@ -16,18 +16,14 @@ namespace HealthcareBase.Service.HospitalResourcesService.RoomService
     public class DepartmentService
     {
         private readonly RepositoryWrapper<IDepartmentRepository> departmentRepository;
-        private readonly RepositoryWrapper<IHospitalizationTypeRepository> hospitalizationTypeRepository;
         private readonly RepositoryWrapper<IRoomRepository> roomRepository;
 
         public DepartmentService(
             IDepartmentRepository departmentRepository,
-            IRoomRepository roomRepository,
-            IHospitalizationTypeRepository hospitalizationTypeRepository)
+            IRoomRepository roomRepository)
         {
             this.departmentRepository = new RepositoryWrapper<IDepartmentRepository>(departmentRepository);
             this.roomRepository = new RepositoryWrapper<IRoomRepository>(roomRepository);
-            this.hospitalizationTypeRepository =
-                new RepositoryWrapper<IHospitalizationTypeRepository>(hospitalizationTypeRepository);
         }
 
         public DepartmentService(IDepartmentRepository departmentRepository)
@@ -80,7 +76,7 @@ namespace HealthcareBase.Service.HospitalResourcesService.RoomService
 
         private void DeleteFromHospitalizationTypes(Department department)
         {
-            
+            throw new NotImplementedException();
         }
     }
 }

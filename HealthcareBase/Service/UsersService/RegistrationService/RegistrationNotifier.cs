@@ -1,9 +1,6 @@
 using System;
-using System.IO;
 using System.Net;
 using System.Net.Mail;
-using System.Reflection;
-using System.Runtime.CompilerServices;
 using HtmlAgilityPack;
 
 namespace HealthcareBase.Service.UsersService.RegistrationService
@@ -11,7 +8,12 @@ namespace HealthcareBase.Service.UsersService.RegistrationService
     public class RegistrationNotifier:IRegistrationNotifier
     {
         private readonly SmtpClient SmtpClient;
-        private static MailMessage MailMessage;
+        private static MailMessage MailMessage = new MailMessage
+        {
+            From = new MailAddress(Environment.GetEnvironmentVariable("PSW_EMAIL_USERNAME")),
+            Subject = "Welcome to HealthCare Web!",
+            IsBodyHtml = true
+        };
         private readonly string _activationEndpoint;
 
         public RegistrationNotifier() : this(Environment.GetEnvironmentVariable("PSW_ACTIVATION_ENDPOINT")) {   }
@@ -25,12 +27,6 @@ namespace HealthcareBase.Service.UsersService.RegistrationService
                 Port = Convert.ToInt32(Environment.GetEnvironmentVariable("PSW_SMTP_SSL_PORT")),
                 Credentials = new NetworkCredential(Environment.GetEnvironmentVariable("PSW_EMAIL_USERNAME"), Environment.GetEnvironmentVariable("PSW_EMAIL_PASSWORD")),
                 EnableSsl = true,
-            };
-            MailMessage = new MailMessage
-            {
-                From = new MailAddress(Environment.GetEnvironmentVariable("PSW_EMAIL_USERNAME")),
-                Subject = "Welcome to HealthCare Web!",
-                IsBodyHtml = true
             };
         }
         

@@ -31,7 +31,7 @@ namespace HealthcareBase.Service.MiscellaneousService
 
         public IEnumerable<Diagnosis> Search(string keyword)
         {
-            if (keyword is null || keyword.Equals(""))
+            if (string.IsNullOrEmpty(keyword))
                 return diagnosisRepository.Repository.GetAll();
             return diagnosisRepository.Repository.GetByKeyword(keyword);
         }

@@ -1,5 +1,6 @@
 <template>
     <fieldset>
+        <legend></legend>
         <h2 class="fs-title">Appointment preferences</h2>
         <select name="Preference" v-model="preference">
             <option value="">Choose your preference..</option>
@@ -58,9 +59,8 @@
 import api from '../../../constant/api.js'
 import axios from 'axios'
 import moment from 'moment'
-import Datepicker from 'vue3-datepicker'
 import Toastify from 'toastify-js'
-import {Calendar, DatePicker} from 'v-calendar'
+import DatePicker from 'v-calendar'
 
 export default {
     name:'AppointmentPreferences',

@@ -3,6 +3,7 @@
 // Created: 18 April 2020 18:22:13
 // Purpose: Definition of Class MedicationStorageRecord
 
+using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HealthcareBase.Model.StorageRecords
@@ -21,7 +22,7 @@ namespace HealthcareBase.Model.StorageRecords
 
         public override int GetHashCode()
         {
-            return 1877310944 + id.GetHashCode();
+            throw new NotImplementedException();
         }
     }
 }

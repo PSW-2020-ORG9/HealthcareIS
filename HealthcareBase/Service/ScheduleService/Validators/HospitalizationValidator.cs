@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.Collections.Generic;
 using HealthcareBase.Model.CustomExceptions;
 using HealthcareBase.Model.HospitalResources;
 using HealthcareBase.Model.Schedule.Hospitalizations;
@@ -12,19 +12,16 @@ namespace HealthcareBase.Service.ScheduleService.Validators
 {
     public class HospitalizationValidator
     {
-        private readonly RepositoryWrapper<IEquipmentUnitRepository> equipmentUnitRepository;
         private readonly RepositoryWrapper<IHospitalizationTypeRepository> hospitalizationTypeRepository;
         private readonly RepositoryWrapper<IPatientRepository> patientRepository;
         private readonly RepositoryWrapper<IRoomRepository> roomRepository;
 
         public HospitalizationValidator(
             IRoomRepository roomRepository,
-            IEquipmentUnitRepository equipmentUnitRepository,
             IPatientRepository IPatientRepository,
             IHospitalizationTypeRepository IHospitalizationTypeRepository)
         {
             this.roomRepository = new RepositoryWrapper<IRoomRepository>(roomRepository);
-            this.equipmentUnitRepository = new RepositoryWrapper<IEquipmentUnitRepository>(equipmentUnitRepository);
             this.patientRepository = new RepositoryWrapper<IPatientRepository>(IPatientRepository);
             this.hospitalizationTypeRepository =
                 new RepositoryWrapper<IHospitalizationTypeRepository>(IHospitalizationTypeRepository);
@@ -36,7 +33,7 @@ namespace HealthcareBase.Service.ScheduleService.Validators
                 return;
             ValidateRequiredFields(hospitalization);
             ValidateAndUpdateReferences(hospitalization);
-            ValidateRoomSuitability(hospitalization.HospitalizationType, hospitalization.Room);
+            ValidateRoomSuitability(hospitalization.Room);
         }
 
         private void ValidateRequiredFields(Hospitalization hospitalization)
@@ -59,7 +56,6 @@ namespace HealthcareBase.Service.ScheduleService.Validators
                 hospitalization.Patient = patientRepository.Repository.GetByID(hospitalization.Patient.GetKey());
                 hospitalization.HospitalizationType =
                     hospitalizationTypeRepository.Repository.GetByID(hospitalization.HospitalizationType.GetKey());
-                var equipmentInUse = new List<EquipmentUnit>();
             }
             catch (BadRequestException)
             {
@@ -67,25 +63,12 @@ namespace HealthcareBase.Service.ScheduleService.Validators
             }
         }
 
-        private void ValidateRoomSuitability(HospitalizationType hospitalizationType, Room room)
+        private void ValidateRoomSuitability(Room room)
         {
             if (!room.Purpose.Equals(RoomType.RecoveryRoom))
                 throw new ValidationException();
             if (room.Department is null)
                 throw new ValidationException();
-        }
-
-        private void ValidateEquipmentSuitability(HospitalizationType hospitalizationType,
-            IEnumerable<EquipmentUnit> equipment)
-        {
-            
-        }
-
-        private void ValidateEquipmentLocation(Room room, IEnumerable<EquipmentUnit> equipment)
-        {
-            foreach (var equipmentUnit in equipment)
-                if (!equipmentUnit.CurrentLocation.Equals(room))
-                    throw new ValidationException();
         }
     }
 }

@@ -2,7 +2,6 @@
 // Author:  Lana
 // Created: 20 April 2020 23:19:05
 // Purpose: Definition of Class MedicationPrescription
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using HealthcareBase.Model.Miscellaneous;

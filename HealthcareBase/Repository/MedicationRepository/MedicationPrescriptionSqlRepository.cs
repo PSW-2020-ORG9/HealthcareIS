@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using HealthcareBase.Model.Database;
 using HealthcareBase.Model.Medication;
 using HealthcareBase.Repository.Generics;

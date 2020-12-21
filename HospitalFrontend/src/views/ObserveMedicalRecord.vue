@@ -4,70 +4,72 @@
         <div>
             <div class="row">
                 <div style="width: 15vw">
-                    <img class="w-100 rounded p-1 border border-light" v-bind:src="profilePicture"/>
+                    <img class="w-100 rounded p-1 border border-light" v-bind:src="profilePicture" alt=""/>
                 </div>
                 <table class="table w-auto text-left bg-light m-1">
+                    <caption></caption>
                     <thead>
                         <tr>
-                            <th colspan="2">Personal data</th>
+                            <th colspan="2" id="personal_data_th">Personal data</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <th class="text-info">Name:</th>
+                            <th class="text-info" id="name_th1">Name:</th>
                             <td>{{patient.person.name}}</td>
                         </tr>
                         <tr>
-                            <th class="text-info">Last name:</th>
+                            <th class="text-info" id="last_name_th">Last name:</th>
                             <td>{{patient.person.surname}}</td>
                         </tr>
                         <tr>
-                            <th class="text-info">Middle name:</th>
+                            <th class="text-info" id="middle_name_th">Middle name:</th>
                             <td>{{patient.person.middleName}}</td>
                         </tr>
                         <tr>
-                            <th class="text-info">JMBG:</th>
+                            <th class="text-info" id="jmgb_th">JMBG:</th>
                             <td>{{patient.person.jmbg}}</td>
                         </tr>
                         <tr>
-                            <th class="text-info">Insurance number:</th>
+                            <th class="text-info" id="insurance_number_th">Insurance number:</th>
                             <td>{{patient.insuranceNumber}}</td>
                         </tr>
                         <tr>
-                            <th class="text-info">Country:</th>
+                            <th class="text-info" id="country_th">Country:</th>
                             <td>{{patient.person.cityOfResidence.country.name}}</td>
                         </tr>
                         <tr>
-                            <th class="text-info">Address:</th>
+                            <th class="text-info" id="address_th">Address:</th>
                             <td>{{patient.person.cityOfResidence.name + ', ' + patient.person.address}}</td>
                         </tr>
                         <tr>
-                            <th class="text-info">Date of birth:</th>
+                            <th class="text-info" id="date_of_birth_th">Date of birth:</th>
                             <td>{{parseDate(patient.person.dateOfBirth)}}</td>
                         </tr>
                         <tr>
-                            <th class="text-info">City of birth:</th>
+                            <th class="text-info" id="city_of_birth_th">City of birth:</th>
                             <td>{{patient.person.cityOfBirth.name}}</td>
                         </tr>
                         <tr>
-                            <th class="text-info">Phone number:</th>
+                            <th class="text-info" id="phone_number_th">Phone number:</th>
                             <td>{{patient.person.telephoneNumber}}</td>
                         </tr>
                     </tbody>
                 </table>
                 <table class="table text-left w-auto bg-light m-1">
+                    <caption></caption>
                     <thead>
                         <tr>
-                            <th colspan="2">Allergies</th>
+                            <th colspan="2" id="allergies_th">Allergies</th>
                         </tr>
                     </thead>
                     <tbody v-if="patient.allergies.length == 0">
-                        <th>No recorded patient allergies.</th>
+                        <th id="no_recorded_allergies_th">No recorded patient allergies.</th>
                     </tbody>
                     <tbody v-else>
                         <tr>
-                            <th class="text-info">Allergen</th>
-                            <th class="text-info">Intensity</th>
+                            <th class="text-info" id="allergen_th">Allergen</th>
+                            <th class="text-info" id="intensity_th">Intensity</th>
                         </tr>
                         <tr v-for="allergyManifestation in patient.allergies" v-bind:key="allergyManifestation.id">
                             <td>
@@ -82,16 +84,17 @@
             </div>
             <div class="row">
                 <table class="table text-left bg-light m-1">
+                    <caption></caption>
                     <thead>
-                        <th colspan="2">Diagnosis history</th>
+                        <th colspan="2" id="diagnosis_history_th">Diagnosis history</th>
                     </thead>
                     <tbody v-if="patient.examinations.length == 0">
-                        <th>No recorded patient history.</th>
+                        <th id="no_recorded_history_th">No recorded patient history.</th>
                     </tbody>
                     <tbody v-else>
                         <tr>
-                            <th class="text-info">Name</th>
-                            <th class="text-info">Description</th>
+                            <th class="text-info" id="name_th2">Name</th>
+                            <th class="text-info" id="description_th">Description</th>
                         </tr>
                         <tr v-for="diagnosis in getDiagnoses()" v-bind:key="diagnosis.id">
                             <td>{{diagnosis.name}}</td>
@@ -154,7 +157,3 @@ export default {
     }
 }
 </script>
-
-<style>
-
-</style>
