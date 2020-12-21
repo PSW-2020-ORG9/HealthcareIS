@@ -17,3 +17,4 @@ steps:
       git checkout master
       git --no-pager log --all --source --full-history # --graph --since=2.weeks
     workingDirectory: '$(Agent.BuildDirectory)/s'
+  displayName: Logging
