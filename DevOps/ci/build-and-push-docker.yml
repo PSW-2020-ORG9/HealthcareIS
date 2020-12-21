@@ -6,7 +6,7 @@ pool:
   vmImage: 'ubuntu-16.04'
 steps:
 - task: DownloadBuildArtifacts@0
-  displayName: 'Download Build Artifacts'
+  displayName: 'Download CI Build Artifacts'
   inputs:
     buildType: 'specific'
     project: 'b1b2ce57-5a6f-427b-8869-dc3414677299'
@@ -27,6 +27,7 @@ steps:
     tags: latest
     addPipelineData: false
 - task: Docker@2
+  displayName: 'Docker build pswaspnet'
   inputs:
     containerRegistry: 'psw'
     repository: 'fmaster/pswaspnet'
@@ -45,6 +46,7 @@ steps:
     tags: latest
     addPipelineData: false
 - task: Docker@2
+  displayName: 'Docker push pswaspnet'
   inputs:
     containerRegistry: 'psw'
     repository: 'fmaster/pswaspnet'
