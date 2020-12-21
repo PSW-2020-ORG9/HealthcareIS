@@ -16,7 +16,7 @@ namespace WPFHospitalEditor
     public partial class ScheduleWindow : Window
     {
         RecommendationDto recommendationDto;
-        List<Patient> allPatients = new List<Patient>();
+        List<Patient> allPatients;
         IPatientServerController patientServerController = new PatientServerController();
         IExaminationServerController examinationServerController = new ExaminationServerController();
 

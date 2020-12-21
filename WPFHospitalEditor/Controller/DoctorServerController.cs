@@ -9,7 +9,7 @@ namespace WPFHospitalEditor.Controller
 {
     public class DoctorServerController : IDoctorServerController
     {
-        private IDoctorServerService doctorServerService = new DoctorServerService();
+        private readonly IDoctorServerService doctorServerService = new DoctorServerService();
 
         public IEnumerable<DoctorDto> GetDoctorsByDepartment(int departmentId)
         {

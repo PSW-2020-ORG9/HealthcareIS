@@ -14,12 +14,12 @@ namespace HealthcareBase.Service.ScheduleService.AvailabilityCalculators
         private readonly Procedure procedure;
 
         public ConsiderDoctorsProceduresCalcuator(Procedure procedure,
-            DoctorAvailabilityCalculator calculator) : base(calculator)
+            IDoctorAvailabilityCalculator calculator) : base(calculator)
         {
             this.procedure = procedure;
         }
 
-        public ConsiderDoctorsProceduresCalcuator(DoctorAvailabilityCalculator calculator) : base(calculator)
+        public ConsiderDoctorsProceduresCalcuator(IDoctorAvailabilityCalculator calculator) : base(calculator)
         {
         }
 

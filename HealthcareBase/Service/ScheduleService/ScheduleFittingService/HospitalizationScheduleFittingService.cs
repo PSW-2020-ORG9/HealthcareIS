@@ -52,7 +52,7 @@ namespace HealthcareBase.Service.ScheduleService.ScheduleFittingService
         }
 
         private IEnumerable<RoomAvailabilityDTO> CalculateRoomAvailabilites(
-            HospitalizationResourcesDTO resources, RoomAvailabilityCalculator calculator)
+            HospitalizationResourcesDTO resources, IRoomAvailabilityCalculator calculator)
         {
             var roomAvailabilities = new List<RoomAvailabilityDTO>();
             foreach (var room in resources.Rooms)
@@ -70,7 +70,7 @@ namespace HealthcareBase.Service.ScheduleService.ScheduleFittingService
         }
 
         private PatientAvailabilityDTO CalculatePatientAvailability(
-            HospitalizationResourcesDTO resources, PatientAvailabilityCalculator calculator)
+            HospitalizationResourcesDTO resources, IPatientAvailabilityCalculator calculator)
         {
             var initialPatientAvailability = new PatientAvailabilityDTO
             {
@@ -122,13 +122,13 @@ namespace HealthcareBase.Service.ScheduleService.ScheduleFittingService
             return slots;
         }
 
-        private RoomAvailabilityCalculator MakeRoomCalculator(Hospitalization hospitalization)
+        private IRoomAvailabilityCalculator MakeRoomCalculator(Hospitalization hospitalization)
         {
             return new ConsiderHospitalizationsInRoomCalculator(
                 hospitalization, new ConsiderRenovationsCalculator());
         }
 
-        private PatientAvailabilityCalculator MakePatientCalculator(Hospitalization hospitalization)
+        private IPatientAvailabilityCalculator MakePatientCalculator(Hospitalization hospitalization)
         {
             return new ConsiderPatientsHospitalizationsCalculator(
                 hospitalization, new PatientAlwaysAvailableCalculator());

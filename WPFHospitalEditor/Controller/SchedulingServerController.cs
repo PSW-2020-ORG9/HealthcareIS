@@ -9,7 +9,7 @@ namespace WPFHospitalEditor.Controller
 {
     public class SchedulingServerController : ISchedulingServerController
     {
-        private ISchedulingServerService schedulingServerService = new SchedulingServerService();
+        private readonly ISchedulingServerService schedulingServerService = new SchedulingServerService();
         public List<RecommendationDto> GetAppointments(RecommendationRequestDto recommendationRequestDto)
         {
             return schedulingServerService.GetAppointments(recommendationRequestDto);

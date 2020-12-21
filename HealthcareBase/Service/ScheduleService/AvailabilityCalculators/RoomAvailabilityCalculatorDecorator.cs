@@ -5,11 +5,11 @@
 
 namespace HealthcareBase.Service.ScheduleService.AvailabilityCalculators
 {
-    public class RoomAvailabilityCalculatorDecorator : RoomAvailabilityCalculator
+    public class RoomAvailabilityCalculatorDecorator : IRoomAvailabilityCalculator
     {
-        private readonly RoomAvailabilityCalculator roomAvailabilityCalculator;
+        private readonly IRoomAvailabilityCalculator roomAvailabilityCalculator;
 
-        protected RoomAvailabilityCalculatorDecorator(RoomAvailabilityCalculator roomAvailabilityCalculator)
+        protected RoomAvailabilityCalculatorDecorator(IRoomAvailabilityCalculator roomAvailabilityCalculator)
         {
             this.roomAvailabilityCalculator = roomAvailabilityCalculator;
         }

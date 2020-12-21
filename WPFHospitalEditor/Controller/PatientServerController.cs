@@ -8,7 +8,7 @@ namespace WPFHospitalEditor.Controller
 {
     public class PatientServerController : IPatientServerController
     {
-        IPatientServerService patientServerService = new PatientServerService();
+        private readonly IPatientServerService patientServerService = new PatientServerService();
         public IEnumerable<Patient> GetAllPatients()
         {
             return patientServerService.GetAllPatients();
