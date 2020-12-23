@@ -14,7 +14,7 @@ namespace HealthcareBase.Repository.MedicationRepository
         public MedicationPrescriptionSqlRepository(IContextFactory contextFactory) : base(contextFactory)
         {
         }
-        
+
         protected override IQueryable<MedicationPrescription> IncludeFields(IQueryable<MedicationPrescription> query)
         {
             return query

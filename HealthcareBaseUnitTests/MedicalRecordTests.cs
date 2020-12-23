@@ -1,8 +1,6 @@
 using Moq;
 using System.Collections.Generic;
 using HealthcareBase.Model.Users.Patient;
-using HealthcareBase.Repository.ScheduleRepository.HospitalizationsRepository;
-using HealthcareBase.Repository.ScheduleRepository.ProceduresRepository.Interface;
 using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository.Interface;
 using HealthcareBase.Service.UsersService.PatientService;
 using Xunit;

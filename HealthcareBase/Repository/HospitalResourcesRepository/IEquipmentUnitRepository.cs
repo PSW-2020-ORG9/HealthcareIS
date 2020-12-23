@@ -11,6 +11,5 @@ namespace HealthcareBase.Repository.HospitalResourcesRepository
 {
     public interface IEquipmentUnitRepository : IWrappableRepository<EquipmentUnit, int>
     {
-        IEnumerable<EquipmentUnit> GetByCurrentLocationWithoutParse(Room room);
     }
 }

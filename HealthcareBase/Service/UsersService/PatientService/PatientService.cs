@@ -4,11 +4,8 @@
 // Purpose: Definition of Class PatientService
 
 using System.Collections.Generic;
-using HealthcareBase.Model.CustomExceptions;
 using HealthcareBase.Model.Users.Patient;
 using HealthcareBase.Repository.Generics;
-using HealthcareBase.Repository.ScheduleRepository.HospitalizationsRepository;
-using HealthcareBase.Repository.ScheduleRepository.ProceduresRepository.Interface;
 using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository.Interface;
 
 namespace HealthcareBase.Service.UsersService.PatientService
