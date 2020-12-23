@@ -19,19 +19,10 @@ namespace HealthcareBase.Service.MiscellaneousService
             this.cityRepository = new RepositoryWrapper<ICityRepository>(cityRepository);
         }
 
-        public City GetByID(int id)
-        {
-            return cityRepository.Repository.GetByID(id);
-        }
-
-        public IEnumerable<City> GetAll()
-        {
-            return cityRepository.Repository.GetAll();
-        }
-
-        public IEnumerable<City> GetByCountry(int countryId)
-        {
-            return cityRepository.Repository.GetByCountry(countryId);
-        }
+        public City GetByID(int id) => cityRepository.Repository.GetByID(id);
+        
+        public IEnumerable<City> GetAll() => cityRepository.Repository.GetAll();
+        
+        public IEnumerable<City> GetByCountry(int countryId) => cityRepository.Repository.GetByCountry(countryId);
     }
 }

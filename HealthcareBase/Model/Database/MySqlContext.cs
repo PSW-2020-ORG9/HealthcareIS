@@ -1,5 +1,4 @@
 using EntityFramework.Exceptions.MySQL.Pomelo;
-using HealthcareBase.Model.Blog;
 using HealthcareBase.Model.HospitalResources;
 using HealthcareBase.Model.Medication;
 using HealthcareBase.Model.Miscellaneous;
@@ -43,9 +42,6 @@ namespace HealthcareBase.Model.Database
             optionsBuilder.UseExceptionProcessor();
         }
 
-        public DbSet<BlogAuthor> BlogAuthors { get; set; }
-        public DbSet<BlogPost> BlogPosts { get; set; }
-        
         // Rooms, Hospitalizations, Equipment, etc.
         public DbSet<Department> Departments { get; set; }
         public DbSet<EquipmentType> EquipmentTypes { get; set; }

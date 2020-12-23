@@ -15,7 +15,7 @@ using HealthcareBase.Repository.UsersRepository.UserAccountsRepository;
 
 namespace HealthcareBase.Service.UsersService.PatientService
 {
-    public class PatientAccountService:IPatientAccountService
+    public class PatientAccountService : IPatientAccountService
     {
         private readonly RepositoryWrapper<IPatientAccountRepository> patientAccountRepository;
 

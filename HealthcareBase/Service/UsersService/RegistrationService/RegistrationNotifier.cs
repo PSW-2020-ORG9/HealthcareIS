@@ -5,7 +5,7 @@ using HtmlAgilityPack;
 
 namespace HealthcareBase.Service.UsersService.RegistrationService
 {
-    public class RegistrationNotifier:IRegistrationNotifier
+    public class RegistrationNotifier : IRegistrationNotifier
     {
         private readonly SmtpClient SmtpClient;
         private static MailMessage MailMessage = new MailMessage

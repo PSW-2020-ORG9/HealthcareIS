@@ -12,16 +12,10 @@ namespace HealthcareBaseUnitTests
     public class MedicalRecordTests
     {
         private Mock<IPatientRepository> _patientStubRepository;
-        private Mock<IExaminationRepository> _examinationStubRepository;
-        private Mock<ISurgeryRepository> _surgeryStubRepository;
-        private Mock<IHospitalizationRepository> _hospitalizationStubRepository;
 
         private void PrepareStubs()
         {
             _patientStubRepository = new Mock<IPatientRepository>();
-            _examinationStubRepository = new Mock<IExaminationRepository>();
-            _surgeryStubRepository = new Mock<ISurgeryRepository>();
-            _hospitalizationStubRepository = new Mock<IHospitalizationRepository>();
 
             Patient p = new Patient();
             p.Id = 1;
@@ -39,10 +33,7 @@ namespace HealthcareBaseUnitTests
             PrepareStubs();
             PatientService service = new PatientService
                 (
-                _patientStubRepository.Object,
-                _examinationStubRepository.Object,
-                _surgeryStubRepository.Object,
-                _hospitalizationStubRepository.Object
+                _patientStubRepository.Object
                 );
 
             Patient result = service.GetByID(1);
@@ -55,10 +46,7 @@ namespace HealthcareBaseUnitTests
             PrepareStubs();
             PatientService service = new PatientService
                 (
-                _patientStubRepository.Object,
-                _examinationStubRepository.Object,
-                _surgeryStubRepository.Object,
-                _hospitalizationStubRepository.Object
+                _patientStubRepository.Object
                 );
             Patient result = service.GetByID(2);
             Assert.Null(result);
