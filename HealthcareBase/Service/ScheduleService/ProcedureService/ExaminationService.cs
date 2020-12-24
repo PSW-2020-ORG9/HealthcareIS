@@ -153,7 +153,7 @@ namespace HealthcareBase.Service.ScheduleService.ProcedureService
             
             var selectedDoctorShifts = _shiftWrapper.Repository.GetByDoctorIdAndTimeInterval(
                 dto.DoctorId,
-                new TimeInterval()
+                new TimeInterval
                 {
                     Start = (dto.TimeInterval.Start.AddMonths(-1) < DateTime.Now ? DateTime.Now : dto.TimeInterval.Start.AddMonths(-1)),
                     End = dto.TimeInterval.End.AddMonths(1)
