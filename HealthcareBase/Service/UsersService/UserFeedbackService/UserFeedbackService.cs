@@ -42,21 +42,18 @@ namespace HealthcareBase.Service.UsersService.UserFeedbackService
         ///     True if publishing succeeds. False if a UserFeedback with the given ID cannot be found,
         ///     if it is already published, or if Feedback is not set to public.
         /// </returns>
-        public bool Publish(int id)
+        public void Publish(int id)
         {
-            UserFeedback userFeedback = _userFeedbackRepository.Repository.GetByID(id);
-            if (userFeedback.isPublished) return false;    // If already published
-            if (!userFeedback.isPublic) return false;    // If not public
-            userFeedback.isPublished = true;
+            var userFeedback = _userFeedbackRepository.Repository.GetByID(id);
+            userFeedback.FeedbackVisibility = userFeedback.FeedbackVisibility.Publish();
             _userFeedbackRepository.Repository.Update(userFeedback);
-            return true;
         }
 
         /// <summary>
-        ///     Gets a list of all UserFeedbacks where <see cref="UserFeedback.isPublished"/> is True.
+        ///     Gets a list of all UserFeedbacks where <see cref="UserFeedback.IsPublished"/> is True.
         /// </summary>
         /// <returns>List of Feedbacks</returns>
         public IEnumerable<UserFeedback> GetAllPublished()
-            => _userFeedbackRepository.Repository.GetMatching(feedback => feedback.isPublished);
+            => _userFeedbackRepository.Repository.GetMatching(feedback => feedback.FeedbackVisibility.IsPublished);
     }
 }

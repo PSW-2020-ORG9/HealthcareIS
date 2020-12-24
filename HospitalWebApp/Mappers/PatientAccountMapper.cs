@@ -14,11 +14,13 @@ namespace HospitalWebApp.Mappers
             return new PatientAccount
             {
                 AvatarUrl = dto.AvatarUrl,
-                Username = dto.Username,
-                Password = dto.Password,
-                Email = dto.Email,
+                Credentials = new Credentials
+                {
+                    Email = dto.Email,
+                    Password = dto.Password,
+                    Username = dto.Username
+                },
                 UserGuid = Guid.NewGuid(),
-                FavouriteDoctors = new List<FavoriteDoctor>(),
                 IsActivated = false,
                 RespondedToSurvey = false,
                 Patient = new Patient

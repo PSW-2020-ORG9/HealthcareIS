@@ -18,8 +18,7 @@ namespace HealthcareBase.Service.UsersService.RegistrationService
         public void RegisterPatient(PatientAccount patientAccount,string emailTemplatePath)
         {
             registrationNotifier
-                .SendActivationEmail(patientAccount.UserGuid,
-                    patientAccount.Email,
+                .SendActivationEmail(patientAccount,
                     emailTemplatePath);
         }
 

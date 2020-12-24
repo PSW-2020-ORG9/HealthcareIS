@@ -11,9 +11,12 @@ namespace HospitalWebApp.Mappers
             return new UserFeedback
             {
                 Date = DateTime.Now,
-                isAnonymous = dto.IsAnonymous,
-                isPublic = dto.IsPublic,
-                isPublished = dto.IsPublished,
+                FeedbackVisibility = new FeedbackVisibility
+                {
+                    IsAnonymous = dto.IsAnonymous,
+                    IsPublic = dto.IsPublic,
+                    IsPublished = dto.IsPublished
+                },
                 UserComment = dto.UserComment,
                 PatientAccountId = dto.UserId
             };

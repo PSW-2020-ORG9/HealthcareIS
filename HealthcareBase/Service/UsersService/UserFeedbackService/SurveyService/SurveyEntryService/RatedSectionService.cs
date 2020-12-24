@@ -24,6 +24,32 @@ namespace HealthcareBase.Service.UsersService.UserFeedbackService.SurveyService.
             return FindAverage(GetBySectionId(surveySectionId));
         }
         /// <summary>
+        /// Finds average survey section rating.
+        /// </summary>
+        /// <param name="surveySections">A list of rated survey sections.</param>
+        /// <returns></returns>
+        private static double FindAverage(IEnumerable<RatedSurveySection> surveySections)
+        {
+            var ratedSurveySections = surveySections.ToList();
+            if (ratedSurveySections.Count != 0)
+                return ratedSurveySections
+                    .Select(ss => ss.RatedSurveyQuestions
+                    .Average(x => x.Rating))
+                    .ToList()
+                    .Average();
+            return 0;
+        }
+        /// <summary>
+        /// Gets all the rated survey sections with given id.
+        /// </summary>
+        /// <param name="surveySectionId"></param>
+        /// <returns></returns>
+        private IEnumerable<RatedSurveySection> GetBySectionId(int surveySectionId)
+        {
+            return ratedSectionRepository.Repository
+                .GetMatching(s => s.SurveySectionId == surveySectionId);
+        }
+        /// <summary>
         /// Gets average doctor survey section rating of 
         /// </summary>
         /// <param name="surveySectionId"></param>
@@ -144,31 +170,8 @@ namespace HealthcareBase.Service.UsersService.UserFeedbackService.SurveyService.
 
             return doctorSurveySections;
         }
-        /// <summary>
-        /// Finds average survey section rating.
-        /// </summary>
-        /// <param name="surveySections">A list of rated survey sections.</param>
-        /// <returns></returns>
-        private static double FindAverage(IEnumerable<RatedSurveySection> surveySections)
-        {
-            var ratedSurveySections = surveySections.ToList();
-            if (ratedSurveySections.Count != 0)
-                return ratedSurveySections
-                    .Select(ss => ss.RatedSurveyQuestions
-                        .Average(x => x.Rating))
-                    .ToList()
-                    .Average();
-            return 0;
-        }
-        /// <summary>
-        /// Gets all the rated survey sections with given id.
-        /// </summary>
-        /// <param name="surveySectionId"></param>
-        /// <returns></returns>
-        private IEnumerable<RatedSurveySection> GetBySectionId(int surveySectionId)
-        {
-            return ratedSectionRepository.Repository
-                .GetMatching(s => s.SurveySectionId == surveySectionId);
-        }
+       
+        
+        
     }
 }

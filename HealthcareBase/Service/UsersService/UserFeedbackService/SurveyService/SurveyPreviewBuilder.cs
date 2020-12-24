@@ -38,6 +38,33 @@ namespace HealthcareBase.Service.UsersService.UserFeedbackService.SurveyService
             return surveyDto;
         }
         /// <summary>
+        /// Constructs a list of default survey section DTO objects.
+        /// </summary>
+        /// <param name="surveySections"></param>
+        /// <returns></returns>
+        private List<SurveySectionDTO> BuildSurveySections(IEnumerable<SurveySection> surveySections)
+        {
+            return surveySections
+                .Where(s=>!s.IsDoctorSection)
+                .Select(surveySection => BuildSurveyQuestionDto(surveySection))
+                .ToList();
+        }
+        /// <summary>
+        /// Constructs a single, default survey question DTO object.
+        /// </summary>
+        /// <param name="surveySection"></param>
+        /// <returns></returns>
+        private SurveySectionDTO BuildSurveyQuestionDto(SurveySection surveySection)
+        {
+            return new SurveySectionDTO
+            {
+                SectionName = surveySection.SectionName,
+                SectionId = surveySection.Id,
+                AverageRating = ratedSectionService.GetSectionAverage(surveySection.Id),
+                SurveyQuestions = BuildSurveyQuestions(surveySection.SurveyQuestions),
+            };
+        }
+        /// <summary>
         /// Constructs List of doctor survey section DTO objects.
         /// </summary>
         /// <param name="surveySections">A list of predefinded survey sections</param>
@@ -99,33 +126,8 @@ namespace HealthcareBase.Service.UsersService.UserFeedbackService.SurveyService
                 Question = surveyQuestion.Question
             };
         }
-        /// <summary>
-        /// Constructs a list of default survey section DTO objects.
-        /// </summary>
-        /// <param name="surveySections"></param>
-        /// <returns></returns>
-        private List<SurveySectionDTO> BuildSurveySections(IEnumerable<SurveySection> surveySections)
-        {
-            return surveySections
-                .Where(s=>!s.IsDoctorSection)
-                .Select(surveySection => BuildSurveyQuestionDto(surveySection))
-                .ToList();
-        }
-        /// <summary>
-        /// Constructs a single, default survey question DTO object.
-        /// </summary>
-        /// <param name="surveySection"></param>
-        /// <returns></returns>
-        private SurveySectionDTO BuildSurveyQuestionDto(SurveySection surveySection)
-        {
-            return new SurveySectionDTO
-            {
-                SectionName = surveySection.SectionName,
-                SectionId = surveySection.Id,
-                AverageRating = ratedSectionService.GetSectionAverage(surveySection.Id),
-                SurveyQuestions = BuildSurveyQuestions(surveySection.SurveyQuestions),
-            };
-        }
+        
+        
 
         /// <summary>
         /// Constructs a single survey question DTO object.

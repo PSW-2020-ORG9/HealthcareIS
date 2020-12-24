@@ -5,7 +5,9 @@
 
 using System;
 using System.ComponentModel.DataAnnotations;
+using HealthcareBase.Model.CustomExceptions;
 using HealthcareBase.Repository.Generics;
+using ValidationException = HealthcareBase.Model.CustomExceptions.ValidationException;
 
 namespace HealthcareBase.Model.Users.UserAccounts
 {
@@ -13,16 +15,16 @@ namespace HealthcareBase.Model.Users.UserAccounts
     {
         [Key]
         public int Id { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
+        public Credentials Credentials { get; set; }
         public string AvatarUrl { get; set; }
-        public string Email { get; set; }
         public bool IsActivated { get; set; }
         public Guid UserGuid { get; set; }
-
-
-
         public int GetKey() => Id;
         public void SetKey(int id) => Id = id;
+        public void ActivateAccount()
+        {
+            if(IsActivated) throw new ValidationException("Account is already activated.");
+            IsActivated = true;
+        }
     }
 }

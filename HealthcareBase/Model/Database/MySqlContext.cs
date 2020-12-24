@@ -65,8 +65,7 @@ namespace HealthcareBase.Model.Database
         public DbSet<PatientSurveyResponse> PatientSurveyResponses { get; set; }
         public DbSet<UserFeedback> UserFeedbacks { get; set; }
         public DbSet<Person> Persons { get; set; }
-        public DbSet<FavoriteDoctor> FavoriteDoctors { get; set; }
-        
+
         // Allergies 
         public DbSet<AllergyManifestation> AllergyManifestations { get; set; }
         public DbSet<Allergy> Allergies { get; set; }
@@ -114,8 +113,6 @@ namespace HealthcareBase.Model.Database
         {
             modelBuilder.Entity<Citizenship>()
                 .HasKey(c => new {c.CountryID, c.PersonJmbg});
-            modelBuilder.Entity<FavoriteDoctor>()
-                .HasKey(fav => new {fav.DoctorId, fav.PatientAccountId});
             modelBuilder.Entity<AllergyManifestation>()
                 .HasKey(am => new {am.PatientId, am.AllergyId});
             modelBuilder.Entity<DoctorSpecialty>()

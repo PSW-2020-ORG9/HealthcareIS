@@ -17,12 +17,14 @@ namespace HealthcareBaseUnitTests
             Guid guid = Guid.NewGuid();
             const string email = "mail@mailprovider.com";
             const string emailTemplatePath = "/path/to/the/resource";
+            var patientAccount = CreatePatientAccount(guid, email);
 
             var patientRegistrationService
                 = new PatientRegistrationService(mockPatientAccountService.Object,mockNotifier.Object);
-            patientRegistrationService.RegisterPatient(CreatePatientAccount(guid,email),emailTemplatePath  );
+            patientRegistrationService.RegisterPatient(patientAccount,emailTemplatePath);
             
-            mockNotifier.Verify(n=>n.SendActivationEmail(guid,"mail@mailprovider.com","/path/to/the/resource"));
+            mockNotifier.Verify(n=>
+                n.SendActivationEmail(patientAccount,"/path/to/the/resource"));
         }
 
         private static PatientAccount CreatePatientAccount(Guid guid, string email)
@@ -31,7 +33,10 @@ namespace HealthcareBaseUnitTests
             {
                 Id = 1,
                 UserGuid = guid,
-                Email = email
+                Credentials = new Credentials
+                {
+                    Email = email
+                }
             };
         }
     }

@@ -1,4 +1,5 @@
-﻿using EntityFramework.Exceptions.Common;
+﻿using System;
+using EntityFramework.Exceptions.Common;
 using HealthcareBase.Model.CustomExceptions;
 using HealthcareBase.Model.Users.UserFeedback;
 using HealthcareBase.Service.UsersService.UserFeedbackService;
@@ -62,9 +63,16 @@ namespace HospitalWebApp.Controllers
         public IActionResult Publish(int id)
         {
             //TODO: Check if current user is admin
-            if(_userFeedbackService.Publish(id)) 
-                return Ok("Feedback successfully published.");
-            return BadRequest();
+            try
+            {
+                _userFeedbackService.Publish(id);
+            }
+            catch (ValidationException e)
+            {
+                return BadRequest(e.Message);
+            }
+            return Ok("Feedback successfully published.");
+            
         }
         
         /// <summary>
@@ -79,7 +87,7 @@ namespace HospitalWebApp.Controllers
 
         /// <summary>
         /// Returns a list of all <see cref="UserFeedback"/> objects from the database, where
-        /// <see cref="UserFeedback.isPublished"/> is True
+        /// <see cref="UserFeedback.IsPublished"/> is True
         /// </summary>
         /// <returns>
         /// <see cref="OkObjectResult"/> with the given feedback list inside of it.

@@ -1,6 +1,7 @@
 using System;
 using System.Net;
 using System.Net.Mail;
+using HealthcareBase.Model.Users.UserAccounts;
 using HtmlAgilityPack;
 
 namespace HealthcareBase.Service.UsersService.RegistrationService
@@ -30,16 +31,13 @@ namespace HealthcareBase.Service.UsersService.RegistrationService
             };
         }
         
-        public void SendActivationEmail(Guid guid, string patientEmail,string emailTemplatePath)
+        public void SendActivationEmail(PatientAccount patientAccount,string emailTemplatePath)
         {
-            ConfigureEmailTemplate(guid, emailTemplatePath, patientEmail);
+            ConfigureEmailTemplate(patientAccount.UserGuid, emailTemplatePath, patientAccount.Credentials.Email);
             SendEmail();
         }
 
-        private void SendEmail()
-        {
-            SmtpClient.Send(MailMessage);
-        }
+        private void SendEmail() => SmtpClient.Send(MailMessage);
 
         private void ConfigureEmailTemplate(Guid guid, string emailTemplatePath,string patientEmail)
         {

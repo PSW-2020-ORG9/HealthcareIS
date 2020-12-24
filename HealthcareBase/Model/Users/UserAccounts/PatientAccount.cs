@@ -4,6 +4,8 @@
 // Purpose: Definition of Class PatientAccount
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using HealthcareBase.Model.Users.Employee.Doctors;
 
 namespace HealthcareBase.Model.Users.UserAccounts
 {
@@ -12,8 +14,8 @@ namespace HealthcareBase.Model.Users.UserAccounts
         [ForeignKey("Patient")]
         public int PatientId { get; set; }
         public Patient.Patient Patient { get; set; }
-
-        public IEnumerable<FavoriteDoctor> FavouriteDoctors { get; set; }
         public bool RespondedToSurvey { get; set; }
+
+
     }
 }
