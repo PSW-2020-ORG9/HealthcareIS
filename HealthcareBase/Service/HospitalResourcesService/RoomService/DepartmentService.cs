@@ -9,7 +9,6 @@ using HealthcareBase.Model.CustomExceptions;
 using HealthcareBase.Model.HospitalResources;
 using HealthcareBase.Repository.Generics;
 using HealthcareBase.Repository.HospitalResourcesRepository;
-using HealthcareBase.Repository.ScheduleRepository.HospitalizationsRepository;
 
 namespace HealthcareBase.Service.HospitalResourcesService.RoomService
 {

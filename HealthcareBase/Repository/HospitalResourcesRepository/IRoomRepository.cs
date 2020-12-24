@@ -11,8 +11,6 @@ namespace HealthcareBase.Repository.HospitalResourcesRepository
 {
     public interface IRoomRepository : IWrappableRepository<Room, int>
     {
-        IEnumerable<Room> GetByEquipment(IEnumerable<EquipmentType> equipment);
-
         IEnumerable<Room> GetByDepartment(Department department);
     }
 }

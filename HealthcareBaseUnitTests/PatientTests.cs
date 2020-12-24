@@ -17,7 +17,7 @@ namespace HealthcareBaseUnitTests
         public void Patient_has_examinations()
         {
             PrepareStubs();
-            var patientService = new PatientService(_stubPatientRepository.Object, null, null, null);
+            var patientService = new PatientService(_stubPatientRepository.Object);
 
             Patient p = patientService.GetByID(1);
 
@@ -28,7 +28,7 @@ namespace HealthcareBaseUnitTests
         public void Patient_has_allergies()
         {
             PrepareStubs();
-            var patientService = new PatientService(_stubPatientRepository.Object, null, null, null);
+            var patientService = new PatientService(_stubPatientRepository.Object);
 
             Patient p = patientService.GetByID(1);
 
