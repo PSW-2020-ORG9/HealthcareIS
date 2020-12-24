@@ -29,10 +29,8 @@ namespace WPFHospitalEditorUnitTests
         private static Dictionary<int, Room> rooms = new Dictionary<int, Room>();
 
         public RecommendAppointmentsTest()
-        {
-            
-            examinationService = new ExaminationService(mockExaminationRepository.Object, mockShiftRepository.Object, mockDoctorRepository.Object);
-            
+        {          
+            examinationService = new ExaminationService(mockExaminationRepository.Object, mockShiftRepository.Object, mockDoctorRepository.Object);           
         }
 
         [Theory]
@@ -47,7 +45,7 @@ namespace WPFHospitalEditorUnitTests
         public static IEnumerable<object[]> Recommendation_request_data()
         {
             InitDoctors();
-            InitRooms();           
+            InitRooms();
 
             var retVal = new List<object[]>();
             DateTime startDate1 = new DateTime(2020, 12, 10, 8, 0, 0);
@@ -179,6 +177,7 @@ namespace WPFHospitalEditorUnitTests
                     Name = "Opsta praksa"
                 }
             };
+            AddDoctorToDictionary(doctor1);
             Doctor doctor2 = new Doctor
             {
                 Id = 2,
@@ -193,6 +192,7 @@ namespace WPFHospitalEditorUnitTests
                     Name = "Opsta praksa"
                 }
             };
+            AddDoctorToDictionary(doctor2);
             Doctor doctor3 = new Doctor
             {
                 Id = 3,
@@ -207,9 +207,8 @@ namespace WPFHospitalEditorUnitTests
                     Name = "Opsta praksa"
                 }
             };
-            doctors.Add(doctor1.Id, doctor1);
-            doctors.Add(doctor2.Id, doctor2);
-            doctors.Add(doctor3.Id, doctor3);
+            AddDoctorToDictionary(doctor3);
+
         }
 
         private static void InitRooms()
@@ -219,13 +218,24 @@ namespace WPFHospitalEditorUnitTests
                 Id = 1,
                 Name = "Opsti pregled 1"
             };
+            AddRoomToDictionary(room1);
             Room room2 = new Room
             {
                 Id = 2,
                 Name = "Opsti pregled 2"
             };
-            rooms.Add(room1.Id, room1);
-            rooms.Add(room2.Id, room2);
+            AddRoomToDictionary(room2);
+        }
+
+        private static void AddDoctorToDictionary(Doctor doctor)
+        {
+
+            if (!doctors.ContainsKey(doctor.Id)) doctors.Add(doctor.Id, doctor);
+        }
+
+        private static void AddRoomToDictionary(Room room)
+        {
+            if (!rooms.ContainsKey(room.Id)) rooms.Add(room.Id, room);
         }
     }
 }
