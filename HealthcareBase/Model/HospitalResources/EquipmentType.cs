@@ -8,15 +8,10 @@ using HealthcareBase.Repository.Generics;
 
 namespace HealthcareBase.Model.HospitalResources
 {
-    public class EquipmentType : IEntity<int>
+    public class EquipmentType : Entity<int>
     {       
-        [Key]
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Purpose { get; set; }
         public bool RequiresRenovationToMove { get; set; }
-
-        public int GetKey() => Id;
-        public void SetKey(int id) => Id = id;
     }
 }

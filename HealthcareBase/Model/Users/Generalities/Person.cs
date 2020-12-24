@@ -12,10 +12,8 @@ using HealthcareBase.Repository.Generics;
 
 namespace HealthcareBase.Model.Users.Generalities
 {
-    public class Person : IEntity<string>
+    public class Person : Entity<string>
     {
-        [Key]
-        public string Jmbg { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public DateTime DateOfBirth { get; set; }
@@ -38,8 +36,5 @@ namespace HealthcareBase.Model.Users.Generalities
         [ForeignKey("CityOfBirth")]
         public int CityOfBirthId { get; set; }
         public City CityOfBirth { get; set; }
-
-        public string GetKey() => Jmbg;
-        public void SetKey(string id) => Jmbg = id;
     }
 }

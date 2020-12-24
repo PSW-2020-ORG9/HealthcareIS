@@ -11,7 +11,7 @@ using HealthcareBase.Repository.Generics;
 
 namespace HealthcareBase.Model.Users.Employee.Doctors
 {
-    public class Shift : IEntity<int>
+    public class Shift : Entity<int>
     {
         public TimeInterval TimeInterval { get; set; }
         
@@ -22,10 +22,5 @@ namespace HealthcareBase.Model.Users.Employee.Doctors
         [ForeignKey("Doctor")]
         public int DoctorId { get; set; }
         public Doctor Doctor { get; set; }
-
-        [Key]
-        public int Id { get; set; }
-        public int GetKey() => Id;
-        public void SetKey(int id) => Id = id;
     }
 }

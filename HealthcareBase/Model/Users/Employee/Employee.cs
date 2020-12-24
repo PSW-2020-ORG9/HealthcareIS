@@ -12,35 +12,13 @@ using HealthcareBase.Repository.Generics;
 
 namespace HealthcareBase.Model.Users.Employee
 {
-    public abstract class Employee : IEntity<int>
+    public abstract class Employee : Entity<int>
     {
-        [Key]
-        public int Id { get; set; }
-        
         [ForeignKey("Person")]
         public string Jmbg { get; set; }
         public Person Person { get; set; }
 
         [Column(TypeName = "nvarchar(24)")]
         public EmployeeStatus Status { get; set; }
-
-        public int GetKey() => Id;
-        public void SetKey(int id) => Id = id;
-        public override bool Equals(object? obj)
-        {
-            if (!(obj is Employee employee))
-                return false;
-            return Id.Equals(employee.Id);
-        }
-
-        public override int GetHashCode()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override string? ToString()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

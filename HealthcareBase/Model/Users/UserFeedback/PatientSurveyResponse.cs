@@ -11,7 +11,7 @@ using HealthcareBase.Repository.Generics;
 
 namespace HealthcareBase.Model.Users.UserFeedback
 {
-    public class PatientSurveyResponse : IEntity<int>
+    public class PatientSurveyResponse : Entity<int>
     {
         public int ExperienceRating { get; set; }
 
@@ -22,29 +22,5 @@ namespace HealthcareBase.Model.Users.UserFeedback
         [ForeignKey("Patient")]
         public int PatientId { get; set; }
         public PatientAccount Patient { get; set; }
-
-        [Key]
-        public int Id { get; set; }
-
-        public int GetKey()
-        {
-            return Id;
-        }
-
-        public void SetKey(int id)
-        {
-            Id = id;
-        }
-
-        public override bool Equals(object obj)
-        {
-            return obj is PatientSurveyResponse response &&
-                   Id == response.Id;
-        }
-
-        public override int GetHashCode()
-        {
-            return 1877310944 + Id.GetHashCode();
-        }
     }
 }

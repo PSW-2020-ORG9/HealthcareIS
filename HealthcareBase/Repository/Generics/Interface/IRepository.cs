@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 namespace HealthcareBase.Repository.Generics.Interface
 {
     public interface IRepository<T, ID>
-        where T : IEntity<ID>
+        where T : Entity<ID>
         where ID : IComparable
     {
         int Count();

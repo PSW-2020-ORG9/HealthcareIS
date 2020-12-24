@@ -1,21 +1,24 @@
 using HealthcareBase.Model.CustomExceptions;
+using Microsoft.EntityFrameworkCore;
 
 namespace HealthcareBase.Model.Users.UserAccounts
 {
+    [Owned]
     public class Credentials
     {
         public string Username { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }
 
-        public Credentials()
-        { }
+        public Credentials() { }
+        
         public Credentials(string username, string password, string email)
         {
             Username = username;
             Password = password;
             Email = email;
         }
+        
         public Credentials ChangePassword(string password)
         {
             ValidatePassword(password);

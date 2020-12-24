@@ -1,7 +1,9 @@
 using HealthcareBase.Model.CustomExceptions;
+using Microsoft.EntityFrameworkCore;
 
 namespace HealthcareBase.Model.Users.UserFeedback
 {
+    [Owned]
     public class FeedbackVisibility
     {
         public bool IsPublic { get; set; }

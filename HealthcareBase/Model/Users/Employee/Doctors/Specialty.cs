@@ -8,14 +8,9 @@ using HealthcareBase.Repository.Generics;
 
 namespace HealthcareBase.Model.Users.Employee.Doctors
 {
-    public class Specialty : IEntity<int>
+    public class Specialty : Entity<int>
     {
-        [Key]
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-
-        public int GetKey() => Id;
-        public void SetKey(int id) => Id = id;
     }
 }

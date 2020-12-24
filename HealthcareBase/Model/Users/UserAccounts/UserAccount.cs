@@ -11,16 +11,12 @@ using ValidationException = HealthcareBase.Model.CustomExceptions.ValidationExce
 
 namespace HealthcareBase.Model.Users.UserAccounts
 {
-    public abstract class UserAccount : IEntity<int>
+    public abstract class UserAccount : Entity<int>
     {
-        [Key]
-        public int Id { get; set; }
         public Credentials Credentials { get; set; }
         public string AvatarUrl { get; set; }
         public bool IsActivated { get; set; }
         public Guid UserGuid { get; set; }
-        public int GetKey() => Id;
-        public void SetKey(int id) => Id = id;
         public void ActivateAccount()
         {
             if(IsActivated) throw new ValidationException("Account is already activated.");

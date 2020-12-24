@@ -38,7 +38,7 @@ namespace HospitalWebApp.Mappers
                         CityOfResidenceId = dto.CityOfResidenceId,
                         DateOfBirth = dto.DateOfBirth,
                         Gender = dto.Gender,
-                        Jmbg = dto.Jmbg,
+                        Id = dto.Jmbg,
                         Name = dto.Name,
                         Surname = dto.Surname,
                         TelephoneNumber = dto.TelephoneNumber,

@@ -27,7 +27,7 @@ namespace WPFHospitalEditor
             setAppointmentInfoContent();
             allPatients = patientServerController.GetAllPatients().ToList();
             foreach (Patient p in allPatients)
-                patients.Items.Add(p.Id.ToString() + " " + p.Person.Name + " " + p.Person.Surname + " - " + p.Person.Jmbg);
+                patients.Items.Add(p.Id.ToString() + " " + p.Person.Name + " " + p.Person.Surname + " - " + p.Person.Id);
         }
 
         private void Close_Click(object sender, RoutedEventArgs e)

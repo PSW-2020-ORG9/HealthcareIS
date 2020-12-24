@@ -8,9 +8,8 @@ using HealthcareBase.Repository.Generics;
 
 namespace HealthcareBase.Model.Users.Survey.SurveyEntry
 {
-    public class SurveyResponse : IEntity<int>
+    public class SurveyResponse : Entity<int>
     {
-        [Key] public int Id { get; set; }
         public DateTime SubmittedAt { get; set; }
         
         [ForeignKey("Examination")]
@@ -29,8 +28,5 @@ namespace HealthcareBase.Model.Users.Survey.SurveyEntry
         [ForeignKey("PatientAccount")]
         public int PatientAccountId { get; set; }
         public PatientAccount PatientAccount { get; set; }
-        
-        public int GetKey() => Id;
-        public void SetKey(int id) => Id = id;
     }
 }

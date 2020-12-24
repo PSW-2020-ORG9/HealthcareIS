@@ -13,10 +13,8 @@ using HealthcareBase.Repository.Generics;
 
 namespace HealthcareBase.Model.Users.Patient
 {
-    public class Patient : IEntity<int>
+    public class Patient : Entity<int>
     {
-        [Key]
-        public int Id { get; set; }
         public string InsuranceNumber { get; set; }
 
         [ForeignKey("Person")]
@@ -27,7 +25,5 @@ namespace HealthcareBase.Model.Users.Patient
         public PatientStatus Status { get; set; }
         public IEnumerable<Examination> Examinations { get; set; }
         public IEnumerable<AllergyManifestation> Allergies { get; set; }
-        public int GetKey() => Id;
-        public void SetKey(int id) => Id = id;
     }
 }

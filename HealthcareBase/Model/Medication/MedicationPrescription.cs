@@ -10,10 +10,8 @@ using HealthcareBase.Repository.Generics;
 
 namespace HealthcareBase.Model.Medication
 {
-    public class MedicationPrescription : IEntity<int>
+    public class MedicationPrescription : Entity<int>
     {
-        [Key]
-        public int Id { get; set; }
         public int MedicalRecordId { get; set; }
         
         [ForeignKey("ExaminationReport")]
@@ -31,8 +29,5 @@ namespace HealthcareBase.Model.Medication
         [ForeignKey("Instructions")]
         public int InstructionsId { get; set; }
         public IntakeInstructions Instructions { get; set; }
-
-        public int GetKey() => Id;
-        public void SetKey(int id) => Id = id;
     }
 }

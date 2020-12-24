@@ -15,7 +15,7 @@ namespace HealthcareBase.Repository.UsersRepository.UserAccountsRepository
         }
 
         public PatientAccount GetByPatient(Patient patient)
-            => GetByPatientId(patient.GetKey());
+            => GetByPatientId(patient.Id);
 
         public PatientAccount GetByPatientId(int id)
             => GetMatching(patientAccount => patientAccount.PatientId == id).FirstOrDefault();

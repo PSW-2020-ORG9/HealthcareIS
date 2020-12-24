@@ -11,7 +11,7 @@ namespace HealthcareBase.Repository.Generics.Interface
     public interface IWrappableRepository<T, ID> 
         : IPreparable,
         IRepository<T, ID>
-        where T : IEntity<ID>
+        where T : Entity<ID>
         where ID : IComparable
     {
         

@@ -10,11 +10,8 @@ using HealthcareBase.Repository.Generics;
 
 namespace HealthcareBase.Model.HospitalResources
 {
-    public class EquipmentUnit : IEntity<int>
+    public class EquipmentUnit : Entity<int>
     {
-        [Key]
-        public int Id { get; set; }
-
         public DateTime AcquisitionDate { get; set; }
         public string Manufacturer { get; set; }
 
@@ -25,8 +22,5 @@ namespace HealthcareBase.Model.HospitalResources
         [ForeignKey("EquipmentType")]
         public int EquipmentTypeId { get; set; }
         public EquipmentType EquipmentType { get; set; }
-
-        public int GetKey() => Id;
-        public void SetKey(int id) => Id = id;
     }
 }

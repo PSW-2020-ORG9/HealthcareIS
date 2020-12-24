@@ -8,14 +8,9 @@ using HealthcareBase.Repository.Generics;
 
 namespace HealthcareBase.Model.Users.Generalities
 {
-    public class Country : IEntity<int>
+    public class Country : Entity<int>
     {
-        [Key]
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Code { get; set; }
-
-        public int GetKey() => Id;
-        public void SetKey(int id) => Id = id;
     }
 }

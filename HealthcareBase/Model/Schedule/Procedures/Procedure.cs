@@ -13,10 +13,8 @@ using HealthcareBase.Repository.Generics;
 
 namespace HealthcareBase.Model.Schedule.Procedures
 {
-    public abstract class Procedure : IEntity<int>
+    public abstract class Procedure : Entity<int>
     {
-        [Key]
-        public int Id { get; set; }
         public TimeInterval TimeInterval { get; set; }
         
         [ForeignKey("Doctor")]
@@ -41,7 +39,5 @@ namespace HealthcareBase.Model.Schedule.Procedures
 
         [Column(TypeName = "nvarchar(12)")]
         public ProcedurePriority Priority { get; set; }
-        public int GetKey() => Id;
-        public void SetKey(int id) => Id = id;
     }
 }

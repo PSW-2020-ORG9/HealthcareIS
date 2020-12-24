@@ -7,7 +7,7 @@ namespace HealthcareBase.Model.Filters
 {
     public abstract class AbstractFilter<T, ID> 
         : IFilter<T, ID>
-        where T : IEntity<ID> where ID : IComparable
+        where T : Entity<ID> where ID : IComparable
     {
         private readonly List<Expression<Func<T, bool>>> _expressionFunctions = new List<Expression<Func<T, bool>>>();
 

@@ -9,24 +9,18 @@ using HealthcareBase.Repository.Generics;
 
 namespace HealthcareBase.Model.HospitalResources
 {
-    public class MedicalConsumable : IEntity<int>
+    public class MedicalConsumable : Entity<int>
     {
         public MedicalConsumable()
         {
             ConsumableType = new MedicalConsumableType();
         }
 
-        [Key]
-        public int Id { get; set; }
-        
         public string Manufacturer { get; set; }
         public string Description { get; set; }
 
         [ForeignKey("ConsumableType")]
         public int? ConsumableTypeId { get; set; }
         public MedicalConsumableType ConsumableType { get; set; }
-
-        public int GetKey() => Id;
-        public void SetKey(int id) => Id = id;
     }
 }

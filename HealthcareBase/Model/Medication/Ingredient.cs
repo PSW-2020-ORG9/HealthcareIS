@@ -8,15 +8,10 @@ using HealthcareBase.Repository.Generics;
 
 namespace HealthcareBase.Model.Medication
 {
-    public class Ingredient : IEntity<int>
+    public class Ingredient : Entity<int>
     {
-        [Key]
-        public int Id { get; set; }
         public string Name { get; set; }
         public bool IsAllergen { get; set; }
         public int MedicationId { get; set; }
-
-        public int GetKey() => Id;
-        public void SetKey(int id) => Id = id;
     }
 }

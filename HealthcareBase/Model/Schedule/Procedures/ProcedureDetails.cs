@@ -11,10 +11,8 @@ using HealthcareBase.Repository.Generics;
 
 namespace HealthcareBase.Model.Schedule.Procedures
 {
-    public class ProcedureDetails : IEntity<int>
+    public class ProcedureDetails : Entity<int>
     {
-        [Key]
-        public int Id { get; set; }
         public string Description { get; set; }
         public TimeSpan Duration { get; set; }
         
@@ -24,10 +22,5 @@ namespace HealthcareBase.Model.Schedule.Procedures
         [ForeignKey("RequiredSpecialty")]
         public int RequiredSpecialtyId { get; set; }
         public Specialty RequiredSpecialty { get; set; }
-        
-        // TODO Required equipment via relationship table 
-        
-        public int GetKey() => Id;
-        public void SetKey(int id) => Id = id;
     }
 }

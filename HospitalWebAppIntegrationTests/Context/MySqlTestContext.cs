@@ -34,14 +34,14 @@ namespace HospitalWebAppIntegrationTests.Context
             });
             modelBuilder.Entity<Person>().HasData(new Person
             {
-                Jmbg = "123",
+                Id = "123",
                 CityOfBirthId = 1,
                 CityOfResidenceId = 1,
                 Gender = Gender.Other
             });
             modelBuilder.Entity<Person>().HasData(new Person
             {
-                Jmbg = "1234",
+                Id = "1234",
                 CityOfBirthId = 1,
                 CityOfResidenceId = 1,
                 Gender = Gender.Other

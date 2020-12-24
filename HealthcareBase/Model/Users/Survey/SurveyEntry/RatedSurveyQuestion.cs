@@ -4,10 +4,8 @@ using HealthcareBase.Repository.Generics;
 
 namespace HealthcareBase.Model.Users.Survey.SurveyEntry
 {
-    public class RatedSurveyQuestion:IEntity<int>
+    public class RatedSurveyQuestion:Entity<int>
     {
-        [Key]public int Id { get; set; }
-        
         [ForeignKey("SurveyQuestion")]
         public int SurveyQuestionId { get; set; }
         public SurveyQuestion SurveyQuestion { get; set; }
@@ -16,9 +14,5 @@ namespace HealthcareBase.Model.Users.Survey.SurveyEntry
         public const int MaxRating = 5;
         [Range(MinRating,MaxRating)]
         public int Rating { get; set; }
-        public int GetKey() => Id;
-
-        public void SetKey(int id) => Id = id;
-        
     }
 }

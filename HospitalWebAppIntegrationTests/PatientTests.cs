@@ -19,7 +19,7 @@ namespace HospitalWebAppIntegrationTests
             var response = await client.GetAsync("/patient/find/1");
             var responseData = await response.Content.ReadAsStringAsync();
 
-            Assert.Contains("\"id\":1,", responseData);
+            Assert.Contains("\"id\":1", responseData);
         }
 
         [Fact]

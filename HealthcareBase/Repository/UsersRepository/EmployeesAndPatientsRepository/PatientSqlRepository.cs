@@ -40,6 +40,6 @@ namespace HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsReposito
             => GetByJMBG(jmbg) != null;
 
         public Patient GetByJMBG(string jmbg)
-            => GetMatching(p => p.Person.Jmbg == jmbg).FirstOrDefault();
+            => GetMatching(p => p.Person.Id == jmbg).FirstOrDefault();
     }
 }

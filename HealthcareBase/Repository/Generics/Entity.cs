@@ -4,12 +4,12 @@
 // Purpose: Definition of Interface Entity
 
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace HealthcareBase.Repository.Generics
 {
-    public interface IEntity<ID> where ID : IComparable
+    public abstract class Entity<ID> where ID : IComparable
     {
-        ID GetKey();
-        void SetKey(ID id);
+        [Key] public ID Id { get; set; }
     }
 }

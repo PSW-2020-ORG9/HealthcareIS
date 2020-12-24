@@ -8,15 +8,10 @@ using HealthcareBase.Repository.Generics;
 
 namespace HealthcareBase.Model.Miscellaneous
 {
-    public class Diagnosis : IEntity<string>
+    public class Diagnosis : Entity<string>
     {
-        [Key]
-        public string Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public bool IsInjury { get; set; }
-        
-        public string GetKey() => Id;
-        public void SetKey(string id) => Id = id;
     }
 }

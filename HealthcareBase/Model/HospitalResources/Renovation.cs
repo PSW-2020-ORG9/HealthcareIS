@@ -10,7 +10,7 @@ using HealthcareBase.Repository.Generics;
 
 namespace HealthcareBase.Model.HospitalResources
 {
-    public class Renovation : IEntity<int>
+    public class Renovation : Entity<int>
     {
         public Renovation()
         {
@@ -18,16 +18,11 @@ namespace HealthcareBase.Model.HospitalResources
             TimeInterval = new TimeInterval();
         }
      
-        [Key]
-        public int Id { get; set; }
         public string Description { get; set; }
         public TimeInterval TimeInterval { get; set; }
 
         [ForeignKey("Room")]
         public int RoomId { get; set; }
         public Room Room { get; set; }
-
-        public int GetKey() => Id;
-        public void SetKey(int id) => Id = id;
     }
 }

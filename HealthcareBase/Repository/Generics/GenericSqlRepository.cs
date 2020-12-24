@@ -10,7 +10,7 @@ namespace HealthcareBase.Repository.Generics
 {
     public class GenericSqlRepository<T, ID> 
         : IWrappableRepository<T, ID> 
-        where T : class, IEntity<ID>
+        where T : Entity<ID>
         where ID : IComparable
     {
         private readonly IContextFactory _contextFactory;
@@ -45,7 +45,7 @@ namespace HealthcareBase.Repository.Generics
         public void DeleteByID(ID id)
         {
             var entity = Activator.CreateInstance<T>();
-            entity.SetKey(id);
+            entity.Id = id;
             Query().Remove(entity);
             SaveChanges();
         }
@@ -56,9 +56,8 @@ namespace HealthcareBase.Repository.Generics
         public bool ExistsByID(ID id) 
             => GetByID(id) != default;
  
-        // TODO GetKey() and other methods CANNOT be converted to an SQL query. Properties are required.
         public T GetByID(ID id)
-            => GetAll().FirstOrDefault(entity => entity.GetKey().Equals(id));
+            => GetMatching(entity => entity.Id.Equals(id)).FirstOrDefault();
  
         public IEnumerable<T> GetMatching(Expression<Func<T, bool>> condition)
             => IncludeFields(Query()).Where(condition).ToList();

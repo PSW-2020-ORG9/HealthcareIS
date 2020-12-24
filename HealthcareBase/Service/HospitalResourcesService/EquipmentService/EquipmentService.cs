@@ -39,7 +39,7 @@ namespace HealthcareBase.Service.HospitalResourcesService.EquipmentService
         {
             if (equipmentUnit is null)
                 throw new BadRequestException();
-            if (!equipmentTypeRepository.Repository.ExistsByID(equipmentUnit.EquipmentType.GetKey()))
+            if (!equipmentTypeRepository.Repository.ExistsByID(equipmentUnit.EquipmentType.Id))
                 equipmentUnit.EquipmentType = equipmentTypeRepository.Repository.Create(equipmentUnit.EquipmentType);
             return equipmentUnitRepository.Repository.Create(equipmentUnit);
         }
