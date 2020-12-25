@@ -4,6 +4,7 @@
 // Purpose: Definition of Class PatientAccountService
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using User.API.Infrastructure.Repositories;
 using User.API.Infrastructure.Repositories.Users.UserAccounts;
@@ -59,5 +60,8 @@ namespace User.API.Services.PatientService
            patientAccountRepository.Repository.Update(patientAccount);
 
         }
+
+        public IEnumerable<PatientAccount> FindPatientAccounts(IEnumerable<int> patientIds) 
+            => patientAccountRepository.Repository.GetMatching(pa => patientIds.Contains(pa.Id));
     }
 }

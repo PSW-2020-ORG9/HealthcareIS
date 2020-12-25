@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
@@ -75,5 +76,15 @@ namespace User.API.Controllers
             if (patients != null) return Ok(patients);
             return BadRequest("Patients not found.");
         }
+
+        [HttpPost]
+        [Route("accounts")]
+        public IActionResult FindPatientAccounts(List<int> patientIds)
+        {
+            var patientAccounts = _patientAccountService.FindPatientAccounts(patientIds);
+            if (patientAccounts != null) return Ok(patientAccounts);
+            return BadRequest("Patient accounts not found.");
+        }
+            
     }
 }
