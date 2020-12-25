@@ -129,7 +129,7 @@ namespace HospitalWebApp
             var specialtyRepository = new SpecialtySqlRepository(GetContext());
             
             var userFeedbackService = new UserFeedbackService(userFeedbackRepository);
-            var patientService = new PatientService(patientRepository, null, null, null);
+            var patientService = new PatientService(patientRepository);
             var prescriptionService = new MedicationPrescriptionService(prescriptionRepository);
             var equipmentService = new EquipmentService(equipmentRepository);
             var equipmentTypeService = new EquipmentTypeService(equipmentTypeRepository);

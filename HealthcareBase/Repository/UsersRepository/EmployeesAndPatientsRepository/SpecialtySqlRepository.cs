@@ -12,10 +12,5 @@ namespace HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsReposito
         {
             
         }
-        
-        protected override IQueryable<Specialty> IncludeFields(IQueryable<Specialty> query)
-        {
-            return base.IncludeFields(query);
-        }
     }
 }

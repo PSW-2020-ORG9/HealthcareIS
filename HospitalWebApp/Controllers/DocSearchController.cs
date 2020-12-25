@@ -19,6 +19,17 @@ namespace HospitalWebApp.Controllers
             _medicationPrescriptionService = medicationPrescriptionService;
             _examinationService = examinationService;
         }
+        
+                
+        [HttpGet]
+        [Route("prescription")]
+        public IActionResult GetAllPrescriptions()
+            => Ok(_medicationPrescriptionService.GetAll());
+
+        [HttpGet]
+        [Route("examination")]
+        public IActionResult GetAllExaminations()
+            => Ok(_examinationService.GetByPatientId(1));
 
         [HttpGet]
         [Route("prescription/simple")]
@@ -46,11 +57,6 @@ namespace HospitalWebApp.Controllers
         [Route("examination/advanced")]
         public IActionResult ExaminationAdvancedSearch(ExaminationAdvancedFilterDto filterDto)
             => Ok(_examinationService.AdvancedSearch(filterDto));
-        
-        [HttpGet]
-        [Route("prescription")]
-        public IActionResult GetAllPrescriptions()
-            => Ok(_medicationPrescriptionService.GetAll());
         
         [HttpGet]
         [Route("examination/{patientId}")]

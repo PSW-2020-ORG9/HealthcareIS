@@ -1,12 +1,8 @@
 using EntityFramework.Exceptions.MySQL.Pomelo;
-using HealthcareBase.Model.Blog;
 using HealthcareBase.Model.HospitalResources;
 using HealthcareBase.Model.Medication;
 using HealthcareBase.Model.Miscellaneous;
-using HealthcareBase.Model.Requests;
-using HealthcareBase.Model.Schedule.Hospitalizations;
 using HealthcareBase.Model.Schedule.Procedures;
-using HealthcareBase.Model.StorageRecords;
 using HealthcareBase.Model.Users.Employee;
 using HealthcareBase.Model.Users.Employee.Doctors;
 using HealthcareBase.Model.Users.Generalities;
@@ -43,9 +39,6 @@ namespace HealthcareBase.Model.Database
             optionsBuilder.UseExceptionProcessor();
         }
 
-        public DbSet<BlogAuthor> BlogAuthors { get; set; }
-        public DbSet<BlogPost> BlogPosts { get; set; }
-        
         // Rooms, Hospitalizations, Equipment, etc.
         public DbSet<Department> Departments { get; set; }
         public DbSet<EquipmentType> EquipmentTypes { get; set; }
@@ -56,14 +49,7 @@ namespace HealthcareBase.Model.Database
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Medication.Medication> Medications { get; set; }
         
-        public DbSet<ClearDoctorsSchedule> ClearDoctorsSchedules { get; set; }
-        public DbSet<ClearRoomsSchedule> ClearRoomsSchedules { get; set; }
-        public DbSet<ScheduleHospitalization> ScheduleHospitalizations { get; set; }
-        public DbSet<ScheduleProcedure> ScheduleProcedures { get; set; }
-        public DbSet<Hospitalization> Hospitalizations { get; set; }
         public DbSet<ProcedureDetails> ProcedureDetails { get; set; }
-        public DbSet<ConsumableStorageRecord> ConsumableStorageRecords { get; set; }
-        public DbSet<MedicationStorageRecord> MedicationStorageRecords { get; set; }
         public DbSet<Shift> Shifts { get; set; }
         public DbSet<Specialty> Specialties { get; set; }
         public DbSet<City> Cities { get; set; }

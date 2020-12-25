@@ -12,49 +12,22 @@ namespace HealthcareBase.Model.HospitalResources
 {
     public class Renovation : IEntity<int>
     {
-        public Renovation(string description, TimeInterval timeInterval, Room room)
-        {
-            Description = description;
-            TimeInterval = timeInterval;
-            Room = room;
-        }
-
         public Renovation()
         {
             Room = new Room();
             TimeInterval = new TimeInterval();
         }
-
+     
+        [Key]
+        public int Id { get; set; }
         public string Description { get; set; }
-
         public TimeInterval TimeInterval { get; set; }
 
         [ForeignKey("Room")]
         public int RoomId { get; set; }
         public Room Room { get; set; }
 
-        [Key]
-        public int Id { get; set; }
-
-        public int GetKey()
-        {
-            return Id;
-        }
-
-        public void SetKey(int id)
-        {
-            Id = id;
-        }
-
-        public override bool Equals(object obj)
-        {
-            return obj is Renovation renovation &&
-                   Id == renovation.Id;
-        }
-
-        public override int GetHashCode()
-        {
-            return 1877310944 + Id.GetHashCode();
-        }
+        public int GetKey() => Id;
+        public void SetKey(int id) => Id = id;
     }
 }

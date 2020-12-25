@@ -12,11 +12,6 @@ namespace HealthcareBase.Repository.HospitalResourcesRepository
     {
         public EquipmentSqlRepository(IContextFactory contextFactory) : base(contextFactory) { }
 
-        public IEnumerable<EquipmentUnit> GetByCurrentLocationWithoutParse(Room room)
-        {
-            throw new NotImplementedException();
-        }
-
         protected override IQueryable<EquipmentUnit> IncludeFields(IQueryable<EquipmentUnit> query)
         {
             return query.
