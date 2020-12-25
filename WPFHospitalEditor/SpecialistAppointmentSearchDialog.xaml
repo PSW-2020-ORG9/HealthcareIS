@@ -29,7 +29,7 @@
             <Label Content="Date (from):" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" FontWeight="Bold"></Label>
             <Label Content="Date (to):" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" FontWeight="Bold"></Label>
             <Label Content="Equipment:" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" FontWeight="Bold"></Label>
-            <Label Content="Priority" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" FontWeight="Bold"></Label>
+            <Label Content="Priority:" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" FontWeight="Bold"></Label>
             
 
             <ComboBox x:Name="specialistComboBox" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Margin="10,0,10,0"></ComboBox>

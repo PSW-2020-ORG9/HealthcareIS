@@ -17,6 +17,7 @@ namespace HealthcareBase.Service.UsersService.EmployeeService
     public class DoctorService:IDoctorService
     {
         private readonly RepositoryWrapper<IDoctorRepository> doctorRepository;
+        private const int REGULAR_DOCTOR_DEPARTMENT_ID = 1;
 
         public DoctorService(IDoctorRepository doctorRepository)
         {
@@ -74,7 +75,7 @@ namespace HealthcareBase.Service.UsersService.EmployeeService
         public IEnumerable<DoctorDto> GetAllSpecialists()
         {
             return doctorRepository.Repository.GetColumnsForMatching(
-                condition: doctor => doctor.DepartmentId != 1,
+                condition: doctor => doctor.DepartmentId != REGULAR_DOCTOR_DEPARTMENT_ID,
                 selection: doctor => new DoctorDto()
                 {
                     Name = doctor.Person.Name,

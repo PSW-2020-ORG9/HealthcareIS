@@ -64,39 +64,36 @@ namespace WPFHospitalEditor
             if (InvalidInputForAppointment())
             {
                 MessageBox.Show("Invalid input.");
+                return;
             }
-            else
+
+            String specialist = specialistComboBox.SelectedItem.ToString();
+            int specialistID = int.Parse(specialist.Split(" ")[0]);
+            Doctor chosenDoctor = doctorServerController.GetDoctorById(specialistID);
+            DateTime startDate = DateTime.ParseExact(dateFrom.Text + " 08:00", "MM/dd/yyyy HH:mm", null);
+            DateTime endDate = DateTime.ParseExact(dateTo.Text + " 16:00", "MM/dd/yyyy HH:mm", null);
+
+            TimeInterval timeInterval = new TimeInterval(startDate, endDate);
+            RecommendationPreference appointmentSearchPriority = getPriorityFromComboBox();
+
+            RecommendationRequestDto recommendationRequestDto = new RecommendationRequestDto()
             {
-                String specialist = specialistComboBox.SelectedItem.ToString();
-                int specialistID = int.Parse(specialist.Split(" ")[0]);
-                Doctor chosenDoctor = doctorServerController.GetDoctorById(specialistID);
-                DateTime startDate = DateTime.ParseExact(dateFrom.Text + " 08:00", "MM/dd/yyyy HH:mm", null);
-                DateTime endDate = DateTime.ParseExact(dateTo.Text + " 16:00", "MM/dd/yyyy HH:mm", null);
+                DoctorId = chosenDoctor.Id,
+                SpecialtyId = chosenDoctor.DepartmentId,
+                TimeInterval = timeInterval,
+                Preference = appointmentSearchPriority
+            };
 
-                TimeInterval timeInterval = new TimeInterval(startDate, endDate);
-                RecommendationPreference appointmentSearchPriority = setPriorityFromComboBox();
+            HospitalMap.appointmentSearchResult = schedulingServerController.GetAppointments(recommendationRequestDto);
 
-                RecommendationRequestDto recommendationRequestDto = new RecommendationRequestDto()
-                {
-                    DoctorId = chosenDoctor.Id,
-                    SpecialtyId = chosenDoctor.DepartmentId,
-                    TimeInterval = timeInterval,
-                    Preference = appointmentSearchPriority
-                };
-
-                if (CheckEquipmentExistance())
-                {
-                    HospitalMap.appointmentSearchResult = schedulingServerController.GetAppointments(recommendationRequestDto);
-                    SearchResultDialog appointmentDialog = new SearchResultDialog(hospitalMap, SearchType.AppointmentSearch);
-                    appointmentDialog.ShowDialog();
-                }
-                else
-                {
-                    MessageBox.Show("There is no room with required equipment!");
-                }
-
-                
+            if (!CheckEquipmentExistance())
+            {
+                MessageBox.Show("There is no room with required equipment!");
+                return;
             }
+
+            SearchResultDialog appointmentDialog = new SearchResultDialog(hospitalMap, SearchType.AppointmentSearch);
+            appointmentDialog.ShowDialog();
         }
 
         private bool InvalidInputForAppointment()
@@ -105,7 +102,7 @@ namespace WPFHospitalEditor
             return false;
         }
 
-        private RecommendationPreference setPriorityFromComboBox()
+        private RecommendationPreference getPriorityFromComboBox()
         {
             if (priorityComboBox.SelectedIndex == 0) return RecommendationPreference.Doctor;
             return RecommendationPreference.Time;
@@ -117,9 +114,10 @@ namespace WPFHospitalEditor
             {
                 int roomId = HospitalMap.appointmentSearchResult[i].RoomId;
                 List<EquipmentDto> equipmentDtos = equipmentServerController.GetEquipmentByRoomId(roomId).ToList();
-                return CheckEquipmentInRoomExistance(equipmentDtos);
+                if(CheckEquipmentInRoomExistance(equipmentDtos))
+                    return true;
             }
-            return true;
+            return false;
         }
 
         private bool CheckEquipmentInRoomExistance(List<EquipmentDto> equipmentDtos)
