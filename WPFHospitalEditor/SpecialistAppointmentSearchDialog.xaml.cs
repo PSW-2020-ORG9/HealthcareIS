@@ -61,6 +61,7 @@ namespace WPFHospitalEditor
         private void Search_Click(object sender, RoutedEventArgs e)
         {
             HospitalMap.clearAllResults();
+
             if (InvalidInputForAppointment())
             {
                 MessageBox.Show("Invalid input.");
@@ -70,18 +71,17 @@ namespace WPFHospitalEditor
             String specialist = specialistComboBox.SelectedItem.ToString();
             int specialistID = int.Parse(specialist.Split(" ")[0]);
             Doctor chosenDoctor = doctorServerController.GetDoctorById(specialistID);
-            DateTime startDate = DateTime.ParseExact(dateFrom.Text + " 08:00", "MM/dd/yyyy HH:mm", null);
-            DateTime endDate = DateTime.ParseExact(dateTo.Text + " 16:00", "MM/dd/yyyy HH:mm", null);
+            DateTime startDate = DateTime.ParseExact(dateFrom.Text + AllConstants.DayStart, "MM/dd/yyyy HH:mm", null);
+            DateTime endDate = DateTime.ParseExact(dateTo.Text + AllConstants.DayEnd, "MM/dd/yyyy HH:mm", null);
 
             TimeInterval timeInterval = new TimeInterval(startDate, endDate);
-            RecommendationPreference appointmentSearchPriority = getPriorityFromComboBox();
 
             RecommendationRequestDto recommendationRequestDto = new RecommendationRequestDto()
             {
                 DoctorId = chosenDoctor.Id,
                 SpecialtyId = chosenDoctor.DepartmentId,
                 TimeInterval = timeInterval,
-                Preference = appointmentSearchPriority
+                Preference = getPriorityFromComboBox()
             };
 
             HospitalMap.appointmentSearchResult = schedulingServerController.GetAppointments(recommendationRequestDto);
