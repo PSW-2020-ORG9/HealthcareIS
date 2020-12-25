@@ -38,6 +38,19 @@ namespace WPFHospitalEditor.Service
             return doctors;
         }
 
+        public IEnumerable<DoctorDto> GetFilteredSpecialists(string name)
+        {
+            var doctors = new List<DoctorDto>();
+            List<DoctorDto> allDoctors = GetAllSpecialists().ToList();
+            if (string.IsNullOrEmpty(name)) return allDoctors;
+            foreach (DoctorDto doctorDto in allDoctors)
+            {
+                if (CompareInput(doctorDto, name))
+                    doctors.Add(doctorDto);
+            }
+            return doctors;
+        }
+
         private bool CompareInput(DoctorDto doctorDto, string name)
         {
             return doctorDto.Name.ToLower().Contains(name.ToLower());

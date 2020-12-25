@@ -11,5 +11,6 @@ namespace WPFHospitalEditor.Service.Interface
 
         IEnumerable<DoctorDto> GetFilteredDoctors(string name);
         IEnumerable<DoctorDto> GetAllSpecialists();
+        IEnumerable<DoctorDto> GetFilteredSpecialists(string name);
     }
 }
