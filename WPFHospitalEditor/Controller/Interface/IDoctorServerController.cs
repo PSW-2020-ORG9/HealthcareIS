@@ -8,5 +8,6 @@ namespace WPFHospitalEditor.Controller.Interface
     {
         IEnumerable<DoctorDto> GetDoctorsByDepartment(int departmentId);
         Doctor GetDoctorById(int doctorId);
+        IEnumerable<DoctorDto> ShowFilteredDoctors(string name);
     }
 }

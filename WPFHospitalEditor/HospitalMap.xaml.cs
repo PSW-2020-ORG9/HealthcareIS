@@ -35,38 +35,41 @@ namespace WPFHospitalEditor
         public static List<EquipmentDto> equipmentSearchResult = new List<EquipmentDto>();
         public static List<MedicationDto> medicationSearchResult = new List<MedicationDto>();
         public static List<RecommendationDto> appointmentSearchResult = new List<RecommendationDto>();
-        private const int regularExaminationDepartment = 1;
 
         public HospitalMap(List<MapObject> allMapObjects, Role role)
         {
             InitializeComponent();
-            setMapObjectTypeComboBox();
-            setEquipmentTypeComboBox();
-            setMedicationNameComboBox();
-            setDoctorNameComboBox();
-            setNonSelectedComboBoxItem();
+            SetMapObjectTypeComboBox();
+            SetEquipmentTypeComboBox();
+            SetMedicationNameComboBox();
+            SetDoctorNameComboBox();
+            SetNonSelectedComboBoxItem();
             CanvasService.addObjectToCanvas(mapObjectController.getOutterMapObjects(), canvas);
             canvasHospitalMap = canvas;
             HospitalMap.role = role;
-            if (IsRoleLogged(Role.Patient)) equipmentAndMedicineSearchStackPanel.Visibility = Visibility.Hidden;
-            if (!IsRoleLogged(Role.Secretary)) appointmentSearchStackPanel.Visibility = Visibility.Hidden;
+            if (IsRoleLogged(Role.Patient))
+            {
+                EquipmentSearchTab.Visibility = Visibility.Hidden;
+                MedicationSearchTab.Visibility = Visibility.Hidden;
+            }
+            if (!IsRoleLogged(Role.Secretary)) AppointmentSearchTab.Visibility = Visibility.Hidden;
         }
 
-        private void selectBuilding(object sender, MouseButtonEventArgs e)
+        private void SelectBuilding(object sender, MouseButtonEventArgs e)
         {
             MapObject chosenBuilding = CanvasService.checkWhichObjectIsClicked(e, mapObjectController.getAllMapObjects(), canvas);
             if (chosenBuilding != null && chosenBuilding.MapObjectType == MapObjectType.Building)
             {
-                goToClickedBuilding(chosenBuilding);
+                GoToClickedBuilding(chosenBuilding);
             }
         }
 
-        private void goToClickedBuilding(MapObject mapObject)
+        private void GoToClickedBuilding(MapObject mapObject)
         {
             List<MapObject> buildingObjects = new List<MapObject>();
             foreach (MapObject mapObjectIteration in mapObjectController.getAllMapObjects())
             {
-                if (mapObject.Id.ToString().Equals(findBuilding(mapObjectIteration)))
+                if (mapObject.Id.ToString().Equals(FindBuilding(mapObjectIteration)))
                 {
                     buildingObjects.Add(mapObjectIteration);
                 }
@@ -78,7 +81,7 @@ namespace WPFHospitalEditor
             building.ShowDialog();
         }
 
-        private String findBuilding(MapObject mapObjectIteration)
+        private String FindBuilding(MapObject mapObjectIteration)
         {
             String[] firstSplit = mapObjectIteration.Description.Split("&");
             String[] buildingIndex = firstSplit[0].Split("-");
@@ -87,7 +90,7 @@ namespace WPFHospitalEditor
 
         private void Basic_Search(object sender, RoutedEventArgs e)
         {
-            clearAllResults();
+            ClearAllResults();
             searchResult = mapObjectController.searchForMapObjects(searchInputTB.Text, searchInputComboBox.Text);
             if (searchResult.Count > 0)
             {
@@ -100,7 +103,7 @@ namespace WPFHospitalEditor
             }
         }
 
-        private bool isNoNameObject(MapObjectType mop)
+        private bool IsNoNameObject(MapObjectType mop)
         {
             return mop.Equals(MapObjectType.Parking) ||
                    mop.Equals(MapObjectType.ParkingSlot) ||
@@ -110,7 +113,7 @@ namespace WPFHospitalEditor
 
         public void Equipment_Search(object sender, RoutedEventArgs e)
         {
-            clearAllResults();
+            ClearAllResults();
             if (NoEquipmentTypeIsPicked())
             {
                 MessageBox.Show("No equipment is picked.");
@@ -125,7 +128,7 @@ namespace WPFHospitalEditor
 
         public void Medication_Search(object sender, RoutedEventArgs e)
         {
-            clearAllResults();
+            ClearAllResults();
             if (NoMedicationNameIsPicked())
             {
                 MessageBox.Show("No medication is picked.");
@@ -138,9 +141,9 @@ namespace WPFHospitalEditor
             }
         }
 
-        public void appointmentSearch_Click(object sender, RoutedEventArgs e)
+        public void AppointmentSearch_Click(object sender, RoutedEventArgs e)
         {
-            clearAllResults();
+            ClearAllResults();
             if (InvalidInputForAppointment())
             {
                 MessageBox.Show("Invalid input.");
@@ -148,13 +151,13 @@ namespace WPFHospitalEditor
             else
             {
                 int DoctorId = int.Parse(doctorsComboBox.SelectedItem.ToString().Split(" ")[0]);
-                DateTime startDate = DateTime.ParseExact(startDatePicker.SelectedDate.Value.ToString("MM/dd/yyyy") + AllConstants.DayStart, "MM/dd/yyyy HH:mm", null);
-                DateTime endDate = DateTime.ParseExact(endDatePicker.SelectedDate.Value.ToString("MM/dd/yyyy") + AllConstants.DayEnd, "MM/dd/yyyy HH:mm", null);
+                DateTime startDate = DateTime.ParseExact(startDatePicker.SelectedDate.Value.ToString("MM/dd/yyyy") + AllConstants.dayStart, "MM/dd/yyyy HH:mm", null);
+                DateTime endDate = DateTime.ParseExact(endDatePicker.SelectedDate.Value.ToString("MM/dd/yyyy") + AllConstants.dayEnd, "MM/dd/yyyy HH:mm", null);
 
                 RecommendationRequestDto recommendationRequestDto = new RecommendationRequestDto()
                 {
                     DoctorId = DoctorId,
-                    SpecialtyId = regularExaminationDepartment,
+                    SpecialtyId = AllConstants.regularExaminationDepartment,
                     TimeInterval = new TimeInterval(startDate, endDate),
                     Preference = GetRecommendationPreference()
                 };
@@ -173,18 +176,18 @@ namespace WPFHospitalEditor
             }
         }
 
-        private void setMapObjectTypeComboBox()
+        private void SetMapObjectTypeComboBox()
         {
             foreach (MapObjectType mop in Enum.GetValues(typeof(MapObjectType)))
             {
-                if (!isNoNameObject(mop))
+                if (!IsNoNameObject(mop))
                 {
                     searchInputComboBox.Items.Add(mop);
                 }
             }
         }
 
-        private void setEquipmentTypeComboBox()
+        private void SetEquipmentTypeComboBox()
         {
             foreach (EquipmentTypeDto eqTD in equipmentTypeServerController.GetAllEquipmentTypes())
             {
@@ -192,7 +195,7 @@ namespace WPFHospitalEditor
             }
         }
 
-        private void setMedicationNameComboBox()
+        private void SetMedicationNameComboBox()
         {
             foreach (MedicationDto medDto in medicationServerController.GetAllMedication())
             {
@@ -200,9 +203,15 @@ namespace WPFHospitalEditor
             }
         }
 
-        private void setDoctorNameComboBox()
+        private void DoctorTextInputLostFocus(object sender, EventArgs e)
         {
-            foreach (DoctorDto docDto in doctorServerController.GetDoctorsByDepartment(regularExaminationDepartment))
+            doctorsComboBox.Items.Clear();
+            SetDoctorNameComboBox();
+        }
+
+        private void SetDoctorNameComboBox()
+        {
+            foreach (DoctorDto docDto in doctorServerController.ShowFilteredDoctors(DoctorSearchInput.Text))
             {
                 doctorsComboBox.Items.Add(docDto.DoctorId + " " + docDto.Name + " " + docDto.Surname);
             }
@@ -214,7 +223,7 @@ namespace WPFHospitalEditor
             return false;
         }
 
-        private void clearAllResults()
+        private void ClearAllResults()
         {
             searchResult.Clear();
             equipmentSearchResult.Clear();
@@ -233,7 +242,7 @@ namespace WPFHospitalEditor
             if (medicationSearchComboBox.Text.Equals(AllConstants.emptyComboBox)) return true;
             return false;
         }
-        private void setNonSelectedComboBoxItem()
+        private void SetNonSelectedComboBoxItem()
         {
             emptyMapObjectComboBox.Content = AllConstants.emptyComboBox;
             emptyMedicationComboBox.Content = AllConstants.emptyComboBox;

@@ -17,39 +17,70 @@
         </Style>
     </Window.Resources>
     <StackPanel Orientation="Vertical">
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-            <TextBlock HorizontalAlignment="Left" Margin="30,10,0,15" TextWrapping="Wrap" Text="Hospital map" VerticalAlignment="Top" FontSize="32" FontWeight="Bold"/>
-            <Label Content="Room search:" FontSize="14" VerticalAlignment="Center" Margin="35,0,0,0"></Label>
-            <TextBox x:Name="searchInputTB" x:FieldModifier="public" HorizontalAlignment="Right" Height="30" Width="200" Margin="10,0,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></TextBox>
-            <ComboBox x:Name="searchInputComboBox" x:FieldModifier="public" HorizontalAlignment="Right" Height="30" Width="200" Margin="20,0,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" SelectedIndex="0">
-                <ComboBoxItem Name="emptyMapObjectComboBox"></ComboBoxItem>
-            </ComboBox>
-            <Button x:Name="searchButton" Content="Search" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,5,0" Height="30" Width="60" FontWeight="Bold" FontSize="16" Click="Basic_Search"></Button>
+        <StackPanel>
+            <TextBlock HorizontalAlignment="Left" Margin="30,10,0,5" TextWrapping="Wrap" Text="Hospital map" VerticalAlignment="Top" FontSize="26" FontWeight="Bold"/>
+            <TabControl Background="#FFC6F5F8">
+                <TabItem x:Name="MapObjectSearchTab" Header="Map objects search" Background="#FFC6F5F8">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <Label Content="Enter map object:" FontSize="14" VerticalAlignment="Center" Margin="35,0,0,0"></Label>
+                        <TextBox x:Name="searchInputTB" x:FieldModifier="public" HorizontalAlignment="Right" Height="30" Width="200" Margin="10,0,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></TextBox>
+                        <Label Content="and/or choose type:" FontSize="14" VerticalAlignment="Center" Margin="10,0,0,0"></Label>
+                        <ComboBox x:Name="searchInputComboBox" x:FieldModifier="public" HorizontalAlignment="Right" Height="30" Width="200" Margin="20,0,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" SelectedIndex="0">
+                            <ComboBoxItem Name="emptyMapObjectComboBox"></ComboBoxItem>
+                        </ComboBox>
+                        <Button x:Name="searchButton" Content="Search" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,5,0" Height="30" Width="60" FontWeight="Bold" FontSize="16" Click="Basic_Search"></Button>
+                    </StackPanel>
+                </TabItem>
+                <TabItem x:Name="MedicationSearchTab" Header="Medication search" Background="#FFC6F5F8">
+                    <StackPanel x:Name="MedicationSearchStackPanel" Orientation="Horizontal" HorizontalAlignment="Left">
+                        <Label Content="Enter medication name:" FontSize="14" VerticalAlignment="Center" Margin="35,0,0,0"></Label>
+                        <TextBox x:Name="MedicationSearchInput" x:FieldModifier="public" HorizontalAlignment="Right" Height="30" Width="200" Margin="10,0,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></TextBox>
+                        <Label Content="and/or choose medication:" FontSize="14" VerticalAlignment="Center" Margin="10,0,0,0"></Label>
+                        <ComboBox x:Name="medicationSearchComboBox" x:FieldModifier="public" HorizontalAlignment="Left" Height="30" Width="200" Margin="5,0,0,0" VerticalContentAlignment="Center" SelectedIndex="0">
+                            <ComboBoxItem Name="emptyMedicationComboBox"></ComboBoxItem>
+                        </ComboBox>
+                        <Button x:Name="medicationSearchButton" Content="Search" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,15,0" Height="30" Width="60" FontWeight="Bold" FontSize="16" Click="Medication_Search"></Button>
+                    </StackPanel>
+                </TabItem>
+                <TabItem x:Name="EquipmentSearchTab" Header="Equipment search" Background="#FFC6F5F8">
+                    <StackPanel x:Name="EquipmentSearchStackPanel" Orientation="Horizontal" HorizontalAlignment="Left">
+                        <Label Content="Enter equipment type:" FontSize="14" VerticalAlignment="Center" Margin="35,0,0,0"></Label>
+                        <TextBox x:Name="EquipmentSearchInput" x:FieldModifier="public" HorizontalAlignment="Right" Height="30" Width="200" Margin="10,0,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></TextBox>
+                        <Label Content="and/or choose equipment type:" FontSize="14" VerticalAlignment="Center" Margin="10,0,0,0"></Label>
+                        <ComboBox x:Name="equipmentSearchComboBox" x:FieldModifier="public" HorizontalAlignment="Right" Height="30" Width="200" Margin="10,0,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" SelectedIndex="0">
+                            <ComboBoxItem Name="emptyEquipmentComboBox"></ComboBoxItem>
+                        </ComboBox>
+                        <Button x:Name="equipmentSearchButton" Content="Search" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,5,0" Height="30" Width="60" FontWeight="Bold" FontSize="16" Click="Equipment_Search"></Button>
+                    </StackPanel>
+                </TabItem>
+                <TabItem x:Name="AppointmentSearchTab" Header="Appointments search" Background="#FFC6F5F8">
+                    <StackPanel x:Name="appointmentSearchStackPanel" Orientation="Vertical" HorizontalAlignment="Stretch">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <Label Content="Enter doctor's name:" FontSize="14" VerticalAlignment="Center" Margin="35,0,0,0"></Label>
+                            <TextBox x:Name="DoctorSearchInput" x:FieldModifier="public" HorizontalAlignment="Left" Height="30" Width="200" Margin="10,0,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" TextChanged="DoctorTextInputLostFocus"></TextBox>
+                            <Label Content="and/or choose doctor:" FontSize="14" VerticalAlignment="Center" Margin="10,0,0,0"></Label>
+                            <ComboBox x:Name="doctorsComboBox" x:FieldModifier="public" Height="30" Width="150" VerticalContentAlignment="Center" SelectedIndex="0" Margin="20,0,0,0">
+                                <ComboBoxItem Name="emptyDoctorComboBox"></ComboBoxItem>
+                            </ComboBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,10,0,0">
+                            <Label Content="Pick start date:" FontSize="14" VerticalAlignment="Center" Margin="35,0,0,0"></Label>
+                            <DatePicker Height="30" Width="150" x:FieldModifier="public" Margin="20,0,0,0" Name="startDatePicker" ></DatePicker>
+                            <Label Content="Pick end date:" FontSize="14" VerticalAlignment="Center" Margin="10,0,0,0"></Label>
+                            <DatePicker Height="30" Width="150" x:FieldModifier="public" Margin="20,0,0,0" Name="endDatePicker" ></DatePicker>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,10,0,0">
+                            <Label Content="Choose priority:" FontSize="14" VerticalAlignment="Center" Margin="35,0,0,0"></Label>
+                            <ComboBox x:Name="PriorityComboBox" x:FieldModifier="public" Height="30" Width="120" VerticalContentAlignment="Center" Margin="20,0,0,0" SelectedIndex="0">
+                                <ComboBoxItem Content="Priority: Doctor"/>
+                                <ComboBoxItem Content="Priority: Time"/>
+                            </ComboBox>
+                            <Button x:Name="appointmentSearch" Content="Search" Height="30" Width="60" FontWeight="Bold" FontSize="16" Margin="10,0,5,0" Click="AppointmentSearch_Click" />
+                        </StackPanel>
+                    </StackPanel>
+                </TabItem>
+            </TabControl>
         </StackPanel>
-        <StackPanel x:Name="equipmentAndMedicineSearchStackPanel" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Label Content="Medication search:" FontSize="14" VerticalAlignment="Center"></Label>
-            <ComboBox x:Name="medicationSearchComboBox" x:FieldModifier="public" HorizontalAlignment="Left" Height="30" Width="200" Margin="5,0,0,0" VerticalContentAlignment="Center" SelectedIndex="0">
-                <ComboBoxItem Name="emptyMedicationComboBox"></ComboBoxItem>
-            </ComboBox>
-            <Button x:Name="medicationSearchButton" Content="Search" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,15,0" Height="30" Width="60" FontWeight="Bold" FontSize="16" Click="Medication_Search"></Button>
-            <Label Content="Equipment search:" FontSize="14" VerticalAlignment="Center" Margin="0,0,0,0"></Label>
-            <ComboBox x:Name="equipmentSearchComboBox" x:FieldModifier="public" HorizontalAlignment="Right" Height="30" Width="200" Margin="10,0,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" SelectedIndex="0">
-                <ComboBoxItem Name="emptyEquipmentComboBox"></ComboBoxItem>
-            </ComboBox>
-            <Button x:Name="equipmentSearchButton" Content="Search" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,5,0" Height="30" Width="60" FontWeight="Bold" FontSize="16" Click="Equipment_Search"></Button>
-        </StackPanel>
-        <StackPanel x:Name="appointmentSearchStackPanel"  Height="51" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Label Content="Appointment search:" FontSize="14" VerticalAlignment="Center"></Label>
-            <ComboBox x:Name="doctorsComboBox" x:FieldModifier="public" Height="30" Width="150" VerticalContentAlignment="Center" SelectedIndex="0" Margin="20,0,0,0">
-            </ComboBox>
-            <DatePicker Height="30" Width="150" x:FieldModifier="public" Margin="20,0,0,0" Name="startDatePicker" ></DatePicker>
-            <DatePicker Height="30" Width="150" x:FieldModifier="public" Margin="20,0,0,0" Name="endDatePicker" ></DatePicker>
-            <ComboBox x:Name="PriorityComboBox" x:FieldModifier="public" Height="30" Width="120" VerticalContentAlignment="Center" Margin="20,0,0,0" SelectedIndex="0">
-                <ComboBoxItem Content="Priority: Doctor"/>
-                <ComboBoxItem Content="Priority: Time"/>
-            </ComboBox>
-            <Button x:Name="appointmentSearch" Content="Search" Height="30" Width="60" FontWeight="Bold" FontSize="16" Margin="10,0,5,0" Click="appointmentSearch_Click" />
-        </StackPanel >
-        <Canvas MinHeight="550" Margin="0,0,0,20" Background="LightGreen" MouseLeftButtonDown="selectBuilding" Name="canvas" ToolTip="My Tool Tip" ToolTipService.InitialShowDelay="1" ToolTipService.IsEnabled="False"/>
+        <Canvas MinHeight="550" Margin="0,0,0,20" Background="LightGreen" MouseLeftButtonDown="SelectBuilding" Name="canvas" ToolTip="My Tool Tip" ToolTipService.InitialShowDelay="1" ToolTipService.IsEnabled="False"/>
     </StackPanel>
 </Window>
