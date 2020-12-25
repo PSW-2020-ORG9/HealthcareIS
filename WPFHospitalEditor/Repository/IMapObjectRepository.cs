@@ -5,10 +5,10 @@ namespace WPFHospitalEditor.Repository
 {
     public interface IMapObjectRepository
     {
-        List<MapObject> getAllMapObjects();
-        MapObject update(MapObject mapObject);
-        void saveAll(List<MapObject> entities);
-        List<MapObject> getOutterMapObjects();
-        MapObject findMapObjectById(int id);
+        List<MapObject> GetAllMapObjects();
+        MapObject Update(MapObject mapObject);
+        void SaveAll(List<MapObject> entities);
+        List<MapObject> GetOutterMapObjects();
+        MapObject FindMapObjectById(int id);
     }
 }

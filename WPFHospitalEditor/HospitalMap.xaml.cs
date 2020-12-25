@@ -44,7 +44,7 @@ namespace WPFHospitalEditor
             SetMedicationNameComboBox();
             SetDoctorNameComboBox();
             SetNonSelectedComboBoxItem();
-            CanvasService.addObjectToCanvas(mapObjectController.getOutterMapObjects(), canvas);
+            CanvasService.AddObjectToCanvas(mapObjectController.GetOutterMapObjects(), canvas);
             canvasHospitalMap = canvas;
             HospitalMap.role = role;
             if (IsRoleLogged(Role.Patient))
@@ -57,7 +57,7 @@ namespace WPFHospitalEditor
 
         private void SelectBuilding(object sender, MouseButtonEventArgs e)
         {
-            MapObject chosenBuilding = CanvasService.checkWhichObjectIsClicked(e, mapObjectController.getAllMapObjects(), canvas);
+            MapObject chosenBuilding = CanvasService.CheckWhichObjectIsClicked(e, mapObjectController.GetAllMapObjects(), canvas);
             if (chosenBuilding != null && chosenBuilding.MapObjectType == MapObjectType.Building)
             {
                 GoToClickedBuilding(chosenBuilding);
@@ -67,7 +67,7 @@ namespace WPFHospitalEditor
         private void GoToClickedBuilding(MapObject mapObject)
         {
             List<MapObject> buildingObjects = new List<MapObject>();
-            foreach (MapObject mapObjectIteration in mapObjectController.getAllMapObjects())
+            foreach (MapObject mapObjectIteration in mapObjectController.GetAllMapObjects())
             {
                 if (mapObject.Id.ToString().Equals(FindBuilding(mapObjectIteration)))
                 {
@@ -91,7 +91,7 @@ namespace WPFHospitalEditor
         private void Basic_Search(object sender, RoutedEventArgs e)
         {
             ClearAllResults();
-            searchResult = mapObjectController.searchForMapObjects(searchInputTB.Text, searchInputComboBox.Text);
+            searchResult = mapObjectController.SearchForMapObjects(searchInputTB.Text, searchInputComboBox.Text);
             if (searchResult.Count > 0)
             {
                 SearchResultDialog searchResultDialog = new SearchResultDialog(this, SearchType.MapObjectSearch);
@@ -120,7 +120,7 @@ namespace WPFHospitalEditor
             }
             else
             {
-                equipmentSearchResult = equipmentServerController.getEquipmentByType(equipmentSearchComboBox.Text).ToList();
+                equipmentSearchResult = equipmentServerController.GetEquipmentByType(equipmentSearchComboBox.Text).ToList();
                 SearchResultDialog equipmentDialog = new SearchResultDialog(this, SearchType.EquipmentSearch);
                 equipmentDialog.ShowDialog();
             }

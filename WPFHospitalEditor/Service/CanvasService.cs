@@ -8,7 +8,7 @@ namespace WPFHospitalEditor.Service
 {
     public static class CanvasService
     {
-        public static void addObjectToCanvas(List<MapObject> objectsToShow, Canvas canvas)
+        public static void AddObjectToCanvas(List<MapObject> objectsToShow, Canvas canvas)
         {
             for (int i = 0; i < objectsToShow.Count; i++)
             {
@@ -19,11 +19,11 @@ namespace WPFHospitalEditor.Service
                 Canvas.SetTop(objectsToShow[i].rectangle, objectsToShow[i].MapObjectMetrics.MapObjectCoordinates.Y);
             }
         }
-        public static MapObject checkWhichObjectIsClicked(MouseButtonEventArgs e, List<MapObject> allMapObjectsShowed, Canvas canvas)
+        public static MapObject CheckWhichObjectIsClicked(MouseButtonEventArgs e, List<MapObject> allMapObjectsShowed, Canvas canvas)
         {
             for (int i = 0; i < allMapObjectsShowed.Count; i++)
             {
-                if (checkIfPointIsInRectangle(e, allMapObjectsShowed[i], canvas))
+                if (CheckIfPointIsInRectangle(e, allMapObjectsShowed[i], canvas))
                 {
                     return allMapObjectsShowed[i];
                 }
@@ -31,7 +31,7 @@ namespace WPFHospitalEditor.Service
             return null;
         }
 
-        private static Boolean checkIfPointIsInRectangle(MouseButtonEventArgs e, MapObject mapObject, Canvas canvas)
+        private static Boolean CheckIfPointIsInRectangle(MouseButtonEventArgs e, MapObject mapObject, Canvas canvas)
         {
             return (e.GetPosition(canvas).X > mapObject.MapObjectMetrics.MapObjectCoordinates.X
                     && e.GetPosition(canvas).X < mapObject.MapObjectMetrics.MapObjectCoordinates.X + mapObject.MapObjectMetrics.MapObjectDimensions.Width

@@ -15,24 +15,24 @@ namespace WPFHospitalEditor.Service
             iMapObjectRepository = IMapObjectRepository;
         }
 
-        public List<MapObject> getAllMapObjects()
+        public List<MapObject> GetAllMapObjects()
         {
-            return colorSelectedObject(iMapObjectRepository.getAllMapObjects());
+            return ColorSelectedObject(iMapObjectRepository.GetAllMapObjects());
         }
 
-        public MapObject update(MapObject mapObject)
+        public MapObject Update(MapObject mapObject)
         {
-            return iMapObjectRepository.update(mapObject);
+            return iMapObjectRepository.Update(mapObject);
         }
-        public List<MapObject> getOutterMapObjects()
+        public List<MapObject> GetOutterMapObjects()
         {
-            return colorSelectedObject(iMapObjectRepository.getOutterMapObjects());
+            return ColorSelectedObject(iMapObjectRepository.GetOutterMapObjects());
         }
-        public MapObject findMapObjectById(int id)
+        public MapObject FindMapObjectById(int id)
         {
-            return iMapObjectRepository.findMapObjectById(id);
+            return iMapObjectRepository.FindMapObjectById(id);
         }
-        private List<MapObject> colorSelectedObject(List<MapObject> allMapObjects)
+        private List<MapObject> ColorSelectedObject(List<MapObject> allMapObjects)
         {
             foreach (MapObject mapObject in allMapObjects)
             {               
@@ -44,20 +44,20 @@ namespace WPFHospitalEditor.Service
             return allMapObjects;
         }
 
-        public List<MapObject> searchForMapObjects(string name, string type)
+        public List<MapObject> SearchForMapObjects(string name, string type)
         {
             var mapObjects = new List<MapObject>();           
             if (string.IsNullOrEmpty(name) && type.Equals(AllConstants.emptyComboBox)) return mapObjects;
-            List<MapObject> allMapObjects = iMapObjectRepository.getAllMapObjects();
+            List<MapObject> allMapObjects = iMapObjectRepository.GetAllMapObjects();
             foreach (MapObject mapObject in allMapObjects)
             {
-                if(compareInput(mapObject, name, type))
+                if(CompareInput(mapObject, name, type))
                     mapObjects.Add(mapObject);
             }
             return mapObjects;
         }
 
-        private bool compareInput(MapObject mapObject, string name, string type)
+        private bool CompareInput(MapObject mapObject, string name, string type)
         {
             bool result = mapObject.Name.ToLower().Contains(name.ToLower());
             if(!type.Equals(AllConstants.emptyComboBox))

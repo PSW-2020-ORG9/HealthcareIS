@@ -10,33 +10,33 @@ namespace WPFHospitalEditor.Repository
     {
         private readonly string path = AllConstants.MAPOBJECT_PATH;
 
-        public MapObject update(MapObject mapObject)
+        public MapObject Update(MapObject mapObject)
         {           
-            var allMapObjects = getAllMapObjects().ToList(); 
+            var allMapObjects = GetAllMapObjects().ToList(); 
             foreach (MapObject mapObj in allMapObjects)
             {
-                    updateMapObjectIfFound(mapObj, mapObject);
+                    UpdateMapObjectIfFound(mapObj, mapObject);
             }
-            saveAll(allMapObjects);
+            SaveAll(allMapObjects);
             return mapObject;
             
         }
         
-        public void updateMapObjectIfFound(MapObject mapObj, MapObject mapObjForUpdate)
+        public void UpdateMapObjectIfFound(MapObject mapObj, MapObject mapObjForUpdate)
         {
             if (mapObj.Id == mapObjForUpdate.Id)
             {
-                editAllMapObjectAttributes(mapObj, mapObjForUpdate);
+                EditAllMapObjectAttributes(mapObj, mapObjForUpdate);
             }
         }
 
-        public void editAllMapObjectAttributes(MapObject mapObj, MapObject mapObjForUpdate)
+        public void EditAllMapObjectAttributes(MapObject mapObj, MapObject mapObjectsForUpdate)
         {
-            mapObj.Description = mapObjForUpdate.Description;
-            mapObj.Name = mapObjForUpdate.Name;
+            mapObj.Description = mapObjectsForUpdate.Description;
+            mapObj.Name = mapObjectsForUpdate.Name;
         }
 
-        public List<MapObject> getAllMapObjects()
+        public List<MapObject> GetAllMapObjects()
         {
             string jsonString = File.Exists(path) ? File.ReadAllText(path) : "";
             var settings = new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.All };
@@ -51,10 +51,10 @@ namespace WPFHospitalEditor.Repository
             }
         }
 
-        public List<MapObject> getOutterMapObjects()
+        public List<MapObject> GetOutterMapObjects()
         {
             List<MapObject> allOuterMapObjects = new List<MapObject>();
-            var allMapObjects = getAllMapObjects().ToList();
+            var allMapObjects = GetAllMapObjects().ToList();
             foreach (MapObject mapObject in allMapObjects)
             {
                 if (mapObject.Description.Equals(""))
@@ -65,7 +65,7 @@ namespace WPFHospitalEditor.Repository
             return allOuterMapObjects;
         }
 
-        public void saveAll(List<MapObject> entities)
+        public void SaveAll(List<MapObject> entities)
         {
             JsonSerializer serializer = new JsonSerializer();
             serializer.TypeNameHandling = TypeNameHandling.All;
@@ -78,9 +78,9 @@ namespace WPFHospitalEditor.Repository
             }
         }   
         
-        public MapObject findMapObjectById(int id)
+        public MapObject FindMapObjectById(int id)
         {
-            var allMapObjects = getAllMapObjects();
+            var allMapObjects = GetAllMapObjects();
             foreach (MapObject mapObj in allMapObjects)
             {
                 if (mapObj.Id == id)

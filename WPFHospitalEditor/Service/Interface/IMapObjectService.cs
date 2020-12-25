@@ -5,10 +5,10 @@ namespace WPFHospitalEditor.Service
 {
     public interface IMapObjectService
     {
-        List<MapObject> getAllMapObjects();
-        MapObject update(MapObject mapObject);
-        List<MapObject> getOutterMapObjects();
-        MapObject findMapObjectById(int id);
-        List<MapObject> searchForMapObjects(string name, string type);
+        List<MapObject> GetAllMapObjects();
+        MapObject Update(MapObject mapObject);
+        List<MapObject> GetOutterMapObjects();
+        MapObject FindMapObjectById(int id);
+        List<MapObject> SearchForMapObjects(string name, string type);
     }
 }

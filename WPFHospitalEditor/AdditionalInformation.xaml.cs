@@ -68,12 +68,12 @@ namespace WPFHospitalEditor
             building.floorBuildingObjects.Remove(oldMapObject);
             building.floorBuildingObjects.Add(mapObject);
             building.canvas.Children.Clear();
-            CanvasService.addObjectToCanvas(building.floorBuildingObjects, building.canvas);
+            CanvasService.AddObjectToCanvas(building.floorBuildingObjects, building.canvas);
         }      
 
         private void UpdateAdditionalInformation()
         {
-            mapObjectController.update(mapObject);
+            mapObjectController.Update(mapObject);
             RefreshMap();
         }
 

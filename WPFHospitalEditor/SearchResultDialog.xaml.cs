@@ -125,11 +125,11 @@ namespace WPFHospitalEditor
                 {
                     MapObject chosenMapObject = displayBtnRow[Grid.GetRow(advancedSearchBtn)];
                     selectedObjectId = chosenMapObject.Id;
-                    mapObjectController.update(chosenMapObject);
+                    mapObjectController.Update(chosenMapObject);
 
                     if (chosenMapObject.Description.Equals(""))
                     {
-                        CanvasService.addObjectToCanvas(mapObjectController.getOutterMapObjects(), HospitalMap.canvasHospitalMap);
+                        CanvasService.AddObjectToCanvas(mapObjectController.GetOutterMapObjects(), HospitalMap.canvasHospitalMap);
                         this.Close();
                     }
                     else
@@ -173,7 +173,7 @@ namespace WPFHospitalEditor
         {
             Building buildingFromSearch = new Building(chosenBuilding, floor);
             Building.canvasBuilding.Children.Clear();
-            CanvasService.addObjectToCanvas(getObjects(building.ToString(), floor.ToString()), Building.canvasBuilding);
+            CanvasService.AddObjectToCanvas(getObjects(building.ToString(), floor.ToString()), Building.canvasBuilding);
             buildingFromSearch.Owner = hospitalMap;
             buildingFromSearch.Show();
         }
@@ -183,7 +183,7 @@ namespace WPFHospitalEditor
             Tuple<String, String> buildingAndFloorIteration;
             String buildingId = "";
             List<MapObject> buildingObjects = new List<MapObject>();
-            foreach (MapObject mapObjectIterate in mapObjectController.getAllMapObjects())
+            foreach (MapObject mapObjectIterate in mapObjectController.GetAllMapObjects())
             {
                 buildingAndFloorIteration = getBuildingAndFloor(mapObjectIterate);
                 if (buildingAndFloorIteration != null)
@@ -256,7 +256,7 @@ namespace WPFHospitalEditor
         private void Close_Click(object sender, RoutedEventArgs e)
         {
             selectedObjectId = -1;
-            CanvasService.addObjectToCanvas(mapObjectController.getOutterMapObjects(), HospitalMap.canvasHospitalMap);
+            CanvasService.AddObjectToCanvas(mapObjectController.GetOutterMapObjects(), HospitalMap.canvasHospitalMap);
             Close();
         }
 
@@ -275,7 +275,7 @@ namespace WPFHospitalEditor
         private List<MapObject> getObjects(String building, String floor)
         {
             List<MapObject> objectsToDisplay = new List<MapObject>();
-            List<MapObject> allMapObjects = mapObjectController.getAllMapObjects();
+            List<MapObject> allMapObjects = mapObjectController.GetAllMapObjects();
             foreach (MapObject mapObjectIteration in allMapObjects)
             {
                 if (isBuildingAndFloorEqual(building, floor, mapObjectIteration))
@@ -331,7 +331,7 @@ namespace WPFHospitalEditor
             for (int i = 0; i < HospitalMap.equipmentSearchResult.Count(); i++)
             {
                 EquipmentDto equipmentDto = HospitalMap.equipmentSearchResult.ElementAt(i);
-                MapObject mo = mapObjectController.findMapObjectById(equipmentDto.RoomId);
+                MapObject mo = mapObjectController.FindMapObjectById(equipmentDto.RoomId);
                 equipmentContentRows[i] = equipmentDto.Quantity 
                                  + AllConstants.contentSeparator +
                                  MapObjectToRow(mo);
@@ -342,7 +342,7 @@ namespace WPFHospitalEditor
         private string[] MedicationToContentRows()
         {
             string[] medicationContentRows = new string[HospitalMap.medicationSearchResult.Count()];
-            MapObject mo = mapObjectController.findMapObjectById(STORAGEROOM_ID);
+            MapObject mo = mapObjectController.FindMapObjectById(STORAGEROOM_ID);
             for (int i = 0; i < HospitalMap.medicationSearchResult.Count(); i++)
             {
                 MedicationDto medicationDto = HospitalMap.medicationSearchResult.ElementAt(i);
@@ -380,7 +380,7 @@ namespace WPFHospitalEditor
             for (int i = 0; i < HospitalMap.appointmentSearchResult.Count(); i++)
             {
                 RecommendationDto recommendationDto = HospitalMap.appointmentSearchResult.ElementAt(i);
-                MapObject mo = mapObjectController.findMapObjectById(recommendationDto.RoomId);
+                MapObject mo = mapObjectController.FindMapObjectById(recommendationDto.RoomId);
                 string doctor = recommendationDto.Doctor.Person.Name + " " + recommendationDto.Doctor.Person.Surname;
                 string timeInterval = recommendationDto.TimeInterval.Start.ToString() + "-" + recommendationDto.TimeInterval.End.ToString();
                 appointmentContentRows[i] = mo.Name

@@ -70,7 +70,7 @@ namespace WPFHospitalEditor
         {
             clearAll();           
             this.Close();
-            CanvasService.addObjectToCanvas(mapObjectController.getOutterMapObjects(), HospitalMap.canvasHospitalMap);
+            CanvasService.AddObjectToCanvas(mapObjectController.GetOutterMapObjects(), HospitalMap.canvasHospitalMap);
             Owner.Show();
         }
 
@@ -79,7 +79,7 @@ namespace WPFHospitalEditor
             clearAll();
             int index = floor.SelectedIndex;
             if (buildingFloors.Count == 0) return;
-            CanvasService.addObjectToCanvas(buildingFloors[index].getAllFloorMapObjects(), canvas);
+            CanvasService.AddObjectToCanvas(buildingFloors[index].getAllFloorMapObjects(), canvas);
             displayLegend(buildingFloors[index].getAllFloorMapObjects());
         }
 
@@ -165,7 +165,7 @@ namespace WPFHospitalEditor
         private void selectMapObject(object sender, MouseButtonEventArgs e)
         {
             int index = floor.SelectedIndex;
-            MapObject chosenMapObject = CanvasService.checkWhichObjectIsClicked(e, buildingFloors[index].getAllFloorMapObjects(), this.canvas);
+            MapObject chosenMapObject = CanvasService.CheckWhichObjectIsClicked(e, buildingFloors[index].getAllFloorMapObjects(), this.canvas);
             if (chosenMapObject != null)
             {
                 openAdditionalInformationDialog(chosenMapObject);

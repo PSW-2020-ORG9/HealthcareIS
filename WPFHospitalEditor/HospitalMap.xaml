@@ -44,9 +44,9 @@
                 </TabItem>
                 <TabItem x:Name="EquipmentSearchTab" Header="Equipment search" Background="#FFC6F5F8">
                     <StackPanel x:Name="EquipmentSearchStackPanel" Orientation="Horizontal" HorizontalAlignment="Left">
-                        <Label Content="Enter equipment type:" FontSize="14" VerticalAlignment="Center" Margin="35,0,0,0"></Label>
+                        <Label Content="Enter equipment name:" FontSize="14" VerticalAlignment="Center" Margin="35,0,0,0"></Label>
                         <TextBox x:Name="EquipmentSearchInput" x:FieldModifier="public" HorizontalAlignment="Right" Height="30" Width="200" Margin="10,0,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></TextBox>
-                        <Label Content="and/or choose equipment type:" FontSize="14" VerticalAlignment="Center" Margin="10,0,0,0"></Label>
+                        <Label Content="and/or choose equipment:" FontSize="14" VerticalAlignment="Center" Margin="10,0,0,0"></Label>
                         <ComboBox x:Name="equipmentSearchComboBox" x:FieldModifier="public" HorizontalAlignment="Right" Height="30" Width="200" Margin="10,0,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" SelectedIndex="0">
                             <ComboBoxItem Name="emptyEquipmentComboBox"></ComboBoxItem>
                         </ComboBox>
