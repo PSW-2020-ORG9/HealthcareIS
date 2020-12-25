@@ -16,7 +16,7 @@ namespace WPFHospitalEditorUnitTests
         {
             MapObjectService mapObjectService = new MapObjectService(createStubRepository());           
             
-            MapObject mapObject = mapObjectService.findMapObjectById(11);
+            MapObject mapObject = mapObjectService.FindMapObjectById(11);
 
             mapObject.ShouldNotBeNull();
         }
@@ -26,7 +26,7 @@ namespace WPFHospitalEditorUnitTests
         {
             MapObjectService mapObjectService = new MapObjectService(createStubRepository());          
 
-            MapObject mapObject = mapObjectService.findMapObjectById(13);
+            MapObject mapObject = mapObjectService.FindMapObjectById(13);
 
             mapObject.ShouldBeNull();
         }
@@ -36,8 +36,8 @@ namespace WPFHospitalEditorUnitTests
             var stubRepository = new Mock<IMapObjectRepository>();
             var mapObjects = createMapObjectList();
 
-            stubRepository.Setup(m => m.getAllMapObjects()).Returns(mapObjects);
-            stubRepository.Setup(m => m.findMapObjectById(11)).Returns(mapObjects[0]);
+            stubRepository.Setup(m => m.GetAllMapObjects()).Returns(mapObjects);
+            stubRepository.Setup(m => m.FindMapObjectById(11)).Returns(mapObjects[0]);
 
             return stubRepository.Object;
         }
