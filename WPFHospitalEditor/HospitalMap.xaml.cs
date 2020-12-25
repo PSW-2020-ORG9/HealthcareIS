@@ -13,7 +13,6 @@ using HealthcareBase.Model.Users.Employee.Doctors.DTOs;
 using HealthcareBase.Model.Schedule.SchedulingPreferences;
 using HealthcareBase.Model.Utilities;
 using HospitalWebApp.Dtos;
-using System.Diagnostics;
 
 namespace WPFHospitalEditor
 {
@@ -187,23 +186,27 @@ namespace WPFHospitalEditor
             }
         }
 
-        private void EquipmentTextInputLostFocus(object sender, EventArgs e)
+        private void EquipmentTextInputChanged(object sender, EventArgs e)
         {
             equipmentSearchComboBox.Items.Clear();
+            equipmentSearchComboBox.Items.Add("None");
+            equipmentSearchComboBox.SelectedIndex = 0;
             SetEquipmentTypeComboBox();
         }
 
         private void SetEquipmentTypeComboBox()
         {
-            foreach (EquipmentTypeDto eqTD in equipmentTypeServerController.GetAllEquipmentTypes())
+            foreach (EquipmentTypeDto eqTypeDto in equipmentTypeServerController.GetFilteredEquipmentTypes(EquipmentSearchInput.Text))
             {
-                equipmentSearchComboBox.Items.Add(eqTD.Name);
+                equipmentSearchComboBox.Items.Add(eqTypeDto.Name);
             }
         }
 
-        private void MedicationTextInputLostFocus(object sender, EventArgs e)
+        private void MedicationTextInputChanged(object sender, EventArgs e)
         {
             medicationSearchComboBox.Items.Clear();
+            medicationSearchComboBox.Items.Add("None");
+            medicationSearchComboBox.SelectedIndex = 0;
             SetMedicationNameComboBox();
         }
 
@@ -215,9 +218,11 @@ namespace WPFHospitalEditor
             }
         }
 
-        private void DoctorTextInputLostFocus(object sender, EventArgs e)
+        private void DoctorTextInputChanged(object sender, EventArgs e)
         {
             doctorsComboBox.Items.Clear();
+            doctorsComboBox.Items.Add("None");
+            doctorsComboBox.SelectedIndex = 0;
             SetDoctorNameComboBox();
         }
 
@@ -259,6 +264,7 @@ namespace WPFHospitalEditor
             emptyMapObjectComboBox.Content = AllConstants.emptyComboBox;
             emptyMedicationComboBox.Content = AllConstants.emptyComboBox;
             emptyEquipmentComboBox.Content = AllConstants.emptyComboBox;
+            emptyDoctorComboBox.Content = AllConstants.emptyComboBox;
         }
 
         private bool InvalidInputForAppointment()
