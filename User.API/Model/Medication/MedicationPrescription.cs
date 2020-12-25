@@ -4,12 +4,11 @@
 // Purpose: Definition of Class MedicationPrescription
 
 using System.ComponentModel.DataAnnotations.Schema;
-using HealthcareBase.Model.Miscellaneous;
-using HealthcareBase.Model.Schedule.Procedures;
-using HealthcareBase.Repository.Generics;
+using User.API.Infrastructure;
+using User.API.Model.Schedule;
+using User.API.Model.Users.Patients.MedicalHistory;
 
-
-namespace HealthcareBase.Model.Medication
+namespace User.API.Model.Medication
 {
     public class MedicationPrescription : Entity<int>
     {
