@@ -16,11 +16,11 @@ namespace WPFHospitalEditor
             allMapObjectsOnFloor = new List<MapObject>();
         }
 
-        public List<MapObject> getAllFloorMapObjects()
+        public List<MapObject> GetAllFloorMapObjects()
         {
             return allMapObjectsOnFloor;
         }
-        public MapObject addMapObject(MapObject mapObject)
+        public MapObject AddMapObject(MapObject mapObject)
         {
             allMapObjectsOnFloor.Add(mapObject);
             return mapObject;

@@ -24,7 +24,7 @@ namespace WPFHospitalEditor
         {
             InitializeComponent();
             this.recommendationDto = recommendationDto;
-            setAppointmentInfoContent();
+            SetAppointmentInfoContent();
             allPatients = patientServerController.GetAllPatients().ToList();
             foreach (Patient p in allPatients)
                 patients.Items.Add(p.Id.ToString() + " " + p.Person.Name + " " + p.Person.Surname + " - " + p.Person.Jmbg);
@@ -35,7 +35,7 @@ namespace WPFHospitalEditor
             this.Close();
         }
 
-        private void scheduleBtn_Click(object sender, RoutedEventArgs e)
+        private void ScheduleBtn_Click(object sender, RoutedEventArgs e)
         {
             if (patients.SelectedIndex == -1)
             {
@@ -57,7 +57,7 @@ namespace WPFHospitalEditor
             }
         }
 
-        private void setAppointmentInfoContent()
+        private void SetAppointmentInfoContent()
         {
             this.appointmentInfo.Content = "Doctor: " + recommendationDto.Doctor.Person.Name + " "
                                                      + recommendationDto.Doctor.Person.Surname + " " +

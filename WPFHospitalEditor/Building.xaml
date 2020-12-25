@@ -7,11 +7,11 @@
         mc:Ignorable="d"
         Title="Building" Height="650" Width="870" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="#FFC6F5F8">
     <StackPanel Orientation="Vertical">
-        <Canvas MinHeight="400" Margin="20,20,20,20" Background="LightGray" Name="canvas" MouseLeftButtonDown="selectMapObject"/>
+        <Canvas MinHeight="400" Margin="20,20,20,20" Background="LightGray" Name="canvas" MouseLeftButtonDown="SelectMapObject"/>
         <StackPanel Orientation="Horizontal">
-            <Button Background="#BDE7D8" Height="30" Width="100" Name="back" Content="Back" Margin="20,0,20,30" HorizontalAlignment="Left" Click="back_Click"/>
+            <Button Background="#BDE7D8" Height="30" Width="100" Name="back" Content="Back" Margin="20,0,20,30" HorizontalAlignment="Left" Click="Back_Click"/>
             <TextBlock FontSize="16">Change floor:</TextBlock>
-            <ComboBox x:Name="floor" Width="154" Height="30" Margin="10,-30,0,0" SelectionChanged="floor_SelectionChanged">
+            <ComboBox x:Name="floor" Width="154" Height="30" Margin="10,-30,0,0" SelectionChanged="Floor_SelectionChanged">
             </ComboBox>
         </StackPanel>
         <Grid x:Name="legend">

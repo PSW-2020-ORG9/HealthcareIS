@@ -44,7 +44,7 @@ namespace WPFHospitalEditor
             this.gridControl = dynamicGridControl;
             this.Height = (contentRows.Length +1) * 50 + 60;       
             SetNameCommonAttributes();
-            setButtonsVisibility();
+            SetButtonsVisibility();
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
@@ -124,10 +124,10 @@ namespace WPFHospitalEditor
             return medicationContentRows;
         }
 
-        private void setButtonsVisibility()
+        private void SetButtonsVisibility()
         {
-            if (!allEquipment.Any() || isMapObjectTypeStorageRoom() || IsPatientLogged()) Equipment.Visibility = Visibility.Hidden;
-            if (!allMedications.Any() || !isMapObjectTypeStorageRoom() || IsPatientLogged()) Medication.Visibility = Visibility.Hidden;
+            if (!allEquipment.Any() || IsMapObjectTypeStorageRoom() || IsPatientLogged()) Equipment.Visibility = Visibility.Hidden;
+            if (!allMedications.Any() || !IsMapObjectTypeStorageRoom() || IsPatientLogged()) Medication.Visibility = Visibility.Hidden;
         }
 
         private Boolean IsPatientLogged()
@@ -136,7 +136,7 @@ namespace WPFHospitalEditor
             return false;
         }
 
-        private bool isMapObjectTypeStorageRoom()
+        private bool IsMapObjectTypeStorageRoom()
         {
             if (mapObject.MapObjectType == MapObjectType.StorageRoom) return true;
             return false;
