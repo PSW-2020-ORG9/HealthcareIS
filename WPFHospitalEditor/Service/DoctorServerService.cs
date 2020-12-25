@@ -11,7 +11,7 @@ namespace WPFHospitalEditor.Service
     {
         public IEnumerable<DoctorDto> GetDoctorsByDepartment(int departmentId)
         {
-            var client = new RestClient(AllConstants.connectionUrl);
+            var client = new RestClient(AllConstants.ConnectionUrl);
             var request = new RestRequest("Doctor/getDoctorsByDepartment/" + departmentId, Method.GET);
             var response = client.Get<IEnumerable<DoctorDto>>(request);
             return response.Data;
@@ -19,7 +19,7 @@ namespace WPFHospitalEditor.Service
 
         public Doctor GetDoctorById(int doctorId)
         {
-            var client = new RestClient(AllConstants.connectionUrl);
+            var client = new RestClient(AllConstants.ConnectionUrl);
             var request = new RestRequest("Doctor/getDoctorById/" + doctorId, Method.GET);
             var response = client.Get<Doctor>(request);
             return response.Data;
@@ -28,7 +28,7 @@ namespace WPFHospitalEditor.Service
         public IEnumerable<DoctorDto> GetFilteredDoctors(string name)
         {
             var doctors = new List<DoctorDto>();
-            List<DoctorDto> allDoctors = GetDoctorsByDepartment(AllConstants.regularExaminationDepartment).ToList();
+            List<DoctorDto> allDoctors = GetDoctorsByDepartment(AllConstants.RegularExaminationDepartment).ToList();
             if (string.IsNullOrEmpty(name)) return allDoctors;
             foreach (DoctorDto doctorDto in allDoctors)
             {
@@ -41,6 +41,14 @@ namespace WPFHospitalEditor.Service
         private bool CompareInput(DoctorDto doctorDto, string name)
         {
             return doctorDto.Name.ToLower().Contains(name.ToLower());
+        }
+
+        public IEnumerable<DoctorDto> GetAllSpecialists()
+        {
+            var client = new RestClient(AllConstants.ConnectionUrl);
+            var request = new RestRequest("Doctor/getAllSpecialists", Method.GET);
+            var response = client.Get<IEnumerable<DoctorDto>>(request);
+            return response.Data;
         }
     }
 }

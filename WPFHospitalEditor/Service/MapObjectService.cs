@@ -47,7 +47,7 @@ namespace WPFHospitalEditor.Service
         public List<MapObject> SearchForMapObjects(string name, string type)
         {
             var mapObjects = new List<MapObject>();           
-            if (string.IsNullOrEmpty(name) && type.Equals(AllConstants.emptyComboBox)) return mapObjects;
+            if (string.IsNullOrEmpty(name) && type.Equals(AllConstants.EmptyComboBox)) return mapObjects;
             List<MapObject> allMapObjects = iMapObjectRepository.GetAllMapObjects();
             foreach (MapObject mapObject in allMapObjects)
             {
@@ -60,7 +60,7 @@ namespace WPFHospitalEditor.Service
         private bool CompareInput(MapObject mapObject, string name, string type)
         {
             bool result = mapObject.Name.ToLower().Contains(name.ToLower());
-            if(!type.Equals(AllConstants.emptyComboBox))
+            if(!type.Equals(AllConstants.EmptyComboBox))
             {
                 result = result && mapObject.MapObjectType.ToString().Equals(type);
             }

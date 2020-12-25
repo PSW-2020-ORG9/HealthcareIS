@@ -109,7 +109,7 @@ namespace WPFHospitalEditor
             string[] equipmentContentRows = new string [allEquipment.Count()];
             for (int i = 0; i < allEquipment.Count(); i++)
             {
-                equipmentContentRows[i] = allEquipment.ElementAt(i).Name + AllConstants.contentSeparator + allEquipment.ElementAt(i).Quantity;
+                equipmentContentRows[i] = allEquipment.ElementAt(i).Name + AllConstants.ContentSeparator + allEquipment.ElementAt(i).Quantity;
             }
             return equipmentContentRows;
         }
@@ -119,7 +119,7 @@ namespace WPFHospitalEditor
             string[] medicationContentRows = new string[allMedications.Count()];
             for (int i = 0; i < allMedications.Count(); i++)
             {
-                medicationContentRows[i] = allMedications.ElementAt(i).Name + AllConstants.contentSeparator + allMedications.ElementAt(i).Quantity;
+                medicationContentRows[i] = allMedications.ElementAt(i).Name + AllConstants.ContentSeparator + allMedications.ElementAt(i).Quantity;
             }
             return medicationContentRows;
         }

@@ -75,7 +75,7 @@ namespace WPFHospitalEditor
             CreateRows();
             foreach (String oneRow in contentRows)
             {
-                String[] oneRowContents = oneRow.Split(AllConstants.contentSeparator);
+                String[] oneRowContents = oneRow.Split(AllConstants.ContentSeparator);
                 CreateRowData(oneRowContents);
             }
         }
@@ -333,7 +333,7 @@ namespace WPFHospitalEditor
                 EquipmentDto equipmentDto = HospitalMap.equipmentSearchResult.ElementAt(i);
                 MapObject mo = mapObjectController.FindMapObjectById(equipmentDto.RoomId);
                 equipmentContentRows[i] = equipmentDto.Quantity 
-                                 + AllConstants.contentSeparator +
+                                 + AllConstants.ContentSeparator +
                                  MapObjectToRow(mo);
                 displayBtnRow.Add(i, mo);
             }
@@ -347,7 +347,7 @@ namespace WPFHospitalEditor
             {
                 MedicationDto medicationDto = HospitalMap.medicationSearchResult.ElementAt(i);
                 medicationContentRows[i] = medicationDto.Quantity
-                                 + AllConstants.contentSeparator +
+                                 + AllConstants.ContentSeparator +
                                  MapObjectToRow(mo);
                 displayBtnRow.Add(i, mo);
             }
@@ -356,9 +356,9 @@ namespace WPFHospitalEditor
 
         private string MapObjectToRow(MapObject mo)
         {
-            string result = mo.Name + AllConstants.contentSeparator
+            string result = mo.Name + AllConstants.ContentSeparator
                             + Building.FindBuilding(mo)
-                            + AllConstants.contentSeparator + Building.FindFloor(mo);
+                            + AllConstants.ContentSeparator + Building.FindFloor(mo);
             return result;
         }
 
@@ -384,8 +384,8 @@ namespace WPFHospitalEditor
                 string doctor = recommendationDto.Doctor.Person.Name + " " + recommendationDto.Doctor.Person.Surname;
                 string timeInterval = recommendationDto.TimeInterval.Start.ToString() + "-" + recommendationDto.TimeInterval.End.ToString();
                 appointmentContentRows[i] = mo.Name
-                                + AllConstants.contentSeparator + doctor
-                                 + AllConstants.contentSeparator + timeInterval;
+                                + AllConstants.ContentSeparator + doctor
+                                 + AllConstants.ContentSeparator + timeInterval;
                 displayBtnRow.Add(i, mo);
                 scheduleBtnRow.Add(i, recommendationDto);
             }

@@ -10,7 +10,7 @@ namespace WPFHospitalEditor.Service
     {
         public IEnumerable<EquipmentTypeDto> GetAllEquipmentTypes()
         {
-            var client = new RestClient(AllConstants.connectionUrl);
+            var client = new RestClient(AllConstants.ConnectionUrl);
             var request = new RestRequest("EquipmentType/getAll", Method.GET);
             var response = client.Get<IEnumerable<EquipmentTypeDto>>(request);
             return response.Data;

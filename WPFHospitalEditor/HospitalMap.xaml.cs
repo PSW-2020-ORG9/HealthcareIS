@@ -150,13 +150,13 @@ namespace WPFHospitalEditor
             else
             {
                 int DoctorId = int.Parse(doctorsComboBox.SelectedItem.ToString().Split(" ")[0]);
-                DateTime startDate = DateTime.ParseExact(startDatePicker.SelectedDate.Value.ToString("MM/dd/yyyy") + AllConstants.dayStart, "MM/dd/yyyy HH:mm", null);
-                DateTime endDate = DateTime.ParseExact(endDatePicker.SelectedDate.Value.ToString("MM/dd/yyyy") + AllConstants.dayEnd, "MM/dd/yyyy HH:mm", null);
+                DateTime startDate = DateTime.ParseExact(startDatePicker.SelectedDate.Value.ToString("MM/dd/yyyy") + AllConstants.DayStart, "MM/dd/yyyy HH:mm", null);
+                DateTime endDate = DateTime.ParseExact(endDatePicker.SelectedDate.Value.ToString("MM/dd/yyyy") + AllConstants.DayEnd, "MM/dd/yyyy HH:mm", null);
 
                 RecommendationRequestDto recommendationRequestDto = new RecommendationRequestDto()
                 {
                     DoctorId = DoctorId,
-                    SpecialtyId = AllConstants.regularExaminationDepartment,
+                    SpecialtyId = AllConstants.RegularExaminationDepartment,
                     TimeInterval = new TimeInterval(startDate, endDate),
                     Preference = GetRecommendationPreference()
                 };
@@ -240,7 +240,7 @@ namespace WPFHospitalEditor
             return false;
         }
 
-        private void ClearAllResults()
+        public static void ClearAllResults()
         {
             searchResult.Clear();
             equipmentSearchResult.Clear();
@@ -250,21 +250,21 @@ namespace WPFHospitalEditor
 
         private Boolean NoEquipmentTypeIsPicked()
         {
-            if (equipmentSearchComboBox.Text.Equals(AllConstants.emptyComboBox)) return true;
+            if (equipmentSearchComboBox.Text.Equals(AllConstants.EmptyComboBox)) return true;
             return false;
         }
 
         private Boolean NoMedicationNameIsPicked()
         {
-            if (medicationSearchComboBox.Text.Equals(AllConstants.emptyComboBox)) return true;
+            if (medicationSearchComboBox.Text.Equals(AllConstants.EmptyComboBox)) return true;
             return false;
         }
         private void SetNonSelectedComboBoxItem()
         {
-            emptyMapObjectComboBox.Content = AllConstants.emptyComboBox;
-            emptyMedicationComboBox.Content = AllConstants.emptyComboBox;
-            emptyEquipmentComboBox.Content = AllConstants.emptyComboBox;
-            emptyDoctorComboBox.Content = AllConstants.emptyComboBox;
+            emptyMapObjectComboBox.Content = AllConstants.EmptyComboBox;
+            emptyMedicationComboBox.Content = AllConstants.EmptyComboBox;
+            emptyEquipmentComboBox.Content = AllConstants.EmptyComboBox;
+            emptyDoctorComboBox.Content = AllConstants.EmptyComboBox;
         }
 
         private bool InvalidInputForAppointment()
@@ -288,6 +288,12 @@ namespace WPFHospitalEditor
         {
             if (PriorityComboBox.SelectedIndex == 0) return RecommendationPreference.Doctor;
             return RecommendationPreference.Time;
+        }
+
+        private void Specialist_Appointment_Click(object sender, RoutedEventArgs e)
+        {
+            SpecialistAppointmentSearchDialog sp = new SpecialistAppointmentSearchDialog(this);
+            sp.ShowDialog();
         }
     }
 }

@@ -79,8 +79,10 @@
                         </StackPanel>
                     </StackPanel>
                 </TabItem>
+
             </TabControl>
         </StackPanel>
+        <Button x:Name="specialistAppointmentButton" Content="Specialist Appointment" Width="200" Height="30" FontWeight="Bold" FontSize="16" Click="Specialist_Appointment_Click" HorizontalAlignment="Left"></Button>
         <Canvas MinHeight="550" Margin="0,0,0,20" Background="LightGreen" MouseLeftButtonDown="SelectBuilding" Name="canvas" ToolTip="My Tool Tip" ToolTipService.InitialShowDelay="1" ToolTipService.IsEnabled="False"/>
     </StackPanel>
 </Window>

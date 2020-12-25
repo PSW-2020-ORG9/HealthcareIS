@@ -15,7 +15,7 @@ namespace WPFHospitalEditorE2ETests
         {           
             IEquipmentServerController equipmentServerController = new EquipmentServerController();
 
-            var equipment =  equipmentServerController.GetEquipmentByType(AllConstants.emptyComboBox);
+            var equipment =  equipmentServerController.GetEquipmentByType(AllConstants.EmptyComboBox);
 
             Assert.Empty(equipment);
         }

@@ -61,7 +61,7 @@ namespace WPFHospitalEditor
         {
             this.appointmentInfo.Content = "Doctor: " + recommendationDto.Doctor.Person.Name + " "
                                                      + recommendationDto.Doctor.Person.Surname + " " +
-                                           ",Time: " + recommendationDto.TimeInterval.Start.Date.ToString();
+                                           ",Time: " + recommendationDto.TimeInterval.Start.ToString();
         }
     }
 }

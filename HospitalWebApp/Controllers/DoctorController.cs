@@ -46,5 +46,14 @@ namespace HospitalWebApp.Controllers
             if (doctor != null) return Ok(doctor);
             return BadRequest("Doctor with id: " + doctorId + " not found.");
         }
+
+        [HttpGet]
+        [Route("getAllSpecialists")]
+        public IActionResult GetAllSpecialists()
+        {
+            IEnumerable<DoctorDto> docDtos = doctorService.GetAllSpecialists();
+            if (docDtos != null) return Ok(docDtos);
+            return BadRequest("Specialists not found.");
+        }
     }
 }

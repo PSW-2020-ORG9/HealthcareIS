@@ -9,7 +9,7 @@ namespace WPFHospitalEditor.Service
     {
         public IEnumerable<Patient> GetAllPatients()
         {
-            var client = new RestClient(AllConstants.connectionUrl);
+            var client = new RestClient(AllConstants.ConnectionUrl);
             var request = new RestRequest("Patient/getAllPatients", Method.GET);
             var response = client.Get<IEnumerable<Patient>>(request);
             return response.Data;

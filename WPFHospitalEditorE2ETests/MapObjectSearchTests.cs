@@ -16,7 +16,7 @@ namespace WPFHospitalEditorE2ETests
             MapObjectController mapObjectController = new MapObjectController();
             var searchedMapObjects = new List<MapObject>();
 
-            searchedMapObjects = mapObjectController.SearchForMapObjects("", AllConstants.emptyComboBox);
+            searchedMapObjects = mapObjectController.SearchForMapObjects("", AllConstants.EmptyComboBox);
 
             Assert.Empty(searchedMapObjects);
         }
@@ -38,7 +38,7 @@ namespace WPFHospitalEditorE2ETests
             MapObjectController mapObjectController = new MapObjectController();
             var searchedMapObjects = new List<MapObject>();
 
-            searchedMapObjects = mapObjectController.SearchForMapObjects("Info", AllConstants.emptyComboBox);
+            searchedMapObjects = mapObjectController.SearchForMapObjects("Info", AllConstants.EmptyComboBox);
 
             Assert.NotEmpty(searchedMapObjects);
         }

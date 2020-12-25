@@ -31,7 +31,7 @@ namespace WPFHospitalEditor
             for (int i = 0; i < contentRows.Length; i++)
             {
                 if (contentRows[i].Equals("")) break;
-                String[] rowContent = contentRows[i].Split(AllConstants.descriptionSeparator);
+                String[] rowContent = contentRows[i].Split(AllConstants.DescriptionSeparator);
                 InsertLabel(rowContent[0], i);
                 InsertTextBox(rowContent[1], i);
             }
@@ -86,7 +86,7 @@ namespace WPFHospitalEditor
             StringBuilder stringBuilder = new StringBuilder("");
             for (int i = 0; i < labels.Count; i++)
             {
-                stringBuilder.Append(labels[i].Content.ToString() + AllConstants.descriptionSeparator + textBoxes[i].Text + ";");
+                stringBuilder.Append(labels[i].Content.ToString() + AllConstants.DescriptionSeparator + textBoxes[i].Text + ";");
             }
             return stringBuilder.ToString();
         }
