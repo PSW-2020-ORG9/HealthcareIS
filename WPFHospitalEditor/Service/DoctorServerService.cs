@@ -25,7 +25,7 @@ namespace WPFHospitalEditor.Service
             return response.Data;
         }
 
-        public IEnumerable<DoctorDto> ShowFilteredDoctors(string name)
+        public IEnumerable<DoctorDto> GetFilteredDoctors(string name)
         {
             var doctors = new List<DoctorDto>();
             List<DoctorDto> allDoctors = GetDoctorsByDepartment(AllConstants.regularExaminationDepartment).ToList();

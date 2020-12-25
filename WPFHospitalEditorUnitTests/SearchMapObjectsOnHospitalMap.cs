@@ -15,7 +15,7 @@ namespace WPFHospitalEditorUnitTests
         [StaFact]
         public void Map_object_search_for_existing_object()
         {
-            var mapObjects = createMapObjectList();
+            var mapObjects = CreateMapObjectList();
             var searchedMapObjects = new List<MapObject>();
 
             MapObjectService mapObjectService = new MapObjectService(createStubRepository());
@@ -27,7 +27,7 @@ namespace WPFHospitalEditorUnitTests
         [StaFact]
         public void Map_object_search_for_non_existing_object()
         {
-            var mapObjects = createMapObjectList();
+            var mapObjects = CreateMapObjectList();
             var searchedMapObjects = new List<MapObject>();
 
             MapObjectService mapObjectService = new MapObjectService(createStubRepository());
@@ -38,12 +38,12 @@ namespace WPFHospitalEditorUnitTests
         private IMapObjectRepository createStubRepository()
         {
             var stubRepository = new Mock<IMapObjectRepository>();
-            var mapObjects = createMapObjectList();
+            var mapObjects = CreateMapObjectList();
             stubRepository.Setup(m => m.GetAllMapObjects()).Returns(mapObjects);
             return stubRepository.Object;
         }
 
-        private List<MapObject> createMapObjectList()
+        private List<MapObject> CreateMapObjectList()
         {
             var mapObjects = new List<MapObject>();
             MapObject regular3 = new MapObject("Examination 3", 17, new MapObjectMetrics(new MapObjectCoordinates(280.0, 0.0), new MapObjectDimensions(140.0, 120.0)), MapObjectType.ExaminationRoom, new MapObjectDoor(MapObjectDoorOrientation.Down), "1-0&Working Hours=09:00 - 21:00");

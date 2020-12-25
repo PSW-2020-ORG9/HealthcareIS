@@ -187,6 +187,12 @@ namespace WPFHospitalEditor
             }
         }
 
+        private void EquipmentTextInputLostFocus(object sender, EventArgs e)
+        {
+            equipmentSearchComboBox.Items.Clear();
+            SetEquipmentTypeComboBox();
+        }
+
         private void SetEquipmentTypeComboBox()
         {
             foreach (EquipmentTypeDto eqTD in equipmentTypeServerController.GetAllEquipmentTypes())
@@ -195,9 +201,15 @@ namespace WPFHospitalEditor
             }
         }
 
+        private void MedicationTextInputLostFocus(object sender, EventArgs e)
+        {
+            medicationSearchComboBox.Items.Clear();
+            SetMedicationNameComboBox();
+        }
+
         private void SetMedicationNameComboBox()
         {
-            foreach (MedicationDto medDto in medicationServerController.GetAllMedication())
+            foreach (MedicationDto medDto in medicationServerController.GetFilteredMedications(MedicationSearchInput.Text))
             {
                 medicationSearchComboBox.Items.Add(medDto.Name);
             }
@@ -211,7 +223,7 @@ namespace WPFHospitalEditor
 
         private void SetDoctorNameComboBox()
         {
-            foreach (DoctorDto docDto in doctorServerController.ShowFilteredDoctors(DoctorSearchInput.Text))
+            foreach (DoctorDto docDto in doctorServerController.GetFilteredDoctors(DoctorSearchInput.Text))
             {
                 doctorsComboBox.Items.Add(docDto.DoctorId + " " + docDto.Name + " " + docDto.Surname);
             }

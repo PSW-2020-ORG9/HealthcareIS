@@ -12,9 +12,9 @@ namespace WPFHospitalEditorUnitTests
     {
         
         [StaFact]
-        public void find_existing_object()
+        public void Find_existing_object()
         {
-            MapObjectService mapObjectService = new MapObjectService(createStubRepository());           
+            MapObjectService mapObjectService = new MapObjectService(CreateStubRepository());           
             
             MapObject mapObject = mapObjectService.FindMapObjectById(11);
 
@@ -22,19 +22,19 @@ namespace WPFHospitalEditorUnitTests
         }
         
         [StaFact]
-        public void find_non_existing_object()
+        public void Find_non_existing_object()
         {
-            MapObjectService mapObjectService = new MapObjectService(createStubRepository());          
+            MapObjectService mapObjectService = new MapObjectService(CreateStubRepository());          
 
             MapObject mapObject = mapObjectService.FindMapObjectById(13);
 
             mapObject.ShouldBeNull();
         }
         
-        private IMapObjectRepository createStubRepository()
+        private IMapObjectRepository CreateStubRepository()
         {
             var stubRepository = new Mock<IMapObjectRepository>();
-            var mapObjects = createMapObjectList();
+            var mapObjects = CreateMapObjectList();
 
             stubRepository.Setup(m => m.GetAllMapObjects()).Returns(mapObjects);
             stubRepository.Setup(m => m.FindMapObjectById(11)).Returns(mapObjects[0]);
@@ -42,7 +42,7 @@ namespace WPFHospitalEditorUnitTests
             return stubRepository.Object;
         }
 
-        private List<MapObject> createMapObjectList()
+        private List<MapObject> CreateMapObjectList()
         {
             
             var mapObjects = new List<MapObject>();
