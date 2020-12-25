@@ -212,7 +212,7 @@ namespace WPFHospitalEditor
             return false;
         }
 
-        private void clearAllResults()
+        public static void clearAllResults()
         {
             searchResult.Clear();
             equipmentSearchResult.Clear();
@@ -259,6 +259,12 @@ namespace WPFHospitalEditor
         {
             if (PriorityComboBox.SelectedIndex == 0) return RecommendationPreference.Doctor;
             return RecommendationPreference.Time;
+        }
+
+        private void Specialist_Appointment_Click(object sender, RoutedEventArgs e)
+        {
+            SpecialistAppointmentSearchDialog sp = new SpecialistAppointmentSearchDialog(this);
+            sp.ShowDialog();
         }
     }
 }
