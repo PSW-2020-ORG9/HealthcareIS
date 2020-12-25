@@ -13,6 +13,7 @@ using HealthcareBase.Model.Users.Employee.Doctors.DTOs;
 using HealthcareBase.Model.Schedule.SchedulingPreferences;
 using HealthcareBase.Model.Utilities;
 using HospitalWebApp.Dtos;
+using System.Diagnostics;
 
 namespace WPFHospitalEditor
 {
@@ -28,7 +29,7 @@ namespace WPFHospitalEditor
         IDoctorServerController doctorServerController = new DoctorServerController();
         ISchedulingServerController schedulingController = new SchedulingServerController();
 
-        public static Canvas canvasHospitalMap;  
+        public static Canvas canvasHospitalMap;
         public static Role role;
         public static List<MapObject> searchResult = new List<MapObject>();
         public static List<EquipmentDto> equipmentSearchResult = new List<EquipmentDto>();
@@ -37,7 +38,7 @@ namespace WPFHospitalEditor
         private const int regularExaminationDepartment = 1;
 
         public HospitalMap(List<MapObject> allMapObjects, Role role)
-        {                     
+        {
             InitializeComponent();
             setMapObjectTypeComboBox();
             setEquipmentTypeComboBox();
@@ -50,7 +51,7 @@ namespace WPFHospitalEditor
             if (IsRoleLogged(Role.Patient)) equipmentAndMedicineSearchStackPanel.Visibility = Visibility.Hidden;
             if (!IsRoleLogged(Role.Secretary)) appointmentSearchStackPanel.Visibility = Visibility.Hidden;
         }
-        
+
         private void selectBuilding(object sender, MouseButtonEventArgs e)
         {
             MapObject chosenBuilding = CanvasService.checkWhichObjectIsClicked(e, mapObjectController.getAllMapObjects(), canvas);
@@ -59,16 +60,16 @@ namespace WPFHospitalEditor
                 goToClickedBuilding(chosenBuilding);
             }
         }
-       
+
         private void goToClickedBuilding(MapObject mapObject)
         {
             List<MapObject> buildingObjects = new List<MapObject>();
             foreach (MapObject mapObjectIteration in mapObjectController.getAllMapObjects())
             {
                 if (mapObject.Id.ToString().Equals(findBuilding(mapObjectIteration)))
-                {                   
+                {
                     buildingObjects.Add(mapObjectIteration);
-                }                
+                }
             }
             canvas.Children.Clear();
             Building building = new Building(buildingObjects, 0);
@@ -147,8 +148,9 @@ namespace WPFHospitalEditor
             else
             {
                 int DoctorId = int.Parse(doctorsComboBox.SelectedItem.ToString().Split(" ")[0]);
-                DateTime startDate = DateTime.ParseExact(startDatePicker.Text + AllConstants.DayStart, "MM/dd/yyyy HH:mm", null);
-                DateTime endDate = DateTime.ParseExact(endDatePicker.Text + AllConstants.DayEnd, "MM/dd/yyyy HH:mm", null);
+                DateTime startDate = DateTime.ParseExact(startDatePicker.SelectedDate.Value.ToString("MM/dd/yyyy") + AllConstants.DayStart, "MM/dd/yyyy HH:mm", null);
+                DateTime endDate = DateTime.ParseExact(endDatePicker.SelectedDate.Value.ToString("MM/dd/yyyy") + AllConstants.DayEnd, "MM/dd/yyyy HH:mm", null);
+
                 RecommendationRequestDto recommendationRequestDto = new RecommendationRequestDto()
                 {
                     DoctorId = DoctorId,
@@ -167,7 +169,7 @@ namespace WPFHospitalEditor
                 {
                     MessageBox.Show("There are no available appointments for chosen period!");
                 }
-               
+
             }
         }
 
@@ -175,10 +177,10 @@ namespace WPFHospitalEditor
         {
             foreach (MapObjectType mop in Enum.GetValues(typeof(MapObjectType)))
             {
-                if(!isNoNameObject(mop))
+                if (!isNoNameObject(mop))
                 {
                     searchInputComboBox.Items.Add(mop);
-                } 
+                }
             }
         }
 
@@ -243,7 +245,7 @@ namespace WPFHospitalEditor
             if (doctorsComboBox.Text.Equals("") || startDatePicker.Text.Equals("") || endDatePicker.Text.Equals("") || InvalidDateInput())
             {
                 return true;
-            }          
+            }
             return false;
         }
 
