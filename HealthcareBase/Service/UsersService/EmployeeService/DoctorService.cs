@@ -14,7 +14,7 @@ using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository.I
 
 namespace HealthcareBase.Service.UsersService.EmployeeService
 {
-    public class DoctorService:IDoctorService
+    public class DoctorService : IDoctorService
     {
         private readonly RepositoryWrapper<IDoctorRepository> doctorRepository;
         private const int REGULAR_DOCTOR_DEPARTMENT_ID = 1;

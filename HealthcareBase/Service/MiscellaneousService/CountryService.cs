@@ -19,14 +19,8 @@ namespace HealthcareBase.Service.MiscellaneousService
             this.countryRepository = new RepositoryWrapper<ICountryRepository>(countryRepository);
         }
 
-        public Country GetByID(int id)
-        {
-            return countryRepository.Repository.GetByID(id);
-        }
+        public Country GetByID(int id) => countryRepository.Repository.GetByID(id);
 
-        public IEnumerable<Country> GetAll()
-        {
-            return countryRepository.Repository.GetAll();
-        }
+        public IEnumerable<Country> GetAll() => countryRepository.Repository.GetAll();
     }
 }

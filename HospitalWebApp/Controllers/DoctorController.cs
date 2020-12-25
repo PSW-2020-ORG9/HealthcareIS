@@ -11,7 +11,6 @@ namespace HospitalWebApp.Controllers
     [ApiController]
     [Route("[controller]")]
     public class DoctorController:ControllerBase
-    
     {
         private readonly DoctorService doctorService;
 

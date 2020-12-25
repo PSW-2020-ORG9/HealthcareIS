@@ -12,7 +12,7 @@ namespace HealthcareBase.Model.HospitalResources
         RecoveryRoom,
         DentistryRoom,
         NeurologyRoom,
-        OphthamologyRoom,
+        OphthalmologyRoom,
         DermatologyRoom
     }
 }
