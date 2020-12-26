@@ -31,7 +31,7 @@ namespace User.API.Controllers
         }
 
         [HttpGet]
-        [Route("find/{id}")]
+        [Route("{id}")]
         public IActionResult FindPatient(int id)
         {
             var patient = _patientService.GetByID(id);

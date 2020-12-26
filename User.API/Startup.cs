@@ -32,7 +32,7 @@ namespace User.API
 
             if (_connectionString == null) throw new ApplicationException("Connection string is null");
 
-            //GetContextFactory().CreateContext().Database.EnsureCreated();
+            GetContextFactory().CreateContext().Database.EnsureCreated();
         }
         
         private IContextFactory GetContextFactory()
