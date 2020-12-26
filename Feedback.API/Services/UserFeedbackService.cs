@@ -5,7 +5,11 @@
 
 using Feedback.API.Infrastructure.Repositories;
 using Feedback.API.Model.Feedback;
+using Feedback.API.Model.Survey;
+using RestSharp;
+using RestSharp.Serialization.Json;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Feedback.API.Services
 {
@@ -20,7 +24,9 @@ namespace Feedback.API.Services
 
         public IEnumerable<UserFeedback> GetAll()
         {
-            return _userFeedbackRepository.Repository.GetAll();
+            var feedbacks = _userFeedbackRepository.Repository.GetAll();
+            AttachPatientAccounts(feedbacks);
+            return feedbacks;
         }
 
         public UserFeedback Create(UserFeedback userFeedback)
@@ -53,6 +59,35 @@ namespace Feedback.API.Services
         /// </summary>
         /// <returns>List of Feedbacks</returns>
         public IEnumerable<UserFeedback> GetAllPublished()
-            => _userFeedbackRepository.Repository.GetMatching(feedback => feedback.FeedbackVisibility.IsPublished);
+        {
+            var feedbacks = _userFeedbackRepository.Repository.GetMatching(feedback => feedback.FeedbackVisibility.IsPublished);
+            AttachPatientAccounts(feedbacks);
+            return feedbacks;
+        }
+
+        private void AttachPatientAccounts(IEnumerable<UserFeedback> feedbacks)
+        {
+            List<int> patientAccountIds = new List<int>();
+            foreach (var feedback in feedbacks)
+            {
+                patientAccountIds.Add(feedback.PatientAccountId);
+            }
+            List<PatientAccount> patientAccounts = FindPatientAccounts(patientAccountIds);
+            foreach (var feedback in feedbacks)
+            {
+                feedback.PatientAccount = patientAccounts.Where(pa => pa.Id == feedback.PatientAccountId).First();
+            }
+        }
+
+        private List<PatientAccount> FindPatientAccounts(List<int> patientAccountIds)
+        {
+            //TODO: Shouldn't be hardcoded
+            var client = new RestClient("http://localhost:5003/");
+            var request = new RestRequest("patient/accounts", DataFormat.Json);
+            request.AddJsonBody(patientAccountIds);
+            var response = client.Post(request);
+            JsonDeserializer deserializer = new JsonDeserializer();
+            return deserializer.Deserialize<List<PatientAccount>>(response);
+        }
     }
 }

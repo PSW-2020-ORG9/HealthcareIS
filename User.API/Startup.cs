@@ -54,7 +54,7 @@ namespace User.API
                 || password == null)
                 return null;
 
-            return $"server={server};port={port};database={database};user={user};password={password};";
+            return $"server={server};port={port};database=user;user={user};password={password};";
         }
 
         public IConfiguration Configuration { get; }

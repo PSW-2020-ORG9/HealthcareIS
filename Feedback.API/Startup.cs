@@ -45,7 +45,7 @@ namespace Feedback.API
                 || password == null)
                 return null;
 
-            return $"server={server};port={port};database={database};user={user};password={password};";
+            return $"server={server};port={port};database=feedback;user={user};password={password};";
         }
 
         public IConfiguration Configuration { get; }

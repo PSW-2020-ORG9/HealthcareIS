@@ -5,6 +5,6 @@ namespace Feedback.API.Infrastructure
 {
     public abstract class Entity<ID> where ID : IComparable
     {
-        [Key] public ID Id { get; set; }
+        public ID Id { get; set; }
     }
 }
