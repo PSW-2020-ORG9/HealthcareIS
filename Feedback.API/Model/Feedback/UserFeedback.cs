@@ -1,7 +1,6 @@
 using Feedback.API.Infrastructure;
-using Feedback.API.Model.Survey;
+using Feedback.API.Model.User;
 using System;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Feedback.API.Model.Feedback
 {

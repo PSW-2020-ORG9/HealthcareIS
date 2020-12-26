@@ -1,4 +1,4 @@
-﻿namespace Feedback.API.Model.Survey
+﻿namespace Feedback.API.Model.User
 {
     public class Examination
     {

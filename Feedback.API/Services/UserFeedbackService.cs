@@ -3,9 +3,10 @@
 // Created: 28 May 2020 17:09:20
 // Purpose: Definition of Class UserFeedbackService
 
+using Feedback.API.Connections;
 using Feedback.API.Infrastructure.Repositories;
 using Feedback.API.Model.Feedback;
-using Feedback.API.Model.Survey;
+using Feedback.API.Model.User;
 using RestSharp;
 using RestSharp.Serialization.Json;
 using System.Collections.Generic;
@@ -16,10 +17,12 @@ namespace Feedback.API.Services
     public class UserFeedbackService : IUserFeedbackService
     {
         private readonly RepositoryWrapper<IUserFeedbackRepository> _userFeedbackRepository;
+        private readonly IConnection _patientAccountsConnection;
 
-        public UserFeedbackService(IUserFeedbackRepository repository)
+        public UserFeedbackService(IUserFeedbackRepository repository, IConnection patientAccountsConnection)
         {
             _userFeedbackRepository = new RepositoryWrapper<IUserFeedbackRepository>(repository);
+            _patientAccountsConnection = patientAccountsConnection;
         }
 
         public IEnumerable<UserFeedback> GetAll()
@@ -79,15 +82,7 @@ namespace Feedback.API.Services
             }
         }
 
-        private List<PatientAccount> FindPatientAccounts(List<int> patientAccountIds)
-        {
-            //TODO: Shouldn't be hardcoded
-            var client = new RestClient("http://localhost:5003/");
-            var request = new RestRequest("patient/accounts", DataFormat.Json);
-            request.AddJsonBody(patientAccountIds);
-            var response = client.Post(request);
-            JsonDeserializer deserializer = new JsonDeserializer();
-            return deserializer.Deserialize<List<PatientAccount>>(response);
-        }
+        private List<PatientAccount> FindPatientAccounts(List<int> patientAccountIds) 
+            => _patientAccountsConnection.Post<List<PatientAccount>>(patientAccountIds);
     }
 }

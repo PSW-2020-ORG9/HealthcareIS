@@ -1,5 +1,4 @@
-using System.ComponentModel.DataAnnotations.Schema;
-
+using Feedback.API.Model.User;
 
 namespace Feedback.API.Model.Survey.SurveyEntry
 {

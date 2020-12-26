@@ -1,8 +1,7 @@
 using Feedback.API.Infrastructure;
+using Feedback.API.Model.User;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-
 
 namespace Feedback.API.Model.Survey.SurveyEntry
 {

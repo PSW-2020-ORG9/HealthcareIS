@@ -1,5 +1,7 @@
+using Feedback.API.Connections;
 using Feedback.API.DTOs;
 using Feedback.API.Model.Survey;
+using Feedback.API.Model.User;
 using Feedback.API.Services.SurveyEntry;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,13 +13,13 @@ namespace Feedback.API.Services
         private readonly SurveyDTO surveyDto = new SurveyDTO();
         private readonly IRatedSectionService _ratedSectionService;
         private readonly ISurveyService _surveyService;
-        //private readonly IDoctorService doctorService;
+        private readonly IConnection _doctorConnection;
 
-        public SurveyPreviewBuilder(ISurveyService surveyService,IRatedSectionService sectionService)
+        public SurveyPreviewBuilder(ISurveyService surveyService, IRatedSectionService sectionService, IConnection doctorConnection)
         {
             _ratedSectionService = sectionService;
             _surveyService = surveyService;
-            //this.doctorService = doctorService;
+            _doctorConnection = doctorConnection;
         }
         
         /// <summary>
@@ -67,14 +69,11 @@ namespace Feedback.API.Services
         /// <returns></returns>
         private List<DoctorSurveySectionDTO> BuildDoctorSurveySections(IEnumerable<SurveySection> surveySections)
         {
-            /*var doctors = doctorService.GetAll();
+            var doctors = _doctorConnection.Get<IEnumerable<Doctor>>();
             var doctorSurveySection = surveySections.First(s => s.IsDoctorSection);
             return doctors
                     .Select(doctor => BuildDoctorSurveySectionDto(doctor, doctorSurveySection))
-                    .ToList();*/
-
-            //TODO: Fetch doctor from another microservice
-            return null;
+                    .ToList();
         }
         /// <summary>
         /// Constructs a single doctor survey section DTO object.
@@ -87,7 +86,7 @@ namespace Feedback.API.Services
             
             var doctorSurveySectionDto = new DoctorSurveySectionDTO
             {
-                DoctorName = doctor.Name,
+                DoctorName = doctor.Person.Name,
                 AverageRating = _ratedSectionService
                     .GetDoctorSectionAverage(doctorSurveySection.Id,doctor.Id),
                 SectionId = doctorSurveySection.Id,

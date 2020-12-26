@@ -78,6 +78,8 @@ namespace Feedback.API.Infrastructure
                 .HasOne(ds => ds.SurveySection);
             modelBuilder.Entity<DoctorSurveySection>()
                 .HasMany(ds => ds.RatedSurveyQuestions);
+            modelBuilder.Entity<DoctorSurveySection>()
+                .Ignore(ds => ds.Doctor);
 
         }
     }
