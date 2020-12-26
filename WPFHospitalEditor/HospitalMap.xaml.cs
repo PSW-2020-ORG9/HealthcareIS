@@ -114,7 +114,8 @@ namespace WPFHospitalEditor
             return mop.Equals(MapObjectType.Parking) ||
                    mop.Equals(MapObjectType.ParkingSlot) ||
                    mop.Equals(MapObjectType.Road) ||
-                   mop.Equals(MapObjectType.WaitingRoom);
+                   mop.Equals(MapObjectType.WaitingRoom) ||
+                   mop.Equals(MapObjectType.Building);
         }
 
         public void Equipment_Search(object sender, RoutedEventArgs e)
@@ -165,7 +166,7 @@ namespace WPFHospitalEditor
                     DoctorId = DoctorId,
                     SpecialtyId = AllConstants.RegularExaminationDepartment,
                     TimeInterval = new TimeInterval(startDate, endDate),
-                    Preference = GetRecommendationPreference()
+                    Preference = GetRecommendationPreference(PriorityComboBox)
                 };
 
                 appointmentSearchResult = schedulingController.GetAppointments(recommendationRequestDto);
@@ -203,7 +204,7 @@ namespace WPFHospitalEditor
                 DoctorId = chosenDoctor.Id,
                 SpecialtyId = chosenDoctor.DepartmentId,
                 TimeInterval = timeInterval,
-                Preference = GetSpecialistPriorityFromComboBox()
+                Preference = GetRecommendationPreference(specialistPriorityComboBox)
             };
 
             appointmentSearchResult = schedulingController.GetAppointments(recommendationRequestDto);
@@ -218,22 +219,9 @@ namespace WPFHospitalEditor
             appointmentDialog.ShowDialog();
         }
 
-        private void SetMapObjectTypeComboBox()
-        {
-            foreach (MapObjectType mop in Enum.GetValues(typeof(MapObjectType)))
-            {
-                if (!IsNoNameObject(mop))
-                {
-                    searchInputComboBox.Items.Add(mop);
-                }
-            }
-        }
-
         private void EquipmentTextInputChanged(object sender, EventArgs e)
         {
-            equipmentSearchComboBox.Items.Clear();
-            equipmentSearchComboBox.Items.Add("None");
-            equipmentSearchComboBox.SelectedIndex = 0;
+            SetComboBoxDefaultValues(equipmentSearchComboBox);
             SetEquipmentTypeComboBox();
         }
 
@@ -247,12 +235,16 @@ namespace WPFHospitalEditor
 
         private void MedicationTextInputChanged(object sender, EventArgs e)
         {
-            medicationSearchComboBox.Items.Clear();
-            medicationSearchComboBox.Items.Add("None");
-            medicationSearchComboBox.SelectedIndex = 0;
+            SetComboBoxDefaultValues(medicationSearchComboBox);
             SetMedicationNameComboBox();
         }
 
+        private void SetComboBoxDefaultValues(ComboBox comboBox)
+        {
+            comboBox.Items.Clear();
+            comboBox.Items.Add("None");
+            comboBox.SelectedIndex = 0;
+        }
         private void SetMedicationNameComboBox()
         {
             foreach (MedicationDto medDto in medicationServerController.GetFilteredMedications(MedicationSearchInput.Text))
@@ -263,9 +255,7 @@ namespace WPFHospitalEditor
 
         private void DoctorTextInputChanged(object sender, EventArgs e)
         {
-            doctorsComboBox.Items.Clear();
-            doctorsComboBox.Items.Add("None");
-            doctorsComboBox.SelectedIndex = 0;
+            SetComboBoxDefaultValues(doctorsComboBox);
             SetDoctorNameComboBox();
         }
 
@@ -279,9 +269,7 @@ namespace WPFHospitalEditor
 
         private void SpecialistTextInputChanged(object sender, EventArgs e)
         {
-            specialistComboBox.Items.Clear();
-            specialistComboBox.Items.Add("None");
-            specialistComboBox.SelectedIndex = 0;
+            SetComboBoxDefaultValues(specialistComboBox);
             SetSpecialistNameComboBox();
         }
 
@@ -295,9 +283,7 @@ namespace WPFHospitalEditor
 
         private void SpecialistEquipmentTextInputChanged(object sender, EventArgs e)
         {
-            specialistEquipmentAppSearchComboBox.Items.Clear();
-            specialistEquipmentAppSearchComboBox.Items.Add("None");
-            specialistEquipmentAppSearchComboBox.SelectedIndex = 0;
+            SetComboBoxDefaultValues(specialistEquipmentAppSearchComboBox);
             SetSpecialistEquipmentComboBox();
         }
 
@@ -309,6 +295,21 @@ namespace WPFHospitalEditor
             {
                 specialistEquipmentAppSearchComboBox.Items.Add(eqTypeDto.Name);
             }
+        }
+        private void SetMapObjectTypeComboBox()
+        {
+            foreach (MapObjectType mapObjectType in Enum.GetValues(typeof(MapObjectType)))
+            {
+                if (!IsNoNameObject(mapObjectType) && CompareInput(mapObjectType, searchInputTB.Text))
+                {
+                    searchInputComboBox.Items.Add(mapObjectType);
+                }
+            }
+        }
+
+        private bool CompareInput(MapObjectType mapObjectType, string name)
+        {
+            return mapObjectType.ToString().ToLower().Contains(name.ToLower());
         }
 
         private Boolean IsRoleLogged(Role r)
@@ -348,7 +349,7 @@ namespace WPFHospitalEditor
 
         private bool InvalidInputForAppointment()
         {
-            if (doctorsComboBox.Text.Equals("") || startDatePicker.Text.Equals("") || endDatePicker.Text.Equals("") || InvalidDateInput())
+            if (doctorsComboBox.Text.Equals("None") || startDatePicker.Text.Equals("") || endDatePicker.Text.Equals("") || InvalidDateInput())
             {
                 return true;
             }
@@ -357,8 +358,8 @@ namespace WPFHospitalEditor
 
         private bool InvalidInputForSpecialistAppointment()
         {
-            if (specialistComboBox.Text.Equals("") || startDatePickerSpecApp.Text.Equals("")
-                || endDatePickerSpecApp.Text.Equals("") || specialistEquipmentAppSearchComboBox.Text.Equals("")
+            if (specialistComboBox.Text.Equals("None") || startDatePickerSpecApp.Text.Equals("")
+                || endDatePickerSpecApp.Text.Equals("") || specialistEquipmentAppSearchComboBox.Text.Equals("None")
                 || specialistPriorityComboBox.Text.Equals("")) return true;
             return false;
         }
@@ -371,15 +372,10 @@ namespace WPFHospitalEditor
             }
             return false;
         }
-        private RecommendationPreference GetRecommendationPreference()
-        {
-            if (PriorityComboBox.SelectedIndex == 0) return RecommendationPreference.Doctor;
-            return RecommendationPreference.Time;
-        }
 
-        private RecommendationPreference GetSpecialistPriorityFromComboBox()
+        private RecommendationPreference GetRecommendationPreference(ComboBox comboBox)
         {
-            if (specialistPriorityComboBox.SelectedIndex == 0) return RecommendationPreference.Doctor;
+            if (comboBox.SelectedIndex == 0) return RecommendationPreference.Doctor;
             return RecommendationPreference.Time;
         }
 
@@ -403,6 +399,12 @@ namespace WPFHospitalEditor
                     return true;
             }
             return false;
+        }
+
+        private void MapObjectTextInputChanged(object sender, TextChangedEventArgs e)
+        {
+            SetComboBoxDefaultValues(searchInputComboBox);
+            SetMapObjectTypeComboBox();
         }
     }
 }

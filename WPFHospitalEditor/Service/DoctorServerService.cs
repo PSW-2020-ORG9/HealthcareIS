@@ -25,43 +25,43 @@ namespace WPFHospitalEditor.Service
             return response.Data;
         }
 
-        public IEnumerable<DoctorDto> GetFilteredDoctors(string name)
-        {
-            var doctors = new List<DoctorDto>();
-            List<DoctorDto> allDoctors = GetDoctorsByDepartment(AllConstants.RegularExaminationDepartment).ToList();
-            if (string.IsNullOrEmpty(name)) return allDoctors;
-            foreach (DoctorDto doctorDto in allDoctors)
-            {
-                if (CompareInput(doctorDto, name))
-                    doctors.Add(doctorDto);
-            }
-            return doctors;
-        }
-
-        public IEnumerable<DoctorDto> GetFilteredSpecialists(string name)
-        {
-            var doctors = new List<DoctorDto>();
-            List<DoctorDto> allDoctors = GetAllSpecialists().ToList();
-            if (string.IsNullOrEmpty(name)) return allDoctors;
-            foreach (DoctorDto doctorDto in allDoctors)
-            {
-                if (CompareInput(doctorDto, name))
-                    doctors.Add(doctorDto);
-            }
-            return doctors;
-        }
-
-        private bool CompareInput(DoctorDto doctorDto, string name)
-        {
-            return doctorDto.Name.ToLower().Contains(name.ToLower());
-        }
-
         public IEnumerable<DoctorDto> GetAllSpecialists()
         {
             var client = new RestClient(AllConstants.ConnectionUrl);
             var request = new RestRequest("Doctor/getAllSpecialists", Method.GET);
             var response = client.Get<IEnumerable<DoctorDto>>(request);
             return response.Data;
+        }
+
+        public IEnumerable<DoctorDto> GetFilteredDoctors(string name)
+        {
+            List<DoctorDto> allDoctors = GetDoctorsByDepartment(AllConstants.RegularExaminationDepartment).ToList();
+            return FilterDoctrs(allDoctors, name);
+        }
+
+        public IEnumerable<DoctorDto> GetFilteredSpecialists(string name)
+        {
+            List<DoctorDto> allDoctors = GetAllSpecialists().ToList();
+            return FilterDoctrs(allDoctors, name);
+        }
+
+        private bool CompareInput(DoctorDto doctorDto, string name)
+        {
+            if (doctorDto.Name.ToLower().Contains(name.ToLower()) || doctorDto.Surname.ToLower().Contains(name.ToLower())) 
+                return true;
+            return false;
+        }
+
+        private List<DoctorDto> FilterDoctrs(List<DoctorDto> allDoctors, string name)
+        {
+            var doctors = new List<DoctorDto>();
+            if (string.IsNullOrEmpty(name)) return allDoctors;
+            foreach (DoctorDto doctorDto in allDoctors)
+            {
+                if (CompareInput(doctorDto, name))
+                    doctors.Add(doctorDto);
+            }
+            return doctors;
         }
     }
 }
