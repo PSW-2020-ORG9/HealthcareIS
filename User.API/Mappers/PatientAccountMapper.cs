@@ -25,7 +25,7 @@ namespace User.API.Mappers
                 RespondedToSurvey = false,
                 Patient = new Patient
                 {
-                    Jmbg = dto.Jmbg,
+                    PersonId = dto.Jmbg,
                     InsuranceNumber = dto.InsuranceNumber,
                     Status = PatientStatus.Alive,
                     Allergies = dto.Allergies,

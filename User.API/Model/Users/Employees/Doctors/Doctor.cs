@@ -5,7 +5,6 @@
 
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using User.API.Model.HospitalResources;
 
 namespace User.API.Model.Users.Employees.Doctors
 {
@@ -14,7 +13,6 @@ namespace User.API.Model.Users.Employees.Doctors
         [ForeignKey("Department")]
         public int DepartmentId { get; set; }
         public Department Department { get; set; }
-
         public IEnumerable<DoctorSpecialty> Specialties { get; set; }
     }
 }

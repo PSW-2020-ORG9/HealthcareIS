@@ -1,9 +1,7 @@
-using Microsoft.EntityFrameworkCore;
 using User.API.Infrastructure.Exceptions;
 
 namespace User.API.Model.Users.UserAccounts
 {
-    [Owned]
     public class Credentials
     {
         public string Username { get; set; }

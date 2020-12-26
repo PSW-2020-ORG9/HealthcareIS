@@ -5,7 +5,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using User.API.Infrastructure;
 using User.API.Model.Locale;
 
@@ -22,17 +21,10 @@ namespace User.API.Model.Generalities
         public string MiddleName { get; set; }
         public int Age { get; set; }
         
-        [Column(TypeName = "nvarchar(24)")]
         public MaritalStatus MaritalStatus { get; set; }
-
-        [Column(TypeName = "nvarchar(24)")]
         public Gender Gender { get; set; }
-        
-        [ForeignKey("CityOfResidence")]
         public int CityOfResidenceId { get; set; }
         public City CityOfResidence { get; set; }
-        
-        [ForeignKey("CityOfBirth")]
         public int CityOfBirthId { get; set; }
         public City CityOfBirth { get; set; }
     }

@@ -1,9 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using User.API.Model.Generalities;
-using User.API.Model.HospitalResources;
 using User.API.Model.Locale;
-using User.API.Model.Medication;
-using User.API.Model.Schedule;
+using User.API.Model.Users.Employees;
 using User.API.Model.Users.Employees.Doctors;
 using User.API.Model.Users.Patients;
 using User.API.Model.Users.Patients.MedicalHistory;
@@ -35,43 +33,82 @@ namespace User.API.Infrastructure
         public DbSet<Citizenship> Citizenships { get; set; }
         public DbSet<Person> Persons { get; set; }
         
-        // Hospital Resources
-        public DbSet<Department> Departments { get; set; }
-        public DbSet<EquipmentType> EquipmentTypes { get; set; }
-        public DbSet<EquipmentUnit> EquipmentUnits { get; set; }
-        public DbSet<Room> Rooms { get; set; }
         
         // Locale 
         public DbSet<City> Cities { get; set; }
         public DbSet<Country> Countries { get; set; }
         
-        // Medication
-        public DbSet<Medication> Medications { get; set; }
-        public DbSet<MedicationPrescription> MedicationPrescriptions { get; set; }
-        
-        // Schedule 
-        public DbSet<Examination> Examinations { get; set; }
-        public DbSet<ExaminationReport> ExaminationReports { get; set; }
-        public DbSet<ProcedureDetails> ProcedureDetails { get; set; }
-        
         // Users
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<DoctorSpecialty> DoctorSpecialties { get; set; }
-        public DbSet<Shift> Shifts { get; set; }
         public DbSet<Specialty> Specialties { get; set; }
-        
+        public DbSet<Department> Departments { get; set; }
+
         public DbSet<Patient> Patients { get; set; }
         
         public DbSet<AllergyManifestation> AllergyManifestations { get; set; }
         public DbSet<Allergy> Allergies { get; set; }
-        public DbSet<Diagnosis> Diagnoses { get; set; }
-        
+
         public DbSet<PatientAccount> PatientAccounts { get; set; }
         public DbSet<DoctorAccount> DoctorAccounts { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             SetCompositeKeys(modelBuilder);
+            
+
+            modelBuilder.Entity<Citizenship>()
+                .HasOne(c => c.Country);
+            
+            modelBuilder.Entity<Person>()
+                .Property(p => p.MaritalStatus).HasColumnType("nvarchar(24)");
+            modelBuilder.Entity<Person>()
+                .Property(p => p.Gender).HasColumnType("nvarchar(24)");
+            modelBuilder.Entity<Person>()
+                .HasOne(p => p.CityOfResidence);
+            modelBuilder.Entity<Person>()
+                .HasOne(p => p.CityOfBirth);        
+
+            modelBuilder.Entity<City>()
+                .HasOne(c => c.Country);
+
+            modelBuilder.Entity<Doctor>()
+                .HasOne(d => d.Department);
+            modelBuilder.Entity<Doctor>()
+                .HasMany(d => d.Specialties);
+
+            modelBuilder.Entity<DoctorSpecialty>()
+                .HasOne(ds => ds.Specialty);
+            modelBuilder.Entity<DoctorSpecialty>()
+                .HasOne(ds => ds.Doctor);
+
+            modelBuilder.Entity<Employee>()
+                .HasOne(e => e.Person);
+            modelBuilder.Entity<Employee>()
+                .Property(p=>p.Status).HasColumnType("nvarchar(24)");
+
+            modelBuilder.Entity<Patient>()
+                .HasOne(p => p.Person);
+            modelBuilder.Entity<Patient>()
+                .Property(p=>p.Status).HasColumnType("nvarchar(24)");
+            modelBuilder.Entity<Patient>()
+                .HasMany(p => p.Allergies);
+            
+            modelBuilder.Entity<AllergyManifestation>()
+                .Property(am=>am.Intensity).HasColumnType("nvarchar(12)");
+            modelBuilder.Entity<AllergyManifestation>()
+                .HasOne(am => am.Allergy);
+
+            modelBuilder.Entity<UserAccount>()
+                .OwnsOne(ua => ua.Credentials);
+            
+            modelBuilder.Entity<DoctorAccount>()
+                .HasOne(da => da.Doctor);
+
+            modelBuilder.Entity<PatientAccount>()
+                .HasOne(pa => pa.Patient);
+
+
         }
         private static void SetCompositeKeys(ModelBuilder modelBuilder)
         {

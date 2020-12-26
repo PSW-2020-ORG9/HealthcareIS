@@ -6,7 +6,7 @@
 
 using User.API.Infrastructure;
 
-namespace User.API.Model.HospitalResources
+namespace User.API.Model.Users.Employees.Doctors
 {
     public class Department : Entity<int>
     {

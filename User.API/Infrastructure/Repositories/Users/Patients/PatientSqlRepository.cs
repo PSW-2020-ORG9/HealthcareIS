@@ -13,25 +13,23 @@ namespace User.API.Infrastructure.Repositories.Users.Patients
         {
             return query
                 .Include(p => p.Person)
-                    .ThenInclude(p => p.CityOfBirth)
-                        .ThenInclude(c => c.Country)
+                .ThenInclude(p => p.CityOfBirth)
+                .ThenInclude(c => c.Country)
 
                 // City
                 .Include(p => p.Person)
-                    .ThenInclude(p => p.CityOfResidence)
-                        .ThenInclude(c => c.Country)
+                .ThenInclude(p => p.CityOfResidence)
+                .ThenInclude(c => c.Country)
 
                 // Citizenship
                 .Include(p => p.Person)
-                    .ThenInclude(p => p.Citizenships)
-                        .ThenInclude(cz => cz.Country)
+                .ThenInclude(p => p.Citizenships)
+                .ThenInclude(cz => cz.Country)
 
                 // Medical record
                 .Include(p => p.Allergies)
-                    .ThenInclude(a => a.Allergy)
-                .Include(p => p.Examinations)
-                    .ThenInclude(e => e.ExaminationReport)
-                        .ThenInclude(er => er.Diagnoses);
+                .ThenInclude(a => a.Allergy);
+
         }
 
         public bool ExistsByJMBG(string jmbg)

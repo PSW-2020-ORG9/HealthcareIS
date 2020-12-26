@@ -43,9 +43,18 @@ namespace User.API.Controllers
         [Route("{doctorId}")]
         public IActionResult GetDoctorById(int doctorId)
         {
-            Doctor doctor = doctorService.GetByID(doctorId);
+            var doctor = doctorService.GetByID(doctorId);
             if (doctor != null) return Ok(doctor);
             return BadRequest("Doctor with id: " + doctorId + " not found.");
+        }
+
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            var doctors = doctorService.GetAll();
+            if (doctors != null) return Ok(doctors);
+            return BadRequest("Doctors not found.");
+
         }
     }
 }
