@@ -275,7 +275,7 @@ namespace WPFHospitalEditor
 
         private void SetSpecialistNameComboBox()
         {
-            foreach (DoctorDto docDto in doctorServerController.GetFilteredSpecialists(DoctorSearchInput.Text))
+            foreach (DoctorDto docDto in doctorServerController.GetFilteredSpecialists(SpecialistSearchInput.Text))
             {
                 specialistComboBox.Items.Add(docDto.DoctorId.ToString() + " " + docDto.Name + " " + docDto.Surname + " [" + docDto.DepartmentName + "]");
             }

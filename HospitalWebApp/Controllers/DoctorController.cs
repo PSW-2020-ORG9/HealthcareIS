@@ -30,25 +30,25 @@ namespace HospitalWebApp.Controllers
         }
 
         [HttpGet]
-        [Route("getDoctorsByDepartment/{departmentId}")]
-        public IActionResult GetDoctorsByDepartment(int departmentId)
+        [Route("department/{id}")]
+        public IActionResult GetDoctorsByDepartment(int id)
         {
-            IEnumerable<DoctorDto> docDtos = doctorService.GetDoctorsByDepartment(departmentId);
+            IEnumerable<DoctorDto> docDtos = doctorService.GetDoctorsByDepartment(id);
             if (docDtos != null) return Ok(docDtos);
             return BadRequest("Doctors not found.");
         }
      
         [HttpGet]
-        [Route("getDoctorById/{doctorId}")]
-        public IActionResult GetDoctorById(int doctorId)
+        [Route("find/{id}")]
+        public IActionResult GetDoctorById(int id)
         {
-            Doctor doctor = doctorService.GetByID(doctorId);
+            Doctor doctor = doctorService.GetByID(id);
             if (doctor != null) return Ok(doctor);
-            return BadRequest("Doctor with id: " + doctorId + " not found.");
+            return BadRequest("Doctor with id: " + id + " not found.");
         }
 
         [HttpGet]
-        [Route("getAllSpecialists")]
+        [Route("specialist")]
         public IActionResult GetAllSpecialists()
         {
             IEnumerable<DoctorDto> docDtos = doctorService.GetAllSpecialists();

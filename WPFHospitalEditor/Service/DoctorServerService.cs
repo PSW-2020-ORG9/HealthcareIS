@@ -12,7 +12,7 @@ namespace WPFHospitalEditor.Service
         public IEnumerable<DoctorDto> GetDoctorsByDepartment(int departmentId)
         {
             var client = new RestClient(AllConstants.ConnectionUrl);
-            var request = new RestRequest("Doctor/getDoctorsByDepartment/" + departmentId, Method.GET);
+            var request = new RestRequest("Doctor/department/" + departmentId, Method.GET);
             var response = client.Get<IEnumerable<DoctorDto>>(request);
             return response.Data;
         }
@@ -20,7 +20,7 @@ namespace WPFHospitalEditor.Service
         public Doctor GetDoctorById(int doctorId)
         {
             var client = new RestClient(AllConstants.ConnectionUrl);
-            var request = new RestRequest("Doctor/getDoctorById/" + doctorId, Method.GET);
+            var request = new RestRequest("Doctor/find/" + doctorId, Method.GET);
             var response = client.Get<Doctor>(request);
             return response.Data;
         }
@@ -28,7 +28,7 @@ namespace WPFHospitalEditor.Service
         public IEnumerable<DoctorDto> GetAllSpecialists()
         {
             var client = new RestClient(AllConstants.ConnectionUrl);
-            var request = new RestRequest("Doctor/getAllSpecialists", Method.GET);
+            var request = new RestRequest("Doctor/specialist", Method.GET);
             var response = client.Get<IEnumerable<DoctorDto>>(request);
             return response.Data;
         }
@@ -36,13 +36,13 @@ namespace WPFHospitalEditor.Service
         public IEnumerable<DoctorDto> GetFilteredDoctors(string name)
         {
             List<DoctorDto> allDoctors = GetDoctorsByDepartment(AllConstants.RegularExaminationDepartment).ToList();
-            return FilterDoctrs(allDoctors, name);
+            return FilterDoctors(allDoctors, name);
         }
 
         public IEnumerable<DoctorDto> GetFilteredSpecialists(string name)
         {
             List<DoctorDto> allDoctors = GetAllSpecialists().ToList();
-            return FilterDoctrs(allDoctors, name);
+            return FilterDoctors(allDoctors, name);
         }
 
         private bool CompareInput(DoctorDto doctorDto, string name)
@@ -52,7 +52,7 @@ namespace WPFHospitalEditor.Service
             return false;
         }
 
-        private List<DoctorDto> FilterDoctrs(List<DoctorDto> allDoctors, string name)
+        private List<DoctorDto> FilterDoctors(List<DoctorDto> allDoctors, string name)
         {
             var doctors = new List<DoctorDto>();
             if (string.IsNullOrEmpty(name)) return allDoctors;
