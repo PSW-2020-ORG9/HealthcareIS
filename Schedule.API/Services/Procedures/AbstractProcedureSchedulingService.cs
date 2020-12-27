@@ -1,6 +1,7 @@
-﻿using Schedule.API.Infrastructure.Repositories.Shifts;
+﻿using Schedule.API.Infrastructure.Repositories;
+using Schedule.API.Infrastructure.Repositories.Shifts;
 using Schedule.API.Model.Procedures;
-using User.API.Infrastructure.Repositories;
+using Schedule.API.Services.Procedures.Interface;
 
 namespace Schedule.API.Services.Procedures
 {
@@ -14,11 +15,8 @@ namespace Schedule.API.Services.Procedures
         }
         
         protected AbstractProcedureSchedulingService() { }
+
         public abstract T GetByID(int id);
-        protected abstract T Create(T procedure);
-        protected abstract T Update(T procedure);
-        protected abstract void ValidateProcedure(T procedure);
-        protected abstract void ValidateForScheduling(T procedure);
 
         public T Schedule(T procedure)
         {
@@ -28,6 +26,11 @@ namespace Schedule.API.Services.Procedures
             return createdProcedure;
         }
 
+        protected abstract T Create(T procedure);
+        protected abstract T Update(T procedure);
+        protected abstract void ValidateProcedure(T procedure);
+        protected abstract void ValidateForScheduling(T procedure);
+        
         private void Validate(T procedure)
         {
             ValidateProcedure(procedure);

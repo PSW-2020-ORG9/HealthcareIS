@@ -1,5 +1,4 @@
 ﻿using System;
-using HealthcareBase.Model.Filters;
 using Schedule.API.Model.Procedures;
 
 namespace Schedule.API.Model.Filters
@@ -15,9 +14,9 @@ namespace Schedule.API.Model.Filters
         protected override void ConfigureFilter()
         {
             if (!string.IsNullOrEmpty(DoctorName))
-                AddExpressionFunction(examination => examination.Doctor.Name.Contains(DoctorName));
+                AddExpressionFunction(examination => examination.Doctor.Person.Name.Contains(DoctorName));
             if (!string.IsNullOrEmpty(DoctorSurname))
-                AddExpressionFunction(examination => examination.Doctor.Surname.Contains(DoctorSurname));
+                AddExpressionFunction(examination => examination.Doctor.Person.Surname.Contains(DoctorSurname));
             if (!string.IsNullOrEmpty(ProcedureDetails))
                 AddExpressionFunction(examination => examination.ProcedureDetails.Description.Contains(ProcedureDetails));
             if (DoctorSpecialtyId != -1)

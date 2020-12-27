@@ -1,24 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Schedule.API.Connections;
+using Schedule.API.Infrastructure.Repositories;
 using Schedule.API.Infrastructure.Repositories.Procedures.Interfaces;
 using Schedule.API.Infrastructure.Repositories.Shifts;
-using Schedule.API.Model.Dependencies;
 using Schedule.API.Model.Exceptions;
 using Schedule.API.Model.Filters;
 using Schedule.API.Model.Procedures;
-using Schedule.API.Model.SchedulingPreferences;
-using Schedule.API.Model.Shifts;
-using Schedule.API.Model.Utilities;
-using User.API.Infrastructure.Repositories;
+using Schedule.API.Services.Procedures.Interface;
 
 namespace Schedule.API.Services.Procedures
 {
-    public class ExaminationService : AbstractProcedureSchedulingService<Examination>
+    public class ExaminationService : AbstractProcedureSchedulingService<Examination>, IExaminationService
     {
         private readonly RepositoryWrapper<IExaminationRepository> _examinationWrapper;
-        private readonly Connection doctorEndpoint = new Connection("http://localhost:5001/", "doctor");
 
         public ExaminationService(
             IExaminationRepository examinationRepository,
@@ -28,12 +23,14 @@ namespace Schedule.API.Services.Procedures
             _examinationWrapper = new RepositoryWrapper<IExaminationRepository>(examinationRepository);
         }
 
+        // Search 
         public IEnumerable<Examination> SimpleSearch(ExaminationSimpleFilterDto filterDto)
             => _examinationWrapper.Repository.GetMatching(filterDto.GetFilterExpression());
         
         public IEnumerable<Examination> AdvancedSearch(ExaminationAdvancedFilterDto filterDto)
             => _examinationWrapper.Repository.GetMatching(filterDto.GetFilterExpression());
 
+        // CRUD
         public IEnumerable<Examination> GetByPatientId(int patientId)
             => _examinationWrapper.Repository.GetByPatientId(patientId);
 
@@ -46,6 +43,17 @@ namespace Schedule.API.Services.Procedures
         protected override Examination Update(Examination procedure)
             => _examinationWrapper.Repository.Update(procedure);
         
+        public bool Cancel(int examinationId)
+        {
+            var examination = _examinationWrapper.Repository.GetByID(examinationId);
+            if (examination == default) return false;
+            if (examination.IsCanceled) return false;
+            if (!IsDateValidForCancelling(examination)) return false;
+            examination.IsCanceled = true;
+            return Update(examination) != default;
+        }
+        
+        // Validations
         protected override void ValidateProcedure(Examination procedure)
         {
             if(procedure == null)
@@ -75,168 +83,7 @@ namespace Schedule.API.Services.Procedures
                 throw new ScheduleViolationException("Examination for this doctor and interval already exists.");
         }
 
-        public bool Cancel(int examinationId)
-        {
-            var examination = _examinationWrapper.Repository.GetByID(examinationId);
-            if (examination == default) return false;
-            if (examination.IsCanceled) return false;
-            if (!IsDateValidForCancelling(examination)) return false;
-            examination.IsCanceled = true;
-            return Update(examination) != default;
-        }
-
         private bool IsDateValidForCancelling(Examination examination)
             => DateTime.Now.CompareTo(examination.TimeInterval.Start.AddDays(-2)) < 0;
-
-        // Recommendations
-        private const int RecommendationBatchSize = 5;
-        private int RemainingSlots(IEnumerable<RecommendationDto> r) => RecommendationBatchSize - r.Count();
-        
-        public List<RecommendationDto> Recommend(RecommendationRequestDto dto)
-        {
-            if (dto.TimeInterval == null) return null;
-            return dto.Preference == RecommendationPreference.Time ? RecommendWithTime(dto) : RecommendWithDoctor(dto);
-        }
-
-        private List<RecommendationDto> RecommendWithTime(RecommendationRequestDto dto)
-        {
-            List<RecommendationDto> recommendations = new List<RecommendationDto>();
-            
-            recommendations.AddRange(RecommendForDoctorInTimeInterval(dto, RemainingSlots(recommendations)));
-            recommendations.AddRange(RecommendAnyDoctorInTimeInterval(dto, RemainingSlots(recommendations)));
-            
-            return recommendations;
-        }
-
-        private List<RecommendationDto> RecommendWithDoctor(RecommendationRequestDto dto)
-        {
-            List<RecommendationDto> recommendations = new List<RecommendationDto>();
-            
-            recommendations.AddRange(RecommendForDoctorInTimeInterval(dto, RemainingSlots(recommendations)));
-            recommendations.AddRange(RecommendForDoctorAnyTimeInterval(dto, RemainingSlots(recommendations)));
-            recommendations.AddRange(RecommendAnyDoctorInTimeInterval(dto, RemainingSlots(recommendations)));
-
-            return recommendations;
-        }
-
-        private List<RecommendationDto> RecommendAnyDoctorInTimeInterval(RecommendationRequestDto dto, int remainingSlots)
-        {
-            if (remainingSlots == 0) return new List<RecommendationDto>();
-
-            IEnumerable<Shift> allShifts = _shiftWrapper.Repository
-                .GetMatching(shift =>
-                    shift.Doctor.Specialties.First(specialty => specialty.Id == dto.SpecialtyId) != default
-                    && shift.TimeInterval.Start >= dto.TimeInterval.Start
-                    && shift.TimeInterval.Start <= dto.TimeInterval.End
-                );
-
-            return FindRecommendationsInShifts(allShifts, remainingSlots);
-        }
-
-        private List<RecommendationDto> RecommendForDoctorInTimeInterval(RecommendationRequestDto dto, int remainingSlots)
-        {
-            if (remainingSlots == 0) return new List<RecommendationDto>();
-            
-            var selectedDoctorShifts = 
-                _shiftWrapper.Repository.GetByDoctorIdAndTimeInterval(dto.DoctorId, dto.TimeInterval).ToList();
-
-            return FindRecommendationsInShifts(selectedDoctorShifts, remainingSlots);
-        }
-
-        private List<RecommendationDto> RecommendForDoctorAnyTimeInterval(RecommendationRequestDto dto, int remainingSlots)
-        {
-            if (remainingSlots == 0) return new List<RecommendationDto>();
-            
-            var selectedDoctorShifts = _shiftWrapper.Repository.GetByDoctorIdAndTimeInterval(
-                dto.DoctorId,
-                new TimeInterval
-                {
-                    Start = (dto.TimeInterval.Start.AddMonths(-1) < DateTime.Now ? DateTime.Now : dto.TimeInterval.Start.AddMonths(-1)),
-                    End = dto.TimeInterval.End.AddMonths(1)
-                }
-            );
-            return FindRecommendationsInShifts(selectedDoctorShifts, remainingSlots);
-        }
-
-        /// <summary>
-        /// Returns a list of <see cref="RecommendationDto"/> objects which can take place within the
-        /// given Shift array.
-        /// Max number of returned objects is defined by <see cref="maxTimeSlots"/> argument.
-        /// </summary>
-        /// <param name="shifts"></param>
-        /// <param name="maxTimeSlots"></param>
-        /// <returns></returns>
-        private List<RecommendationDto> FindRecommendationsInShifts(IEnumerable<Shift> shifts, int maxTimeSlots)
-        {
-            List<RecommendationDto> recommendations = new List<RecommendationDto>();
-            foreach (var shift in shifts)
-            {
-                if (maxTimeSlots > 0)
-                {
-                    List<RecommendationDto> singleShiftRecommendations = RecommendForShift(shift, maxTimeSlots);
-                    recommendations.AddRange(singleShiftRecommendations);
-                    maxTimeSlots -= singleShiftRecommendations.Count;
-                }
-                else
-                    break;
-            }
-            return recommendations;
-        }
-
-        /// <summary>
-        /// Returns a list of <see cref="RecommendationDto"/> objects which can take place within the given Shift.
-        /// Max number of returned Recommendations is defined by <see cref="maxSlots"/> argument.
-        /// </summary>
-        /// <param name="shift"></param>
-        /// <param name="maxSlots"></param>
-        /// <returns></returns>
-        private List<RecommendationDto> RecommendForShift(Shift shift, int maxSlots)
-        {
-            List<RecommendationDto> recommendations = new List<RecommendationDto>();
-            
-            var timeSlots = GetAvailableTimeSlots(shift.DoctorId, shift.TimeInterval, maxSlots);
-            var doctor = doctorEndpoint.Get<Doctor>(shift.DoctorId.ToString());
-
-            foreach (var timeSlot in timeSlots)
-            {
-                recommendations.Add(new RecommendationDto()
-                {
-                    Doctor = doctor,
-                    TimeInterval = timeSlot,
-                    RoomId = shift.AssignedExamRoomId
-                });
-            }
-
-            return recommendations;
-        }
-        
-        /// <summary>
-        /// Returns a list of TimeIntervals in which the Doctor with the given ID is available for the given
-        /// <see cref="TimeInterval"/> argument.
-        /// Max number of returned free intervals is defined by the <see cref="maxSlots"/> argument.
-        /// </summary>
-        /// <param name="doctorId"></param>
-        /// <param name="timeInterval"></param>
-        /// <param name="maxSlots"></param>
-        /// <returns></returns>
-        private List<TimeInterval> GetAvailableTimeSlots(int doctorId, TimeInterval timeInterval, int maxSlots)
-        {
-            List<TimeInterval> intervals = new List<TimeInterval>();
-            
-            var start = timeInterval.Start;
-            while (start < timeInterval.End  &&  maxSlots > 0)
-            {
-                var exam 
-                    = _examinationWrapper.Repository.GetByDoctorAndExaminationStart(doctorId, start).Where(e => !e.IsCanceled);
-                if (!exam.Any())
-                {
-                    intervals.Add(new TimeInterval(start, start.Add(Examination.TimeFrameSize)));
-                    maxSlots--;
-                }
-                start = start.Add(Examination.TimeFrameSize);
-            }
-            
-            return intervals;
-        }
     }
 }

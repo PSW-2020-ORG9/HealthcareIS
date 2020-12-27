@@ -1,6 +1,6 @@
 ﻿using Schedule.API.Model.Utilities;
 
-namespace Schedule.API.Model.SchedulingPreferences
+namespace Schedule.API.Model.Recommendations
 {
     public class RecommendationRequestDto
     {

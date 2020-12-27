@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Schedule.API.Infrastructure.Repositories;
 using Schedule.API.Infrastructure.Repositories.Procedures.Interfaces;
 using Schedule.API.Infrastructure.Repositories.Shifts;
 using Schedule.API.Model.Dependencies;
@@ -8,7 +9,6 @@ using Schedule.API.Model.Procedures;
 using Schedule.API.Model.Shifts;
 using Schedule.API.Model.Utilities;
 using Schedule.API.Services.Procedures.Interface;
-using User.API.Infrastructure.Repositories;
 
 namespace Schedule.API.Services.Procedures
 {

@@ -1,6 +1,5 @@
 using System;
 using Schedule.API.Infrastructure.Database;
-using User.API.Infrastructure.Repositories;
 
 namespace Schedule.API.Infrastructure.Repositories
 {

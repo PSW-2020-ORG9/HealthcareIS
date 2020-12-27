@@ -1,4 +1,4 @@
-﻿namespace HealthcareBase.Model.Filters
+﻿namespace Schedule.API.Model.Filters
 {
     public enum TimeStatus
     {

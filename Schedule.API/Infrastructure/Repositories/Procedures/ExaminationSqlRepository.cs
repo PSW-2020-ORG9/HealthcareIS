@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Schedule.API.Infrastructure.Database;
-using Schedule.API.Infrastructure.Repositories.Procedures.Interface;
 using Schedule.API.Infrastructure.Repositories.Procedures.Interfaces;
 using Schedule.API.Model.Dependencies;
 using Schedule.API.Model.Procedures;
@@ -21,9 +20,6 @@ namespace Schedule.API.Infrastructure.Repositories.Procedures
 
                 .Include(examination => examination.ExaminationReport)
                 .Include(examination  => examination.ExaminationReport.Diagnoses);
-
-            // TODO Crashes with included diagnoses.
-            // Error msg: Unknown column e0.id in the where clause 
         }
         
         public IEnumerable<Examination> GetByDoctorAndDates(Doctor doctor, IEnumerable<DateTime> dates)

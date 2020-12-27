@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using General;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -15,6 +16,7 @@ using Schedule.API.Infrastructure.Repositories.Procedures;
 using Schedule.API.Infrastructure.Repositories.Procedures.Interfaces;
 using Schedule.API.Infrastructure.Repositories.Shifts;
 using Schedule.API.Services.Procedures;
+using IContextFactory = Schedule.API.Infrastructure.Database.IContextFactory;
 
 namespace Schedule.API
 {
@@ -57,13 +59,28 @@ namespace Schedule.API
         
         public IConfiguration Configuration { get; }
 
+        private const string UserUrl = "http://localhost:5003/";
+        private const string HospitalUrl = "http://localhost:5004/";
+
         public void ConfigureServices(IServiceCollection services)
         {
             IExaminationRepository examinationRepository = new ExaminationSqlRepository(GetContextFactory());
             IShiftRepository shiftRepository = new ShiftSqlRepository(GetContextFactory());
             ExaminationService examinationService = new ExaminationService(examinationRepository, shiftRepository);
+            
+            IConnection patientConnection = new Connection(UserUrl, "patient");
+            IConnection doctorConnection = new Connection(UserUrl, "doctor");
+            IConnection roomConnection = new Connection(HospitalUrl, "room");
+            ExaminationServiceProxy examinationServiceProxy = 
+                new ExaminationServiceProxy(
+                    examinationService,
+                    roomConnection, doctorConnection, patientConnection);
 
-            services.Add(new ServiceDescriptor(typeof(ExaminationService), examinationService));
+            RecommendationService recommendationService =
+                new RecommendationService(examinationRepository, shiftRepository, doctorConnection);
+            
+            services.Add(new ServiceDescriptor(typeof(ExaminationServiceProxy), examinationServiceProxy));
+            services.Add(new ServiceDescriptor(typeof(RecommendationService), recommendationService));
             services.AddControllers();
         }
 

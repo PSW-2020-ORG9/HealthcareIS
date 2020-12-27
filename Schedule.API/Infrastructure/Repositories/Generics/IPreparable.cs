@@ -1,4 +1,4 @@
-﻿namespace User.API.Infrastructure.Repositories
+﻿namespace Schedule.API.Infrastructure.Repositories
 {
     public interface IPreparable
     {

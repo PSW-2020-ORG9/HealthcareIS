@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Schedule.API.Mappers;
 using Schedule.API.Model.Exceptions;
 using Schedule.API.Model.Procedures.DTOs;
-using Schedule.API.Model.SchedulingPreferences;
+using Schedule.API.Model.Recommendations;
 using Schedule.API.Services.Procedures;
 
 namespace Schedule.API.Controllers
@@ -12,11 +12,13 @@ namespace Schedule.API.Controllers
     [Route("[controller]")]
     public class ExaminationController : Controller
     {
-        private readonly ExaminationService _examinationService;
+        private readonly ExaminationServiceProxy _examinationService;
+        private readonly RecommendationService _recommendationService;
         
-        public ExaminationController(ExaminationService examinationService)
+        public ExaminationController(ExaminationServiceProxy examinationService, RecommendationService recommendationService)
         {
             _examinationService = examinationService;
+            _recommendationService = recommendationService;
         }
 
         [HttpGet]
@@ -62,7 +64,7 @@ namespace Schedule.API.Controllers
         [Route("recommend")]
         public IActionResult RecommendExamination(RecommendationRequestDto dto)
         {
-            return Ok(_examinationService.Recommend(dto));
+            return Ok(_recommendationService.Recommend(dto));
         }
     }
 }

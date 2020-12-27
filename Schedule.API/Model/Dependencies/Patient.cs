@@ -6,5 +6,6 @@ namespace Schedule.API.Model.Dependencies
     public class Patient
     {
         public int Id { get; set; }
+        public Person Person { get; set; }
     }
 }

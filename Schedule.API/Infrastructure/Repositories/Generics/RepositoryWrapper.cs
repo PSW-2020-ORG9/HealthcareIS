@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace User.API.Infrastructure.Repositories
+namespace Schedule.API.Infrastructure.Repositories
 {
     /// <summary>
     /// Wrapper class around an IPreparable object.

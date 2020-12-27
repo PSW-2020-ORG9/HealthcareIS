@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using HealthcareBase.Model.Filters;
 using Schedule.API.Infrastructure;
 using Schedule.API.Infrastructure.Database;
 

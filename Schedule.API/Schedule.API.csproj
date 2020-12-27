@@ -14,5 +14,9 @@
       <Folder Include="Services" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\General\General.csproj" />
+    </ItemGroup>
+
 
 </Project>

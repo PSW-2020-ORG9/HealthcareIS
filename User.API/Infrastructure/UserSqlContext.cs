@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using User.API.Model.Generalities;
 using User.API.Model.Locale;
-using User.API.Model.Users.Employees;
 using User.API.Model.Users.Employees.Doctors;
 using User.API.Model.Users.Patients;
 using User.API.Model.Users.Patients.MedicalHistory;
@@ -32,7 +31,6 @@ namespace User.API.Infrastructure
         // Generalities
         public DbSet<Citizenship> Citizenships { get; set; }
         public DbSet<Person> Persons { get; set; }
-        
         
         // Locale 
         public DbSet<City> Cities { get; set; }
@@ -82,9 +80,9 @@ namespace User.API.Infrastructure
             modelBuilder.Entity<DoctorSpecialty>()
                 .HasOne(ds => ds.Doctor);
 
-            modelBuilder.Entity<Employee>()
+            modelBuilder.Entity<Doctor>()
                 .HasOne(e => e.Person);
-            modelBuilder.Entity<Employee>()
+            modelBuilder.Entity<Doctor>()
                 .Property(p=>p.Status).HasColumnType("nvarchar(24)");
 
             modelBuilder.Entity<Patient>()
@@ -99,17 +97,18 @@ namespace User.API.Infrastructure
             modelBuilder.Entity<AllergyManifestation>()
                 .HasOne(am => am.Allergy);
 
-            modelBuilder.Entity<UserAccount>()
+            // User account hierarchy
+            modelBuilder.Entity<PatientAccount>()
+                .OwnsOne(ua => ua.Credentials);
+            modelBuilder.Entity<DoctorAccount>()
                 .OwnsOne(ua => ua.Credentials);
             
             modelBuilder.Entity<DoctorAccount>()
                 .HasOne(da => da.Doctor);
-
             modelBuilder.Entity<PatientAccount>()
                 .HasOne(pa => pa.Patient);
-
-
         }
+        
         private static void SetCompositeKeys(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Citizenship>()

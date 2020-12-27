@@ -10,9 +10,9 @@ namespace Schedule.API.Model.Filters
         protected override void ConfigureFilter()
         {
             if (!string.IsNullOrEmpty(Name)) 
-                AddExpressionFunction(examination => examination.Doctor.Name.Contains(Name));
+                AddExpressionFunction(examination => examination.Doctor.Person.Name.Contains(Name));
             if (!string.IsNullOrEmpty(Surname))
-                AddExpressionFunction(examination => examination.Doctor.Surname.Contains(Surname));
+                AddExpressionFunction(examination => examination.Doctor.Person.Surname.Contains(Surname));
         }
     }
 }

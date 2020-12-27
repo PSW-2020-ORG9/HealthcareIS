@@ -1,4 +1,4 @@
-﻿namespace Schedule.API.Model.SchedulingPreferences
+﻿namespace Schedule.API.Model.Recommendations
 {
     public enum RecommendationPreference
     {

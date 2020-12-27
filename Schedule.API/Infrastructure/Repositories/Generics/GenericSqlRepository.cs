@@ -4,7 +4,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Schedule.API.Infrastructure.Database;
-using User.API.Infrastructure.Repositories;
 
 namespace Schedule.API.Infrastructure.Repositories
 {
