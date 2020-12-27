@@ -1,5 +1,6 @@
 using Feedback.API.Infrastructure;
 using Feedback.API.Model.User;
+using General;
 using System;
 
 namespace Feedback.API.Model.Feedback

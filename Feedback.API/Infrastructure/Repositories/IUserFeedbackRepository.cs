@@ -1,4 +1,5 @@
 using Feedback.API.Model.Feedback;
+using General.Repository;
 
 namespace Feedback.API.Infrastructure.Repositories
 {
