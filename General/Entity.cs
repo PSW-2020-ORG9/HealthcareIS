@@ -1,10 +1,10 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Feedback.API.Infrastructure
+namespace General
 {
     public abstract class Entity<ID> where ID : IComparable
     {
-        public ID Id { get; set; }
+        [Key] public ID Id { get; set; }
     }
 }

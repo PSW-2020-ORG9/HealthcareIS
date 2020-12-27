@@ -1,4 +1,6 @@
 ﻿using Feedback.API.Model.Survey.SurveyEntry;
+using General;
+using General.Repository;
 
 namespace Feedback.API.Infrastructure.Repositories
 {

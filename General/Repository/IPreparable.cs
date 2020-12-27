@@ -1,4 +1,4 @@
-﻿namespace Feedback.API.Infrastructure.Repositories
+﻿namespace General.Repository
 {
     public interface IPreparable
     {

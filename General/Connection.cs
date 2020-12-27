@@ -1,11 +1,7 @@
 ﻿using RestSharp;
 using RestSharp.Serialization.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace Feedback.API.Connections
+namespace General
 {
     public class Connection : IConnection
     {
@@ -26,7 +22,7 @@ namespace Feedback.API.Connections
             var response = _client.Get(request);
             return _deserializer.Deserialize<T>(response);
         }
-        
+
         public T Post<T>(object obj)
         {
             var request = new RestRequest(_endpoint, DataFormat.Json);

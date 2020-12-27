@@ -1,5 +1,6 @@
 ﻿using Feedback.API.Infrastructure.Repositories;
 using Feedback.API.Model.Survey.SurveyEntry;
+using General.Repository;
 using System.Collections.Generic;
 using System.Linq;
 

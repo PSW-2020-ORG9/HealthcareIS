@@ -1,12 +1,8 @@
-// File:    UserFeedbackService.cs
-// Author:  Lana
-// Created: 28 May 2020 17:09:20
-// Purpose: Definition of Class UserFeedbackService
-
-using Feedback.API.Connections;
 using Feedback.API.Infrastructure.Repositories;
 using Feedback.API.Model.Feedback;
 using Feedback.API.Model.User;
+using General;
+using General.Repository;
 using RestSharp;
 using RestSharp.Serialization.Json;
 using System.Collections.Generic;

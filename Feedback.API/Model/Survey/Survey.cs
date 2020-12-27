@@ -4,6 +4,7 @@
 // Purpose: Definition of Class PatientSurveyResponse
 
 using Feedback.API.Infrastructure;
+using General;
 using System.Collections.Generic;
 
 namespace Feedback.API.Model.Survey

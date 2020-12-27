@@ -1,4 +1,6 @@
 ﻿using Feedback.API.Model.Feedback;
+using General;
+using General.Repository;
 using System.Linq;
 
 namespace Feedback.API.Infrastructure.Repositories

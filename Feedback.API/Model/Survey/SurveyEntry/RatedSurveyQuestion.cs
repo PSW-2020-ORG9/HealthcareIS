@@ -1,4 +1,5 @@
 using Feedback.API.Infrastructure;
+using General;
 using System.ComponentModel.DataAnnotations;
 
 namespace Feedback.API.Model.Survey.SurveyEntry

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Feedback.API.Infrastructure.Repositories
+namespace General.Repository
 {
     /// <summary>
     /// Wrapper class around an IPreparable object.

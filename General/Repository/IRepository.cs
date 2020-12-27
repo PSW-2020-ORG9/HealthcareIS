@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace Feedback.API.Infrastructure.Repositories
+namespace General.Repository
 {
     public interface IRepository<T, ID>
         where T : Entity<ID>

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Feedback.API.Infrastructure;
+using General;
 
 namespace Feedback.API.Model.Survey
 {

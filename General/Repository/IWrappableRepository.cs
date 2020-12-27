@@ -1,6 +1,6 @@
 using System;
 
-namespace Feedback.API.Infrastructure.Repositories
+namespace General.Repository
 {
     /// <summary>
     /// Repository interface which offers basic CRUD method implementations, along with a Prepare() method

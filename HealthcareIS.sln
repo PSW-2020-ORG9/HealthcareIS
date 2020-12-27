@@ -45,13 +45,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8ECF9079
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{67753E89-612F-4982-9940-817CD3B782C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Feedback.API", "Feedback.API\Feedback.API.csproj", "{174FEA08-EEE0-442C-90BE-B3532669E12A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Feedback.API", "Feedback.API\Feedback.API.csproj", "{174FEA08-EEE0-442C-90BE-B3532669E12A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hospital.API", "Hospital.API\Hospital.API.csproj", "{06B748CC-AA50-4783-B23E-F55CEAACB4EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hospital.API", "Hospital.API\Hospital.API.csproj", "{06B748CC-AA50-4783-B23E-F55CEAACB4EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Schedule.API", "Schedule.API\Schedule.API.csproj", "{D2D66898-8551-43D2-A0E5-6786F742F330}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Schedule.API", "Schedule.API\Schedule.API.csproj", "{D2D66898-8551-43D2-A0E5-6786F742F330}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "User.API", "User.API\User.API.csproj", "{06A64023-957F-4F17-8947-34E2716F62F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "User.API", "User.API\User.API.csproj", "{06A64023-957F-4F17-8947-34E2716F62F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "General", "General\General.csproj", "{E408D62E-E8A4-441A-8EEB-3092EC21E710}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OcelotApiGateway", "OcelotApiGateway\OcelotApiGateway.csproj", "{A398FDB8-C2BB-4762-9A43-626FF08FC715}"
 EndProject
@@ -125,12 +127,11 @@ Global
 		{A398FDB8-C2BB-4762-9A43-626FF08FC715}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A398FDB8-C2BB-4762-9A43-626FF08FC715}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A398FDB8-C2BB-4762-9A43-626FF08FC715}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E408D62E-E8A4-441A-8EEB-3092EC21E710}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E408D62E-E8A4-441A-8EEB-3092EC21E710}.Debug|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {E887308F-275A-4296-AB73-C368628CD264}
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{7FE3A025-C17F-4932-8E48-799B04C12B02} = {1099378E-C8A4-4DA8-AA59-1F1BF2ACD2CB}
