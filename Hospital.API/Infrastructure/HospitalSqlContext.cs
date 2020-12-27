@@ -17,7 +17,6 @@ namespace Hospital.API.Infrastructure
             optionsBuilder.UseMySql(_connectionString);
         }
 
-        public DbSet<Diagnosis> Diagnoses { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<IntakeInstructions> IntakeInstructions { get; set; }
         public DbSet<Medication> Medications { get; set; }

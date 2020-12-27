@@ -10,45 +10,47 @@ namespace Hospital.API.Services.Resources
 {
     public class EquipmentService : IEquipmentService
     {
-        private readonly RepositoryWrapper<IEquipmentUnitRepository> equipmentUnitRepository;
-        private readonly RepositoryWrapper<IEquipmentTypeRepository> equipmentTypeRepository;
+        private readonly RepositoryWrapper<IEquipmentUnitRepository> _equipmentUnitRepository;
+        private readonly RepositoryWrapper<IEquipmentTypeRepository> _equipmentTypeRepository;
 
-        public EquipmentService(IEquipmentUnitRepository equipmentUnitRepository)
+        public EquipmentService(IEquipmentUnitRepository equipmentUnitRepository,
+            IEquipmentTypeRepository equipmentTypeRepository)
         {
-            this.equipmentUnitRepository = new RepositoryWrapper<IEquipmentUnitRepository>(equipmentUnitRepository);
+            _equipmentUnitRepository = new RepositoryWrapper<IEquipmentUnitRepository>(equipmentUnitRepository);
+            _equipmentTypeRepository = new RepositoryWrapper<IEquipmentTypeRepository>(equipmentTypeRepository);
         }
 
         public EquipmentUnit GetByID(int id)
         {
-            return equipmentUnitRepository.Repository.GetByID(id);
+            return _equipmentUnitRepository.Repository.GetByID(id);
         }
 
         public IEnumerable<EquipmentUnit> GetAll()
         {
-            return equipmentUnitRepository.Repository.GetAll();
+            return _equipmentUnitRepository.Repository.GetAll();
         }
 
         public EquipmentUnit Create(EquipmentUnit equipmentUnit)
         {
             if (equipmentUnit is null)
                 throw new ArgumentException();
-            if (!equipmentTypeRepository.Repository.ExistsByID(equipmentUnit.EquipmentType.Id))
-                equipmentUnit.EquipmentType = equipmentTypeRepository.Repository.Create(equipmentUnit.EquipmentType);
-            return equipmentUnitRepository.Repository.Create(equipmentUnit);
+            if (!_equipmentTypeRepository.Repository.ExistsByID(equipmentUnit.EquipmentType.Id))
+                equipmentUnit.EquipmentType = _equipmentTypeRepository.Repository.Create(equipmentUnit.EquipmentType);
+            return _equipmentUnitRepository.Repository.Create(equipmentUnit);
         }
 
         public EquipmentUnit Update(EquipmentUnit equipmentUnit)
         {
             if (equipmentUnit is null)
                 throw new ArgumentException();
-            return equipmentUnitRepository.Repository.Update(equipmentUnit);
+            return _equipmentUnitRepository.Repository.Update(equipmentUnit);
         }
 
         public void Delete(EquipmentUnit equipmentUnit)
         {
             if (equipmentUnit is null)
                 throw new ArgumentException();
-            equipmentUnitRepository.Repository.Delete(equipmentUnit);
+            _equipmentUnitRepository.Repository.Delete(equipmentUnit);
         }
 
         public void DeleteByType(EquipmentType equipmentType)
@@ -58,7 +60,7 @@ namespace Hospital.API.Services.Resources
 
         private IEnumerable<EquipmentDto> GetEquipmentByRoomId(int roomId)
         {
-            return equipmentUnitRepository.Repository.GetColumnsForMatching(
+            return _equipmentUnitRepository.Repository.GetColumnsForMatching(
                 condition: equipment => equipment.CurrentLocationId == roomId,
                 selection: equipment => new EquipmentDto()
                 {
@@ -87,7 +89,7 @@ namespace Hospital.API.Services.Resources
 
         private IEnumerable<EquipmentDto> GetEquipmentByType(string equipmentType)
         {
-            return equipmentUnitRepository.Repository.GetColumnsForMatching(
+            return _equipmentUnitRepository.Repository.GetColumnsForMatching(
                 condition: equipment => equipment.EquipmentType.Name.Equals(equipmentType),
                 selection: equipment => new EquipmentDto()
                 {

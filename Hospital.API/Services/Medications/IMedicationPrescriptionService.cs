@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Hospital.API.Services.Medications
 {
-    interface IMedicationPrescriptionService
+    public interface IMedicationPrescriptionService
     {
         public IEnumerable<MedicationPrescription> SimpleSearch(string nameQuery);
         public IEnumerable<MedicationPrescription> AdvancedSearch(PrescriptionAdvancedFilterDto filterDto);

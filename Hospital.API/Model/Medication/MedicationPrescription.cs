@@ -12,8 +12,7 @@ namespace Hospital.API.Model.Medication
     {
         public int MedicalRecordId { get; set; }
         public int ExaminationReportId { get; set; }
-        public string DiagnosisId { get; set; }
-        public Diagnosis Diagnosis { get; set; }
+        public int DiagnosisId { get; set; }
 
         [ForeignKey("Medication")]
         public int MedicationId { get; set; }

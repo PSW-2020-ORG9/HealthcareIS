@@ -8,10 +8,10 @@ namespace Hospital.API.Controllers
     [Route("[controller]")]
     public class DocSearchController : ControllerBase
     {
-        private readonly MedicationPrescriptionService _medicationPrescriptionService;
+        private readonly IMedicationPrescriptionService _medicationPrescriptionService;
 
         public DocSearchController(
-            MedicationPrescriptionService medicationPrescriptionService)
+            IMedicationPrescriptionService medicationPrescriptionService)
         {
             _medicationPrescriptionService = medicationPrescriptionService;
         }

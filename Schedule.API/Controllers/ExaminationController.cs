@@ -10,7 +10,7 @@ namespace Schedule.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ExaminationController : Controller
+    public class ExaminationController : ControllerBase
     {
         private readonly ExaminationServiceProxy _examinationService;
         private readonly RecommendationService _recommendationService;

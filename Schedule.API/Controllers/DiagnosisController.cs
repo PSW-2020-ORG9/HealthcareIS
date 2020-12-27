@@ -6,7 +6,7 @@ namespace Schedule.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class DiagnosisController : Controller
+    public class DiagnosisController : ControllerBase
     {
         private readonly IDiagnosisService _diagnosisService;
 

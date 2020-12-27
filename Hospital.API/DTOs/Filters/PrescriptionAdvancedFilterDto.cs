@@ -16,8 +16,6 @@ namespace Hospital.API.DTOs.Filters
                 AddExpressionFunction(prescription => prescription.Medication.Manufacturer.Contains(Manufacturer));
             if (!string.IsNullOrEmpty(Name))
                 AddExpressionFunction(prescription => prescription.Medication.Name.Contains(Name));
-            if (!string.IsNullOrEmpty(Diagnosis))
-                AddExpressionFunction(prescription => prescription.Diagnosis.Name.Contains(Diagnosis));
             switch (Status)
             {
                 case TimeStatus.Past:
