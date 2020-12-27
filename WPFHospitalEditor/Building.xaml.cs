@@ -66,7 +66,7 @@ namespace WPFHospitalEditor
             }
         }
 
-        private void Back_Click(object sender, RoutedEventArgs e)
+        private void BackClick(object sender, RoutedEventArgs e)
         {
             ClearAll();           
             this.Close();
@@ -74,7 +74,7 @@ namespace WPFHospitalEditor
             Owner.Show();
         }
 
-        private void Floor_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void FloorSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ClearAll();
             int index = floor.SelectedIndex;

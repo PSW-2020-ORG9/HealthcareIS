@@ -48,7 +48,7 @@ namespace HospitalWebApp.Controllers
         }
 
         [HttpGet]
-        [Route("specialist")]
+        [Route("specialists")]
         public IActionResult GetAllSpecialists()
         {
             IEnumerable<DoctorDto> docDtos = doctorService.GetAllSpecialists();

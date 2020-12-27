@@ -9,6 +9,6 @@ namespace WPFHospitalEditor.Repository
         MapObject Update(MapObject mapObject);
         void SaveAll(List<MapObject> entities);
         List<MapObject> GetOutterMapObjects();
-        MapObject FindMapObjectById(int id);
+        MapObject GetMapObjectById(int id);
     }
 }

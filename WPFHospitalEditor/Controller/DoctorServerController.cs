@@ -20,9 +20,9 @@ namespace WPFHospitalEditor.Controller
             return doctorServerService.GetDoctorById(doctorId);
         }
 
-        public IEnumerable<DoctorDto> GetFilteredDoctors(string name)
+        public IEnumerable<DoctorDto> SearchDoctors(string name)
         {
-            return doctorServerService.GetFilteredDoctors(name);
+            return doctorServerService.SearchDoctors(name);
         }
 
         public IEnumerable<DoctorDto> GetAllSpecialists()
@@ -30,9 +30,9 @@ namespace WPFHospitalEditor.Controller
             return doctorServerService.GetAllSpecialists();
         }
 
-        public IEnumerable<DoctorDto> GetFilteredSpecialists(string name)
+        public IEnumerable<DoctorDto> SearchSpecialists(string name)
         {
-            return doctorServerService.GetFilteredSpecialists(name);
+            return doctorServerService.SearchSpecialists(name);
         }
     }
 }

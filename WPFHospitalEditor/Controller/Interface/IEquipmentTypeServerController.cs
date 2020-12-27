@@ -6,6 +6,6 @@ namespace WPFHospitalEditor.Controller.Interface
     public interface IEquipmentTypeServerController
     {
         IEnumerable<EquipmentTypeDto> GetAllEquipmentTypes();
-        IEnumerable<EquipmentTypeDto> GetFilteredEquipmentTypes(string name);
+        IEnumerable<EquipmentTypeDto> SearchEquipmentTypes(string name);
     }
 }

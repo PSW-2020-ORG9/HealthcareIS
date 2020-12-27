@@ -15,9 +15,9 @@ namespace WPFHospitalEditor.Controller
             return EquipmentTypeServerService.GetAllEquipmentTypes();
         }
 
-        public IEnumerable<EquipmentTypeDto> GetFilteredEquipmentTypes(string name)
+        public IEnumerable<EquipmentTypeDto> SearchEquipmentTypes(string name)
         {
-            return EquipmentTypeServerService.GetFilteredEquipmentTypes(name);
+            return EquipmentTypeServerService.SearchEquipmentTypes(name);
         }
     }
 }

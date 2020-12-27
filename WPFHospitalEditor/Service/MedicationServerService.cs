@@ -23,7 +23,7 @@ namespace WPFHospitalEditor.Service
             return response.Data;
         }
 
-        public IEnumerable<MedicationDto> GetFilteredMedications(string name)
+        public IEnumerable<MedicationDto> SearchMedications(string name)
         {
             var medications = new List<MedicationDto>();
             List<MedicationDto> allMedications = GetAllMedication().ToList();

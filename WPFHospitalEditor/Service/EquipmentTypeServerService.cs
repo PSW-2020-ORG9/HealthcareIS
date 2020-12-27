@@ -16,7 +16,7 @@ namespace WPFHospitalEditor.Service
             return response.Data;
         }
 
-        public IEnumerable<EquipmentTypeDto> GetFilteredEquipmentTypes(string name)
+        public IEnumerable<EquipmentTypeDto> SearchEquipmentTypes(string name)
         {
             var equipmentTypes = new List<EquipmentTypeDto>();
             List<EquipmentTypeDto> allEquipmentTypes = GetAllEquipmentTypes().ToList();

@@ -7,6 +7,6 @@ namespace WPFHospitalEditor.Controller
     {
         IEnumerable<MedicationDto> GetAllMedication();
         IEnumerable<MedicationDto> GetAllMedicationByName(string name);
-        IEnumerable<MedicationDto> GetFilteredMedications(string name);
+        IEnumerable<MedicationDto> SearchMedications(string name);
     }
 }

@@ -331,7 +331,7 @@ namespace WPFHospitalEditor
             for (int i = 0; i < HospitalMap.equipmentSearchResult.Count(); i++)
             {
                 EquipmentDto equipmentDto = HospitalMap.equipmentSearchResult.ElementAt(i);
-                MapObject mo = mapObjectController.FindMapObjectById(equipmentDto.RoomId);
+                MapObject mo = mapObjectController.GetMapObjectById(equipmentDto.RoomId);
                 equipmentContentRows[i] = equipmentDto.Quantity 
                                  + AllConstants.ContentSeparator +
                                  MapObjectToRow(mo);
@@ -342,7 +342,7 @@ namespace WPFHospitalEditor
         private string[] MedicationToContentRows()
         {
             string[] medicationContentRows = new string[HospitalMap.medicationSearchResult.Count()];
-            MapObject mo = mapObjectController.FindMapObjectById(STORAGEROOM_ID);
+            MapObject mo = mapObjectController.GetMapObjectById(STORAGEROOM_ID);
             for (int i = 0; i < HospitalMap.medicationSearchResult.Count(); i++)
             {
                 MedicationDto medicationDto = HospitalMap.medicationSearchResult.ElementAt(i);
@@ -380,7 +380,7 @@ namespace WPFHospitalEditor
             for (int i = 0; i < HospitalMap.appointmentSearchResult.Count(); i++)
             {
                 RecommendationDto recommendationDto = HospitalMap.appointmentSearchResult.ElementAt(i);
-                MapObject mo = mapObjectController.FindMapObjectById(recommendationDto.RoomId);
+                MapObject mo = mapObjectController.GetMapObjectById(recommendationDto.RoomId);
                 string doctor = recommendationDto.Doctor.Person.Name + " " + recommendationDto.Doctor.Person.Surname;
                 string timeInterval = recommendationDto.TimeInterval.Start.ToString() + "-" + recommendationDto.TimeInterval.End.ToString();
                 appointmentContentRows[i] = mo.Name

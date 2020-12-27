@@ -6,6 +6,6 @@ namespace WPFHospitalEditor.Service.Interface
     public interface IPatientServerService
     {
         IEnumerable<Patient> GetAllPatients();
-        IEnumerable<Patient> GetFilteredPatients(string name);
+        IEnumerable<Patient> SearchPatients(string name);
     }
 }

@@ -21,13 +21,13 @@ namespace WPFHospitalEditor.Controller
         {
             return IMapObjectService.GetOutterMapObjects();
         }
-        public MapObject FindMapObjectById(int id)
+        public MapObject GetMapObjectById(int id)
         {
-            return IMapObjectService.FindMapObjectById(id);
+            return IMapObjectService.GetMapObjectById(id);
         }
-        public List<MapObject> SearchForMapObjects(string name, string type)
+        public List<MapObject> SearchMapObjects(string name, string type)
         {
-            return IMapObjectService.SearchForMapObjects(name, type);
+            return IMapObjectService.SearchMapObjects(name, type);
         }
     }
 }

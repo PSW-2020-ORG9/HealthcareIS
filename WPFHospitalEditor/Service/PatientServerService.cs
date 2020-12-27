@@ -16,7 +16,7 @@ namespace WPFHospitalEditor.Service
             return response.Data;
         }
 
-        public IEnumerable<Patient> GetFilteredPatients(string name)
+        public IEnumerable<Patient> SearchPatients(string name)
         {
             var patients = new List<Patient>();
             List<Patient> allPatients = GetAllPatients().ToList();

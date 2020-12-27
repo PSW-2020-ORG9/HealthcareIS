@@ -19,7 +19,7 @@ namespace WPFHospitalEditorUnitTests
             var searchedMapObjects = new List<MapObject>();
 
             MapObjectService mapObjectService = new MapObjectService(createStubRepository());
-            searchedMapObjects = mapObjectService.SearchForMapObjects("Examination", AllConstants.EmptyComboBox);
+            searchedMapObjects = mapObjectService.SearchMapObjects("Examination", AllConstants.EmptyComboBox);
 
             searchedMapObjects.ShouldNotBeEmpty();
         }
@@ -31,7 +31,7 @@ namespace WPFHospitalEditorUnitTests
             var searchedMapObjects = new List<MapObject>();
 
             MapObjectService mapObjectService = new MapObjectService(createStubRepository());
-            searchedMapObjects = mapObjectService.SearchForMapObjects("", "Canteen");
+            searchedMapObjects = mapObjectService.SearchMapObjects("", "Canteen");
 
             searchedMapObjects.ShouldBeEmpty();
         }

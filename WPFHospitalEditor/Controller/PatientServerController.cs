@@ -14,9 +14,9 @@ namespace WPFHospitalEditor.Controller
             return patientServerService.GetAllPatients();
         }
 
-        public IEnumerable<Patient> GetFilteredPatients(string name)
+        public IEnumerable<Patient> SearchPatients(string name)
         {
-            return patientServerService.GetFilteredPatients(name);
+            return patientServerService.SearchPatients(name);
         }
     }
 }

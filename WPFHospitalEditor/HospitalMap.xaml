@@ -19,7 +19,7 @@
     <StackPanel Orientation="Vertical">
         <StackPanel>
             <TextBlock HorizontalAlignment="Left" Margin="30,10,0,5" TextWrapping="Wrap" Text="Hospital map" VerticalAlignment="Top" FontSize="26" FontWeight="Bold"/>
-            <TabControl Background="#FFC6F5F8">
+            <TabControl x:Name="tabControl" SelectedItem="Map" Background="#FFC6F5F8" SelectionChanged="TabControlSelectionChanged">
                 <TabItem x:Name="MapObjectSearchTab" Header="Map objects search" Background="SkyBlue">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                         <Label Content="Enter map object:" FontSize="14" VerticalAlignment="Center" Margin="35,0,0,0"></Label>
@@ -105,7 +105,7 @@
                             <TextBox x:Name="EquipmentForSpecialistAppSearchInput" x:FieldModifier="public" HorizontalAlignment="Right" Height="30" Width="200" Margin="10,0,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" TextChanged="SpecialistEquipmentTextInputChanged"></TextBox>
                             <Label Content="and/or choose equipment:" FontSize="14" VerticalAlignment="Center" Margin="10,0,0,0"></Label>
                             <ComboBox x:Name="specialistEquipmentAppSearchComboBox" x:FieldModifier="public" Height="30" Width="200" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" SelectedIndex="0">
-                                <ComboBoxItem x:Name="emptySpecialistEquipmentAppSearchComboBox"/>
+                                <ComboBoxItem x:Name="emptySpecialistEquipmentAppComboBox"/>
                             </ComboBox>
                             <Button x:Name="specialistAppointmentSearch" Content="Search" Height="30" Width="60" FontWeight="Bold" FontSize="16" Margin="10,0,5,0" Click="SpecialistAppointmentSearch_Click" />
                         </StackPanel>

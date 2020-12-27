@@ -28,18 +28,18 @@ namespace WPFHospitalEditor.Service
         public IEnumerable<DoctorDto> GetAllSpecialists()
         {
             var client = new RestClient(AllConstants.ConnectionUrl);
-            var request = new RestRequest("Doctor/specialist", Method.GET);
+            var request = new RestRequest("Doctor/specialists", Method.GET);
             var response = client.Get<IEnumerable<DoctorDto>>(request);
             return response.Data;
         }
 
-        public IEnumerable<DoctorDto> GetFilteredDoctors(string name)
+        public IEnumerable<DoctorDto> SearchDoctors(string name)
         {
             List<DoctorDto> allDoctors = GetDoctorsByDepartment(AllConstants.RegularExaminationDepartment).ToList();
             return FilterDoctors(allDoctors, name);
         }
 
-        public IEnumerable<DoctorDto> GetFilteredSpecialists(string name)
+        public IEnumerable<DoctorDto> SearchSpecialists(string name)
         {
             List<DoctorDto> allDoctors = GetAllSpecialists().ToList();
             return FilterDoctors(allDoctors, name);

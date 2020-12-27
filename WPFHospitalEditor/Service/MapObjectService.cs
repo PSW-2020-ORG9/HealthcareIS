@@ -28,9 +28,9 @@ namespace WPFHospitalEditor.Service
         {
             return ColorSelectedObject(iMapObjectRepository.GetOutterMapObjects());
         }
-        public MapObject FindMapObjectById(int id)
+        public MapObject GetMapObjectById(int id)
         {
-            return iMapObjectRepository.FindMapObjectById(id);
+            return iMapObjectRepository.GetMapObjectById(id);
         }
         private List<MapObject> ColorSelectedObject(List<MapObject> allMapObjects)
         {
@@ -44,7 +44,7 @@ namespace WPFHospitalEditor.Service
             return allMapObjects;
         }
 
-        public List<MapObject> SearchForMapObjects(string name, string type)
+        public List<MapObject> SearchMapObjects(string name, string type)
         {
             var mapObjects = new List<MapObject>();           
             if (string.IsNullOrEmpty(name) && type.Equals(AllConstants.EmptyComboBox)) return mapObjects;

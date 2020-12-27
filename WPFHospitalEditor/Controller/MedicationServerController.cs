@@ -17,9 +17,9 @@ namespace WPFHospitalEditor.Controller
             return medicationServerService.GetAllMedicationByName(name);
         }
 
-        public IEnumerable<MedicationDto> GetFilteredMedications(string name)
+        public IEnumerable<MedicationDto> SearchMedications(string name)
         {
-            return medicationServerService.GetFilteredMedications(name);
+            return medicationServerService.SearchMedications(name);
         }
     }
 }

@@ -78,7 +78,7 @@ namespace WPFHospitalEditor.Repository
             }
         }   
         
-        public MapObject FindMapObjectById(int id)
+        public MapObject GetMapObjectById(int id)
         {
             var allMapObjects = GetAllMapObjects();
             foreach (MapObject mapObj in allMapObjects)

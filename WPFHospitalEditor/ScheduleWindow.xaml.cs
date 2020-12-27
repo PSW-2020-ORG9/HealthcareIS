@@ -2,7 +2,6 @@
 using HealthcareBase.Model.Schedule.SchedulingPreferences;
 using HealthcareBase.Model.Users.Patient;
 using System;
-using System.Collections.Generic;
 using System.Windows;
 using WPFHospitalEditor.Controller;
 using WPFHospitalEditor.Controller.Interface;
@@ -15,7 +14,6 @@ namespace WPFHospitalEditor
     public partial class ScheduleWindow : Window
     {
         RecommendationDto recommendationDto;
-        List<Patient> allPatients;
         IPatientServerController patientServerController = new PatientServerController();
         IExaminationServerController examinationServerController = new ExaminationServerController();
 
@@ -24,17 +22,17 @@ namespace WPFHospitalEditor
             InitializeComponent();
             this.recommendationDto = recommendationDto;
             SetAppointmentInfoContent();
-            SetPatientNameNameComboBox();
+            SetPatientNameComboBox();
         }
 
-        private void Close_Click(object sender, RoutedEventArgs e)
+        private void CloseClick(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
-        private void ScheduleBtn_Click(object sender, RoutedEventArgs e)
+        private void ScheduleAppointment(object sender, RoutedEventArgs e)
         {
-            if (patientsComboBox.SelectedIndex == -1)
+            if (patientsComboBox.SelectedIndex == 0)
             {
                 MessageBox.Show("You must select a patient!");
             }
@@ -57,14 +55,14 @@ namespace WPFHospitalEditor
         private void PatientTextInputChanged(object sender, EventArgs e)
         {
             patientsComboBox.Items.Clear();
-            patientsComboBox.Items.Add("None");
-            patientsComboBox.SelectedIndex = 0;
-            SetPatientNameNameComboBox();
+            SetPatientNameComboBox();
         }
 
-        private void SetPatientNameNameComboBox()
+        private void SetPatientNameComboBox()
         {
-            foreach (Patient p in patientServerController.GetFilteredPatients(PatientSearchInput.Text))
+            patientsComboBox.Items.Add(AllConstants.EmptyComboBox);
+            patientsComboBox.SelectedIndex = 0;
+            foreach (Patient p in patientServerController.SearchPatients(PatientSearchInput.Text))
             {
                 patientsComboBox.Items.Add(p.Id.ToString() + " " + p.Person.Name + " " + p.Person.Surname + " - " + p.Person.Jmbg);
             }

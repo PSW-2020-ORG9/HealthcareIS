@@ -12,7 +12,7 @@ namespace WPFHospitalEditorE2ETests
         {
             MapObjectController mapObjectController = new MapObjectController();
 
-            MapObject mapObject = mapObjectController.FindMapObjectById(1);
+            MapObject mapObject = mapObjectController.GetMapObjectById(1);
 
             Assert.NotNull(mapObject);
         }
@@ -22,7 +22,7 @@ namespace WPFHospitalEditorE2ETests
         {
             MapObjectController mapObjectController = new MapObjectController();
 
-            MapObject mapObject = mapObjectController.FindMapObjectById(101);
+            MapObject mapObject = mapObjectController.GetMapObjectById(101);
 
             Assert.Null(mapObject);
         }

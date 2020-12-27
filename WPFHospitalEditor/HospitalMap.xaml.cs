@@ -40,12 +40,7 @@ namespace WPFHospitalEditor
         {
             InitializeComponent();
             SetMapObjectTypeComboBox();
-            SetEquipmentTypeComboBox();
-            SetMedicationNameComboBox();
-            SetDoctorNameComboBox();
-            SetSpecialistNameComboBox();
-            SetSpecialistEquipmentComboBox();
-            SetNonSelectedComboBoxItem();
+            SetNonSelectedComboBoxItem(emptyMapObjectComboBox);
             CanvasService.AddObjectToCanvas(mapObjectController.GetOutterMapObjects(), canvas);
             canvasHospitalMap = canvas;
             HospitalMap.role = role;
@@ -97,7 +92,7 @@ namespace WPFHospitalEditor
         private void Basic_Search(object sender, RoutedEventArgs e)
         {
             ClearAllResults();
-            searchResult = mapObjectController.SearchForMapObjects(searchInputTB.Text, searchInputComboBox.Text);
+            searchResult = mapObjectController.SearchMapObjects(searchInputTB.Text, searchInputComboBox.Text);
             if (searchResult.Count > 0)
             {
                 SearchResultDialog searchResultDialog = new SearchResultDialog(this, SearchType.MapObjectSearch);
@@ -227,7 +222,7 @@ namespace WPFHospitalEditor
 
         private void SetEquipmentTypeComboBox()
         {
-            foreach (EquipmentTypeDto eqTypeDto in equipmentTypeServerController.GetFilteredEquipmentTypes(EquipmentSearchInput.Text))
+            foreach (EquipmentTypeDto eqTypeDto in equipmentTypeServerController.SearchEquipmentTypes(EquipmentSearchInput.Text))
             {
                 equipmentSearchComboBox.Items.Add(eqTypeDto.Name);
             }
@@ -242,12 +237,12 @@ namespace WPFHospitalEditor
         private void SetComboBoxDefaultValues(ComboBox comboBox)
         {
             comboBox.Items.Clear();
-            comboBox.Items.Add("None");
+            comboBox.Items.Add(AllConstants.EmptyComboBox);
             comboBox.SelectedIndex = 0;
         }
         private void SetMedicationNameComboBox()
         {
-            foreach (MedicationDto medDto in medicationServerController.GetFilteredMedications(MedicationSearchInput.Text))
+            foreach (MedicationDto medDto in medicationServerController.SearchMedications(MedicationSearchInput.Text))
             {
                 medicationSearchComboBox.Items.Add(medDto.Name);
             }
@@ -261,7 +256,7 @@ namespace WPFHospitalEditor
 
         private void SetDoctorNameComboBox()
         {
-            foreach (DoctorDto docDto in doctorServerController.GetFilteredDoctors(DoctorSearchInput.Text))
+            foreach (DoctorDto docDto in doctorServerController.SearchDoctors(DoctorSearchInput.Text))
             {
                 doctorsComboBox.Items.Add(docDto.DoctorId + " " + docDto.Name + " " + docDto.Surname);
             }
@@ -275,7 +270,7 @@ namespace WPFHospitalEditor
 
         private void SetSpecialistNameComboBox()
         {
-            foreach (DoctorDto docDto in doctorServerController.GetFilteredSpecialists(SpecialistSearchInput.Text))
+            foreach (DoctorDto docDto in doctorServerController.SearchSpecialists(SpecialistSearchInput.Text))
             {
                 specialistComboBox.Items.Add(docDto.DoctorId.ToString() + " " + docDto.Name + " " + docDto.Surname + " [" + docDto.DepartmentName + "]");
             }
@@ -289,13 +284,12 @@ namespace WPFHospitalEditor
 
         private void SetSpecialistEquipmentComboBox()
         {
-            List<EquipmentTypeDto> equipmentTypes = equipmentTypeServerController.GetAllEquipmentTypes().ToList();
-
-            foreach (EquipmentTypeDto eqTypeDto in equipmentTypeServerController.GetFilteredEquipmentTypes(EquipmentForSpecialistAppSearchInput.Text))
+            foreach (EquipmentTypeDto eqTypeDto in equipmentTypeServerController.SearchEquipmentTypes(EquipmentForSpecialistAppSearchInput.Text))
             {
                 specialistEquipmentAppSearchComboBox.Items.Add(eqTypeDto.Name);
             }
         }
+
         private void SetMapObjectTypeComboBox()
         {
             foreach (MapObjectType mapObjectType in Enum.GetValues(typeof(MapObjectType)))
@@ -337,19 +331,14 @@ namespace WPFHospitalEditor
             if (medicationSearchComboBox.Text.Equals(AllConstants.EmptyComboBox)) return true;
             return false;
         }
-        private void SetNonSelectedComboBoxItem()
+        private void SetNonSelectedComboBoxItem(ComboBoxItem comboBoxItem)
         {
-            emptyMapObjectComboBox.Content = AllConstants.EmptyComboBox;
-            emptyMedicationComboBox.Content = AllConstants.EmptyComboBox;
-            emptyEquipmentComboBox.Content = AllConstants.EmptyComboBox;
-            emptyDoctorComboBox.Content = AllConstants.EmptyComboBox;
-            emptySpecialistComboBox.Content = AllConstants.EmptyComboBox;
-            emptySpecialistEquipmentAppSearchComboBox.Content = AllConstants.EmptyComboBox;
+            comboBoxItem.Content = AllConstants.EmptyComboBox;
         }
 
         private bool InvalidInputForAppointment()
         {
-            if (doctorsComboBox.Text.Equals("None") || startDatePicker.Text.Equals("") || endDatePicker.Text.Equals("") || InvalidDateInput())
+            if (doctorsComboBox.Text.Equals(AllConstants.EmptyComboBox) || startDatePicker.Text.Equals("") || endDatePicker.Text.Equals("") || InvalidDateInput())
             {
                 return true;
             }
@@ -358,8 +347,8 @@ namespace WPFHospitalEditor
 
         private bool InvalidInputForSpecialistAppointment()
         {
-            if (specialistComboBox.Text.Equals("None") || startDatePickerSpecApp.Text.Equals("")
-                || endDatePickerSpecApp.Text.Equals("") || specialistEquipmentAppSearchComboBox.Text.Equals("None")
+            if (specialistComboBox.Text.Equals(AllConstants.EmptyComboBox) || startDatePickerSpecApp.Text.Equals("")
+                || endDatePickerSpecApp.Text.Equals("") || specialistEquipmentAppSearchComboBox.Text.Equals(AllConstants.EmptyComboBox)
                 || specialistPriorityComboBox.Text.Equals("")) return true;
             return false;
         }
@@ -405,6 +394,40 @@ namespace WPFHospitalEditor
         {
             SetComboBoxDefaultValues(searchInputComboBox);
             SetMapObjectTypeComboBox();
+        }
+
+        private void TabControlSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.Source is TabControl)
+            {
+                switch (tabControl.SelectedIndex)
+                {
+                    case 0:
+                        SetMapObjectTypeComboBox();
+                        SetNonSelectedComboBoxItem(emptySpecialistEquipmentAppComboBox);
+                        break;
+                    case 1:
+                        SetMedicationNameComboBox();
+                        SetNonSelectedComboBoxItem(emptyMedicationComboBox);
+                        break;
+                    case 2:
+                        SetEquipmentTypeComboBox();
+                        SetNonSelectedComboBoxItem(emptyEquipmentComboBox);
+                        break;
+                    case 3:
+                        SetDoctorNameComboBox();
+                        SetNonSelectedComboBoxItem(emptyDoctorComboBox);
+                        break;
+                    case 4:
+                        SetSpecialistNameComboBox();
+                        SetNonSelectedComboBoxItem(emptySpecialistComboBox);
+                        SetSpecialistEquipmentComboBox();
+                        SetNonSelectedComboBoxItem(emptySpecialistEquipmentAppComboBox);
+                        break;
+                    default:
+                        return;
+                }
+            }
         }
     }
 }
