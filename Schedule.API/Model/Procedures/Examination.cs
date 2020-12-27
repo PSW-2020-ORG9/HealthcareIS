@@ -5,7 +5,7 @@ namespace Schedule.API.Model.Procedures
 {
     public class Examination : Procedure
     {
-        [ForeignKey("ExaminationReport")]
+        [ForeignKey("ExaminationReport")] 
         public int? ExaminationReportId { get; set; }
         public ExaminationReport ExaminationReport { get; set; }
         

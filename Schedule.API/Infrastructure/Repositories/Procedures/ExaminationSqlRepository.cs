@@ -18,10 +18,9 @@ namespace Schedule.API.Infrastructure.Repositories.Procedures
         {
             return query
                 .Include(examination => examination.ProcedureDetails)
-                    
-                .Include(examination => examination.ExaminationReport)
-                .ThenInclude(report => report.Diagnoses);
 
+                .Include(examination => examination.ExaminationReport)
+                .Include(examination  => examination.ExaminationReport.Diagnoses);
 
             // TODO Crashes with included diagnoses.
             // Error msg: Unknown column e0.id in the where clause 
