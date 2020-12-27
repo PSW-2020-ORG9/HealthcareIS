@@ -89,9 +89,13 @@ namespace User.API
                         Environment.GetEnvironmentVariable("PSW_ACTIVATION_ENDPOINT")));
             var patientService = new PatientService(patientRepository);
             
+            var specialtyRepository = new SpecialtySqlRepository(GetContextFactory());
+            var specialtyService = new SpecialtyService(specialtyRepository);
+            
             services.Add(new ServiceDescriptor(typeof(IPatientAccountService), patientAccountService));
             services.Add(new ServiceDescriptor(typeof(PatientRegistrationService), patientRegistrationService));
             services.Add(new ServiceDescriptor(typeof(PatientService), patientService));
+            services.Add(new ServiceDescriptor(typeof(SpecialtyService),specialtyService));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

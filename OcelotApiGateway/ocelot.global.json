@@ -1,0 +1,97 @@
+{
+  "ReRoutes": [
+    {
+      "DownstreamPathTemplate": "/country",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5003
+        }
+      ],
+      "UpstreamPathTemplate": "/api/country",
+      "UpstreamHttpMethod": ["Get"]
+    }
+    ,
+    {
+      "DownstreamPathTemplate": "/city/by-country/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5003
+        }
+      ],
+      "UpstreamPathTemplate": "/api/city/by-country/{id}",
+      "UpstreamHttpMethod": ["Get"]
+    }
+    ,
+    {
+      "DownstreamPathTemplate": "/doctor/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5003
+        }
+      ],
+      "UpstreamPathTemplate": "/api/doctor/{everything}",
+      "UpstreamHttpMethod": ["Get"]
+    }
+    ,
+    {
+      "DownstreamPathTemplate": "/doctor",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5003
+        }
+      ],
+      "UpstreamPathTemplate": "/api/doctor",
+      "UpstreamHttpMethod": ["Get"]
+    }
+    ,
+    {
+      "DownstreamPathTemplate": "/patient",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5003
+        }
+      ],
+      "UpstreamPathTemplate": "/api/patient",
+      "UpstreamHttpMethod": ["Get"]
+    }
+    ,
+    {
+      "DownstreamPathTemplate": "/patient/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5003
+        }
+      ],
+      "UpstreamPathTemplate": "/api/patient/{everything}",
+      "UpstreamHttpMethod": ["Get","Post"]
+    }
+    ,
+    {
+      "DownstreamPathTemplate": "/specialty",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5003
+        }
+      ],
+      "UpstreamPathTemplate": "/api/specialty",
+      "UpstreamHttpMethod": ["Get"]
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:5000"
+  }
+}

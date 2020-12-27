@@ -69,7 +69,7 @@ namespace Feedback.API.Services
         /// <returns></returns>
         private List<DoctorSurveySectionDTO> BuildDoctorSurveySections(IEnumerable<SurveySection> surveySections)
         {
-            var doctors = _doctorConnection.Get<IEnumerable<Doctor>>();
+            var doctors = _doctorConnection.Get<IEnumerable<Doctor>>("");
             var doctorSurveySection = surveySections.First(s => s.IsDoctorSection);
             return doctors
                     .Select(doctor => BuildDoctorSurveySectionDto(doctor, doctorSurveySection))
