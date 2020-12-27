@@ -1,11 +1,7 @@
 ﻿using RestSharp;
 using RestSharp.Serialization.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace Feedback.API.Connections
+namespace Schedule.API.Connections
 {
     public class Connection : IConnection
     {
