@@ -9,7 +9,7 @@ namespace General
         /// </summary>
         /// <typeparam name="T">Type of object to be deserialized from response.</typeparam>
         /// <returns>JSON Content of the response deserialized to an object.</returns>
-        T Get<T>(string pathParam);
+        T Get<T>(string pathParam = "");
         /// <summary>
         /// Sends a POST request to an endpoint.
         /// </summary>
