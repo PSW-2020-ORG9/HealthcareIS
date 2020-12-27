@@ -37,17 +37,16 @@ namespace Feedback.API
         {
             string server = Environment.GetEnvironmentVariable("DB_PSW_SERVER");
             string port = Environment.GetEnvironmentVariable("DB_PSW_PORT");
-            string database = Environment.GetEnvironmentVariable(testing ? "DB_PSW_TEST_DATABASE" : "DB_PSW_DATABASE");
+            string database = testing ? "test_feedback" : "feedback";
             string user = Environment.GetEnvironmentVariable("DB_PSW_USER");
             string password = Environment.GetEnvironmentVariable("DB_PSW_PASSWORD");
             if (server == null
                 || port == null
-                || database == null
                 || user == null
                 || password == null)
                 return null;
 
-            return $"server={server};port={port};database=feedback;user={user};password={password};";
+            return $"server={server};port={port};database={database};user={user};password={password};";
         }
 
         public IConfiguration Configuration { get; }
@@ -60,14 +59,17 @@ namespace Feedback.API
             AddServices(services);
         }
 
+        protected virtual IConnection CreateConnection(string url, string endpoint)
+            => new Connection(url, endpoint);
+
         private void AddServices(IServiceCollection services)
         {
             var userFeedbackRepository = new UserFeedbackSqlRepository(GetContextFactory());
             var surveyRepository = new SurveySqlRepository(GetContextFactory());
             var surveyResponseRepository = new SurveyResponseSqlRepository(GetContextFactory());
             var ratedSectionSqlRepository = new RatedSectionSqlRepository(GetContextFactory());
-            var patientAccountsConnection = new Connection(UserUrl, "/patient/accounts");
-            var doctorConnection = new Connection(UserUrl, "/doctor");
+            var patientAccountsConnection = CreateConnection(UserUrl, "/patient/accounts");
+            var doctorConnection = CreateConnection(UserUrl, "/doctor");
 
             var userFeedbackService = new UserFeedbackService(userFeedbackRepository, patientAccountsConnection);
             var surveyService = new SurveyService(surveyRepository);
@@ -81,9 +83,9 @@ namespace Feedback.API
             services.Add(new ServiceDescriptor(typeof(IUserFeedbackService), userFeedbackService));
         }
 
-        private IContextFactory GetContextFactory()
+        protected virtual IContextFactory GetContextFactory()
         {
-            return new MySqlContextFactory(_connectionString);
+            return new FeedbackSqlContextFactory(_connectionString);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

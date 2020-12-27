@@ -74,7 +74,7 @@ namespace Feedback.API.Services
             List<PatientAccount> patientAccounts = FindPatientAccounts(patientAccountIds);
             foreach (var feedback in feedbacks)
             {
-                feedback.PatientAccount = patientAccounts.Where(pa => pa.Id == feedback.PatientAccountId).First();
+                feedback.PatientAccount = patientAccounts.Where(pa => pa.Id == feedback.PatientAccountId).FirstOrDefault();
             }
         }
 

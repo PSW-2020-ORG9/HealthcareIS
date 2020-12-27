@@ -3,16 +3,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Feedback.API.Infrastructure
 {
-    public class MySqlContextFactory : IContextFactory
+    public class FeedbackSqlContextFactory : IContextFactory
     {
         private readonly string _connectionString;
-        public MySqlContextFactory(string connectionString)
+        public FeedbackSqlContextFactory(string connectionString)
         {
             _connectionString = connectionString;
         }
         public DbContext CreateContext()
         {
-            return new MySqlContext(_connectionString);
+            return new FeedbackSqlContext(_connectionString);
         }
     }
 }

@@ -16,14 +16,14 @@ namespace General
             _deserializer = new JsonDeserializer();
         }
 
-        public T Get<T>(string pathParam = "")
+        public T Get<T>(string pathParam = "") where T : class
         {
             var request = new RestRequest(_endpoint + pathParam, DataFormat.Json);
             var response = _client.Get(request);
             return _deserializer.Deserialize<T>(response);
         }
 
-        public T Post<T>(object obj)
+        public T Post<T>(object obj) where T : class
         {
             var request = new RestRequest(_endpoint, DataFormat.Json);
             request.AddJsonBody(obj);

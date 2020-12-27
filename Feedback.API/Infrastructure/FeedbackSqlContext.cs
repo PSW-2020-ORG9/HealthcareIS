@@ -2,13 +2,14 @@
 using Feedback.API.Model.Survey;
 using Feedback.API.Model.Survey.SurveyEntry;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace Feedback.API.Infrastructure
 {
-    public class MySqlContext : DbContext
+    public class FeedbackSqlContext : DbContext
     {
         private readonly string _connectionString;
-        public MySqlContext(string connectionString)
+        public FeedbackSqlContext(string connectionString)
         {
             _connectionString = connectionString;
         }
@@ -81,6 +82,12 @@ namespace Feedback.API.Infrastructure
             modelBuilder.Entity<DoctorSurveySection>()
                 .Ignore(ds => ds.Doctor);
 
+            SeedData(modelBuilder);
+        }
+
+        protected virtual void SeedData(ModelBuilder modelBuilder)
+        {
+            
         }
     }
 }
