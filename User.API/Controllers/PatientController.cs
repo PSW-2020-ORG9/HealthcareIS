@@ -56,7 +56,6 @@ namespace User.API.Controllers
         {
             _patientRegistrationService.ActivatePatient(guid);
             return Redirect("http://localhost:8080/#/successfully-registered");
-
         }
 
         [HttpGet]
@@ -79,11 +78,17 @@ namespace User.API.Controllers
 
         [HttpPost]
         [Route("accounts")]
-        public IActionResult FindPatientAccounts(List<int> patientIds)
+        public IActionResult FindPatientAccounts(IEnumerable<int> patientIds)
         {
-            var patientAccounts = _patientAccountService.FindPatientAccounts(patientIds);
+            var patientAccounts = _patientAccountService.FindAccounts(patientIds);
             if (patientAccounts != null) return Ok(patientAccounts);
             return BadRequest("Patient accounts not found.");
+        }
+        
+        [HttpPost]
+        public IActionResult FindPatients(IEnumerable<int> patientIds)
+        {
+            return Ok(_patientService.Find(patientIds));
         }
             
     }

@@ -13,6 +13,6 @@ namespace User.API.Services.PatientService
         public PatientAccount GetAccount(int patientId);
         public PatientAccount ChangePassword(PatientAccount account, string newPassword);
         public void ActivateAccount(Guid guid);
-        IEnumerable<PatientAccount> FindPatientAccounts(IEnumerable<int> patientIds);
+        IEnumerable<PatientAccount> FindAccounts(IEnumerable<int> patientIds);
     }
 }

@@ -61,7 +61,7 @@ namespace User.API.Services.PatientService
 
         }
 
-        public IEnumerable<PatientAccount> FindPatientAccounts(IEnumerable<int> patientIds) 
+        public IEnumerable<PatientAccount> FindAccounts(IEnumerable<int> patientIds) 
             => patientAccountRepository.Repository.GetMatching(pa => patientIds.Contains(pa.Id));
     }
 }

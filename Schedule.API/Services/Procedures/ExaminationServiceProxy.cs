@@ -61,20 +61,50 @@ namespace Schedule.API.Services.Procedures
         public Examination Schedule(Examination procedure)
         {
             Examination examination = _examinationService.Schedule(procedure);
+            
+            if (!DoctorExists(procedure.DoctorId)) return null;
+            if (!PatientExists(procedure.PatientId)) return null;
+            
             AttachMissingReferences(new [] {examination});
             return examination;
+        }
+        
+        private bool PatientExists(in int patientId)
+        {
+            try
+            {
+                IEnumerable<Patient> patients = _patientConnection.Post<IEnumerable<Patient>>(new[] {patientId});
+                return patients.Count() == 1;
+            }
+            catch (SerializationException)
+            {
+                return false;
+            }
+        }
+        
+        private bool DoctorExists(in int doctorId)
+        {
+            try
+            {
+                IEnumerable<Doctor> doctors = _patientConnection.Post<IEnumerable<Doctor>>(new[] {doctorId});
+                return doctors.Count() == 1;
+            }
+            catch (SerializationException)
+            {
+                return false;
+            }
         }
 
         // Data reassembly methods
         private void AttachMissingReferences(IEnumerable<Examination> examinations)
         {
             List<Examination> examinationList = examinations.ToList();
-            AttachDoctor(examinationList);
-            AttachRoom(examinationList);
-            AttachPatient(examinationList);
+            AttachDoctors(examinationList);
+            AttachRooms(examinationList);
+            AttachPatients(examinationList);
         }
 
-        private void AttachDoctor(List<Examination> examinations)
+        private void AttachDoctors(List<Examination> examinations)
         {
             HashSet<int> doctorIds = new HashSet<int>();
             
@@ -99,7 +129,7 @@ namespace Schedule.API.Services.Procedures
             }
         }
 
-        private void AttachRoom(List<Examination> examinations)
+        private void AttachRooms(List<Examination> examinations)
         {
             HashSet<int> roomIds = new HashSet<int>();
             
@@ -124,13 +154,13 @@ namespace Schedule.API.Services.Procedures
             }
         }
 
-        private void AttachPatient(List<Examination> examinations)
+        private void AttachPatients(List<Examination> examinations)
         {
             HashSet<int> patientIds = new HashSet<int>();
             
             foreach (var examination in examinations)
             {
-                patientIds.Add(examination.RoomId);
+                patientIds.Add(examination.PatientId);
             }
 
             IEnumerable<Patient> patients;
