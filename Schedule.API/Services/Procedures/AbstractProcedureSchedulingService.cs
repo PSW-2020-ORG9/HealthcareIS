@@ -1,4 +1,5 @@
-﻿using Schedule.API.Infrastructure.Repositories;
+﻿using General.Repository;
+using Schedule.API.Infrastructure.Repositories;
 using Schedule.API.Infrastructure.Repositories.Shifts;
 using Schedule.API.Model.Procedures;
 using Schedule.API.Services.Procedures.Interface;

@@ -1,6 +1,5 @@
 using System.ComponentModel.DataAnnotations.Schema;
-using Schedule.API.Infrastructure;
-using Schedule.API.Infrastructure.Database;
+using General;
 using Schedule.API.Model.Dependencies;
 using Schedule.API.Model.Utilities;
 

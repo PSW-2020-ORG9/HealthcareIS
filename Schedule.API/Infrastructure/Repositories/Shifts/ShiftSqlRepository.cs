@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using General;
+using General.Repository;
 using Microsoft.EntityFrameworkCore;
 using Schedule.API.Infrastructure.Database;
 using Schedule.API.Model.Shifts;

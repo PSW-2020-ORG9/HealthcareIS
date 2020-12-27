@@ -1,22 +1,17 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using General;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Schedule.API.Infrastructure.Database;
 using Schedule.API.Infrastructure.Repositories.Procedures;
 using Schedule.API.Infrastructure.Repositories.Procedures.Interfaces;
 using Schedule.API.Infrastructure.Repositories.Shifts;
 using Schedule.API.Services.Procedures;
-using IContextFactory = Schedule.API.Infrastructure.Database.IContextFactory;
+using Schedule.API.Services.Procedures.Interface;
+using IExaminationService = Schedule.API.Services.Procedures.IExaminationService;
 
 namespace Schedule.API
 {
@@ -64,9 +59,10 @@ namespace Schedule.API
 
         public void ConfigureServices(IServiceCollection services)
         {
+            // Examinations
             IExaminationRepository examinationRepository = new ExaminationSqlRepository(GetContextFactory());
             IShiftRepository shiftRepository = new ShiftSqlRepository(GetContextFactory());
-            ExaminationService examinationService = new ExaminationService(examinationRepository, shiftRepository);
+            IExaminationService examinationService = new IExaminationService(examinationRepository, shiftRepository);
             
             IConnection patientConnection = new Connection(UserUrl, "patient");
             IConnection doctorConnection = new Connection(UserUrl, "doctor");
@@ -76,11 +72,18 @@ namespace Schedule.API
                     examinationService,
                     roomConnection, doctorConnection, patientConnection);
 
+            // Recommendations
             RecommendationService recommendationService =
                 new RecommendationService(examinationRepository, shiftRepository, doctorConnection);
             
+            // Diagnoses
+            IDiagnosisRepository diagnosisRepository = new DiagnosisSqlRepository(GetContextFactory());
+            IDiagnosisService diagnosisService = new DiagnosisService(diagnosisRepository);
+            
+            services.Add(new ServiceDescriptor(typeof(IDiagnosisService), diagnosisService));
             services.Add(new ServiceDescriptor(typeof(ExaminationServiceProxy), examinationServiceProxy));
             services.Add(new ServiceDescriptor(typeof(RecommendationService), recommendationService));
+            
             services.AddControllers();
         }
 

@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using General.Repository;
 using Schedule.API.Model.Shifts;
 using Schedule.API.Model.Utilities;
 

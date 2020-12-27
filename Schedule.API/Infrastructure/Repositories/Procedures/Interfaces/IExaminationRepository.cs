@@ -1,10 +1,6 @@
-// File:    ExaminationRepository.cs
-// Author:  Lana
-// Created: 04 May 2020 13:58:09
-// Purpose: Definition of Interface ExaminationRepository
-
 using System;
 using System.Collections.Generic;
+using General.Repository;
 using Schedule.API.Model.Dependencies;
 using Schedule.API.Model.Procedures;
 

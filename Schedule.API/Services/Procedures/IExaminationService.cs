@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using General.Repository;
 using Schedule.API.Infrastructure.Repositories;
 using Schedule.API.Infrastructure.Repositories.Procedures.Interfaces;
 using Schedule.API.Infrastructure.Repositories.Shifts;
@@ -11,11 +12,11 @@ using Schedule.API.Services.Procedures.Interface;
 
 namespace Schedule.API.Services.Procedures
 {
-    public class ExaminationService : AbstractProcedureSchedulingService<Examination>, IExaminationService
+    public class IExaminationService : AbstractProcedureSchedulingService<Examination>, Interface.IExaminationService
     {
         private readonly RepositoryWrapper<IExaminationRepository> _examinationWrapper;
 
-        public ExaminationService(
+        public IExaminationService(
             IExaminationRepository examinationRepository,
             IShiftRepository shiftRepository
         ) : base(shiftRepository)

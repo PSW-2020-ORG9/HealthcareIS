@@ -9,13 +9,13 @@ using Schedule.API.Services.Procedures.Interface;
 
 namespace Schedule.API.Services.Procedures
 {
-    public class ExaminationServiceProxy : IExaminationService
+    public class ExaminationServiceProxy : Interface.IExaminationService
     {
-        private readonly ExaminationService _examinationService;
+        private readonly IExaminationService _examinationService;
         private readonly IConnection _roomConnection, _doctorConnection, _patientConnection;
 
         public ExaminationServiceProxy(
-            ExaminationService examinationService, 
+            IExaminationService examinationService, 
             IConnection roomConnection, IConnection doctorConnection, IConnection patientConnection
         )
         {

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using General;
+using Microsoft.EntityFrameworkCore;
 
 namespace Schedule.API.Infrastructure.Database
 {

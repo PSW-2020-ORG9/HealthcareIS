@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using General;
+using General.Repository;
 using Schedule.API.Infrastructure.Repositories;
 using Schedule.API.Infrastructure.Repositories.Procedures.Interfaces;
 using Schedule.API.Infrastructure.Repositories.Shifts;
