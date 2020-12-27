@@ -66,7 +66,7 @@ namespace Schedule.API.Services.Procedures
 
             IEnumerable<Shift> allShifts = _shiftWrapper.Repository
                 .GetMatching(shift =>
-                    shift.Doctor.Specialties.First(specialty => specialty.Id == dto.SpecialtyId) != default
+                    shift.Doctor.Specialties.First(specialty => specialty.SpecialtyId == dto.SpecialtyId) != default
                     && shift.TimeInterval.Start >= dto.TimeInterval.Start
                     && shift.TimeInterval.Start <= dto.TimeInterval.End
                 );

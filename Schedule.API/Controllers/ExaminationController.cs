@@ -46,7 +46,7 @@ namespace Schedule.API.Controllers
             var examination = ExaminationMapper.DtoToObject(dto);
             try
             {
-                examination = _examinationService.Schedule(examination);
+                return Ok(_examinationService.Schedule(examination));
             }
             catch (NullReferenceException)
             {
@@ -56,8 +56,10 @@ namespace Schedule.API.Controllers
             {
                 return BadRequest(e.Message);
             }
-
-            return Ok(examination);
+            catch (ArgumentException e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         [HttpPost]

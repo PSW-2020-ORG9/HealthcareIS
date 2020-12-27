@@ -17,8 +17,6 @@ namespace Schedule.API.Infrastructure.Repositories.Procedures
         protected override IQueryable<Examination> IncludeFields(IQueryable<Examination> query)
         {
             return query
-                .Include(examination => examination.ProcedureDetails)
-
                 .Include(examination => examination.ExaminationReport)
                 .Include(examination  => examination.ExaminationReport.Diagnoses);
         }

@@ -18,10 +18,10 @@ namespace Schedule.API.Model.Filters
             if (!string.IsNullOrEmpty(DoctorSurname))
                 AddExpressionFunction(examination => examination.Doctor.Person.Surname.Contains(DoctorSurname));
             if (!string.IsNullOrEmpty(ProcedureDetails))
-                AddExpressionFunction(examination => examination.ProcedureDetails.Description.Contains(ProcedureDetails));
+                AddExpressionFunction(examination => examination.ExaminationReport.Anamnesis.Contains(ProcedureDetails));
             if (DoctorSpecialtyId != -1)
                 AddExpressionFunction(examination => 
-                    examination.ProcedureDetails.RequiredSpecialtyId == DoctorSpecialtyId);
+                    examination.RequiredSpecialtyId == DoctorSpecialtyId);
             switch (Status)
             {
                 case TimeStatus.Past:

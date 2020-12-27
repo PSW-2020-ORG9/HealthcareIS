@@ -5,7 +5,6 @@ using General;
 using Schedule.API.Model.Dependencies;
 using Schedule.API.Model.Filters;
 using Schedule.API.Model.Procedures;
-using Schedule.API.Services.Procedures.Interface;
 
 namespace Schedule.API.Services.Procedures
 {
@@ -60,39 +59,8 @@ namespace Schedule.API.Services.Procedures
 
         public Examination Schedule(Examination procedure)
         {
-            Examination examination = _examinationService.Schedule(procedure);
-            
-            if (!DoctorExists(procedure.DoctorId)) return null;
-            if (!PatientExists(procedure.PatientId)) return null;
-            
-            AttachMissingReferences(new [] {examination});
-            return examination;
-        }
-        
-        private bool PatientExists(in int patientId)
-        {
-            try
-            {
-                IEnumerable<Patient> patients = _patientConnection.Post<IEnumerable<Patient>>(new[] {patientId});
-                return patients.Count() == 1;
-            }
-            catch (SerializationException)
-            {
-                return false;
-            }
-        }
-        
-        private bool DoctorExists(in int doctorId)
-        {
-            try
-            {
-                IEnumerable<Doctor> doctors = _patientConnection.Post<IEnumerable<Doctor>>(new[] {doctorId});
-                return doctors.Count() == 1;
-            }
-            catch (SerializationException)
-            {
-                return false;
-            }
+            AttachMissingReferences(new [] {procedure});
+            return _examinationService.Schedule(procedure);
         }
 
         // Data reassembly methods

@@ -14,7 +14,7 @@ namespace Schedule.API.Mappers
                 TimeInterval = new TimeInterval(dto.StartTime, dto.StartTime.Add(Examination.TimeFrameSize)),
                 PatientId = dto.PatientId,
                 IsCanceled = false,
-                Priority = ProcedurePriority.Low
+                Priority = ProcedurePriority.Low,
             };
         }
     }

@@ -18,10 +18,6 @@ namespace Schedule.API.Model.Procedures
         public int RoomId { get; set; }
         public Room Room { get; set; }
         
-        [ForeignKey("ProcedureDetails")]
-        public int? ProcedureDetailsId { get; set; }
-        public ProcedureDetails ProcedureDetails { get; set; }
-
         [ForeignKey("ReferredFrom")]
         public int? ReferredFromId { get; set; }
         public Examination ReferredFrom { get; set; }
@@ -29,5 +25,6 @@ namespace Schedule.API.Model.Procedures
         [Column(TypeName = "nvarchar(12)")]
         public ProcedurePriority Priority { get; set; }
         
+        public int RequiredSpecialtyId { get; set; }
     }
 }

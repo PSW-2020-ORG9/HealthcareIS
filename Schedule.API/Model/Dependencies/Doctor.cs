@@ -8,6 +8,11 @@ namespace Schedule.API.Model.Dependencies
     {
         public int Id { get; set; }
         public Person Person { get; set; }
-        public IEnumerable<Specialty> Specialties { get; set; }
+        public IEnumerable<DoctorSpecialty> Specialties { get; set; }
+    }
+
+    public class DoctorSpecialty
+    {
+        public int SpecialtyId { get; set; }
     }
 }

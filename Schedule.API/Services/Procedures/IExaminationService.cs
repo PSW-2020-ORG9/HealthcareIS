@@ -59,13 +59,16 @@ namespace Schedule.API.Services.Procedures
         {
             if(procedure == null)
                 throw new NullReferenceException();
+            if (procedure.Doctor == null)
+                throw new ArgumentException("Doctor not found.");
+            if (procedure.Patient == null)
+                throw new ArgumentException("Patient not found.");
         }
 
         protected override void ValidateForScheduling(Examination procedure)
         {
             ValidateInterval(procedure);
             ValidateTimeConstraint(procedure);
-            
         }
 
         private static void ValidateTimeConstraint(Examination procedure)
@@ -77,7 +80,6 @@ namespace Schedule.API.Services.Procedures
 
         private void ValidateInterval(Procedure procedure)
         {
-            // TODO Check if procedure start is valid according to Examination.TimeFrameSize
             var examinations =
                 _examinationWrapper.Repository.GetByDoctorAndExaminationStart(procedure.DoctorId, procedure.TimeInterval.Start).Where(e => !e.IsCanceled);
             if(examinations.Count() != 0)

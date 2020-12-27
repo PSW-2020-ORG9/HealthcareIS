@@ -35,7 +35,6 @@ namespace Schedule.API.Infrastructure.Database
         }
 
         public DbSet<Diagnosis> Diagnoses { get; set; }
-        public DbSet<ProcedureDetails> ProcedureDetails { get; set; }
         
         public DbSet<Examination> Examinations { get; set; }
         public DbSet<ExaminationReport> ExaminationReports { get; set; }

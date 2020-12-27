@@ -1,6 +1,7 @@
 ﻿using General.Repository;
 using Schedule.API.Infrastructure.Repositories;
 using Schedule.API.Infrastructure.Repositories.Shifts;
+using Schedule.API.Model.Exceptions;
 using Schedule.API.Model.Procedures;
 using Schedule.API.Services.Procedures.Interface;
 
@@ -40,9 +41,13 @@ namespace Schedule.API.Services.Procedures
 
         private void LinkRoomToProcedure(Procedure procedure)
         {
-            procedure.RoomId = _shiftWrapper.Repository.GetAssignedRoomId(
+            var shiftRoomId = _shiftWrapper.Repository.GetAssignedRoomId(
                 procedure.DoctorId, procedure.TimeInterval.Start.Date
             );
+            if (shiftRoomId == -1)
+                throw new ScheduleViolationException($"No shifts available for the given doctor.");
+            
+            procedure.RoomId = shiftRoomId;
         }
     }
 }
