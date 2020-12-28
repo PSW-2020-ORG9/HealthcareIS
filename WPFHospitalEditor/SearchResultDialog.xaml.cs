@@ -72,28 +72,28 @@ namespace WPFHospitalEditor
         }
         private void DefineDynamicGrid()
         {
-            createRows();
+            CreateRows();
             foreach (String oneRow in contentRows)
             {
-                String[] oneRowContents = oneRow.Split(AllConstants.contentSeparator);
-                createRowData(oneRowContents);
+                String[] oneRowContents = oneRow.Split(AllConstants.ContentSeparator);
+                CreateRowData(oneRowContents);
             }
         }
 
-        private void createRowData(string[] oneRowContents)
+        private void CreateRowData(string[] oneRowContents)
         {
-            addLabels(oneRowContents);
-            addAdvancedSearchButton();
+            AddLabels(oneRowContents);
+            AddAdvancedSearchButton();
             if (searchType == SearchType.AppointmentSearch)
             {
-                addScheduleButton();
+                AddScheduleButton();
             }
                 
-            addSeparator();
+            AddSeparator();
             firstContentRowNumber++;
         }
 
-        private void addLabels(string[] oneRowContents)
+        private void AddLabels(string[] oneRowContents)
         {
             for(int i = 0; i < oneRowContents.Length; i++)
             {
@@ -107,11 +107,11 @@ namespace WPFHospitalEditor
             }
         }
 
-        private void addAdvancedSearchButton()          
+        private void AddAdvancedSearchButton()          
         {
             Button advancedSearchBtn = new Button();
-            setAdvancedSearchButtonProperties(advancedSearchBtn);
-            setCommonButtonProperties(advancedSearchBtn);
+            SetAdvancedSearchButtonProperties(advancedSearchBtn);
+            SetCommonButtonProperties(advancedSearchBtn);
             advancedSearchButtons.Add(advancedSearchBtn);
 
             Grid.SetRow(advancedSearchBtn, firstContentRowNumber);
@@ -125,11 +125,11 @@ namespace WPFHospitalEditor
                 {
                     MapObject chosenMapObject = displayBtnRow[Grid.GetRow(advancedSearchBtn)];
                     selectedObjectId = chosenMapObject.Id;
-                    mapObjectController.update(chosenMapObject);
+                    mapObjectController.Update(chosenMapObject);
 
                     if (chosenMapObject.Description.Equals(""))
                     {
-                        CanvasService.addObjectToCanvas(mapObjectController.getOutterMapObjects(), HospitalMap.canvasHospitalMap);
+                        CanvasService.AddObjectToCanvas(mapObjectController.GetOutterMapObjects(), HospitalMap.canvasHospitalMap);
                         this.Close();
                     }
                     else
@@ -137,7 +137,7 @@ namespace WPFHospitalEditor
                         String building = getBuildingAndFloor(chosenMapObject).Item1;
                         String floor = getBuildingAndFloor(chosenMapObject).Item2;
                         List<MapObject> chosenBuilding = findMapObjectsInBuilding(building);
-                        displayBuildingAndFloorBasedOnSelectedObject(chosenBuilding, int.Parse(floor), int.Parse(building));
+                        DisplayBuildingAndFloorBasedOnSelectedObject(chosenBuilding, int.Parse(floor), int.Parse(building));
                         
                         hospitalMap.Hide();
                         this.Close();
@@ -146,11 +146,11 @@ namespace WPFHospitalEditor
             };
         }
 
-        private void addScheduleButton()
+        private void AddScheduleButton()
         {
             Button scheduleBtn = new Button();
-            setScheduleButtonProperties(scheduleBtn);
-            setCommonButtonProperties(scheduleBtn);
+            SetScheduleButtonProperties(scheduleBtn);
+            SetCommonButtonProperties(scheduleBtn);
             scheduleButtons.Add(scheduleBtn);
             Grid.SetRow(scheduleBtn, firstContentRowNumber);
             Grid.SetColumn(scheduleBtn, DynamicGrid.ColumnDefinitions.Count - 2);
@@ -169,11 +169,11 @@ namespace WPFHospitalEditor
 
         }
 
-        public void displayBuildingAndFloorBasedOnSelectedObject(List<MapObject> chosenBuilding,int  floor, int building)
+        public void DisplayBuildingAndFloorBasedOnSelectedObject(List<MapObject> chosenBuilding,int  floor, int building)
         {
             Building buildingFromSearch = new Building(chosenBuilding, floor);
             Building.canvasBuilding.Children.Clear();
-            CanvasService.addObjectToCanvas(getObjects(building.ToString(), floor.ToString()), Building.canvasBuilding);
+            CanvasService.AddObjectToCanvas(GetObjects(building.ToString(), floor.ToString()), Building.canvasBuilding);
             buildingFromSearch.Owner = hospitalMap;
             buildingFromSearch.Show();
         }
@@ -183,7 +183,7 @@ namespace WPFHospitalEditor
             Tuple<String, String> buildingAndFloorIteration;
             String buildingId = "";
             List<MapObject> buildingObjects = new List<MapObject>();
-            foreach (MapObject mapObjectIterate in mapObjectController.getAllMapObjects())
+            foreach (MapObject mapObjectIterate in mapObjectController.GetAllMapObjects())
             {
                 buildingAndFloorIteration = getBuildingAndFloor(mapObjectIterate);
                 if (buildingAndFloorIteration != null)
@@ -198,7 +198,7 @@ namespace WPFHospitalEditor
             return buildingObjects;
         }
 
-        private static void setAdvancedSearchButtonProperties(Button advancedSearch)
+        private static void SetAdvancedSearchButtonProperties(Button advancedSearch)
         {
             advancedSearch.Content = "+";
             advancedSearch.FontSize = 35;
@@ -207,7 +207,7 @@ namespace WPFHospitalEditor
             advancedSearch.VerticalContentAlignment = VerticalAlignment.Top;
         }
 
-        private static void setScheduleButtonProperties(Button scheduleBtn)
+        private static void SetScheduleButtonProperties(Button scheduleBtn)
         {
             scheduleBtn.Content = "Schedule";
             scheduleBtn.FontSize = 15;
@@ -216,7 +216,7 @@ namespace WPFHospitalEditor
             scheduleBtn.VerticalContentAlignment = VerticalAlignment.Bottom;           
         }
 
-        private void setCommonButtonProperties(Button button)
+        private void SetCommonButtonProperties(Button button)
         {
             button.HorizontalAlignment = HorizontalAlignment.Center;
             button.VerticalAlignment = VerticalAlignment.Center;
@@ -228,7 +228,7 @@ namespace WPFHospitalEditor
             button.Padding = new Thickness(0, -10, 0, 0);
         }
 
-        private void addSeparator()
+        private void AddSeparator()
         {
             Separator separator = new Separator();
             separator.VerticalAlignment = VerticalAlignment.Bottom;
@@ -238,25 +238,25 @@ namespace WPFHospitalEditor
             DynamicGrid.Children.Add(separator);
         }
 
-        private void createOneRow(int height)
+        private void CreateOneRow(int height)
         {
             RowDefinition gridRow = new RowDefinition();
             gridRow.Height = new GridLength(height);
             DynamicGrid.RowDefinitions.Add(gridRow);
         }
 
-        private void createRows()
+        private void CreateRows()
         {
             for (int i = 0; i < contentRows.Count(); i++)
             {
-                createOneRow(50);
+                CreateOneRow(50);
             }
         }
 
         private void Close_Click(object sender, RoutedEventArgs e)
         {
             selectedObjectId = -1;
-            CanvasService.addObjectToCanvas(mapObjectController.getOutterMapObjects(), HospitalMap.canvasHospitalMap);
+            CanvasService.AddObjectToCanvas(mapObjectController.GetOutterMapObjects(), HospitalMap.canvasHospitalMap);
             Close();
         }
 
@@ -272,13 +272,13 @@ namespace WPFHospitalEditor
             return null;
         }
 
-        private List<MapObject> getObjects(String building, String floor)
+        private List<MapObject> GetObjects(String building, String floor)
         {
             List<MapObject> objectsToDisplay = new List<MapObject>();
-            List<MapObject> allMapObjects = mapObjectController.getAllMapObjects();
+            List<MapObject> allMapObjects = mapObjectController.GetAllMapObjects();
             foreach (MapObject mapObjectIteration in allMapObjects)
             {
-                if (isBuildingAndFloorEqual(building, floor, mapObjectIteration))
+                if (IsBuildingAndFloorEqual(building, floor, mapObjectIteration))
                 {
                     objectsToDisplay.Add(mapObjectIteration);
                 }
@@ -286,7 +286,7 @@ namespace WPFHospitalEditor
             return objectsToDisplay;
         }
 
-        private bool isBuildingAndFloorEqual(String building, String floor, MapObject mapObjectForChecking)
+        private bool IsBuildingAndFloorEqual(String building, String floor, MapObject mapObjectForChecking)
         {
 
             Tuple<String, String> buildingAndFloorForChecking = getBuildingAndFloor(mapObjectForChecking);
@@ -331,9 +331,9 @@ namespace WPFHospitalEditor
             for (int i = 0; i < HospitalMap.equipmentSearchResult.Count(); i++)
             {
                 EquipmentDto equipmentDto = HospitalMap.equipmentSearchResult.ElementAt(i);
-                MapObject mo = mapObjectController.findMapObjectById(equipmentDto.RoomId);
+                MapObject mo = mapObjectController.GetMapObjectById(equipmentDto.RoomId);
                 equipmentContentRows[i] = equipmentDto.Quantity 
-                                 + AllConstants.contentSeparator +
+                                 + AllConstants.ContentSeparator +
                                  MapObjectToRow(mo);
                 displayBtnRow.Add(i, mo);
             }
@@ -342,12 +342,12 @@ namespace WPFHospitalEditor
         private string[] MedicationToContentRows()
         {
             string[] medicationContentRows = new string[HospitalMap.medicationSearchResult.Count()];
-            MapObject mo = mapObjectController.findMapObjectById(STORAGEROOM_ID);
+            MapObject mo = mapObjectController.GetMapObjectById(STORAGEROOM_ID);
             for (int i = 0; i < HospitalMap.medicationSearchResult.Count(); i++)
             {
                 MedicationDto medicationDto = HospitalMap.medicationSearchResult.ElementAt(i);
                 medicationContentRows[i] = medicationDto.Quantity
-                                 + AllConstants.contentSeparator +
+                                 + AllConstants.ContentSeparator +
                                  MapObjectToRow(mo);
                 displayBtnRow.Add(i, mo);
             }
@@ -356,9 +356,9 @@ namespace WPFHospitalEditor
 
         private string MapObjectToRow(MapObject mo)
         {
-            string result = mo.Name + AllConstants.contentSeparator
-                            + Building.findBuilding(mo)
-                            + AllConstants.contentSeparator + Building.findFloor(mo);
+            string result = mo.Name + AllConstants.ContentSeparator
+                            + Building.FindBuilding(mo)
+                            + AllConstants.ContentSeparator + Building.FindFloor(mo);
             return result;
         }
 
@@ -380,12 +380,12 @@ namespace WPFHospitalEditor
             for (int i = 0; i < HospitalMap.appointmentSearchResult.Count(); i++)
             {
                 RecommendationDto recommendationDto = HospitalMap.appointmentSearchResult.ElementAt(i);
-                MapObject mo = mapObjectController.findMapObjectById(recommendationDto.RoomId);
+                MapObject mo = mapObjectController.GetMapObjectById(recommendationDto.RoomId);
                 string doctor = recommendationDto.Doctor.Person.Name + " " + recommendationDto.Doctor.Person.Surname;
                 string timeInterval = recommendationDto.TimeInterval.Start.ToString() + "-" + recommendationDto.TimeInterval.End.ToString();
                 appointmentContentRows[i] = mo.Name
-                                + AllConstants.contentSeparator + doctor
-                                 + AllConstants.contentSeparator + timeInterval;
+                                + AllConstants.ContentSeparator + doctor
+                                 + AllConstants.ContentSeparator + timeInterval;
                 displayBtnRow.Add(i, mo);
                 scheduleBtnRow.Add(i, recommendationDto);
             }

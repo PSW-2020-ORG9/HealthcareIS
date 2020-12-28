@@ -23,42 +23,42 @@ namespace WPFHospitalEditor
         public Building(List<MapObject> buildingObjects, int selectedFloor)
         {
             InitializeComponent();
-            clearAll();          
-            populateBuildingFloors(buildingObjects);            
-            setFloorComboBox();
+            ClearAll();          
+            PopulateBuildingFloors(buildingObjects);            
+            SetFloorComboBox();
             floor.SelectedIndex = selectedFloor;
-            floorBuildingObjects = buildingFloors[floor.SelectedIndex].getAllFloorMapObjects();
+            floorBuildingObjects = buildingFloors[floor.SelectedIndex].GetAllFloorMapObjects();
             canvasBuilding = canvas;
         }
         
-        private void populateBuildingFloors(List<MapObject> allBuildingObjects)
+        private void PopulateBuildingFloors(List<MapObject> allBuildingObjects)
         {
             foreach(MapObject mapObjectIterate in allBuildingObjects)
             {
-                int index = int.Parse(findFloor(mapObjectIterate));
+                int index = int.Parse(FindFloor(mapObjectIterate));
                 if(!buildingFloors.ContainsKey(index))
                 {
                     buildingFloors.Add(index, new Floor());
                 }
-                buildingFloors[index].addMapObject(mapObjectIterate);
+                buildingFloors[index].AddMapObject(mapObjectIterate);
             }
         }
               
-        public static String findFloor(MapObject mapObject)
+        public static String FindFloor(MapObject mapObject)
         {
             String[] descriptionParts = mapObject.Description.Split("&");
             String[] floors = descriptionParts[0].Split("-");
             return floors[1];
         }
 
-        public static String findBuilding(MapObject mapObject)
+        public static String FindBuilding(MapObject mapObject)
         {
             String[] descriptionParts = mapObject.Description.Split("&");
             String[] buildings = descriptionParts[0].Split("-");
             return buildings[0];
         }
 
-        private void setFloorComboBox()
+        private void SetFloorComboBox()
         {
             for (int i = 0; i < buildingFloors.Count; i++)
             {
@@ -66,44 +66,44 @@ namespace WPFHospitalEditor
             }
         }
 
-        private void back_Click(object sender, RoutedEventArgs e)
+        private void BackClick(object sender, RoutedEventArgs e)
         {
-            clearAll();           
+            ClearAll();           
             this.Close();
-            CanvasService.addObjectToCanvas(mapObjectController.getOutterMapObjects(), HospitalMap.canvasHospitalMap);
+            CanvasService.AddObjectToCanvas(mapObjectController.GetOutterMapObjects(), HospitalMap.canvasHospitalMap);
             Owner.Show();
         }
 
-        private void floor_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void FloorSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            clearAll();
+            ClearAll();
             int index = floor.SelectedIndex;
             if (buildingFloors.Count == 0) return;
-            CanvasService.addObjectToCanvas(buildingFloors[index].getAllFloorMapObjects(), canvas);
-            displayLegend(buildingFloors[index].getAllFloorMapObjects());
+            CanvasService.AddObjectToCanvas(buildingFloors[index].GetAllFloorMapObjects(), canvas);
+            DisplayLegend(buildingFloors[index].GetAllFloorMapObjects());
         }
 
-        private void clearAll()
+        private void ClearAll()
         {
             if (legend == null) return;
             canvas.Children.Clear();
             legend.Children.Clear();
         }
 
-        private void displayLegend(List<MapObject> displayedMapObjects)
+        private void DisplayLegend(List<MapObject> displayedMapObjects)
         {
             if (legend == null) return;
-            HashSet<MapObjectType> mapObjectTypes = findAllMapObjectTypesOnFloor(displayedMapObjects);
-            addingRowsToGrid(mapObjectTypes);
+            HashSet<MapObjectType> mapObjectTypes = FindAllMapObjectTypesOnFloor(displayedMapObjects);
+            AddingRowsToGrid(mapObjectTypes);
             
             int index = 0;
             foreach (MapObjectType mapObjectType in mapObjectTypes) {
-                organiseLegend(mapObjectType, index);
+                OrganiseLegend(mapObjectType, index);
                 index++;
             }
         }
 
-        private HashSet<MapObjectType> findAllMapObjectTypesOnFloor(List<MapObject> displayedMapObjects)
+        private HashSet<MapObjectType> FindAllMapObjectTypesOnFloor(List<MapObject> displayedMapObjects)
         {
             HashSet<MapObjectType> mapObjectTypes = new HashSet<MapObjectType>();
             for (int i = 0; i < displayedMapObjects.Count; i++)
@@ -113,7 +113,7 @@ namespace WPFHospitalEditor
             return mapObjectTypes;
         }
 
-        private void addingRowsToGrid(HashSet<MapObjectType> mapObjectTypes)
+        private void AddingRowsToGrid(HashSet<MapObjectType> mapObjectTypes)
         {
             int numberOfRows = (mapObjectTypes.Count / legend.ColumnDefinitions.Count) + 1;
             for (int i = 0; i < numberOfRows; i++)
@@ -122,15 +122,15 @@ namespace WPFHospitalEditor
             }
         }
   
-        private void organiseLegend(MapObjectType mapObjectType, int index)
+        private void OrganiseLegend(MapObjectType mapObjectType, int index)
         {
-            Rectangle rectangle = createRectangleInLegend(mapObjectType);
-            TextBlock textblock = createTextBlockInLegend(mapObjectType);
-            settingPosition(index, rectangle, textblock);
-            addToLegend(rectangle, textblock);
+            Rectangle rectangle = CreateRectangleInLegend(mapObjectType);
+            TextBlock textblock = CreateTextBlockInLegend(mapObjectType);
+            SettingPosition(index, rectangle, textblock);
+            AddToLegend(rectangle, textblock);
         }
 
-        private Rectangle createRectangleInLegend(MapObjectType mapObjectType)
+        private Rectangle CreateRectangleInLegend(MapObjectType mapObjectType)
         {
             Rectangle rectangle = new Rectangle();
             rectangle.Fill = MapObjectColors.getInstance().getColor(mapObjectType);
@@ -139,14 +139,14 @@ namespace WPFHospitalEditor
             return rectangle;
         }
 
-        private TextBlock createTextBlockInLegend(MapObjectType mapObjectType)
+        private TextBlock CreateTextBlockInLegend(MapObjectType mapObjectType)
         {
             TextBlock textblock = new TextBlock();
             textblock.Text = mapObjectType.ToString() + "-  ";
             return textblock;
         }
 
-        private void settingPosition(int index, Rectangle rectangle, TextBlock textblock)
+        private void SettingPosition(int index, Rectangle rectangle, TextBlock textblock)
         {
             int row = (index / legend.ColumnDefinitions.Count);
             int column = index - row * legend.ColumnDefinitions.Count;
@@ -156,23 +156,23 @@ namespace WPFHospitalEditor
             textblock.SetValue(Grid.RowProperty, row);
         }
 
-        private void addToLegend(Rectangle rectangle, TextBlock textblock)
+        private void AddToLegend(Rectangle rectangle, TextBlock textblock)
         {
             legend.Children.Add(rectangle);
             legend.Children.Add(textblock);
         }
 
-        private void selectMapObject(object sender, MouseButtonEventArgs e)
+        private void SelectMapObject(object sender, MouseButtonEventArgs e)
         {
             int index = floor.SelectedIndex;
-            MapObject chosenMapObject = CanvasService.checkWhichObjectIsClicked(e, buildingFloors[index].getAllFloorMapObjects(), this.canvas);
+            MapObject chosenMapObject = CanvasService.CheckWhichObjectIsClicked(e, buildingFloors[index].GetAllFloorMapObjects(), this.canvas);
             if (chosenMapObject != null)
             {
-                openAdditionalInformationDialog(chosenMapObject);
+                OpenAdditionalInformationDialog(chosenMapObject);
             }
         }
         
-        private void openAdditionalInformationDialog(MapObject mapObject)
+        private void OpenAdditionalInformationDialog(MapObject mapObject)
         {
             AdditionalInformation additionalInformation = new AdditionalInformation(mapObject, this);
             additionalInformation.Owner = this;

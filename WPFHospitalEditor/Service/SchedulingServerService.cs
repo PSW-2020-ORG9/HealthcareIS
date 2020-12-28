@@ -12,14 +12,14 @@ namespace WPFHospitalEditor.Service
     {
         public List<RecommendationDto> GetAppointments(RecommendationRequestDto recDto)
         {
-            var client = new RestClient(AllConstants.connectionUrl);
+            var client = new RestClient(AllConstants.ConnectionUrl);
             var request = new RestRequest("Examination/recommend", Method.POST);
-            request.AddJsonBody(recommendationDtoToJson(recDto));
+            request.AddJsonBody(RecommendationDtoToJson(recDto));
             var response = client.Post<List<RecommendationDto>>(request);
             return response.Data;
         }
 
-        private String recommendationDtoToJson(RecommendationRequestDto recDto)
+        private String RecommendationDtoToJson(RecommendationRequestDto recDto)
         {
             return JsonConvert.SerializeObject(recDto);
         }

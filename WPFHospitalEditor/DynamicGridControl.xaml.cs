@@ -22,7 +22,7 @@ namespace WPFHospitalEditor
             this.contentRows = contentRows;
             this.isReadOnly = isReadOnly;
             GridControl.Children.Clear();
-            createRows(contentRows);
+            CreateRows(contentRows);
             AddRowContent();
         }
 
@@ -31,13 +31,13 @@ namespace WPFHospitalEditor
             for (int i = 0; i < contentRows.Length; i++)
             {
                 if (contentRows[i].Equals("")) break;
-                String[] rowContent = contentRows[i].Split(AllConstants.descriptionSeparator);
-                insertLabel(rowContent[0], i);
-                insertTextBox(rowContent[1], i);
+                String[] rowContent = contentRows[i].Split(AllConstants.DescriptionSeparator);
+                InsertLabel(rowContent[0], i);
+                InsertTextBox(rowContent[1], i);
             }
         }
 
-        private void insertLabel(String labelContent, int i)
+        private void InsertLabel(String labelContent, int i)
         {
             Label label = new Label();
             label.Content = labelContent;
@@ -50,7 +50,7 @@ namespace WPFHospitalEditor
             GridControl.Children.Add(label);
         }
 
-        private void insertTextBox(String textBoxContent, int i)
+        private void InsertTextBox(String textBoxContent, int i)
         {
             TextBox textBox = new TextBox();
             textBox.Text = textBoxContent;
@@ -66,15 +66,15 @@ namespace WPFHospitalEditor
             GridControl.Children.Add(textBox);
         }
 
-        private void createRows(string[] contentRows)
+        private void CreateRows(string[] contentRows)
         {
             for (int i = 0; i < contentRows.Length; i++)
             {
-                createOneRow(50);
+                CreateOneRow(50);
             }
         }
 
-        private void createOneRow(int height)
+        private void CreateOneRow(int height)
         {
             RowDefinition gridRow1 = new RowDefinition();
             gridRow1.Height = new GridLength(height);
@@ -86,7 +86,7 @@ namespace WPFHospitalEditor
             StringBuilder stringBuilder = new StringBuilder("");
             for (int i = 0; i < labels.Count; i++)
             {
-                stringBuilder.Append(labels[i].Content.ToString() + AllConstants.descriptionSeparator + textBoxes[i].Text + ";");
+                stringBuilder.Append(labels[i].Content.ToString() + AllConstants.DescriptionSeparator + textBoxes[i].Text + ";");
             }
             return stringBuilder.ToString();
         }

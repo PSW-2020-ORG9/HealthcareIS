@@ -19,7 +19,7 @@ namespace HospitalWebApp.Controllers
         }
 
         [HttpGet]
-        [Route("getByRoomId/{roomId}")]
+        [Route("room/{roomId}")]
         public IActionResult GetEquipmentByRoomId(int roomId)
         {
             IEnumerable<EquipmentDto> eqDtos = _equipmentService.GetEquipmentWithQuantityByRoomId(roomId);
@@ -28,10 +28,10 @@ namespace HospitalWebApp.Controllers
         }
 
         [HttpGet]
-        [Route("getByEquipmentType/{equipmentType}")]
-        public IActionResult GetEquipmentsByType(string equipmentType)
+        [Route("equipment-type/{type}")]
+        public IActionResult GetEquipmentsByType(string type)
         {
-            IEnumerable<EquipmentDto> eqDtos = _equipmentService.GetEquipmentWithQuantityByType(equipmentType);
+            IEnumerable<EquipmentDto> eqDtos = _equipmentService.GetEquipmentWithQuantityByType(type);
             if (eqDtos != null) return Ok(eqDtos);
             return BadRequest("Equipment not found.");
         }

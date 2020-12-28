@@ -14,7 +14,7 @@ namespace WPFHospitalEditorE2ETests
         {
             IMedicationServerController medicationServerController = new MedicationServerController();
 
-            var medication = medicationServerController.GetAllMedicationByName(AllConstants.emptyComboBox);
+            var medication = medicationServerController.GetAllMedicationByName(AllConstants.EmptyComboBox);
 
             Assert.Empty(medication);
         }

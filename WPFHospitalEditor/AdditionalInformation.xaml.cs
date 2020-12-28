@@ -44,7 +44,7 @@ namespace WPFHospitalEditor
             this.gridControl = dynamicGridControl;
             this.Height = (contentRows.Length +1) * 50 + 60;       
             SetNameCommonAttributes();
-            setButtonsVisibility();
+            SetButtonsVisibility();
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
@@ -68,12 +68,12 @@ namespace WPFHospitalEditor
             building.floorBuildingObjects.Remove(oldMapObject);
             building.floorBuildingObjects.Add(mapObject);
             building.canvas.Children.Clear();
-            CanvasService.addObjectToCanvas(building.floorBuildingObjects, building.canvas);
+            CanvasService.AddObjectToCanvas(building.floorBuildingObjects, building.canvas);
         }      
 
         private void UpdateAdditionalInformation()
         {
-            mapObjectController.update(mapObject);
+            mapObjectController.Update(mapObject);
             RefreshMap();
         }
 
@@ -109,7 +109,7 @@ namespace WPFHospitalEditor
             string[] equipmentContentRows = new string [allEquipment.Count()];
             for (int i = 0; i < allEquipment.Count(); i++)
             {
-                equipmentContentRows[i] = allEquipment.ElementAt(i).Name + AllConstants.contentSeparator + allEquipment.ElementAt(i).Quantity;
+                equipmentContentRows[i] = allEquipment.ElementAt(i).Name + AllConstants.ContentSeparator + allEquipment.ElementAt(i).Quantity;
             }
             return equipmentContentRows;
         }
@@ -119,15 +119,15 @@ namespace WPFHospitalEditor
             string[] medicationContentRows = new string[allMedications.Count()];
             for (int i = 0; i < allMedications.Count(); i++)
             {
-                medicationContentRows[i] = allMedications.ElementAt(i).Name + AllConstants.contentSeparator + allMedications.ElementAt(i).Quantity;
+                medicationContentRows[i] = allMedications.ElementAt(i).Name + AllConstants.ContentSeparator + allMedications.ElementAt(i).Quantity;
             }
             return medicationContentRows;
         }
 
-        private void setButtonsVisibility()
+        private void SetButtonsVisibility()
         {
-            if (!allEquipment.Any() || isMapObjectTypeStorageRoom() || IsPatientLogged()) Equipment.Visibility = Visibility.Hidden;
-            if (!allMedications.Any() || !isMapObjectTypeStorageRoom() || IsPatientLogged()) Medication.Visibility = Visibility.Hidden;
+            if (!allEquipment.Any() || IsMapObjectTypeStorageRoom() || IsPatientLogged()) Equipment.Visibility = Visibility.Hidden;
+            if (!allMedications.Any() || !IsMapObjectTypeStorageRoom() || IsPatientLogged()) Medication.Visibility = Visibility.Hidden;
         }
 
         private Boolean IsPatientLogged()
@@ -136,7 +136,7 @@ namespace WPFHospitalEditor
             return false;
         }
 
-        private bool isMapObjectTypeStorageRoom()
+        private bool IsMapObjectTypeStorageRoom()
         {
             if (mapObject.MapObjectType == MapObjectType.StorageRoom) return true;
             return false;

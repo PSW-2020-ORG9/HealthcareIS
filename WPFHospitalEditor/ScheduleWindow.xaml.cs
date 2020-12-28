@@ -2,8 +2,6 @@
 using HealthcareBase.Model.Schedule.SchedulingPreferences;
 using HealthcareBase.Model.Users.Patient;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 using WPFHospitalEditor.Controller;
 using WPFHospitalEditor.Controller.Interface;
@@ -16,7 +14,6 @@ namespace WPFHospitalEditor
     public partial class ScheduleWindow : Window
     {
         RecommendationDto recommendationDto;
-        List<Patient> allPatients;
         IPatientServerController patientServerController = new PatientServerController();
         IExaminationServerController examinationServerController = new ExaminationServerController();
 
@@ -24,25 +21,23 @@ namespace WPFHospitalEditor
         {
             InitializeComponent();
             this.recommendationDto = recommendationDto;
-            setAppointmentInfoContent();
-            allPatients = patientServerController.GetAllPatients().ToList();
-            foreach (Patient p in allPatients)
-                patients.Items.Add(p.Id.ToString() + " " + p.Person.Name + " " + p.Person.Surname + " - " + p.Person.Jmbg);
+            SetAppointmentInfoContent();
+            SetPatientNameComboBox();
         }
 
-        private void Close_Click(object sender, RoutedEventArgs e)
+        private void CloseClick(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
-        private void scheduleBtn_Click(object sender, RoutedEventArgs e)
+        private void ScheduleAppointment(object sender, RoutedEventArgs e)
         {
-            if (patients.SelectedIndex == -1)
+            if (patientsComboBox.SelectedIndex == 0)
             {
                 MessageBox.Show("You must select a patient!");
             }
             else { 
-                String patient = patients.SelectedItem.ToString();
+                String patient = patientsComboBox.SelectedItem.ToString();
                 int patientID = int.Parse(patient.Split(" ")[0]);
                 Examination examination = examinationServerController.ScheduleExamination(recommendationDto.TimeInterval.Start, recommendationDto.Doctor.Id, patientID);
                 if (examination!= null)
@@ -57,7 +52,23 @@ namespace WPFHospitalEditor
             }
         }
 
-        private void setAppointmentInfoContent()
+        private void PatientTextInputChanged(object sender, EventArgs e)
+        {
+            patientsComboBox.Items.Clear();
+            SetPatientNameComboBox();
+        }
+
+        private void SetPatientNameComboBox()
+        {
+            patientsComboBox.Items.Add(AllConstants.EmptyComboBox);
+            patientsComboBox.SelectedIndex = 0;
+            foreach (Patient p in patientServerController.SearchPatients(PatientSearchInput.Text))
+            {
+                patientsComboBox.Items.Add(p.Id.ToString() + " " + p.Person.Name + " " + p.Person.Surname + " - " + p.Person.Jmbg);
+            }
+        }
+
+        private void SetAppointmentInfoContent()
         {
             this.appointmentInfo.Content = "Doctor: " + recommendationDto.Doctor.Person.Name + " "
                                                      + recommendationDto.Doctor.Person.Surname + " " +

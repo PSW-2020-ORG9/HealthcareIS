@@ -19,7 +19,7 @@ namespace WPFPatient
         private void hospitalMapPressed(object sender, RoutedEventArgs e)
         {
             MapObjectController mapObjectController = new MapObjectController();
-            List<MapObject> allMapObjects = mapObjectController.getAllMapObjects();
+            List<MapObject> allMapObjects = mapObjectController.GetAllMapObjects();
             HospitalMap hospMap = new HospitalMap(allMapObjects, Role.Patient);
             this.Close();
             hospMap.ShowDialog();

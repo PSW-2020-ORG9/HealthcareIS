@@ -9,25 +9,25 @@ namespace WPFHospitalEditor.Controller
     {
         private readonly IMapObjectService IMapObjectService = new MapObjectService(new MapObjectRepository());
 
-        public List<MapObject> getAllMapObjects()
+        public List<MapObject> GetAllMapObjects()
         {
-            return IMapObjectService.getAllMapObjects();
+            return IMapObjectService.GetAllMapObjects();
         }
-        public MapObject update(MapObject mapObject)
+        public MapObject Update(MapObject mapObject)
         {
-            return IMapObjectService.update(mapObject);
+            return IMapObjectService.Update(mapObject);
         }
-        public List<MapObject> getOutterMapObjects()
+        public List<MapObject> GetOutterMapObjects()
         {
-            return IMapObjectService.getOutterMapObjects();
+            return IMapObjectService.GetOutterMapObjects();
         }
-        public MapObject findMapObjectById(int id)
+        public MapObject GetMapObjectById(int id)
         {
-            return IMapObjectService.findMapObjectById(id);
+            return IMapObjectService.GetMapObjectById(id);
         }
-        public List<MapObject> searchForMapObjects(string name, string type)
+        public List<MapObject> SearchMapObjects(string name, string type)
         {
-            return IMapObjectService.searchForMapObjects(name, type);
+            return IMapObjectService.SearchMapObjects(name, type);
         }
     }
 }
