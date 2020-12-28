@@ -16,7 +16,8 @@ namespace Hospital.API
     public class Startup
     {
         private string _connectionString;
-        private const string ScheduleUrl = "http://localhost:5004/";
+        private string ScheduleUrl = $"http://{Environment.GetEnvironmentVariable("PSW_SCHEDULE_SERVICE_HOST")}:" +
+                                     $"{Environment.GetEnvironmentVariable("PSW_SCHEDULE_SERVICE_PORT")}/";
         public IConfiguration Configuration { get; }
 
         public Startup(IConfiguration configuration)

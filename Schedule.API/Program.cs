@@ -11,6 +11,8 @@ namespace Schedule.API
 {
     public class Program
     {
+        private static readonly string ApiUrl = $"http://{Environment.GetEnvironmentVariable("PSW_SCHEDULE_SERVICE_HOST")}:" +
+                                                $"{Environment.GetEnvironmentVariable("PSW_SCHEDULE_SERVICE_PORT")}/";
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
@@ -18,6 +20,6 @@ namespace Schedule.API
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>().UseUrls("http://*:5004"); ; });
+                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>().UseUrls(ApiUrl); ; });
     }
 }

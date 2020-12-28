@@ -17,7 +17,6 @@ namespace Hospital.API.Controllers
         }
 
         [HttpGet]
-        [Route("getAll")]
         public IActionResult GetAllMedication()
         {
             IEnumerable<MedicationDto> medDtos = _medicationService.GetAllMedicationsWithQuantity();
@@ -26,7 +25,7 @@ namespace Hospital.API.Controllers
         }
 
         [HttpGet]
-        [Route("getByName/{name}")]
+        [Route("by-name/{name}")]
         public IActionResult GetAllMedicationByName(string name)
         {
             IEnumerable<MedicationDto> medDtos = _medicationService.GetAllMedicationWithQuantityByName(name);

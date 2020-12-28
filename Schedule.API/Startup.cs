@@ -17,15 +17,19 @@ namespace Schedule.API
 {
     public class Startup
     {
+        private static readonly string UserUrl = $"http://{Environment.GetEnvironmentVariable("PSW_USER_SERVICE_HOST")}:" +
+                                                 $"{Environment.GetEnvironmentVariable("PSW_USER_SERVICE_PORT")}/";
+
+        private static readonly string HospitalUrl = $"http://{Environment.GetEnvironmentVariable("PSW_USER_SERVICE_HOST")}:" +
+                                                     $"{Environment.GetEnvironmentVariable("PSW_USER_SERVICE_PORT")}/";
+        private string _connectionString;
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
        
             PrepareDatabase();
         }
-        
-        private string _connectionString;
-
         private void PrepareDatabase()
         {
             _connectionString = CreateConnectionStringFromEnvironment() ?? Configuration["MySql"];
@@ -54,8 +58,7 @@ namespace Schedule.API
         
         public IConfiguration Configuration { get; }
 
-        private const string UserUrl = "http://localhost:5003/";
-        private const string HospitalUrl = "http://localhost:5001/";
+        
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -64,6 +67,7 @@ namespace Schedule.API
             IShiftRepository shiftRepository = new ShiftSqlRepository(GetContextFactory());
             IExaminationService examinationService = new IExaminationService(examinationRepository, shiftRepository);
             
+            Console.WriteLine(UserUrl);
             IConnection patientConnection = new Connection(UserUrl, "patient");
             IConnection doctorConnection = new Connection(UserUrl, "doctor");
             IConnection roomConnection = new Connection(HospitalUrl, "room");

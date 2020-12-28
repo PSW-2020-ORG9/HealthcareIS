@@ -11,6 +11,8 @@ namespace Hospital.API
 {
     public class Program
     {
+        private static readonly string ApiUrl = $"http://{Environment.GetEnvironmentVariable("PSW_HOSPITAL_SERVICE_HOST")}:" +
+                                                $"{Environment.GetEnvironmentVariable("PSW_HOSPITAL_SERVICE_PORT")}/";
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
@@ -18,6 +20,6 @@ namespace Hospital.API
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>().UseUrls("http://*:5001"); });
+                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>().UseUrls(ApiUrl); });
     }
 }

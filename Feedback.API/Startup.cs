@@ -1,4 +1,5 @@
 using System;
+using System.Drawing.Printing;
 using Feedback.API.Infrastructure;
 using Feedback.API.Infrastructure.Repositories;
 using Feedback.API.Infrastructure.Repositories.SurveyEntries;
@@ -16,7 +17,9 @@ namespace Feedback.API
     public class Startup
     {
         private string _connectionString;
-        private const string UserUrl = "http://localhost:5003/";
+        private readonly string UserUrl = $"http://{Environment.GetEnvironmentVariable("PSW_USER_SERVICE_HOST")}:" +
+                                          $"{Environment.GetEnvironmentVariable("PSW_USER_SERVICE_PORT")}/";
+        
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
