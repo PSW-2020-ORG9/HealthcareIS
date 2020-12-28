@@ -67,5 +67,10 @@ namespace WPFHospitalEditor.Service
 
             return result;
         }
+
+        public List<MapObject> GetAllBuildingMapObjects(int id)
+        {
+            return iMapObjectRepository.GetAllBuildingMapObjects(id);
+        }
     }
 }
