@@ -55,7 +55,7 @@ namespace Schedule.API
         public IConfiguration Configuration { get; }
 
         private const string UserUrl = "http://localhost:5003/";
-        private const string HospitalUrl = "http://localhost:5004/";
+        private const string HospitalUrl = "http://localhost:5001/";
 
         public void ConfigureServices(IServiceCollection services)
         {
