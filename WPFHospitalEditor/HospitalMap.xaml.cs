@@ -56,37 +56,17 @@ namespace WPFHospitalEditor
             }
         }
 
-        private void SelectBuilding(object sender, MouseButtonEventArgs e)
+        private void ShowBuilding(object sender, MouseButtonEventArgs e)
         {
             MapObject chosenBuilding = CanvasService.CheckWhichObjectIsClicked(e, mapObjectController.GetAllMapObjects(), canvas);
             if (chosenBuilding != null && chosenBuilding.MapObjectType == MapObjectType.Building)
             {
-                GoToClickedBuilding(chosenBuilding);
+                canvas.Children.Clear();
+                Building building = new Building(chosenBuilding.Id);
+                building.Owner = this;
+                this.Hide();
+                building.ShowDialog();
             }
-        }
-
-        private void GoToClickedBuilding(MapObject mapObject)
-        {
-            List<MapObject> buildingObjects = new List<MapObject>();
-            foreach (MapObject mapObjectIteration in mapObjectController.GetAllMapObjects())
-            {
-                if (mapObject.Id.ToString().Equals(FindBuilding(mapObjectIteration)))
-                {
-                    buildingObjects.Add(mapObjectIteration);
-                }
-            }
-            canvas.Children.Clear();
-            Building building = new Building(buildingObjects, 0);
-            building.Owner = this;
-            this.Hide();
-            building.ShowDialog();
-        }
-
-        private String FindBuilding(MapObject mapObjectIteration)
-        {
-            String[] firstSplit = mapObjectIteration.Description.Split("&");
-            String[] buildingIndex = firstSplit[0].Split("-");
-            return buildingIndex[0];
         }
 
         private void Basic_Search(object sender, RoutedEventArgs e)

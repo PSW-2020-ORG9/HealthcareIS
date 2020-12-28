@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -89,6 +90,35 @@ namespace WPFHospitalEditor.Repository
                 }
             }
             return null;
+        }
+
+        public List<MapObject> GetAllBuildingMapObjects(int id)
+        {
+            string jsonString = File.Exists(path) ? File.ReadAllText(path) : "";
+            var settings = new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.All };
+            if (!string.IsNullOrEmpty(jsonString))
+            {
+                List<MapObject> buildingMapObjects = new List<MapObject>();
+                List<MapObject> allMapObjects = JsonConvert.DeserializeObject<List<MapObject>>(jsonString, settings);
+                foreach (MapObject mapobject in allMapObjects)
+                {
+                    if (mapobject.Description != "" && int.Parse(FindBuilding(mapobject)) == id)
+                    {
+                        buildingMapObjects.Add(mapobject);
+                    }
+                }
+                return buildingMapObjects;
+            }
+            else
+            {
+                return new List<MapObject>();
+            }
+        }
+        private String FindBuilding(MapObject mapObjectIteration)
+        {
+            String[] firstSplit = mapObjectIteration.Description.Split("&");
+            String[] buildingIndex = firstSplit[0].Split("-");
+            return buildingIndex[0];
         }
     }
 }

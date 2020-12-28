@@ -7,6 +7,7 @@ using System.Windows.Shapes;
 using WPFHospitalEditor.MapObjectModel;
 using WPFHospitalEditor.Controller;
 using WPFHospitalEditor.Service;
+using System.Windows.Media;
 
 namespace WPFHospitalEditor
 {
@@ -19,31 +20,42 @@ namespace WPFHospitalEditor
         public List<MapObject> floorBuildingObjects;
         MapObjectController mapObjectController = new MapObjectController();
         public static Canvas canvasBuilding;
+        private int id;
 
-        public Building(List<MapObject> buildingObjects, int selectedFloor)
+        public Building(int id, int selectedFloor = 0)
         {
             InitializeComponent();
-            ClearAll();          
-            PopulateBuildingFloors(buildingObjects);            
+            ClearAll();
+            this.id = id;
+            PopulateBuildingFloors();            
             SetFloorComboBox();
             floor.SelectedIndex = selectedFloor;
             floorBuildingObjects = buildingFloors[floor.SelectedIndex].GetAllFloorMapObjects();
             canvasBuilding = canvas;
         }
         
-        private void PopulateBuildingFloors(List<MapObject> allBuildingObjects)
+        private void PopulateBuildingFloors()
         {
-            foreach(MapObject mapObjectIterate in allBuildingObjects)
+            foreach (MapObject mapObject in mapObjectController.GetAllBuildingMapObjects(id))
             {
-                int index = int.Parse(FindFloor(mapObjectIterate));
-                if(!buildingFloors.ContainsKey(index))
+                if (IsMapObjectSelected(mapObject.Id))
+                {
+                    mapObject.rectangle.Fill = Brushes.Red;
+                }
+                int index = int.Parse(FindFloor(mapObject));
+                if (!buildingFloors.ContainsKey(index))
                 {
                     buildingFloors.Add(index, new Floor());
                 }
-                buildingFloors[index].AddMapObject(mapObjectIterate);
+                buildingFloors[index].AddMapObject(mapObject);
             }
         }
-              
+
+        private bool IsMapObjectSelected(int id)
+        {
+            return SearchResultDialog.selectedObjectId == id;
+        }
+
         public static String FindFloor(MapObject mapObject)
         {
             String[] descriptionParts = mapObject.Description.Split("&");

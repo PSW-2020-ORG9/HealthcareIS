@@ -29,5 +29,10 @@ namespace WPFHospitalEditor.Controller
         {
             return IMapObjectService.SearchMapObjects(name, type);
         }
+
+        public List<MapObject> GetAllBuildingMapObjects(int id)
+        {
+            return IMapObjectService.GetAllBuildingMapObjects(id);
+        }
     }
 }
