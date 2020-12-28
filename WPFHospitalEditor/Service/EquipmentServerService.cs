@@ -1,4 +1,5 @@
 ﻿using HealthcareBase.Dto;
+using Newtonsoft.Json;
 using RestSharp;
 using System.Collections.Generic;
 using WPFHospitalEditor.Service.Interface;
@@ -22,6 +23,13 @@ namespace WPFHospitalEditor.Service
             var response = client.Get<IEnumerable<EquipmentDto>>(request);
             return response.Data;
         }
-
+        public bool RealocateEquipment(EquipmentRealocationDto eqRealDto)
+        {
+            var client = new RestClient(AllConstants.ConnectionUrl);
+            var request = new RestRequest("Equipment/", Method.POST);
+            request.AddJsonBody(JsonConvert.SerializeObject(eqRealDto));
+            var response = client.Post<bool>(request);
+            return response.Data;
+        }
     }
 }

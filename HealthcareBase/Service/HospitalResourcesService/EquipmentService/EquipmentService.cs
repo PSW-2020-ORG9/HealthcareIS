@@ -145,20 +145,6 @@ namespace HealthcareBase.Service.HospitalResourcesService.EquipmentService
             return false;
         }
 
-        /*private void IncreaseEquipmentAmount(int roomId, int amount, EquipmentDto equipmentDto)
-        {
-            foreach (EquipmentDto equipmentInRoom in GetEquipmentWithQuantityByRoomId(roomId))
-            {
-                if (equipmentInRoom.Name.Equals(equipmentDto.Name))
-                {
-                    equipmentInRoom.Quantity += amount;
-                    return;
-                }
-            }
-            EquipmentDto newEquipmentDto = addEquipmentToRoom(roomId, equipmentDto);
-            newEquipmentDto.Quantity += amount;
-        }*/
-
         private bool CheckAmount(int amount, int sourceRoomId, string equipmentType)
         {
             foreach(EquipmentDto eqDto in GetEquipmentWithQuantityByRoomId(sourceRoomId))
