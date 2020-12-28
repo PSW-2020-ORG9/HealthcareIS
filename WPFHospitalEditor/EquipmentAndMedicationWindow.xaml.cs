@@ -21,5 +21,10 @@ namespace WPFHospitalEditor
         {
             this.Close();
         }
+
+        private void RealocateEquipment(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

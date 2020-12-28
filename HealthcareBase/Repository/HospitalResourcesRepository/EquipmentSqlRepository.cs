@@ -2,8 +2,6 @@
 using HealthcareBase.Model.HospitalResources;
 using HealthcareBase.Repository.Generics;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace HealthcareBase.Repository.HospitalResourcesRepository

@@ -106,6 +106,15 @@ namespace HealthcareBase.Service.HospitalResourcesService.EquipmentService
             );
         }
 
+        private IEnumerable<EquipmentUnit> GetEquipmentByRoomIdAndType(int roomId, string equipmentType)
+        {
+            return equipmentUnitRepository.Repository.GetMatching(
+                condition: equipment => equipment.CurrentLocationId == roomId && equipment.EquipmentType.Name == equipmentType
+            );
+        }
+
+
+
         public IEnumerable<EquipmentDto> GetEquipmentWithQuantityByType(string equipmentType)
         {
             Dictionary<int, EquipmentDto> allEquipment = new Dictionary<int, EquipmentDto>();
@@ -119,6 +128,48 @@ namespace HealthcareBase.Service.HospitalResourcesService.EquipmentService
                 allEquipment[equipment.RoomId].Quantity += 1;
             }
             return allEquipment.Values.ToList();
+        }
+
+        public bool RealocateEquipment(EquipmentRealocationDto eqRealDto)
+        {
+            List<EquipmentUnit> equipmentsInRoom = GetEquipmentByRoomIdAndType(eqRealDto.SourceRoomId, eqRealDto.EquipmentType).ToList();
+            if (CheckAmount(eqRealDto.Amount, eqRealDto.SourceRoomId, eqRealDto.EquipmentType))
+            {
+                for (int i = 0; i < eqRealDto.Amount; i++)
+                {
+                    equipmentsInRoom[i].CurrentLocationId = eqRealDto.DestinationRoomId;
+                    equipmentUnitRepository.Repository.Update(equipmentsInRoom[i]);
+                }
+                return true;
+            }
+            return false;
+        }
+
+        /*private void IncreaseEquipmentAmount(int roomId, int amount, EquipmentDto equipmentDto)
+        {
+            foreach (EquipmentDto equipmentInRoom in GetEquipmentWithQuantityByRoomId(roomId))
+            {
+                if (equipmentInRoom.Name.Equals(equipmentDto.Name))
+                {
+                    equipmentInRoom.Quantity += amount;
+                    return;
+                }
+            }
+            EquipmentDto newEquipmentDto = addEquipmentToRoom(roomId, equipmentDto);
+            newEquipmentDto.Quantity += amount;
+        }*/
+
+        private bool CheckAmount(int amount, int sourceRoomId, string equipmentType)
+        {
+            foreach(EquipmentDto eqDto in GetEquipmentWithQuantityByRoomId(sourceRoomId))
+            {
+                if(eqDto.Name.Equals(equipmentType))
+                {
+                    if (eqDto.Quantity >= amount) return true;
+                    return false;
+                }
+            }
+            return false;
         }
 
     }

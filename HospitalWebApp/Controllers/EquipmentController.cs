@@ -35,5 +35,13 @@ namespace HospitalWebApp.Controllers
             if (eqDtos != null) return Ok(eqDtos);
             return BadRequest("Equipment not found.");
         }
+
+        [HttpPost]
+        public IActionResult RealocateEquipment(EquipmentRealocationDto equipmentRealocationDto) 
+        {
+            bool RetVal = _equipmentService.RealocateEquipment(equipmentRealocationDto);
+            if (RetVal != false) return Ok(RetVal);
+            return BadRequest("Realocation can not be proceeded.");
+        }
     }
 }

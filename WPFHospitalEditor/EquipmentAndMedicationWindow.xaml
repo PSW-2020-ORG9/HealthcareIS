@@ -18,6 +18,9 @@
     </Window.Resources>
     <Border BorderThickness="10" BorderBrush="#FF8BD9E0" x:Name="Border">
         <Grid x:Name="DynamicGrid" Background="#FFC6F5F8">
+            <StackPanel x:Name="Realocation" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,40">
+                <Button x:Name="Realocate" Content="Realocate equipment" Click="RealocateEquipment" HorizontalAlignment="Left" Width="120"/>
+            </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
                 <Button x:Name="Close" Content="Close" Click="Close_Click" HorizontalAlignment="Right"/>
             </StackPanel>
