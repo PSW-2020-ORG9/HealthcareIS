@@ -100,6 +100,5 @@ namespace WPFHospitalEditor
             if (HospitalMap.role == Role.Patient) return true;
             return false;
         }
-
     }
 }

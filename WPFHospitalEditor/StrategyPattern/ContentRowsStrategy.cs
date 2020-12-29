@@ -9,12 +9,10 @@ using WPFHospitalEditor.Controller.Interface;
 
 namespace WPFHospitalEditor.StrategyPattern
 {
-
     interface IContentRowsStrategy
     {
         string[] GetContentRows();
     }
-
 
     class ContentRowsStrategy: IContentRowsStrategy
     {

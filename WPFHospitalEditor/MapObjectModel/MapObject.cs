@@ -136,8 +136,6 @@ namespace WPFHospitalEditor.MapObjectModel
             }
             return false;
         }
-
-
     }
 }   
 
