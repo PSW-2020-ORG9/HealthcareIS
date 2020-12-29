@@ -55,7 +55,7 @@ namespace User.API.Controllers
         public IActionResult ActivatePatient(Guid guid)
         {
             _patientRegistrationService.ActivatePatient(guid);
-            return Redirect("http://localhost:8080/#/successfully-registered");
+            return Ok();
         }
 
         [HttpGet]
