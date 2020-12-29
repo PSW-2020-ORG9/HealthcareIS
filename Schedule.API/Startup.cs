@@ -30,7 +30,7 @@ namespace Schedule.API
        
             PrepareDatabase();
         }
-        private void PrepareDatabase()
+        protected virtual void PrepareDatabase()
         {
             _connectionString = CreateConnectionStringFromEnvironment() ?? Configuration["MySql"];
 
@@ -43,7 +43,7 @@ namespace Schedule.API
         {
             string server = Environment.GetEnvironmentVariable("DB_PSW_SERVER");
             string port = Environment.GetEnvironmentVariable("DB_PSW_PORT");
-            string database = Environment.GetEnvironmentVariable(testing ? "DB_PSW_TEST_DATABASE" : "DB_PSW_DATABASE");
+            string database = testing ? "test_schedule" : "schedule";
             string user = Environment.GetEnvironmentVariable("DB_PSW_USER");
             string password = Environment.GetEnvironmentVariable("DB_PSW_PASSWORD");
             if (server == null
@@ -53,12 +53,13 @@ namespace Schedule.API
                 || password == null)
                 return null;
 
-            return $"server={server};port={port};database=schedule;user={user};password={password};";
+            return $"server={server};port={port};database={database};user={user};password={password};";
         }
         
         public IConfiguration Configuration { get; }
 
-        
+        protected virtual IConnection CreateConnection(string url, string endpoint)
+            => new Connection(url, endpoint);
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -68,9 +69,9 @@ namespace Schedule.API
             IExaminationService examinationService = new IExaminationService(examinationRepository, shiftRepository);
             
             Console.WriteLine(UserUrl);
-            IConnection patientConnection = new Connection(UserUrl, "patient");
-            IConnection doctorConnection = new Connection(UserUrl, "doctor");
-            IConnection roomConnection = new Connection(HospitalUrl, "room");
+            IConnection patientConnection = CreateConnection(UserUrl, "patient");
+            IConnection doctorConnection = CreateConnection(UserUrl, "doctor");
+            IConnection roomConnection = CreateConnection(HospitalUrl, "room");
             ExaminationServiceProxy examinationServiceProxy = 
                 new ExaminationServiceProxy(
                     examinationService,
@@ -107,7 +108,7 @@ namespace Schedule.API
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
 
-        private IContextFactory GetContextFactory()
+        protected virtual IContextFactory GetContextFactory()
         {
             return new MySqlContextFactory(_connectionString);
         }
