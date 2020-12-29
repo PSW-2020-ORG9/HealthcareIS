@@ -81,6 +81,18 @@ namespace WPFHospitalEditor.MapObjectModel
             }
         }
 
+        public bool ContainsEquipment()
+        {
+            return MapObjectType.Equals(MapObjectType.Canteen) || MapObjectType.Equals(MapObjectType.SurgeryRoom) || MapObjectType.Equals(MapObjectType.DentistryRoom)
+                || MapObjectType.Equals(MapObjectType.RecoveryRoom) || MapObjectType.Equals(MapObjectType.NeurologyRoom) || MapObjectType.Equals(MapObjectType.ExaminationRoom)
+                || MapObjectType.Equals(MapObjectType.DermatologyRoom) || MapObjectType.Equals(MapObjectType.OphthalmologyRoom) || MapObjectType.Equals(MapObjectType.OnDuty) || MapObjectType.Equals(MapObjectType.StorageRoom);
+        }
+
+        public bool ContainsMedication()
+        {
+            return MapObjectType == MapObjectType.StorageRoom;
+        }
+
         public void setMapObjectDoorPosition(MapObjectDoorOrientation mapObjectDoorOrientation)
         {
             switch (mapObjectDoorOrientation)
@@ -124,6 +136,8 @@ namespace WPFHospitalEditor.MapObjectModel
             }
             return false;
         }
+
+
     }
 }   
 
