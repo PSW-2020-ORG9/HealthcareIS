@@ -13024,7 +13024,7 @@
       },
       "Id": 20,
       "Name": "Dentist room 1",
-      "Description": "1-0&Working Hours=09:00 - 19:00",
+      "Description": "1-0&Working Hours=09:00 - 19:40;",
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
