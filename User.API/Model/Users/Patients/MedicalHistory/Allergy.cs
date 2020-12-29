@@ -3,7 +3,7 @@
 // Created: 20 April 2020 23:04:50
 // Purpose: Definition of Class Allergy
 
-using User.API.Infrastructure;
+using General;
 
 namespace User.API.Model.Users.Patients.MedicalHistory
 {

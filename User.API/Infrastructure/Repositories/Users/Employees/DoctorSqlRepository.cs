@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
+using General;
+using General.Repository;
 using Microsoft.EntityFrameworkCore;
 using User.API.Infrastructure.Repositories.Users.Employees.Interfaces;
 using User.API.Model.Users.Employees.Doctors;

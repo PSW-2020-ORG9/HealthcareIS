@@ -4,6 +4,7 @@
 // Purpose: Definition of Interface PatientRepository
 
 
+using General.Repository;
 using User.API.Model.Users.Patients;
 
 namespace User.API.Infrastructure.Repositories.Users.Patients.Interfaces

@@ -4,6 +4,7 @@
 // Purpose: Definition of Interface PatientAccountRepository
 
 
+using General.Repository;
 using User.API.Model.Users.Patients;
 using User.API.Model.Users.UserAccounts;
 

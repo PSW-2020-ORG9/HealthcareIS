@@ -3,6 +3,7 @@
 // Created: 27 May 2020 19:02:37
 // Purpose: Definition of Class DoctorService
 
+using General.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
 using User.API.Model.Generalities;
 using User.API.Model.Locale;
 using User.API.Model.Users.Employees.Doctors;
@@ -107,8 +108,15 @@ namespace User.API.Infrastructure
                 .HasOne(da => da.Doctor);
             modelBuilder.Entity<PatientAccount>()
                 .HasOne(pa => pa.Patient);
+
+            SeedData(modelBuilder);
         }
-        
+
+        protected virtual void SeedData(ModelBuilder modelBuilder)
+        {
+            
+        }
+
         private static void SetCompositeKeys(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Citizenship>()

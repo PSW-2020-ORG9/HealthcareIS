@@ -4,6 +4,7 @@
 // Purpose: Definition of Class Department
 
 
+using General;
 using User.API.Infrastructure;
 
 namespace User.API.Model.Users.Employees.Doctors

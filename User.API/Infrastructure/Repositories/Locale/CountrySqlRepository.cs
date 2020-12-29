@@ -1,3 +1,5 @@
+using General;
+using General.Repository;
 using User.API.Infrastructure.Repositories.Locale.Interfaces;
 using User.API.Model.Locale;
 

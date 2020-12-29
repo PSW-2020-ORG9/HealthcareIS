@@ -4,6 +4,7 @@
 // Purpose: Definition of Class Patient
 
 
+using General;
 using System.Collections.Generic;
 using User.API.Infrastructure;
 using User.API.Model.Generalities;

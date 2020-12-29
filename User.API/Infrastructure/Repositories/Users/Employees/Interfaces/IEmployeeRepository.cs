@@ -3,6 +3,7 @@
 // Created: 21 May 2020 20:31:56
 // Purpose: Definition of Interface EmployeeRepository
 
+using General.Repository;
 using User.API.Model.Users.Employees;
 
 namespace User.API.Infrastructure.Repositories.Users.Employees.Interfaces

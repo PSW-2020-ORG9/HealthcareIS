@@ -3,6 +3,7 @@
 // Created: 27 May 2020 19:14:10
 // Purpose: Definition of Class PatientAccountService
 
+using General.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;

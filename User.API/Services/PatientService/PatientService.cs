@@ -3,6 +3,7 @@
 // Created: 27 May 2020 19:14:10
 // Purpose: Definition of Class PatientService
 
+using General.Repository;
 using System.Collections.Generic;
 using System.Linq;
 using User.API.Infrastructure.Repositories;

@@ -3,6 +3,7 @@
 // Created: 27 May 2020 19:02:37
 // Purpose: Definition of Class SpecialtyService
 
+using General.Repository;
 using System.Collections.Generic;
 using User.API.Infrastructure.Repositories;
 using User.API.Infrastructure.Repositories.Users.Employees.Interfaces;

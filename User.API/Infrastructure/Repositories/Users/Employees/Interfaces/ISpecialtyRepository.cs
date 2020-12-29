@@ -4,6 +4,7 @@
 // Purpose: Definition of Interface SpecialtyRepository
 
 
+using General.Repository;
 using User.API.Model.Users.Employees.Doctors;
 
 namespace User.API.Infrastructure.Repositories.Users.Employees.Interfaces

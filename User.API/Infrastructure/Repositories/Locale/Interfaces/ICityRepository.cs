@@ -3,6 +3,7 @@
 // Created: 27 May 2020 23:47:14
 // Purpose: Definition of Interface CityRepository
 
+using General.Repository;
 using System.Collections.Generic;
 using User.API.Model.Locale;
 

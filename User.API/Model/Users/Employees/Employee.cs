@@ -3,7 +3,7 @@
 // Created: 18 April 2020 19:42:16
 // Purpose: Definition of Class Employee
 
-using User.API.Infrastructure;
+using General;
 using User.API.Model.Generalities;
 
 namespace User.API.Model.Users.Employees

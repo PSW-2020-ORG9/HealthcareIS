@@ -3,8 +3,8 @@
 // Created: 21 April 2020 11:34:09
 // Purpose: Definition of Class UserAccount
 
+using General;
 using System;
-using User.API.Infrastructure;
 using User.API.Infrastructure.Exceptions;
 
 namespace User.API.Model.Users.UserAccounts

@@ -1,3 +1,5 @@
+using General;
+using General.Repository;
 using System.Linq;
 using User.API.Model.Users.Patients;
 using User.API.Model.Users.UserAccounts;

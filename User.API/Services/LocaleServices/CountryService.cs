@@ -3,6 +3,7 @@
 // Created: 28 May 2020 12:04:05
 // Purpose: Definition of Class CountryService
 
+using General.Repository;
 using System.Collections.Generic;
 using User.API.Infrastructure.Repositories;
 using User.API.Infrastructure.Repositories.Locale.Interfaces;

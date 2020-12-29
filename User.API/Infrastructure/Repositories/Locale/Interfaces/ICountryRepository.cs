@@ -4,6 +4,7 @@
 // Purpose: Definition of Interface CountryRepository
 
 
+using General.Repository;
 using User.API.Model.Locale;
 
 namespace User.API.Infrastructure.Repositories.Locale.Interfaces

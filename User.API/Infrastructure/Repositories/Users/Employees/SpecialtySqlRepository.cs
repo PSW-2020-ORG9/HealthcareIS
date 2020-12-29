@@ -1,4 +1,6 @@
-﻿using User.API.Infrastructure.Repositories.Users.Employees.Interfaces;
+﻿using General;
+using General.Repository;
+using User.API.Infrastructure.Repositories.Users.Employees.Interfaces;
 using User.API.Model.Users.Employees.Doctors;
 
 namespace User.API.Infrastructure.Repositories.Users.Employees

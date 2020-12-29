@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using General;
+using Microsoft.EntityFrameworkCore;
 
 namespace User.API.Infrastructure
 {
-    public class MySqlContextFactory : IContextFactory
+    public class UserSqlContextFactory : IContextFactory
     {
         private readonly string _connectionString;
-        public MySqlContextFactory(string connectionString)
+        public UserSqlContextFactory(string connectionString)
         {
             _connectionString = connectionString;
         }

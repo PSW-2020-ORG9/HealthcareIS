@@ -1,4 +1,5 @@
 using System;
+using General;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -35,16 +36,16 @@ namespace User.API
             GetContextFactory().CreateContext().Database.EnsureCreated();
         }
         
-        private IContextFactory GetContextFactory()
+        protected virtual IContextFactory GetContextFactory()
         {
-            return new MySqlContextFactory(_connectionString);
+            return new UserSqlContextFactory(_connectionString);
         }
         
         protected string CreateConnectionStringFromEnvironment(bool testing = false)
         {
             string server = Environment.GetEnvironmentVariable("DB_PSW_SERVER");
             string port = Environment.GetEnvironmentVariable("DB_PSW_PORT");
-            string database = Environment.GetEnvironmentVariable(testing ? "DB_PSW_TEST_DATABASE" : "DB_PSW_DATABASE");
+            string database = testing ? "test_user" : "user";
             string user = Environment.GetEnvironmentVariable("DB_PSW_USER");
             string password = Environment.GetEnvironmentVariable("DB_PSW_PASSWORD");
             if (server == null
@@ -54,7 +55,7 @@ namespace User.API
                 || password == null)
                 return null;
 
-            return $"server={server};port={port};database=user;user={user};password={password};";
+            return $"server={server};port={port};database={database};user={user};password={password};";
         }
 
         public IConfiguration Configuration { get; }

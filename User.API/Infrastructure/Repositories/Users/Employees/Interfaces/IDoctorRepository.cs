@@ -3,6 +3,7 @@
 // Created: 21 May 2020 20:31:56
 // Purpose: Definition of Interface DoctorRepository
 
+using General.Repository;
 using System.Collections.Generic;
 using User.API.Model.Users.Employees.Doctors;
 
