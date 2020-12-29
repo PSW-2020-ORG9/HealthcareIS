@@ -1,8 +1,5 @@
 ﻿using General;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Feedback.API.IntegrationTests.Context
 {

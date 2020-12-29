@@ -4,7 +4,7 @@ using Xunit;
 namespace Feedback.API.IntegrationTests
 {
     public class FeedbackTests
-        :IClassFixture<FeedbackApiFactory<TestStartup>>
+        : IClassFixture<FeedbackApiFactory<TestStartup>>
     {
         private readonly FeedbackApiFactory<TestStartup> _factory;
         public FeedbackTests(FeedbackApiFactory<TestStartup> factory)

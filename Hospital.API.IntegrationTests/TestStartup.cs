@@ -1,10 +1,11 @@
-﻿using Feedback.API.IntegrationTests.Context;
-using Feedback.API.IntegrationTests.Stubs;
-using General;
+﻿using General;
+using Hospital.API.IntegrationTests.Context;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace Feedback.API.IntegrationTests
+namespace Hospital.API.IntegrationTests
 {
     public class TestStartup : Startup
     {
@@ -12,6 +13,7 @@ namespace Feedback.API.IntegrationTests
         private static bool _databaseInitialized = false;
         private static readonly object _mutex = new object();
         public TestStartup(IConfiguration configuration) : base(configuration) { }
+
         protected override void PrepareDatabase()
         {
             _connectionString = CreateConnectionStringFromEnvironment(true) ?? Configuration["MySqlTest"];
@@ -25,12 +27,7 @@ namespace Feedback.API.IntegrationTests
             }
         }
 
-        protected override IContextFactory GetContextFactory()
-        {
-            return new FeedbackSqlTestContextFactory(_connectionString);
-        }
-
-        protected override IConnection CreateConnection(string url, string endpoint) 
-            => new StubConnection();
+        protected override IContextFactory GetContextFactory() 
+            => new HospitalSqlTestContextFactory(_connectionString);
     }
 }
