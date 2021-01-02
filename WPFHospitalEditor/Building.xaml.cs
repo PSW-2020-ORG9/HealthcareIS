@@ -38,15 +38,13 @@ namespace WPFHospitalEditor
         {
             foreach (MapObject mapObject in mapObjectController.GetAllBuildingMapObjects(id))
             {
-                if (IsMapObjectSelected(mapObject.Id))
-                {
-                    mapObject.rectangle.Fill = Brushes.Red;
-                }
                 int index = int.Parse(FindFloor(mapObject));
                 if (!buildingFloors.ContainsKey(index))
-                {
                     buildingFloors.Add(index, new Floor());
-                }
+
+                if (IsMapObjectSelected(mapObject.Id))
+                    mapObject.rectangle.Fill = Brushes.Red;
+
                 buildingFloors[index].AddMapObject(mapObject);
             }
         }
@@ -73,9 +71,7 @@ namespace WPFHospitalEditor
         private void SetFloorComboBox()
         {
             for (int i = 0; i < buildingFloors.Count; i++)
-            {
                 floor.Items.Add((i + 1) + ". floor");
-            }
         }
 
         private void BackClick(object sender, RoutedEventArgs e)
@@ -119,9 +115,8 @@ namespace WPFHospitalEditor
         {
             HashSet<MapObjectType> mapObjectTypes = new HashSet<MapObjectType>();
             for (int i = 0; i < displayedMapObjects.Count; i++)
-            {
                 mapObjectTypes.Add(displayedMapObjects[i].MapObjectType);
-            }
+            
             return mapObjectTypes;
         }
 
@@ -129,9 +124,7 @@ namespace WPFHospitalEditor
         {
             int numberOfRows = (mapObjectTypes.Count / legend.ColumnDefinitions.Count) + 1;
             for (int i = 0; i < numberOfRows; i++)
-            {
                 legend.RowDefinitions.Add(new RowDefinition() { });
-            }
         }
   
         private void OrganiseLegend(MapObjectType mapObjectType, int index)
@@ -179,9 +172,7 @@ namespace WPFHospitalEditor
             int index = floor.SelectedIndex;
             MapObject chosenMapObject = CanvasService.CheckWhichObjectIsClicked(e, buildingFloors[index].GetAllFloorMapObjects(), this.canvas);
             if (chosenMapObject != null)
-            {
                 OpenAdditionalInformationDialog(chosenMapObject);
-            }
         }
         
         private void OpenAdditionalInformationDialog(MapObject mapObject)
