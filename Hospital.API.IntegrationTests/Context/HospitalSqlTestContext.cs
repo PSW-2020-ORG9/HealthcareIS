@@ -1,5 +1,6 @@
 ﻿using Hospital.API.Infrastructure;
 using Hospital.API.Model.Medication;
+using Hospital.API.Model.Resources;
 using Microsoft.EntityFrameworkCore;
 
 namespace Hospital.API.IntegrationTests.Context
@@ -10,6 +11,15 @@ namespace Hospital.API.IntegrationTests.Context
 
         protected override void SeedData(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Department>().HasData(new Department
+            {
+                Id = 1
+            });
+            modelBuilder.Entity<Room>().HasData(new Room
+            {
+                Id = 1,
+                DepartmentId = 1
+            });
             modelBuilder.Entity<Medication>().HasData(new Medication
             {
                 Id = 1,

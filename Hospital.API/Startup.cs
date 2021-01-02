@@ -62,17 +62,20 @@ namespace Hospital.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var roomRepository = new RoomSqlRepository(GetContextFactory());
             var equipmentUnitRepository = new EquipmentUnitSqlRepository(GetContextFactory());
             var equipmentTypeRepository = new EquipmentTypeSqlRepository(GetContextFactory());
             var medicationRepository = new MedicationSqlRepository(GetContextFactory());
             var medicationPrescriptionRepository = new MedicationPrescriptionSqlRepository(GetContextFactory());
             var diagnosisConnection = CreateConnection(ScheduleUrl, "diagnosis");
 
+            var roomService = new RoomService(roomRepository);
             var equipmentService = new EquipmentService(equipmentUnitRepository, equipmentTypeRepository);
             var equipmentTypeService = new EquipmentTypeService(equipmentTypeRepository);
             var medicationService = new MedicationService(medicationRepository);
             var medicationPrescriptionService = new MedicationPrescriptionService(medicationPrescriptionRepository, diagnosisConnection);
 
+            services.Add(new ServiceDescriptor(typeof(IRoomService), roomService));
             services.Add(new ServiceDescriptor(typeof(IEquipmentService), equipmentService));
             services.Add(new ServiceDescriptor(typeof(IEquipmentTypeService), equipmentTypeService));
             services.Add(new ServiceDescriptor(typeof(IMedicationService), medicationService));
