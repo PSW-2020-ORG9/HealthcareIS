@@ -19,8 +19,8 @@ namespace Schedule.API
         private static readonly string UserUrl = $"http://{Environment.GetEnvironmentVariable("PSW_USER_SERVICE_HOST")}:" +
                                                  $"{Environment.GetEnvironmentVariable("PSW_USER_SERVICE_PORT")}/";
 
-        private static readonly string HospitalUrl = $"http://{Environment.GetEnvironmentVariable("PSW_USER_SERVICE_HOST")}:" +
-                                                     $"{Environment.GetEnvironmentVariable("PSW_USER_SERVICE_PORT")}/";
+        private static readonly string HospitalUrl = $"http://{Environment.GetEnvironmentVariable("PSW_HOSPITAL_SERVICE_HOST")}:" +
+                                                     $"{Environment.GetEnvironmentVariable("PSW_HOSPITAL_SERVICE_PORT")}/";
         private string _connectionString;
 
         public Startup(IConfiguration configuration)
