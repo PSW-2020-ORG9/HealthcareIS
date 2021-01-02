@@ -15,8 +15,8 @@ namespace OcelotApiGateway
 {
     public class Program
     {
-        private static readonly string ApiUrl = Environment.GetEnvironmentVariable("PSW_API_GATEWAY_HOST")
-                                                + Environment.GetEnvironmentVariable("PSW_API_GATEWAY_PORT");
+        private static readonly string ApiUrl = $"http://{Environment.GetEnvironmentVariable("PSW_API_GATEWAY_HOST")}:" +
+                                                $"{Environment.GetEnvironmentVariable("PSW_API_GATEWAY_PORT")}/";
         public static void Main(string[] args)
         {
             var builder = CreateHostBuilder(args);

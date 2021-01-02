@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
 using User.API.Mappers;
@@ -55,7 +56,7 @@ namespace User.API.Controllers
         public IActionResult ActivatePatient(Guid guid)
         {
             _patientRegistrationService.ActivatePatient(guid);
-            return Ok();
+            return RedirectPermanent("http://localhost:8080/#/successfully-registered");
         }
 
         [HttpGet]

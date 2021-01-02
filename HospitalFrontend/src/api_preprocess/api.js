@@ -1,25 +1,25 @@
 let server = // #put "'" + SERVER_URL + "'"
-let examinationsUrl = server + '/docsearch/examination'
-let prescriptionsUrl = server + '/docsearch/prescription'
-let feedbacksUrl = server + '/feedback'
-let patientUrl =   server + '/patient'
-let patientAccountUrl = server + '/patient/account'
-let surveyPreviewUrl = server+'/survey/preview/admin/1'
+let examinationsUrl = server + '/api/docsearch/examination'
+let prescriptionsUrl = server + '/api/docsearch/prescription'
+let feedbacksUrl = server + '/api/feedback'
+let patientUrl =   server + '/api/patient'
+let patientAccountUrl = server + '/api/patient/account'
+let surveyPreviewUrl = server+'/api/survey/preview/admin/1'
 let imageUploadUrl = 'https://api.imgur.com/3/image'
 let clientId = '9a86c8e89e7d2ea'
-let countriesUrl=server+'/country'
-let citiesByCountryId = server + '/city/by-country/'
-let registrationUrl = patientUrl + '/register'
-let surveyUrl = server + '/survey'
-let patientExaminationsUrl = server + '/examination'
-let examinationRecommendationUrl = patientExaminationsUrl + '/recommend'
+let countriesUrl=server+'/api/country'
+let citiesByCountryId = server + '/api/city/by-country/'
+let registrationUrl = patientUrl + '/api/register'
+let surveyUrl = server + '/api/survey'
+let patientExaminationsUrl = server + '/api/examination'
+let examinationRecommendationUrl = patientExaminationsUrl + '/api/recommend'
 
-let patientExaminationSurveyResponseUrl = server + "/survey/examination/"
-let patientExaminationsSurveyResponsesUrl = server + "/survey/examination/multiple"
-let doctorAvailabiltyUrl = server + '/available/'
-let examinationUrl = server + '/examination'
-let doctorUrl = server + '/doctor'
-let specialtyUrl = server + '/specialty'
+let patientExaminationSurveyResponseUrl = server + "/api/survey/examination/"
+let patientExaminationsSurveyResponsesUrl = server + "/api/survey/examination/multiple"
+let doctorAvailabiltyUrl = server + '/api/available/'
+let examinationUrl = server + '/api/examination'
+let doctorUrl = server + '/api/doctor'
+let specialtyUrl = server + '/api/specialty'
 
 export default{
     feedback: feedbacksUrl ,

@@ -18,7 +18,7 @@ namespace User.API.Services.RegistrationService
         public void RegisterPatient(PatientAccount patientAccount,string emailTemplatePath)
         {
             registrationNotifier
-                .SendActivationEmail(patientAccount,
+                .SendActivationEmail(patientAccountService.CreateAccount(patientAccount),
                     emailTemplatePath);
         }
 

@@ -59,8 +59,8 @@ namespace User.API.IntegrationTests
         {
             var client = _factory.CreateClient();
             var response = await client.GetAsync("/patient/activate/00000000-0000-0000-0000-000000000000");
-
-            response.EnsureSuccessStatusCode();
+            var requestUri = response.RequestMessage.RequestUri;
+            Assert.Equal("http://localhost:8080/#/successfully-registered",requestUri.ToString());
         }
 
         [Fact]

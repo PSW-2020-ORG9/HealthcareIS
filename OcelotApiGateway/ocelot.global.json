@@ -100,10 +100,10 @@
         }
       ],
       "UpstreamPathTemplate": "/api/feedback",
-      "UpstreamHttpMethod": [ "Get" ]
+      "UpstreamHttpMethod": [ "Get","Post" ]
     },
     {
-      "DownstreamPathTemplate": "/feedback/published",
+      "DownstreamPathTemplate": "/feedback/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -111,8 +111,21 @@
           "Port": 5002
         }
       ],
-      "UpstreamPathTemplate": "/api/feedback/published",
-      "UpstreamHttpMethod": [ "Get" ]
+      "UpstreamPathTemplate": "/api/feedback/{everything}",
+      "UpstreamHttpMethod": [ "Get","Post" ]
+    }
+    ,
+    {
+      "DownstreamPathTemplate": "/survey/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+        }
+      ],
+      "UpstreamPathTemplate": "/api/survey/{everything}",
+      "UpstreamHttpMethod": [ "Get","Post" ]
     }
     ,
     {

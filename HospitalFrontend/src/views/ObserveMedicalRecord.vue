@@ -28,7 +28,7 @@
                         </tr>
                         <tr>
                             <th class="text-info" id="jmgb_th">JMBG:</th>
-                            <td>{{patient.person.jmbg}}</td>
+                            <td>{{patient.person.id}}</td>
                         </tr>
                         <tr>
                             <th class="text-info" id="insurance_number_th">Insurance number:</th>
@@ -88,7 +88,7 @@
                     <thead>
                         <th colspan="2" id="diagnosis_history_th">Diagnosis history</th>
                     </thead>
-                    <tbody v-if="patient.examinations.length == 0">
+                    <tbody v-if="examinations.length == 0">
                         <th id="no_recorded_history_th">No recorded patient history.</th>
                     </tbody>
                     <tbody v-else>
@@ -117,17 +117,26 @@ export default {
             patient: null,
             profilePicture: '',
             intensities: ["Mild", "Medium", "Strong", "Severe"],
+            examinations: []
         }
     },
     emits: ['updateExaminations'],
     methods: {
         getPatient: function (id) {
-            let url = api.patient + '/find/' + id
+            let url = api.patient + '/' + id
             axios.get(url).then(response => {
                 this.patient = response.data
                 this.fetchProfilePicture();
             })
+
+            this.getExaminations(id)
         },
+        getExaminations:function(id){
+            axios.get(api.examinationsByPatient+id).then(response=>{
+                this.examinations=response.data
+            })
+        }
+        ,
         parseDate: function (date) {
             let dateObj = new Date(date)
             let parsedDate = "" + dateObj.getDate() + "." + (dateObj.getMonth() + 1) + "." + dateObj.getFullYear() + "."
@@ -153,7 +162,7 @@ export default {
         }
     },
     mounted: function () {
-        this.getPatient(1);
+        this.getPatient(5);
     }
 }
 </script>
