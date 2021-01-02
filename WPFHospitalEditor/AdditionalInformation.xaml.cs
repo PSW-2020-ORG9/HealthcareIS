@@ -27,13 +27,18 @@ namespace WPFHospitalEditor
             InitializeComponent();
             this.mapObject = mapObject;
             this.building = building;
-            dynamicGridControl = new DynamicGridControl(getInfo(), IsPatientLogged());
-            DynamicGrid.Children.Add(this.dynamicGridControl);            
+            SetDynamicGrid();
             InitializeTitle();
             SetButtonsVisibility();
         }
 
-        private string[] getInfo()
+        private void SetDynamicGrid()
+        {
+            dynamicGridControl = new DynamicGridControl(GetInfo(), IsPatientLogged());
+            DynamicGrid.Children.Add(this.dynamicGridControl);
+        }
+
+        private string[] GetInfo()
         {
             string[] descriptionParts = mapObject.Description.Split("&");
             return descriptionParts[1].Split(";");
@@ -71,9 +76,7 @@ namespace WPFHospitalEditor
         {
             Title.Text = mapObject.Name;
             if (HospitalMap.role.Equals(Role.Patient))
-            {
                 Title.IsReadOnly = true;
-            }
         }
 
         private void BtnEquipment_Click(object sender, RoutedEventArgs e)
@@ -97,8 +100,7 @@ namespace WPFHospitalEditor
 
         private Boolean IsPatientLogged()
         {
-            if (HospitalMap.role == Role.Patient) return true;
-            return false;
+            return (HospitalMap.role == Role.Patient);
         }
     }
 }

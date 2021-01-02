@@ -44,12 +44,17 @@ namespace WPFHospitalEditor
             CanvasService.AddObjectToCanvas(mapObjectController.GetOutterMapObjects(), canvas);
             canvasHospitalMap = canvas;
             HospitalMap.role = role;
-            if (IsRoleLogged(Role.Patient))
+            SetComponentsVisibility();
+        }
+
+        private void SetComponentsVisibility()
+        {
+            if (role == Role.Patient)
             {
                 EquipmentSearchTab.Visibility = Visibility.Hidden;
                 MedicationSearchTab.Visibility = Visibility.Hidden;
             }
-            if (!IsRoleLogged(Role.Secretary))
+            if (role != Role.Secretary)
             {
                 AppointmentSearchTab.Visibility = Visibility.Hidden;
                 SpecialistAppointmentSearchTab.Visibility = Visibility.Hidden;
@@ -73,15 +78,13 @@ namespace WPFHospitalEditor
         {
             ClearAllResults();
             searchResult = mapObjectController.SearchMapObjects(searchInputTB.Text, searchInputComboBox.Text);
-            if (searchResult.Count > 0)
-            {
-                SearchResultDialog searchResultDialog = new SearchResultDialog(this, SearchType.MapObjectSearch);
-                searchResultDialog.ShowDialog();
-            }
-            else
+            if (searchResult.Count == 0)
             {
                 MessageBox.Show("There is nothing we could find.");
+                return;
             }
+            SearchResultDialog searchResultDialog = new SearchResultDialog(this, SearchType.MapObjectSearch);
+            searchResultDialog.ShowDialog();
         }
 
         private bool IsNoNameObject(MapObjectType mop)
@@ -99,13 +102,13 @@ namespace WPFHospitalEditor
             if (NoEquipmentTypeIsPicked())
             {
                 MessageBox.Show("No equipment is picked.");
+                return;
             }
-            else
-            {
-                equipmentSearchResult = equipmentServerController.GetEquipmentByType(equipmentSearchComboBox.Text).ToList();
-                SearchResultDialog equipmentDialog = new SearchResultDialog(this, SearchType.EquipmentSearch);
-                equipmentDialog.ShowDialog();
-            }
+
+            equipmentSearchResult = equipmentServerController.GetEquipmentByType(equipmentSearchComboBox.Text).ToList();
+            SearchResultDialog equipmentDialog = new SearchResultDialog(this, SearchType.EquipmentSearch);
+            equipmentDialog.ShowDialog();
+
         }
 
         public void Medication_Search(object sender, RoutedEventArgs e)
@@ -114,13 +117,11 @@ namespace WPFHospitalEditor
             if (NoMedicationNameIsPicked())
             {
                 MessageBox.Show("No medication is picked.");
+                return;
             }
-            else
-            {
-                medicationSearchResult = medicationServerController.GetAllMedicationByName(medicationSearchComboBox.Text).ToList();
-                SearchResultDialog medicationDialog = new SearchResultDialog(this, SearchType.MedicationSearch);
-                medicationDialog.ShowDialog();
-            }
+            medicationSearchResult = medicationServerController.GetAllMedicationByName(medicationSearchComboBox.Text).ToList();
+            SearchResultDialog medicationDialog = new SearchResultDialog(this, SearchType.MedicationSearch);
+            medicationDialog.ShowDialog();
         }
 
         public void AppointmentSearch_Click(object sender, RoutedEventArgs e)
@@ -129,32 +130,31 @@ namespace WPFHospitalEditor
             if (InvalidInputForAppointment())
             {
                 MessageBox.Show("Invalid input.");
+                return;
             }
-            else
+
+            int DoctorId = int.Parse(doctorsComboBox.SelectedItem.ToString().Split(" ")[0]);
+            DateTime startDate = DateTime.ParseExact(startDatePicker.SelectedDate.Value.ToString("MM/dd/yyyy") + AllConstants.DayStart, "MM/dd/yyyy HH:mm", null);
+            DateTime endDate = DateTime.ParseExact(endDatePicker.SelectedDate.Value.ToString("MM/dd/yyyy") + AllConstants.DayEnd, "MM/dd/yyyy HH:mm", null);
+
+            RecommendationRequestDto recommendationRequestDto = new RecommendationRequestDto()
             {
-                int DoctorId = int.Parse(doctorsComboBox.SelectedItem.ToString().Split(" ")[0]);
-                DateTime startDate = DateTime.ParseExact(startDatePicker.SelectedDate.Value.ToString("MM/dd/yyyy") + AllConstants.DayStart, "MM/dd/yyyy HH:mm", null);
-                DateTime endDate = DateTime.ParseExact(endDatePicker.SelectedDate.Value.ToString("MM/dd/yyyy") + AllConstants.DayEnd, "MM/dd/yyyy HH:mm", null);
+                DoctorId = DoctorId,
+                SpecialtyId = AllConstants.RegularExaminationDepartment,
+                TimeInterval = new TimeInterval(startDate, endDate),
+                Preference = GetRecommendationPreference(PriorityComboBox)
+            };
 
-                RecommendationRequestDto recommendationRequestDto = new RecommendationRequestDto()
-                {
-                    DoctorId = DoctorId,
-                    SpecialtyId = AllConstants.RegularExaminationDepartment,
-                    TimeInterval = new TimeInterval(startDate, endDate),
-                    Preference = GetRecommendationPreference(PriorityComboBox)
-                };
-
-                appointmentSearchResult = schedulingController.GetAppointments(recommendationRequestDto);
-                if (appointmentSearchResult != null)
-                {
-                    SearchResultDialog appointmentDialog = new SearchResultDialog(this, SearchType.AppointmentSearch);
-                    appointmentDialog.ShowDialog();
-                }
-                else
-                {
-                    MessageBox.Show("There are no available appointments for chosen period!");
-                }
+            appointmentSearchResult = schedulingController.GetAppointments(recommendationRequestDto);
+            if (appointmentSearchResult == null)
+            {
+                MessageBox.Show("There are no available appointments for chosen period!");
+                return;
             }
+
+            SearchResultDialog appointmentDialog = new SearchResultDialog(this, SearchType.AppointmentSearch);
+            appointmentDialog.ShowDialog();
+
         }
 
         private void SpecialistAppointmentSearch_Click(object sender, RoutedEventArgs e)
@@ -203,9 +203,7 @@ namespace WPFHospitalEditor
         private void SetEquipmentTypeComboBox()
         {
             foreach (EquipmentTypeDto eqTypeDto in equipmentTypeServerController.SearchEquipmentTypes(EquipmentSearchInput.Text))
-            {
                 equipmentSearchComboBox.Items.Add(eqTypeDto.Name);
-            }
         }
 
         private void MedicationTextInputChanged(object sender, EventArgs e)
@@ -223,9 +221,7 @@ namespace WPFHospitalEditor
         private void SetMedicationNameComboBox()
         {
             foreach (MedicationDto medDto in medicationServerController.SearchMedications(MedicationSearchInput.Text))
-            {
                 medicationSearchComboBox.Items.Add(medDto.Name);
-            }
         }
 
         private void DoctorTextInputChanged(object sender, EventArgs e)
@@ -237,9 +233,7 @@ namespace WPFHospitalEditor
         private void SetDoctorNameComboBox()
         {
             foreach (DoctorDto docDto in doctorServerController.SearchDoctors(DoctorSearchInput.Text))
-            {
                 doctorsComboBox.Items.Add(docDto.DoctorId + " " + docDto.Name + " " + docDto.Surname);
-            }
         }
 
         private void SpecialistTextInputChanged(object sender, EventArgs e)
@@ -251,9 +245,7 @@ namespace WPFHospitalEditor
         private void SetSpecialistNameComboBox()
         {
             foreach (DoctorDto docDto in doctorServerController.SearchSpecialists(SpecialistSearchInput.Text))
-            {
                 specialistComboBox.Items.Add(docDto.DoctorId.ToString() + " " + docDto.Name + " " + docDto.Surname + " [" + docDto.DepartmentName + "]");
-            }
         }
 
         private void SpecialistEquipmentTextInputChanged(object sender, EventArgs e)
@@ -265,9 +257,7 @@ namespace WPFHospitalEditor
         private void SetSpecialistEquipmentComboBox()
         {
             foreach (EquipmentTypeDto eqTypeDto in equipmentTypeServerController.SearchEquipmentTypes(EquipmentForSpecialistAppSearchInput.Text))
-            {
                 specialistEquipmentAppSearchComboBox.Items.Add(eqTypeDto.Name);
-            }
         }
 
         private void SetMapObjectTypeComboBox()
@@ -275,21 +265,13 @@ namespace WPFHospitalEditor
             foreach (MapObjectType mapObjectType in Enum.GetValues(typeof(MapObjectType)))
             {
                 if (!IsNoNameObject(mapObjectType) && CompareInput(mapObjectType, searchInputTB.Text))
-                {
                     searchInputComboBox.Items.Add(mapObjectType);
-                }
             }
         }
 
         private bool CompareInput(MapObjectType mapObjectType, string name)
         {
             return mapObjectType.ToString().ToLower().Contains(name.ToLower());
-        }
-
-        private Boolean IsRoleLogged(Role r)
-        {
-            if (role == r) return true;
-            return false;
         }
 
         private void ClearAllResults()
@@ -302,14 +284,12 @@ namespace WPFHospitalEditor
 
         private Boolean NoEquipmentTypeIsPicked()
         {
-            if (equipmentSearchComboBox.Text.Equals(AllConstants.EmptyComboBox)) return true;
-            return false;
+            return equipmentSearchComboBox.Text.Equals(AllConstants.EmptyComboBox);
         }
 
         private Boolean NoMedicationNameIsPicked()
         {
-            if (medicationSearchComboBox.Text.Equals(AllConstants.EmptyComboBox)) return true;
-            return false;
+            return medicationSearchComboBox.Text.Equals(AllConstants.EmptyComboBox) ;
         }
         private void SetNonSelectedComboBoxItem(ComboBoxItem comboBoxItem)
         {
@@ -318,28 +298,19 @@ namespace WPFHospitalEditor
 
         private bool InvalidInputForAppointment()
         {
-            if (doctorsComboBox.Text.Equals(AllConstants.EmptyComboBox) || startDatePicker.Text.Equals("") || endDatePicker.Text.Equals("") || InvalidDateInput())
-            {
-                return true;
-            }
-            return false;
+            return doctorsComboBox.Text.Equals(AllConstants.EmptyComboBox) || startDatePicker.Text.Equals("") || endDatePicker.Text.Equals("") || InvalidDateInput() ;
         }
 
         private bool InvalidInputForSpecialistAppointment()
         {
-            if (specialistComboBox.Text.Equals(AllConstants.EmptyComboBox) || startDatePickerSpecApp.Text.Equals("")
+            return specialistComboBox.Text.Equals(AllConstants.EmptyComboBox) || startDatePickerSpecApp.Text.Equals("")
                 || endDatePickerSpecApp.Text.Equals("") || specialistEquipmentAppSearchComboBox.Text.Equals(AllConstants.EmptyComboBox)
-                || specialistPriorityComboBox.Text.Equals("")) return true;
-            return false;
+                || specialistPriorityComboBox.Text.Equals("") ;
         }
 
         private bool InvalidDateInput()
         {
-            if (endDatePicker.SelectedDate < startDatePicker.SelectedDate)
-            {
-                return true;
-            }
-            return false;
+            return endDatePicker.SelectedDate < startDatePicker.SelectedDate ;
         }
 
         private RecommendationPreference GetRecommendationPreference(ComboBox comboBox)
