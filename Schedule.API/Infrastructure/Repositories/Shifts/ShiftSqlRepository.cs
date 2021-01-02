@@ -28,8 +28,8 @@ namespace Schedule.API.Infrastructure.Repositories.Shifts
         {
             return GetMatching(shift => 
                 shift.DoctorId == doctorId 
-                && shift.TimeInterval.Start.Date >= interval.Start.Date
-                && shift.TimeInterval.Start.Date <= interval.End.Date
+                && interval.Start.Date >= shift.TimeInterval.Start.Date
+                && interval.Start.Date <= shift.TimeInterval.End.Date
             );
         }
         

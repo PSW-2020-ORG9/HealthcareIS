@@ -12,11 +12,11 @@ using Schedule.API.Services.Procedures.Interface;
 
 namespace Schedule.API.Services.Procedures
 {
-    public class IExaminationService : AbstractProcedureSchedulingService<Examination>, Interface.IExaminationService
+    public class ExaminationService : AbstractProcedureSchedulingService<Examination>, Interface.IExaminationService
     {
         private readonly RepositoryWrapper<IExaminationRepository> _examinationWrapper;
 
-        public IExaminationService(
+        public ExaminationService(
             IExaminationRepository examinationRepository,
             IShiftRepository shiftRepository
         ) : base(shiftRepository)

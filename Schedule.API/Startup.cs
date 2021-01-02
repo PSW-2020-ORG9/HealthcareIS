@@ -11,7 +11,6 @@ using Schedule.API.Infrastructure.Repositories.Procedures.Interfaces;
 using Schedule.API.Infrastructure.Repositories.Shifts;
 using Schedule.API.Services.Procedures;
 using Schedule.API.Services.Procedures.Interface;
-using IExaminationService = Schedule.API.Services.Procedures.IExaminationService;
 
 namespace Schedule.API
 {
@@ -66,7 +65,7 @@ namespace Schedule.API
             // Examinations
             IExaminationRepository examinationRepository = new ExaminationSqlRepository(GetContextFactory());
             IShiftRepository shiftRepository = new ShiftSqlRepository(GetContextFactory());
-            IExaminationService examinationService = new IExaminationService(examinationRepository, shiftRepository);
+            ExaminationService examinationService = new ExaminationService(examinationRepository, shiftRepository);
             
             Console.WriteLine(UserUrl);
             IConnection patientConnection = CreateConnection(UserUrl, "patient");
@@ -78,7 +77,7 @@ namespace Schedule.API
                     roomConnection, doctorConnection, patientConnection);
 
             // Recommendations
-            RecommendationService recommendationService =
+            IRecommendationService recommendationService =
                 new RecommendationService(examinationRepository, shiftRepository, doctorConnection);
             
             // Diagnoses
