@@ -11787,7 +11787,7 @@
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
         "BuildingId": 1,
         "FloorNumber": 0,
-        "Information": "Working Hours=09:00 - 21:00"
+        "Information": "Working Hours=09:00 - 21:00;"
       },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
@@ -12106,7 +12106,7 @@
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
         "BuildingId": 1,
         "FloorNumber": 0,
-        "Information": "Working Hours=09:00 - 21:00"
+        "Information": "Working Hours=09:00 - 21:00;"
       },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
@@ -12425,7 +12425,7 @@
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
         "BuildingId": 1,
         "FloorNumber": 0,
-        "Information": "Working Hours=09:00 - 21:00"
+        "Information": "Working Hours=09:00 - 21:00;"
       },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
@@ -12744,7 +12744,7 @@
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
         "BuildingId": 1,
         "FloorNumber": 0,
-        "Information": "Working Hours=09:00 - 19:00"
+        "Information": "Working Hours=09:00 - 19:00;"
       },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
@@ -13382,7 +13382,7 @@
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
         "BuildingId": 1,
         "FloorNumber": 0,
-        "Information": "Working Hours=09:00 - 19:00"
+        "Information": "Working Hours=09:00 - 19:00;"
       },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
@@ -13701,7 +13701,7 @@
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
         "BuildingId": 1,
         "FloorNumber": 0,
-        "Information": "Working Hours=09:00 - 19:00"
+        "Information": "Working Hours=09:00 - 19:00;"
       },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
@@ -14020,7 +14020,7 @@
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
         "BuildingId": 1,
         "FloorNumber": 0,
-        "Information": "Working Hours=09:00 - 18:00"
+        "Information": "Working Hours=09:00 - 18:00;"
       },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
@@ -15929,7 +15929,7 @@
         "IsSealed": false
       },
       "Id": 28,
-      "Name": "Recovery room 1",
+      "Name": "Recovery room 2",
       "MapObjectDescription": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
         "BuildingId": 1,
@@ -16248,7 +16248,7 @@
         "IsSealed": false
       },
       "Id": 29,
-      "Name": "Recovery room 1",
+      "Name": "Recovery room 3",
       "MapObjectDescription": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
         "BuildingId": 1,
@@ -16567,7 +16567,7 @@
         "IsSealed": false
       },
       "Id": 30,
-      "Name": "Recovery room 1",
+      "Name": "Recovery room 4",
       "MapObjectDescription": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
         "BuildingId": 1,
@@ -16886,7 +16886,7 @@
         "IsSealed": false
       },
       "Id": 31,
-      "Name": "Recovery room 1",
+      "Name": "Recovery room 5",
       "MapObjectDescription": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
         "BuildingId": 1,
@@ -17210,7 +17210,7 @@
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
         "BuildingId": 1,
         "FloorNumber": 1,
-        "Information": "Working Hours=00:00 - 24:00"
+        "Information": "Working Hours=00:00 - 24:00;"
       },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
@@ -17524,7 +17524,7 @@
         "IsSealed": false
       },
       "Id": 33,
-      "Name": "Recovery room 1",
+      "Name": "Recovery room 6",
       "MapObjectDescription": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
         "BuildingId": 1,
@@ -17848,7 +17848,7 @@
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
         "BuildingId": 2,
         "FloorNumber": 0,
-        "Information": "Max weight=480kg"
+        "Information": "Max weight=480kg;"
       },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
@@ -18167,7 +18167,7 @@
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
         "BuildingId": 2,
         "FloorNumber": 0,
-        "Information": "Working Hours=07:00 - 00:00"
+        "Information": "Working Hours=07:00 - 00:00;"
       },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
@@ -18805,7 +18805,7 @@
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
         "BuildingId": 2,
         "FloorNumber": 0,
-        "Information": "Working Hours=09:00 - 21:00"
+        "Information": "Working Hours=09:00 - 21:00;"
       },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
@@ -19762,7 +19762,7 @@
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
         "BuildingId": 2,
         "FloorNumber": 0,
-        "Information": "Working Hours=09:00 - 19:00"
+        "Information": "Working Hours=09:00 - 19:00;"
       },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
@@ -20081,7 +20081,7 @@
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
         "BuildingId": 2,
         "FloorNumber": 0,
-        "Information": "Working Hours=09:00 - 21:00"
+        "Information": "Working Hours=09:00 - 21:00;"
       },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
@@ -20400,7 +20400,7 @@
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
         "BuildingId": 2,
         "FloorNumber": 0,
-        "Information": "Working Hours=09:00 - 21:00"
+        "Information": "Working Hours=09:00 - 21:00;"
       },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
@@ -20719,7 +20719,7 @@
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
         "BuildingId": 2,
         "FloorNumber": 0,
-        "Information": "Working Hours=09:00 - 21:00"
+        "Information": "Working Hours=09:00 - 21:00;"
       },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
@@ -22633,7 +22633,7 @@
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
         "BuildingId": 2,
         "FloorNumber": 1,
-        "Information": "Working Hours=00:00 - 24:00"
+        "Information": "Working Hours=00:00 - 24:00;"
       },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
@@ -22952,7 +22952,7 @@
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
         "BuildingId": 2,
         "FloorNumber": 1,
-        "Information": "Working Hours=09:00 - 18:00"
+        "Information": "Working Hours=09:00 - 18:00;"
       },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",

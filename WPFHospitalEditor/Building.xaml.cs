@@ -16,8 +16,8 @@ namespace WPFHospitalEditor
     /// </summary>
     public partial class Building : Window
     {
-        private Dictionary<int, Floor> buildingFloors = new Dictionary<int, Floor>();
-        public List<MapObject> floorBuildingObjects;
+        public Dictionary<int, Floor> buildingFloors = new Dictionary<int, Floor>();
+        //public List<MapObject> floorBuildingObjects;
         MapObjectController mapObjectController = new MapObjectController();
         public static Canvas canvasBuilding;
         private int id;
@@ -30,7 +30,7 @@ namespace WPFHospitalEditor
             PopulateBuildingFloors();            
             SetFloorComboBox();
             floor.SelectedIndex = selectedFloor;
-            floorBuildingObjects = buildingFloors[floor.SelectedIndex].GetAllFloorMapObjects();
+           // floorBuildingObjects = buildingFloors[floor.SelectedIndex].GetAllFloorMapObjects();
             canvasBuilding = canvas;
         }
         
@@ -57,7 +57,7 @@ namespace WPFHospitalEditor
         private void SetFloorComboBox()
         {
             for (int i = 0; i < buildingFloors.Count; i++)
-                floor.Items.Add((i + 1) + ". floor");
+                floor.Items.Add( i + ". floor");
         }
 
         private void BackClick(object sender, RoutedEventArgs e)

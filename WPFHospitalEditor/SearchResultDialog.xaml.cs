@@ -285,8 +285,8 @@ namespace WPFHospitalEditor
         private string MapObjectToRow(MapObject mo)
         {
             string result = mo.Name + AllConstants.ContentSeparator
-                            + mo.MapObjectDescription.BuildingId.ToString()
-                            + AllConstants.ContentSeparator + mo.MapObjectDescription.FloorNumber.ToString();
+                            + mo.MapObjectDescription.BuildingId
+                            + AllConstants.ContentSeparator + mo.MapObjectDescription.FloorNumber;
             return result;
         }
 

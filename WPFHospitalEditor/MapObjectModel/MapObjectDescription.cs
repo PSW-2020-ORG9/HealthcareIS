@@ -16,5 +16,10 @@ namespace WPFHospitalEditor.MapObjectModel
             this.FloorNumber = floorNumber;
             this.Information = information;
         }
+
+        public string[] GetInformation()
+        {
+            return Information.Split(";");
+        }
     }
 }
