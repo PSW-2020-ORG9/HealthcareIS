@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 using User.API.DTOs;
 using User.API.Infrastructure.Exceptions;
 using User.API.Infrastructure.Repositories;
@@ -77,5 +78,13 @@ namespace User.API.Services.EmployeeService
 
         public IEnumerable<Doctor> Find(IEnumerable<int> doctorIds) 
             => _doctorRepository.Repository.GetMatching(doctor => doctorIds.Contains(doctor.Id));
+
+        public IEnumerable<int> GetIdsBySpecialty(int specialtyId)
+            => _doctorRepository.Repository.GetColumnsForMatching(
+                condition: 
+                    doctor => doctor.Specialties.Count(specialty => specialty.SpecialtyId == specialtyId) > 0,
+                selection:
+                    doctor => doctor.Id
+            );
     }
 }

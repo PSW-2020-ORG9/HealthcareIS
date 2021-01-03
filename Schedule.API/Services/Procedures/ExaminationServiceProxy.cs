@@ -10,11 +10,11 @@ namespace Schedule.API.Services.Procedures
 {
     public class ExaminationServiceProxy : Interface.IExaminationService
     {
-        private readonly IExaminationService _examinationService;
+        private readonly ExaminationService _examinationService;
         private readonly IConnection _roomConnection, _doctorConnection, _patientConnection;
 
         public ExaminationServiceProxy(
-            IExaminationService examinationService, 
+            ExaminationService examinationService, 
             IConnection roomConnection, IConnection doctorConnection, IConnection patientConnection
         )
         {

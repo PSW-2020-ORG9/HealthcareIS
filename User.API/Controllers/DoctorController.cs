@@ -3,7 +3,6 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using User.API.DTOs;
 using User.API.Mappers;
-using User.API.Model.Users.Employees.Doctors;
 using User.API.Services.EmployeeService;
 
 
@@ -29,6 +28,14 @@ namespace User.API.Controllers
             var doctorDtoList = DoctorMapper.ObjectToDto(doctors);
             doctorDtoList.ToList().ForEach(dto => dto.SpecialtyId = specialtyId);
             return Ok(doctorDtoList);
+        }
+
+        [HttpGet]
+        [Route("specialty/ids/{specialtyId}")]
+        public IActionResult GetIdsBySpecialty(int specialtyId)
+        {
+            if (specialtyId <= 0) return BadRequest("Bad specialty");
+            return Ok(_doctorService.GetIdsBySpecialty(specialtyId));
         }
 
         [HttpGet]

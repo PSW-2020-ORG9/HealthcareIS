@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using General;
 using General.Repository;
-using Schedule.API.Infrastructure.Repositories;
 using Schedule.API.Infrastructure.Repositories.Procedures.Interfaces;
 using Schedule.API.Infrastructure.Repositories.Shifts;
 using Schedule.API.Model.Dependencies;
@@ -11,10 +10,11 @@ using Schedule.API.Model.Procedures;
 using Schedule.API.Model.Recommendations;
 using Schedule.API.Model.Shifts;
 using Schedule.API.Model.Utilities;
+using Schedule.API.Services.Procedures.Interface;
 
 namespace Schedule.API.Services.Procedures
 {
-    public class RecommendationService
+    public class RecommendationService : IRecommendationService
     {
         private readonly RepositoryWrapper<IExaminationRepository> _examinationWrapper;
         private readonly RepositoryWrapper<IShiftRepository> _shiftWrapper;
@@ -33,9 +33,11 @@ namespace Schedule.API.Services.Procedures
         private const int RecommendationBatchSize = 5;
         private int GetRemainingSlots(IEnumerable<RecommendationDto> r) => RecommendationBatchSize - r.Count();
         
-        public List<RecommendationDto> Recommend(RecommendationRequestDto dto)
+        public IEnumerable<RecommendationDto> Recommend(RecommendationRequestDto dto)
         {
             if (dto.TimeInterval == null) return null;
+            if (dto.TimeInterval.Start < DateTime.Now) return null;
+            
             return dto.Preference == RecommendationPreference.Time ? RecommendWithTime(dto) : RecommendWithDoctor(dto);
         }
 
@@ -52,7 +54,6 @@ namespace Schedule.API.Services.Procedures
         private List<RecommendationDto> RecommendWithDoctor(RecommendationRequestDto dto)
         {
             List<RecommendationDto> recommendations = new List<RecommendationDto>();
-            
             recommendations.AddRange(RecommendForDoctorInTimeInterval(dto, GetRemainingSlots(recommendations)));
             recommendations.AddRange(RecommendForDoctorAnyTimeInterval(dto, GetRemainingSlots(recommendations)));
             recommendations.AddRange(RecommendAnyDoctorInTimeInterval(dto, GetRemainingSlots(recommendations)));
@@ -64,9 +65,12 @@ namespace Schedule.API.Services.Procedures
         {
             if (remainingSlots == 0) return new List<RecommendationDto>();
 
+            IEnumerable<int> doctorIds = 
+                _doctorConnection.Get<IEnumerable<int>>($"specialty/ids/{dto.SpecialtyId}");
+
             IEnumerable<Shift> allShifts = _shiftWrapper.Repository
                 .GetMatching(shift =>
-                    shift.Doctor.Specialties.First(specialty => specialty.SpecialtyId == dto.SpecialtyId) != default
+                    doctorIds.Contains(shift.DoctorId)
                     && shift.TimeInterval.Start >= dto.TimeInterval.Start
                     && shift.TimeInterval.Start <= dto.TimeInterval.End
                 );
@@ -80,7 +84,6 @@ namespace Schedule.API.Services.Procedures
             
             var selectedDoctorShifts = 
                 _shiftWrapper.Repository.GetByDoctorIdAndTimeInterval(dto.DoctorId, dto.TimeInterval).ToList();
-
             return FindRecommendationsInShifts(selectedDoctorShifts, remainingSlots);
         }
 
@@ -139,7 +142,7 @@ namespace Schedule.API.Services.Procedures
             var doctor = 
                 _doctorConnection.Get<IEnumerable<Doctor>>(shift.DoctorId.ToString())
                     .FirstOrDefault(doc => doc.Id == shift.DoctorId);
-
+            
             if (doctor == default) return recommendations;
             
             foreach (var timeSlot in timeSlots)
