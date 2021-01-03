@@ -1,4 +1,4 @@
-using Feedback.API.Infrastructure.Exceptions.CustomExceptions;
+using Feedback.API.Infrastructure.Exceptions;
 
 namespace Feedback.API.Model.Feedback
 {

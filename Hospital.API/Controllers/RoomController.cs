@@ -18,5 +18,10 @@ namespace Hospital.API.Controllers
         [HttpPost]
         public IActionResult FindRooms(IEnumerable<int> ids)
             => Ok(_roomService.GetRoomsByIds(ids));
+
+        [HttpGet]
+        [Route("{id}")]
+        public IActionResult Get(int id)
+            => Ok(_roomService.GetById(id));
     }
 }

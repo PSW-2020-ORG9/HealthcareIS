@@ -2,7 +2,7 @@ using Feedback.API.Infrastructure.Repositories;
 using Feedback.API.Model.Survey;
 using General.Repository;
 
-namespace Feedback.API.Services
+namespace Feedback.API.Services.SurveyService
 {
     public class SurveyService : ISurveyService
     {

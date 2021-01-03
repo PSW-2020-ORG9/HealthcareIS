@@ -1,12 +1,12 @@
+using System.Collections.Generic;
+using System.Linq;
 using Feedback.API.DTOs;
 using Feedback.API.Model.Survey;
 using Feedback.API.Model.User;
-using Feedback.API.Services.SurveyEntry;
+using Feedback.API.Services.SurveyService.SurveyEntry;
 using General;
-using System.Collections.Generic;
-using System.Linq;
 
-namespace Feedback.API.Services
+namespace Feedback.API.Services.SurveyService
 {
     public class SurveyPreviewBuilder
     {

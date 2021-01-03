@@ -1,6 +1,6 @@
 using Feedback.API.Model.Survey;
 
-namespace Feedback.API.Services
+namespace Feedback.API.Services.SurveyService
 {
     public interface ISurveyService
     {

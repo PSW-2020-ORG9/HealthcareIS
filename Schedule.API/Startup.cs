@@ -67,8 +67,8 @@ namespace Schedule.API
             IExaminationRepository examinationRepository = new ExaminationSqlRepository(GetContextFactory());
             IShiftRepository shiftRepository = new ShiftSqlRepository(GetContextFactory());
             IExaminationService examinationService = new IExaminationService(examinationRepository, shiftRepository);
+            DoctorAvailabilityService availabilityService = new DoctorAvailabilityService(shiftRepository,examinationRepository);
             
-            Console.WriteLine(UserUrl);
             IConnection patientConnection = CreateConnection(UserUrl, "patient");
             IConnection doctorConnection = CreateConnection(UserUrl, "doctor");
             IConnection roomConnection = CreateConnection(HospitalUrl, "room");
@@ -88,6 +88,7 @@ namespace Schedule.API
             services.Add(new ServiceDescriptor(typeof(IDiagnosisService), diagnosisService));
             services.Add(new ServiceDescriptor(typeof(ExaminationServiceProxy), examinationServiceProxy));
             services.Add(new ServiceDescriptor(typeof(RecommendationService), recommendationService));
+            services.Add(new ServiceDescriptor(typeof(DoctorAvailabilityService),availabilityService));
             
             services.AddControllers();
         }

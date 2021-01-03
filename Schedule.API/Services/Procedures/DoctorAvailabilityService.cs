@@ -39,7 +39,7 @@ namespace Schedule.API.Services.Procedures
             foreach (var shift in shifts)
             {
                 var examinations =
-                    _examinationWrapper.Repository.GetByDoctorAndDate(shift.Doctor.Id,shift.TimeInterval.Start.Date).Where(e => !e.IsCanceled);
+                    _examinationWrapper.Repository.GetByDoctorAndDate(shift.DoctorId, shift.TimeInterval.Start.Date);
                 InsertAvailableIntervals(shift,examinations,intervals);
             }
 

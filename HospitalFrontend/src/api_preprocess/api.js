@@ -21,6 +21,8 @@ let examinationUrl = server + '/api/examination'
 let doctorUrl = server + '/api/doctor'
 let specialtyUrl = server + '/api/specialty'
 
+let roomUrl = server + 'api/room/'
+
 export default{
     feedback: feedbacksUrl ,
     patient: patientUrl,
@@ -52,6 +54,8 @@ export default{
 
     patientExaminationSurveyResponseUrl: patientExaminationSurveyResponseUrl,
     patientExaminationsSurveyResponsesUrl: patientExaminationsSurveyResponsesUrl,
+
+    room : roomUrl,
 
     availableDoctorUrl:function(date){
         return doctorAvailabiltyUrl + 'doctor?date=' + date

@@ -132,7 +132,8 @@ export default {
             this.getExaminations(id)
         },
         getExaminations:function(id){
-            axios.get(api.examinationsByPatient+id).then(response=>{
+           
+            axios.get(api.examination+"/patient/"+id).then(response=>{
                 this.examinations=response.data
             })
         }
@@ -155,6 +156,7 @@ export default {
         },
         fetchProfilePicture: function () {
             let url = api.patientAccount + '/' + this.patient.id
+            
             axios.get(url).then(response => {
                 this.profilePicture = response.data.avatarUrl
             })
@@ -162,7 +164,7 @@ export default {
         }
     },
     mounted: function () {
-        this.getPatient(5);
+        this.getPatient(4);
     }
 }
 </script>

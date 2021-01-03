@@ -1,11 +1,10 @@
-using Feedback.API.Infrastructure.Repositories;
+using System.Collections.Generic;
+using System.Linq;
 using Feedback.API.Infrastructure.Repositories.SurveyEntries;
 using Feedback.API.Model.Survey.SurveyEntry;
 using General.Repository;
-using System.Collections.Generic;
-using System.Linq;
 
-namespace Feedback.API.Services.SurveyEntry
+namespace Feedback.API.Services.SurveyService.SurveyEntry
 {
     public class RatedSectionService : IRatedSectionService
     {
@@ -165,14 +164,11 @@ namespace Feedback.API.Services.SurveyEntry
             foreach (var surveySection in surveySections)
             {
                 if (!(surveySection is DoctorSurveySection section)) continue;
-                if (section.Doctor.Id == doctorId)
+                if (section.DoctorId == doctorId)
                     doctorSurveySections.Add(section);
             }
 
             return doctorSurveySections;
         }
-       
-        
-        
     }
 }

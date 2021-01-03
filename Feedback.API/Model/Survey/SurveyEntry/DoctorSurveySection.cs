@@ -4,6 +4,6 @@ namespace Feedback.API.Model.Survey.SurveyEntry
 {
     public class DoctorSurveySection : RatedSurveySection
     {
-        public Doctor Doctor { get; set; }
+        public string DoctorId { get; set; }
     }
 }

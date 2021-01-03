@@ -1,8 +1,8 @@
-﻿using Feedback.API.Model.Survey.SurveyEntry;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Feedback.API.Model.Survey.SurveyEntry;
 
-namespace Feedback.API.Services
+namespace Feedback.API.Services.SurveyService
 {
     public interface ISurveyResponseService
     {

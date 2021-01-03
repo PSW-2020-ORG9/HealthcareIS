@@ -181,6 +181,45 @@
     }
     ,
     {
+      "DownstreamPathTemplate": "/available/doctor",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5004
+        }
+      ],
+      "UpstreamPathTemplate": "/api/available/doctor",
+      "UpstreamHttpMethod": ["Get"]
+    }
+    ,
+    {
+      "DownstreamPathTemplate": "/available/interval",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5004
+        }
+      ],
+      "UpstreamPathTemplate": "/api/available/interval",
+      "UpstreamHttpMethod": ["Get"]
+    }
+    ,
+    {
+      "DownstreamPathTemplate": "/available/interval?date={date}&doctorId={doctor}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5004
+        }
+      ],
+      "UpstreamPathTemplate": "/api/available/interval?date={date}&doctor={doctor}",
+      "UpstreamHttpMethod": ["Get"]
+    }
+    ,
+    {
       "DownstreamPathTemplate": "/docsearch/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -203,6 +242,19 @@
         }
       ],
       "UpstreamPathTemplate": "/api/equipment/{everything}",
+      "UpstreamHttpMethod": [ "Get","Post" ]
+    }
+    ,
+    {
+      "DownstreamPathTemplate": "/room/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5001
+        }
+      ],
+      "UpstreamPathTemplate": "/api/room/{everything}",
       "UpstreamHttpMethod": [ "Get","Post" ]
     }
     ,

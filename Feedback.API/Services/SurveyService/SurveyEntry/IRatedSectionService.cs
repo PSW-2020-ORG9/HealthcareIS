@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Feedback.API.Services.SurveyEntry
+namespace Feedback.API.Services.SurveyService.SurveyEntry
 {
     public interface IRatedSectionService
     {
