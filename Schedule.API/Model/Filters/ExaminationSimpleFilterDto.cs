@@ -1,18 +1,11 @@
-﻿using Schedule.API.Model.Procedures;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Schedule.API.Model.Procedures;
 
 namespace Schedule.API.Model.Filters
 {
-    public class ExaminationSimpleFilterDto : AbstractFilter<Examination, int>
+    public class ExaminationSimpleFilterDto : AbstractExaminationFilter
     {
-        public string Name { get; set; }
-        public string Surname { get; set; }
-
-        protected override void ConfigureFilter()
-        {
-            if (!string.IsNullOrEmpty(Name)) 
-                AddExpressionFunction(examination => examination.Doctor.Person.Name.Contains(Name));
-            if (!string.IsNullOrEmpty(Surname))
-                AddExpressionFunction(examination => examination.Doctor.Person.Surname.Contains(Surname));
-        }
     }
 }

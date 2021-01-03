@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
@@ -10,7 +11,7 @@ namespace User.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class DoctorController:ControllerBase
+    public class DoctorController : ControllerBase
     {
         private readonly DoctorService _doctorService;
 
@@ -18,7 +19,7 @@ namespace User.API.Controllers
         {
             this._doctorService = doctorService;
         }
-        
+
         [HttpGet]
         [Route("specialty/{specialtyId}")]
         public IActionResult GetBySpecialty(int specialtyId)
@@ -46,7 +47,7 @@ namespace User.API.Controllers
             if (doctorDtoList != null) return Ok(doctorDtoList);
             return BadRequest("Doctors not found.");
         }
-     
+
         [HttpGet]
         [Route("{doctorId}")]
         public IActionResult GetDoctorById(int doctorId)

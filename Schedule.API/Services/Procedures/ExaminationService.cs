@@ -25,12 +25,9 @@ namespace Schedule.API.Services.Procedures
         }
 
         // Search 
-        public IEnumerable<Examination> SimpleSearch(ExaminationSimpleFilterDto filterDto)
+        public IEnumerable<Examination> Search(AbstractExaminationFilter filterDto)
             => _examinationWrapper.Repository.GetMatching(filterDto.GetFilterExpression());
         
-        public IEnumerable<Examination> AdvancedSearch(ExaminationAdvancedFilterDto filterDto)
-            => _examinationWrapper.Repository.GetMatching(filterDto.GetFilterExpression());
-
         // CRUD
         public IEnumerable<Examination> GetByPatientId(int patientId)
             => _examinationWrapper.Repository.GetByPatientId(patientId);

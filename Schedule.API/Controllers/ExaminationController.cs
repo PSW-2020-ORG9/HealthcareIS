@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Schedule.API.Mappers;
 using Schedule.API.Model.Exceptions;
+using Schedule.API.Model.Filters;
 using Schedule.API.Model.Procedures.DTOs;
 using Schedule.API.Model.Recommendations;
 using Schedule.API.Services.Procedures;
@@ -68,5 +69,15 @@ namespace Schedule.API.Controllers
         {
             return Ok(_recommendationService.Recommend(dto));
         }
+
+        [HttpPost]
+        [Route("search/simple")]
+        public IActionResult SimpleSearch(ExaminationSimpleFilterDto dto)
+            => Ok(_examinationService.Search(dto));
+
+        [HttpPost]
+        [Route("search/advanced")]
+        public IActionResult AdvancedSearch(ExaminationAdvancedFilterDto dto)
+            => Ok(_examinationService.Search(dto));
     }
 }

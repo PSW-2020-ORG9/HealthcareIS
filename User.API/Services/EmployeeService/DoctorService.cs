@@ -86,5 +86,14 @@ namespace User.API.Services.EmployeeService
                 selection:
                     doctor => doctor.Id
             );
+
+        public IEnumerable<int> FindIdsByCredentials(string name, string surname)
+        {
+            return _doctorRepository.Repository.GetColumnsForMatching(
+                condition: doctor => doctor.Person.Name.Contains(name) && doctor.Person.Surname.Contains(surname),
+                selection:
+                doctor => doctor.Id
+            );
+        }
     }
 }
