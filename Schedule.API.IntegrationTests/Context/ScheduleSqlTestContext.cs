@@ -51,8 +51,8 @@ namespace Schedule.API.IntegrationTests.Context
                 s.OwnsOne(x => x.TimeInterval).HasData(new
                 {
                     ShiftId = 1,
-                    Start = new DateTime(2022, 3, 3),
-                    End = new DateTime(2022, 3, 3)
+                    Start = new DateTime(2022, 3, 3, 8, 0, 0),
+                    End = new DateTime(2022, 3, 3, 22, 0, 0)
                 });
             });
         }
