@@ -14,6 +14,7 @@ using HealthcareBase.Model.Schedule.SchedulingPreferences;
 using HealthcareBase.Model.Utilities;
 using HospitalWebApp.Dtos;
 using HealthcareBase.Model.Users.Employee.Doctors;
+using WPFHospitalEditor.Repository;
 
 namespace WPFHospitalEditor
 {
@@ -44,7 +45,7 @@ namespace WPFHospitalEditor
             CanvasService.AddObjectToCanvas(mapObjectController.GetOutterMapObjects(), canvas);
             canvasHospitalMap = canvas;
             HospitalMap.role = role;
-            SetComponentsVisibility();
+            SetComponentsVisibility();         
         }
 
         private void SetComponentsVisibility()

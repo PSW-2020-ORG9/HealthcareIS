@@ -150,7 +150,7 @@
       },
       "Id": 3,
       "Name": "",
-      "Description": "",
+      "MapObjectDescription": null,
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -464,7 +464,7 @@
       },
       "Id": 4,
       "Name": "",
-      "Description": "",
+      "MapObjectDescription": null,
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -778,7 +778,7 @@
       },
       "Id": 5,
       "Name": "",
-      "Description": "",
+      "MapObjectDescription": null,
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -1092,7 +1092,7 @@
       },
       "Id": 6,
       "Name": "",
-      "Description": "",
+      "MapObjectDescription": null,
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -1406,7 +1406,7 @@
       },
       "Id": 1,
       "Name": "Building 1",
-      "Description": "",
+      "MapObjectDescription": null,
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -1720,7 +1720,7 @@
       },
       "Id": 2,
       "Name": "Building 2",
-      "Description": "",
+      "MapObjectDescription": null,
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -2034,7 +2034,7 @@
       },
       "Id": 7,
       "Name": "",
-      "Description": "",
+      "MapObjectDescription": null,
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -2348,7 +2348,7 @@
       },
       "Id": 8,
       "Name": "",
-      "Description": "",
+      "MapObjectDescription": null,
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -2662,7 +2662,7 @@
       },
       "Id": 9,
       "Name": "",
-      "Description": "",
+      "MapObjectDescription": null,
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -2976,7 +2976,7 @@
       },
       "Id": 10,
       "Name": "",
-      "Description": "",
+      "MapObjectDescription": null,
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -3290,7 +3290,7 @@
       },
       "Id": 0,
       "Name": "",
-      "Description": "",
+      "MapObjectDescription": null,
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -3604,7 +3604,7 @@
       },
       "Id": 0,
       "Name": "",
-      "Description": "",
+      "MapObjectDescription": null,
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -3918,7 +3918,7 @@
       },
       "Id": 0,
       "Name": "",
-      "Description": "",
+      "MapObjectDescription": null,
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -4232,7 +4232,7 @@
       },
       "Id": 0,
       "Name": "",
-      "Description": "",
+      "MapObjectDescription": null,
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -4546,7 +4546,7 @@
       },
       "Id": 0,
       "Name": "",
-      "Description": "",
+      "MapObjectDescription": null,
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -4860,7 +4860,7 @@
       },
       "Id": 0,
       "Name": "",
-      "Description": "",
+      "MapObjectDescription": null,
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -5174,7 +5174,7 @@
       },
       "Id": 0,
       "Name": "",
-      "Description": "",
+      "MapObjectDescription": null,
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -5488,7 +5488,7 @@
       },
       "Id": 0,
       "Name": "",
-      "Description": "",
+      "MapObjectDescription": null,
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -5802,7 +5802,7 @@
       },
       "Id": 0,
       "Name": "",
-      "Description": "",
+      "MapObjectDescription": null,
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -6116,7 +6116,7 @@
       },
       "Id": 0,
       "Name": "",
-      "Description": "",
+      "MapObjectDescription": null,
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -6430,7 +6430,7 @@
       },
       "Id": 0,
       "Name": "",
-      "Description": "",
+      "MapObjectDescription": null,
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -6744,7 +6744,7 @@
       },
       "Id": 0,
       "Name": "",
-      "Description": "",
+      "MapObjectDescription": null,
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -7058,7 +7058,7 @@
       },
       "Id": 0,
       "Name": "",
-      "Description": "",
+      "MapObjectDescription": null,
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -7372,7 +7372,7 @@
       },
       "Id": 0,
       "Name": "",
-      "Description": "",
+      "MapObjectDescription": null,
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -7686,7 +7686,7 @@
       },
       "Id": 0,
       "Name": "",
-      "Description": "",
+      "MapObjectDescription": null,
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -8000,7 +8000,7 @@
       },
       "Id": 0,
       "Name": "",
-      "Description": "",
+      "MapObjectDescription": null,
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -8314,7 +8314,7 @@
       },
       "Id": 0,
       "Name": "",
-      "Description": "",
+      "MapObjectDescription": null,
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -8628,7 +8628,7 @@
       },
       "Id": 0,
       "Name": "",
-      "Description": "",
+      "MapObjectDescription": null,
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -8942,7 +8942,7 @@
       },
       "Id": 0,
       "Name": "",
-      "Description": "",
+      "MapObjectDescription": null,
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -9256,7 +9256,7 @@
       },
       "Id": 0,
       "Name": "",
-      "Description": "",
+      "MapObjectDescription": null,
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -9570,7 +9570,7 @@
       },
       "Id": 0,
       "Name": "",
-      "Description": "",
+      "MapObjectDescription": null,
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -9884,7 +9884,7 @@
       },
       "Id": 0,
       "Name": "",
-      "Description": "",
+      "MapObjectDescription": null,
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -10198,7 +10198,7 @@
       },
       "Id": 0,
       "Name": "",
-      "Description": "",
+      "MapObjectDescription": null,
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -10512,7 +10512,7 @@
       },
       "Id": 0,
       "Name": "",
-      "Description": "",
+      "MapObjectDescription": null,
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -10675,6 +10675,325 @@
           "IsSealed": false
         },
         "MapObjectDoorOrientation": 4
+      }
+    },
+    {
+      "$type": "WPFHospitalEditor.MapObjectModel.MapObject, WPFHospitalEditor",
+      "rectangle": {
+        "$type": "System.Windows.Shapes.Rectangle, PresentationFramework",
+        "RadiusX": 0.0,
+        "RadiusY": 0.0,
+        "RenderedGeometry": "System.Windows.Media.RectangleGeometry",
+        "GeometryTransform": "Identity",
+        "Stretch": 1,
+        "Fill": "#FF808080",
+        "Stroke": "#FF000000",
+        "StrokeThickness": 1.0,
+        "StrokeStartLineCap": 0,
+        "StrokeEndLineCap": 0,
+        "StrokeDashCap": 0,
+        "StrokeLineJoin": 0,
+        "StrokeMiterLimit": 10.0,
+        "StrokeDashOffset": 0.0,
+        "StrokeDashArray": {
+          "$type": "System.Windows.Media.DoubleCollection, PresentationCore",
+          "$values": []
+        },
+        "OverridesDefaultStyle": false,
+        "UseLayoutRounding": false,
+        "TemplatedParent": null,
+        "DataContext": null,
+        "BindingGroup": null,
+        "Language": "en-us",
+        "Name": "",
+        "Tag": null,
+        "InputScope": null,
+        "ActualWidth": 0.0,
+        "ActualHeight": 0.0,
+        "LayoutTransform": "Identity",
+        "Width": 50.0,
+        "MinWidth": 0.0,
+        "MaxWidth": "Infinity",
+        "Height": 60.0,
+        "MinHeight": 0.0,
+        "MaxHeight": "Infinity",
+        "FlowDirection": 0,
+        "Margin": "0,0,0,0",
+        "HorizontalAlignment": 3,
+        "VerticalAlignment": 3,
+        "Cursor": null,
+        "ForceCursor": false,
+        "IsInitialized": false,
+        "IsLoaded": false,
+        "ToolTip": null,
+        "ContextMenu": null,
+        "Parent": null,
+        "HasAnimatedProperties": false,
+        "AllowDrop": false,
+        "DesiredSize": "0,0",
+        "IsMeasureValid": false,
+        "IsArrangeValid": false,
+        "RenderSize": "0,0",
+        "RenderTransform": "Identity",
+        "RenderTransformOrigin": "0,0",
+        "IsMouseDirectlyOver": false,
+        "IsMouseOver": false,
+        "IsStylusOver": false,
+        "IsKeyboardFocusWithin": false,
+        "IsMouseCaptured": false,
+        "IsMouseCaptureWithin": false,
+        "IsStylusDirectlyOver": false,
+        "IsStylusCaptured": false,
+        "IsStylusCaptureWithin": false,
+        "IsKeyboardFocused": false,
+        "IsInputMethodEnabled": true,
+        "Opacity": 1.0,
+        "OpacityMask": null,
+        "BitmapEffect": null,
+        "Effect": null,
+        "BitmapEffectInput": null,
+        "CacheMode": null,
+        "Uid": "",
+        "Visibility": 0,
+        "ClipToBounds": false,
+        "Clip": null,
+        "SnapsToDevicePixels": false,
+        "IsFocused": false,
+        "IsEnabled": true,
+        "IsHitTestVisible": true,
+        "IsVisible": false,
+        "Focusable": false,
+        "PersistId": 0,
+        "IsManipulationEnabled": false,
+        "AreAnyTouchesOver": false,
+        "AreAnyTouchesDirectlyOver": false,
+        "AreAnyTouchesCapturedWithin": false,
+        "AreAnyTouchesCaptured": false,
+        "TouchesCaptured": {
+          "$type": "System.Collections.Generic.List`1[[System.Windows.Input.TouchDevice, PresentationCore]], System.Private.CoreLib",
+          "$values": []
+        },
+        "TouchesCapturedWithin": {
+          "$type": "System.Collections.Generic.List`1[[System.Windows.Input.TouchDevice, PresentationCore]], System.Private.CoreLib",
+          "$values": []
+        },
+        "TouchesOver": {
+          "$type": "System.Collections.Generic.List`1[[System.Windows.Input.TouchDevice, PresentationCore]], System.Private.CoreLib",
+          "$values": []
+        },
+        "TouchesDirectlyOver": {
+          "$type": "System.Collections.Generic.List`1[[System.Windows.Input.TouchDevice, PresentationCore]], System.Private.CoreLib",
+          "$values": []
+        },
+        "DependencyObjectType": {
+          "$type": "System.Windows.DependencyObjectType, WindowsBase",
+          "Id": 70,
+          "SystemType": "System.Windows.Shapes.Rectangle, PresentationFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
+          "BaseType": {
+            "$type": "System.Windows.DependencyObjectType, WindowsBase",
+            "Id": 51,
+            "SystemType": "System.Windows.Shapes.Shape, PresentationFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
+            "BaseType": {
+              "$type": "System.Windows.DependencyObjectType, WindowsBase",
+              "Id": 3,
+              "SystemType": "System.Windows.FrameworkElement, PresentationFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
+              "BaseType": {
+                "$type": "System.Windows.DependencyObjectType, WindowsBase",
+                "Id": 2,
+                "SystemType": "System.Windows.UIElement, PresentationCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
+                "BaseType": {
+                  "$type": "System.Windows.DependencyObjectType, WindowsBase",
+                  "Id": 1,
+                  "SystemType": "System.Windows.Media.Visual, PresentationCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
+                  "BaseType": {
+                    "$type": "System.Windows.DependencyObjectType, WindowsBase",
+                    "Id": 0,
+                    "SystemType": "System.Windows.DependencyObject, WindowsBase, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
+                    "BaseType": null,
+                    "Name": "DependencyObject"
+                  },
+                  "Name": "Visual"
+                },
+                "Name": "UIElement"
+              },
+              "Name": "FrameworkElement"
+            },
+            "Name": "Shape"
+          },
+          "Name": "Rectangle"
+        },
+        "IsSealed": false
+      },
+      "Id": 11,
+      "Name": "Elevator 1",
+      "MapObjectDescription": {
+        "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
+        "BuildingId": 1,
+        "FloorNumber": 0,
+        "Information": "Max weight=480kg"
+      },
+      "MapObjectMetrics": {
+        "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
+        "MapObjectCoordinates": {
+          "$type": "WPFHospitalEditor.MapObjectModel.MapObjectCoordinates, WPFHospitalEditor",
+          "X": 750.0,
+          "Y": 170.0
+        },
+        "MapObjectDimensions": {
+          "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDimensions, WPFHospitalEditor",
+          "Width": 50.0,
+          "Height": 60.0
+        }
+      },
+      "MapObjectType": 4,
+      "MapObjectDoor": {
+        "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDoor, WPFHospitalEditor",
+        "rectangle": {
+          "$type": "System.Windows.Shapes.Rectangle, PresentationFramework",
+          "RadiusX": 0.0,
+          "RadiusY": 0.0,
+          "RenderedGeometry": "System.Windows.Media.RectangleGeometry",
+          "GeometryTransform": "Identity",
+          "Stretch": 1,
+          "Fill": "#FF8B4513",
+          "Stroke": null,
+          "StrokeThickness": 1.0,
+          "StrokeStartLineCap": 0,
+          "StrokeEndLineCap": 0,
+          "StrokeDashCap": 0,
+          "StrokeLineJoin": 0,
+          "StrokeMiterLimit": 10.0,
+          "StrokeDashOffset": 0.0,
+          "StrokeDashArray": {
+            "$type": "System.Windows.Media.DoubleCollection, PresentationCore",
+            "$values": []
+          },
+          "OverridesDefaultStyle": false,
+          "UseLayoutRounding": false,
+          "TemplatedParent": null,
+          "DataContext": null,
+          "BindingGroup": null,
+          "Language": "en-us",
+          "Name": "",
+          "Tag": null,
+          "InputScope": null,
+          "ActualWidth": 0.0,
+          "ActualHeight": 0.0,
+          "LayoutTransform": "Identity",
+          "Width": 6.0,
+          "MinWidth": 0.0,
+          "MaxWidth": "Infinity",
+          "Height": 30.0,
+          "MinHeight": 0.0,
+          "MaxHeight": "Infinity",
+          "FlowDirection": 0,
+          "Margin": "0,0,0,0",
+          "HorizontalAlignment": 3,
+          "VerticalAlignment": 3,
+          "Cursor": null,
+          "ForceCursor": false,
+          "IsInitialized": false,
+          "IsLoaded": false,
+          "ToolTip": null,
+          "ContextMenu": null,
+          "Parent": null,
+          "HasAnimatedProperties": false,
+          "AllowDrop": false,
+          "DesiredSize": "0,0",
+          "IsMeasureValid": false,
+          "IsArrangeValid": false,
+          "RenderSize": "0,0",
+          "RenderTransform": "Identity",
+          "RenderTransformOrigin": "0,0",
+          "IsMouseDirectlyOver": false,
+          "IsMouseOver": false,
+          "IsStylusOver": false,
+          "IsKeyboardFocusWithin": false,
+          "IsMouseCaptured": false,
+          "IsMouseCaptureWithin": false,
+          "IsStylusDirectlyOver": false,
+          "IsStylusCaptured": false,
+          "IsStylusCaptureWithin": false,
+          "IsKeyboardFocused": false,
+          "IsInputMethodEnabled": true,
+          "Opacity": 1.0,
+          "OpacityMask": null,
+          "BitmapEffect": null,
+          "Effect": null,
+          "BitmapEffectInput": null,
+          "CacheMode": null,
+          "Uid": "",
+          "Visibility": 0,
+          "ClipToBounds": false,
+          "Clip": null,
+          "SnapsToDevicePixels": false,
+          "IsFocused": false,
+          "IsEnabled": true,
+          "IsHitTestVisible": true,
+          "IsVisible": false,
+          "Focusable": false,
+          "PersistId": 0,
+          "IsManipulationEnabled": false,
+          "AreAnyTouchesOver": false,
+          "AreAnyTouchesDirectlyOver": false,
+          "AreAnyTouchesCapturedWithin": false,
+          "AreAnyTouchesCaptured": false,
+          "TouchesCaptured": {
+            "$type": "System.Collections.Generic.List`1[[System.Windows.Input.TouchDevice, PresentationCore]], System.Private.CoreLib",
+            "$values": []
+          },
+          "TouchesCapturedWithin": {
+            "$type": "System.Collections.Generic.List`1[[System.Windows.Input.TouchDevice, PresentationCore]], System.Private.CoreLib",
+            "$values": []
+          },
+          "TouchesOver": {
+            "$type": "System.Collections.Generic.List`1[[System.Windows.Input.TouchDevice, PresentationCore]], System.Private.CoreLib",
+            "$values": []
+          },
+          "TouchesDirectlyOver": {
+            "$type": "System.Collections.Generic.List`1[[System.Windows.Input.TouchDevice, PresentationCore]], System.Private.CoreLib",
+            "$values": []
+          },
+          "DependencyObjectType": {
+            "$type": "System.Windows.DependencyObjectType, WindowsBase",
+            "Id": 70,
+            "SystemType": "System.Windows.Shapes.Rectangle, PresentationFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
+            "BaseType": {
+              "$type": "System.Windows.DependencyObjectType, WindowsBase",
+              "Id": 51,
+              "SystemType": "System.Windows.Shapes.Shape, PresentationFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
+              "BaseType": {
+                "$type": "System.Windows.DependencyObjectType, WindowsBase",
+                "Id": 3,
+                "SystemType": "System.Windows.FrameworkElement, PresentationFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
+                "BaseType": {
+                  "$type": "System.Windows.DependencyObjectType, WindowsBase",
+                  "Id": 2,
+                  "SystemType": "System.Windows.UIElement, PresentationCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
+                  "BaseType": {
+                    "$type": "System.Windows.DependencyObjectType, WindowsBase",
+                    "Id": 1,
+                    "SystemType": "System.Windows.Media.Visual, PresentationCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
+                    "BaseType": {
+                      "$type": "System.Windows.DependencyObjectType, WindowsBase",
+                      "Id": 0,
+                      "SystemType": "System.Windows.DependencyObject, WindowsBase, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
+                      "BaseType": null,
+                      "Name": "DependencyObject"
+                    },
+                    "Name": "Visual"
+                  },
+                  "Name": "UIElement"
+                },
+                "Name": "FrameworkElement"
+              },
+              "Name": "Shape"
+            },
+            "Name": "Rectangle"
+          },
+          "IsSealed": false
+        },
+        "MapObjectDoorOrientation": 2
       }
     },
     {
@@ -10826,7 +11145,12 @@
       },
       "Id": 12,
       "Name": "Informations 1",
-      "Description": "1-0&Working Hours=08:00 - 00:00",
+      "MapObjectDescription": {
+        "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
+        "BuildingId": 1,
+        "FloorNumber": 0,
+        "Information": "Working Hours = 07:00 - 00:00"
+      },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -10841,6 +11165,325 @@
         }
       },
       "MapObjectType": 5,
+      "MapObjectDoor": {
+        "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDoor, WPFHospitalEditor",
+        "rectangle": {
+          "$type": "System.Windows.Shapes.Rectangle, PresentationFramework",
+          "RadiusX": 0.0,
+          "RadiusY": 0.0,
+          "RenderedGeometry": "System.Windows.Media.RectangleGeometry",
+          "GeometryTransform": "Identity",
+          "Stretch": 1,
+          "Fill": "#FF8B4513",
+          "Stroke": null,
+          "StrokeThickness": 1.0,
+          "StrokeStartLineCap": 0,
+          "StrokeEndLineCap": 0,
+          "StrokeDashCap": 0,
+          "StrokeLineJoin": 0,
+          "StrokeMiterLimit": 10.0,
+          "StrokeDashOffset": 0.0,
+          "StrokeDashArray": {
+            "$type": "System.Windows.Media.DoubleCollection, PresentationCore",
+            "$values": []
+          },
+          "OverridesDefaultStyle": false,
+          "UseLayoutRounding": false,
+          "TemplatedParent": null,
+          "DataContext": null,
+          "BindingGroup": null,
+          "Language": "en-us",
+          "Name": "",
+          "Tag": null,
+          "InputScope": null,
+          "ActualWidth": 0.0,
+          "ActualHeight": 0.0,
+          "LayoutTransform": "Identity",
+          "Width": 6.0,
+          "MinWidth": 0.0,
+          "MaxWidth": "Infinity",
+          "Height": 30.0,
+          "MinHeight": 0.0,
+          "MaxHeight": "Infinity",
+          "FlowDirection": 0,
+          "Margin": "0,0,0,0",
+          "HorizontalAlignment": 3,
+          "VerticalAlignment": 3,
+          "Cursor": null,
+          "ForceCursor": false,
+          "IsInitialized": false,
+          "IsLoaded": false,
+          "ToolTip": null,
+          "ContextMenu": null,
+          "Parent": null,
+          "HasAnimatedProperties": false,
+          "AllowDrop": false,
+          "DesiredSize": "0,0",
+          "IsMeasureValid": false,
+          "IsArrangeValid": false,
+          "RenderSize": "0,0",
+          "RenderTransform": "Identity",
+          "RenderTransformOrigin": "0,0",
+          "IsMouseDirectlyOver": false,
+          "IsMouseOver": false,
+          "IsStylusOver": false,
+          "IsKeyboardFocusWithin": false,
+          "IsMouseCaptured": false,
+          "IsMouseCaptureWithin": false,
+          "IsStylusDirectlyOver": false,
+          "IsStylusCaptured": false,
+          "IsStylusCaptureWithin": false,
+          "IsKeyboardFocused": false,
+          "IsInputMethodEnabled": true,
+          "Opacity": 1.0,
+          "OpacityMask": null,
+          "BitmapEffect": null,
+          "Effect": null,
+          "BitmapEffectInput": null,
+          "CacheMode": null,
+          "Uid": "",
+          "Visibility": 0,
+          "ClipToBounds": false,
+          "Clip": null,
+          "SnapsToDevicePixels": false,
+          "IsFocused": false,
+          "IsEnabled": true,
+          "IsHitTestVisible": true,
+          "IsVisible": false,
+          "Focusable": false,
+          "PersistId": 0,
+          "IsManipulationEnabled": false,
+          "AreAnyTouchesOver": false,
+          "AreAnyTouchesDirectlyOver": false,
+          "AreAnyTouchesCapturedWithin": false,
+          "AreAnyTouchesCaptured": false,
+          "TouchesCaptured": {
+            "$type": "System.Collections.Generic.List`1[[System.Windows.Input.TouchDevice, PresentationCore]], System.Private.CoreLib",
+            "$values": []
+          },
+          "TouchesCapturedWithin": {
+            "$type": "System.Collections.Generic.List`1[[System.Windows.Input.TouchDevice, PresentationCore]], System.Private.CoreLib",
+            "$values": []
+          },
+          "TouchesOver": {
+            "$type": "System.Collections.Generic.List`1[[System.Windows.Input.TouchDevice, PresentationCore]], System.Private.CoreLib",
+            "$values": []
+          },
+          "TouchesDirectlyOver": {
+            "$type": "System.Collections.Generic.List`1[[System.Windows.Input.TouchDevice, PresentationCore]], System.Private.CoreLib",
+            "$values": []
+          },
+          "DependencyObjectType": {
+            "$type": "System.Windows.DependencyObjectType, WindowsBase",
+            "Id": 70,
+            "SystemType": "System.Windows.Shapes.Rectangle, PresentationFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
+            "BaseType": {
+              "$type": "System.Windows.DependencyObjectType, WindowsBase",
+              "Id": 51,
+              "SystemType": "System.Windows.Shapes.Shape, PresentationFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
+              "BaseType": {
+                "$type": "System.Windows.DependencyObjectType, WindowsBase",
+                "Id": 3,
+                "SystemType": "System.Windows.FrameworkElement, PresentationFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
+                "BaseType": {
+                  "$type": "System.Windows.DependencyObjectType, WindowsBase",
+                  "Id": 2,
+                  "SystemType": "System.Windows.UIElement, PresentationCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
+                  "BaseType": {
+                    "$type": "System.Windows.DependencyObjectType, WindowsBase",
+                    "Id": 1,
+                    "SystemType": "System.Windows.Media.Visual, PresentationCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
+                    "BaseType": {
+                      "$type": "System.Windows.DependencyObjectType, WindowsBase",
+                      "Id": 0,
+                      "SystemType": "System.Windows.DependencyObject, WindowsBase, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
+                      "BaseType": null,
+                      "Name": "DependencyObject"
+                    },
+                    "Name": "Visual"
+                  },
+                  "Name": "UIElement"
+                },
+                "Name": "FrameworkElement"
+              },
+              "Name": "Shape"
+            },
+            "Name": "Rectangle"
+          },
+          "IsSealed": false
+        },
+        "MapObjectDoorOrientation": 3
+      }
+    },
+    {
+      "$type": "WPFHospitalEditor.MapObjectModel.MapObject, WPFHospitalEditor",
+      "rectangle": {
+        "$type": "System.Windows.Shapes.Rectangle, PresentationFramework",
+        "RadiusX": 0.0,
+        "RadiusY": 0.0,
+        "RenderedGeometry": "System.Windows.Media.RectangleGeometry",
+        "GeometryTransform": "Identity",
+        "Stretch": 1,
+        "Fill": "#FFADD8E6",
+        "Stroke": "#FF000000",
+        "StrokeThickness": 1.0,
+        "StrokeStartLineCap": 0,
+        "StrokeEndLineCap": 0,
+        "StrokeDashCap": 0,
+        "StrokeLineJoin": 0,
+        "StrokeMiterLimit": 10.0,
+        "StrokeDashOffset": 0.0,
+        "StrokeDashArray": {
+          "$type": "System.Windows.Media.DoubleCollection, PresentationCore",
+          "$values": []
+        },
+        "OverridesDefaultStyle": false,
+        "UseLayoutRounding": false,
+        "TemplatedParent": null,
+        "DataContext": null,
+        "BindingGroup": null,
+        "Language": "en-us",
+        "Name": "",
+        "Tag": null,
+        "InputScope": null,
+        "ActualWidth": 0.0,
+        "ActualHeight": 0.0,
+        "LayoutTransform": "Identity",
+        "Width": 100.0,
+        "MinWidth": 0.0,
+        "MaxWidth": "Infinity",
+        "Height": 100.0,
+        "MinHeight": 0.0,
+        "MaxHeight": "Infinity",
+        "FlowDirection": 0,
+        "Margin": "0,0,0,0",
+        "HorizontalAlignment": 3,
+        "VerticalAlignment": 3,
+        "Cursor": null,
+        "ForceCursor": false,
+        "IsInitialized": false,
+        "IsLoaded": false,
+        "ToolTip": null,
+        "ContextMenu": null,
+        "Parent": null,
+        "HasAnimatedProperties": false,
+        "AllowDrop": false,
+        "DesiredSize": "0,0",
+        "IsMeasureValid": false,
+        "IsArrangeValid": false,
+        "RenderSize": "0,0",
+        "RenderTransform": "Identity",
+        "RenderTransformOrigin": "0,0",
+        "IsMouseDirectlyOver": false,
+        "IsMouseOver": false,
+        "IsStylusOver": false,
+        "IsKeyboardFocusWithin": false,
+        "IsMouseCaptured": false,
+        "IsMouseCaptureWithin": false,
+        "IsStylusDirectlyOver": false,
+        "IsStylusCaptured": false,
+        "IsStylusCaptureWithin": false,
+        "IsKeyboardFocused": false,
+        "IsInputMethodEnabled": true,
+        "Opacity": 1.0,
+        "OpacityMask": null,
+        "BitmapEffect": null,
+        "Effect": null,
+        "BitmapEffectInput": null,
+        "CacheMode": null,
+        "Uid": "",
+        "Visibility": 0,
+        "ClipToBounds": false,
+        "Clip": null,
+        "SnapsToDevicePixels": false,
+        "IsFocused": false,
+        "IsEnabled": true,
+        "IsHitTestVisible": true,
+        "IsVisible": false,
+        "Focusable": false,
+        "PersistId": 0,
+        "IsManipulationEnabled": false,
+        "AreAnyTouchesOver": false,
+        "AreAnyTouchesDirectlyOver": false,
+        "AreAnyTouchesCapturedWithin": false,
+        "AreAnyTouchesCaptured": false,
+        "TouchesCaptured": {
+          "$type": "System.Collections.Generic.List`1[[System.Windows.Input.TouchDevice, PresentationCore]], System.Private.CoreLib",
+          "$values": []
+        },
+        "TouchesCapturedWithin": {
+          "$type": "System.Collections.Generic.List`1[[System.Windows.Input.TouchDevice, PresentationCore]], System.Private.CoreLib",
+          "$values": []
+        },
+        "TouchesOver": {
+          "$type": "System.Collections.Generic.List`1[[System.Windows.Input.TouchDevice, PresentationCore]], System.Private.CoreLib",
+          "$values": []
+        },
+        "TouchesDirectlyOver": {
+          "$type": "System.Collections.Generic.List`1[[System.Windows.Input.TouchDevice, PresentationCore]], System.Private.CoreLib",
+          "$values": []
+        },
+        "DependencyObjectType": {
+          "$type": "System.Windows.DependencyObjectType, WindowsBase",
+          "Id": 70,
+          "SystemType": "System.Windows.Shapes.Rectangle, PresentationFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
+          "BaseType": {
+            "$type": "System.Windows.DependencyObjectType, WindowsBase",
+            "Id": 51,
+            "SystemType": "System.Windows.Shapes.Shape, PresentationFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
+            "BaseType": {
+              "$type": "System.Windows.DependencyObjectType, WindowsBase",
+              "Id": 3,
+              "SystemType": "System.Windows.FrameworkElement, PresentationFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
+              "BaseType": {
+                "$type": "System.Windows.DependencyObjectType, WindowsBase",
+                "Id": 2,
+                "SystemType": "System.Windows.UIElement, PresentationCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
+                "BaseType": {
+                  "$type": "System.Windows.DependencyObjectType, WindowsBase",
+                  "Id": 1,
+                  "SystemType": "System.Windows.Media.Visual, PresentationCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
+                  "BaseType": {
+                    "$type": "System.Windows.DependencyObjectType, WindowsBase",
+                    "Id": 0,
+                    "SystemType": "System.Windows.DependencyObject, WindowsBase, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
+                    "BaseType": null,
+                    "Name": "DependencyObject"
+                  },
+                  "Name": "Visual"
+                },
+                "Name": "UIElement"
+              },
+              "Name": "FrameworkElement"
+            },
+            "Name": "Shape"
+          },
+          "Name": "Rectangle"
+        },
+        "IsSealed": false
+      },
+      "Id": 13,
+      "Name": "Toilet 1",
+      "MapObjectDescription": {
+        "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
+        "BuildingId": 1,
+        "FloorNumber": 0,
+        "Information": ""
+      },
+      "MapObjectMetrics": {
+        "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
+        "MapObjectCoordinates": {
+          "$type": "WPFHospitalEditor.MapObjectModel.MapObjectCoordinates, WPFHospitalEditor",
+          "X": 0.0,
+          "Y": 300.0
+        },
+        "MapObjectDimensions": {
+          "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDimensions, WPFHospitalEditor",
+          "Width": 100.0,
+          "Height": 100.0
+        }
+      },
+      "MapObjectType": 6,
       "MapObjectDoor": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDoor, WPFHospitalEditor",
         "rectangle": {
@@ -11140,7 +11783,12 @@
       },
       "Id": 15,
       "Name": "Examination room 1",
-      "Description": "1-0&Working Hours=09:00 - 21:30;",
+      "MapObjectDescription": {
+        "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
+        "BuildingId": 1,
+        "FloorNumber": 0,
+        "Information": "Working Hours=09:00 - 21:00"
+      },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -11454,7 +12102,12 @@
       },
       "Id": 16,
       "Name": "Examination room 2",
-      "Description": "1-0&Working Hours=09:00 - 21:00;",
+      "MapObjectDescription": {
+        "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
+        "BuildingId": 1,
+        "FloorNumber": 0,
+        "Information": "Working Hours=09:00 - 21:00"
+      },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -11628,7 +12281,7 @@
         "RenderedGeometry": "System.Windows.Media.RectangleGeometry",
         "GeometryTransform": "Identity",
         "Stretch": 1,
-        "Fill": "#FF4682B4",
+        "Fill": "#FFFFFFF0",
         "Stroke": "#FF000000",
         "StrokeThickness": 1.0,
         "StrokeStartLineCap": 0,
@@ -11768,7 +12421,12 @@
       },
       "Id": 17,
       "Name": "Storage room 1",
-      "Description": "1-0&Working Hours=00:00 - 24:00;",
+      "MapObjectDescription": {
+        "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
+        "BuildingId": 1,
+        "FloorNumber": 0,
+        "Information": "Working Hours=09:00 - 21:00"
+      },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -12082,7 +12740,12 @@
       },
       "Id": 18,
       "Name": "Surgery room 1",
-      "Description": "1-0&Working Hours=09:00 - 19:00",
+      "MapObjectDescription": {
+        "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
+        "BuildingId": 1,
+        "FloorNumber": 0,
+        "Information": "Working Hours=09:00 - 19:00"
+      },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -12396,7 +13059,12 @@
       },
       "Id": 19,
       "Name": "Surgery room 2",
-      "Description": "1-0&Working Hours=09:00 - 19:00",
+      "MapObjectDescription": {
+        "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
+        "BuildingId": 1,
+        "FloorNumber": 0,
+        "Information": "Working Hours=09:00 - 19:00"
+      },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -12570,320 +13238,6 @@
         "RenderedGeometry": "System.Windows.Media.RectangleGeometry",
         "GeometryTransform": "Identity",
         "Stretch": 1,
-        "Fill": "#FFADD8E6",
-        "Stroke": "#FF000000",
-        "StrokeThickness": 1.0,
-        "StrokeStartLineCap": 0,
-        "StrokeEndLineCap": 0,
-        "StrokeDashCap": 0,
-        "StrokeLineJoin": 0,
-        "StrokeMiterLimit": 10.0,
-        "StrokeDashOffset": 0.0,
-        "StrokeDashArray": {
-          "$type": "System.Windows.Media.DoubleCollection, PresentationCore",
-          "$values": []
-        },
-        "OverridesDefaultStyle": false,
-        "UseLayoutRounding": false,
-        "TemplatedParent": null,
-        "DataContext": null,
-        "BindingGroup": null,
-        "Language": "en-us",
-        "Name": "",
-        "Tag": null,
-        "InputScope": null,
-        "ActualWidth": 0.0,
-        "ActualHeight": 0.0,
-        "LayoutTransform": "Identity",
-        "Width": 100.0,
-        "MinWidth": 0.0,
-        "MaxWidth": "Infinity",
-        "Height": 100.0,
-        "MinHeight": 0.0,
-        "MaxHeight": "Infinity",
-        "FlowDirection": 0,
-        "Margin": "0,0,0,0",
-        "HorizontalAlignment": 3,
-        "VerticalAlignment": 3,
-        "Cursor": null,
-        "ForceCursor": false,
-        "IsInitialized": false,
-        "IsLoaded": false,
-        "ToolTip": null,
-        "ContextMenu": null,
-        "Parent": null,
-        "HasAnimatedProperties": false,
-        "AllowDrop": false,
-        "DesiredSize": "0,0",
-        "IsMeasureValid": false,
-        "IsArrangeValid": false,
-        "RenderSize": "0,0",
-        "RenderTransform": "Identity",
-        "RenderTransformOrigin": "0,0",
-        "IsMouseDirectlyOver": false,
-        "IsMouseOver": false,
-        "IsStylusOver": false,
-        "IsKeyboardFocusWithin": false,
-        "IsMouseCaptured": false,
-        "IsMouseCaptureWithin": false,
-        "IsStylusDirectlyOver": false,
-        "IsStylusCaptured": false,
-        "IsStylusCaptureWithin": false,
-        "IsKeyboardFocused": false,
-        "IsInputMethodEnabled": true,
-        "Opacity": 1.0,
-        "OpacityMask": null,
-        "BitmapEffect": null,
-        "Effect": null,
-        "BitmapEffectInput": null,
-        "CacheMode": null,
-        "Uid": "",
-        "Visibility": 0,
-        "ClipToBounds": false,
-        "Clip": null,
-        "SnapsToDevicePixels": false,
-        "IsFocused": false,
-        "IsEnabled": true,
-        "IsHitTestVisible": true,
-        "IsVisible": false,
-        "Focusable": false,
-        "PersistId": 0,
-        "IsManipulationEnabled": false,
-        "AreAnyTouchesOver": false,
-        "AreAnyTouchesDirectlyOver": false,
-        "AreAnyTouchesCapturedWithin": false,
-        "AreAnyTouchesCaptured": false,
-        "TouchesCaptured": {
-          "$type": "System.Collections.Generic.List`1[[System.Windows.Input.TouchDevice, PresentationCore]], System.Private.CoreLib",
-          "$values": []
-        },
-        "TouchesCapturedWithin": {
-          "$type": "System.Collections.Generic.List`1[[System.Windows.Input.TouchDevice, PresentationCore]], System.Private.CoreLib",
-          "$values": []
-        },
-        "TouchesOver": {
-          "$type": "System.Collections.Generic.List`1[[System.Windows.Input.TouchDevice, PresentationCore]], System.Private.CoreLib",
-          "$values": []
-        },
-        "TouchesDirectlyOver": {
-          "$type": "System.Collections.Generic.List`1[[System.Windows.Input.TouchDevice, PresentationCore]], System.Private.CoreLib",
-          "$values": []
-        },
-        "DependencyObjectType": {
-          "$type": "System.Windows.DependencyObjectType, WindowsBase",
-          "Id": 70,
-          "SystemType": "System.Windows.Shapes.Rectangle, PresentationFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
-          "BaseType": {
-            "$type": "System.Windows.DependencyObjectType, WindowsBase",
-            "Id": 51,
-            "SystemType": "System.Windows.Shapes.Shape, PresentationFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
-            "BaseType": {
-              "$type": "System.Windows.DependencyObjectType, WindowsBase",
-              "Id": 3,
-              "SystemType": "System.Windows.FrameworkElement, PresentationFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
-              "BaseType": {
-                "$type": "System.Windows.DependencyObjectType, WindowsBase",
-                "Id": 2,
-                "SystemType": "System.Windows.UIElement, PresentationCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
-                "BaseType": {
-                  "$type": "System.Windows.DependencyObjectType, WindowsBase",
-                  "Id": 1,
-                  "SystemType": "System.Windows.Media.Visual, PresentationCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
-                  "BaseType": {
-                    "$type": "System.Windows.DependencyObjectType, WindowsBase",
-                    "Id": 0,
-                    "SystemType": "System.Windows.DependencyObject, WindowsBase, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
-                    "BaseType": null,
-                    "Name": "DependencyObject"
-                  },
-                  "Name": "Visual"
-                },
-                "Name": "UIElement"
-              },
-              "Name": "FrameworkElement"
-            },
-            "Name": "Shape"
-          },
-          "Name": "Rectangle"
-        },
-        "IsSealed": false
-      },
-      "Id": 13,
-      "Name": "Toilet 1",
-      "Description": "1-0&",
-      "MapObjectMetrics": {
-        "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
-        "MapObjectCoordinates": {
-          "$type": "WPFHospitalEditor.MapObjectModel.MapObjectCoordinates, WPFHospitalEditor",
-          "X": 0.0,
-          "Y": 300.0
-        },
-        "MapObjectDimensions": {
-          "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDimensions, WPFHospitalEditor",
-          "Width": 100.0,
-          "Height": 100.0
-        }
-      },
-      "MapObjectType": 6,
-      "MapObjectDoor": {
-        "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDoor, WPFHospitalEditor",
-        "rectangle": {
-          "$type": "System.Windows.Shapes.Rectangle, PresentationFramework",
-          "RadiusX": 0.0,
-          "RadiusY": 0.0,
-          "RenderedGeometry": "System.Windows.Media.RectangleGeometry",
-          "GeometryTransform": "Identity",
-          "Stretch": 1,
-          "Fill": "#FF8B4513",
-          "Stroke": null,
-          "StrokeThickness": 1.0,
-          "StrokeStartLineCap": 0,
-          "StrokeEndLineCap": 0,
-          "StrokeDashCap": 0,
-          "StrokeLineJoin": 0,
-          "StrokeMiterLimit": 10.0,
-          "StrokeDashOffset": 0.0,
-          "StrokeDashArray": {
-            "$type": "System.Windows.Media.DoubleCollection, PresentationCore",
-            "$values": []
-          },
-          "OverridesDefaultStyle": false,
-          "UseLayoutRounding": false,
-          "TemplatedParent": null,
-          "DataContext": null,
-          "BindingGroup": null,
-          "Language": "en-us",
-          "Name": "",
-          "Tag": null,
-          "InputScope": null,
-          "ActualWidth": 0.0,
-          "ActualHeight": 0.0,
-          "LayoutTransform": "Identity",
-          "Width": 6.0,
-          "MinWidth": 0.0,
-          "MaxWidth": "Infinity",
-          "Height": 30.0,
-          "MinHeight": 0.0,
-          "MaxHeight": "Infinity",
-          "FlowDirection": 0,
-          "Margin": "0,0,0,0",
-          "HorizontalAlignment": 3,
-          "VerticalAlignment": 3,
-          "Cursor": null,
-          "ForceCursor": false,
-          "IsInitialized": false,
-          "IsLoaded": false,
-          "ToolTip": null,
-          "ContextMenu": null,
-          "Parent": null,
-          "HasAnimatedProperties": false,
-          "AllowDrop": false,
-          "DesiredSize": "0,0",
-          "IsMeasureValid": false,
-          "IsArrangeValid": false,
-          "RenderSize": "0,0",
-          "RenderTransform": "Identity",
-          "RenderTransformOrigin": "0,0",
-          "IsMouseDirectlyOver": false,
-          "IsMouseOver": false,
-          "IsStylusOver": false,
-          "IsKeyboardFocusWithin": false,
-          "IsMouseCaptured": false,
-          "IsMouseCaptureWithin": false,
-          "IsStylusDirectlyOver": false,
-          "IsStylusCaptured": false,
-          "IsStylusCaptureWithin": false,
-          "IsKeyboardFocused": false,
-          "IsInputMethodEnabled": true,
-          "Opacity": 1.0,
-          "OpacityMask": null,
-          "BitmapEffect": null,
-          "Effect": null,
-          "BitmapEffectInput": null,
-          "CacheMode": null,
-          "Uid": "",
-          "Visibility": 0,
-          "ClipToBounds": false,
-          "Clip": null,
-          "SnapsToDevicePixels": false,
-          "IsFocused": false,
-          "IsEnabled": true,
-          "IsHitTestVisible": true,
-          "IsVisible": false,
-          "Focusable": false,
-          "PersistId": 0,
-          "IsManipulationEnabled": false,
-          "AreAnyTouchesOver": false,
-          "AreAnyTouchesDirectlyOver": false,
-          "AreAnyTouchesCapturedWithin": false,
-          "AreAnyTouchesCaptured": false,
-          "TouchesCaptured": {
-            "$type": "System.Collections.Generic.List`1[[System.Windows.Input.TouchDevice, PresentationCore]], System.Private.CoreLib",
-            "$values": []
-          },
-          "TouchesCapturedWithin": {
-            "$type": "System.Collections.Generic.List`1[[System.Windows.Input.TouchDevice, PresentationCore]], System.Private.CoreLib",
-            "$values": []
-          },
-          "TouchesOver": {
-            "$type": "System.Collections.Generic.List`1[[System.Windows.Input.TouchDevice, PresentationCore]], System.Private.CoreLib",
-            "$values": []
-          },
-          "TouchesDirectlyOver": {
-            "$type": "System.Collections.Generic.List`1[[System.Windows.Input.TouchDevice, PresentationCore]], System.Private.CoreLib",
-            "$values": []
-          },
-          "DependencyObjectType": {
-            "$type": "System.Windows.DependencyObjectType, WindowsBase",
-            "Id": 70,
-            "SystemType": "System.Windows.Shapes.Rectangle, PresentationFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
-            "BaseType": {
-              "$type": "System.Windows.DependencyObjectType, WindowsBase",
-              "Id": 51,
-              "SystemType": "System.Windows.Shapes.Shape, PresentationFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
-              "BaseType": {
-                "$type": "System.Windows.DependencyObjectType, WindowsBase",
-                "Id": 3,
-                "SystemType": "System.Windows.FrameworkElement, PresentationFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
-                "BaseType": {
-                  "$type": "System.Windows.DependencyObjectType, WindowsBase",
-                  "Id": 2,
-                  "SystemType": "System.Windows.UIElement, PresentationCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
-                  "BaseType": {
-                    "$type": "System.Windows.DependencyObjectType, WindowsBase",
-                    "Id": 1,
-                    "SystemType": "System.Windows.Media.Visual, PresentationCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
-                    "BaseType": {
-                      "$type": "System.Windows.DependencyObjectType, WindowsBase",
-                      "Id": 0,
-                      "SystemType": "System.Windows.DependencyObject, WindowsBase, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
-                      "BaseType": null,
-                      "Name": "DependencyObject"
-                    },
-                    "Name": "Visual"
-                  },
-                  "Name": "UIElement"
-                },
-                "Name": "FrameworkElement"
-              },
-              "Name": "Shape"
-            },
-            "Name": "Rectangle"
-          },
-          "IsSealed": false
-        },
-        "MapObjectDoorOrientation": 3
-      }
-    },
-    {
-      "$type": "WPFHospitalEditor.MapObjectModel.MapObject, WPFHospitalEditor",
-      "rectangle": {
-        "$type": "System.Windows.Shapes.Rectangle, PresentationFramework",
-        "RadiusX": 0.0,
-        "RadiusY": 0.0,
-        "RenderedGeometry": "System.Windows.Media.RectangleGeometry",
-        "GeometryTransform": "Identity",
-        "Stretch": 1,
         "Fill": "#FFF5F5DC",
         "Stroke": "#FF000000",
         "StrokeThickness": 1.0,
@@ -13024,7 +13378,12 @@
       },
       "Id": 20,
       "Name": "Dentist room 1",
-      "Description": "1-0&Working Hours=09:00 - 19:40;",
+      "MapObjectDescription": {
+        "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
+        "BuildingId": 1,
+        "FloorNumber": 0,
+        "Information": "Working Hours=09:00 - 19:00"
+      },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -13338,7 +13697,12 @@
       },
       "Id": 21,
       "Name": "Dentist room 2",
-      "Description": "1-0&Working Hours=09:00 - 19:00",
+      "MapObjectDescription": {
+        "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
+        "BuildingId": 1,
+        "FloorNumber": 0,
+        "Information": "Working Hours=09:00 - 19:00"
+      },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -13652,7 +14016,12 @@
       },
       "Id": 22,
       "Name": "Canteen 1",
-      "Description": "1-0&Working Hours=09:00 - 18:00",
+      "MapObjectDescription": {
+        "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
+        "BuildingId": 1,
+        "FloorNumber": 0,
+        "Information": "Working Hours=09:00 - 18:00"
+      },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -13964,9 +14333,14 @@
         },
         "IsSealed": false
       },
-      "Id": 11,
-      "Name": "Elevator 1",
-      "Description": "1-0&Working Hours=08:00 - 00:00",
+      "Id": 23,
+      "Name": "Elevator 2",
+      "MapObjectDescription": {
+        "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
+        "BuildingId": 1,
+        "FloorNumber": 1,
+        "Information": "Max weight=480kg"
+      },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -14280,7 +14654,12 @@
       },
       "Id": 24,
       "Name": "Informations 2",
-      "Description": "1-1&Working Hours=07:00 - 00:00",
+      "MapObjectDescription": {
+        "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
+        "BuildingId": 1,
+        "FloorNumber": 1,
+        "Information": "Working Hours=07:00 - 00:00"
+      },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -14594,7 +14973,12 @@
       },
       "Id": 25,
       "Name": "Toilet 2",
-      "Description": "1-1&",
+      "MapObjectDescription": {
+        "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
+        "BuildingId": 1,
+        "FloorNumber": 1,
+        "Information": ""
+      },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -14768,320 +15152,6 @@
         "RenderedGeometry": "System.Windows.Media.RectangleGeometry",
         "GeometryTransform": "Identity",
         "Stretch": 1,
-        "Fill": "#FF808080",
-        "Stroke": "#FF000000",
-        "StrokeThickness": 1.0,
-        "StrokeStartLineCap": 0,
-        "StrokeEndLineCap": 0,
-        "StrokeDashCap": 0,
-        "StrokeLineJoin": 0,
-        "StrokeMiterLimit": 10.0,
-        "StrokeDashOffset": 0.0,
-        "StrokeDashArray": {
-          "$type": "System.Windows.Media.DoubleCollection, PresentationCore",
-          "$values": []
-        },
-        "OverridesDefaultStyle": false,
-        "UseLayoutRounding": false,
-        "TemplatedParent": null,
-        "DataContext": null,
-        "BindingGroup": null,
-        "Language": "en-us",
-        "Name": "",
-        "Tag": null,
-        "InputScope": null,
-        "ActualWidth": 0.0,
-        "ActualHeight": 0.0,
-        "LayoutTransform": "Identity",
-        "Width": 50.0,
-        "MinWidth": 0.0,
-        "MaxWidth": "Infinity",
-        "Height": 60.0,
-        "MinHeight": 0.0,
-        "MaxHeight": "Infinity",
-        "FlowDirection": 0,
-        "Margin": "0,0,0,0",
-        "HorizontalAlignment": 3,
-        "VerticalAlignment": 3,
-        "Cursor": null,
-        "ForceCursor": false,
-        "IsInitialized": false,
-        "IsLoaded": false,
-        "ToolTip": null,
-        "ContextMenu": null,
-        "Parent": null,
-        "HasAnimatedProperties": false,
-        "AllowDrop": false,
-        "DesiredSize": "0,0",
-        "IsMeasureValid": false,
-        "IsArrangeValid": false,
-        "RenderSize": "0,0",
-        "RenderTransform": "Identity",
-        "RenderTransformOrigin": "0,0",
-        "IsMouseDirectlyOver": false,
-        "IsMouseOver": false,
-        "IsStylusOver": false,
-        "IsKeyboardFocusWithin": false,
-        "IsMouseCaptured": false,
-        "IsMouseCaptureWithin": false,
-        "IsStylusDirectlyOver": false,
-        "IsStylusCaptured": false,
-        "IsStylusCaptureWithin": false,
-        "IsKeyboardFocused": false,
-        "IsInputMethodEnabled": true,
-        "Opacity": 1.0,
-        "OpacityMask": null,
-        "BitmapEffect": null,
-        "Effect": null,
-        "BitmapEffectInput": null,
-        "CacheMode": null,
-        "Uid": "",
-        "Visibility": 0,
-        "ClipToBounds": false,
-        "Clip": null,
-        "SnapsToDevicePixels": false,
-        "IsFocused": false,
-        "IsEnabled": true,
-        "IsHitTestVisible": true,
-        "IsVisible": false,
-        "Focusable": false,
-        "PersistId": 0,
-        "IsManipulationEnabled": false,
-        "AreAnyTouchesOver": false,
-        "AreAnyTouchesDirectlyOver": false,
-        "AreAnyTouchesCapturedWithin": false,
-        "AreAnyTouchesCaptured": false,
-        "TouchesCaptured": {
-          "$type": "System.Collections.Generic.List`1[[System.Windows.Input.TouchDevice, PresentationCore]], System.Private.CoreLib",
-          "$values": []
-        },
-        "TouchesCapturedWithin": {
-          "$type": "System.Collections.Generic.List`1[[System.Windows.Input.TouchDevice, PresentationCore]], System.Private.CoreLib",
-          "$values": []
-        },
-        "TouchesOver": {
-          "$type": "System.Collections.Generic.List`1[[System.Windows.Input.TouchDevice, PresentationCore]], System.Private.CoreLib",
-          "$values": []
-        },
-        "TouchesDirectlyOver": {
-          "$type": "System.Collections.Generic.List`1[[System.Windows.Input.TouchDevice, PresentationCore]], System.Private.CoreLib",
-          "$values": []
-        },
-        "DependencyObjectType": {
-          "$type": "System.Windows.DependencyObjectType, WindowsBase",
-          "Id": 70,
-          "SystemType": "System.Windows.Shapes.Rectangle, PresentationFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
-          "BaseType": {
-            "$type": "System.Windows.DependencyObjectType, WindowsBase",
-            "Id": 51,
-            "SystemType": "System.Windows.Shapes.Shape, PresentationFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
-            "BaseType": {
-              "$type": "System.Windows.DependencyObjectType, WindowsBase",
-              "Id": 3,
-              "SystemType": "System.Windows.FrameworkElement, PresentationFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
-              "BaseType": {
-                "$type": "System.Windows.DependencyObjectType, WindowsBase",
-                "Id": 2,
-                "SystemType": "System.Windows.UIElement, PresentationCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
-                "BaseType": {
-                  "$type": "System.Windows.DependencyObjectType, WindowsBase",
-                  "Id": 1,
-                  "SystemType": "System.Windows.Media.Visual, PresentationCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
-                  "BaseType": {
-                    "$type": "System.Windows.DependencyObjectType, WindowsBase",
-                    "Id": 0,
-                    "SystemType": "System.Windows.DependencyObject, WindowsBase, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
-                    "BaseType": null,
-                    "Name": "DependencyObject"
-                  },
-                  "Name": "Visual"
-                },
-                "Name": "UIElement"
-              },
-              "Name": "FrameworkElement"
-            },
-            "Name": "Shape"
-          },
-          "Name": "Rectangle"
-        },
-        "IsSealed": false
-      },
-      "Id": 23,
-      "Name": "Elevator 2",
-      "Description": "1-1&Max weight=480kg",
-      "MapObjectMetrics": {
-        "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
-        "MapObjectCoordinates": {
-          "$type": "WPFHospitalEditor.MapObjectModel.MapObjectCoordinates, WPFHospitalEditor",
-          "X": 750.0,
-          "Y": 170.0
-        },
-        "MapObjectDimensions": {
-          "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDimensions, WPFHospitalEditor",
-          "Width": 50.0,
-          "Height": 60.0
-        }
-      },
-      "MapObjectType": 4,
-      "MapObjectDoor": {
-        "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDoor, WPFHospitalEditor",
-        "rectangle": {
-          "$type": "System.Windows.Shapes.Rectangle, PresentationFramework",
-          "RadiusX": 0.0,
-          "RadiusY": 0.0,
-          "RenderedGeometry": "System.Windows.Media.RectangleGeometry",
-          "GeometryTransform": "Identity",
-          "Stretch": 1,
-          "Fill": "#FF8B4513",
-          "Stroke": null,
-          "StrokeThickness": 1.0,
-          "StrokeStartLineCap": 0,
-          "StrokeEndLineCap": 0,
-          "StrokeDashCap": 0,
-          "StrokeLineJoin": 0,
-          "StrokeMiterLimit": 10.0,
-          "StrokeDashOffset": 0.0,
-          "StrokeDashArray": {
-            "$type": "System.Windows.Media.DoubleCollection, PresentationCore",
-            "$values": []
-          },
-          "OverridesDefaultStyle": false,
-          "UseLayoutRounding": false,
-          "TemplatedParent": null,
-          "DataContext": null,
-          "BindingGroup": null,
-          "Language": "en-us",
-          "Name": "",
-          "Tag": null,
-          "InputScope": null,
-          "ActualWidth": 0.0,
-          "ActualHeight": 0.0,
-          "LayoutTransform": "Identity",
-          "Width": 6.0,
-          "MinWidth": 0.0,
-          "MaxWidth": "Infinity",
-          "Height": 30.0,
-          "MinHeight": 0.0,
-          "MaxHeight": "Infinity",
-          "FlowDirection": 0,
-          "Margin": "0,0,0,0",
-          "HorizontalAlignment": 3,
-          "VerticalAlignment": 3,
-          "Cursor": null,
-          "ForceCursor": false,
-          "IsInitialized": false,
-          "IsLoaded": false,
-          "ToolTip": null,
-          "ContextMenu": null,
-          "Parent": null,
-          "HasAnimatedProperties": false,
-          "AllowDrop": false,
-          "DesiredSize": "0,0",
-          "IsMeasureValid": false,
-          "IsArrangeValid": false,
-          "RenderSize": "0,0",
-          "RenderTransform": "Identity",
-          "RenderTransformOrigin": "0,0",
-          "IsMouseDirectlyOver": false,
-          "IsMouseOver": false,
-          "IsStylusOver": false,
-          "IsKeyboardFocusWithin": false,
-          "IsMouseCaptured": false,
-          "IsMouseCaptureWithin": false,
-          "IsStylusDirectlyOver": false,
-          "IsStylusCaptured": false,
-          "IsStylusCaptureWithin": false,
-          "IsKeyboardFocused": false,
-          "IsInputMethodEnabled": true,
-          "Opacity": 1.0,
-          "OpacityMask": null,
-          "BitmapEffect": null,
-          "Effect": null,
-          "BitmapEffectInput": null,
-          "CacheMode": null,
-          "Uid": "",
-          "Visibility": 0,
-          "ClipToBounds": false,
-          "Clip": null,
-          "SnapsToDevicePixels": false,
-          "IsFocused": false,
-          "IsEnabled": true,
-          "IsHitTestVisible": true,
-          "IsVisible": false,
-          "Focusable": false,
-          "PersistId": 0,
-          "IsManipulationEnabled": false,
-          "AreAnyTouchesOver": false,
-          "AreAnyTouchesDirectlyOver": false,
-          "AreAnyTouchesCapturedWithin": false,
-          "AreAnyTouchesCaptured": false,
-          "TouchesCaptured": {
-            "$type": "System.Collections.Generic.List`1[[System.Windows.Input.TouchDevice, PresentationCore]], System.Private.CoreLib",
-            "$values": []
-          },
-          "TouchesCapturedWithin": {
-            "$type": "System.Collections.Generic.List`1[[System.Windows.Input.TouchDevice, PresentationCore]], System.Private.CoreLib",
-            "$values": []
-          },
-          "TouchesOver": {
-            "$type": "System.Collections.Generic.List`1[[System.Windows.Input.TouchDevice, PresentationCore]], System.Private.CoreLib",
-            "$values": []
-          },
-          "TouchesDirectlyOver": {
-            "$type": "System.Collections.Generic.List`1[[System.Windows.Input.TouchDevice, PresentationCore]], System.Private.CoreLib",
-            "$values": []
-          },
-          "DependencyObjectType": {
-            "$type": "System.Windows.DependencyObjectType, WindowsBase",
-            "Id": 70,
-            "SystemType": "System.Windows.Shapes.Rectangle, PresentationFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
-            "BaseType": {
-              "$type": "System.Windows.DependencyObjectType, WindowsBase",
-              "Id": 51,
-              "SystemType": "System.Windows.Shapes.Shape, PresentationFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
-              "BaseType": {
-                "$type": "System.Windows.DependencyObjectType, WindowsBase",
-                "Id": 3,
-                "SystemType": "System.Windows.FrameworkElement, PresentationFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
-                "BaseType": {
-                  "$type": "System.Windows.DependencyObjectType, WindowsBase",
-                  "Id": 2,
-                  "SystemType": "System.Windows.UIElement, PresentationCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
-                  "BaseType": {
-                    "$type": "System.Windows.DependencyObjectType, WindowsBase",
-                    "Id": 1,
-                    "SystemType": "System.Windows.Media.Visual, PresentationCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
-                    "BaseType": {
-                      "$type": "System.Windows.DependencyObjectType, WindowsBase",
-                      "Id": 0,
-                      "SystemType": "System.Windows.DependencyObject, WindowsBase, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35",
-                      "BaseType": null,
-                      "Name": "DependencyObject"
-                    },
-                    "Name": "Visual"
-                  },
-                  "Name": "UIElement"
-                },
-                "Name": "FrameworkElement"
-              },
-              "Name": "Shape"
-            },
-            "Name": "Rectangle"
-          },
-          "IsSealed": false
-        },
-        "MapObjectDoorOrientation": 2
-      }
-    },
-    {
-      "$type": "WPFHospitalEditor.MapObjectModel.MapObject, WPFHospitalEditor",
-      "rectangle": {
-        "$type": "System.Windows.Shapes.Rectangle, PresentationFramework",
-        "RadiusX": 0.0,
-        "RadiusY": 0.0,
-        "RenderedGeometry": "System.Windows.Media.RectangleGeometry",
-        "GeometryTransform": "Identity",
-        "Stretch": 1,
         "Fill": "#FF6B8E23",
         "Stroke": "#FF000000",
         "StrokeThickness": 1.0,
@@ -15222,7 +15292,12 @@
       },
       "Id": 26,
       "Name": "Recovery room 1",
-      "Description": "1-1&",
+      "MapObjectDescription": {
+        "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
+        "BuildingId": 1,
+        "FloorNumber": 1,
+        "Information": ""
+      },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -15535,8 +15610,13 @@
         "IsSealed": false
       },
       "Id": 27,
-      "Name": "On Duty 1",
-      "Description": "1-1&Working Hours=00:00 - 24:00",
+      "Name": "On duty 1",
+      "MapObjectDescription": {
+        "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
+        "BuildingId": 1,
+        "FloorNumber": 1,
+        "Information": "Working Hours=00:00 - 24:00"
+      },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -15849,8 +15929,13 @@
         "IsSealed": false
       },
       "Id": 28,
-      "Name": "Recovery room 2",
-      "Description": "1-1&",
+      "Name": "Recovery room 1",
+      "MapObjectDescription": {
+        "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
+        "BuildingId": 1,
+        "FloorNumber": 1,
+        "Information": ""
+      },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -16163,8 +16248,13 @@
         "IsSealed": false
       },
       "Id": 29,
-      "Name": "Recovery room 3",
-      "Description": "1-1&",
+      "Name": "Recovery room 1",
+      "MapObjectDescription": {
+        "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
+        "BuildingId": 1,
+        "FloorNumber": 1,
+        "Information": ""
+      },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -16477,8 +16567,13 @@
         "IsSealed": false
       },
       "Id": 30,
-      "Name": "Recovery room 4",
-      "Description": "1-1&",
+      "Name": "Recovery room 1",
+      "MapObjectDescription": {
+        "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
+        "BuildingId": 1,
+        "FloorNumber": 1,
+        "Information": ""
+      },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -16791,8 +16886,13 @@
         "IsSealed": false
       },
       "Id": 31,
-      "Name": "Recovery room 5",
-      "Description": "1-1&",
+      "Name": "Recovery room 1",
+      "MapObjectDescription": {
+        "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
+        "BuildingId": 1,
+        "FloorNumber": 1,
+        "Information": ""
+      },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -17105,8 +17205,13 @@
         "IsSealed": false
       },
       "Id": 32,
-      "Name": "On duty 2",
-      "Description": "1-1&Working Hours=00:00 - 24:00",
+      "Name": "On Duty 2",
+      "MapObjectDescription": {
+        "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
+        "BuildingId": 1,
+        "FloorNumber": 1,
+        "Information": "Working Hours=00:00 - 24:00"
+      },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -17419,8 +17524,13 @@
         "IsSealed": false
       },
       "Id": 33,
-      "Name": "Recovery room 5",
-      "Description": "1-1&",
+      "Name": "Recovery room 1",
+      "MapObjectDescription": {
+        "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
+        "BuildingId": 1,
+        "FloorNumber": 1,
+        "Information": ""
+      },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -17734,12 +17844,17 @@
       },
       "Id": 34,
       "Name": "Elevator 3",
-      "Description": "2-0&Max weight=480kg;",
+      "MapObjectDescription": {
+        "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
+        "BuildingId": 2,
+        "FloorNumber": 0,
+        "Information": "Max weight=480kg"
+      },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
           "$type": "WPFHospitalEditor.MapObjectModel.MapObjectCoordinates, WPFHospitalEditor",
-          "X": 750.0,
+          "X": 755.0,
           "Y": 170.0
         },
         "MapObjectDimensions": {
@@ -18048,7 +18163,12 @@
       },
       "Id": 35,
       "Name": "Informations 3",
-      "Description": "2-0&Working Hours=07:00 - 00:00",
+      "MapObjectDescription": {
+        "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
+        "BuildingId": 2,
+        "FloorNumber": 0,
+        "Information": "Working Hours=07:00 - 00:00"
+      },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -18362,7 +18482,12 @@
       },
       "Id": 36,
       "Name": "Toilet 3",
-      "Description": "2-0&",
+      "MapObjectDescription": {
+        "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
+        "BuildingId": 2,
+        "FloorNumber": 0,
+        "Information": ""
+      },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -18675,8 +18800,13 @@
         "IsSealed": false
       },
       "Id": 37,
-      "Name": "Examination room 3",
-      "Description": "2-0&Working Hours=09:00 - 21:00",
+      "Name": "Examination room 4",
+      "MapObjectDescription": {
+        "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
+        "BuildingId": 2,
+        "FloorNumber": 0,
+        "Information": "Working Hours=09:00 - 21:00"
+      },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -18989,8 +19119,13 @@
         "IsSealed": false
       },
       "Id": 38,
-      "Name": "Examination room 4",
-      "Description": "2-0&Working Hours=09:00 - 21:00",
+      "Name": "Examination room 5",
+      "MapObjectDescription": {
+        "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
+        "BuildingId": 2,
+        "FloorNumber": 0,
+        "Information": "Working Hours=09:00 - 21:00"
+      },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -19304,7 +19439,12 @@
       },
       "Id": 39,
       "Name": "On Duty 3",
-      "Description": "2-0&Working Hours=00:00 - 24:00",
+      "MapObjectDescription": {
+        "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
+        "BuildingId": 2,
+        "FloorNumber": 0,
+        "Information": "Working Hours=00:00 - 24:00"
+      },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -19618,7 +19758,12 @@
       },
       "Id": 40,
       "Name": "Dentist room 3",
-      "Description": "2-0&Working Hours=09:00 - 19:00",
+      "MapObjectDescription": {
+        "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
+        "BuildingId": 2,
+        "FloorNumber": 0,
+        "Information": "Working Hours=09:00 - 19:00"
+      },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -19931,8 +20076,13 @@
         "IsSealed": false
       },
       "Id": 41,
-      "Name": "Neurology 1",
-      "Description": "2-0&Working Hours=09:00 - 21:00",
+      "Name": "Neurology room 1",
+      "MapObjectDescription": {
+        "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
+        "BuildingId": 2,
+        "FloorNumber": 0,
+        "Information": "Working Hours=09:00 - 21:00"
+      },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -20245,8 +20395,13 @@
         "IsSealed": false
       },
       "Id": 42,
-      "Name": "Dermatology 1",
-      "Description": "2-0&Working Hours=09:00 - 21:00",
+      "Name": "Dermatology room 1",
+      "MapObjectDescription": {
+        "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
+        "BuildingId": 2,
+        "FloorNumber": 0,
+        "Information": "Working Hours=09:00 - 21:00"
+      },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -20560,12 +20715,17 @@
       },
       "Id": 43,
       "Name": "Ophthalmology room 1",
-      "Description": "2-0&Working Hours=09:00 - 17:00;",
+      "MapObjectDescription": {
+        "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
+        "BuildingId": 2,
+        "FloorNumber": 0,
+        "Information": "Working Hours=09:00 - 21:00"
+      },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
           "$type": "WPFHospitalEditor.MapObjectModel.MapObjectCoordinates, WPFHospitalEditor",
-          "X": 520.0,
+          "X": 500.0,
           "Y": 280.0
         },
         "MapObjectDimensions": {
@@ -20874,12 +21034,17 @@
       },
       "Id": 44,
       "Name": "Elevator 4",
-      "Description": "2-1&Max weight=480kg",
+      "MapObjectDescription": {
+        "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
+        "BuildingId": 2,
+        "FloorNumber": 1,
+        "Information": "Max weight=480kg"
+      },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
           "$type": "WPFHospitalEditor.MapObjectModel.MapObjectCoordinates, WPFHospitalEditor",
-          "X": 750.0,
+          "X": 755.0,
           "Y": 170.0
         },
         "MapObjectDimensions": {
@@ -21188,7 +21353,12 @@
       },
       "Id": 45,
       "Name": "Informations 4",
-      "Description": "2-1&Working Hours=07:00 - 00:00",
+      "MapObjectDescription": {
+        "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
+        "BuildingId": 2,
+        "FloorNumber": 1,
+        "Information": "Working Hours=07:00 - 00:00"
+      },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -21502,7 +21672,12 @@
       },
       "Id": 46,
       "Name": "Toilet 4",
-      "Description": "2-1&",
+      "MapObjectDescription": {
+        "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
+        "BuildingId": 2,
+        "FloorNumber": 1,
+        "Information": ""
+      },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -21816,7 +21991,12 @@
       },
       "Id": 47,
       "Name": "Recovery room 7",
-      "Description": "2-1&",
+      "MapObjectDescription": {
+        "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
+        "BuildingId": 2,
+        "FloorNumber": 1,
+        "Information": ""
+      },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -22130,7 +22310,12 @@
       },
       "Id": 48,
       "Name": "Recovery room 8",
-      "Description": "2-1&",
+      "MapObjectDescription": {
+        "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
+        "BuildingId": 2,
+        "FloorNumber": 1,
+        "Information": ""
+      },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -22444,7 +22629,12 @@
       },
       "Id": 49,
       "Name": "On Duty 4",
-      "Description": "2-1&Working Hours=00:00 - 24:00",
+      "MapObjectDescription": {
+        "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
+        "BuildingId": 2,
+        "FloorNumber": 1,
+        "Information": "Working Hours=00:00 - 24:00"
+      },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -22758,7 +22948,12 @@
       },
       "Id": 50,
       "Name": "Canteen 2",
-      "Description": "2-1&Working Hours=09:00 - 18:00",
+      "MapObjectDescription": {
+        "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
+        "BuildingId": 2,
+        "FloorNumber": 1,
+        "Information": "Working Hours=09:00 - 18:00"
+      },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
@@ -23072,7 +23267,12 @@
       },
       "Id": 51,
       "Name": "Recovery room 9",
-      "Description": "2-1&",
+      "MapObjectDescription": {
+        "$type": "WPFHospitalEditor.MapObjectModel.MapObjectDescription, WPFHospitalEditor",
+        "BuildingId": 2,
+        "FloorNumber": 1,
+        "Information": ""
+      },
       "MapObjectMetrics": {
         "$type": "WPFHospitalEditor.MapObjectModel.MapObjectMetrics, WPFHospitalEditor",
         "MapObjectCoordinates": {
