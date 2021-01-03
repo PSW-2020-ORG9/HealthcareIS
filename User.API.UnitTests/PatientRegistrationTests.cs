@@ -19,6 +19,7 @@ namespace User.API.UnitTests
             const string emailTemplatePath = "/path/to/the/resource";
             var patientAccount = CreatePatientAccount(guid, email);
 
+            mockPatientAccountService.Setup(pa => pa.CreateAccount(patientAccount)).Returns(patientAccount);
             var patientRegistrationService
                 = new PatientRegistrationService(mockPatientAccountService.Object,mockNotifier.Object);
             patientRegistrationService.RegisterPatient(patientAccount,emailTemplatePath);

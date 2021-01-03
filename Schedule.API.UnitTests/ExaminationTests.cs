@@ -8,7 +8,7 @@ using Schedule.API.Model.Utilities;
 using Schedule.API.Services.Procedures;
 using Xunit;
 
-namespace Schedule.API.UnitTests.Tests
+namespace Schedule.API.UnitTests
 {
     public class ExaminationTests
     {
