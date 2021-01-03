@@ -31,6 +31,7 @@
 import axios from 'axios'
 import api from '../constant/api.js'
 import ExaminationItem from '../components/ExaminationItem.vue'
+import moment from 'moment'
 
 export default {
     name: "ObservePatientExaminations",
@@ -73,10 +74,8 @@ export default {
         },
         getPastAppointments: function () {
             let pastAppointments = []
-            let now = new Date()
             this.examinations.forEach(e => {
-                let dateObj = new Date (e.timeInterval.start)
-                if (dateObj < now) {
+                if (moment(e.timeInterval.start).isBefore(moment())) {
                     pastAppointments.push(e)
                 }
             })
@@ -84,10 +83,10 @@ export default {
         },
         getTodaysAppointments: function () {
             let todaysAppointments = []
-            let now = new Date()
+            let today = moment().endOf('day')
             this.examinations.forEach(e => {
-                let dateObj = new Date (e.timeInterval.start)
-                if (dateObj > now && dateObj.getDate() == now.getDate() && dateObj.getMonth() == now.getMonth() && dateObj.getFullYear() == now.getFullYear()) {
+                let dateObj = moment(e.timeInterval.start)
+                if (dateObj.endOf('day').isSame(today) && dateObj.isAfter(moment())) {
                     todaysAppointments.push(e)
                 }
             })
@@ -95,10 +94,9 @@ export default {
         },
         getFutureAppointments: function () {
             let futureAppointments = []
-            let now = new Date()
+            let today = moment().endOf('day')
             this.examinations.forEach(e => {
-                let dateObj = new Date (e.timeInterval.start)
-                if (dateObj.getDate() > now.getDate() && dateObj.getMonth() >= now.getMonth() && dateObj.getFullYear() >= now.getFullYear()) {
+                if (moment(e.timeInterval.start).isAfter(today)) {
                     futureAppointments.push(e)
                 }
             })

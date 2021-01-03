@@ -58,7 +58,7 @@ namespace Feedback.API.Infrastructure
             modelBuilder.Entity<SurveyResponse>()
                 .HasOne(sr => sr.Survey);
             modelBuilder.Entity<SurveyResponse>()
-                .Ignore(sr => sr.DoctorSurveySection);
+                .HasOne(sr => sr.DoctorSurveySection);
             modelBuilder.Entity<SurveyResponse>()
                 .Ignore(sr => sr.PatientAccount);
 
