@@ -38,7 +38,7 @@ namespace WPFHospitalEditor
         {
             foreach (MapObject mapObject in mapObjectController.GetAllBuildingMapObjects(id))
             {
-                int index = int.Parse(FindFloor(mapObject));
+                int index = mapObject.MapObjectDescription.FloorNumber;
                 if (!buildingFloors.ContainsKey(index))
                     buildingFloors.Add(index, new Floor());
 
@@ -52,20 +52,6 @@ namespace WPFHospitalEditor
         private bool IsMapObjectSelected(int id)
         {
             return SearchResultDialog.selectedObjectId == id;
-        }
-
-        public static String FindFloor(MapObject mapObject)
-        {
-            String[] descriptionParts = mapObject.Description.Split("&");
-            String[] floors = descriptionParts[0].Split("-");
-            return floors[1];
-        }
-
-        public static String FindBuilding(MapObject mapObject)
-        {
-            String[] descriptionParts = mapObject.Description.Split("&");
-            String[] buildings = descriptionParts[0].Split("-");
-            return buildings[0];
         }
 
         private void SetFloorComboBox()

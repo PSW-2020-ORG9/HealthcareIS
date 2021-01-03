@@ -13,19 +13,19 @@ namespace WPFHospitalEditor.MapObjectModel
         [JsonIgnore]
         public TextBlock nameOnMap;
         public String Name { get; set; }
-        public String Description { get; set; }
+        public MapObjectDescription MapObjectDescription { get; set; }
         public MapObjectMetrics MapObjectMetrics { get; set; }
         public MapObjectType MapObjectType { get; set; }
         public MapObjectDoor MapObjectDoor { get; set; }
 
-        public MapObject(String name, int Id, MapObjectMetrics MapObjectMetrics, MapObjectType MapObjectType, MapObjectDoor MapObjectDoor, String Description)
+        public MapObject(String name, int Id, MapObjectMetrics MapObjectMetrics, MapObjectType MapObjectType, MapObjectDoor MapObjectDoor, MapObjectDescription MapObjectDescription)
         {
             this.Name = name;
             this.Id = Id;
             this.MapObjectMetrics = MapObjectMetrics;
             this.MapObjectType = MapObjectType;
             this.MapObjectDoor = MapObjectDoor;
-            this.Description = Description;
+            this.MapObjectDescription = MapObjectDescription;
             setMapObjectProperties(MapObjectMetrics);
         }
 

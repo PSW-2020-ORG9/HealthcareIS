@@ -46,8 +46,8 @@ namespace WPFHospitalEditorUnitTests
         {
             
             var mapObjects = new List<MapObject>();
-            MapObject elevator1 = new MapObject("Elevator 1", 11, new MapObjectMetrics(new MapObjectCoordinates(750.0, 170.0), new MapObjectDimensions(50.0, 60.0)), MapObjectType.Elevator, new MapObjectDoor(MapObjectDoorOrientation.Left), "1-0&Max weight=480kg");
-            MapObject infos1 = new MapObject("Informations 1", 12, new MapObjectMetrics(new MapObjectCoordinates(0.0, 150.0), new MapObjectDimensions(100.0, 80.0)), MapObjectType.Informations, new MapObjectDoor(MapObjectDoorOrientation.Right), "1-0&Working Hours=07:00 - 00:00");
+            MapObject elevator1 = new MapObject("Elevator 1", 11, new MapObjectMetrics(new MapObjectCoordinates(750.0, 170.0), new MapObjectDimensions(50.0, 60.0)), MapObjectType.Elevator, new MapObjectDoor(MapObjectDoorOrientation.Left), new MapObjectDescription(1,0, "Max weight=480kg"));
+            MapObject infos1 = new MapObject("Informations 1", 12, new MapObjectMetrics(new MapObjectCoordinates(0.0, 150.0), new MapObjectDimensions(100.0, 80.0)), MapObjectType.Informations, new MapObjectDoor(MapObjectDoorOrientation.Right), new MapObjectDescription(1, 0, "Working Hours=07:00 - 00:00"));
             mapObjects.Add(elevator1);
             mapObjects.Add(infos1);
 

@@ -40,8 +40,7 @@ namespace WPFHospitalEditor
 
         private string[] GetInfo()
         {
-            string[] descriptionParts = mapObject.Description.Split("&");
-            return descriptionParts[1].Split(";");
+            return mapObject.MapObjectDescription.Information.Split(";");
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
@@ -51,11 +50,11 @@ namespace WPFHospitalEditor
 
         private void Done_Click(object sender, RoutedEventArgs e)
         {
-            mapObject.Description = mapObject.Description.Split("&")[0] + "&" + dynamicGridControl.GetAllContent();
+            mapObject.MapObjectDescription.Information = dynamicGridControl.GetAllContent();
             mapObject.Name = this.Title.Text;
             mapObject.nameOnMap.Text = mapObject.Name;
             UpdateAdditionalInformation();
-            mapObject.Description = mapObject.Description.Substring(0, mapObject.Description.Length - 1);
+            //mapObject.MapObjectDescription.Information = mapObject.MapObjectDescription.Information.Substring(0, mapObject.MapObjectDescription.Information.Length - 1);
             this.Close();
         }
 
