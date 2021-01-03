@@ -24,6 +24,12 @@ namespace Hospital.API.Services.Medications
             _diagnosisConnection = diagnosisConnection;
         }
 
+        public MedicationPrescriptionService(IMedicationPrescriptionRepository medicationPrescriptionRepository)
+        {
+            _medicationPrescriptionWrapper =
+                new RepositoryWrapper<IMedicationPrescriptionRepository>(medicationPrescriptionRepository);
+        }
+
         public IEnumerable<MedicationPrescription> SimpleSearch(string nameQuery)
             => _medicationPrescriptionWrapper.Repository.GetMatching(
                 prescription => prescription.Medication.Name.Contains(nameQuery));
