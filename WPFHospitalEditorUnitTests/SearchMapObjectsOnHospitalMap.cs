@@ -46,8 +46,8 @@ namespace WPFHospitalEditorUnitTests
         private List<MapObject> CreateMapObjectList()
         {
             var mapObjects = new List<MapObject>();
-            MapObject regular3 = new MapObject("Examination 3", 17, new MapObjectMetrics(new MapObjectCoordinates(280.0, 0.0), new MapObjectDimensions(140.0, 120.0)), MapObjectType.ExaminationRoom, new MapObjectDoor(MapObjectDoorOrientation.Down), "1-0&Working Hours=09:00 - 21:00");
-            MapObject op1 = new MapObject("Surgery room 1", 18, new MapObjectMetrics(new MapObjectCoordinates(460.0, 0.0), new MapObjectDimensions(160.0, 120.0)), MapObjectType.SurgeryRoom, new MapObjectDoor(MapObjectDoorOrientation.Down), "1-0&Working Hours=09:00 - 019:00");
+            MapObject regular3 = new MapObject("Examination 3", 17, new MapObjectMetrics(new MapObjectCoordinates(280.0, 0.0), new MapObjectDimensions(140.0, 120.0)), MapObjectType.ExaminationRoom, new MapObjectDoor(MapObjectDoorOrientation.Down), new MapObjectDescription(1, 0, "Working Hours=09:00 - 21:00"));
+            MapObject op1 = new MapObject("Surgery room 1", 18, new MapObjectMetrics(new MapObjectCoordinates(460.0, 0.0), new MapObjectDimensions(160.0, 120.0)), MapObjectType.SurgeryRoom, new MapObjectDoor(MapObjectDoorOrientation.Down), new MapObjectDescription(1, 0, "Working Hours=09:00 - 19:00"));
             mapObjects.Add(regular3);
             mapObjects.Add(op1);
 

@@ -33,7 +33,7 @@ namespace WPFHospitalEditor.Repository
 
         public void EditAllMapObjectAttributes(MapObject mapObj, MapObject mapObjectsForUpdate)
         {
-            mapObj.Description = mapObjectsForUpdate.Description;
+            mapObj.MapObjectDescription.Information = mapObjectsForUpdate.MapObjectDescription.Information;
             mapObj.Name = mapObjectsForUpdate.Name;
         }
 
@@ -58,7 +58,7 @@ namespace WPFHospitalEditor.Repository
             var allMapObjects = GetAllMapObjects().ToList();
             foreach (MapObject mapObject in allMapObjects)
             {
-                if (mapObject.Description.Equals(""))
+                if (mapObject.MapObjectDescription == null)
                 {
                     allOuterMapObjects.Add(mapObject);
                 }
@@ -102,7 +102,7 @@ namespace WPFHospitalEditor.Repository
                 List<MapObject> allMapObjects = JsonConvert.DeserializeObject<List<MapObject>>(jsonString, settings);
                 foreach (MapObject mapobject in allMapObjects)
                 {
-                    if (mapobject.Description != "" && int.Parse(FindBuilding(mapobject)) == id)
+                    if (mapobject.MapObjectDescription != null && mapobject.MapObjectDescription.BuildingId == id)
                     {
                         buildingMapObjects.Add(mapobject);
                     }
@@ -113,12 +113,6 @@ namespace WPFHospitalEditor.Repository
             {
                 return new List<MapObject>();
             }
-        }
-        private String FindBuilding(MapObject mapObjectIteration)
-        {
-            String[] firstSplit = mapObjectIteration.Description.Split("&");
-            String[] buildingIndex = firstSplit[0].Split("-");
-            return buildingIndex[0];
         }
     }
 }

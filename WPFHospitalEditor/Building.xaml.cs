@@ -17,7 +17,6 @@ namespace WPFHospitalEditor
     public partial class Building : Window
     {
         private Dictionary<int, Floor> buildingFloors = new Dictionary<int, Floor>();
-        public List<MapObject> floorBuildingObjects;
         MapObjectController mapObjectController = new MapObjectController();
         public static Canvas canvasBuilding;
         private int id;
@@ -30,15 +29,18 @@ namespace WPFHospitalEditor
             PopulateBuildingFloors();            
             SetFloorComboBox();
             floor.SelectedIndex = selectedFloor;
-            floorBuildingObjects = buildingFloors[floor.SelectedIndex].GetAllFloorMapObjects();
             canvasBuilding = canvas;
         }
-        
+
+        public Floor GetBuildingFloor(int floorNumber)
+        {
+            return buildingFloors[floorNumber];
+        }
         private void PopulateBuildingFloors()
         {
             foreach (MapObject mapObject in mapObjectController.GetAllBuildingMapObjects(id))
             {
-                int index = int.Parse(FindFloor(mapObject));
+                int index = mapObject.MapObjectDescription.FloorNumber;
                 if (!buildingFloors.ContainsKey(index))
                     buildingFloors.Add(index, new Floor());
 
@@ -54,24 +56,10 @@ namespace WPFHospitalEditor
             return SearchResultDialog.selectedObjectId == id;
         }
 
-        public static String FindFloor(MapObject mapObject)
-        {
-            String[] descriptionParts = mapObject.Description.Split("&");
-            String[] floors = descriptionParts[0].Split("-");
-            return floors[1];
-        }
-
-        public static String FindBuilding(MapObject mapObject)
-        {
-            String[] descriptionParts = mapObject.Description.Split("&");
-            String[] buildings = descriptionParts[0].Split("-");
-            return buildings[0];
-        }
-
         private void SetFloorComboBox()
         {
             for (int i = 0; i < buildingFloors.Count; i++)
-                floor.Items.Add((i + 1) + ". floor");
+                floor.Items.Add( i + ". floor");
         }
 
         private void BackClick(object sender, RoutedEventArgs e)

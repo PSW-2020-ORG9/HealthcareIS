@@ -34,14 +34,8 @@ namespace WPFHospitalEditor
 
         private void SetDynamicGrid()
         {
-            dynamicGridControl = new DynamicGridControl(GetInfo(), IsPatientLogged());
+            dynamicGridControl = new DynamicGridControl(mapObject.MapObjectDescription.GetInformation(), IsPatientLogged());
             DynamicGrid.Children.Add(this.dynamicGridControl);
-        }
-
-        private string[] GetInfo()
-        {
-            string[] descriptionParts = mapObject.Description.Split("&");
-            return descriptionParts[1].Split(";");
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
@@ -51,18 +45,18 @@ namespace WPFHospitalEditor
 
         private void Done_Click(object sender, RoutedEventArgs e)
         {
-            mapObject.Description = mapObject.Description.Split("&")[0] + "&" + dynamicGridControl.GetAllContent();
+            mapObject.MapObjectDescription.Information = dynamicGridControl.GetAllContent();
             mapObject.Name = this.Title.Text;
             mapObject.nameOnMap.Text = mapObject.Name;
             UpdateAdditionalInformation();
-            mapObject.Description = mapObject.Description.Substring(0, mapObject.Description.Length - 1);
             this.Close();
         }
 
         private void RefreshMap()
         {
             building.canvas.Children.Clear();
-            CanvasService.AddObjectToCanvas(building.floorBuildingObjects, building.canvas);
+            Floor floor = building.GetBuildingFloor(mapObject.MapObjectDescription.FloorNumber);
+            CanvasService.AddObjectToCanvas(floor.GetAllFloorMapObjects(), building.canvas);
         }      
 
         private void UpdateAdditionalInformation()

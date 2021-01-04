@@ -14,6 +14,7 @@ using HealthcareBase.Model.Schedule.SchedulingPreferences;
 using HealthcareBase.Model.Utilities;
 using HospitalWebApp.Dtos;
 using HealthcareBase.Model.Users.Employee.Doctors;
+using WPFHospitalEditor.Repository;
 
 namespace WPFHospitalEditor
 {
@@ -44,7 +45,7 @@ namespace WPFHospitalEditor
             CanvasService.AddObjectToCanvas(mapObjectController.GetOutterMapObjects(), canvas);
             canvasHospitalMap = canvas;
             HospitalMap.role = role;
-            SetComponentsVisibility();
+            SetComponentsVisibility();         
         }
 
         private void SetComponentsVisibility()
@@ -354,22 +355,28 @@ namespace WPFHospitalEditor
                 switch (tabControl.SelectedIndex)
                 {
                     case 0:
+                        SetComboBoxDefaultValues(searchInputComboBox);
                         SetMapObjectTypeComboBox();
                         SetNonSelectedComboBoxItem(emptySpecialistEquipmentAppComboBox);
                         break;
                     case 1:
+                        SetComboBoxDefaultValues(medicationSearchComboBox);
                         SetMedicationNameComboBox();
                         SetNonSelectedComboBoxItem(emptyMedicationComboBox);
                         break;
                     case 2:
+                        SetComboBoxDefaultValues(equipmentSearchComboBox);
                         SetEquipmentTypeComboBox();
                         SetNonSelectedComboBoxItem(emptyEquipmentComboBox);
                         break;
                     case 3:
+                        SetComboBoxDefaultValues(doctorsComboBox);
                         SetDoctorNameComboBox();
                         SetNonSelectedComboBoxItem(emptyDoctorComboBox);
                         break;
                     case 4:
+                        SetComboBoxDefaultValues(specialistComboBox);
+                        SetComboBoxDefaultValues(specialistEquipmentAppSearchComboBox);
                         SetSpecialistNameComboBox();
                         SetNonSelectedComboBoxItem(emptySpecialistComboBox);
                         SetSpecialistEquipmentComboBox();
