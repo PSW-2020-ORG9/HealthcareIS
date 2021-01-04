@@ -5,12 +5,6 @@ pool:
   vmImage: 'ubuntu-16.04'
 
 steps:
-- task: UseDotNet@2
-  inputs:
-    packageType: 'sdk'
-    version: '3.1.200'
-  displayName: Using .NET 3.1.200
-
 - task: DockerInstaller@0
   inputs:
     dockerVersion: '17.09.0-ce'
@@ -25,7 +19,11 @@ steps:
 - task: Bash@3
   inputs:
     targetType: 'inline'
-    script: 'sleep 10'
+    script: |
+      echo $PSW_SMPT_HOST_SERVER
+      echo $PSW_EMAIL_USERNAME
+      echo $PSW_SMTP_SSL_PORT
+      sleep 10
   displayName: Wait for DB startup
 
 - task: DotNetCoreCLI@2
