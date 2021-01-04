@@ -90,7 +90,7 @@ namespace Schedule.API
             services.Add(new ServiceDescriptor(typeof(RecommendationService), recommendationService));
             services.Add(new ServiceDescriptor(typeof(DoctorAvailabilityService),availabilityService));
             
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
