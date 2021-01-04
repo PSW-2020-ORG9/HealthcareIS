@@ -6,7 +6,7 @@ using Schedule.API.Services.Procedures;
 namespace Schedule.API.Controllers
 {
     [ApiController]
-    [Route("available")]
+    [Route("schedule/available")]
     public class AvailabilityController:ControllerBase
     {
         private readonly DoctorAvailabilityService doctorAvailabilityService;

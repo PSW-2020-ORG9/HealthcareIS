@@ -5,7 +5,7 @@ using Schedule.API.Services.Procedures.Interface;
 namespace Schedule.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("schedule/[controller]")]
     public class DiagnosisController : ControllerBase
     {
         private readonly IDiagnosisService _diagnosisService;

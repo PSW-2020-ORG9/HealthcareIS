@@ -4,7 +4,7 @@ using User.API.Services.EmployeeService;
 namespace User.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("user/[controller]")]
     public class SpecialtyController:ControllerBase
     {
         private readonly SpecialtyService specialtyService;

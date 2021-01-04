@@ -9,7 +9,7 @@ using User.API.Services.EmployeeService;
 namespace User.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("user/[controller]")]
     public class DoctorController:ControllerBase
     {
         private readonly DoctorService _doctorService;

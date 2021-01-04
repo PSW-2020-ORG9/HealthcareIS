@@ -12,7 +12,7 @@ using User.API.Services.RegistrationService;
 namespace User.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("user/[controller]")]
     public class PatientController : ControllerBase
     {
         private readonly PatientService _patientService;

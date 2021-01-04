@@ -24,6 +24,8 @@ namespace Feedback.API.Services
         public IEnumerable<UserFeedback> GetAll()
         {
             var feedbacks = _userFeedbackRepository.Repository.GetAll();
+            if (!feedbacks.Any())
+                return feedbacks;
             AttachPatientAccounts(feedbacks);
             return feedbacks;
         }
@@ -60,6 +62,8 @@ namespace Feedback.API.Services
         public IEnumerable<UserFeedback> GetAllPublished()
         {
             var feedbacks = _userFeedbackRepository.Repository.GetMatching(feedback => feedback.FeedbackVisibility.IsPublished);
+            if (!feedbacks.Any())
+                return feedbacks;
             AttachPatientAccounts(feedbacks);
             return feedbacks;
         }
@@ -67,6 +71,7 @@ namespace Feedback.API.Services
         private void AttachPatientAccounts(IEnumerable<UserFeedback> feedbacks)
         {
             List<int> patientAccountIds = new List<int>();
+            
             foreach (var feedback in feedbacks)
             {
                 patientAccountIds.Add(feedback.PatientAccountId);

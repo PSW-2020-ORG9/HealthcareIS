@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Feedback.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("feedbacks/[controller]")]
     public class FeedbackController : ControllerBase
     {
         private readonly IUserFeedbackService _userFeedbackService;

@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Feedback.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("feedbacks/[controller]")]
     public class SurveyController : ControllerBase
     {
         private readonly SurveyPreviewBuilder _surveyPreviewBuilder;

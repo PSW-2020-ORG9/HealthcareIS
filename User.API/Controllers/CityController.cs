@@ -5,7 +5,7 @@ using User.API.Services.LocaleServices;
 namespace User.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("user/[controller]")]
     public class CityController:ControllerBase
     {
         private readonly CityService cityService;

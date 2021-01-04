@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace Hospital.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("hospital/[controller]")]
     public class EquipmentTypeController : ControllerBase
     {
         private readonly IEquipmentTypeService _equipmentTypeService;

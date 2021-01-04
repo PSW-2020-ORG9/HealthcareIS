@@ -9,7 +9,7 @@ using Schedule.API.Services.Procedures;
 namespace Schedule.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("schedule/[controller]")]
     public class ExaminationController : ControllerBase
     {
         private readonly ExaminationServiceProxy _examinationService;

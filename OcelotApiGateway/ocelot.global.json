@@ -1,7 +1,7 @@
 {
   "ReRoutes": [
     {
-      "DownstreamPathTemplate": "/country",
+      "DownstreamPathTemplate": "/user/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -9,89 +9,12 @@
           "Port": 5003
         }
       ],
-      "UpstreamPathTemplate": "/api/country",
-      "UpstreamHttpMethod": ["Get"]
-    }
-    ,
-    {
-      "DownstreamPathTemplate": "/city/by-country/{id}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5003
-        }
-      ],
-      "UpstreamPathTemplate": "/api/city/by-country/{id}",
-      "UpstreamHttpMethod": ["Get"]
-    }
-    ,
-    {
-      "DownstreamPathTemplate": "/doctor/{everything}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5003
-        }
-      ],
-      "UpstreamPathTemplate": "/api/doctor/{everything}",
-      "UpstreamHttpMethod": ["Get"]
-    }
-    ,
-    {
-      "DownstreamPathTemplate": "/doctor",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5003
-        }
-      ],
-      "UpstreamPathTemplate": "/api/doctor",
-      "UpstreamHttpMethod": ["Get"]
-    }
-    ,
-    {
-      "DownstreamPathTemplate": "/patient",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5003
-        }
-      ],
-      "UpstreamPathTemplate": "/api/patient",
-      "UpstreamHttpMethod": ["Get"]
-    }
-    ,
-    {
-      "DownstreamPathTemplate": "/patient/{everything}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5003
-        }
-      ],
-      "UpstreamPathTemplate": "/api/patient/{everything}",
+      "UpstreamPathTemplate": "/api/user/{everything}",
       "UpstreamHttpMethod": ["Get","Post"]
     }
     ,
     {
-      "DownstreamPathTemplate": "/specialty",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5003
-        }
-      ],
-      "UpstreamPathTemplate": "/api/specialty",
-      "UpstreamHttpMethod": [ "Get" ]
-    },
-    {
-      "DownstreamPathTemplate": "/feedback",
+      "DownstreamPathTemplate": "/feedbacks/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -99,128 +22,25 @@
           "Port": 5002
         }
       ],
-      "UpstreamPathTemplate": "/api/feedback",
-      "UpstreamHttpMethod": [ "Get","Post" ]
-    },
-    {
-      "DownstreamPathTemplate": "/feedback/{everything}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5002
-        }
-      ],
-      "UpstreamPathTemplate": "/api/feedback/{everything}",
+      "UpstreamPathTemplate": "/api/feedbacks/{everything}",
       "UpstreamHttpMethod": [ "Get","Post" ]
     }
     ,
     {
-      "DownstreamPathTemplate": "/survey/{everything}",
+      "DownstreamPathTemplate": "/schedule/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5002
+          "Port": 5004
         }
       ],
-      "UpstreamPathTemplate": "/api/survey/{everything}",
+      "UpstreamPathTemplate": "/api/schedule/{everything}",
       "UpstreamHttpMethod": [ "Get","Post" ]
     }
     ,
     {
-      "DownstreamPathTemplate": "/diagnosis",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5004
-        }
-      ],
-      "UpstreamPathTemplate": "/api/diagnosis",
-      "UpstreamHttpMethod": [ "Post" ]
-    }
-    ,
-    {
-      "DownstreamPathTemplate": "/diagnosis/{everything}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5004
-        }
-      ],
-      "UpstreamPathTemplate": "/api/diagnosis/{everything}",
-      "UpstreamHttpMethod": [ "Get","Post" ]
-    }
-    ,
-    {
-      "DownstreamPathTemplate": "/examination/{everything}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5004
-        }
-      ],
-      "UpstreamPathTemplate": "/api/examination/{everything}",
-      "UpstreamHttpMethod": [ "Get","Post" ]
-    }
-    ,
-    {
-      "DownstreamPathTemplate": "/examination",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5004
-        }
-      ],
-      "UpstreamPathTemplate": "/api/examination",
-      "UpstreamHttpMethod": [ "Get","Post" ]
-    }
-    ,
-    {
-      "DownstreamPathTemplate": "/available/doctor",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5004
-        }
-      ],
-      "UpstreamPathTemplate": "/api/available/doctor",
-      "UpstreamHttpMethod": ["Get"]
-    }
-    ,
-    {
-      "DownstreamPathTemplate": "/available/interval",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5004
-        }
-      ],
-      "UpstreamPathTemplate": "/api/available/interval",
-      "UpstreamHttpMethod": ["Get"]
-    }
-    ,
-    {
-      "DownstreamPathTemplate": "/available/interval?date={date}&doctorId={doctor}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5004
-        }
-      ],
-      "UpstreamPathTemplate": "/api/available/interval?date={date}&doctor={doctor}",
-      "UpstreamHttpMethod": ["Get"]
-    }
-    ,
-    {
-      "DownstreamPathTemplate": "/docsearch/{everything}",
+      "DownstreamPathTemplate": "/hospital/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -228,75 +48,9 @@
           "Port": 5001
         }
       ],
-      "UpstreamPathTemplate": "/api/docsearch/{everything}",
+      "UpstreamPathTemplate": "/api/hospital/{everything}",
       "UpstreamHttpMethod": [ "Get","Post" ]
     }
-    ,
-    {
-      "DownstreamPathTemplate": "/equipment/{everything}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5001
-        }
-      ],
-      "UpstreamPathTemplate": "/api/equipment/{everything}",
-      "UpstreamHttpMethod": [ "Get","Post" ]
-    }
-    ,
-    {
-      "DownstreamPathTemplate": "/room/{everything}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5001
-        }
-      ],
-      "UpstreamPathTemplate": "/api/room/{everything}",
-      "UpstreamHttpMethod": [ "Get","Post" ]
-    }
-    ,
-    {
-      "DownstreamPathTemplate": "/equipmenttype",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5001
-        }
-      ],
-      "UpstreamPathTemplate": "/api/equipmenttype",
-      "UpstreamHttpMethod": [ "Get","Post" ]
-    }
-    ,
-    {
-      "DownstreamPathTemplate": "/medication",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5001
-        }
-      ],
-      "UpstreamPathTemplate": "/api/medication",
-      "UpstreamHttpMethod": [ "Get" ]
-    }
-    ,
-    {
-      "DownstreamPathTemplate": "/medication/{everything}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5001
-        }
-      ],
-      "UpstreamPathTemplate": "/api/medication/{everything}",
-      "UpstreamHttpMethod": [ "Get" ]
-    }
-
   ],
   "GlobalConfiguration": {
     "BaseUrl": "http://localhost:5000"
