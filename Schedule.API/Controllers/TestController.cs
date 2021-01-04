@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using General.Auth;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Schedule.API.Controllers
@@ -12,7 +14,7 @@ namespace Schedule.API.Controllers
         [Route("enc")]
         public IActionResult Encrypt(A obj)
         {
-            return Ok(new JwtService().Encode(obj));
+            return Ok(new JwtService().Encode(obj, DateTime.Now.AddSeconds(60).Ticks));
         }
 
         [HttpGet]

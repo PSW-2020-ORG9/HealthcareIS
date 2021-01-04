@@ -1,10 +1,12 @@
 using System;
 using General;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Schedule.API.Infrastructure.Database;
 using Schedule.API.Infrastructure.Repositories.Procedures;
 using Schedule.API.Infrastructure.Repositories.Procedures.Interfaces;
@@ -89,6 +91,16 @@ namespace Schedule.API
             services.Add(new ServiceDescriptor(typeof(ExaminationServiceProxy), examinationServiceProxy));
             services.Add(new ServiceDescriptor(typeof(RecommendationService), recommendationService));
             services.Add(new ServiceDescriptor(typeof(DoctorAvailabilityService),availabilityService));
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.BackchannelTimeout = TimeSpan.Zero;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateLifetime = true
+                    };
+                });
             
             services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
         }
@@ -105,6 +117,8 @@ namespace Schedule.API
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
