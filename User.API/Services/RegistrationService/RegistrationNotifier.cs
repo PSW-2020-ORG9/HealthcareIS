@@ -26,6 +26,7 @@ namespace User.API.Services.RegistrationService
             SmtpClient = new SmtpClient(Environment.GetEnvironmentVariable("PSW_SMTP_HOST_SERVER"))
             {
                 Port = Convert.ToInt32(Environment.GetEnvironmentVariable("PSW_SMTP_SSL_PORT")),
+                UseDefaultCredentials = false,
                 Credentials = new NetworkCredential(Environment.GetEnvironmentVariable("PSW_EMAIL_USERNAME"), Environment.GetEnvironmentVariable("PSW_EMAIL_PASSWORD")),
                 EnableSsl = true,
             };
