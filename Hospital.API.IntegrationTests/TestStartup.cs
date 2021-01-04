@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Hospital.API.IntegrationTests.Stubs;
 
 namespace Hospital.API.IntegrationTests
 {
@@ -29,5 +30,8 @@ namespace Hospital.API.IntegrationTests
 
         protected override IContextFactory GetContextFactory() 
             => new HospitalSqlTestContextFactory(_connectionString);
+
+        protected override IConnection CreateConnection(string url, string endpoint) 
+            => new StubConnection();
     }
 }

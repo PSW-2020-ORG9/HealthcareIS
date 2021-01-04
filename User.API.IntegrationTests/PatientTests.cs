@@ -21,7 +21,7 @@ namespace User.API.IntegrationTests
         public async void Finds_patient()
         {
             var client = _factory.CreateClient();
-            var response = await client.GetAsync("/patient/1");
+            var response = await client.GetAsync("user/patient/1");
             string responseString = await response.Content.ReadAsStringAsync();
 
             Assert.Contains("\"id\":1", responseString);
@@ -49,7 +49,7 @@ namespace User.API.IntegrationTests
                 Password = "pera1",
                 TelephoneNumber = "0600000000"
             });
-            var response = await client.PostAsync("/patient/register", content);
+            var response = await client.PostAsync("user/patient/register", content);
 
             response.EnsureSuccessStatusCode();
         }
@@ -58,7 +58,7 @@ namespace User.API.IntegrationTests
         public async void Activates_patient()
         {
             var client = _factory.CreateClient();
-            var response = await client.GetAsync("/patient/activate/00000000-0000-0000-0000-000000000000");
+            var response = await client.GetAsync("user/patient/activate/00000000-0000-0000-0000-000000000000");
             var requestUri = response.RequestMessage.RequestUri;
             Assert.Equal("http://localhost:8080/#/successfully-registered",requestUri.ToString());
         }
@@ -67,7 +67,7 @@ namespace User.API.IntegrationTests
         public async void Finds_patient_account()
         {
             var client = _factory.CreateClient();
-            var response = await client.GetAsync("/patient/account/1");
+            var response = await client.GetAsync("user/patient/account/1");
             var responseString = await response.Content.ReadAsStringAsync();
 
             Assert.Contains("\"id\":1", responseString);
@@ -77,7 +77,7 @@ namespace User.API.IntegrationTests
         public async void Gets_all_patients()
         {
             var client = _factory.CreateClient();
-            var response = await client.GetAsync("/patient");
+            var response = await client.GetAsync("user/patient");
             var responseString = await response.Content.ReadAsStringAsync();
 
             Assert.Contains("\"id\":1", responseString);
@@ -90,7 +90,7 @@ namespace User.API.IntegrationTests
             List<int> accountIds = new List<int>();
             accountIds.Add(1);
             var content = JsonContent.Create(accountIds);
-            var response = await client.PostAsync("/patient/accounts", content);
+            var response = await client.PostAsync("user/patient/accounts", content);
             var responseString = await response.Content.ReadAsStringAsync();
 
             Assert.Contains("\"id\":1", responseString);

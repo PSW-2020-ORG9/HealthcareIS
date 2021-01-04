@@ -16,7 +16,7 @@ namespace Feedback.API.IntegrationTests
         public async void Gets_published_feedbacks()
         {
             var client = _factory.CreateClient();
-            var response = await client.GetAsync("/feedback/published");
+            var response = await client.GetAsync("feedbacks/feedback/published");
             var responseString = await response.Content.ReadAsStringAsync();
 
             Assert.Contains("\"isPublished\":true", responseString);

@@ -1,29 +1,34 @@
 let server = // #put "'" + SERVER_URL + "'"
 
-    let api = server + "/api"
+let api = server + '/api'
 
-let examinationUrl = api + '/examination'
-let examinationSearchUrl = api + '/examination/search'
+let userService = api + '/user'
+let scheduleService = api + '/schedule'
+let feedbackService = api + '/feedbacks'
+let hospitalService = api + '/hospital'
 
-let roomUrl = api + '/room/'
-let prescriptionsUrl = api + '/docsearch/prescription'
+let examinationUrl = scheduleService + '/examination'
+let examinationSearchUrl = scheduleService + '/examination/search'
 
-let feedbacksUrl = api + '/feedback'
+let roomUrl = hospitalService + '/room/'
+let prescriptionsUrl = hospitalService + '/docsearch/prescription'
 
-let doctorUrl = api + '/doctor'
-let specialtyUrl = api + '/specialty'
-let patientExaminationsUrl = api + '/examination'
-let patientUrl = api + '/patient'
+let feedbacksUrl = feedbackService + '/feedback'
+
+let doctorUrl = userService + '/doctor'
+let specialtyUrl = userService + '/specialty'
+let patientExaminationsUrl = scheduleService + '/examination'
+let patientUrl = userService + '/patient'
 let registrationUrl = patientUrl + '/register'
-let doctorAvailabilityUrl = api + '/available/'
-let citiesByCountryId = api + '/city/by-country/'
-let countriesUrl= api +'/country'
-let patientAccountUrl = api + '/patient/account'
+let doctorAvailabilityUrl = userService + '/available/'
+let citiesByCountryId = userService + '/city/by-country/'
+let countriesUrl= userService +'/country'
+let patientAccountUrl = userService + '/patient/account'
 
-let patientExaminationSurveyResponseUrl = api + "/survey/examination"
-let patientExaminationsSurveyResponsesUrl = api + "/survey/examination/multiple"
-let surveyUrl = api + '/survey'
-let surveyPreviewUrl = api+'/survey/preview/admin/1'
+let patientExaminationSurveyResponseUrl = feedbackService + "/survey/examination"
+let patientExaminationsSurveyResponsesUrl = feedbackService + "/survey/examination/multiple"
+let surveyUrl = feedbackService + '/survey'
+let surveyPreviewUrl = feedbackService + '/survey/preview/admin/1'
 
 let imageUploadUrl = 'https://api.imgur.com/3/image'
 let clientId = '9a86c8e89e7d2ea'

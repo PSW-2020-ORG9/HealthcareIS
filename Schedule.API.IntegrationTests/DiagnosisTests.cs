@@ -19,7 +19,7 @@ namespace Schedule.API.IntegrationTests
         public async void Finds_diagnosis()
         {
             var client = _factory.CreateClient();
-            var response = await client.GetAsync("/diagnosis/1");
+            var response = await client.GetAsync("schedule/diagnosis/1");
             var responseString = await response.Content.ReadAsStringAsync();
 
             Assert.Contains("\"id\":1", responseString);
@@ -32,7 +32,7 @@ namespace Schedule.API.IntegrationTests
             List<int> diagnosisIds = new List<int>();
             diagnosisIds.Add(1);
             var content = JsonContent.Create(diagnosisIds);
-            var response = await client.PostAsync("/diagnosis", content);
+            var response = await client.PostAsync("schedule/diagnosis", content);
             var responseString = await response.Content.ReadAsStringAsync();
 
             Assert.Contains("\"id\":1", responseString);

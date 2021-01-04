@@ -15,7 +15,7 @@ namespace User.API.IntegrationTests
         public async void Gets_city_by_country()
         {
             var client = _factory.CreateClient();
-            var response = await client.GetAsync("/city/by-country/1");
+            var response = await client.GetAsync("user/city/by-country/1");
             string responseString = await response.Content.ReadAsStringAsync();
 
             Assert.Contains("Novi Sad", responseString);
@@ -25,7 +25,7 @@ namespace User.API.IntegrationTests
         public async void Gets_countries()
         {
             var client = _factory.CreateClient();
-            var response = await client.GetAsync("/country");
+            var response = await client.GetAsync("user/country");
             string responseString = await response.Content.ReadAsStringAsync();
 
             Assert.Contains("Srbija", responseString);

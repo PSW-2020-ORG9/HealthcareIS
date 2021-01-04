@@ -6,8 +6,6 @@ namespace User.API
 {
     public class Program
     {
-        private static readonly string ApiUrl = $"http://{Environment.GetEnvironmentVariable("PSW_USER_SERVICE_HOST")}:" +
-                                                $"{Environment.GetEnvironmentVariable("PSW_USER_SERVICE_PORT")}/";
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
@@ -15,6 +13,12 @@ namespace User.API
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>().UseUrls(ApiUrl); });
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    var port = Environment.GetEnvironmentVariable("PORT")
+                               ?? Environment.GetEnvironmentVariable("PSW_USER_SERVICE_PORT");
+                    if(port == null) webBuilder.UseStartup<Startup>();
+                    webBuilder.UseStartup<Startup>().UseUrls("http://*:" + port);
+                });
     }
 }

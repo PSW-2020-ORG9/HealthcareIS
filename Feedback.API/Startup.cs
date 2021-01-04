@@ -19,7 +19,7 @@ namespace Feedback.API
     {
         private string _connectionString;
         private readonly string UserUrl = $"http://{Environment.GetEnvironmentVariable("PSW_USER_SERVICE_HOST")}:" +
-                                          $"{Environment.GetEnvironmentVariable("PSW_USER_SERVICE_PORT")}/";
+                                          $"{Environment.GetEnvironmentVariable("PSW_USER_SERVICE_PORT")}";
         
         public Startup(IConfiguration configuration)
         {
@@ -72,8 +72,8 @@ namespace Feedback.API
             var surveyRepository = new SurveySqlRepository(GetContextFactory());
             var surveyResponseRepository = new SurveyResponseSqlRepository(GetContextFactory());
             var ratedSectionSqlRepository = new RatedSectionSqlRepository(GetContextFactory());
-            var patientAccountsConnection = CreateConnection(UserUrl, "/patient/accounts");
-            var doctorConnection = CreateConnection(UserUrl, "/doctor");
+            var patientAccountsConnection = CreateConnection(UserUrl, "user/patient/accounts");
+            var doctorConnection = CreateConnection(UserUrl, "user/doctor");
 
             var userFeedbackService = new UserFeedbackService(userFeedbackRepository, patientAccountsConnection);
             var surveyService = new SurveyService(surveyRepository);

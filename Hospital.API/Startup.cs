@@ -17,7 +17,7 @@ namespace Hospital.API
     {
         private string _connectionString;
         private string ScheduleUrl = $"http://{Environment.GetEnvironmentVariable("PSW_SCHEDULE_SERVICE_HOST")}:" +
-                                     $"{Environment.GetEnvironmentVariable("PSW_SCHEDULE_SERVICE_PORT")}/";
+                                     $"{Environment.GetEnvironmentVariable("PSW_SCHEDULE_SERVICE_PORT")}";
         public IConfiguration Configuration { get; }
 
         public Startup(IConfiguration configuration)
@@ -67,7 +67,7 @@ namespace Hospital.API
             var equipmentTypeRepository = new EquipmentTypeSqlRepository(GetContextFactory());
             var medicationRepository = new MedicationSqlRepository(GetContextFactory());
             var medicationPrescriptionRepository = new MedicationPrescriptionSqlRepository(GetContextFactory());
-            var diagnosisConnection = CreateConnection(ScheduleUrl, "diagnosis");
+            var diagnosisConnection = CreateConnection(ScheduleUrl, "schedule/diagnosis");
 
             var roomService = new RoomService(roomRepository);
             var equipmentService = new EquipmentService(equipmentUnitRepository, equipmentTypeRepository);
@@ -80,7 +80,8 @@ namespace Hospital.API
             services.Add(new ServiceDescriptor(typeof(IEquipmentTypeService), equipmentTypeService));
             services.Add(new ServiceDescriptor(typeof(IMedicationService), medicationService));
             services.Add(new ServiceDescriptor(typeof(IMedicationPrescriptionService), medicationPrescriptionService));
-
+            
+            services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddControllers();
         }
 

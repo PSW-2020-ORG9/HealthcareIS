@@ -18,7 +18,7 @@ namespace Hospital.API.IntegrationTests
         public async void Gets_all_prescriptions()
         {
             var client = _factory.CreateClient();
-            var response = await client.GetAsync("/docsearch/prescription");
+            var response = await client.GetAsync("/hospital/docsearch/prescription");
             var responseString = await response.Content.ReadAsStringAsync();
 
             Assert.Contains("Brufen", responseString);
@@ -28,7 +28,7 @@ namespace Hospital.API.IntegrationTests
         public async void Gets_prescription_by_medication_name()
         {
             var client = _factory.CreateClient();
-            var response = await client.GetAsync("/docsearch/prescription/simple?medicationName=Brufen");
+            var response = await client.GetAsync("/hospital/docsearch/prescription/simple?medicationName=Brufen");
             var responseString = await response.Content.ReadAsStringAsync();
 
             Assert.Contains("Brufen", responseString);
@@ -43,7 +43,7 @@ namespace Hospital.API.IntegrationTests
                 Name = "Brufen",
                 Status = TimeStatus.All
             });
-            var response = await client.PostAsync("/docsearch/prescription/advanced", content);
+            var response = await client.PostAsync("hospital/docsearch/prescription/advanced", content);
             var responseString = await response.Content.ReadAsStringAsync();
 
             Assert.Contains("Brufen", responseString);

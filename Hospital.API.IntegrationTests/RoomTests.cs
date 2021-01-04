@@ -22,7 +22,7 @@ namespace Hospital.API.IntegrationTests
             List<int> ids = new List<int>();
             ids.Add(1);
             var content = JsonContent.Create(ids);
-            var response = await client.PostAsync("/room", content);
+            var response = await client.PostAsync("hospital/room", content);
             var responseString = await response.Content.ReadAsStringAsync();
 
             Assert.Contains("\"id\":1", responseString);

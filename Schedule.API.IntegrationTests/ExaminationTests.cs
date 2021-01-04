@@ -20,7 +20,7 @@ namespace Schedule.API.IntegrationTests
         public async void Finds_examinations_for_patient()
         {
             var client = _factory.CreateClient();
-            var response = await client.GetAsync("/examination/patient/1");
+            var response = await client.GetAsync("schedule/examination/patient/1");
             string responseString = await response.Content.ReadAsStringAsync();
 
             Assert.Contains("\"patientId\":1", responseString);
@@ -30,7 +30,7 @@ namespace Schedule.API.IntegrationTests
         public async void Cancels_examination()
         {
             var client = _factory.CreateClient();
-            var response = await client.GetAsync("/examination/cancel/2");
+            var response = await client.GetAsync("schedule/examination/cancel/2");
 
             response.EnsureSuccessStatusCode();
         }
@@ -45,7 +45,7 @@ namespace Schedule.API.IntegrationTests
                 PatientId = 1,
                 StartTime = new DateTime(2022, 3, 3, 8, 0, 0)
             });
-            var response = await client.PostAsync("/examination", content);
+            var response = await client.PostAsync("schedule/examination", content);
 
             response.EnsureSuccessStatusCode();
         }
@@ -65,7 +65,7 @@ namespace Schedule.API.IntegrationTests
                     End = new DateTime(2022, 3, 4)
                 }
             });
-            var response = await client.PostAsync("/examination/recommend", content);
+            var response = await client.PostAsync("schedule/examination/recommend", content);
             string responseString = await response.Content.ReadAsStringAsync();
 
             Assert.Contains("\"id\":1", responseString);

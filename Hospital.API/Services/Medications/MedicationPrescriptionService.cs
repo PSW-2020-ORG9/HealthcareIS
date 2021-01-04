@@ -23,13 +23,6 @@ namespace Hospital.API.Services.Medications
                 new RepositoryWrapper<IMedicationPrescriptionRepository>(medicationPrescriptionRepository);
             _diagnosisConnection = diagnosisConnection;
         }
-
-        public MedicationPrescriptionService(IMedicationPrescriptionRepository medicationPrescriptionRepository)
-        {
-            _medicationPrescriptionWrapper =
-                new RepositoryWrapper<IMedicationPrescriptionRepository>(medicationPrescriptionRepository);
-        }
-
         public IEnumerable<MedicationPrescription> SimpleSearch(string nameQuery)
         {
             var prescriptions = _medicationPrescriptionWrapper.Repository.GetMatching(
@@ -56,21 +49,21 @@ namespace Hospital.API.Services.Medications
 
         private IEnumerable<MedicationPrescription> AttachDiagnoses(IEnumerable<MedicationPrescription> prescriptions)
         {
-            List<int> diagnosisIds = new List<int>();
+            var diagnosisIds = prescriptions
+                .Select(prescription => prescription.DiagnosisId).ToList();
+            var diagnoses = FetchDiagnoses(diagnosisIds);
             foreach (var prescription in prescriptions)
             {
-                diagnosisIds.Add(prescription.DiagnosisId);
-            }
-            IEnumerable<Diagnosis> diagnoses = FetchDiagnoses(diagnosisIds);
-            foreach (var prescription in prescriptions)
-            {
-                prescription.Diagnosis = diagnoses.Where(d => d.Id == prescription.DiagnosisId).FirstOrDefault();
+                prescription.Diagnosis = diagnoses
+                    .Where(d => d.Id == prescription.DiagnosisId).FirstOrDefault();
             }
             return prescriptions;
         }
 
-        private IEnumerable<Diagnosis> FetchDiagnoses(IEnumerable<int> diagnosisIds) 
-            => _diagnosisConnection.Post<IEnumerable<Diagnosis>>(diagnosisIds);
+        private IEnumerable<Diagnosis> FetchDiagnoses(IEnumerable<int> diagnosisIds)
+        {
+            return _diagnosisConnection.Post<List<Diagnosis>>(diagnosisIds);
+        }
 
         public IEnumerable<MedicationPrescription> GetAll()
             => AttachDiagnoses(_medicationPrescriptionWrapper.Repository.GetAll());

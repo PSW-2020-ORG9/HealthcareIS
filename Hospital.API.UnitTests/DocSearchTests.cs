@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using General;
 using Hospital.API.Infrastructure.Repositories.Medications;
 using Hospital.API.Model.Medication;
 using Hospital.API.Services.Medications;
@@ -11,11 +12,14 @@ namespace Hospital.API.UnitTests
     public class DocSearchTests
     {
         private Mock<IMedicationPrescriptionRepository> _prescriptionStubRepository;
+        private Mock<IConnection> _mockDiagnosisConnection;
 
         // Prescriptions and past examinations 
         private void PrepareStubs()
         {
             _prescriptionStubRepository = new Mock<IMedicationPrescriptionRepository>();
+            _mockDiagnosisConnection = new Mock<IConnection>();
+            
 
             var allPrescriptions = new List<MedicationPrescription>();
             var matchedPrescriptions = new List<MedicationPrescription>();
@@ -56,6 +60,9 @@ namespace Hospital.API.UnitTests
                     repository.GetMatching(
                         prescription => prescription.Medication.Name.Contains("Br")))
                 .Returns(allPrescriptions);
+            _mockDiagnosisConnection.Setup(connection => connection
+                .Post<List<Diagnosis>>(It.IsAny<IEnumerable<int>>())).Returns(
+                new List<Diagnosis>{new Diagnosis {Name = "a"}});
         }
 
         [Fact]
@@ -64,7 +71,8 @@ namespace Hospital.API.UnitTests
             PrepareStubs();
             var prescriptionService = new MedicationPrescriptionService
             (
-                _prescriptionStubRepository.Object
+                _prescriptionStubRepository.Object,
+                _mockDiagnosisConnection.Object
             );
 
             IEnumerable<MedicationPrescription> matchedPrescriptions = prescriptionService.SimpleSearch("Brufen");
@@ -77,7 +85,8 @@ namespace Hospital.API.UnitTests
             PrepareStubs();
             var prescriptionService = new MedicationPrescriptionService
             (
-                _prescriptionStubRepository.Object
+                _prescriptionStubRepository.Object,
+                _mockDiagnosisConnection.Object
             );
 
             IEnumerable<MedicationPrescription> matchedPrescriptions = prescriptionService.SimpleSearch("xxx");
@@ -90,7 +99,8 @@ namespace Hospital.API.UnitTests
             PrepareStubs();
             var prescriptionService = new MedicationPrescriptionService
             (
-                _prescriptionStubRepository.Object
+                _prescriptionStubRepository.Object,
+                _mockDiagnosisConnection.Object
             );
 
             IEnumerable<MedicationPrescription> matchedPrescriptions = prescriptionService.SimpleSearch("Br");
