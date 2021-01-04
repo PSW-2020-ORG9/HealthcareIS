@@ -23,6 +23,10 @@ namespace Schedule.API.Controllers
         }
 
         [HttpGet]
+        public IActionResult GetAll()
+            => Ok(_examinationService.GetByPatientId(1));
+
+        [HttpGet]
         [Route("patient/{patientId}")]
         public IActionResult GetExaminationsForPatient(int patientId)
         {
@@ -73,7 +77,10 @@ namespace Schedule.API.Controllers
         [HttpPost]
         [Route("search/simple")]
         public IActionResult SimpleSearch(ExaminationSimpleFilterDto dto)
-            => Ok(_examinationService.Search(dto));
+        {
+            Console.WriteLine($"Doing a simple search for {dto.DoctorName} {dto.DoctorSurname}");
+            return Ok(_examinationService.Search(dto));
+        }
 
         [HttpPost]
         [Route("search/advanced")]
