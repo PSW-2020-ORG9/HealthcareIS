@@ -51,7 +51,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      docker run --name db -d -e MYSQL_ROOT_PASSWORD=$DB_PSW_PASSWORD -p 3306:3306 -p 33060:33060 pswdb
+      docker run --name db -d -e MYSQL_ROOT_PASSWORD=$DB_PSW_PASSWORD -e MYSQL_DATABASE=placeholder -p 3306:3306 -p 33060:33060 pswdb
   displayName: Run DB container
 
 - task: Bash@3
