@@ -27,7 +27,7 @@ namespace HospitalWebApp.Controllers
         }
 
         [HttpGet]
-        [Route("find/{name}")]
+        [Route("{name}")]
         public IActionResult GetAllMedicationByName(string name)
         {
             IEnumerable<MedicationDto> medDtos = _medicationService.GetAllMedicationWithQuantityByName(name);

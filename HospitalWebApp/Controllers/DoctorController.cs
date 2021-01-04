@@ -30,7 +30,7 @@ namespace HospitalWebApp.Controllers
         }
 
         [HttpGet]
-        [Route("department/{id}")]
+        [Route("departments/{id}")]
         public IActionResult GetDoctorsByDepartment(int id)
         {
             IEnumerable<DoctorDto> docDtos = doctorService.GetDoctorsByDepartment(id);
@@ -39,7 +39,7 @@ namespace HospitalWebApp.Controllers
         }
      
         [HttpGet]
-        [Route("find/{id}")]
+        [Route("{id}")]
         public IActionResult GetDoctorById(int id)
         {
             Doctor doctor = doctorService.GetByID(id);
