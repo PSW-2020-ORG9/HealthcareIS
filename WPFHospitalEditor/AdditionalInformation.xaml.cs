@@ -55,7 +55,8 @@ namespace WPFHospitalEditor
         private void RefreshMap()
         {
             building.canvas.Children.Clear();
-            CanvasService.AddObjectToCanvas(building.buildingFloors[mapObject.MapObjectDescription.FloorNumber].GetAllFloorMapObjects(), building.canvas);
+            Floor floor = building.GetBuildingFloor(mapObject.MapObjectDescription.FloorNumber);
+            CanvasService.AddObjectToCanvas(floor.GetAllFloorMapObjects(), building.canvas);
         }      
 
         private void UpdateAdditionalInformation()

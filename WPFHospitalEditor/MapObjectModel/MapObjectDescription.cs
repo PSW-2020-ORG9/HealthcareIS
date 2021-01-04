@@ -6,8 +6,8 @@ namespace WPFHospitalEditor.MapObjectModel
 {
    public class MapObjectDescription
    {
-        public int BuildingId { get; set; }
-        public int FloorNumber { get; set; }
+        public int BuildingId { get;}
+        public int FloorNumber { get;}
         public String Information { get; set; }
 
         public MapObjectDescription(int buildingId, int floorNumber, String information)
