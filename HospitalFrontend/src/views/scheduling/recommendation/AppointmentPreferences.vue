@@ -60,7 +60,7 @@ import api from '../../../constant/api.js'
 import axios from 'axios'
 import moment from 'moment'
 import Toastify from 'toastify-js'
-import DatePicker from 'v-calendar'
+import {DatePicker} from 'v-calendar'
 
 export default {
     name:'AppointmentPreferences',

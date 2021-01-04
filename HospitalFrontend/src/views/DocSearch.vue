@@ -115,11 +115,8 @@
                                 <div class="row mt-2">
                                     Doctor: {{exam.doctor.person.name}} {{exam.doctor.person.surname}}
                                 </div>
-                              <div class="row mt-2">
-                                Description: {{exam.procedureDetails.description}}
-                              </div>
                                 <div class="row mt-2">
-                                    Anamnesis: {{exam.examinationReport.anamnesis}}
+                                    Anamnesis: {{ exam.examinationReport.anamnesis }}
                                 </div>
                                 <div class="row mt-2">
                                     Diagnoses:
@@ -219,38 +216,44 @@ export default {
                 this.getAllExaminations();
                 return;
             }
-            axios.get(api.docSearchExaminationSimple
-                + "?" + "name=" + this.doctorNameQuery + "&"
-                + "surname=" + this.doctorSurnameQuery
+            axios.post(api.docSearchExaminationSimple,
+                {
+                     DoctorName : this.doctorNameQuery,
+                     DoctorSurname : this.doctorSurnameQuery
+                }
             )
             .then(response => this.handleExaminations(response))
             .catch(() => {this.failedConnection()})
         },
         advancedSearchPrescriptions() {
             this.prescriptions = [];
-            axios.post(api.docSearchPrescriptionAdvanced, {
-              Manufacturer: this.prescriptionManufacturerQuery,
-              Name: this.prescriptionNameQuery,
-              Diagnosis: this.prescriptionDiagnosisQuery,
-              Status: this.prescriptionStatusQuery
-            })
+            axios.post(api.docSearchPrescriptionAdvanced,
+                {
+                  Manufacturer: this.prescriptionManufacturerQuery,
+                  Name: this.prescriptionNameQuery,
+                  Diagnosis: this.prescriptionDiagnosisQuery,
+                  Status: this.prescriptionStatusQuery
+                }
+            )
             .then(response => this.handlePrescriptions(response))
             .catch(() => {this.failedConnection()})
         },
         advancedSearchExaminations() {
           this.examinations = [];
-          axios.post(api.docSearchExaminationAdvanced, {
-            Status: this.examinationStatusQuery,
-            DoctorName: this.doctorNameQuery,
-            DoctorSurname: this.doctorSurnameQuery,
-            ProcedureDetails: this.examinationDetailsQuery,
-            DoctorSpecialty: this.doctorSpecialtyQuery
-          })
+          axios.post(api.docSearchExaminationAdvanced,
+              {
+                Status: this.examinationStatusQuery,
+                DoctorName: this.doctorNameQuery,
+                DoctorSurname: this.doctorSurnameQuery,
+                ProcedureDetails: this.examinationDetailsQuery,
+                DoctorSpecialty: this.doctorSpecialtyQuery
+            }
+          )
           .then(response => this.handleExaminations(response))
           .catch(() => this.toastError());
         },
         getAllExaminations() {
-            axios.get(api.examinations)
+            axios.get(api.examination)
             .then(response => this.handleExaminations(response))
         },
         getAllPrescriptions() {
@@ -271,6 +274,11 @@ export default {
         handleExaminations(response) {
             if (response.data && response.data.length) {
               response.data.forEach(exam => {
+                if (!exam.examinationReport) {
+                    exam.examinationReport = {
+                        anamnesis : "No anamnesis yet."
+                    }
+                }
                 this.examinations.push(exam);
               })
             }

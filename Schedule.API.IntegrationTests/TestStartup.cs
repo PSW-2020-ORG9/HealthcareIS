@@ -5,6 +5,7 @@ using Schedule.API.IntegrationTests.Context;
 using Schedule.API.Model.Dependencies;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Schedule.API.IntegrationTests
 {
@@ -66,6 +67,7 @@ namespace Schedule.API.IntegrationTests
                 }
             });
             connection.Setup(m => m.Get<IEnumerable<Doctor>>(It.IsAny<string>())).Returns(doctors);
+            connection.Setup(m => m.Get<IEnumerable<int>>(It.IsAny<string>())).Returns(doctors.Select(d => d.Id));
             connection.Setup(m => m.Post<IEnumerable<Doctor>>(It.IsAny<object>())).Returns(doctors);
             connection.Setup(m => m.Post<IEnumerable<Room>>(It.IsAny<object>())).Returns(rooms);
             connection.Setup(m => m.Post<IEnumerable<Patient>>(It.IsAny<object>())).Returns(patients);

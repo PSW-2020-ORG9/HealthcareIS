@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using General;
@@ -23,19 +24,27 @@ namespace Schedule.API.Services.Procedures
             this._doctorConnection = doctorConnection;
             this._patientConnection = patientConnection;
         }
-        
-        public IEnumerable<Examination> SimpleSearch(ExaminationSimpleFilterDto filterDto)
+
+        public IEnumerable<Examination> Search(AbstractExaminationFilter filterDto)
         {
-            IEnumerable<Examination> examinations = _examinationService.SimpleSearch(filterDto).ToList();
+            filterDto.DoctorIds = FilterDoctorIdsByCredentials(filterDto);
+            IEnumerable<Examination> examinations = _examinationService.Search(filterDto).ToList();
             AttachMissingReferences(examinations);
             return examinations;
         }
 
-        public IEnumerable<Examination> AdvancedSearch(ExaminationAdvancedFilterDto filterDto)
+        private IEnumerable<int> FilterDoctorIdsByCredentials(AbstractExaminationFilter dto)
         {
-            IEnumerable<Examination> examinations = _examinationService.AdvancedSearch(filterDto).ToList();
-            AttachMissingReferences(examinations);
-            return examinations;
+             return GetAllDoctorIds()
+                .Where(doctor =>
+                    doctor.Person.Name.Contains(dto.DoctorName)
+                    && doctor.Person.Surname.Contains(dto.DoctorSurname))
+                .Select(doctor => doctor.Id);
+        }
+
+        private IEnumerable<Doctor> GetAllDoctorIds()
+        {
+            return _doctorConnection.Get<IEnumerable<Doctor>>();
         }
 
         public IEnumerable<Examination> GetByPatientId(int patientId)
@@ -88,6 +97,7 @@ namespace Schedule.API.Services.Procedures
             }
             catch (SerializationException)
             {
+                Console.WriteLine("Failed to attach doctors to examinations. Connection failed.");
                 return;
             }
             
@@ -113,6 +123,7 @@ namespace Schedule.API.Services.Procedures
             }
             catch (SerializationException)
             {
+                Console.WriteLine("Failed to attach rooms to examinations. Connection failed.");
                 return;
             }
             
@@ -138,6 +149,7 @@ namespace Schedule.API.Services.Procedures
             }
             catch (SerializationException)
             {
+                Console.WriteLine("Failed to attach patients to examinations. Connection failed.");
                 return;
             }
             
