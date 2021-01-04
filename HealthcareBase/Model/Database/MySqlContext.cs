@@ -1,4 +1,5 @@
 using EntityFramework.Exceptions.MySQL.Pomelo;
+using HealthcareBase.EventStore;
 using HealthcareBase.Model.HospitalResources;
 using HealthcareBase.Model.Medication;
 using HealthcareBase.Model.Miscellaneous;
@@ -92,6 +93,9 @@ namespace HealthcareBase.Model.Database
         // Doctors
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<DoctorSpecialty> DoctorSpecialties { get; set; }
+
+        //Event Store
+        public DbSet<EventES> EventEs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
