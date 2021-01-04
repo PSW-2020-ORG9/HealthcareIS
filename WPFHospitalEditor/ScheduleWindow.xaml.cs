@@ -64,7 +64,7 @@ namespace WPFHospitalEditor
             patientsComboBox.SelectedIndex = 0;
             foreach (Patient p in patientServerController.SearchPatients(PatientSearchInput.Text))
             {
-                patientsComboBox.Items.Add(p.Id.ToString() + " " + p.Person.Name + " " + p.Person.Surname + " - " + p.Person.Jmbg);
+                patientsComboBox.Items.Add(p.Id.ToString() + " " + p.Person.Name + " " + p.Person.Surname + " - " + p.Person.Id);
             }
         }
 
