@@ -37,11 +37,11 @@ namespace HospitalWebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult RealocateEquipment(EquipmentRealocationDto equipmentRealocationDto) 
+        public IActionResult RelocateEquipment(EquipmentRelocationDto equipmentRelocationDto) 
         {
-            bool RetVal = _equipmentService.RealocateEquipment(equipmentRealocationDto);
+            bool RetVal = _equipmentService.RelocateEquipment(equipmentRelocationDto);
             if (RetVal != false) return Ok(RetVal);
-            return BadRequest("Realocation can not be proceeded.");
+            return BadRequest("Relocation can not be proceeded.");
         }
     }
 }

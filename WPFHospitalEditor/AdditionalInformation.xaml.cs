@@ -95,12 +95,12 @@ namespace WPFHospitalEditor
 
         private void BtnEquipment_Click(object sender, RoutedEventArgs e)
         {
-            EquipmentAndMedicationWindow equipment = new EquipmentAndMedicationWindow(EquipmentToContentRows());
+            EquipmentAndMedicationWindow equipment = new EquipmentAndMedicationWindow(EquipmentToContentRows(), mapObject);
             equipment.ShowDialog();
         }
         private void BtnMedications_Click(object sender, RoutedEventArgs e)
         {
-            EquipmentAndMedicationWindow medications = new EquipmentAndMedicationWindow(MedicationsToContentRows());
+            EquipmentAndMedicationWindow medications = new EquipmentAndMedicationWindow(MedicationsToContentRows(), mapObject);
             medications.ShowDialog();
         }
 

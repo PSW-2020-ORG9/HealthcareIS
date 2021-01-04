@@ -20,9 +20,9 @@ namespace WPFHospitalEditor.Controller
             return EquipmentServerService.GetEquipmentByType(equipmentType);
         }
 
-        public bool RealocateEquipment(EquipmentRealocationDto eqRealDto)
+        public bool RelocateEquipment(EquipmentRelocationDto eqRealDto)
         {
-            return EquipmentServerService.RealocateEquipment(eqRealDto);
+            return EquipmentServerService.RelocateEquipment(eqRealDto);
         }
 
     }

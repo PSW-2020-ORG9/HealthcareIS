@@ -1,6 +1,6 @@
 ﻿namespace HealthcareBase.Dto
 {
-    public class EquipmentRealocationDto
+    public class EquipmentRelocationDto
     {
         public string EquipmentType { get; set; }
         public int SourceRoomId { get; set; }

@@ -7,6 +7,6 @@ namespace HospitalWebApp.Controllers.Interface
     {
         IActionResult GetEquipmentByRoomId(int roomId);
         IActionResult GetEquipmentsByType(string equipmentType);
-        IActionResult RealocateEquipment(EquipmentRealocationDto equipmentRealocationDto);
+        IActionResult RelocateEquipment(EquipmentRelocationDto equipmentRelocationDto);
     }
 }

@@ -1,0 +1,54 @@
+﻿<Window x:Class="WPFHospitalEditor.EquipmentRelocation"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFHospitalEditor"
+        mc:Ignorable="d"
+        Title="EquipmentRelocation" Height="500" Width="600" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Background" Value="SkyBlue"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+    </Window.Resources>
+    <Border BorderThickness="10" BorderBrush="#FF8BD9E0" x:Name="Border">
+        <StackPanel x:Name="appointmentSearchStackPanel" Orientation="Vertical" HorizontalAlignment="Stretch" Background="#FFC6F5F8">
+            <TextBlock x:Name="equipmentName" Text="Relocation of equipment: " FontSize="20" Margin="20,10,0,0"></TextBlock>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,20,0,0">
+                <Label Content="Enter equipment amount to transfer:" FontSize="14" VerticalAlignment="Center" Margin="20,0,0,0"></Label>
+                <TextBox x:Name="equipmentAmount" x:FieldModifier="public" HorizontalAlignment="Left" Height="30" Width="100" Margin="10,0,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></TextBox>
+                <Button x:Name="rooms" Margin="20,0,0,0">Show rooms</Button>
+            </StackPanel>
+            <ScrollViewer x:Name="scrollViewer" Grid.Row="1" Grid.ColumnSpan="4" Background="#FFC6F5F8" Margin="20,10,20,0">
+                <Grid x:Name="DynamicMapObjectGrid">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="80"/>
+                    </Grid.ColumnDefinitions>
+                </Grid>
+            </ScrollViewer>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,0" Width="268">
+                <Label Content="Pick date:" FontSize="14" VerticalAlignment="Center" Margin="20,0,0,0"></Label>
+                <DatePicker Height="30" Width="150" x:FieldModifier="public" Margin="0,0,0,0" Name="startDatePicker" ></DatePicker>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,10,0,0">
+                <Label Content="Pick start hour:" FontSize="14" VerticalAlignment="Center" Margin="20,0,0,0"></Label>
+                <TextBox x:Name="StartTime" Height="30" Width="100"></TextBox>
+                <Label Content="Pick end hour:" FontSize="14" VerticalAlignment="Center" Margin="20,0,0,0"></Label>
+                <TextBox x:Name="EndTime" Height="30" Width="100"></TextBox>
+                <Button x:Name="relocate" Margin="20,0,0,0">Relocate</Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,10,0,0">
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,30,20,0">
+                <Button Click="CloseClick">Cancel</Button>
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</Window>

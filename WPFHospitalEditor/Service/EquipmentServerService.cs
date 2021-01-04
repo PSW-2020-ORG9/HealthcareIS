@@ -23,7 +23,7 @@ namespace WPFHospitalEditor.Service
             var response = client.Get<IEnumerable<EquipmentDto>>(request);
             return response.Data;
         }
-        public bool RealocateEquipment(EquipmentRealocationDto eqRealDto)
+        public bool RelocateEquipment(EquipmentRelocationDto eqRealDto)
         {
             var client = new RestClient(AllConstants.ConnectionUrl);
             var request = new RestRequest("Equipment/", Method.POST);

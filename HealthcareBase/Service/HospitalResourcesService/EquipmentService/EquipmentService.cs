@@ -130,13 +130,14 @@ namespace HealthcareBase.Service.HospitalResourcesService.EquipmentService
             return allEquipment.Values.ToList();
         }
 
-        public bool RealocateEquipment(EquipmentRealocationDto eqRealDto)
+        public bool RelocateEquipment(EquipmentRelocationDto eqRealDto)
         {
             List<EquipmentUnit> equipmentsInRoom = GetEquipmentByRoomIdAndType(eqRealDto.SourceRoomId, eqRealDto.EquipmentType).ToList();
             if (CheckAmount(eqRealDto.Amount, eqRealDto.SourceRoomId, eqRealDto.EquipmentType))
             {
                 for (int i = 0; i < eqRealDto.Amount; i++)
                 {
+                    equipmentsInRoom[i].CurrentLocation = null;
                     equipmentsInRoom[i].CurrentLocationId = eqRealDto.DestinationRoomId;
                     equipmentUnitRepository.Repository.Update(equipmentsInRoom[i]);
                 }
