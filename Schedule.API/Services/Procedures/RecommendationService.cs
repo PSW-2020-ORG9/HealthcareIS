@@ -71,8 +71,8 @@ namespace Schedule.API.Services.Procedures
             IEnumerable<Shift> allShifts = _shiftWrapper.Repository
                 .GetMatching(shift =>
                     doctorIds.Contains(shift.DoctorId)
-                    && shift.TimeInterval.Start >= dto.TimeInterval.Start
-                    && shift.TimeInterval.Start <= dto.TimeInterval.End
+                    && shift.TimeInterval.Start.Date >= dto.TimeInterval.Start.Date
+                    && shift.TimeInterval.Start.Date <= dto.TimeInterval.End.Date
                 );
 
             return FindRecommendationsInShifts(allShifts, remainingSlots);
@@ -174,9 +174,10 @@ namespace Schedule.API.Services.Procedures
             var start = timeInterval.Start;
             while (start < timeInterval.End  &&  maxSlots > 0)
             {
-                var exam 
+                IEnumerable<Examination> examinations
                     = _examinationWrapper.Repository.GetByDoctorAndExaminationStart(doctorId, start).Where(e => !e.IsCanceled);
-                if (!exam.Any())
+               
+                if (!examinations.Any())
                 {
                     intervals.Add(new TimeInterval(start, start.Add(Examination.TimeFrameSize)));
                     maxSlots--;
