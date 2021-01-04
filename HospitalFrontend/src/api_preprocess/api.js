@@ -1,27 +1,34 @@
 let server = // #put "'" + SERVER_URL + "'"
-let examinationsUrl = server + '/api/docsearch/examination'
-let prescriptionsUrl = server + '/api/docsearch/prescription'
-let feedbacksUrl = server + '/api/feedback'
-let patientUrl =   server + '/api/patient'
-let patientAccountUrl = server + '/api/patient/account'
-let surveyPreviewUrl = server+'/api/survey/preview/admin/1'
+
+    let api = server + "/api"
+
+let examinationUrl = api + '/examination'
+let examinationSearchUrl = api + '/examination/search'
+
+let roomUrl = api + '/room/'
+let prescriptionsUrl = api + '/docsearch/prescription'
+
+let feedbacksUrl = api + '/feedback'
+
+let doctorUrl = api + '/doctor'
+let specialtyUrl = api + '/specialty'
+let patientExaminationsUrl = api + '/examination'
+let patientUrl = api + '/patient'
+let registrationUrl = patientUrl + '/register'
+let doctorAvailabilityUrl = api + '/available/'
+let citiesByCountryId = api + '/city/by-country/'
+let countriesUrl= api +'/country'
+let patientAccountUrl = api + '/patient/account'
+
+let patientExaminationSurveyResponseUrl = api + "/survey/examination"
+let patientExaminationsSurveyResponsesUrl = api + "/survey/examination/multiple"
+let surveyUrl = api + '/survey'
+let surveyPreviewUrl = api+'/survey/preview/admin/1'
+
 let imageUploadUrl = 'https://api.imgur.com/3/image'
 let clientId = '9a86c8e89e7d2ea'
-let countriesUrl=server+'/api/country'
-let citiesByCountryId = server + '/api/city/by-country/'
-let registrationUrl = patientUrl + '/api/register'
-let surveyUrl = server + '/api/survey'
-let patientExaminationsUrl = server + '/api/examination'
-let examinationRecommendationUrl = patientExaminationsUrl + '/api/recommend'
+let examinationRecommendationUrl = patientExaminationsUrl + '/recommend'
 
-let patientExaminationSurveyResponseUrl = server + "/api/survey/examination/"
-let patientExaminationsSurveyResponsesUrl = server + "/api/survey/examination/multiple"
-let doctorAvailabiltyUrl = server + '/api/available/'
-let examinationUrl = server + '/api/examination'
-let doctorUrl = server + '/api/doctor'
-let specialtyUrl = server + '/api/specialty'
-
-let roomUrl = server + 'api/room/'
 
 export default{
     feedback: feedbacksUrl ,
@@ -36,16 +43,16 @@ export default{
 
     survey: surveyUrl,
 
-    examinations: examinationsUrl,
+    examinationSearch: examinationSearchUrl,
     examination: examinationUrl,
     examinationRecommendationUrl : examinationRecommendationUrl,
     prescriptions: prescriptionsUrl,
 
     docSearchPrescriptionSimple: prescriptionsUrl + '/simple',
-    docSearchExaminationSimple: examinationsUrl + '/simple',
+    docSearchExaminationSimple: examinationSearchUrl + '/simple',
 
     docSearchPrescriptionAdvanced: prescriptionsUrl + "/advanced",
-    docSearchExaminationAdvanced: examinationsUrl + "/advanced",
+    docSearchExaminationAdvanced: examinationSearchUrl + "/advanced",
 
     imageUpload: imageUploadUrl,
     authorization: 'Client-ID ' + clientId,
@@ -58,10 +65,10 @@ export default{
     room : roomUrl,
 
     availableDoctorUrl:function(date){
-        return doctorAvailabiltyUrl + 'doctor?date=' + date
+        return doctorAvailabilityUrl + 'doctor?date=' + date
     },
     availableIntervalUrl:function(date,doctorId){
-        return doctorAvailabiltyUrl + 'interval?date=' + date + '&doctorId=' + doctorId
+        return doctorAvailabilityUrl + 'interval?date=' + date + '&doctorId=' + doctorId
     },
     doctorBySpecialtyUrl: function (specialtyId) {
         return doctorUrl + "/specialty/" + specialtyId
