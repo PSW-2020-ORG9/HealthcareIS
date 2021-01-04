@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,33 +11,33 @@ namespace WPFHospitalEditor.Repository
     {
         private readonly string path = AllConstants.MAPOBJECT_PATH;
 
-        public MapObject update(MapObject mapObject)
+        public MapObject Update(MapObject mapObject)
         {           
-            var allMapObjects = getAllMapObjects().ToList(); 
+            var allMapObjects = GetAllMapObjects().ToList(); 
             foreach (MapObject mapObj in allMapObjects)
             {
-                    updateMapObjectIfFound(mapObj, mapObject);
+                    UpdateMapObjectIfFound(mapObj, mapObject);
             }
-            saveAll(allMapObjects);
+            SaveAll(allMapObjects);
             return mapObject;
             
         }
         
-        public void updateMapObjectIfFound(MapObject mapObj, MapObject mapObjForUpdate)
+        public void UpdateMapObjectIfFound(MapObject mapObj, MapObject mapObjForUpdate)
         {
             if (mapObj.Id == mapObjForUpdate.Id)
             {
-                editAllMapObjectAttributes(mapObj, mapObjForUpdate);
+                EditAllMapObjectAttributes(mapObj, mapObjForUpdate);
             }
         }
 
-        public void editAllMapObjectAttributes(MapObject mapObj, MapObject mapObjForUpdate)
+        public void EditAllMapObjectAttributes(MapObject mapObj, MapObject mapObjectsForUpdate)
         {
-            mapObj.Description = mapObjForUpdate.Description;
-            mapObj.Name = mapObjForUpdate.Name;
+            mapObj.MapObjectDescription.Information = mapObjectsForUpdate.MapObjectDescription.Information;
+            mapObj.Name = mapObjectsForUpdate.Name;
         }
 
-        public List<MapObject> getAllMapObjects()
+        public List<MapObject> GetAllMapObjects()
         {
             string jsonString = File.Exists(path) ? File.ReadAllText(path) : "";
             var settings = new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.All };
@@ -51,13 +52,13 @@ namespace WPFHospitalEditor.Repository
             }
         }
 
-        public List<MapObject> getOutterMapObjects()
+        public List<MapObject> GetOutterMapObjects()
         {
             List<MapObject> allOuterMapObjects = new List<MapObject>();
-            var allMapObjects = getAllMapObjects().ToList();
+            var allMapObjects = GetAllMapObjects().ToList();
             foreach (MapObject mapObject in allMapObjects)
             {
-                if (mapObject.Description.Equals(""))
+                if (mapObject.MapObjectDescription == null)
                 {
                     allOuterMapObjects.Add(mapObject);
                 }
@@ -65,7 +66,7 @@ namespace WPFHospitalEditor.Repository
             return allOuterMapObjects;
         }
 
-        public void saveAll(List<MapObject> entities)
+        public void SaveAll(List<MapObject> entities)
         {
             JsonSerializer serializer = new JsonSerializer();
             serializer.TypeNameHandling = TypeNameHandling.All;
@@ -78,9 +79,9 @@ namespace WPFHospitalEditor.Repository
             }
         }   
         
-        public MapObject findMapObjectById(int id)
+        public MapObject GetMapObjectById(int id)
         {
-            var allMapObjects = getAllMapObjects();
+            var allMapObjects = GetAllMapObjects();
             foreach (MapObject mapObj in allMapObjects)
             {
                 if (mapObj.Id == id)
@@ -89,6 +90,29 @@ namespace WPFHospitalEditor.Repository
                 }
             }
             return null;
+        }
+
+        public List<MapObject> GetAllBuildingMapObjects(int id)
+        {
+            string jsonString = File.Exists(path) ? File.ReadAllText(path) : "";
+            var settings = new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.All };
+            if (!string.IsNullOrEmpty(jsonString))
+            {
+                List<MapObject> buildingMapObjects = new List<MapObject>();
+                List<MapObject> allMapObjects = JsonConvert.DeserializeObject<List<MapObject>>(jsonString, settings);
+                foreach (MapObject mapobject in allMapObjects)
+                {
+                    if (mapobject.MapObjectDescription != null && mapobject.MapObjectDescription.BuildingId == id)
+                    {
+                        buildingMapObjects.Add(mapobject);
+                    }
+                }
+                return buildingMapObjects;
+            }
+            else
+            {
+                return new List<MapObject>();
+            }
         }
     }
 }

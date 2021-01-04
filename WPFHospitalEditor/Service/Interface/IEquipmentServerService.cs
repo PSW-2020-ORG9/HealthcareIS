@@ -7,6 +7,6 @@ namespace WPFHospitalEditor.Service.Interface
     {
         IEnumerable<EquipmentDto> GetEquipmentByRoomId(int roomId);
 
-        IEnumerable<EquipmentDto> getEquipmentByType(string equipmentType);
+        IEnumerable<EquipmentDto> GetEquipmentByType(string equipmentType);
     }
 }

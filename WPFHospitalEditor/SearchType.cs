@@ -5,6 +5,7 @@
         MapObjectSearch,
         EquipmentSearch,
         MedicationSearch,
-        AppointmentSearch
+        AppointmentSearch,
+        SpecialistAppointmentSearch
     }
 }

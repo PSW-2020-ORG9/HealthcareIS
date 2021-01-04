@@ -14,12 +14,12 @@ namespace WPFHospitalEditor.MapObjectModel
         }
         public void setMapObjectDoorProperties()
         {
-            this.rectangle.Width = AllConstants.doorWidth;
-            this.rectangle.Height = AllConstants.doorHeight;
+            this.rectangle.Width = AllConstants.DoorWidth;
+            this.rectangle.Height = AllConstants.DoorHeight;
             if (MapObjectDoorOrientation == MapObjectDoorOrientation.Left || MapObjectDoorOrientation == MapObjectDoorOrientation.Right)
             {
-                this.rectangle.Width = AllConstants.doorHeight;
-                this.rectangle.Height = AllConstants.doorWidth;
+                this.rectangle.Width = AllConstants.DoorHeight;
+                this.rectangle.Height = AllConstants.DoorWidth;
             }
             setMapObjectDoorColor();
         }

@@ -13,5 +13,10 @@ namespace WPFHospitalEditor.Controller
         {
             return patientServerService.GetAllPatients();
         }
+
+        public IEnumerable<Patient> SearchPatients(string name)
+        {
+            return patientServerService.SearchPatients(name);
+        }
     }
 }

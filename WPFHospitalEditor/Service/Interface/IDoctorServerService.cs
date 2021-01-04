@@ -8,5 +8,9 @@ namespace WPFHospitalEditor.Service.Interface
     {
         IEnumerable<DoctorDto> GetDoctorsByDepartment(int departmentId);
         Doctor GetDoctorById(int doctorId);
+
+        IEnumerable<DoctorDto> SearchDoctors(string name);
+        IEnumerable<DoctorDto> GetAllSpecialists();
+        IEnumerable<DoctorDto> SearchSpecialists(string name);
     }
 }

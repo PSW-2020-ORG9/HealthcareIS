@@ -15,57 +15,53 @@ namespace WPFHospitalEditor.Service
             iMapObjectRepository = IMapObjectRepository;
         }
 
-        public List<MapObject> getAllMapObjects()
+        public List<MapObject> GetAllMapObjects()
         {
-            return colorSelectedObject(iMapObjectRepository.getAllMapObjects());
+            return iMapObjectRepository.GetAllMapObjects();
         }
 
-        public MapObject update(MapObject mapObject)
+        public MapObject Update(MapObject mapObject)
         {
-            return iMapObjectRepository.update(mapObject);
-        }
-        public List<MapObject> getOutterMapObjects()
-        {
-            return colorSelectedObject(iMapObjectRepository.getOutterMapObjects());
-        }
-        public MapObject findMapObjectById(int id)
-        {
-            return iMapObjectRepository.findMapObjectById(id);
-        }
-        private List<MapObject> colorSelectedObject(List<MapObject> allMapObjects)
-        {
-            foreach (MapObject mapObject in allMapObjects)
-            {               
-                if(SearchResultDialog.selectedObjectId == mapObject.Id)
-                {
-                    mapObject.rectangle.Fill = Brushes.Red;
-                }              
-            }
-            return allMapObjects;
+            return iMapObjectRepository.Update(mapObject);
         }
 
-        public List<MapObject> searchForMapObjects(string name, string type)
+        public List<MapObject> GetOutterMapObjects()
+        {
+            return iMapObjectRepository.GetOutterMapObjects();
+        }
+
+        public MapObject GetMapObjectById(int id)
+        {
+            return iMapObjectRepository.GetMapObjectById(id);
+        }
+
+        public List<MapObject> SearchMapObjects(string name, string type)
         {
             var mapObjects = new List<MapObject>();           
-            if (string.IsNullOrEmpty(name) && type.Equals(AllConstants.emptyComboBox)) return mapObjects;
-            List<MapObject> allMapObjects = iMapObjectRepository.getAllMapObjects();
+            if (string.IsNullOrEmpty(name) && type.Equals(AllConstants.EmptyComboBox)) return mapObjects;
+            List<MapObject> allMapObjects = iMapObjectRepository.GetAllMapObjects();
             foreach (MapObject mapObject in allMapObjects)
             {
-                if(compareInput(mapObject, name, type))
+                if(CompareInput(mapObject, name, type))
                     mapObjects.Add(mapObject);
             }
             return mapObjects;
         }
 
-        private bool compareInput(MapObject mapObject, string name, string type)
+        private bool CompareInput(MapObject mapObject, string name, string type)
         {
             bool result = mapObject.Name.ToLower().Contains(name.ToLower());
-            if(!type.Equals(AllConstants.emptyComboBox))
+            if(!type.Equals(AllConstants.EmptyComboBox))
             {
                 result = result && mapObject.MapObjectType.ToString().Equals(type);
             }
 
             return result;
+        }
+
+        public List<MapObject> GetAllBuildingMapObjects(int id)
+        {
+            return iMapObjectRepository.GetAllBuildingMapObjects(id);
         }
     }
 }

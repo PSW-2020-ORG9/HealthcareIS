@@ -5,18 +5,19 @@ namespace WPFHospitalEditor
 
     public static class AllConstants
     {
-        public const double doorWidth = 30;
-        public const double doorHeight = 6;
-        public static char separator = Path.DirectorySeparatorChar;
-        public readonly static string MAPOBJECT_PATH = $"..{separator}..{separator}..{separator}..{separator}WPFHospitalEditor{separator}Repository{separator}Data{separator}AllMapObjects.json";
-        public const int additionalInformationsbuttonWidth = 100;
-        public const int additionalInformationsbuttonHeight = 25;
-        public const string connectionUrl = "http://localhost:5290/";
-        public const string descriptionSeparator = "=";
-        public const string contentSeparator = "=";
+        public const double DoorWidth = 30;
+        public const double DoorHeight = 6;
+        public static char Separator = Path.DirectorySeparatorChar;
+        public readonly static string MAPOBJECT_PATH = $"..{Separator}..{Separator}..{Separator}..{Separator}WPFHospitalEditor{Separator}Repository{Separator}Data{Separator}AllMapObjects.json";
+        public const int AdditionalInformationsbuttonWidth = 100;
+        public const int AdditionalInformationsbuttonHeight = 25;
+        public const string ConnectionUrl = "http://localhost:5290/";
+        public const string DescriptionSeparator = "=";
+        public const string ContentSeparator = "=";
         public const double SearchDialogHeight = 350;
-        public const string emptyComboBox = "None";
+        public const string EmptyComboBox = "None";
         public const string DayStart = " 00:00";
         public const string DayEnd = " 23:59";
+        public const int RegularExaminationDepartment = 1;
     }
 }

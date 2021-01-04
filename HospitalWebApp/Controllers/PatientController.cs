@@ -73,7 +73,6 @@ namespace HospitalWebApp.Controllers
         }
 
         [HttpGet]
-        [Route("getAllPatients")]
         public IActionResult GetAllPatients()
         {
             IEnumerable<Patient> patients = _patientService.GetAllActive();

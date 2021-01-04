@@ -19,5 +19,20 @@ namespace WPFHospitalEditor.Controller
         {
             return doctorServerService.GetDoctorById(doctorId);
         }
+
+        public IEnumerable<DoctorDto> SearchDoctors(string name)
+        {
+            return doctorServerService.SearchDoctors(name);
+        }
+
+        public IEnumerable<DoctorDto> GetAllSpecialists()
+        {
+            return doctorServerService.GetAllSpecialists();
+        }
+
+        public IEnumerable<DoctorDto> SearchSpecialists(string name)
+        {
+            return doctorServerService.SearchSpecialists(name);
+        }
     }
 }

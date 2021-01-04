@@ -14,81 +14,81 @@ namespace WPFHospitalEditor
         private String[] contentRows;
         private List<Label> labels = new List<Label>();
         private List<TextBox> textBoxes = new List<TextBox>();
-        private Boolean isReadOnly;
 
         public DynamicGridControl(String[] contentRows, Boolean isReadOnly)
         {
             InitializeComponent();
             this.contentRows = contentRows;
-            this.isReadOnly = isReadOnly;
+            InitializeGridControl(contentRows.Length);
+            AddRowContent(isReadOnly);
+        }
+
+
+        public String GetAllContent()
+        {
+            StringBuilder stringBuilder = new StringBuilder("");
+            for (int i = 0; i < labels.Count; i++)
+                stringBuilder.Append(labels[i].Content.ToString() + AllConstants.DescriptionSeparator + textBoxes[i].Text + ";");
+
+            return stringBuilder.ToString();
+        }
+
+        private void InitializeGridControl(int rows)
+        {
             GridControl.Children.Clear();
-            createRows(contentRows);
-            AddRowContent();
+            CreateEmptyRows(rows);
         }
 
-        private void AddRowContent()
+        private void CreateEmptyRows(int rows)
         {
-            for (int i = 0; i < contentRows.Length; i++)
-            {
-                if (contentRows[i].Equals("")) break;
-                String[] rowContent = contentRows[i].Split(AllConstants.descriptionSeparator);
-                insertLabel(rowContent[0], i);
-                insertTextBox(rowContent[1], i);
-            }
+            for (int i = 0; i < rows; i++)
+                CreateRow(50);
         }
 
-        private void insertLabel(String labelContent, int i)
-        {
-            Label label = new Label();
-            label.Content = labelContent;
-            label.HorizontalContentAlignment = HorizontalAlignment.Center;
-            label.VerticalAlignment = VerticalAlignment.Center;
-            label.FontSize = 20;
-            Grid.SetRow(label, i);
-            Grid.SetColumn(label, 1);
-            labels.Add(label);
-            GridControl.Children.Add(label);
-        }
-
-        private void insertTextBox(String textBoxContent, int i)
-        {
-            TextBox textBox = new TextBox();
-            textBox.Text = textBoxContent;
-            textBox.HorizontalContentAlignment = HorizontalAlignment.Center;
-            textBox.VerticalAlignment = VerticalAlignment.Center;
-            Grid.SetRow(textBox, i);
-            Grid.SetColumn(textBox, 2);
-            if (isReadOnly)
-            {
-                textBox.IsReadOnly = true;
-            }
-            textBoxes.Add(textBox);
-            GridControl.Children.Add(textBox);
-        }
-
-        private void createRows(string[] contentRows)
-        {
-            for (int i = 0; i < contentRows.Length; i++)
-            {
-                createOneRow(50);
-            }
-        }
-
-        private void createOneRow(int height)
+        private void CreateRow(int height)
         {
             RowDefinition gridRow1 = new RowDefinition();
             gridRow1.Height = new GridLength(height);
             GridControl.RowDefinitions.Add(gridRow1);
         }
 
-        public String GetAllContent()
+        private void AddRowContent(bool isReadOnly)
         {
-            StringBuilder stringBuilder = new StringBuilder("");
-            for (int i = 0; i < labels.Count; i++)
+            for (int i = 0; i < contentRows.Length; i++)
             {
-                stringBuilder.Append(labels[i].Content.ToString() + AllConstants.descriptionSeparator + textBoxes[i].Text + ";");
+                if (contentRows[i].Equals("")) break;
+                String[] rowContent = contentRows[i].Split(AllConstants.DescriptionSeparator);
+                InsertLabel(rowContent[0], i);
+                InsertTextBox(rowContent[1], i, isReadOnly);
             }
-            return stringBuilder.ToString();
+        }
+
+        private void InsertLabel(String labelContent, int row)
+        {
+            Label label = new Label();
+            label.Content = labelContent;
+            label.HorizontalContentAlignment = HorizontalAlignment.Center;
+            label.VerticalAlignment = VerticalAlignment.Center;
+            label.FontSize = 20;
+            Grid.SetRow(label, row);
+            Grid.SetColumn(label, 1);
+            labels.Add(label);
+            GridControl.Children.Add(label);
+        }
+
+        private void InsertTextBox(String textBoxContent, int row, bool isReadOnly)
+        {
+            TextBox textBox = new TextBox();
+            textBox.Text = textBoxContent;
+            textBox.HorizontalContentAlignment = HorizontalAlignment.Center;
+            textBox.VerticalAlignment = VerticalAlignment.Center;
+            Grid.SetRow(textBox, row);
+            Grid.SetColumn(textBox, 2);
+            if (isReadOnly)
+                textBox.IsReadOnly = true;
+            
+            textBoxes.Add(textBox);
+            GridControl.Children.Add(textBox);
         }
     }
 }
