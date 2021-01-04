@@ -47,16 +47,16 @@ namespace User.API.IntegrationTests
 
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
-            Mock<RegistrationNotifier> registrationNotifier = new Mock<RegistrationNotifier>();
-            string connectionString = CreateConnectionStringFromEnvironment();
-            var patientRepository = new PatientSqlRepository(new UserSqlTestContextFactory(connectionString));
-            var patientAccountRepository = new PatientAccountSqlRepository(new UserSqlTestContextFactory(connectionString));
-
-            var patientAccountService = new PatientAccountService(patientAccountRepository);
-            var patientRegistrationService = new PatientRegistrationService(patientAccountService, registrationNotifier.Object);
-            builder.ConfigureServices(services =>
+            builder.ConfigureTestServices(services =>
             {
-                services.Add(new ServiceDescriptor(typeof(PatientRegistrationService), patientRegistrationService));
+                Mock<IRegistrationNotifier> registrationNotifier = new Mock<IRegistrationNotifier>();
+                string connectionString = CreateConnectionStringFromEnvironment();
+                var patientAccountRepository = new PatientAccountSqlRepository(new UserSqlTestContextFactory(connectionString));
+
+                var patientAccountService = new PatientAccountService(patientAccountRepository);
+                var patientRegistrationService = new PatientRegistrationService(patientAccountService, registrationNotifier.Object);
+
+                services.Add(new ServiceDescriptor(typeof(IPatientRegistrationService), patientRegistrationService));
             });
         }
     }

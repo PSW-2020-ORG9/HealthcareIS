@@ -83,18 +83,19 @@ namespace User.API
             
             var patientRepository = new PatientSqlRepository(GetContextFactory());
             var patientAccountRepository = new PatientAccountSqlRepository(GetContextFactory());
-            
+            var registrationNotifier = new RegistrationNotifier(
+                        Environment.GetEnvironmentVariable("PSW_ACTIVATION_ENDPOINT"));
+
             var patientAccountService = new PatientAccountService(patientAccountRepository);
-            var patientRegistrationService = new PatientRegistrationService(patientAccountService,
-                new RegistrationNotifier(
-                        Environment.GetEnvironmentVariable("PSW_ACTIVATION_ENDPOINT")));
+            var patientRegistrationService = new PatientRegistrationService(patientAccountService, registrationNotifier);
+                
             var patientService = new PatientService(patientRepository);
             
             var specialtyRepository = new SpecialtySqlRepository(GetContextFactory());
             var specialtyService = new SpecialtyService(specialtyRepository);
             
             services.Add(new ServiceDescriptor(typeof(IPatientAccountService), patientAccountService));
-            services.Add(new ServiceDescriptor(typeof(PatientRegistrationService), patientRegistrationService));
+            services.Add(new ServiceDescriptor(typeof(IPatientRegistrationService), patientRegistrationService));
             services.Add(new ServiceDescriptor(typeof(PatientService), patientService));
             services.Add(new ServiceDescriptor(typeof(SpecialtyService),specialtyService));
         }

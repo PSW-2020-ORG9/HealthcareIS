@@ -16,12 +16,12 @@ namespace User.API.Controllers
     public class PatientController : ControllerBase
     {
         private readonly PatientService _patientService;
-        private readonly PatientRegistrationService _patientRegistrationService;
+        private readonly IPatientRegistrationService _patientRegistrationService;
         private readonly IHostEnvironment _hostEnvironment;
         private readonly IPatientAccountService _patientAccountService;
 
         public PatientController(PatientService patientService,
-            PatientRegistrationService patientRegistrationService,
+            IPatientRegistrationService patientRegistrationService,
             IHostEnvironment hostEnvironment,
             IPatientAccountService patientAccountService
         )
