@@ -1,5 +1,4 @@
-﻿using HealthcareBase.Model.Users.Employee.Doctors;
-using HealthcareBase.Model.Users.Employee.Doctors.DTOs;
+﻿using DesktopDTO;
 using RestSharp;
 using System.Collections.Generic;
 using System.Linq;

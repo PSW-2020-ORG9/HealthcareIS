@@ -1,5 +1,4 @@
-﻿using HealthcareBase.Dto;
-using HealthcareBase.Model.Medication;
+﻿using DesktopDTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;

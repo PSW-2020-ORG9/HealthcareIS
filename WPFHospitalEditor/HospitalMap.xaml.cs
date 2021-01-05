@@ -7,14 +7,8 @@ using WPFHospitalEditor.MapObjectModel;
 using WPFHospitalEditor.Service;
 using WPFHospitalEditor.Controller;
 using WPFHospitalEditor.Controller.Interface;
-using HealthcareBase.Dto;
 using System.Linq;
-using HealthcareBase.Model.Users.Employee.Doctors.DTOs;
-using HealthcareBase.Model.Schedule.SchedulingPreferences;
-using HealthcareBase.Model.Utilities;
-using HospitalWebApp.Dtos;
-using HealthcareBase.Model.Users.Employee.Doctors;
-using WPFHospitalEditor.Repository;
+using DesktopDTO;
 
 namespace WPFHospitalEditor
 {

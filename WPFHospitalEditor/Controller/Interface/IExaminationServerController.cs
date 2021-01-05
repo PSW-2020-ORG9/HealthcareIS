@@ -1,5 +1,4 @@
-﻿using HealthcareBase.Model.Schedule.Procedures;
-using System;
+﻿using System;
 
 namespace WPFHospitalEditor.Controller.Interface
 {

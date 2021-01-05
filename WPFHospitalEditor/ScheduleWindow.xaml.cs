@@ -1,6 +1,4 @@
-﻿using HealthcareBase.Model.Schedule.Procedures;
-using HealthcareBase.Model.Schedule.SchedulingPreferences;
-using HealthcareBase.Model.Users.Patient;
+﻿using DesktopDTO;
 using System;
 using System.Windows;
 using WPFHospitalEditor.Controller;

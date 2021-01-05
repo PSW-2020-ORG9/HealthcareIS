@@ -1,4 +1,4 @@
-﻿using HealthcareBase.Dto;
+﻿using DesktopDTO;
 using RestSharp;
 using System.Collections.Generic;
 using System.Linq;

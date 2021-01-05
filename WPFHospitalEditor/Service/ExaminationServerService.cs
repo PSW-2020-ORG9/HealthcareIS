@@ -2,8 +2,7 @@
 using System;
 using WPFHospitalEditor.Service.Interface;
 using Newtonsoft.Json;
-using HealthcareBase.Model.Schedule.Procedures.DTOs;
-using HealthcareBase.Model.Schedule.Procedures;
+using DesktopDTO;
 
 namespace WPFHospitalEditor.Service
 {
@@ -11,7 +10,7 @@ namespace WPFHospitalEditor.Service
     {
         public Examination ScheduleExamination(DateTime startTime, int doctorId, int patientId)
         {
-            ScheduledExaminationDTO examinationDTO = new ScheduledExaminationDTO()
+            ScheduledExaminationDto examinationDTO = new ScheduledExaminationDto()
             {
                 StartTime = startTime,
                 DoctorId = doctorId,
