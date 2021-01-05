@@ -1,7 +1,7 @@
-﻿using HealthcareBase.Dto;
-using RestSharp;
+﻿using RestSharp;
 using System.Collections.Generic;
 using System.Linq;
+using WPFHospitalEditor.DTOs;
 
 namespace WPFHospitalEditor.Service
 {

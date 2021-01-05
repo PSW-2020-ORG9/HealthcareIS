@@ -1,11 +1,10 @@
-﻿using HealthcareBase.Dto;
-using HealthcareBase.Model.Medication;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using WPFHospitalEditor.Controller;
 using WPFHospitalEditor.Controller.Interface;
+using WPFHospitalEditor.DTOs;
 
 namespace WPFHospitalEditor.StrategyPattern
 {

@@ -31,7 +31,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\HealthcareBase\HealthcareBase.csproj" />
       <ProjectReference Include="..\HospitalWebApp\HospitalWebApp.csproj" />
     </ItemGroup>
 

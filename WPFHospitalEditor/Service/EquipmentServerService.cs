@@ -1,6 +1,6 @@
-﻿using HealthcareBase.Dto;
-using RestSharp;
+﻿using RestSharp;
 using System.Collections.Generic;
+using WPFHospitalEditor.DTOs;
 using WPFHospitalEditor.Service.Interface;
 
 namespace WPFHospitalEditor.Service

@@ -1,8 +1,8 @@
-﻿using HealthcareBase.Model.Users.Employee.Doctors;
-using HealthcareBase.Model.Users.Employee.Doctors.DTOs;
-using RestSharp;
+﻿using RestSharp;
 using System.Collections.Generic;
 using System.Linq;
+using WPFHospitalEditor.DTOs;
+using WPFHospitalEditor.Model;
 using WPFHospitalEditor.Service.Interface;
 
 namespace WPFHospitalEditor.Service

@@ -1,9 +1,8 @@
-﻿using HealthcareBase.Model.Schedule.SchedulingPreferences;
-using HospitalWebApp.Dtos;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using RestSharp;
 using System;
 using System.Collections.Generic;
+using WPFHospitalEditor.DTOs;
 using WPFHospitalEditor.Service.Interface;
 
 namespace WPFHospitalEditor.Service
