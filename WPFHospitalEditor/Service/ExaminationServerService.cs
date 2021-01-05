@@ -2,8 +2,8 @@
 using System;
 using WPFHospitalEditor.Service.Interface;
 using Newtonsoft.Json;
-using HealthcareBase.Model.Schedule.Procedures.DTOs;
-using HealthcareBase.Model.Schedule.Procedures;
+using WPFHospitalEditor.Model;
+using WPFHospitalEditor.DTOs;
 
 namespace WPFHospitalEditor.Service
 {
