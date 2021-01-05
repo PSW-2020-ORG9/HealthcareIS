@@ -18,7 +18,7 @@ namespace WPFHospitalEditor.Service
                 PatientId = patientId
             };
             var client = new RestClient(AllConstants.ConnectionUrl);
-            var request = new RestRequest("Examination/", Method.POST);
+            var request = new RestRequest("examination", Method.POST);
             request.AddJsonBody(JsonConvert.SerializeObject(examinationDTO));
             var response = client.Post<Examination>(request);
             return response.Data;
