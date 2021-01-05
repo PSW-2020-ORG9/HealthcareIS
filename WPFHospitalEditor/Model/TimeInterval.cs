@@ -13,6 +13,6 @@ namespace WPFHospitalEditor.Model
         public DateTime StartDate { get; }
         public DateTime EndDate { get; }
         public DateTime Start { get; internal set; }
-        public object End { get; internal set; }
+        public DateTime End { get; internal set; }
     }
 }

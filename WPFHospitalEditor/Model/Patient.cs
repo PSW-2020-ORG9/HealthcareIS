@@ -3,7 +3,7 @@
     public class Patient
     {
         public Person Person { get; internal set; }
-        public object Id { get; internal set; }
+        public int Id { get; internal set; }
     }
 
     public class Person
