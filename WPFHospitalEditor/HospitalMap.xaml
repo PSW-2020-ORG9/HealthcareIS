@@ -113,6 +113,6 @@
                 </TabItem>
             </TabControl>
         </StackPanel>
-        <Canvas MinHeight="550" Margin="0,0,0,20" Background="LightGreen" MouseLeftButtonDown="SelectBuilding" Name="canvas" ToolTip="My Tool Tip" ToolTipService.InitialShowDelay="1" ToolTipService.IsEnabled="False"/>
+        <Canvas MinHeight="550" Margin="0,0,0,20" Background="LightGreen" MouseLeftButtonDown="ShowBuilding" Name="canvas" ToolTip="My Tool Tip" ToolTipService.InitialShowDelay="1" ToolTipService.IsEnabled="False"/>
     </StackPanel>
 </Window>

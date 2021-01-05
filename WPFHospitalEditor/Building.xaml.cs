@@ -7,6 +7,7 @@ using System.Windows.Shapes;
 using WPFHospitalEditor.MapObjectModel;
 using WPFHospitalEditor.Controller;
 using WPFHospitalEditor.Service;
+using System.Windows.Media;
 
 namespace WPFHospitalEditor
 {
@@ -16,54 +17,49 @@ namespace WPFHospitalEditor
     public partial class Building : Window
     {
         private Dictionary<int, Floor> buildingFloors = new Dictionary<int, Floor>();
-        public List<MapObject> floorBuildingObjects;
         MapObjectController mapObjectController = new MapObjectController();
         public static Canvas canvasBuilding;
+        private int id;
 
-        public Building(List<MapObject> buildingObjects, int selectedFloor)
+        public Building(int id, int selectedFloor = 0)
         {
             InitializeComponent();
-            ClearAll();          
-            PopulateBuildingFloors(buildingObjects);            
+            ClearAll();
+            this.id = id;
+            PopulateBuildingFloors();            
             SetFloorComboBox();
             floor.SelectedIndex = selectedFloor;
-            floorBuildingObjects = buildingFloors[floor.SelectedIndex].GetAllFloorMapObjects();
             canvasBuilding = canvas;
         }
-        
-        private void PopulateBuildingFloors(List<MapObject> allBuildingObjects)
+
+        public Floor GetBuildingFloor(int floorNumber)
         {
-            foreach(MapObject mapObjectIterate in allBuildingObjects)
+            return buildingFloors[floorNumber];
+        }
+        private void PopulateBuildingFloors()
+        {
+            foreach (MapObject mapObject in mapObjectController.GetAllBuildingMapObjects(id))
             {
-                int index = int.Parse(FindFloor(mapObjectIterate));
-                if(!buildingFloors.ContainsKey(index))
-                {
+                int index = mapObject.MapObjectDescription.FloorNumber;
+                if (!buildingFloors.ContainsKey(index))
                     buildingFloors.Add(index, new Floor());
-                }
-                buildingFloors[index].AddMapObject(mapObjectIterate);
+
+                if (IsMapObjectSelected(mapObject.Id))
+                    mapObject.rectangle.Fill = Brushes.Red;
+
+                buildingFloors[index].AddMapObject(mapObject);
             }
         }
-              
-        public static String FindFloor(MapObject mapObject)
-        {
-            String[] descriptionParts = mapObject.Description.Split("&");
-            String[] floors = descriptionParts[0].Split("-");
-            return floors[1];
-        }
 
-        public static String FindBuilding(MapObject mapObject)
+        private bool IsMapObjectSelected(int id)
         {
-            String[] descriptionParts = mapObject.Description.Split("&");
-            String[] buildings = descriptionParts[0].Split("-");
-            return buildings[0];
+            return SearchResultDialog.selectedObjectId == id;
         }
 
         private void SetFloorComboBox()
         {
             for (int i = 0; i < buildingFloors.Count; i++)
-            {
-                floor.Items.Add((i + 1) + ". floor");
-            }
+                floor.Items.Add( i + ". floor");
         }
 
         private void BackClick(object sender, RoutedEventArgs e)
@@ -107,9 +103,8 @@ namespace WPFHospitalEditor
         {
             HashSet<MapObjectType> mapObjectTypes = new HashSet<MapObjectType>();
             for (int i = 0; i < displayedMapObjects.Count; i++)
-            {
                 mapObjectTypes.Add(displayedMapObjects[i].MapObjectType);
-            }
+            
             return mapObjectTypes;
         }
 
@@ -117,9 +112,7 @@ namespace WPFHospitalEditor
         {
             int numberOfRows = (mapObjectTypes.Count / legend.ColumnDefinitions.Count) + 1;
             for (int i = 0; i < numberOfRows; i++)
-            {
                 legend.RowDefinitions.Add(new RowDefinition() { });
-            }
         }
   
         private void OrganiseLegend(MapObjectType mapObjectType, int index)
@@ -167,9 +160,7 @@ namespace WPFHospitalEditor
             int index = floor.SelectedIndex;
             MapObject chosenMapObject = CanvasService.CheckWhichObjectIsClicked(e, buildingFloors[index].GetAllFloorMapObjects(), this.canvas);
             if (chosenMapObject != null)
-            {
                 OpenAdditionalInformationDialog(chosenMapObject);
-            }
         }
         
         private void OpenAdditionalInformationDialog(MapObject mapObject)

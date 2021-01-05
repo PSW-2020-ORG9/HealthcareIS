@@ -17,31 +17,22 @@ namespace WPFHospitalEditor.Service
 
         public List<MapObject> GetAllMapObjects()
         {
-            return ColorSelectedObject(iMapObjectRepository.GetAllMapObjects());
+            return iMapObjectRepository.GetAllMapObjects();
         }
 
         public MapObject Update(MapObject mapObject)
         {
             return iMapObjectRepository.Update(mapObject);
         }
+
         public List<MapObject> GetOutterMapObjects()
         {
-            return ColorSelectedObject(iMapObjectRepository.GetOutterMapObjects());
+            return iMapObjectRepository.GetOutterMapObjects();
         }
+
         public MapObject GetMapObjectById(int id)
         {
             return iMapObjectRepository.GetMapObjectById(id);
-        }
-        private List<MapObject> ColorSelectedObject(List<MapObject> allMapObjects)
-        {
-            foreach (MapObject mapObject in allMapObjects)
-            {               
-                if(SearchResultDialog.selectedObjectId == mapObject.Id)
-                {
-                    mapObject.rectangle.Fill = Brushes.Red;
-                }              
-            }
-            return allMapObjects;
         }
 
         public List<MapObject> SearchMapObjects(string name, string type)
@@ -66,6 +57,11 @@ namespace WPFHospitalEditor.Service
             }
 
             return result;
+        }
+
+        public List<MapObject> GetAllBuildingMapObjects(int id)
+        {
+            return iMapObjectRepository.GetAllBuildingMapObjects(id);
         }
     }
 }

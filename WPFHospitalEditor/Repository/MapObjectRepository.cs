@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -32,7 +33,7 @@ namespace WPFHospitalEditor.Repository
 
         public void EditAllMapObjectAttributes(MapObject mapObj, MapObject mapObjectsForUpdate)
         {
-            mapObj.Description = mapObjectsForUpdate.Description;
+            mapObj.MapObjectDescription.Information = mapObjectsForUpdate.MapObjectDescription.Information;
             mapObj.Name = mapObjectsForUpdate.Name;
         }
 
@@ -57,7 +58,7 @@ namespace WPFHospitalEditor.Repository
             var allMapObjects = GetAllMapObjects().ToList();
             foreach (MapObject mapObject in allMapObjects)
             {
-                if (mapObject.Description.Equals(""))
+                if (mapObject.MapObjectDescription == null)
                 {
                     allOuterMapObjects.Add(mapObject);
                 }
@@ -89,6 +90,29 @@ namespace WPFHospitalEditor.Repository
                 }
             }
             return null;
+        }
+
+        public List<MapObject> GetAllBuildingMapObjects(int id)
+        {
+            string jsonString = File.Exists(path) ? File.ReadAllText(path) : "";
+            var settings = new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.All };
+            if (!string.IsNullOrEmpty(jsonString))
+            {
+                List<MapObject> buildingMapObjects = new List<MapObject>();
+                List<MapObject> allMapObjects = JsonConvert.DeserializeObject<List<MapObject>>(jsonString, settings);
+                foreach (MapObject mapobject in allMapObjects)
+                {
+                    if (mapobject.MapObjectDescription != null && mapobject.MapObjectDescription.BuildingId == id)
+                    {
+                        buildingMapObjects.Add(mapobject);
+                    }
+                }
+                return buildingMapObjects;
+            }
+            else
+            {
+                return new List<MapObject>();
+            }
         }
     }
 }
