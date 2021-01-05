@@ -10,7 +10,7 @@ namespace WPFHospitalEditor.Service
         public IEnumerable<MedicationDto> GetAllMedication()
         {
             var client = new RestClient(AllConstants.ConnectionUrl);
-            var request = new RestRequest("Medication", Method.GET);
+            var request = new RestRequest("medication", Method.GET);
             var response = client.Get<IEnumerable<MedicationDto>>(request);
             return response.Data;
         }
@@ -18,7 +18,7 @@ namespace WPFHospitalEditor.Service
         public IEnumerable<MedicationDto> GetAllMedicationByName(string name)
         {
             var client = new RestClient(AllConstants.ConnectionUrl);
-            var request = new RestRequest("Medication/find/" + name, Method.GET);
+            var request = new RestRequest("medication?name=" + name, Method.GET);
             var response = client.Get<IEnumerable<MedicationDto>>(request);
             return response.Data;
         }
