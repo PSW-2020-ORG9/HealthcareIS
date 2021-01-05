@@ -10,7 +10,7 @@ namespace WPFHospitalEditor.Service
         public IEnumerable<EquipmentDto> GetEquipmentByRoomId(int roomId)
         {
             var client = new RestClient(AllConstants.ConnectionUrl);
-            var request = new RestRequest("equipment/room/" + roomId, Method.GET);
+            var request = new RestRequest("hospital/equipment/room/" + roomId, Method.GET);
             var response = client.Get<IEnumerable<EquipmentDto>>(request);
             return response.Data;
         }
@@ -18,7 +18,7 @@ namespace WPFHospitalEditor.Service
         public IEnumerable<EquipmentDto> GetEquipmentByType(string equipmentType)
         {
             var client = new RestClient(AllConstants.ConnectionUrl);
-            var request = new RestRequest("equipment/equipment-type/" + equipmentType, Method.GET);
+            var request = new RestRequest("hospital/equipment/equipment-type/" + equipmentType, Method.GET);
             var response = client.Get<IEnumerable<EquipmentDto>>(request);
             return response.Data;
         }

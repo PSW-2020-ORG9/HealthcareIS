@@ -6,5 +6,6 @@ namespace User.API.DTOs
         public string Name { get; set; }
         public string Surname { get; set; }
         public int SpecialtyId { get; set; }
+        public string DepartmentName {get; set; }
     }
 }

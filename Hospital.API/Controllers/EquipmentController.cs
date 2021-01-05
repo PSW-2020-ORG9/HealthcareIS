@@ -17,7 +17,7 @@ namespace Hospital.API.Controllers
         }
 
         [HttpGet]
-        [Route("getByRoomId/{roomId}")]
+        [Route("room/{roomId}")]
         public IActionResult GetEquipmentByRoomId(int roomId)
         {
             IEnumerable<EquipmentDto> eqDtos = _equipmentService.GetEquipmentWithQuantityByRoomId(roomId);
@@ -26,7 +26,7 @@ namespace Hospital.API.Controllers
         }
 
         [HttpGet]
-        [Route("getByEquipmentType/{equipmentType}")]
+        [Route("equipment-type/{equipmentType}")]
         public IActionResult GetEquipmentsByType(string equipmentType)
         {
             IEnumerable<EquipmentDto> eqDtos = _equipmentService.GetEquipmentWithQuantityByType(equipmentType);

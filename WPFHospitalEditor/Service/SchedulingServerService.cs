@@ -13,7 +13,7 @@ namespace WPFHospitalEditor.Service
         public List<RecommendationDto> GetAppointments(RecommendationRequestDto recDto)
         {
             var client = new RestClient(AllConstants.ConnectionUrl);
-            var request = new RestRequest("examination/recommend", Method.POST);
+            var request = new RestRequest("schedule/examination/recommend", Method.POST);
             request.AddJsonBody(RecommendationDtoToJson(recDto));
             var response = client.Post<List<RecommendationDto>>(request);
             return response.Data;

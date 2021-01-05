@@ -40,7 +40,7 @@ namespace User.API.Controllers
         }
 
         [HttpGet]
-        [Route("department/{departmentId}")]
+        [Route("departments/{departmentId}")]
         public IActionResult GetDoctorsByDepartment(int departmentId)
         {
             IEnumerable<DoctorDTO> doctorDtoList = _doctorService.GetDoctorsByDepartment(departmentId);
@@ -69,6 +69,15 @@ namespace User.API.Controllers
         public IActionResult FindDoctors(IEnumerable<int> doctorIds)
         {
             return Ok(_doctorService.Find(doctorIds));
+        }
+
+        [HttpGet]
+        [Route("specialists")]
+        public IActionResult GetAllSpecialists()
+        {
+            IEnumerable<DoctorDTO> docDtos = _doctorService.GetAllSpecialists();
+            if (docDtos != null) return Ok(docDtos);
+            return BadRequest("Specialists not found.");
         }
     }
 }

@@ -12,7 +12,7 @@ namespace WPFHospitalEditor.Service
         public IEnumerable<DoctorDto> GetDoctorsByDepartment(int departmentId)
         {
             var client = new RestClient(AllConstants.ConnectionUrl);
-            var request = new RestRequest("doctor/departments/" + departmentId, Method.GET);
+            var request = new RestRequest("user/doctor/departments/" + departmentId, Method.GET);
             var response = client.Get<IEnumerable<DoctorDto>>(request);
             return response.Data;
         }
@@ -20,7 +20,7 @@ namespace WPFHospitalEditor.Service
         public Doctor GetDoctorById(int doctorId)
         {
             var client = new RestClient(AllConstants.ConnectionUrl);
-            var request = new RestRequest("doctor/" + doctorId, Method.GET);
+            var request = new RestRequest("user/doctor/" + doctorId, Method.GET);
             var response = client.Get<Doctor>(request);
             return response.Data;
         }
@@ -28,7 +28,7 @@ namespace WPFHospitalEditor.Service
         public IEnumerable<DoctorDto> GetAllSpecialists()
         {
             var client = new RestClient(AllConstants.ConnectionUrl);
-            var request = new RestRequest("doctor/specialists", Method.GET);
+            var request = new RestRequest("user/doctor/specialists", Method.GET);
             var response = client.Get<IEnumerable<DoctorDto>>(request);
             return response.Data;
         }
