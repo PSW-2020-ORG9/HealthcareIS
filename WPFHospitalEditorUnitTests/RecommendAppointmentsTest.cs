@@ -1,14 +1,4 @@
-﻿using HealthcareBase.Model.HospitalResources;
-using HealthcareBase.Model.Schedule.Procedures;
-using HealthcareBase.Model.Schedule.SchedulingPreferences;
-using HealthcareBase.Model.Users.Employee.Doctors;
-using HealthcareBase.Model.Users.Generalities;
-using HealthcareBase.Model.Utilities;
-using HealthcareBase.Repository.ScheduleRepository.ProceduresRepository.Interface;
-using HealthcareBase.Repository.UsersRepository.EmployeesAndPatientsRepository.Interface;
-using HealthcareBase.Service.ScheduleService.ProcedureService;
-using HospitalWebApp.Dtos;
-using Moq;
+﻿using Moq;
 using Shouldly;
 using System;
 using System.Collections.Generic;
