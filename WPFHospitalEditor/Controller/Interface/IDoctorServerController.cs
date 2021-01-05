@@ -1,4 +1,5 @@
-﻿using DesktopDTO;
+﻿using HealthcareBase.Model.Users.Employee.Doctors;
+using HealthcareBase.Model.Users.Employee.Doctors.DTOs;
 using System.Collections.Generic;
 
 namespace WPFHospitalEditor.Controller.Interface

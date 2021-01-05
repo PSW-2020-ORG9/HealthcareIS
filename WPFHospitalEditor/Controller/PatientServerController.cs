@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using HealthcareBase.Model.Users.Patient;
+using System.Collections.Generic;
 using WPFHospitalEditor.Controller.Interface;
 using WPFHospitalEditor.Service;
 using WPFHospitalEditor.Service.Interface;

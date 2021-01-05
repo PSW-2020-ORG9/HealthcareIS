@@ -1,4 +1,4 @@
-﻿using DesktopDTO;
+﻿using HealthcareBase.Dto;
 using System.Collections.Generic;
 
 namespace WPFHospitalEditor.Service.Interface

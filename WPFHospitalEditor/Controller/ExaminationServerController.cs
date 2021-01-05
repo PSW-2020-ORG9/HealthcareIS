@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HealthcareBase.Model.Schedule.Procedures;
+using System;
 using WPFHospitalEditor.Controller.Interface;
 using WPFHospitalEditor.Service;
 using WPFHospitalEditor.Service.Interface;

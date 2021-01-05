@@ -1,4 +1,4 @@
-﻿using DesktopDTO;
+﻿using HealthcareBase.Dto;
 using RestSharp;
 using System.Collections.Generic;
 using WPFHospitalEditor.Service.Interface;

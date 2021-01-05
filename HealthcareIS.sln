@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30523.141
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthcareBase", "HealthcareBase\HealthcareBase.csproj", "{E3D71A55-F14E-4BA0-9295-935BA8A8DE0E}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFHospitalEditor", "WPFHospitalEditor\WPFHospitalEditor.csproj", "{8A270394-8874-426A-A846-3892E54EB437}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HospitalWebApp", "HospitalWebApp\HospitalWebApp.csproj", "{7CB35A4E-A104-4098-A2FE-23E4A42856B0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthcareBaseUnitTests", "HealthcareBaseUnitTests\HealthcareBaseUnitTests.csproj", "{9564E34A-6EF5-4E4E-A250-2A348C5A031D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HospitalWebAppIntegrationTests", "HospitalWebAppIntegrationTests\HospitalWebAppIntegrationTests.csproj", "{51B18CC7-B280-4A8F-A019-CAE492B7ACDF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFDirector", "WPFDirector\WPFDirector.csproj", "{0DC96460-ED74-4960-BA6C-2331AC5B4D25}"
 EndProject
@@ -57,17 +65,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "User.API.IntegrationTests",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "User.API.UnitTests", "User.API.UnitTests\User.API.UnitTests.csproj", "{C4ABA54D-82F9-4555-A4A1-0E5B1641A652}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hospital.API.IntegrationTests", "Hospital.API.IntegrationTests\Hospital.API.IntegrationTests.csproj", "{9752CFAA-036C-4FB2-8EE6-91AD0537F236}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hospital.API.IntegrationTests", "Hospital.API.IntegrationTests\Hospital.API.IntegrationTests.csproj", "{9752CFAA-036C-4FB2-8EE6-91AD0537F236}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hospital.API.UnitTests", "Hospital.API.UnitTests\Hospital.API.UnitTests.csproj", "{8E6C443F-7C23-4055-A1EF-1E2CD7EDBEF3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hospital.API.UnitTests", "Hospital.API.UnitTests\Hospital.API.UnitTests.csproj", "{8E6C443F-7C23-4055-A1EF-1E2CD7EDBEF3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Schedule.API.IntegrationTests", "Schedule.API.IntegrationTests\Schedule.API.IntegrationTests.csproj", "{BBC1EB8C-99F2-4DBC-997D-60B7D54505FD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Schedule.API.IntegrationTests", "Schedule.API.IntegrationTests\Schedule.API.IntegrationTests.csproj", "{BBC1EB8C-99F2-4DBC-997D-60B7D54505FD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Schedule.API.UnitTests", "Schedule.API.UnitTests\Schedule.API.UnitTests.csproj", "{82BAAC61-6CDE-4DA9-84C4-26EAE9C4DE5E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopDTO", "DesktopDTO\DesktopDTO.csproj", "{39E4513D-2DEC-415D-B04C-8BC2C3B52AAF}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hospital.Model", "Hospital.Model\Hospital.Model.csproj", "{0A7FA7B7-E860-4F62-849F-C42E89299261}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Schedule.API.UnitTests", "Schedule.API.UnitTests\Schedule.API.UnitTests.csproj", "{82BAAC61-6CDE-4DA9-84C4-26EAE9C4DE5E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,10 +79,26 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E3D71A55-F14E-4BA0-9295-935BA8A8DE0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3D71A55-F14E-4BA0-9295-935BA8A8DE0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3D71A55-F14E-4BA0-9295-935BA8A8DE0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3D71A55-F14E-4BA0-9295-935BA8A8DE0E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8A270394-8874-426A-A846-3892E54EB437}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8A270394-8874-426A-A846-3892E54EB437}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A270394-8874-426A-A846-3892E54EB437}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A270394-8874-426A-A846-3892E54EB437}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CB35A4E-A104-4098-A2FE-23E4A42856B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CB35A4E-A104-4098-A2FE-23E4A42856B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CB35A4E-A104-4098-A2FE-23E4A42856B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CB35A4E-A104-4098-A2FE-23E4A42856B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9564E34A-6EF5-4E4E-A250-2A348C5A031D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9564E34A-6EF5-4E4E-A250-2A348C5A031D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9564E34A-6EF5-4E4E-A250-2A348C5A031D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9564E34A-6EF5-4E4E-A250-2A348C5A031D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51B18CC7-B280-4A8F-A019-CAE492B7ACDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51B18CC7-B280-4A8F-A019-CAE492B7ACDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51B18CC7-B280-4A8F-A019-CAE492B7ACDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51B18CC7-B280-4A8F-A019-CAE492B7ACDF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0DC96460-ED74-4960-BA6C-2331AC5B4D25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0DC96460-ED74-4960-BA6C-2331AC5B4D25}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0DC96460-ED74-4960-BA6C-2331AC5B4D25}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -159,14 +179,6 @@ Global
 		{82BAAC61-6CDE-4DA9-84C4-26EAE9C4DE5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{82BAAC61-6CDE-4DA9-84C4-26EAE9C4DE5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{82BAAC61-6CDE-4DA9-84C4-26EAE9C4DE5E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{39E4513D-2DEC-415D-B04C-8BC2C3B52AAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{39E4513D-2DEC-415D-B04C-8BC2C3B52AAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{39E4513D-2DEC-415D-B04C-8BC2C3B52AAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{39E4513D-2DEC-415D-B04C-8BC2C3B52AAF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0A7FA7B7-E860-4F62-849F-C42E89299261}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0A7FA7B7-E860-4F62-849F-C42E89299261}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0A7FA7B7-E860-4F62-849F-C42E89299261}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0A7FA7B7-E860-4F62-849F-C42E89299261}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -194,8 +206,6 @@ Global
 		{8E6C443F-7C23-4055-A1EF-1E2CD7EDBEF3} = {574F09F4-1848-4C6C-BF81-8D3BD7B4950A}
 		{BBC1EB8C-99F2-4DBC-997D-60B7D54505FD} = {8ECF9079-76E9-49EA-928B-4ABDB190F768}
 		{82BAAC61-6CDE-4DA9-84C4-26EAE9C4DE5E} = {8ECF9079-76E9-49EA-928B-4ABDB190F768}
-		{39E4513D-2DEC-415D-B04C-8BC2C3B52AAF} = {1099378E-C8A4-4DA8-AA59-1F1BF2ACD2CB}
-		{0A7FA7B7-E860-4F62-849F-C42E89299261} = {ECB35A05-6BBD-4F22-8F36-07F8205CB3EC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E887308F-275A-4296-AB73-C368628CD264}

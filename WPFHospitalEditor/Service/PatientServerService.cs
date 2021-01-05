@@ -1,4 +1,5 @@
-﻿using RestSharp;
+﻿using HealthcareBase.Model.Users.Patient;
+using RestSharp;
 using System.Collections.Generic;
 using System.Linq;
 using WPFHospitalEditor.Service.Interface;
