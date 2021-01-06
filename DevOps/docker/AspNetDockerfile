@@ -3,4 +3,4 @@ WORKDIR /app
 COPY . .
 EXPOSE 80
 EXPOSE 443
-ENTRYPOINT [ "bash", "-c", "dotnet OcelotApiGateway.dll; dotnet *API.dll" ]
+ENTRYPOINT [ "bash", "-c", "dotnet", "OcelotApiGateway.dll", ";", "dotnet", "*API.dll" ]
