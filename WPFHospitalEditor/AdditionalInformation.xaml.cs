@@ -4,7 +4,6 @@ using System.Windows.Media;
 using WPFHospitalEditor.MapObjectModel;
 using WPFHospitalEditor.Service;
 using WPFHospitalEditor.Controller;
-using HealthcareBase.Dto;
 using System.Linq;
 using System;
 using WPFHospitalEditor.Controller.Interface;
@@ -27,16 +26,15 @@ namespace WPFHospitalEditor
             InitializeComponent();
             this.mapObject = mapObject;
             this.building = building;
-            dynamicGridControl = new DynamicGridControl(getInfo(), IsPatientLogged());
-            DynamicGrid.Children.Add(this.dynamicGridControl);            
+            SetDynamicGrid();
             InitializeTitle();
             SetButtonsVisibility();
         }
 
-        private string[] getInfo()
+        private void SetDynamicGrid()
         {
-            string[] descriptionParts = mapObject.Description.Split("&");
-            return descriptionParts[1].Split(";");
+            dynamicGridControl = new DynamicGridControl(mapObject.MapObjectDescription.GetInformation(), IsPatientLogged());
+            DynamicGrid.Children.Add(this.dynamicGridControl);
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
@@ -46,18 +44,18 @@ namespace WPFHospitalEditor
 
         private void Done_Click(object sender, RoutedEventArgs e)
         {
-            mapObject.Description = mapObject.Description.Split("&")[0] + "&" + dynamicGridControl.GetAllContent();
+            mapObject.MapObjectDescription.Information = dynamicGridControl.GetAllContent();
             mapObject.Name = this.Title.Text;
             mapObject.nameOnMap.Text = mapObject.Name;
             UpdateAdditionalInformation();
-            mapObject.Description = mapObject.Description.Substring(0, mapObject.Description.Length - 1);
             this.Close();
         }
 
         private void RefreshMap()
         {
             building.canvas.Children.Clear();
-            CanvasService.AddObjectToCanvas(building.floorBuildingObjects, building.canvas);
+            Floor floor = building.GetBuildingFloor(mapObject.MapObjectDescription.FloorNumber);
+            CanvasService.AddObjectToCanvas(floor.GetAllFloorMapObjects(), building.canvas);
         }      
 
         private void UpdateAdditionalInformation()
@@ -71,9 +69,7 @@ namespace WPFHospitalEditor
         {
             Title.Text = mapObject.Name;
             if (HospitalMap.role.Equals(Role.Patient))
-            {
                 Title.IsReadOnly = true;
-            }
         }
 
         private void BtnEquipment_Click(object sender, RoutedEventArgs e)
@@ -97,8 +93,7 @@ namespace WPFHospitalEditor
 
         private Boolean IsPatientLogged()
         {
-            if (HospitalMap.role == Role.Patient) return true;
-            return false;
+            return (HospitalMap.role == Role.Patient);
         }
     }
 }

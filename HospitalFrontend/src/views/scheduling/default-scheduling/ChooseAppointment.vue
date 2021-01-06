@@ -66,6 +66,7 @@ export default {
         scheduleAppointment:function(){
             let appointmentDto=this.$store.state.scheduledExaminationDTO
             appointmentDto['StartTime']=this.selectedAppointment.start
+            appointmentDto['DoctorId']=parseInt(appointmentDto.DoctorId)
             let selectedAppointment=this.selectedAppointment
 
             axios.post(api.examination,appointmentDto).then(response=>{

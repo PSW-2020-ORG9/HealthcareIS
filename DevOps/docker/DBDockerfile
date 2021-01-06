@@ -1,5 +1,3 @@
 FROM mysql
-WORKDIR /docker-entrypoint-initdb.d
-COPY dbscheme.sql 0DB_SCHEMA.sql
 EXPOSE 3306
 EXPOSE 33060

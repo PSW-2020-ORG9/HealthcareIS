@@ -13,10 +13,6 @@ pool:
   - npm
 
 steps:
-- task: UseDotNet@2
-  displayName: '.NET Core SDK 2.0.0'
-  inputs:
-    version: 2.0.0
 
 - task: UseDotNet@2
   displayName: '.NET Core SDK 3.1.2'
@@ -51,20 +47,6 @@ steps:
 
 #- task: SonarSource.sonarcloud.38b27399-a642-40af-bb7d-9971f69712e8.SonarCloudPublish@1
 #  displayName: '.NET Publish Quality Gate Result'
-
-- task: DotNetCoreCLI@2
-  displayName: 'Install .NET EF'
-  inputs:
-    command: custom
-    custom: tool
-    arguments: 'install --global dotnet-ef'
-
-- task: DotNetCoreCLI@2
-  displayName: 'Gen. clean SQL DB scheme'
-  inputs:
-    command: custom
-    custom: ef
-    arguments: 'dbcontext script -o HealthcareBase/dbscheme.sql --project HealthcareBase'
 
 - task: Npm@1
   displayName: 'npm install dependencies'
@@ -109,36 +91,40 @@ steps:
 #- task: SonarSource.sonarcloud.38b27399-a642-40af-bb7d-9971f69712e8.SonarCloudPublish@1
 #  displayName: 'Frontend Publish Quality Gate Result'
 
-- bash: |
-   cd HealthcareBase
-   dotnet publish -c Release -o ./bin/Publish
-   cd ..
-   cd HospitalWebApp
-   dotnet publish -c Release -o ./bin/Publish
-   cd ..
-   mkdir temp
-   cp -r HospitalWebApp/bin/Publish/* temp
-   rm -rf HospitalWebApp/bin/Publish
-   mkdir HospitalWebApp/bin/Publish
-   mkdir HospitalWebApp/bin/Publish/Publish
-   cp -r temp/* HospitalWebApp/bin/Publish/Publish
-   rm -rf temp
-  displayName: 'Publish preparation'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    publishWebProjects: true
+    arguments: '-c Release'
+    zipAfterPublish: false
+    modifyOutputPath: false
 
 - task: PublishBuildArtifacts@1
-  displayName: 'Publish base'
+  displayName: 'Publish webms feedback'
   inputs:
-    PathtoPublish: HealthcareBase/bin/Publish
-    ArtifactName: dropbase
+    PathtoPublish: Feedback.API/bin/Release/netcoreapp3.1/publish
+    ArtifactName: dropfeedback
 
 - task: PublishBuildArtifacts@1
-  displayName: 'Publish web'
+  displayName: 'Publish webms hospital'
   inputs:
-    PathtoPublish: HospitalWebApp/bin/Publish
-    ArtifactName: dropweb
+    PathtoPublish: Hospital.API/bin/Release/netcoreapp3.1/publish
+    ArtifactName: drophospital
 
 - task: PublishBuildArtifacts@1
-  displayName: 'Publish db scheme'
+  displayName: 'Publish webms schedule'
   inputs:
-    PathtoPublish: HealthcareBase/dbscheme.sql
-    ArtifactName: dropdb
+    PathtoPublish: Schedule.API/bin/Release/netcoreapp3.1/publish
+    ArtifactName: dropschedule
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish webms user'
+  inputs:
+    PathtoPublish: User.API/bin/Release/netcoreapp3.1/publish
+    ArtifactName: dropuser
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish webms proxy ocelot'
+  inputs:
+    PathtoPublish: OcelotApiGateway/bin/Release/netcoreapp3.1/publish
+    ArtifactName: dropocelot
