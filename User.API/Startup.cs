@@ -84,7 +84,11 @@ namespace User.API
             var patientRepository = new PatientSqlRepository(GetContextFactory());
             var patientAccountRepository = new PatientAccountSqlRepository(GetContextFactory());
             var registrationNotifier = new RegistrationNotifier(
-                        Environment.GetEnvironmentVariable("PSW_ACTIVATION_ENDPOINT"));
+                "http://" + 
+                Environment.GetEnvironmentVariable("PSW_API_GATEWAY_HOST") +
+                ":" + 
+                Environment.GetEnvironmentVariable("PSW_API_GATEWAY_PORT") +
+                "/api/patient/activate/");
 
             var patientAccountService = new PatientAccountService(patientAccountRepository);
             var patientRegistrationService = new PatientRegistrationService(patientAccountService, registrationNotifier);
