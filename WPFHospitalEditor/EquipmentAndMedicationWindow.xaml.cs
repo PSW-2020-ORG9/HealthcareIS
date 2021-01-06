@@ -1,9 +1,9 @@
-﻿using HealthcareBase.Dto;
-using System;
+﻿using System;
 using System.Linq;
 using System.Windows;
 using WPFHospitalEditor.Controller;
 using WPFHospitalEditor.Controller.Interface;
+using WPFHospitalEditor.DTOs;
 using WPFHospitalEditor.MapObjectModel;
 
 namespace WPFHospitalEditor
@@ -13,12 +13,10 @@ namespace WPFHospitalEditor
     /// </summary>
     public partial class EquipmentAndMedicationWindow : Window
     {
-        private MapObject mapObject;
         private IEquipmentTypeServerController equipmentTypeServerController = new EquipmentTypeServerController();
-        public EquipmentAndMedicationWindow(String[] contentRows, MapObject mapObject)
+        public EquipmentAndMedicationWindow(String[] contentRows)
         {
             InitializeComponent();
-            this.mapObject = mapObject;
             SetEquipmentTypeComboBox();
             DynamicGridControl dynamicGridControl = new DynamicGridControl(contentRows, true);
             DynamicGrid.Children.Add(dynamicGridControl);

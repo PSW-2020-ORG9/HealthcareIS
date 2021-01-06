@@ -1,4 +1,4 @@
-﻿namespace Hospital.API.DTOs
+﻿namespace WPFHospitalEditor.DTOs
 {
     public class EquipmentRelocationDto
     {

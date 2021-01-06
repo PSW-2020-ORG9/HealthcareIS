@@ -103,7 +103,7 @@ namespace Hospital.API.Services.Resources
 
         private IEnumerable<EquipmentUnit> GetEquipmentByRoomIdAndType(int roomId, string equipmentType)
         {
-            return equipmentUnitRepository.Repository.GetMatching(
+            return _equipmentUnitRepository.Repository.GetMatching(
                 condition: equipment => equipment.CurrentLocationId == roomId && equipment.EquipmentType.Name == equipmentType
             );
         }
@@ -134,7 +134,7 @@ namespace Hospital.API.Services.Resources
                 {
                     equipmentsInRoom[i].CurrentLocation = null;
                     equipmentsInRoom[i].CurrentLocationId = eqRealDto.DestinationRoomId;
-                    equipmentUnitRepository.Repository.Update(equipmentsInRoom[i]);
+                    _equipmentUnitRepository.Repository.Update(equipmentsInRoom[i]);
                 }
                 return true;
             }
