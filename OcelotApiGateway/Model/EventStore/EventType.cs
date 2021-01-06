@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace HealthcareBase.EventStore
+namespace OcelotApiGateway.Model.EventStore
 {
     public enum EventType
     {
