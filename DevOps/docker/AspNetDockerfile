@@ -3,4 +3,4 @@ WORKDIR /app
 COPY . .
 EXPOSE 80
 EXPOSE 443
-ENTRYPOINT [ "bash", "-c", "string=`ls`;if [[ $string == *\"OcelotApiGateway.dll\"* ]]; then dotnet OcelotApiGateway.dll ; else dotnet *API.dll ; fi" ]
+ENTRYPOINT [ "bash", "-c", "string=$(ls);if [[ $string == *\"OcelotApiGateway.dll\"* ]] ; then dotnet OcelotApiGateway.dll; else dotnet *API.dll ; fi" ]
