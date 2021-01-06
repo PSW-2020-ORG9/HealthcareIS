@@ -5,53 +5,15 @@ pool:
   vmImage: 'ubuntu-16.04'
 
 steps:
-- task: UseDotNet@2
-  inputs:
-    packageType: 'sdk'
-    version: '3.1.200'
-  displayName: Using .NET 3.1.200
-
-- task: DotNetCoreCLI@2
-  displayName: 'Install .NET EF'
-  inputs:
-    command: custom
-    custom: tool
-    arguments: 'install --global dotnet-ef'
-
 - task: DockerInstaller@0
   inputs:
     dockerVersion: '17.09.0-ce'
 
-- task: DotNetCoreCLI@2
-  displayName: 'Gen. SQL DB scheme, test data inserts'
-  inputs:
-    command: custom
-    custom: ef
-    arguments: 'dbcontext script -o HospitalWebAppIntegrationTests/dbscheme.sql --project HospitalWebAppIntegrationTests'
-
 - task: Bash@3
   inputs:
     targetType: 'inline'
     script: |
-      cp DevOps/docker/DBDockerfile HospitalWebAppIntegrationTests/Dockerfile
-  displayName: Place db DockerFile
-
-- task: Docker@2
-  inputs:
-    containerRegistry: 'psw'
-    repository: 'pswdb'
-    command: 'build'
-    Dockerfile: 'HospitalWebAppIntegrationTests/Dockerfile'
-    buildContext: 'HospitalWebAppIntegrationTests'
-    tags: 'latest'
-    addPipelineData: false
-  displayName: Build Docker DB image for Int. Tests
-
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
-    script: |
-      docker run --name db -d -e MYSQL_ROOT_PASSWORD=$DB_PSW_PASSWORD -e MYSQL_DATABASE=$DB_PSW_TEST_DATABASE -p 3306:3306 -p 33060:33060 pswdb
+      docker run --name db -d -e MYSQL_ROOT_PASSWORD=$DB_PSW_PASSWORD -e MYSQL_DATABASE=test -p 3306:3306 -p 33060:33060 mysql
   displayName: Run DB container
 
 - task: Bash@3
@@ -63,6 +25,6 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'test'
-    projects: '**/HospitalWebAppIntegrationTests/*.csproj'
+    projects: '**/*IntegrationTests/*.csproj'
     testRunTitle: 'PR_RunIntegrationTests'
   displayName: RUN Integration Tests

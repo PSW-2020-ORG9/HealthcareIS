@@ -59,6 +59,12 @@ import api from '../constant/api.js'
 
 export default {
     name: "ExaminationItem",
+    data: function(){
+        return{
+            room: null
+        }
+    }
+    ,
     props: {
         examination: Object,
         surveyCompleted: Boolean
@@ -121,6 +127,9 @@ export default {
                 position: 'center',
                 backgroundColor: "linear-gradient(to right, #C37D92, #d89a9e)"
             }).showToast()
+        },
+        mounted() {
+            
         },
     },
 }

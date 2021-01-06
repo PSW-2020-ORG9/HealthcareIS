@@ -2,6 +2,7 @@
 using WPFHospitalEditor.MapObjectModel;
 using WPFHospitalEditor.Service;
 using WPFHospitalEditor.Repository;
+using System;
 
 namespace WPFHospitalEditor.Controller
 {
@@ -33,6 +34,11 @@ namespace WPFHospitalEditor.Controller
         public List<MapObject> GetAllBuildingMapObjects(int id)
         {
             return IMapObjectService.GetAllBuildingMapObjects(id);
+        }
+
+        internal MapObject GetMapObjectById(object roomId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

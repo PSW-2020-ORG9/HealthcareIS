@@ -7,8 +7,7 @@ using WPFHospitalEditor.MapObjectModel;
 using WPFHospitalEditor.Controller;
 using WPFHospitalEditor.Service;
 using System.Linq;
-using HealthcareBase.Model.Schedule.SchedulingPreferences;
-using HealthcareBase.Dto;
+using WPFHospitalEditor.DTOs;
 
 namespace WPFHospitalEditor
 {
@@ -41,7 +40,7 @@ namespace WPFHospitalEditor
             this.hospitalMap = hospitalMap;
             ShowDynamicGrid(searchType);
             SetContentRowsAndColumnsNumber(searchType);
-            DefineDynamicGrid();        
+            DefineDynamicGrid();
         }
 
         private void ShowDynamicGrid(SearchType searchType)
@@ -62,7 +61,7 @@ namespace WPFHospitalEditor
                 AppointmentGrid.Visibility = Visibility.Visible;
                 DynamicGrid = DynamicAppointmentGrid;
             }
-            else 
+            else
             {
                 return;
             }
@@ -87,14 +86,14 @@ namespace WPFHospitalEditor
             {
                 AddScheduleButton();
             }
-                
+
             AddSeparator();
             firstContentRowNumber++;
         }
 
         private void AddLabels(string[] oneRowContents)
         {
-            for(int i = 0; i < oneRowContents.Length; i++)
+            for (int i = 0; i < oneRowContents.Length; i++)
             {
                 Label label = new Label();
                 label.Content = oneRowContents[i];
@@ -106,7 +105,7 @@ namespace WPFHospitalEditor
             }
         }
 
-        private void AddAdvancedSearchButton()          
+        private void AddAdvancedSearchButton()
         {
             Button advancedSearchBtn = new Button();
             SetAdvancedSearchButtonProperties(advancedSearchBtn);
@@ -118,23 +117,21 @@ namespace WPFHospitalEditor
 
             DynamicGrid.Children.Add(advancedSearchBtn);
             advancedSearchBtn.Click += (s, e) =>
-            {              
+            {
                 if (displayBtnRow.ContainsKey(Grid.GetRow(advancedSearchBtn)))
                 {
                     MapObject chosenMapObject = displayBtnRow[Grid.GetRow(advancedSearchBtn)];
                     selectedObjectId = chosenMapObject.Id;
                     mapObjectController.Update(chosenMapObject);
 
-                    if (chosenMapObject.Description.Equals(""))
+                    if (chosenMapObject.MapObjectDescription == null)
                     {
                         CanvasService.AddObjectToCanvas(mapObjectController.GetOutterMapObjects(), HospitalMap.canvasHospitalMap);
                         this.Close();
                     }
                     else
                     {
-                        String building = getBuildingAndFloor(chosenMapObject).Item1;
-                        String floor = getBuildingAndFloor(chosenMapObject).Item2;
-                        DisplayBuildingAndFloorBasedOnSelectedObject(int.Parse(floor), int.Parse(building));
+                        DisplayBuildingAndFloorBasedOnSelectedObject(chosenMapObject.MapObjectDescription.FloorNumber, chosenMapObject.MapObjectDescription.BuildingId);
 
                         hospitalMap.Hide();
                         this.Close();
@@ -165,9 +162,9 @@ namespace WPFHospitalEditor
             };
         }
 
-        public void DisplayBuildingAndFloorBasedOnSelectedObject(int floor, int buildingId)
+        public void DisplayBuildingAndFloorBasedOnSelectedObject(int floorNumber, int buildingId)
         {
-            Building searchedBuilding = new Building(buildingId, floor);
+            Building searchedBuilding = new Building(buildingId, floorNumber);
             searchedBuilding.Owner = hospitalMap;
             searchedBuilding.Show();
         }
@@ -187,7 +184,7 @@ namespace WPFHospitalEditor
             scheduleBtn.FontSize = 15;
             scheduleBtn.FontWeight = FontWeights.Normal;
             scheduleBtn.Width = 70;
-            scheduleBtn.VerticalContentAlignment = VerticalAlignment.Bottom;           
+            scheduleBtn.VerticalContentAlignment = VerticalAlignment.Bottom;
         }
 
         private void SetCommonButtonProperties(Button button)
@@ -234,50 +231,6 @@ namespace WPFHospitalEditor
             Close();
         }
 
-        private Tuple<String, String> getBuildingAndFloor(MapObject mapObjectCheck)
-        {
-            if (!mapObjectCheck.Description.Equals(""))
-            {
-                String[] buildingAndFloor = mapObjectCheck.Description.Split("&");
-                String[] buildingAndFloorSplited = buildingAndFloor[0].Split("-");
-                return Tuple.Create(buildingAndFloorSplited[0], buildingAndFloorSplited[1]);
-            }
-
-            return null;
-        }
-
-        private List<MapObject> GetObjects(String building, String floor)
-        {
-            List<MapObject> objectsToDisplay = new List<MapObject>();
-            List<MapObject> allMapObjects = mapObjectController.GetAllMapObjects();
-            foreach (MapObject mapObjectIteration in allMapObjects)
-            {
-                if (IsBuildingAndFloorEqual(building, floor, mapObjectIteration))
-                {
-                    objectsToDisplay.Add(mapObjectIteration);
-                }
-            }
-            return objectsToDisplay;
-        }
-
-        private bool IsBuildingAndFloorEqual(String building, String floor, MapObject mapObjectForChecking)
-        {
-
-            Tuple<String, String> buildingAndFloorForChecking = getBuildingAndFloor(mapObjectForChecking);
-
-            if (buildingAndFloorForChecking != null)
-            {
-                String buildingForChecking = buildingAndFloorForChecking.Item1;
-                String floorForChecking = buildingAndFloorForChecking.Item2;
-
-                if (building.Equals(buildingForChecking) && floor.Equals(floorForChecking))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
         private void SetContentRowsAndColumnsNumber(SearchType searchType)
         {
             switch (searchType)
@@ -306,7 +259,7 @@ namespace WPFHospitalEditor
             {
                 EquipmentDto equipmentDto = HospitalMap.equipmentSearchResult.ElementAt(i);
                 MapObject mo = mapObjectController.GetMapObjectById(equipmentDto.RoomId);
-                equipmentContentRows[i] = equipmentDto.Quantity 
+                equipmentContentRows[i] = equipmentDto.Quantity
                                  + AllConstants.ContentSeparator +
                                  MapObjectToRow(mo);
                 displayBtnRow.Add(i, mo);
@@ -331,8 +284,8 @@ namespace WPFHospitalEditor
         private string MapObjectToRow(MapObject mo)
         {
             string result = mo.Name + AllConstants.ContentSeparator
-                            + Building.FindBuilding(mo)
-                            + AllConstants.ContentSeparator + Building.FindFloor(mo);
+                            + mo.MapObjectDescription.BuildingId
+                            + AllConstants.ContentSeparator + mo.MapObjectDescription.FloorNumber;
             return result;
         }
 

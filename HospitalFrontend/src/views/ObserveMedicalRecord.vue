@@ -28,7 +28,7 @@
                         </tr>
                         <tr>
                             <th class="text-info" id="jmgb_th">JMBG:</th>
-                            <td>{{patient.person.jmbg}}</td>
+                            <td>{{patient.person.id}}</td>
                         </tr>
                         <tr>
                             <th class="text-info" id="insurance_number_th">Insurance number:</th>
@@ -88,7 +88,7 @@
                     <thead>
                         <th colspan="2" id="diagnosis_history_th">Diagnosis history</th>
                     </thead>
-                    <tbody v-if="patient.examinations.length == 0">
+                    <tbody v-if="diagnoses.length == 0">
                         <th id="no_recorded_history_th">No recorded patient history.</th>
                     </tbody>
                     <tbody v-else>
@@ -96,7 +96,7 @@
                             <th class="text-info" id="name_th2">Name</th>
                             <th class="text-info" id="description_th">Description</th>
                         </tr>
-                        <tr v-for="diagnosis in getDiagnoses()" v-bind:key="diagnosis.id">
+                        <tr v-for="diagnosis in diagnoses" v-bind:key="diagnosis.id">
                             <td>{{diagnosis.name}}</td>
                             <td>{{diagnosis.description}}</td>
                         </tr>
@@ -117,15 +117,22 @@ export default {
             patient: null,
             profilePicture: '',
             intensities: ["Mild", "Medium", "Strong", "Severe"],
+            diagnoses: []
         }
     },
-    emits: ['updateExaminations'],
     methods: {
         getPatient: function (id) {
-            let url = api.patient + '/find/' + id
+            let url = api.patient + '/' + id
             axios.get(url).then(response => {
                 this.patient = response.data
                 this.fetchProfilePicture();
+            })
+
+            this.getExaminations(id)
+        },
+        getExaminations: function (id) {
+            axios.get(api.examination + "/patient/" + id).then(response => {
+                this.getDiagnoses(response.data)
             })
         },
         parseDate: function (date) {
@@ -133,19 +140,18 @@ export default {
             let parsedDate = "" + dateObj.getDate() + "." + (dateObj.getMonth() + 1) + "." + dateObj.getFullYear() + "."
             return parsedDate
         },
-        getDiagnoses: function () {
-            let diagnoses = []
-            this.patient.examinations.forEach(examination => {
+        getDiagnoses: function (examinations) {
+            examinations.forEach(examination => {
                 if (examination.examinationReport) {
                     examination.examinationReport.diagnoses.forEach(diagnosis =>
-                        diagnoses.push(diagnosis)
+                        this.diagnoses.push(diagnosis)
                     )
                 }
             })
-            return diagnoses
         },
         fetchProfilePicture: function () {
             let url = api.patientAccount + '/' + this.patient.id
+            
             axios.get(url).then(response => {
                 this.profilePicture = response.data.avatarUrl
             })

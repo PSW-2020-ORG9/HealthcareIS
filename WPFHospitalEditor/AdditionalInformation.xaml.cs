@@ -4,10 +4,10 @@ using System.Windows.Media;
 using WPFHospitalEditor.MapObjectModel;
 using WPFHospitalEditor.Service;
 using WPFHospitalEditor.Controller;
-using HealthcareBase.Dto;
 using System.Linq;
 using System;
 using WPFHospitalEditor.Controller.Interface;
+using WPFHospitalEditor.StrategyPattern;
 
 namespace WPFHospitalEditor
 {
@@ -16,35 +16,25 @@ namespace WPFHospitalEditor
     /// </summary>
     public partial class AdditionalInformation : Window
     {
-        IMapObjectController mapObjectController = new MapObjectController();
-        IEquipmentServerController equipmentServerController = new EquipmentServerController();
-        IMedicationServerController medicationServerController = new MedicationServerController();
 
         private MapObject mapObject;
         private Building building;
-        private string[] descriptionParts;
-        private string[] contentRows;
-        private MapObject oldMapObject;
-        private IEnumerable<EquipmentDto> allEquipment;
-        private IEnumerable<MedicationDto> allMedications;
-        private DynamicGridControl gridControl;
+        private DynamicGridControl dynamicGridControl;
 
         public AdditionalInformation(MapObject mapObject, Building building)
         {
             InitializeComponent();
             this.mapObject = mapObject;
             this.building = building;
-            this.descriptionParts = mapObject.Description.Split("&");
-            this.contentRows = descriptionParts[1].Split(";");
-            this.oldMapObject = mapObject;
-            this.allEquipment = equipmentServerController.GetEquipmentByRoomId(mapObject.Id);
-            this.allMedications = medicationServerController.GetAllMedication();
-            DynamicGridControl dynamicGridControl = new DynamicGridControl(contentRows, IsPatientLogged());
-            DynamicGrid.Children.Add(dynamicGridControl);         
-            this.gridControl = dynamicGridControl;
-            this.Height = (contentRows.Length +1) * 50 + 60;       
-            SetNameCommonAttributes();
+            SetDynamicGrid();
+            InitializeTitle();
             SetButtonsVisibility();
+        }
+
+        private void SetDynamicGrid()
+        {
+            dynamicGridControl = new DynamicGridControl(mapObject.MapObjectDescription.GetInformation(), IsPatientLogged());
+            DynamicGrid.Children.Add(this.dynamicGridControl);
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
@@ -54,92 +44,56 @@ namespace WPFHospitalEditor
 
         private void Done_Click(object sender, RoutedEventArgs e)
         {
-            string description = gridControl.GetAllContent();
-            mapObject.Description = descriptionParts[0] + "&" + description;       
-            mapObject.Name = this.Name.Text;
+            mapObject.MapObjectDescription.Information = dynamicGridControl.GetAllContent();
+            mapObject.Name = this.Title.Text;
             mapObject.nameOnMap.Text = mapObject.Name;
             UpdateAdditionalInformation();
-            mapObject.Description = mapObject.Description.Substring(0, mapObject.Description.Length - 1);
             this.Close();
         }
 
         private void RefreshMap()
         {
-            building.floorBuildingObjects.Remove(oldMapObject);
-            building.floorBuildingObjects.Add(mapObject);
             building.canvas.Children.Clear();
-            CanvasService.AddObjectToCanvas(building.floorBuildingObjects, building.canvas);
+            Floor floor = building.GetBuildingFloor(mapObject.MapObjectDescription.FloorNumber);
+            CanvasService.AddObjectToCanvas(floor.GetAllFloorMapObjects(), building.canvas);
         }      
 
         private void UpdateAdditionalInformation()
         {
+            IMapObjectController mapObjectController = new MapObjectController();
             mapObjectController.Update(mapObject);
             RefreshMap();
         }
 
-        private void SetNameCommonAttributes()
+        private void InitializeTitle()
         {
-            BrushConverter bc = new BrushConverter();
-            Name.Text = mapObject.Name;
-            Name.Background = (Brush)bc.ConvertFrom("#FFC6F5F8");
-            Name.FontSize = 18;
-            Name.FontWeight = FontWeights.Bold;
-            Name.Foreground = new SolidColorBrush(Colors.Black);
-            Name.VerticalAlignment = VerticalAlignment.Center;
-            Name.HorizontalAlignment = HorizontalAlignment.Center;
+            Title.Text = mapObject.Name;
             if (HospitalMap.role.Equals(Role.Patient))
-            {
-                Name.IsReadOnly = true;
-            }
+                Title.IsReadOnly = true;
         }
 
         private void BtnEquipment_Click(object sender, RoutedEventArgs e)
         {
-            EquipmentAndMedicationWindow equipment = new EquipmentAndMedicationWindow(EquipmentToContentRows(), mapObject);
+            ContentRowsStrategy strategy = new ContentRowsStrategy(new EquipmentContentRows(mapObject.Id));
+            EquipmentAndMedicationWindow equipment = new EquipmentAndMedicationWindow(strategy.GetContentRows());
             equipment.ShowDialog();
         }
         private void BtnMedications_Click(object sender, RoutedEventArgs e)
         {
-            EquipmentAndMedicationWindow medications = new EquipmentAndMedicationWindow(MedicationsToContentRows(), mapObject);
+            ContentRowsStrategy strategy = new ContentRowsStrategy(new MedicationContentRows(mapObject.Id));
+            EquipmentAndMedicationWindow medications = new EquipmentAndMedicationWindow(strategy.GetContentRows());
             medications.ShowDialog();
-        }
-
-        private string[] EquipmentToContentRows()
-        {
-            string[] equipmentContentRows = new string [allEquipment.Count()];
-            for (int i = 0; i < allEquipment.Count(); i++)
-            {
-                equipmentContentRows[i] = allEquipment.ElementAt(i).Name + AllConstants.ContentSeparator + allEquipment.ElementAt(i).Quantity;
-            }
-            return equipmentContentRows;
-        }
-
-        private string[] MedicationsToContentRows()
-        {
-            string[] medicationContentRows = new string[allMedications.Count()];
-            for (int i = 0; i < allMedications.Count(); i++)
-            {
-                medicationContentRows[i] = allMedications.ElementAt(i).Name + AllConstants.ContentSeparator + allMedications.ElementAt(i).Quantity;
-            }
-            return medicationContentRows;
         }
 
         private void SetButtonsVisibility()
         {
-            if (!allEquipment.Any() || IsMapObjectTypeStorageRoom() || IsPatientLogged()) Equipment.Visibility = Visibility.Hidden;
-            if (!allMedications.Any() || !IsMapObjectTypeStorageRoom() || IsPatientLogged()) Medication.Visibility = Visibility.Hidden;
+            if (!mapObject.ContainsEquipment() || IsPatientLogged()) Equipment.Visibility = Visibility.Hidden;
+            if (!mapObject.ContainsMedication() || IsPatientLogged()) Medication.Visibility = Visibility.Hidden;
         }
 
         private Boolean IsPatientLogged()
         {
-            if (HospitalMap.role == Role.Patient) return true;
-            return false;
+            return (HospitalMap.role == Role.Patient);
         }
-
-        private bool IsMapObjectTypeStorageRoom()
-        {
-            if (mapObject.MapObjectType == MapObjectType.StorageRoom) return true;
-            return false;
-        } 
     }
 }
