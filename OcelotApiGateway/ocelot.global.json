@@ -5,8 +5,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5003
+          "Host": "$PSW_USER_SERVICE_HOST",
+          "Port": $PSW_USER_SERVICE_PORT
         }
       ],
       "UpstreamPathTemplate": "/api/user/{everything}",
@@ -18,8 +18,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5002
+          "Host": "$PSW_FEEDBACK_SERVICE_HOST",
+          "Port": $PSW_FEEDBACK_SERVICE_PORT
         }
       ],
       "UpstreamPathTemplate": "/api/feedbacks/{everything}",
@@ -31,8 +31,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5004
+          "Host": "$PSW_SCHEDULE_SERVICE_HOST",
+          "Port": $PSW_SCHEDULE_SERVICE_PORT
         }
       ],
       "UpstreamPathTemplate": "/api/schedule/{everything}",
@@ -44,17 +44,12 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5001
+          "Host": "$PSW_HOSPITAL_SERVICE_HOST",
+          "Port": $PSW_HOSPITAL_SERVICE_PORT
         }
       ],
       "UpstreamPathTemplate": "/api/hospital/{everything}",
       "UpstreamHttpMethod": [ "Get","Post" ]
     }
-  ],
-  "GlobalConfiguration": {
-    "BaseUrl": "http://localhost:5000"
-  }
-  
-  
+  ]
 }
