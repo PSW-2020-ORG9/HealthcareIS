@@ -2,8 +2,8 @@
 using System;
 using WPFHospitalEditor.Service.Interface;
 using Newtonsoft.Json;
-using HealthcareBase.Model.Schedule.Procedures.DTOs;
-using HealthcareBase.Model.Schedule.Procedures;
+using WPFHospitalEditor.Model;
+using WPFHospitalEditor.DTOs;
 
 namespace WPFHospitalEditor.Service
 {
@@ -18,7 +18,7 @@ namespace WPFHospitalEditor.Service
                 PatientId = patientId
             };
             var client = new RestClient(AllConstants.ConnectionUrl);
-            var request = new RestRequest("examination", Method.POST);
+            var request = new RestRequest("/api/schedule/examination", Method.POST);
             request.AddJsonBody(JsonConvert.SerializeObject(examinationDTO));
             var response = client.Post<Examination>(request);
             return response.Data;

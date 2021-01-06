@@ -1,10 +1,9 @@
-﻿using HealthcareBase.Model.Schedule.Procedures;
-using HealthcareBase.Model.Schedule.SchedulingPreferences;
-using HealthcareBase.Model.Users.Patient;
-using System;
+﻿using System;
 using System.Windows;
 using WPFHospitalEditor.Controller;
 using WPFHospitalEditor.Controller.Interface;
+using WPFHospitalEditor.DTOs;
+using WPFHospitalEditor.Model;
 
 namespace WPFHospitalEditor
 {
@@ -64,7 +63,7 @@ namespace WPFHospitalEditor
             patientsComboBox.SelectedIndex = 0;
             foreach (Patient p in patientServerController.SearchPatients(PatientSearchInput.Text))
             {
-                patientsComboBox.Items.Add(p.Id.ToString() + " " + p.Person.Name + " " + p.Person.Surname + " - " + p.Person.Jmbg);
+                patientsComboBox.Items.Add(p.Id.ToString() + " " + p.Person.Name + " " + p.Person.Surname + " - " + p.Person.Id);
             }
         }
 

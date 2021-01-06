@@ -1,7 +1,7 @@
-﻿using HealthcareBase.Model.Users.Patient;
-using RestSharp;
+﻿using RestSharp;
 using System.Collections.Generic;
 using System.Linq;
+using WPFHospitalEditor.Model;
 using WPFHospitalEditor.Service.Interface;
 
 namespace WPFHospitalEditor.Service
@@ -11,7 +11,7 @@ namespace WPFHospitalEditor.Service
         public IEnumerable<Patient> GetAllPatients()
         {
             var client = new RestClient(AllConstants.ConnectionUrl);
-            var request = new RestRequest("patient", Method.GET);
+            var request = new RestRequest("/api/user/patient", Method.GET);
             var response = client.Get<IEnumerable<Patient>>(request);
             return response.Data;
         }

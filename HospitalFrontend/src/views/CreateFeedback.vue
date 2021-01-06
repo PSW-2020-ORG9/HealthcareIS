@@ -5,7 +5,7 @@
     <div class="col-sm-5 mx-auto shadow-lg p-3 mb-5 bg-white rounded feedback">
       <div class="feedback-text">
         <div class="form-group d-flex justify-content-start md-4">
-          <textarea class="form-control input-feedback" rows=5 type="text" placeholder="Enter your feedback" v-model="feedbackContent" required></textarea>
+          <textarea class="form-control input-feedback" rows=5 placeholder="Enter your feedback" v-model="feedbackContent" required></textarea>
         </div>
       </div>
       <div class="col-sm offset-md-1 d-flex justify-content-start">

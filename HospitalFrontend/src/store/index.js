@@ -69,6 +69,31 @@ export default createStore({
       state.availableAppointments=[]
     }
     ,
+    clearPatientRegistrationDto(state){
+      this.patientRegistrationDto = {
+        personalInformation:{
+          Name:'',
+          MiddleName:'',
+          Surname:'',
+          Jmbg:'',
+          DateOfBirth:'',
+          TelephoneNumber:'',
+          Address:'',
+          MaritalStatus:'',
+          Gender:'',
+          CountryOfResidenceId:0,
+          CityOfResidenceId:0,
+          CountryOfBirthId:0,
+          CityOfBirthId:0,
+        },
+        accountDetails:{
+          Username:'',
+          Password:'',
+          Email:'',
+        }      
+      }
+    }
+    ,
     setRecommendationDto(state,payload){
       state.recommendationDto = payload
     }

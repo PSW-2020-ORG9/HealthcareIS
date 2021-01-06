@@ -1,6 +1,5 @@
-﻿using HealthcareBase.Model.Schedule.SchedulingPreferences;
-using HospitalWebApp.Dtos;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using WPFHospitalEditor.DTOs;
 
 namespace WPFHospitalEditor.Controller.Interface
 {

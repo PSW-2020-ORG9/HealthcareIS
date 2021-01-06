@@ -1,7 +1,7 @@
-﻿using HealthcareBase.Dto;
-using RestSharp;
+﻿using RestSharp;
 using System.Collections.Generic;
 using System.Linq;
+using WPFHospitalEditor.DTOs;
 using WPFHospitalEditor.Service.Interface;
 
 namespace WPFHospitalEditor.Service
@@ -11,7 +11,7 @@ namespace WPFHospitalEditor.Service
         public IEnumerable<EquipmentTypeDto> GetAllEquipmentTypes()
         {
             var client = new RestClient(AllConstants.ConnectionUrl);
-            var request = new RestRequest("equipmenttype/", Method.GET);
+            var request = new RestRequest("api/hospital/equipmenttype", Method.GET);
             var response = client.Get<IEnumerable<EquipmentTypeDto>>(request);
             return response.Data;
         }
