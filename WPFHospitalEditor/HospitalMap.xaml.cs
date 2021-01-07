@@ -8,7 +8,6 @@ using WPFHospitalEditor.Service;
 using WPFHospitalEditor.Controller;
 using WPFHospitalEditor.Controller.Interface;
 using System.Linq;
-using WPFHospitalEditor.Repository;
 using WPFHospitalEditor.DTOs;
 using WPFHospitalEditor.Model;
 

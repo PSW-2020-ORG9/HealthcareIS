@@ -78,7 +78,6 @@ namespace Schedule.API.Controllers
         [Route("search/simple")]
         public IActionResult SimpleSearch(ExaminationSimpleFilterDto dto)
         {
-            Console.WriteLine($"Doing a simple search for {dto.DoctorName} {dto.DoctorSurname}");
             return Ok(_examinationService.Search(dto));
         }
 

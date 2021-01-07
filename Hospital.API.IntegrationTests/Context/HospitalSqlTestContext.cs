@@ -2,15 +2,23 @@
 using Hospital.API.Model.Medication;
 using Hospital.API.Model.Resources;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace Hospital.API.IntegrationTests.Context
 {
     internal class HospitalSqlTestContext : HospitalSqlContext
     {
+        //private List<EquipmentUnit> equipments = new List<EquipmentUnit>();
         public HospitalSqlTestContext(string connectionString) : base(connectionString) { }
 
         protected override void SeedData(ModelBuilder modelBuilder)
         {
+            /*equipments.Add(new EquipmentUnit
+            {
+                Id = 1,
+                CurrentLocationId = 1,
+                EquipmentTypeId = 1
+            });*/
             modelBuilder.Entity<Department>().HasData(new Department
             {
                 Id = 1
@@ -18,7 +26,8 @@ namespace Hospital.API.IntegrationTests.Context
             modelBuilder.Entity<Room>().HasData(new Room
             {
                 Id = 1,
-                DepartmentId = 1
+                DepartmentId = 1,
+                //Equipment = equipments
             });
             modelBuilder.Entity<Medication>().HasData(new Medication
             {
@@ -37,6 +46,18 @@ namespace Hospital.API.IntegrationTests.Context
                 InstructionsId = 1,
                 MedicationId = 1
             });
+            /*modelBuilder.Entity<EquipmentType>().HasData(new EquipmentType
+            {
+                Id = 1,
+                Name = "Chair",
+                Purpose = "sitting"
+            });
+            modelBuilder.Entity<EquipmentUnit>().HasData(new EquipmentUnit
+            {
+                Id = 1,
+                CurrentLocationId = 1,
+                EquipmentTypeId = 1
+            });*/
         }
     }
 }

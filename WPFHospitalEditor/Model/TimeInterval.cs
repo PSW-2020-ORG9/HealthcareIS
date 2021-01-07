@@ -1,18 +1,18 @@
-﻿using System;
+using System;
 
-namespace WPFHospitalEditor.Model
+namespace WPFHospitalEditor.DTOs
 {
     public class TimeInterval
     {
-        public TimeInterval(DateTime startDate, DateTime endDate)
+        public TimeInterval() { }
+        public TimeInterval(DateTime start, DateTime end)
         {
-            StartDate = startDate;
-            EndDate = endDate;
+            Start = start;
+            End = end;
         }
 
-        public DateTime StartDate { get; }
-        public DateTime EndDate { get; }
-        public DateTime Start { get; internal set; }
-        public DateTime End { get; internal set; }
+        public DateTime Start { get; set; }
+        public DateTime End { get; set; }
+        public TimeSpan Duration => End - Start;
     }
 }

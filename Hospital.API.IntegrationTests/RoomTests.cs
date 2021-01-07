@@ -27,5 +27,17 @@ namespace Hospital.API.IntegrationTests
 
             Assert.Contains("\"id\":1", responseString);
         }
+
+        /*[Fact]
+        public async void Finds_rooms_by_equipment_type()
+        {
+            var client = _factory.CreateClient();
+            string eqtype = "Chair";
+            var content = JsonContent.Create(eqtype);
+            var response = await client.PostAsync("hospital/room/equipment-type", content);
+            var responseString = await response.Content.ReadAsStringAsync();
+
+            Assert.Contains("\"id\":1", responseString);
+        }*/
     }
 }
