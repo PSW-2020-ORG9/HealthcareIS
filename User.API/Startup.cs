@@ -47,7 +47,7 @@ namespace User.API
         {
             string server = Environment.GetEnvironmentVariable("DB_PSW_SERVER");
             string port = Environment.GetEnvironmentVariable("DB_PSW_PORT");
-            string database = testing ? "test_user" : "user";
+            string database = testing ? "test_user" : Environment.GetEnvironmentVariable("DB_PSW_USER_DATABASE");
             string user = Environment.GetEnvironmentVariable("DB_PSW_USER");
             string password = Environment.GetEnvironmentVariable("DB_PSW_PASSWORD");
             if (server == null
