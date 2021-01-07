@@ -4,7 +4,6 @@ using Hospital.API.Model.Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Hospital.API.Services.Resources
 {
@@ -22,5 +21,27 @@ namespace Hospital.API.Services.Resources
 
         public Room GetById(int id)
             => _roomRepository.Repository.GetByID(id);
+
+        public IEnumerable<Room> getByEquipmentType(string equipmentTypeName)
+        {
+            List<Room> roomsWithEquipmentType = new List<Room>();
+            foreach(Room room in _roomRepository.Repository.GetAll())
+            {
+                foreach(EquipmentUnit equipment in room.Equipment.ToList())
+                {
+                    if(compareTypes(equipment.EquipmentType.Name, equipmentTypeName))
+                    {
+                        roomsWithEquipmentType.Add(room);
+                    }
+                }
+            }
+            return roomsWithEquipmentType;
+        }
+
+        private bool compareTypes(string nameOne, string nameTwo)
+        {
+            if (nameOne.Equals(nameTwo)) return true;
+            return false;
+        }
     }
 }

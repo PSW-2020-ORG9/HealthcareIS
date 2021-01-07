@@ -7,6 +7,7 @@ namespace Hospital.API.Services.Resources
     public interface IRoomService
     {
         IEnumerable<Room> GetRoomsByIds(IEnumerable<int> ids);
-        public Room GetById(int id);
+        Room GetById(int id);
+        IEnumerable<Room> getByEquipmentType(string equipmentTypeName);
     }
 }

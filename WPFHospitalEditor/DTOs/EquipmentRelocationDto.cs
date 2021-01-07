@@ -1,4 +1,6 @@
-﻿namespace WPFHospitalEditor.DTOs
+﻿using WPFHospitalEditor.Model;
+
+namespace WPFHospitalEditor.DTOs
 {
     public class EquipmentRelocationDto
     {
@@ -6,5 +8,6 @@
         public int SourceRoomId { get; set; }
         public int DestinationRoomId { get; set; }
         public int Amount { get; set; }
+        public TimeInterval timeInterval { get; set; }
     }
 }
