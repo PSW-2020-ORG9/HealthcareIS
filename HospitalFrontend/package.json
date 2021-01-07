@@ -25,6 +25,7 @@
     "vue-js-modal": "^2.0.0-rc.6",
     "vue-router": "^4.0.0-0",
     "vue-star-rating": "^2.1.0",
+    "vue3-carousel": "^0.1.10",
     "vue3-datepicker": "^0.1.1",
     "vuex": "^4.0.0-0"
   },

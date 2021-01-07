@@ -7,12 +7,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using User.API.Infrastructure;
 using User.API.Infrastructure.Repositories.Locale;
+using User.API.Infrastructure.Repositories.Promotions;
 using User.API.Infrastructure.Repositories.Users.Employees;
 using User.API.Infrastructure.Repositories.Users.Patients;
 using User.API.Infrastructure.Repositories.Users.UserAccounts;
 using User.API.Services.EmployeeService;
 using User.API.Services.LocaleServices;
 using User.API.Services.PatientService;
+using User.API.Services.PromotionsService;
 using User.API.Services.RegistrationService;
 
 namespace User.API
@@ -98,10 +100,14 @@ namespace User.API
             var specialtyRepository = new SpecialtySqlRepository(GetContextFactory());
             var specialtyService = new SpecialtyService(specialtyRepository);
             
+            var advertisementRepository = new AdvertisementSqlRepository(GetContextFactory());
+            var advertisementService = new AdvertisementService(advertisementRepository);
+            
             services.Add(new ServiceDescriptor(typeof(IPatientAccountService), patientAccountService));
             services.Add(new ServiceDescriptor(typeof(IPatientRegistrationService), patientRegistrationService));
             services.Add(new ServiceDescriptor(typeof(PatientService), patientService));
             services.Add(new ServiceDescriptor(typeof(SpecialtyService),specialtyService));
+            services.Add(new ServiceDescriptor(typeof(AdvertisementService),advertisementService));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
