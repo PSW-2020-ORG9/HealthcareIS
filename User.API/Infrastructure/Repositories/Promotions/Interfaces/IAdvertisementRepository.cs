@@ -6,6 +6,6 @@ namespace User.API.Infrastructure.Repositories.Promotions.Interfaces
 {
     public interface IAdvertisementRepository : IWrappableRepository<Advertisement,int>
     {
-        public IEnumerable<Advertisement> GetAllActive();
+        IEnumerable<Advertisement> GetAllActive();
     }
 }

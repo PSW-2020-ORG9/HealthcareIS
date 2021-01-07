@@ -5,6 +5,6 @@ namespace User.API.Services.PromotionsService
 {
     public interface IAdvertisementService
     {
-        public IEnumerable<Advertisement> GetAllActive();
+        IEnumerable<Advertisement> GetAllActive();
     }
 }
