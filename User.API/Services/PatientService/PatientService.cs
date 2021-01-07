@@ -18,7 +18,7 @@ namespace User.API.Services.PatientService
 
         public PatientService(IPatientRepository patientRepository)
         {
-            this._patientRepository = new RepositoryWrapper<IPatientRepository>(patientRepository);
+            _patientRepository = new RepositoryWrapper<IPatientRepository>(patientRepository);
         }
 
         public Patient GetByID(int id)

@@ -20,10 +20,10 @@ import RecommendAppointment from '../views/scheduling/recommendation/RecommendAp
 import AppointmentPreferences from '../views/scheduling/recommendation/AppointmentPreferences.vue'
 import ChooseRecommended from '../views/scheduling/recommendation/ChooseRecommended.vue'
 import ObservePatientExaminations from '../views/ObservePatientExaminations.vue'
-
+import HomePage from '../views/HomePage.vue'
 const routes = [
   {
-    path: '/',
+    path: '/feedbacks',
     name: 'ObserveFeedback',
     component: ObserveFeedback
   },
@@ -142,6 +142,12 @@ const routes = [
     path: '/examinations',
     name: 'ObservePatientExaminations',
     component: ObservePatientExaminations
+  }
+  ,
+  {
+    path: '/',
+    name: 'HomePage',
+    component: HomePage
   }
 ]
 
