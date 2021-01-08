@@ -23,25 +23,7 @@ namespace Hospital.API.Services.Resources
             => _roomRepository.Repository.GetByID(id);
 
         public IEnumerable<Room> getByEquipmentType(string equipmentTypeName)
-        {
-            List<Room> roomsWithEquipmentType = new List<Room>();
-            foreach(Room room in _roomRepository.Repository.GetAll())
-            {
-                foreach(EquipmentUnit equipment in room.Equipment.ToList())
-                {
-                    if(compareTypes(equipment.EquipmentType.Name, equipmentTypeName))
-                    {
-                        roomsWithEquipmentType.Add(room);
-                    }
-                }
-            }
-            return roomsWithEquipmentType;
-        }
-
-        private bool compareTypes(string nameOne, string nameTwo)
-        {
-            if (nameOne.Equals(nameTwo)) return true;
-            return false;
-        }
+            => _roomRepository.Repository
+                .GetMatching(r => r.Equipment.Select(r => r.EquipmentType.Name).Contains(equipmentTypeName));
     }
 }

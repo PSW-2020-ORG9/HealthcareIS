@@ -13,12 +13,6 @@ namespace Hospital.API.IntegrationTests.Context
 
         protected override void SeedData(ModelBuilder modelBuilder)
         {
-            /*equipments.Add(new EquipmentUnit
-            {
-                Id = 1,
-                CurrentLocationId = 1,
-                EquipmentTypeId = 1
-            });*/
             modelBuilder.Entity<Department>().HasData(new Department
             {
                 Id = 1
@@ -27,7 +21,6 @@ namespace Hospital.API.IntegrationTests.Context
             {
                 Id = 1,
                 DepartmentId = 1,
-                //Equipment = equipments
             });
             modelBuilder.Entity<Medication>().HasData(new Medication
             {
@@ -46,7 +39,7 @@ namespace Hospital.API.IntegrationTests.Context
                 InstructionsId = 1,
                 MedicationId = 1
             });
-            /*modelBuilder.Entity<EquipmentType>().HasData(new EquipmentType
+            modelBuilder.Entity<EquipmentType>().HasData(new EquipmentType
             {
                 Id = 1,
                 Name = "Chair",
@@ -57,7 +50,7 @@ namespace Hospital.API.IntegrationTests.Context
                 Id = 1,
                 CurrentLocationId = 1,
                 EquipmentTypeId = 1
-            });*/
+            });
         }
     }
 }
