@@ -1,7 +1,6 @@
 ﻿using General.Repository;
 using Schedule.API.DTOs;
 using Schedule.API.Infrastructure.Repositories.Procedures.Interfaces;
-using Schedule.API.Infrastructure.Repositories.Shifts;
 using Schedule.API.Model.Procedures;
 using Schedule.API.Services.Procedures.Interface;
 using System.Collections.Generic;

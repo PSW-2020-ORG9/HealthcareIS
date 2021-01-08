@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Schedule.API.DTOs;
 using Schedule.API.Infrastructure.Database;
-using Schedule.API.Model.Dependencies;
 using Schedule.API.Model.Procedures;
 using Schedule.API.Model.Shifts;
 using System;

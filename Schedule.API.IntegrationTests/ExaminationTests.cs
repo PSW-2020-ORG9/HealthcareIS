@@ -3,9 +3,6 @@ using Schedule.API.Model.Procedures.DTOs;
 using Schedule.API.Model.Recommendations;
 using Schedule.API.Model.Utilities;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Net.Http.Json;
 using Xunit;
 
