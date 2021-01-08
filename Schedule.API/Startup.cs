@@ -108,9 +108,8 @@ namespace Schedule.API
             app.UseRouting();
 
             app.UseAuthorization();
-            app.UseAuthentication();
 
-            app.UseMiddleware<JwtMiddleware>();
+            //app.UseMiddleware<JwtMiddleware>();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }

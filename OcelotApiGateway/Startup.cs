@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
+using OcelotApiGateway.Auth;
 
 namespace OcelotApiGateway
 {
@@ -50,6 +51,8 @@ namespace OcelotApiGateway
                 .AllowCredentials());
             
             app.UseAuthorization();
+            app.UseMiddleware<JwtMiddleware>();
+            
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
             app.UseOcelot().Wait();
         }

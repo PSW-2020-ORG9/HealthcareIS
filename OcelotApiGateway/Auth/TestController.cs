@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Schedule.API.Auth
+namespace OcelotApiGateway.Auth
 {
     [ApiController]
-    [Route("schedule/[controller]")]
+    [Route("[controller]")]
     public class TestController : ControllerBase
     {
         [HttpPost]
@@ -15,6 +15,7 @@ namespace Schedule.API.Auth
 
         [HttpGet]
         [Route("dec/{obj}")]
+        [Authorize]
         public IActionResult Decrypt(string obj)
         {
             return Ok(new JwtManager().Decode<UserToken>(obj));
