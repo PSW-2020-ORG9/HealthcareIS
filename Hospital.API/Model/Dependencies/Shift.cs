@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using General;
+using Hospital.API.Model.Resources;
 using Hospital.API.Model.Utilities;
 
 namespace Hospital.API.Model.Dependencies

@@ -113,8 +113,6 @@ namespace Hospital.API.Services.Resources
             );
         }
 
-
-
         public IEnumerable<EquipmentDto> GetEquipmentWithQuantityByType(string equipmentType)
         {
             Dictionary<int, EquipmentDto> allEquipment = new Dictionary<int, EquipmentDto>();
@@ -133,8 +131,7 @@ namespace Hospital.API.Services.Resources
         public bool RelocateEquipment(EquipmentRelocationDto eqRealDto)
         {
             List<EquipmentUnit> equipmentsInRoom = GetEquipmentByRoomIdAndType(eqRealDto.SourceRoomId, eqRealDto.EquipmentType).ToList();
-            if (CheckAmount(eqRealDto.Amount, eqRealDto.SourceRoomId, eqRealDto.EquipmentType) &&
-                CheckTimeInterval(eqRealDto.SourceRoomId, eqRealDto.DestinationRoomId, eqRealDto.timeInterval))
+            if (CheckAmount(eqRealDto.Amount, eqRealDto.SourceRoomId, eqRealDto.EquipmentType))
             {
                 MoveEquipmentUnits(eqRealDto, equipmentsInRoom);
                 return true;
@@ -162,26 +159,6 @@ namespace Hospital.API.Services.Resources
                     return false;
                 }
             }
-            return false;
-        }
-
-        private bool CheckTimeInterval(int sourceRoomId, int destinationRoomId, TimeInterval timeInterval)
-        {
-            if (CheckRoomAvailablity(sourceRoomId, timeInterval)
-                && CheckRoomAvailablity(destinationRoomId, timeInterval)) return true;
-            return false;
-        }
-
-
-        private bool CheckRoomAvailablity(int roomId, TimeInterval timeInterval)
-        {
-            /*foreach(Shift shift in _shiftRepository.Repository.GetAll())
-            {
-                if(shift.AssignedExamRoomId == roomId)
-                {
-                    if (shift.TimeInterval.Contains(timeInterval)) return true;
-                }
-            }*/
             return false;
         }
     }

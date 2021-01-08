@@ -12,6 +12,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\General\General.csproj" />
+      <ProjectReference Include="..\Schedule.API\Schedule.API.csproj" />
     </ItemGroup>
 
 

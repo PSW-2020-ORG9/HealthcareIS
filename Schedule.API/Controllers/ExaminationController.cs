@@ -7,6 +7,7 @@ using Schedule.API.Model.Filters;
 using Schedule.API.Model.Procedures.DTOs;
 using Schedule.API.Model.Recommendations;
 using Schedule.API.Services.Procedures;
+using Schedule.API.Services.Procedures.Interface;
 
 namespace Schedule.API.Controllers
 {
@@ -16,9 +17,9 @@ namespace Schedule.API.Controllers
     {
         private readonly ExaminationServiceProxy _examinationService;
         private readonly RecommendationService _recommendationService;
-        private readonly EquipmentRelocationSchedulingService _equipmentRelocationSchedulingService;
+        private readonly IEquipmentRelocationSchedulingService _equipmentRelocationSchedulingService;
 
-        public ExaminationController(ExaminationServiceProxy examinationService, RecommendationService recommendationService, EquipmentRelocationSchedulingService equipmentRelocationSchedulingService)
+        public ExaminationController(ExaminationServiceProxy examinationService, RecommendationService recommendationService, IEquipmentRelocationSchedulingService equipmentRelocationSchedulingService)
         {
             _examinationService = examinationService;
             _recommendationService = recommendationService;
