@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace OcelotApiGateway.Model.EventStore
+namespace EventStore.Model.EventStore
 {
     public class EventES
     {

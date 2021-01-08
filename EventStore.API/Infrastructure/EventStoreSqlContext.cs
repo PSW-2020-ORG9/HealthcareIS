@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using OcelotApiGateway.Model.EventStore;
+using EventStore.Model.EventStore;
 using System;
 
-namespace OcelotApiGateway.Model.Infrastructure
+namespace EventStore.Model.Infrastructure
 {
     public class EventStoreSqlContext : DbContext
     {

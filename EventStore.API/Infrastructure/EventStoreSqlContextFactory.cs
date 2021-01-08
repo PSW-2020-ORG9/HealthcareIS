@@ -1,7 +1,7 @@
 ﻿using General;
 using Microsoft.EntityFrameworkCore;
 
-namespace OcelotApiGateway.Model.Infrastructure
+namespace EventStore.Model.Infrastructure
 {
     public class EventStoreSqlContextFactory : IContextFactory
     {
