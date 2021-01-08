@@ -6,6 +6,7 @@ using General.Repository;
 using Hospital.API.Infrastructure.Repositories.Resources;
 using Hospital.API.DTOs;
 using Hospital.API.Model.Utilities;
+using Hospital.API.Model.Dependencies;
 
 namespace Hospital.API.Services.Resources
 {
@@ -135,15 +136,20 @@ namespace Hospital.API.Services.Resources
             if (CheckAmount(eqRealDto.Amount, eqRealDto.SourceRoomId, eqRealDto.EquipmentType) &&
                 CheckTimeInterval(eqRealDto.SourceRoomId, eqRealDto.DestinationRoomId, eqRealDto.timeInterval))
             {
-                for (int i = 0; i < eqRealDto.Amount; i++)
-                {
-                    equipmentsInRoom[i].CurrentLocation = null;
-                    equipmentsInRoom[i].CurrentLocationId = eqRealDto.DestinationRoomId;
-                    _equipmentUnitRepository.Repository.Update(equipmentsInRoom[i]);
-                }
+                MoveEquipmentUnits(eqRealDto, equipmentsInRoom);
                 return true;
             }
             return false;
+        }
+
+        private void MoveEquipmentUnits(EquipmentRelocationDto eqRealDto, List<EquipmentUnit> equipmentsInRoom)
+        {
+            for (int i = 0; i < eqRealDto.Amount; i++)
+            {
+                equipmentsInRoom[i].CurrentLocation = null;
+                equipmentsInRoom[i].CurrentLocationId = eqRealDto.DestinationRoomId;
+                _equipmentUnitRepository.Repository.Update(equipmentsInRoom[i]);
+            }
         }
 
         private bool CheckAmount(int amount, int sourceRoomId, string equipmentType)
@@ -161,22 +167,21 @@ namespace Hospital.API.Services.Resources
 
         private bool CheckTimeInterval(int sourceRoomId, int destinationRoomId, TimeInterval timeInterval)
         {
-            if (CheckSourceRoom(sourceRoomId, timeInterval)
-                && CheckDestinationRoom(destinationRoomId, timeInterval)) return true;
+            if (CheckRoomAvailablity(sourceRoomId, timeInterval)
+                && CheckRoomAvailablity(destinationRoomId, timeInterval)) return true;
             return false;
         }
 
 
-        private bool CheckSourceRoom(int sourceRoomId, TimeInterval timeInterval)
+        private bool CheckRoomAvailablity(int roomId, TimeInterval timeInterval)
         {
-            Room sourceRoom = _roomRepository.Repository.GetByID(sourceRoomId);
-
-            return false;
-        }
-
-        private bool CheckDestinationRoom(int destinationRoomId, TimeInterval timeInterval)
-        {
-            Room destinationRoom = _roomRepository.Repository.GetByID(destinationRoomId);
+            /*foreach(Shift shift in _shiftRepository.Repository.GetAll())
+            {
+                if(shift.AssignedExamRoomId == roomId)
+                {
+                    if (shift.TimeInterval.Contains(timeInterval)) return true;
+                }
+            }*/
             return false;
         }
     }

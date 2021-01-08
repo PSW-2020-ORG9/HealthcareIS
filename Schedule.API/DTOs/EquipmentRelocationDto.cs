@@ -1,4 +1,6 @@
-﻿namespace WPFHospitalEditor.DTOs
+﻿using Schedule.API.Model.Utilities;
+
+namespace Schedule.API.DTOs
 {
     public class EquipmentRelocationDto
     {

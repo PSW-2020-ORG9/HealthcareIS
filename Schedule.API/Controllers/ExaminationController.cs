@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
+using Schedule.API.DTOs;
 using Schedule.API.Mappers;
 using Schedule.API.Model.Exceptions;
 using Schedule.API.Model.Filters;
@@ -15,11 +16,13 @@ namespace Schedule.API.Controllers
     {
         private readonly ExaminationServiceProxy _examinationService;
         private readonly RecommendationService _recommendationService;
-        
-        public ExaminationController(ExaminationServiceProxy examinationService, RecommendationService recommendationService)
+        private readonly EquipmentRelocationSchedulingService _equipmentRelocationSchedulingService;
+
+        public ExaminationController(ExaminationServiceProxy examinationService, RecommendationService recommendationService, EquipmentRelocationSchedulingService equipmentRelocationSchedulingService)
         {
             _examinationService = examinationService;
             _recommendationService = recommendationService;
+            _equipmentRelocationSchedulingService = equipmentRelocationSchedulingService;
         }
 
         [HttpGet]
@@ -85,5 +88,12 @@ namespace Schedule.API.Controllers
         [Route("search/advanced")]
         public IActionResult AdvancedSearch(ExaminationAdvancedFilterDto dto)
             => Ok(_examinationService.Search(dto));
+
+        [HttpPost]
+        [Route("check-rooms")]
+        public IActionResult CheckRoomsAvailability(EquipmentRelocationDto dto)
+        {
+            return Ok(_equipmentRelocationSchedulingService.CheckRoomsAvailability(dto));
+        }
     }
 }
