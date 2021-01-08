@@ -2,6 +2,7 @@
 using System;
 using User.API.Model.Generalities;
 using User.API.Model.Locale;
+using User.API.Model.Promotions;
 using User.API.Model.Users.Employees.Doctors;
 using User.API.Model.Users.Patients;
 using User.API.Model.Users.Patients.MedicalHistory;
@@ -13,8 +14,8 @@ namespace User.API.Infrastructure
     public class UserSqlContext : DbContext
     {
         private readonly string _connectionString;
-        private readonly string db = "psw";
-        private readonly string pass = "password";
+        private readonly string db = "";
+        private readonly string pass = "";
         
         public UserSqlContext()
         {
@@ -29,6 +30,9 @@ namespace User.API.Infrastructure
         {
             optionsBuilder.UseMySql(_connectionString);
         }
+        // Promotions
+        public DbSet<Advertisement> Advertisements { get; set; }
+
         // Generalities
         public DbSet<Citizenship> Citizenships { get; set; }
         public DbSet<Person> Persons { get; set; }

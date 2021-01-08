@@ -7,12 +7,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using User.API.Infrastructure;
 using User.API.Infrastructure.Repositories.Locale;
+using User.API.Infrastructure.Repositories.Promotions;
 using User.API.Infrastructure.Repositories.Users.Employees;
 using User.API.Infrastructure.Repositories.Users.Patients;
 using User.API.Infrastructure.Repositories.Users.UserAccounts;
 using User.API.Services.EmployeeService;
 using User.API.Services.LocaleServices;
 using User.API.Services.PatientService;
+using User.API.Services.PromotionsService;
 using User.API.Services.RegistrationService;
 
 namespace User.API
@@ -45,7 +47,7 @@ namespace User.API
         {
             string server = Environment.GetEnvironmentVariable("DB_PSW_SERVER");
             string port = Environment.GetEnvironmentVariable("DB_PSW_PORT");
-            string database = testing ? "test_user" : "user";
+            string database = testing ? "test_user" : Environment.GetEnvironmentVariable("DB_PSW_USER_DATABASE");
             string user = Environment.GetEnvironmentVariable("DB_PSW_USER");
             string password = Environment.GetEnvironmentVariable("DB_PSW_PASSWORD");
             if (server == null
@@ -84,7 +86,11 @@ namespace User.API
             var patientRepository = new PatientSqlRepository(GetContextFactory());
             var patientAccountRepository = new PatientAccountSqlRepository(GetContextFactory());
             var registrationNotifier = new RegistrationNotifier(
-                        Environment.GetEnvironmentVariable("PSW_ACTIVATION_ENDPOINT"));
+                "http://" + 
+                Environment.GetEnvironmentVariable("PSW_API_GATEWAY_HOST") +
+                ":" + 
+                Environment.GetEnvironmentVariable("PSW_API_GATEWAY_PORT") +
+                "/api/patient/activate/");
 
             var patientAccountService = new PatientAccountService(patientAccountRepository);
             var patientRegistrationService = new PatientRegistrationService(patientAccountService, registrationNotifier);
@@ -94,10 +100,14 @@ namespace User.API
             var specialtyRepository = new SpecialtySqlRepository(GetContextFactory());
             var specialtyService = new SpecialtyService(specialtyRepository);
             
+            var advertisementRepository = new AdvertisementSqlRepository(GetContextFactory());
+            var advertisementService = new AdvertisementService(advertisementRepository);
+            
             services.Add(new ServiceDescriptor(typeof(IPatientAccountService), patientAccountService));
             services.Add(new ServiceDescriptor(typeof(IPatientRegistrationService), patientRegistrationService));
             services.Add(new ServiceDescriptor(typeof(PatientService), patientService));
             services.Add(new ServiceDescriptor(typeof(SpecialtyService),specialtyService));
+            services.Add(new ServiceDescriptor(typeof(AdvertisementService),advertisementService));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -17,7 +17,7 @@ namespace User.API.Services.RegistrationService
         };
         private readonly string _activationEndpoint;
 
-        public RegistrationNotifier() : this(Environment.GetEnvironmentVariable("PSW_ACTIVATION_ENDPOINT")) {   }
+        public RegistrationNotifier() : this("http://" + Environment.GetEnvironmentVariable("PSW_API_GATEWAY_HOST") + ":" + Environment.GetEnvironmentVariable("PSW_API_GATEWAY_PORT") + "/api/patient/activate/") {   }
 
         //TODO: Inject dynamicaly constructed activation endpoint string from web server
         public RegistrationNotifier(string activationEndpoint)
