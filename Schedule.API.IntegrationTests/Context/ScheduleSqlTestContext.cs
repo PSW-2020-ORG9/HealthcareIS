@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Schedule.API.DTOs;
 using Schedule.API.Infrastructure.Database;
+using Schedule.API.Model.Dependencies;
 using Schedule.API.Model.Procedures;
 using Schedule.API.Model.Shifts;
 using System;
@@ -21,7 +23,8 @@ namespace Schedule.API.IntegrationTests.Context
                 e.HasData(new Examination
                 {
                     Id = 1,
-                    PatientId = 1
+                    PatientId = 1,
+                    RoomId = 2
                 });
                 e.OwnsOne(x => x.TimeInterval).HasData(new
                 {
@@ -32,12 +35,36 @@ namespace Schedule.API.IntegrationTests.Context
                 e.HasData(new Examination
                 {
                     Id = 2,
+                    RoomId = 1
                 });
                 e.OwnsOne(x => x.TimeInterval).HasData(new
                 {
                     ExaminationId = 2,
                     Start = new DateTime(2022, 1, 1, 8, 0, 0),
                     End = new DateTime(2022, 1, 1, 8, 30, 0)
+                });
+                e.HasData(new Examination
+                {
+                    Id = 3,
+                    RoomId = 1
+                });
+                e.OwnsOne(x => x.TimeInterval).HasData(new
+                {
+                    ExaminationId = 3,
+                    Start = new DateTime(2022, 3, 3, 9, 0, 0),
+                    End = new DateTime(2022, 3, 3, 9, 30, 0)
+                });
+                e.HasData(new Examination
+                {
+                    Id = 4,
+                    PatientId = 1,
+                    RoomId = 5
+                });
+                e.OwnsOne(x => x.TimeInterval).HasData(new
+                {
+                    ExaminationId = 4,
+                    Start = new DateTime(2022, 2, 2, 8, 0, 0),
+                    End = new DateTime(2022, 2, 2, 8, 30, 0)
                 });
             });
             modelBuilder.Entity<Shift>(s =>

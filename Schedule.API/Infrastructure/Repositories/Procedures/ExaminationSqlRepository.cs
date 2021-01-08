@@ -18,7 +18,7 @@ namespace Schedule.API.Infrastructure.Repositories.Procedures
         {
             return query
                 .Include(examination => examination.ExaminationReport)
-                .Include(examination  => examination.ExaminationReport.Diagnoses);
+                .Include(examination => examination.ExaminationReport.Diagnoses);
         }
         
         public IEnumerable<Examination> GetByDoctorAndDates(Doctor doctor, IEnumerable<DateTime> dates)

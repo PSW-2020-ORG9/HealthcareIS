@@ -84,7 +84,7 @@ namespace Schedule.API
             // Diagnoses
             IDiagnosisRepository diagnosisRepository = new DiagnosisSqlRepository(GetContextFactory());
             IDiagnosisService diagnosisService = new DiagnosisService(diagnosisRepository);
-            IEquipmentRelocationSchedulingService equipmentRelocationService = new EquipmentRelocationSchedulingService(shiftRepository);
+            IEquipmentRelocationSchedulingService equipmentRelocationService = new EquipmentRelocationSchedulingService(examinationRepository);
 
             services.Add(new ServiceDescriptor(typeof(IEquipmentRelocationSchedulingService), equipmentRelocationService));
             services.Add(new ServiceDescriptor(typeof(IDiagnosisService), diagnosisService));

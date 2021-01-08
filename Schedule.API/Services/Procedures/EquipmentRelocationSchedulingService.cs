@@ -1,38 +1,38 @@
 ﻿using General.Repository;
 using Schedule.API.DTOs;
+using Schedule.API.Infrastructure.Repositories.Procedures.Interfaces;
 using Schedule.API.Infrastructure.Repositories.Shifts;
-using Schedule.API.Model.Dependencies;
-using Schedule.API.Model.Shifts;
+using Schedule.API.Model.Procedures;
 using Schedule.API.Services.Procedures.Interface;
 using System.Collections.Generic;
-
+using System.Linq;
 
 namespace Schedule.API.Services.Procedures
 {
     public class EquipmentRelocationSchedulingService : IEquipmentRelocationSchedulingService
     {
-        private readonly RepositoryWrapper<IShiftRepository> _shiftWrapper;
+        private readonly RepositoryWrapper<IExaminationRepository> _examinationWrapper;
 
-        public EquipmentRelocationSchedulingService(IShiftRepository shiftRepository)
+        public EquipmentRelocationSchedulingService(IExaminationRepository examinationRepository)
         {
-            this._shiftWrapper = new RepositoryWrapper<IShiftRepository>(shiftRepository);
+            this._examinationWrapper = new RepositoryWrapper<IExaminationRepository>(examinationRepository);
+
         }
 
-        public IEnumerable<Room> CheckRoomsAvailability(EquipmentRelocationDto eqRealDto)
+        public IEnumerable<int> CheckRoomsAvailability(EquipmentRelocationDto eqRealDto)
         {
-            List<Room> availableRooms = new List<Room>();
-            foreach (Shift shift in _shiftWrapper.Repository.GetAll())
+            List<int> unavailableRoomsIds = new List<int>();
+            List<Examination> relocationRoomsExaminations = _examinationWrapper.Repository
+                .GetMatching(e => e.RoomId == eqRealDto.SourceRoomId || e.RoomId == eqRealDto.DestinationRoomId).ToList();
+
+            foreach (Examination examination in relocationRoomsExaminations)
             {
-                if (shift.AssignedExamRoomId == eqRealDto.SourceRoomId
-                    || shift.AssignedExamRoomId == eqRealDto.DestinationRoomId)
+                if (eqRealDto.TimeInterval.Overlaps(examination.TimeInterval))
                 {
-                    if (!shift.TimeInterval.Contains(eqRealDto.TimeInterval))
-                    {
-                        availableRooms.Add(shift.AssignedExamRoom);
-                    }
+                    unavailableRoomsIds.Add(examination.RoomId);
                 }
             }
-            return availableRooms;
+            return unavailableRoomsIds;
         }
     }
 }
