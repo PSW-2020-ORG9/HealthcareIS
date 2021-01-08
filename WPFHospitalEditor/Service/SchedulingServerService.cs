@@ -3,6 +3,7 @@ using RestSharp;
 using System;
 using System.Collections.Generic;
 using WPFHospitalEditor.DTOs;
+using WPFHospitalEditor.Model;
 using WPFHospitalEditor.Service.Interface;
 
 namespace WPFHospitalEditor.Service
@@ -22,5 +23,6 @@ namespace WPFHospitalEditor.Service
         {
             return JsonConvert.SerializeObject(recDto);
         }
+
     }
 }
