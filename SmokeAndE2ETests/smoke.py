@@ -22,9 +22,9 @@ def smoke(url, arch_node):
 
 
 if __name__ == "__main__":
-    smoke(os.environ['ASPNET_PROTOCOL'] + '://' + os.environ['PSW_FEEDBACK_SERVICE_HOST'] + ('PSW_FEEDBACK_SERVICE_PORT' in os.environ.keys() ? (':' + os.environ['PSW_FEEDBACK_SERVICE_PORT']) : '') + '/feedbacks/feedback/published', "feedback microservice")
-    smoke(os.environ['ASPNET_PROTOCOL'] + '://' + os.environ['PSW_HOSPITAL_SERVICE_HOST'] + ('PSW_HOSPITAL_SERVICE_PORT' in os.environ.keys() ? (':' + os.environ['PSW_HOSPITAL_SERVICE_PORT']) : '') + '/hospital/medication/', "hospital microservice")
-    smoke(os.environ['ASPNET_PROTOCOL'] + '://' + os.environ['PSW_SCHEDULE_SERVICE_HOST'] + ('PSW_SCHEDULE_SERVICE_PORT' in os.environ.keys() ? (':' + os.environ['PSW_SCHEDULE_SERVICE_PORT']) : '') + '/schedule/examination/patient/1', "schedule microservice")
-    smoke(os.environ['ASPNET_PROTOCOL'] + '://' + os.environ['PSW_USER_SERVICE_HOST'] + ('PSW_USER_SERVICE_PORT' in os.environ.keys() ? (':' + os.environ['PSW_USER_SERVICE_PORT']) : '') + '/user/country', "user microservice")
-    smoke(os.environ['ASPNET_PROTOCOL'] + '://' + os.environ['PSW_API_GATEWAY_HOST'] + ('PSW_API_GATEWAY_PORT' in os.environ.keys() ? (':' + os.environ['PSW_API_GATEWAY_PORT']) : '') + '/api/user/city/by-country/1', "ocelot (asp.net) with database")
-    smoke(os.environ['ASPNET_PROTOCOL'] + '://' + os.environ['PSW_WEB_FRONTEND_PUBLISH_HOST'] + ('PSW_WEB_FRONTEND_PUBLISH_PORT' in os.environ.keys() ? (':' + os.environ['PSW_WEB_FRONTEND_PUBLISH_PORT']) : '') + '/', "frontend")
+    smoke(os.environ['ASPNET_PROTOCOL'] + '://' + os.environ['PSW_FEEDBACK_SERVICE_HOST'] + ((':' + os.environ['PSW_FEEDBACK_SERVICE_PORT']) if 'PSW_FEEDBACK_SERVICE_PORT' in os.environ.keys() else '') + '/feedbacks/feedback/published', "feedback microservice")
+    smoke(os.environ['ASPNET_PROTOCOL'] + '://' + os.environ['PSW_HOSPITAL_SERVICE_HOST'] + ((':' + os.environ['PSW_HOSPITAL_SERVICE_PORT']) if 'PSW_HOSPITAL_SERVICE_PORT' in os.environ.keys() else '') + '/hospital/medication/', "hospital microservice")
+    smoke(os.environ['ASPNET_PROTOCOL'] + '://' + os.environ['PSW_SCHEDULE_SERVICE_HOST'] + ((':' + os.environ['PSW_SCHEDULE_SERVICE_PORT']) if 'PSW_SCHEDULE_SERVICE_PORT' in os.environ.keys() else '') + '/schedule/examination/patient/1', "schedule microservice")
+    smoke(os.environ['ASPNET_PROTOCOL'] + '://' + os.environ['PSW_USER_SERVICE_HOST'] + ((':' + os.environ['PSW_USER_SERVICE_PORT']) if 'PSW_USER_SERVICE_PORT' in os.environ.keys() else '') + '/user/country', "user microservice")
+    smoke(os.environ['ASPNET_PROTOCOL'] + '://' + os.environ['PSW_API_GATEWAY_HOST'] + ((':' + os.environ['PSW_API_GATEWAY_PORT']) if 'PSW_API_GATEWAY_PORT' in os.environ.keys() else '') + '/api/user/city/by-country/1', "ocelot (asp.net) with database")
+    smoke(os.environ['ASPNET_PROTOCOL'] + '://' + os.environ['PSW_WEB_FRONTEND_PUBLISH_HOST'] + ((':' + os.environ['PSW_WEB_FRONTEND_PUBLISH_PORT']) if 'PSW_WEB_FRONTEND_PUBLISH_PORT' in os.environ.keys() else '') + '/', "frontend")
