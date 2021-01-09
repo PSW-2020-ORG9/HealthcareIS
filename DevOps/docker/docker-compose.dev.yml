@@ -6,7 +6,7 @@ services:
     container_name: db
     environment:
       - MYSQL_ROOT_PASSWORD=${DB_PSW_PASSWORD}
-      - MYSQL_DATABASE: test
+      - MYSQL_DATABASE=test
     ports:
       - 3306:3306
       - 33060:33060
