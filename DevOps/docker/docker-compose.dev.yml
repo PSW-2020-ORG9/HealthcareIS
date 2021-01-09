@@ -1,60 +1,201 @@
 version: "3.8"
+
 services:
   mysql:
-    build:
-      context: ../../HealthcareBase
-      dockerfile: DBDockerfile
-    container_name: mysql
-    networks:
-      - network
+    image: mysql
+    container_name: db
     environment:
-      MYSQL_ROOT_PASSWORD: NOVISADSTAGOD
-      MYSQL_DATABASE: clinic
+      - MYSQL_ROOT_PASSWORD=${DB_PSW_PASSWORD}
+      - MYSQL_DATABASE: test
     ports:
       - 3306:3306
       - 33060:33060
 
-  web:
+  user_api:
     build:
-      context: ../../HospitalWebApp/bin
-      dockerfile: AspNetDockerfile
-    container_name: webapp
+      context: ../../User.API/bin/Debug/netcoreapp3.1/publish/
+      dockerfile: ../../../../../DevOps/docker/AspNetDockerfile
+    container_name: user-api
     restart: on-failure
-    networks:
-      - network
+    environment: 
+      - DB_PSW_TEST_DATABASE=${DB_PSW_TEST_DATABASE}
+      - DB_PSW_SERVER=${DB_PSW_SERVER}
+      - DB_PSW_PORT=${DB_PSW_PORT}
+      - DB_PSW_USER=${DB_PSW_USER}
+      - DB_PSW_PASSWORD=${DB_PSW_PASSWORD}
+      - DB_PSW_FEEDBACK_DATABASE=${DB_PSW_FEEDBACK_DATABASE}
+      - DB_PSW_USER_DATABASE=${DB_PSW_USER_DATABASE}
+      - DB_PSW_SCHEDULE_DATABASE=${DB_PSW_SCHEDULE_DATABASE}
+      - DB_PSW_HOSPITAL_DATABASE=${DB_PSW_HOSPITAL_DATABASE}
+      - DB_PSW_EVENT_STORE_DATABASE=${DB_PSW_EVENT_STORE_DATABASE}
+      - PSW_SMTP_HOST_SERVER=${PSW_SMTP_HOST_SERVER}
+      - PSW_SMTP_SSL_PORT=${PSW_SMTP_SSL_PORT}
+      - PSW_EMAIL_USERNAME=${PSW_EMAIL_USERNAME}
+      - PSW_EMAIL_PASSWORD=${PSW_EMAIL_PASSWORD}
+      - PSW_FEEDBACK_SERVICE_HOST=${PSW_FEEDBACK_SERVICE_HOST}
+      - PSW_FEEDBACK_SERVICE_PORT=${PSW_FEEDBACK_SERVICE_PORT}
+      - PSW_USER_SERVICE_HOST=${PSW_USER_SERVICE_HOST}
+      - PSW_USER_SERVICE_PORT=${PSW_USER_SERVICE_PORT}
+      - PSW_HOSPITAL_SERVICE_HOST=${PSW_HOSPITAL_SERVICE_HOST}
+      - PSW_HOSPITAL_SERVICE_PORT=${PSW_HOSPITAL_SERVICE_PORT}
+      - PSW_SCHEDULE_SERVICE_HOST=${PSW_SCHEDULE_SERVICE_HOST}
+      - PSW_SCHEDULE_SERVICE_PORT=${PSW_SCHEDULE_SERVICE_PORT}
+      - PSW_API_GATEWAY_HOST=${PSW_API_GATEWAY_HOST}
+      - PSW_API_GATEWAY_PORT=${PSW_API_GATEWAY_PORT}
     ports:
-      - 5000:80
-    environment:
-      DB_PSW_SERVER: mysql
-      DB_PSW_DATABASE: clinic
-      DB_PSW_USER: root
-      DB_PSW_PASSWORD: NOVISADSTAGOD
-      DB_PSW_PORT: 3306
-      PSW_ACTIVATION_ENDPOINT: http://localhost/patient/activate/
-      PSW_SMTP_HOST_SERVER: smtp.gmail.com
-      PSW_SMTP_SSL_PORT: 587
-      PSW_EMAIL_USERNAME: psw.healthcareis.info@gmail.com
-      PSW_EMAIL_PASSWORD: healthcareis
-      ASPNETCORE_URLS: http://*:$PORT
-      PORT: 80
+      - 5003:5003
     depends_on:
       - mysql
+
+  hospital_api:
+    build:
+      context: ../../Hospital.API/bin/Debug/netcoreapp3.1/publish/
+      dockerfile: ../../../../../DevOps/docker/AspNetDockerfile
+    container_name: hospital-api
+    restart: on-failure
+    environment: 
+      - DB_PSW_TEST_DATABASE=${DB_PSW_TEST_DATABASE}
+      - DB_PSW_SERVER=${DB_PSW_SERVER}
+      - DB_PSW_PORT=${DB_PSW_PORT}
+      - DB_PSW_USER=${DB_PSW_USER}
+      - DB_PSW_PASSWORD=${DB_PSW_PASSWORD}
+      - DB_PSW_FEEDBACK_DATABASE=${DB_PSW_FEEDBACK_DATABASE}
+      - DB_PSW_USER_DATABASE=${DB_PSW_USER_DATABASE}
+      - DB_PSW_SCHEDULE_DATABASE=${DB_PSW_SCHEDULE_DATABASE}
+      - DB_PSW_HOSPITAL_DATABASE=${DB_PSW_HOSPITAL_DATABASE}
+      - DB_PSW_EVENT_STORE_DATABASE=${DB_PSW_EVENT_STORE_DATABASE}
+      - PSW_SMTP_HOST_SERVER=${PSW_SMTP_HOST_SERVER}
+      - PSW_SMTP_SSL_PORT=${PSW_SMTP_SSL_PORT}
+      - PSW_EMAIL_USERNAME=${PSW_EMAIL_USERNAME}
+      - PSW_EMAIL_PASSWORD=${PSW_EMAIL_PASSWORD}
+      - PSW_FEEDBACK_SERVICE_HOST=${PSW_FEEDBACK_SERVICE_HOST}
+      - PSW_FEEDBACK_SERVICE_PORT=${PSW_FEEDBACK_SERVICE_PORT}
+      - PSW_USER_SERVICE_HOST=${PSW_USER_SERVICE_HOST}
+      - PSW_USER_SERVICE_PORT=${PSW_USER_SERVICE_PORT}
+      - PSW_HOSPITAL_SERVICE_HOST=${PSW_HOSPITAL_SERVICE_HOST}
+      - PSW_HOSPITAL_SERVICE_PORT=${PSW_HOSPITAL_SERVICE_PORT}
+      - PSW_SCHEDULE_SERVICE_HOST=${PSW_SCHEDULE_SERVICE_HOST}
+      - PSW_SCHEDULE_SERVICE_PORT=${PSW_SCHEDULE_SERVICE_PORT}
+      - PSW_API_GATEWAY_HOST=${PSW_API_GATEWAY_HOST}
+      - PSW_API_GATEWAY_PORT=${PSW_API_GATEWAY_PORT}
+    ports:
+      - 5001:5001
+    depends_on:
+      - mysql
+
+  schedule_api:
+    build:
+      context: ../../Schedule.API/bin/Debug/netcoreapp3.1/publish/
+      dockerfile: ../../../../../DevOps/docker/AspNetDockerfile
+    container_name: schedule-api
+    restart: on-failure
+    environment: 
+      - DB_PSW_TEST_DATABASE=${DB_PSW_TEST_DATABASE}
+      - DB_PSW_SERVER=${DB_PSW_SERVER}
+      - DB_PSW_PORT=${DB_PSW_PORT}
+      - DB_PSW_USER=${DB_PSW_USER}
+      - DB_PSW_PASSWORD=${DB_PSW_PASSWORD}
+      - DB_PSW_FEEDBACK_DATABASE=${DB_PSW_FEEDBACK_DATABASE}
+      - DB_PSW_USER_DATABASE=${DB_PSW_USER_DATABASE}
+      - DB_PSW_SCHEDULE_DATABASE=${DB_PSW_SCHEDULE_DATABASE}
+      - DB_PSW_HOSPITAL_DATABASE=${DB_PSW_HOSPITAL_DATABASE}
+      - DB_PSW_EVENT_STORE_DATABASE=${DB_PSW_EVENT_STORE_DATABASE}
+      - PSW_SMTP_HOST_SERVER=${PSW_SMTP_HOST_SERVER}
+      - PSW_SMTP_SSL_PORT=${PSW_SMTP_SSL_PORT}
+      - PSW_EMAIL_USERNAME=${PSW_EMAIL_USERNAME}
+      - PSW_EMAIL_PASSWORD=${PSW_EMAIL_PASSWORD}
+      - PSW_FEEDBACK_SERVICE_HOST=${PSW_FEEDBACK_SERVICE_HOST}
+      - PSW_FEEDBACK_SERVICE_PORT=${PSW_FEEDBACK_SERVICE_PORT}
+      - PSW_USER_SERVICE_HOST=${PSW_USER_SERVICE_HOST}
+      - PSW_USER_SERVICE_PORT=${PSW_USER_SERVICE_PORT}
+      - PSW_HOSPITAL_SERVICE_HOST=${PSW_HOSPITAL_SERVICE_HOST}
+      - PSW_HOSPITAL_SERVICE_PORT=${PSW_HOSPITAL_SERVICE_PORT}
+      - PSW_SCHEDULE_SERVICE_HOST=${PSW_SCHEDULE_SERVICE_HOST}
+      - PSW_SCHEDULE_SERVICE_PORT=${PSW_SCHEDULE_SERVICE_PORT}
+      - PSW_API_GATEWAY_HOST=${PSW_API_GATEWAY_HOST}
+      - PSW_API_GATEWAY_PORT=${PSW_API_GATEWAY_PORT}
+    ports:
+      - 5004:5004
+    depends_on:
+      - mysql
+
+  feedback_api:
+    build:
+      context: ../../Feedback.API/bin/Debug/netcoreapp3.1/publish/
+      dockerfile: ../../../../../DevOps/docker/AspNetDockerfile
+    container_name: feedback-api
+    restart: on-failure
+    environment: 
+      - DB_PSW_TEST_DATABASE=${DB_PSW_TEST_DATABASE}
+      - DB_PSW_SERVER=${DB_PSW_SERVER}
+      - DB_PSW_PORT=${DB_PSW_PORT}
+      - DB_PSW_USER=${DB_PSW_USER}
+      - DB_PSW_PASSWORD=${DB_PSW_PASSWORD}
+      - DB_PSW_FEEDBACK_DATABASE=${DB_PSW_FEEDBACK_DATABASE}
+      - DB_PSW_USER_DATABASE=${DB_PSW_USER_DATABASE}
+      - DB_PSW_SCHEDULE_DATABASE=${DB_PSW_SCHEDULE_DATABASE}
+      - DB_PSW_HOSPITAL_DATABASE=${DB_PSW_HOSPITAL_DATABASE}
+      - DB_PSW_EVENT_STORE_DATABASE=${DB_PSW_EVENT_STORE_DATABASE}
+      - PSW_SMTP_HOST_SERVER=${PSW_SMTP_HOST_SERVER}
+      - PSW_SMTP_SSL_PORT=${PSW_SMTP_SSL_PORT}
+      - PSW_EMAIL_USERNAME=${PSW_EMAIL_USERNAME}
+      - PSW_EMAIL_PASSWORD=${PSW_EMAIL_PASSWORD}
+      - PSW_FEEDBACK_SERVICE_HOST=${PSW_FEEDBACK_SERVICE_HOST}
+      - PSW_FEEDBACK_SERVICE_PORT=${PSW_FEEDBACK_SERVICE_PORT}
+      - PSW_USER_SERVICE_HOST=${PSW_USER_SERVICE_HOST}
+      - PSW_USER_SERVICE_PORT=${PSW_USER_SERVICE_PORT}
+      - PSW_HOSPITAL_SERVICE_HOST=${PSW_HOSPITAL_SERVICE_HOST}
+      - PSW_HOSPITAL_SERVICE_PORT=${PSW_HOSPITAL_SERVICE_PORT}
+      - PSW_SCHEDULE_SERVICE_HOST=${PSW_SCHEDULE_SERVICE_HOST}
+      - PSW_SCHEDULE_SERVICE_PORT=${PSW_SCHEDULE_SERVICE_PORT}
+      - PSW_API_GATEWAY_HOST=${PSW_API_GATEWAY_HOST}
+      - PSW_API_GATEWAY_PORT=${PSW_API_GATEWAY_PORT}
+    ports:
+      - 5002:5002
+    depends_on:
+      - mysql
+
+  ocelot_api_gateway:
+    build:
+      context: ../../OcelotApiGateway/bin/Debug/netcoreapp3.1/publish/
+      dockerfile: ../../../../../DevOps/docker/AspNetDockerfile
+    container_name: ocelot-api-gateway
+    restart: on-failure
+    environment: 
+      - DB_PSW_TEST_DATABASE=${DB_PSW_TEST_DATABASE}
+      - DB_PSW_SERVER=${DB_PSW_SERVER}
+      - DB_PSW_PORT=${DB_PSW_PORT}
+      - DB_PSW_USER=${DB_PSW_USER}
+      - DB_PSW_PASSWORD=${DB_PSW_PASSWORD}
+      - DB_PSW_FEEDBACK_DATABASE=${DB_PSW_FEEDBACK_DATABASE}
+      - DB_PSW_USER_DATABASE=${DB_PSW_USER_DATABASE}
+      - DB_PSW_SCHEDULE_DATABASE=${DB_PSW_SCHEDULE_DATABASE}
+      - DB_PSW_HOSPITAL_DATABASE=${DB_PSW_HOSPITAL_DATABASE}
+      - DB_PSW_EVENT_STORE_DATABASE=${DB_PSW_EVENT_STORE_DATABASE}
+      - PSW_SMTP_HOST_SERVER=${PSW_SMTP_HOST_SERVER}
+      - PSW_SMTP_SSL_PORT=${PSW_SMTP_SSL_PORT}
+      - PSW_EMAIL_USERNAME=${PSW_EMAIL_USERNAME}
+      - PSW_EMAIL_PASSWORD=${PSW_EMAIL_PASSWORD}
+      - PSW_FEEDBACK_SERVICE_HOST=${PSW_FEEDBACK_SERVICE_HOST}
+      - PSW_FEEDBACK_SERVICE_PORT=${PSW_FEEDBACK_SERVICE_PORT}
+      - PSW_USER_SERVICE_HOST=${PSW_USER_SERVICE_HOST}
+      - PSW_USER_SERVICE_PORT=${PSW_USER_SERVICE_PORT}
+      - PSW_HOSPITAL_SERVICE_HOST=${PSW_HOSPITAL_SERVICE_HOST}
+      - PSW_HOSPITAL_SERVICE_PORT=${PSW_HOSPITAL_SERVICE_PORT}
+      - PSW_SCHEDULE_SERVICE_HOST=${PSW_SCHEDULE_SERVICE_HOST}
+      - PSW_SCHEDULE_SERVICE_PORT=${PSW_SCHEDULE_SERVICE_PORT}
+      - PSW_API_GATEWAY_HOST=${PSW_API_GATEWAY_HOST}
+      - PSW_API_GATEWAY_PORT=${PSW_API_GATEWAY_PORT}
+    ports:
+      - 5000:5000
 
   nginx:
     build:
       context: ../../HospitalFrontend
-      dockerfile: FrontDockerfile
+      dockerfile: ../DevOps/docker/FrontDockerfile
     container_name: front
     environment:
       PORT: 80
-    networks:
-      - network
     ports:
       - 8080:80
     restart: always
-
-
-networks:
-  network:
-    name: network
-    driver: bridge
