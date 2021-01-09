@@ -18,24 +18,10 @@ namespace User.API.Controllers
         }
 
         [HttpPost]
-        [Route("login/patient")]
-        public IActionResult LoginPatient(LoginCredentials credentials)
+        [Route("login")]
+        public IActionResult Login(LoginCredentials credentials)
         {
-            string authToken = _credentialsService.LoginPatient(credentials);
-            if (authToken != default)
-            {
-                AttackAuthTokenToResponse(HttpContext.Response, authToken);
-                return Ok();
-            }
-
-            return BadRequest("Failed to login.");
-        }
-
-        [HttpPost]
-        [Route("login/doctor")]
-        public IActionResult LoginDoctor(LoginCredentials credentials)
-        {
-            string authToken = _credentialsService.LoginDoctor(credentials);
+            string authToken = _credentialsService.Login(credentials);
             if (authToken != default)
             {
                 AttackAuthTokenToResponse(HttpContext.Response, authToken);

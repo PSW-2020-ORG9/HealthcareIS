@@ -18,6 +18,9 @@
 </template>
 
 <script>
+import axios from 'axios';
+import api from "../constant/api";
+
 export default {
     data: function () {
         return {
@@ -25,8 +28,18 @@ export default {
             password: ''
         }
     },
-    login: function () {
-        // users
+    methods : {
+        login: function () {
+            axios.post(api.patientLoginUrl, {
+                email : this.email,
+                password : this.password
+            })
+            .then(response => {
+                console.log(response)
+              axios.get(api.countries)
+            })
+            .catch();
+        }
     }
 }
 </script>

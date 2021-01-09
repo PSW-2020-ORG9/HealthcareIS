@@ -53,7 +53,6 @@ namespace User.API.Infrastructure
         public DbSet<Allergy> Allergies { get; set; }
 
         public DbSet<PatientAccount> PatientAccounts { get; set; }
-        public DbSet<DoctorAccount> DoctorAccounts { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -105,11 +104,6 @@ namespace User.API.Infrastructure
             // User account hierarchy
             modelBuilder.Entity<PatientAccount>()
                 .OwnsOne(ua => ua.Credentials);
-            modelBuilder.Entity<DoctorAccount>()
-                .OwnsOne(ua => ua.Credentials);
-            
-            modelBuilder.Entity<DoctorAccount>()
-                .HasOne(da => da.Doctor);
             modelBuilder.Entity<PatientAccount>()
                 .HasOne(pa => pa.Patient);
 
