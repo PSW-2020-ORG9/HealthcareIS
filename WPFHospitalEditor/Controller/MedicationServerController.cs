@@ -1,5 +1,5 @@
-﻿using HealthcareBase.Dto;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using WPFHospitalEditor.DTOs;
 using WPFHospitalEditor.Service;
 
 namespace WPFHospitalEditor.Controller

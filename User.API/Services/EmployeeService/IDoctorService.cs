@@ -8,5 +8,6 @@ namespace User.API.Services.EmployeeService
     {
         IEnumerable<Doctor> GetAll();
         IEnumerable<DoctorDTO> GetDoctorsByDepartment(int departmentId);
+        IEnumerable<DoctorDTO> GetAllSpecialists();
     }
 }

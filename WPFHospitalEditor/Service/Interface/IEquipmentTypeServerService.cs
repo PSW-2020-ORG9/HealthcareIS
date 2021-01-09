@@ -1,5 +1,5 @@
-﻿using HealthcareBase.Dto;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using WPFHospitalEditor.DTOs;
 
 namespace WPFHospitalEditor.Service.Interface
 {

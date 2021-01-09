@@ -22,6 +22,7 @@ namespace User.API.Services.EmployeeService
     public class DoctorService : IDoctorService
     {
         private readonly RepositoryWrapper<IDoctorRepository> _doctorRepository;
+        private const int REGULAR_DOCTOR_DEPARTMENT_ID = 1;
 
         public DoctorService(IDoctorRepository doctorRepository)
         {
@@ -94,6 +95,20 @@ namespace User.API.Services.EmployeeService
                 selection:
                 doctor => doctor.Id
             );
+        }
+
+        public IEnumerable<DoctorDTO> GetAllSpecialists()
+        {
+            return _doctorRepository.Repository.GetColumnsForMatching(
+                condition: doctor => doctor.DepartmentId != REGULAR_DOCTOR_DEPARTMENT_ID,
+                selection: doctor => new DoctorDTO()
+                {
+                    Name = doctor.Person.Name,
+                    Surname = doctor.Person.Surname,
+                    DoctorId = doctor.Id,
+                    DepartmentName = doctor.Department.Name
+                }
+                );
         }
     }
 }

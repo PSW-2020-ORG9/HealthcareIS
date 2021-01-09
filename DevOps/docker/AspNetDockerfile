@@ -1,6 +1,6 @@
 FROM mcr.microsoft.com/dotnet/aspnet:3.1
 WORKDIR /app
-COPY Publish .
+COPY . .
 EXPOSE 80
 EXPOSE 443
-ENTRYPOINT ["dotnet", "HospitalWebApp.dll"]
+ENTRYPOINT [ "dotnet", "App.dll" ]

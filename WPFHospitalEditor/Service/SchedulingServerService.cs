@@ -1,9 +1,8 @@
-﻿using HealthcareBase.Model.Schedule.SchedulingPreferences;
-using HospitalWebApp.Dtos;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using RestSharp;
 using System;
 using System.Collections.Generic;
+using WPFHospitalEditor.DTOs;
 using WPFHospitalEditor.Service.Interface;
 
 namespace WPFHospitalEditor.Service
@@ -13,7 +12,7 @@ namespace WPFHospitalEditor.Service
         public List<RecommendationDto> GetAppointments(RecommendationRequestDto recDto)
         {
             var client = new RestClient(AllConstants.ConnectionUrl);
-            var request = new RestRequest("Examination/recommend", Method.POST);
+            var request = new RestRequest("/api/schedule/examination/recommend", Method.POST);
             request.AddJsonBody(RecommendationDtoToJson(recDto));
             var response = client.Post<List<RecommendationDto>>(request);
             return response.Data;

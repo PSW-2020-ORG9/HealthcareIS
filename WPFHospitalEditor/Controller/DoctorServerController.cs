@@ -1,7 +1,7 @@
-﻿using HealthcareBase.Model.Users.Employee.Doctors;
-using HealthcareBase.Model.Users.Employee.Doctors.DTOs;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using WPFHospitalEditor.Controller.Interface;
+using WPFHospitalEditor.DTOs;
+using WPFHospitalEditor.Model;
 using WPFHospitalEditor.Service;
 using WPFHospitalEditor.Service.Interface;
 

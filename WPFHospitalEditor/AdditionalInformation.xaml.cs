@@ -4,7 +4,6 @@ using System.Windows.Media;
 using WPFHospitalEditor.MapObjectModel;
 using WPFHospitalEditor.Service;
 using WPFHospitalEditor.Controller;
-using HealthcareBase.Dto;
 using System.Linq;
 using System;
 using WPFHospitalEditor.Controller.Interface;

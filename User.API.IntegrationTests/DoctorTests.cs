@@ -37,7 +37,7 @@ namespace User.API.IntegrationTests
         public async void Gets_doctor_by_department()
         {
             var client = _factory.CreateClient();
-            var response = await client.GetAsync("user/doctor/department/1");
+            var response = await client.GetAsync("user/doctor/departments/1");
             string responseString = await response.Content.ReadAsStringAsync();
 
             Assert.Contains("\"doctorId\":1", responseString);

@@ -46,7 +46,7 @@ namespace Schedule.API
         {
             string server = Environment.GetEnvironmentVariable("DB_PSW_SERVER");
             string port = Environment.GetEnvironmentVariable("DB_PSW_PORT");
-            string database = testing ? "test_schedule" : "schedule";
+            string database = testing ? "test_schedule" : Environment.GetEnvironmentVariable("DB_PSW_SCHEDULE_DATABASE");
             string user = Environment.GetEnvironmentVariable("DB_PSW_USER");
             string password = Environment.GetEnvironmentVariable("DB_PSW_PASSWORD");
             if (server == null

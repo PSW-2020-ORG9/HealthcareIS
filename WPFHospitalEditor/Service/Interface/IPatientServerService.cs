@@ -1,5 +1,5 @@
-﻿using HealthcareBase.Model.Users.Patient;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using WPFHospitalEditor.Model;
 
 namespace WPFHospitalEditor.Service.Interface
 {

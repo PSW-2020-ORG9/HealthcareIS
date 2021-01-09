@@ -4,6 +4,9 @@ pr: none
 
 pool:
   vmImage: 'ubuntu-16.04'
+
+
+
 steps:
 - task: DownloadBuildArtifacts@0
   displayName: 'Download CI Build Artifacts'
@@ -16,40 +19,104 @@ steps:
     downloadType: 'specific'
     downloadPath: '$(System.ArtifactsDirectory)'
 
+
 - task: Docker@2
-  displayName: 'Docker build pswdb'
-  inputs:
-    containerRegistry: psw
-    repository: fmaster/pswdb
-    command: build
-    Dockerfile: DevOps/docker/DBDockerfile
-    buildContext: '$(System.ArtifactsDirectory)/dropdb'
-    tags: latest
-    addPipelineData: false
-- task: Docker@2
-  displayName: 'Docker build pswaspnet'
+  displayName: 'Docker build pswaspnet feedback'
   inputs:
     containerRegistry: 'psw'
     repository: 'fmaster/pswaspnet'
     command: 'build'
     Dockerfile: 'DevOps/docker/AspNetDockerfile'
-    buildContext: '$(System.ArtifactsDirectory)/dropweb'
-    tags: 'latest'
+    buildContext: '$(System.ArtifactsDirectory)/dropfeedback'
+    tags: 'feedback'
     addPipelineData: false
 
 - task: Docker@2
-  displayName: 'Docker push pswdb'
+  displayName: 'Docker build pswaspnet hospital'
   inputs:
-    containerRegistry: psw
-    repository: fmaster/pswdb
-    command: push
-    tags: latest
+    containerRegistry: 'psw'
+    repository: 'fmaster/pswaspnet'
+    command: 'build'
+    Dockerfile: 'DevOps/docker/AspNetDockerfile'
+    buildContext: '$(System.ArtifactsDirectory)/drophospital'
+    tags: 'hospital'
     addPipelineData: false
+
 - task: Docker@2
-  displayName: 'Docker push pswaspnet'
+  displayName: 'Docker build pswaspnet schedule'
+  inputs:
+    containerRegistry: 'psw'
+    repository: 'fmaster/pswaspnet'
+    command: 'build'
+    Dockerfile: 'DevOps/docker/AspNetDockerfile'
+    buildContext: '$(System.ArtifactsDirectory)/dropschedule'
+    tags: 'schedule'
+    addPipelineData: false
+
+- task: Docker@2
+  displayName: 'Docker build pswaspnet user'
+  inputs:
+    containerRegistry: 'psw'
+    repository: 'fmaster/pswaspnet'
+    command: 'build'
+    Dockerfile: 'DevOps/docker/AspNetDockerfile'
+    buildContext: '$(System.ArtifactsDirectory)/dropuser'
+    tags: 'user'
+    addPipelineData: false
+
+- task: Docker@2
+  displayName: 'Docker build pswaspnet ocelot'
+  inputs:
+    containerRegistry: 'psw'
+    repository: 'fmaster/pswaspnet'
+    command: 'build'
+    Dockerfile: 'DevOps/docker/AspNetDockerfile'
+    buildContext: '$(System.ArtifactsDirectory)/dropocelot'
+    tags: 'ocelot'
+    addPipelineData: false
+
+
+- task: Docker@2
+  displayName: 'Docker push pswaspnet feedback'
   inputs:
     containerRegistry: 'psw'
     repository: 'fmaster/pswaspnet'
     command: 'push'
-    tags: 'latest'
+    tags: 'feedback'
+    addPipelineData: false
+
+- task: Docker@2
+  displayName: 'Docker push pswaspnet hospital'
+  inputs:
+    containerRegistry: 'psw'
+    repository: 'fmaster/pswaspnet'
+    command: 'push'
+    tags: 'hospital'
+    addPipelineData: false
+
+- task: Docker@2
+  displayName: 'Docker push pswaspnet schedule'
+  inputs:
+    containerRegistry: 'psw'
+    repository: 'fmaster/pswaspnet'
+    command: 'push'
+    tags: 'schedule'
+    addPipelineData: false
+
+- task: Docker@2
+  displayName: 'Docker push pswaspnet user'
+  inputs:
+    containerRegistry: 'psw'
+    repository: 'fmaster/pswaspnet'
+    command: 'push'
+    tags: 'user'
+    addPipelineData: false
+
+- task: Docker@2
+  displayName: 'Docker push pswaspnet ocelot'
+  inputs:
+    containerRegistry: 'psw'
+    repository: 'fmaster/pswaspnet'
+    command: 'push'
+    tags: 'ocelot'
     addPipelineData: false
