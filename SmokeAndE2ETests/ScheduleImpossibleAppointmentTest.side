@@ -1,11 +1,11 @@
 {
   "id": "9ab76a6e-a415-44e2-bec9-5e72e5b53223",
   "version": "2.0",
-  "name": "E2ETests",
+  "name": "ScheduleImpossibleAppointmentTest",
   "url": "https://eu-healthcareis.herokuapp.com/",
   "tests": [{
     "id": "1a993f29-f847-491f-ae2c-e858e1a72024",
-    "name": "ScheduleImpossibleAppointment",
+    "name": "ScheduleImpossibleAppointmentTest",
     "commands": [{
       "id": "354a8c74-adfd-4174-bd55-4829f651e31a",
       "comment": "",
