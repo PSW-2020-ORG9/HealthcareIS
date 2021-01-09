@@ -22,6 +22,7 @@ import ChooseRecommended from '../views/scheduling/recommendation/ChooseRecommen
 import ObservePatientExaminations from '../views/ObservePatientExaminations.vue'
 import HomePage from '../views/HomePage.vue'
 import LoginForm from '../views/LoginForm.vue'
+import { parseJwt } from '../jwt.js'
 
 const routes = [
   {
@@ -161,6 +162,30 @@ const routes = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.name === 'LoginForm' 
+    || to.name === 'personalInformation'
+    || to.name === 'healthStatus'
+    || to.name === 'accountDetails'
+    || to.name === 'profilePicture') {
+    next()
+  } else {
+    let authCookie = document.cookie
+    if (!authCookie) {
+      next({ name: 'LoginForm'})
+    } else {
+      let user = parseJwt(document.cookie.split('=')[1]);
+      let epochMicrotimeDiff = Math.abs(new Date(0, 0, 1).setFullYear(1));
+
+      if (new Date() > new Date(user.exp / 10000 - epochMicrotimeDiff)) {
+        next({ name: 'LoginForm'})
+      } else {
+        next()
+      }
+    }
+  }
 })
 
 export default router

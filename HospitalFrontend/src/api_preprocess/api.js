@@ -35,9 +35,7 @@ let imageUploadUrl = 'https://api.imgur.com/3/image'
 let clientId = '9a86c8e89e7d2ea'
 let examinationRecommendationUrl = patientExaminationsUrl + '/recommend'
 
-let loginUrl = userService + "/auth/login"
-let patientLoginUrl = loginUrl + "/patient"
-let doctorLoginUrl = loginUrl + "/doctor"
+let loginUrl = userService + '/auth/login'
 
 
 export default{
@@ -75,8 +73,8 @@ export default{
 
     room : roomUrl,
 
-    patientLoginUrl : patientLoginUrl,
-    doctorLoginUrl : doctorLoginUrl,
+    loginUrl : loginUrl,
+    authUrl: authUrl,
 
     availableDoctorUrl:function(date){
         return doctorAvailabilityUrl + 'doctor?date=' + date
