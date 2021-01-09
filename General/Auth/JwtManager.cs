@@ -4,21 +4,25 @@ using JWT.Builder;
 using JWT.Exceptions;
 using Newtonsoft.Json;
 
-namespace OcelotApiGateway.Auth
+namespace General.Auth
 {
     public class JwtManager
     {
         private readonly IJwtAlgorithm _algorithm;
 
         private const string _secret = "2fe177d2576b17e19e8a906d2ffcef87b84d8ad6cd8472917eab55a6508f5471659aacd2887d2a0c3b7be3253665391f";
-        private const string ExpirationDateKey = "exp";
-        private const string RoleKey = "role";
+        public static readonly string AuthorizationTokenKey = "Authorization";
         
         public JwtManager()
         {
             this._algorithm = new HMACSHA256Algorithm();
         }
 
+        /// <summary>
+        /// Encrypts the given Identity object into a string.
+        /// </summary>
+        /// <param name="encryptionObject"></param>
+        /// <returns>Encrypted JWT string representation of the given object.</returns>
         public string Encode(IIdentityProvider encryptionObject)
         {
             JwtBuilder builder = CreateJwtBuilderWithClaims(encryptionObject);
@@ -74,8 +78,6 @@ namespace OcelotApiGateway.Auth
                 builder.AddClaim(attribute.Key, attribute.Value);
             }
 
-            builder.AddClaim(ExpirationDateKey, encryptionObject.GetExpirationTicks());
-            builder.AddClaim(RoleKey, encryptionObject.GetRole());
             return builder;
         }
     }

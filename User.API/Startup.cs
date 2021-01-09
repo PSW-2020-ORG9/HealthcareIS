@@ -10,6 +10,7 @@ using User.API.Infrastructure.Repositories.Locale;
 using User.API.Infrastructure.Repositories.Users.Employees;
 using User.API.Infrastructure.Repositories.Users.Patients;
 using User.API.Infrastructure.Repositories.Users.UserAccounts;
+using User.API.Services.CredentialsService;
 using User.API.Services.EmployeeService;
 using User.API.Services.LocaleServices;
 using User.API.Services.PatientService;
@@ -93,6 +94,12 @@ namespace User.API
             var specialtyRepository = new SpecialtySqlRepository(GetContextFactory());
             var specialtyService = new SpecialtyService(specialtyRepository);
             
+            // Auth
+            var doctorAccountRepo = new DoctorAccountSqlRepository(GetContextFactory());
+            var patientAccountRepo = new PatientAccountSqlRepository(GetContextFactory());
+            var credentialService = new CredentialsService(patientAccountRepo, doctorAccountRepo);
+            
+            services.Add(new ServiceDescriptor(typeof(CredentialsService), credentialService));
             services.Add(new ServiceDescriptor(typeof(IPatientAccountService), patientAccountService));
             services.Add(new ServiceDescriptor(typeof(PatientRegistrationService), patientRegistrationService));
             services.Add(new ServiceDescriptor(typeof(PatientService), patientService));

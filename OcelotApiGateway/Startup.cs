@@ -45,15 +45,9 @@ namespace OcelotApiGateway
 
             var config = new OcelotPipelineConfiguration
             {
-                PreAuthenticationMiddleware = async (downStreamContext, next) =>
-                {
-                    HttpContext httpContext = downStreamContext.HttpContext;
-                    var token = httpContext.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
-                    if (token != null)
-                        AuthorizeIfValidToken(downStreamContext, token);
-                    
-                    await next.Invoke();
-                }
+                PreAuthenticationMiddleware 
+                    = async (downStreamContext, next) =>
+                    await OcelotJwtMiddleware.CreateAuthorizationFilter(downStreamContext, next)
             };
             
             app.UseHttpsRedirection();
@@ -69,20 +63,6 @@ namespace OcelotApiGateway
             
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
             app.UseOcelot(config).Wait();
-        }
-        
-        private void AuthorizeIfValidToken(DownstreamContext context, string jwtToken)
-        {
-            UserToken decodedObject = new JwtManager().Decode<UserToken>(jwtToken);
-            if (decodedObject != null)
-            {
-                context.HttpContext.User.AddIdentity(new ClaimsIdentity(new []
-                {
-                    new Claim("Role", decodedObject.Role)
-                }));
-            }
-            // do nothing if jwt validation fails
-            // account is not attached to context so request won't have access to secure routes
         }
     }
 }

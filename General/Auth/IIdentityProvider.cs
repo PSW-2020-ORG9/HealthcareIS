@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace OcelotApiGateway.Auth
+namespace General.Auth
 {
     public interface IIdentityProvider
     {

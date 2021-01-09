@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace OcelotApiGateway.Auth
+namespace General.Auth
 {
     public class UserToken : IIdentityProvider
     {
@@ -14,7 +14,9 @@ namespace OcelotApiGateway.Auth
             return new Dictionary<string, object>(new []
             {
                 new KeyValuePair<string, object>("username", Username),
-                new KeyValuePair<string, object>("gen", Gen) 
+                new KeyValuePair<string, object>("gen", Gen),
+                new KeyValuePair<string, object>("exp", Exp),
+                new KeyValuePair<string, object>("role", Role), 
             });
         }
 
