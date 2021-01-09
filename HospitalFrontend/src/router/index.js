@@ -21,6 +21,8 @@ import AppointmentPreferences from '../views/scheduling/recommendation/Appointme
 import ChooseRecommended from '../views/scheduling/recommendation/ChooseRecommended.vue'
 import ObservePatientExaminations from '../views/ObservePatientExaminations.vue'
 import HomePage from '../views/HomePage.vue'
+import LoginForm from '../views/LoginForm.vue'
+
 const routes = [
   {
     path: '/feedbacks',
@@ -148,6 +150,11 @@ const routes = [
     path: '/',
     name: 'HomePage',
     component: HomePage
+  },
+  {
+    path: '/login',
+    name: 'LoginForm',
+    component: LoginForm
   }
 ]
 
