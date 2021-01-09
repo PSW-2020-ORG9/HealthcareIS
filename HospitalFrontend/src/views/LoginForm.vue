@@ -1,4 +1,5 @@
 <template>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 <form id="msform">
     <transition name="router-anim" enter-active-class="animate__animated animate__fadeIn">
     <fieldset>
@@ -18,8 +19,9 @@
 </template>
 
 <script>
-import axios from 'axios';
-import api from "../constant/api";
+import axios from 'axios'
+import api from "../constant/api"
+import Toastify from 'toastify-js'
 
 export default {
     data: function () {
@@ -30,15 +32,25 @@ export default {
     },
     methods : {
         login: function () {
-            axios.post(api.patientLoginUrl, {
+            axios.post(api.loginUrl, {
                 email : this.email,
                 password : this.password
             })
             .then(response => {
-                console.log(response)
-              axios.get(api.countries)
+                this.$router.push("/")
             })
-            .catch();
+            .catch(() => this.toastError("Invalid username or password."))
+        },
+        toastError: function (errorMsg) {
+            Toastify({
+              text: errorMsg,
+              duration: '2000',
+              newWindow: true,
+              close: true,
+              gravity: 'top',
+              position: 'center',
+              backgroundColor: "linear-gradient(to right, #C37D92, #d89a9e)"
+            }).showToast()
         }
     }
 }
