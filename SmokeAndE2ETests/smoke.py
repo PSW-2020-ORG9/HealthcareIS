@@ -3,13 +3,13 @@ import sys
 import os
 
 
-HEROKU_TIMEOUT = 20
+REQUEST_TIMEOUT = 30
 
 
 def smoke(url, arch_node):
     print("Testing: " + url)
     try:
-        response = requests.get(url, timeout=HEROKU_TIMEOUT)
+        response = requests.get(url, timeout=REQUEST_TIMEOUT)
         if response.ok:
             print(response)
             print("SUCCESS: " + arch_node)
