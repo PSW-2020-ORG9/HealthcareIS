@@ -100,10 +100,10 @@ namespace User.API
             
             var specialtyRepository = new SpecialtySqlRepository(GetContextFactory());
             var specialtyService = new SpecialtyService(specialtyRepository);
-            
+
             // Auth
-            var patientAccountRepo = new PatientAccountSqlRepository(GetContextFactory());
-            var credentialService = new CredentialsService(patientAccountRepo);
+            var userAccountRepository = new UserAccountSqlRepository(GetContextFactory());
+            var credentialService = new CredentialsService(userAccountRepository);
             
             // Advertisement
             var advertisementRepository = new AdvertisementSqlRepository(GetContextFactory());

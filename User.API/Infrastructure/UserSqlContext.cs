@@ -52,6 +52,7 @@ namespace User.API.Infrastructure
         public DbSet<AllergyManifestation> AllergyManifestations { get; set; }
         public DbSet<Allergy> Allergies { get; set; }
 
+        public DbSet<UserAccount> UserAccounts { get; set; }
         public DbSet<PatientAccount> PatientAccounts { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)

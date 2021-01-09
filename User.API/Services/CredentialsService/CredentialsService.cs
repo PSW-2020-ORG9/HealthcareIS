@@ -10,40 +10,40 @@ namespace User.API.Services.CredentialsService
 {
     public class CredentialsService
     {
-        private readonly RepositoryWrapper<IPatientAccountRepository> _patientAccountWrapper;
+        private readonly RepositoryWrapper<IUserAccountRepository> _accountWrapper;
         private readonly JwtManager _jwtManager = new JwtManager();
 
         public CredentialsService(
-            IPatientAccountRepository patientAccountRepository
+            IUserAccountRepository accountRepository
         )
         {
-            this._patientAccountWrapper = new RepositoryWrapper<IPatientAccountRepository>(patientAccountRepository);
+            _accountWrapper = new RepositoryWrapper<IUserAccountRepository>(accountRepository);
         }
 
         public string Login(LoginCredentials credentials)
         {
-            PatientAccount patientAccount = _patientAccountWrapper.Repository.GetMatching(account 
+            UserAccount userAccount = _accountWrapper.Repository.GetMatching(account 
                 => 
                 account.Credentials.Email == credentials.Email
                 && account.Credentials.Password == credentials.Password    
             ).FirstOrDefault();
 
-            if (patientAccount != default)
+            if (userAccount != default)
             {
-                return _jwtManager.Encode(MapCredentialsToUserToken(patientAccount.Credentials, "Patient"));
+                return _jwtManager.Encode(MapAccountToUserToken(userAccount));
             }
 
             return null;
         }
 
-        private UserToken MapCredentialsToUserToken(Credentials credentials, string role)
+        private UserToken MapAccountToUserToken(UserAccount userAccount)
         {
             return new UserToken
             {
                 Gen = DateTime.Now.Ticks,
                 Exp = DateTime.Now.AddHours(1).Ticks,
-                Username = credentials.Username,
-                Role = role
+                Username = userAccount.Credentials.Username,
+                Role = userAccount.Role
             };
         }
     }
