@@ -2,30 +2,69 @@ version: "3.8"
 
 services:
   mysql:
-   build:
-     dockerfile: /db/Dockerfile
-   container_name: db
-   networks:
-     - network
-   environment:
-     MYSQL_ROOT_PASSWORD: password
-     MYSQL_DATABASE: test
-   ports:
-     - 3306:3306
-     - 33060:33060
+    image: mysql
+    container_name: db
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: test
+    ports:
+      - 3306:3306
+      - 33060:33060
+
   userApi:
     build:
-      dockerfile: Dockerfile
+      context: ../../User.API/bin/Debug/netcoreapp3.1/publish/
+      dockerfile: AspNetDockerfile
     container_name: userApi
+    restart: on-failure
+    ports:
+      - 5003:5003
+    depends_on:
+      -mysql
+
+  hospitalApi:
+    build:
+      context: ../../Hospital.API/bin/Debug/netcoreapp3.1/publish/
+      dockerfile: AspNetDockerfile
+    container_name: hospitalApi
+    restart: on-failure
+    ports:
+      - 5001:5001
+    depends_on:
+      -mysql
+
+  scheduleApi:
+    build:
+      context: ../../Schedule.API/bin/Debug/netcoreapp3.1/publish/
+      dockerfile: AspNetDockerfile
+    container_name: scheduleApi
     restart: on-failure
     networks:
       - network
     ports:
-      - 5003:80
-    env_file:
-      - secrets.env
+      - 5004:5004
     depends_on:
       -mysql
+
+  feedbackApi:
+    build:
+      context: ../../Feedback.API/bin/Debug/netcoreapp3.1/publish/
+      dockerfile: AspNetDockerfile
+    container_name: feedbackApi
+    restart: on-failure
+    ports:
+      - 5002:5002
+    depends_on:
+      -mysql
+
+  ocelotApiGateway:
+    build:
+      context: ../../OcelotApiGateway/bin/Debug/netcoreapp3.1/publish/
+      dockerfile: AspNetDockerfile
+    container_name: ocelotApiGateway
+    restart: on-failure
+    ports:
+      - 5000:5000
 
   nginx:
     build:
@@ -34,14 +73,6 @@ services:
     container_name: front
     environment:
       PORT: 80
-    networks:
-      - network
     ports:
       - 8080:80
     restart: always
-
-
-networks:
-  network:
-    name: network
-    driver: bridge
