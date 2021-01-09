@@ -11,57 +11,55 @@ services:
       - 3306:3306
       - 33060:33060
 
-  userApi:
+  user_api:
     build:
       context: ../../User.API/bin/Debug/netcoreapp3.1/publish/
       dockerfile: AspNetDockerfile
-    container_name: userApi
+    container_name: user-api
     restart: on-failure
     ports:
       - 5003:5003
     depends_on:
       - mysql
 
-  hospitalApi:
+  hospital_api:
     build:
       context: ../../Hospital.API/bin/Debug/netcoreapp3.1/publish/
       dockerfile: AspNetDockerfile
-    container_name: hospitalApi
+    container_name: hospital-api
     restart: on-failure
     ports:
       - 5001:5001
     depends_on:
       - mysql
 
-  scheduleApi:
+  schedule_api:
     build:
       context: ../../Schedule.API/bin/Debug/netcoreapp3.1/publish/
       dockerfile: AspNetDockerfile
-    container_name: scheduleApi
+    container_name: schedule-api
     restart: on-failure
-    networks:
-      - network
     ports:
       - 5004:5004
     depends_on:
       - mysql
 
-  feedbackApi:
+  feedback_api:
     build:
       context: ../../Feedback.API/bin/Debug/netcoreapp3.1/publish/
       dockerfile: AspNetDockerfile
-    container_name: feedbackApi
+    container_name: feedback-api
     restart: on-failure
     ports:
       - 5002:5002
     depends_on:
       - mysql
 
-  ocelotApiGateway:
+  ocelot_api_gateway:
     build:
       context: ../../OcelotApiGateway/bin/Debug/netcoreapp3.1/publish/
       dockerfile: AspNetDockerfile
-    container_name: ocelotApiGateway
+    container_name: ocelot-api-gateway
     restart: on-failure
     ports:
       - 5000:5000
