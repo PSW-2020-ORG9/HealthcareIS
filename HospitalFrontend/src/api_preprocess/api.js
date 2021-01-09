@@ -74,7 +74,6 @@ export default{
     room : roomUrl,
 
     loginUrl : loginUrl,
-    authUrl: authUrl,
 
     availableDoctorUrl:function(date){
         return doctorAvailabilityUrl + 'doctor?date=' + date

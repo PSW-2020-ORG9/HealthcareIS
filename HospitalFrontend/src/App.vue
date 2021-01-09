@@ -11,11 +11,23 @@
     <router-link to="/register" style="margin-right: 5px; margin-left: 5px;">Patient registration </router-link> &middot;
     <router-link to="/examinations" style="margin-right: 5px; margin-left: 5px;">Patient examinations </router-link> &middot;
     <router-link to="/scheduling-type" style="margin-right: 5px; margin-left: 5px;">Schedule Appointment </router-link>
+    <input type="button" class="btn btn-danger" @click="logout" value="Log out"/>
   </div>
   <router-view/>
   </div>
 </body>
 </template>
+
+<script>
+export default {
+  methods: {
+    logout: function () {
+      document.cookie = "Authorization=; expires=" + new Date().toGMTString();
+      this.$router.push('/login')
+    }
+  }
+}
+</script>
 
 <style lang="scss">
 body {

@@ -173,17 +173,24 @@ router.beforeEach((to, from, next) => {
     next()
   } else {
     let authCookie = document.cookie
+    let user = null
+    let cookieValid = true
     if (!authCookie) {
-      next({ name: 'LoginForm'})
+      cookieValid = false
     } else {
-      let user = parseJwt(document.cookie.split('=')[1]);
+      user = parseJwt(document.cookie.split('=')[1]);
       let epochMicrotimeDiff = Math.abs(new Date(0, 0, 1).setFullYear(1));
 
       if (new Date() > new Date(user.exp / 10000 - epochMicrotimeDiff)) {
-        next({ name: 'LoginForm'})
-      } else {
-        next()
+        cookieValid = false
       }
+    }
+    
+    if (!cookieValid) next({name: 'LoginForm'})
+    else if (!(to.name == 'HomePage' || to.name == 'ObserveFeedback' || to.name == 'SurveyPreview') && user.role == 'Admin') {
+      next({ name: 'ObserveFeedback' })
+    } else {
+      next()
     }
   }
 })
