@@ -20,5 +20,9 @@ def smoke(url, arch_node):
 
 
 if __name__ == "__main__":
-    smoke('https://psw-backend.herokuapp.com/city/by-country/1', "backend (asp.net) with database")
-    smoke('https://psw-front.herokuapp.com/', "frontend")
+    smoke('https://psw-eu-feedback.herokuapp.com/feedbacks/feedback/published', "feedback microservice")
+    smoke('https://psw-eu-hospital.herokuapp.com/hospital/medication/', "hospital microservice")
+    smoke('https://psw-eu-schedule.herokuapp.com/schedule/examination/patient/1', "schedule microservice")
+    smoke('https://psw-eu-user.herokuapp.com/user/country', "user microservice")
+    smoke('https://psw-eu-ocelot.herokuapp.com/api/user/city/by-country/1', "ocelot (asp.net) with database")
+    smoke('https://eu-healthcareis.herokuapp.com/', "frontend")
