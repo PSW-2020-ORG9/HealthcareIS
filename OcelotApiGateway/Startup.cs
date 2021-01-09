@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -41,6 +43,19 @@ namespace OcelotApiGateway
                 app.UseDeveloperExceptionPage();
             }
 
+            var config = new OcelotPipelineConfiguration
+            {
+                PreAuthenticationMiddleware = async (downStreamContext, next) =>
+                {
+                    HttpContext httpContext = downStreamContext.HttpContext;
+                    var token = httpContext.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+                    if (token != null)
+                        AuthorizeIfValidToken(downStreamContext, token);
+                    
+                    await next.Invoke();
+                }
+            };
+            
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -51,10 +66,23 @@ namespace OcelotApiGateway
                 .AllowCredentials());
             
             app.UseAuthorization();
-            app.UseMiddleware<JwtMiddleware>();
             
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
-            app.UseOcelot().Wait();
+            app.UseOcelot(config).Wait();
+        }
+        
+        private void AuthorizeIfValidToken(DownstreamContext context, string jwtToken)
+        {
+            UserToken decodedObject = new JwtManager().Decode<UserToken>(jwtToken);
+            if (decodedObject != null)
+            {
+                context.HttpContext.User.AddIdentity(new ClaimsIdentity(new []
+                {
+                    new Claim("Role", decodedObject.Role)
+                }));
+            }
+            // do nothing if jwt validation fails
+            // account is not attached to context so request won't have access to secure routes
         }
     }
 }

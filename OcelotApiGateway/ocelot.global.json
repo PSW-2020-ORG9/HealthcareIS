@@ -36,7 +36,11 @@
         }
       ],
       "UpstreamPathTemplate": "/api/schedule/{everything}",
-      "UpstreamHttpMethod": [ "Get","Post" ]
+      "UpstreamHttpMethod": [ "Get","Post" ],
+      "RouteClaimsRequirement" : 
+        {
+            "Role" : "Admin"
+        }
     }
     ,
     {
