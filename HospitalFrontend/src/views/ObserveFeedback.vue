@@ -15,7 +15,7 @@
   <CreateFeedback/>
   <h1>User Feedbacks</h1>
   <div id="feedbackList" class="list-group container w-50" >
-       <FeedbackItem v-for="feedback in feedbacks" v-bind:key="feedback.Id" v-bind:feedback="feedback" v-bind:user="user" v-on:update-feedbacks="getAllFeedbacks"></FeedbackItem>
+       <FeedbackItem v-for="feedback in feedbacks" v-bind:key="feedback.Id" v-bind:feedback="feedback" v-on:update-feedbacks="getAllFeedbacks"></FeedbackItem>
   </div>
 </template>
 
@@ -31,7 +31,6 @@ export default {
   {
       return{
         feedbacks:[],
-        user: 'user'
       }
   },
   components:
@@ -43,7 +42,7 @@ export default {
     getAllFeedbacks:function()
     {
       let url = api.feedback
-      if (this.user === "user")
+      if (this.$store.state.user && this.$store.state.user.role !== "Admin")
         url +="/published"
 
       axios.get(url).then((response) => 
