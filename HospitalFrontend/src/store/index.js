@@ -30,6 +30,10 @@ export default createStore({
       DoctorId:'',
       PatientId:1
     },
+    user: {
+      name: '',
+      surname: '',
+    },
     availableDoctors:[]
     ,
     selectedDate:null
@@ -96,6 +100,9 @@ export default createStore({
     ,
     setRecommendationDto(state,payload){
       state.recommendationDto = payload
+    },
+    setUser(state, payload) {
+      state.user = payload
     }
   },
   actions: {

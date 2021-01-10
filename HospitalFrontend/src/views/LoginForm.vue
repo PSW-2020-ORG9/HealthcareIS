@@ -20,8 +20,9 @@
 
 <script>
 import axios from 'axios'
-import api from "../constant/api"
+import api from '../constant/api'
 import Toastify from 'toastify-js'
+import { parseJwt, setUser } from '../jwt.js'
 
 export default {
     data: function () {
@@ -37,9 +38,12 @@ export default {
                 password : this.password
             })
             .then(response => {
-                this.$router.push("/")
+                setUser(this)
+                if (this.$store.state.user.role == 'Admin')
+                    this.$router.push('/feedbacks')
+                else this.$router.push('/')
             })
-            .catch(() => this.toastError("Invalid username or password."))
+            .catch(error => this.toastError(error))
         },
         toastError: function (errorMsg) {
             Toastify({
@@ -52,7 +56,7 @@ export default {
               backgroundColor: "linear-gradient(to right, #C37D92, #d89a9e)"
             }).showToast()
         }
-    }
+    },
 }
 </script>
 

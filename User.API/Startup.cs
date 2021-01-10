@@ -96,7 +96,7 @@ namespace User.API
             var patientAccountService = new PatientAccountService(patientAccountRepository);
             var patientRegistrationService = new PatientRegistrationService(patientAccountService, registrationNotifier);
                 
-            var patientService = new PatientService(patientRepository);
+            var patientService = new PatientService(patientRepository, patientAccountRepository);
             
             var specialtyRepository = new SpecialtySqlRepository(GetContextFactory());
             var specialtyService = new SpecialtyService(specialtyRepository);

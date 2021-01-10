@@ -41,6 +41,16 @@ namespace User.API.Controllers
             return BadRequest("Patient not found.");
         }
 
+        [HttpGet]
+        [Route("username/{username}")]
+        public IActionResult FindPatientByUsername(string username)
+        {
+            var patient = _patientService.GetByUsername(username);
+            if (patient != null) return Ok(patient);
+            return BadRequest("Patient not found.");
+        }
+
+
         [HttpPost]
         [Route("register")]
         public IActionResult RegisterPatient(PatientRegistrationDTO dto)

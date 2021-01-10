@@ -7,3 +7,30 @@ export function parseJwt(token) {
     
         return JSON.parse(jsonPayload)
     }
+import axios from 'axios'
+import api from './constant/api.js'
+export function setUser(app) {
+        if(document.cookie) {
+            let userToken = parseJwt(document.cookie.split('=')[1])
+            if (userToken) {
+                if (userToken.role == 'Patient') {
+                    axios.get(api.patient + '/username/' + userToken.username)
+                    .then(response => {
+                        app.$store.commit('setUser', {
+                            name: response.data.person.name,
+                            surname: response.data.person.surname,
+                            role: 'Patient'
+                        })
+                    })
+                } else if (userToken.role == 'Admin') {
+                    app.$store.commit('setUser', {
+                        name: 'Admin',
+                        surname: '',
+                        role: 'Admin'
+                    })
+                }
+            }
+        } else {
+            app.$store.commit('setUser', null)
+        }
+}
