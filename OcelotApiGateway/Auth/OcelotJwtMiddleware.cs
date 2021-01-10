@@ -13,6 +13,8 @@ namespace OcelotApiGateway.Auth
 {
     public static class OcelotJwtMiddleware
     {
+        private static readonly string RoleSeparator = ",";
+        
         public static Func<DownstreamContext, Func<Task>, Task> CreateAuthorizationFilter 
             => async (downStreamContext, next) =>
             {
@@ -35,7 +37,8 @@ namespace OcelotApiGateway.Auth
             if (decodedObject != null)
             {
                 return downStreamContext.DownstreamReRoute.RouteClaimsRequirement["Role"]
-                    .Contains(decodedObject.GetRole());
+                    ?.Split(RoleSeparator)
+                    .FirstOrDefault(role => role.Trim() == decodedObject.GetRole()) != default;
             }
 
             return false;
