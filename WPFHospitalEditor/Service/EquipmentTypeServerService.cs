@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using WPFHospitalEditor.Controller;
-using WPFHospitalEditor.MapObjectModel;
 using WPFHospitalEditor.DTOs;
 using WPFHospitalEditor.Service.Interface;
 
@@ -10,8 +9,6 @@ namespace WPFHospitalEditor.Service
 {
     public class EquipmentTypeServerService : IEquipmentTypeServerService
     {
-        IMapObjectController imoc = new MapObjectController();
-
         public IEnumerable<EquipmentTypeDto> GetAllEquipmentTypes()
         {
             var client = new RestClient(AllConstants.ConnectionUrl);

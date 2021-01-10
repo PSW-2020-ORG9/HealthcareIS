@@ -22,6 +22,8 @@ namespace WPFHospitalEditor
         private HospitalMap hospitalMap;
         private int destinationRoomId;
         private string relocationEquipmentName;
+        private DateTime startDate;
+        private DateTime endDate;
 
         public EquipmentRelocation(string relocationEquipmentName, int roomId, HospitalMap hospitalMap)
         {
@@ -47,18 +49,26 @@ namespace WPFHospitalEditor
             List<Room> rooms = roomServerController.getRoomsByEquipmentType(relocationEquipmentName).ToList();
             foreach (Room room in rooms)
             {
-                roomSearchComboBox.Items.Add(room.Id);
+                if(room.Id != destinationRoomId)
+                    roomSearchComboBox.Items.Add(room.Id);
             }
         }
 
-        private void relocateEquipment(object sender, RoutedEventArgs e)
+        private void RelocateEquipment(object sender, RoutedEventArgs e)
         {
-            if(CheckAmount())
+            startDate =
+                        DateTime.ParseExact(startDatePicker.SelectedDate.Value.ToString("MM/dd/yyyy")
+                        + " " + StartTime.Text, "MM/dd/yyyy HH:mm", null);
+            endDate =
+                DateTime.ParseExact(startDatePicker.SelectedDate.Value.ToString("MM/dd/yyyy")
+                + " " + EndTime.Text, "MM/dd/yyyy HH:mm", null);
+
+            if (CheckAmount() && !CheckIfDatesAreEqual(new TimeInterval(startDate, endDate)))
             {
                 List<int> unavailableRooms = checkRoomsAvailability();
                 if (unavailableRooms.Count > 0)
                 {
-                    RoomUnavailable(unavailableRooms);
+                    ShowAlternativeRelocationAppointments(unavailableRooms);
                 }
                 else
                 {
@@ -68,7 +78,7 @@ namespace WPFHospitalEditor
 
         }
 
-        private void RoomUnavailable(List<int> unavailableRooms)
+        private void ShowAlternativeRelocationAppointments(List<int> unavailableRooms)
         {
             AlternativeRelocationAppointments newWindow =
                         new AlternativeRelocationAppointments(unavailableRooms[0], hospitalMap, this);
@@ -77,21 +87,23 @@ namespace WPFHospitalEditor
 
         private void ScheduleRelocation()
         {
-            DateTime startDate =
-                        DateTime.ParseExact(startDatePicker.SelectedDate.Value.ToString("MM/dd/yyyy")
-                        + " " + StartTime.Text, "MM/dd/yyyy HH:mm", null);
-            DateTime endDate =
-                DateTime.ParseExact(startDatePicker.SelectedDate.Value.ToString("MM/dd/yyyy")
-                + " " + EndTime.Text, "MM/dd/yyyy HH:mm", null);
-
             while (startDate < endDate)
             {
-
                 examinationServerController.ScheduleExamination(startDate, 1, 2);
                 startDate = startDate.AddMinutes(30);
             }
             MessageBox.Show("Relocation is successfully scheduled!", "");
             this.Close();
+        }
+
+        private bool CheckIfDatesAreEqual(TimeInterval timeInterval)
+        {
+            if (timeInterval.Start >= timeInterval.End) 
+            {
+                MessageBox.Show("End time must be after start time!", "");
+                return true;
+            }
+            return false;
         }
 
         private List<int> checkRoomsAvailability()
@@ -126,7 +138,7 @@ namespace WPFHospitalEditor
             {
                 foreach (EquipmentDto eqdto in equipments)
                 {
-                    if (eqdto.RoomId == room.Id)
+                    if (eqdto.RoomId == room.Id && room.Id != destinationRoomId)
                     {
                         roomsWithEquipmenAmount.Add(new RoomsWithChosenEquipmentAmount(room.Id, room.Name, eqdto.Quantity));
                     }

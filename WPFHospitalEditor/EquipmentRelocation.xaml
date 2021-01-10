@@ -51,7 +51,7 @@
                     <Button Click="CloseClick" Margin="20,0,0,0">Cancel</Button>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,30,20,0">
-                    <Button x:Name="relocate" Margin="20,0,0,0" Click="relocateEquipment">Relocate</Button>
+                    <Button x:Name="relocate" Margin="20,0,0,0" Click="RelocateEquipment">Relocate</Button>
                 </StackPanel>
             </Grid>
         </StackPanel>
