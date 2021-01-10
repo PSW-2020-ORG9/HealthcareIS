@@ -67,7 +67,8 @@ namespace User.API.IntegrationTests
         public async void Finds_patient_account()
         {
             var client = _factory.CreateClient();
-            var response = await client.GetAsync("user/patient/account/1");
+            client.DefaultRequestHeaders.Add("UserId", "1");
+            var response = await client.GetAsync("user/patient/account");
             var responseString = await response.Content.ReadAsStringAsync();
 
             Assert.Contains("\"id\":1", responseString);
@@ -77,7 +78,7 @@ namespace User.API.IntegrationTests
         public async void Gets_all_patients()
         {
             var client = _factory.CreateClient();
-            var response = await client.GetAsync("user/patient");
+            var response = await client.GetAsync("user/patient/all");
             var responseString = await response.Content.ReadAsStringAsync();
 
             Assert.Contains("\"id\":1", responseString);

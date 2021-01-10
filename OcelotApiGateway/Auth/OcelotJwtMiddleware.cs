@@ -36,8 +36,10 @@ namespace OcelotApiGateway.Auth
 
             if (allowedRoles == null) return;
             if (jwtToken == null) throw new UnauthorizedAccessException();
-            
-            IIdentityProvider identityProvider = new JwtManager().Decode<UserToken>(jwtToken);
+
+            JwtManager jwtManager = new JwtManager(GetJwtSecretFromEnvironment());
+
+            IIdentityProvider identityProvider = jwtManager.Decode<UserToken>(jwtToken);
             if (identityProvider != null && IsIdentityRoleAllowed(allowedRoles, identityProvider))
             {
                 AppendUserInfoToRequest(downStreamContext.DownstreamRequest, identityProvider);
@@ -45,6 +47,13 @@ namespace OcelotApiGateway.Auth
             }
 
             throw new UnauthorizedAccessException();
+        }
+
+        private static string GetJwtSecretFromEnvironment()
+        {
+            string jwtSecret = Environment.GetEnvironmentVariable("PSW_JWT_SECRET");
+            if (jwtSecret == default) throw new ApplicationException("JWT secret environment variable not set.");
+            else return jwtSecret;
         }
 
         private static string GetAllowedRolesForCurrentRoute(DownstreamContext downstreamContext)

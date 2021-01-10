@@ -10,11 +10,12 @@ namespace General.Auth
     {
         private readonly IJwtAlgorithm _algorithm;
 
-        private const string _secret = "2fe177d2576b17e19e8a906d2ffcef87b84d8ad6cd8472917eab55a6508f5471659aacd2887d2a0c3b7be3253665391f";
+        private readonly string _secret;
         
-        public JwtManager()
+        public JwtManager(string secret)
         {
-            this._algorithm = new HMACSHA256Algorithm();
+            _algorithm = new HMACSHA256Algorithm();
+            _secret = secret;
         }
 
         /// <summary>
