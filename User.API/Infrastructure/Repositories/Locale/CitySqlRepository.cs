@@ -6,7 +6,8 @@ using User.API.Model.Locale;
 
 namespace User.API.Infrastructure.Repositories.Locale
 {
-    public class CitySqlRepository:GenericSqlRepository<City,int>,ICityRepository
+    public class CitySqlRepository : GenericSqlRepository<City,int>
+                                    ,ICityRepository
     {
         public CitySqlRepository(IContextFactory contextFactory) : base(contextFactory)
         {

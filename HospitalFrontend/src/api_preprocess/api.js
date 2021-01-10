@@ -24,6 +24,7 @@ let doctorAvailabilityUrl = userService + '/available/'
 let citiesByCountryId = userService + '/city/by-country/'
 let countriesUrl= userService +'/country'
 let patientAccountUrl = userService + '/patient/account'
+let advertisementsUrl = userService + '/advertisement/active'
 
 let patientExaminationSurveyResponseUrl = feedbackService + "/survey/examination"
 let patientExaminationsSurveyResponsesUrl = feedbackService + "/survey/examination/multiple"
@@ -42,6 +43,7 @@ export default{
     patientAccount: patientAccountUrl,
     patientRegistration: registrationUrl,
     surveyPreview: surveyPreviewUrl,
+    advertisement: advertisementsUrl,
 
     countries:countriesUrl,
     citiesByCountry:citiesByCountryId,
