@@ -1,0 +1,96 @@
+{
+  "id": "63e32f1b-3cb2-4b52-8345-a706ad291dc0",
+  "version": "2.0",
+  "name": "TryPatientRegistrationTest",
+  "url": "https://eu-healthcareis.herokuapp.com/",
+  "tests": [{
+    "id": "8c9eace0-50ee-4cb2-b790-fc4e9430af22",
+    "name": "TryPatientRegistrationTest",
+    "commands": [{
+      "id": "bce062b3-add2-476e-a5fa-36127739be95",
+      "comment": "",
+      "command": "open",
+      "target": "https://eu-healthcareis.herokuapp.com/#/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3e55be45-1333-43df-8ec6-d3e30e2c2703",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1936x1056",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b715ed7e-7515-4fae-add0-701cce95ee7b",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Patient registration",
+      "targets": [
+        ["linkText=Patient registration", "linkText"],
+        ["css=a:nth-child(7)", "css:finder"],
+        ["xpath=//a[contains(text(),'Patient registration')]", "xpath:link"],
+        ["xpath=//div[@id='nav']/a[7]", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '#/register')]", "xpath:href"],
+        ["xpath=//a[7]", "xpath:position"],
+        ["xpath=//a[contains(.,'Patient registration ')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "9b15b404-f867-4c52-a223-3b572a65f240",
+      "comment": "",
+      "command": "click",
+      "target": "name=rescountry",
+      "targets": [
+        ["name=rescountry", "name"],
+        ["css=select:nth-child(3)", "css:finder"],
+        ["xpath=//select[@name='rescountry']", "xpath:attributes"],
+        ["xpath=//form[@id='msform']/fieldset/div/div[2]/select[3]", "xpath:idRelative"],
+        ["xpath=//select[3]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ebaaabdd-d57d-41d5-9342-183d1a89fb3b",
+      "comment": "",
+      "command": "select",
+      "target": "name=rescountry",
+      "targets": [],
+      "value": "label=Srbija"
+    }, {
+      "id": "784d6a26-e7bc-4101-bd66-0dbae3ef6444",
+      "comment": "",
+      "command": "click",
+      "target": "name=rescountry",
+      "targets": [
+        ["name=rescountry", "name"],
+        ["css=select:nth-child(3)", "css:finder"],
+        ["xpath=//select[@name='rescountry']", "xpath:attributes"],
+        ["xpath=//form[@id='msform']/fieldset/div/div[2]/select[3]", "xpath:idRelative"],
+        ["xpath=//select[3]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "265d7f73-66d0-4d49-a950-c3da0788ad09",
+      "comment": "",
+      "command": "click",
+      "target": "name=next",
+      "targets": [
+        ["name=next", "name"],
+        ["css=.next", "css:finder"],
+        ["xpath=//input[@name='next']", "xpath:attributes"],
+        ["xpath=//form[@id='msform']/fieldset/input", "xpath:idRelative"],
+        ["xpath=//fieldset/input", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "c489858a-ab98-4301-b1b9-75d1dd75d132",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["8c9eace0-50ee-4cb2-b790-fc4e9430af22"]
+  }],
+  "urls": ["https://eu-healthcareis.herokuapp.com/"],
+  "plugins": []
+}
