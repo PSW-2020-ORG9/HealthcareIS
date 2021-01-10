@@ -15,5 +15,7 @@ namespace General.Auth
         public string GetRole();
 
         public int GetUserId();
+        
+        string getUsername();
     }
 }

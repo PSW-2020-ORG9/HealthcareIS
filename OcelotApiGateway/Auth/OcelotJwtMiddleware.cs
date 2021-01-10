@@ -40,7 +40,7 @@ namespace OcelotApiGateway.Auth
             IIdentityProvider identityProvider = new JwtManager().Decode<UserToken>(jwtToken);
             if (identityProvider != null && IsIdentityRoleAllowed(allowedRoles, identityProvider))
             {
-                AppendUserIdToRequest(downStreamContext.DownstreamRequest, identityProvider.GetUserId());
+                AppendUserInfoToRequest(downStreamContext.DownstreamRequest, identityProvider);
                 return;
             }
 
@@ -61,9 +61,10 @@ namespace OcelotApiGateway.Auth
                 .FirstOrDefault(role => role.Trim() == identityProvider.GetRole()) != default;
         }
 
-        private static void AppendUserIdToRequest(DownstreamRequest request, int userId)
+        private static void AppendUserInfoToRequest(DownstreamRequest request, IIdentityProvider identityProvider)
         {
-            request.Headers.Add(Constants.UserIdHeaderKey, userId.ToString());
+            request.Headers.Add(Constants.UserIdHeaderKey, identityProvider.GetUserId().ToString());
+            request.Headers.Add(Constants.UsernameHeaderKey, identityProvider.getUsername());
         }
     }
 }

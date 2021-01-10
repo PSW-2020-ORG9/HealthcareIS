@@ -20,5 +20,17 @@ namespace General.Auth
         {
             return httpRequest.Cookies[Constants.AuthorizationTokenKey];
         }
+
+        public static string GetUsernameFromRequest(HttpRequest httpRequest)
+        {
+            try
+            {
+                return httpRequest.Headers[Constants.UsernameHeaderKey];
+            }
+            catch
+            {
+                return default;
+            }
+        }
     }
 }

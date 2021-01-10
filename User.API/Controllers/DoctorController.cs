@@ -63,9 +63,6 @@ namespace User.API.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            string userId = HttpIdentityHandler.GetUserIdFromRequest(HttpContext.Request);
-            Console.WriteLine($"User id = [{userId}]");
-            
             var doctors = _doctorService.GetAll();
             if (doctors != null) return Ok(doctors);
             return BadRequest("Doctors not found.");

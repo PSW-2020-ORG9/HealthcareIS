@@ -5,5 +5,6 @@
         public const string UserIdHeaderKey = "UserId";
         public const string AuthorizationAttributeKey = "Role";
         public const string AuthorizationTokenKey = "Authorization";
+        public const string UsernameHeaderKey = "Username";
     }
 }

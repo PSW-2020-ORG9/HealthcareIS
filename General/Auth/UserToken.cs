@@ -36,5 +36,10 @@ namespace General.Auth
         {
             return UserId;
         }
+
+        public string getUsername()
+        {
+            return Username;
+        }
     }
 }
