@@ -1,6 +1,22 @@
 {
   "ReRoutes": [
     {
+      "DownstreamPathTemplate": "/user/advertisement/active/",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "$PSW_USER_SERVICE_HOST",
+          "Port": $PSW_USER_SERVICE_PORT
+        }
+      ],
+      "UpstreamPathTemplate": "/api/user/advertisement/active/",
+      "UpstreamHttpMethod": ["Get"],
+      "RouteClaimsRequirement" :
+      {
+        "Role" : "Patient, Admin"
+      }
+    },
+    {
       "DownstreamPathTemplate": "/user/doctor/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
