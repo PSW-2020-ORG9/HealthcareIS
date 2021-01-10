@@ -2,13 +2,11 @@
 using Hospital.API.Model.Medication;
 using Hospital.API.Model.Resources;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 
 namespace Hospital.API.IntegrationTests.Context
 {
     internal class HospitalSqlTestContext : HospitalSqlContext
     {
-        //private List<EquipmentUnit> equipments = new List<EquipmentUnit>();
         public HospitalSqlTestContext(string connectionString) : base(connectionString) { }
 
         protected override void SeedData(ModelBuilder modelBuilder)

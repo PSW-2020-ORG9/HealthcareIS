@@ -5,8 +5,6 @@ using Hospital.API.Model.Resources;
 using General.Repository;
 using Hospital.API.Infrastructure.Repositories.Resources;
 using Hospital.API.DTOs;
-using Hospital.API.Model.Utilities;
-using Hospital.API.Model.Dependencies;
 
 namespace Hospital.API.Services.Resources
 {
@@ -14,15 +12,12 @@ namespace Hospital.API.Services.Resources
     {
         private readonly RepositoryWrapper<IEquipmentUnitRepository> _equipmentUnitRepository;
         private readonly RepositoryWrapper<IEquipmentTypeRepository> _equipmentTypeRepository;
-        private readonly RepositoryWrapper<IRoomRepository> _roomRepository;
 
         public EquipmentService(IEquipmentUnitRepository equipmentUnitRepository,
-            IEquipmentTypeRepository equipmentTypeRepository,
-            IRoomRepository roomRepository)
+            IEquipmentTypeRepository equipmentTypeRepository)
         {
             _equipmentUnitRepository = new RepositoryWrapper<IEquipmentUnitRepository>(equipmentUnitRepository);
             _equipmentTypeRepository = new RepositoryWrapper<IEquipmentTypeRepository>(equipmentTypeRepository);
-            _roomRepository = new RepositoryWrapper<IRoomRepository>(roomRepository);
         }
 
         public EquipmentUnit GetByID(int id)

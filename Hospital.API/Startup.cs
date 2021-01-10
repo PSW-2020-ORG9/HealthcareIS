@@ -70,7 +70,7 @@ namespace Hospital.API
             var diagnosisConnection = CreateConnection(ScheduleUrl, "schedule/diagnosis");
 
             var roomService = new RoomService(roomRepository);
-            var equipmentService = new EquipmentService(equipmentUnitRepository, equipmentTypeRepository, roomRepository);
+            var equipmentService = new EquipmentService(equipmentUnitRepository, equipmentTypeRepository);
             var equipmentTypeService = new EquipmentTypeService(equipmentTypeRepository);
             var medicationService = new MedicationService(medicationRepository);
             var medicationPrescriptionService = new MedicationPrescriptionService(medicationPrescriptionRepository, diagnosisConnection);
