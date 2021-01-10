@@ -65,6 +65,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Schedule.API.IntegrationTes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Schedule.API.UnitTests", "Schedule.API.UnitTests\Schedule.API.UnitTests.csproj", "{82BAAC61-6CDE-4DA9-84C4-26EAE9C4DE5E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp.E2ETests", "WebApp.E2ETests\WebApp.E2ETests.csproj", "{B4212372-2B2C-4F5C-AA10-1130A43AB5AA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -155,6 +157,10 @@ Global
 		{82BAAC61-6CDE-4DA9-84C4-26EAE9C4DE5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{82BAAC61-6CDE-4DA9-84C4-26EAE9C4DE5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{82BAAC61-6CDE-4DA9-84C4-26EAE9C4DE5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4212372-2B2C-4F5C-AA10-1130A43AB5AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4212372-2B2C-4F5C-AA10-1130A43AB5AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4212372-2B2C-4F5C-AA10-1130A43AB5AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4212372-2B2C-4F5C-AA10-1130A43AB5AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
