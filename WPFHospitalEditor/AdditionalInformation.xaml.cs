@@ -19,13 +19,15 @@ namespace WPFHospitalEditor
 
         private MapObject mapObject;
         private Building building;
+        private HospitalMap hospitalMap;
         private DynamicGridControl dynamicGridControl;
 
-        public AdditionalInformation(MapObject mapObject, Building building)
+        public AdditionalInformation(MapObject mapObject, Building building, HospitalMap hospitalMap)
         {
             InitializeComponent();
             this.mapObject = mapObject;
             this.building = building;
+            this.hospitalMap = hospitalMap;
             SetDynamicGrid();
             InitializeTitle();
             SetButtonsVisibility();
@@ -75,14 +77,16 @@ namespace WPFHospitalEditor
         private void BtnEquipment_Click(object sender, RoutedEventArgs e)
         {
             ContentRowsStrategy strategy = new ContentRowsStrategy(new EquipmentContentRows(mapObject.Id));
-            EquipmentAndMedicationWindow equipment = new EquipmentAndMedicationWindow(strategy.GetContentRows());
-            equipment.ShowDialog();
+            EquipmentAndMedicationWindow equipment = new EquipmentAndMedicationWindow(strategy.GetContentRows(), mapObject.Id, hospitalMap);
+            equipment.Show();
+            this.Close();
         }
         private void BtnMedications_Click(object sender, RoutedEventArgs e)
         {
             ContentRowsStrategy strategy = new ContentRowsStrategy(new MedicationContentRows(mapObject.Id));
-            EquipmentAndMedicationWindow medications = new EquipmentAndMedicationWindow(strategy.GetContentRows());
-            medications.ShowDialog();
+            EquipmentAndMedicationWindow medications = new EquipmentAndMedicationWindow(strategy.GetContentRows(), mapObject.Id, hospitalMap);
+            medications.Show();
+            this.Close();
         }
 
         private void SetButtonsVisibility()

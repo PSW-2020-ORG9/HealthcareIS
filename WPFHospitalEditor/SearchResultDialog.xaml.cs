@@ -164,7 +164,7 @@ namespace WPFHospitalEditor
 
         public void DisplayBuildingAndFloorBasedOnSelectedObject(int floorNumber, int buildingId)
         {
-            Building searchedBuilding = new Building(buildingId, floorNumber);
+            Building searchedBuilding = new Building(buildingId, hospitalMap, floorNumber);
             searchedBuilding.Owner = hospitalMap;
             searchedBuilding.Show();
         }

@@ -4,7 +4,6 @@ using System.Windows;
 using WPFHospitalEditor.Controller;
 using WPFHospitalEditor.Controller.Interface;
 using WPFHospitalEditor.DTOs;
-using WPFHospitalEditor.MapObjectModel;
 
 namespace WPFHospitalEditor
 {
@@ -14,9 +13,13 @@ namespace WPFHospitalEditor
     public partial class EquipmentAndMedicationWindow : Window
     {
         private IEquipmentTypeServerController equipmentTypeServerController = new EquipmentTypeServerController();
-        public EquipmentAndMedicationWindow(String[] contentRows)
+        int mapObjectId;
+        HospitalMap hospitalMap;
+        public EquipmentAndMedicationWindow(String[] contentRows, int mapObjectId, HospitalMap hospitalMap)
         {
             InitializeComponent();
+            this.mapObjectId = mapObjectId;
+            this.hospitalMap = hospitalMap;
             SetEquipmentTypeComboBox();
             DynamicGridControl dynamicGridControl = new DynamicGridControl(contentRows, true);
             DynamicGrid.Children.Add(dynamicGridControl);
@@ -41,8 +44,9 @@ namespace WPFHospitalEditor
         {
             if (relocationEquipmentComboBox.SelectedIndex != 0)
             {
-                EquipmentRelocation equipmentRelocation = new EquipmentRelocation(relocationEquipmentComboBox.SelectedItem.ToString());
+                EquipmentRelocation equipmentRelocation = new EquipmentRelocation(relocationEquipmentComboBox.SelectedItem.ToString(), mapObjectId, hospitalMap);
                 equipmentRelocation.Show();
+                this.Close();
             }
         }
     }

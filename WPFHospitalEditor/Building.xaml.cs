@@ -19,12 +19,14 @@ namespace WPFHospitalEditor
         private Dictionary<int, Floor> buildingFloors = new Dictionary<int, Floor>();
         MapObjectController mapObjectController = new MapObjectController();
         public static Canvas canvasBuilding;
+        private HospitalMap hospitalMap;
         private int id;
 
-        public Building(int id, int selectedFloor = 0)
+        public Building(int id, HospitalMap hospitalMap, int selectedFloor = 0)
         {
             InitializeComponent();
             ClearAll();
+            this.hospitalMap = hospitalMap;
             this.id = id;
             PopulateBuildingFloors();            
             SetFloorComboBox();
@@ -67,7 +69,7 @@ namespace WPFHospitalEditor
             ClearAll();           
             this.Close();
             CanvasService.AddObjectToCanvas(mapObjectController.GetOutterMapObjects(), HospitalMap.canvasHospitalMap);
-            Owner.Show();
+            Owner.ShowDialog();
         }
 
         private void FloorSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -165,7 +167,7 @@ namespace WPFHospitalEditor
         
         private void OpenAdditionalInformationDialog(MapObject mapObject)
         {
-            AdditionalInformation additionalInformation = new AdditionalInformation(mapObject, this);
+            AdditionalInformation additionalInformation = new AdditionalInformation(mapObject, this, hospitalMap);
             additionalInformation.Owner = this;
             additionalInformation.ShowDialog(); 
         }                     

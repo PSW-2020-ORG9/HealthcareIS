@@ -63,10 +63,10 @@ namespace WPFHospitalEditor
             if (chosenBuilding != null && chosenBuilding.MapObjectType == MapObjectType.Building)
             {
                 canvas.Children.Clear();
-                Building building = new Building(chosenBuilding.Id);
+                Building building = new Building(chosenBuilding.Id, this);
                 building.Owner = this;
                 this.Hide();
-                building.ShowDialog();
+                building.Show();
             }
         }
 
