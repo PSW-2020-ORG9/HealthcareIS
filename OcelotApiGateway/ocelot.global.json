@@ -12,6 +12,7 @@
       "UpstreamPathTemplate": "/api/user/auth/{everything}",
       "UpstreamHttpMethod": ["Get","Post"]
     },
+    
     {
       "DownstreamPathTemplate": "/user/{everything}",
       "DownstreamScheme": "http",
@@ -27,8 +28,8 @@
       {
         "Role" : "Patient, Admin"
       }
-    }
-    ,
+    },
+    
     {
       "DownstreamPathTemplate": "/feedbacks/{everything}",
       "DownstreamScheme": "http",
@@ -40,8 +41,8 @@
       ],
       "UpstreamPathTemplate": "/api/feedbacks/{everything}",
       "UpstreamHttpMethod": [ "Get","Post" ]
-    }
-    ,
+    },
+    
     {
       "DownstreamPathTemplate": "/schedule/{everything}",
       "DownstreamScheme": "http",
@@ -57,8 +58,8 @@
         {
             "Role" : "Patient"
         }
-    }
-    ,
+    },
+    
     {
       "DownstreamPathTemplate": "/hospital/{everything}",
       "DownstreamScheme": "http",

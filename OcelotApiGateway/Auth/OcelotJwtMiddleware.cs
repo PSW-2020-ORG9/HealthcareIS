@@ -20,7 +20,7 @@ namespace OcelotApiGateway.Auth
             {
                 HttpContext httpContext = downStreamContext.HttpContext;
                 var token = httpContext.Request.Cookies[JwtManager.AuthorizationTokenKey];
-                if (token != null && AuthorizeIfValidToken(downStreamContext, token))
+                if (AuthorizeIfValidToken(downStreamContext, token))
                 {
                     await next.Invoke();
                 }
@@ -33,11 +33,19 @@ namespace OcelotApiGateway.Auth
         
         private static bool AuthorizeIfValidToken(DownstreamContext downStreamContext, string jwtToken)
         {
+            downStreamContext.DownstreamReRoute.RouteClaimsRequirement
+                .TryGetValue("Role", out string allowedRoles);
+            if (allowedRoles == null)
+                return true;
+
+            if (jwtToken == null)
+                return false;
+            
             IIdentityProvider decodedObject = new JwtManager().Decode<UserToken>(jwtToken);
             if (decodedObject != null)
             {
-                return downStreamContext.DownstreamReRoute.RouteClaimsRequirement["Role"]
-                    ?.Split(RoleSeparator)
+                return allowedRoles
+                    .Split(RoleSeparator)
                     .FirstOrDefault(role => role.Trim() == decodedObject.GetRole()) != default;
             }
 
