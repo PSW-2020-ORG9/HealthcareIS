@@ -1,0 +1,16 @@
+{
+  "name": "e2e-selenium",
+  "version": "1.0.0",
+  "description": "",
+  "main": "none",
+  "scripts": {
+    "test": "selenium-side-runner -w 10 --base-url $ASPNET_PROTOCOL://$PSW_WEB_FRONTEND_PUBLISH_HOST *.side"
+  },
+  "author": "Igor Šikuljak",
+  "license": "MIT",
+  "dependencies": {
+    "chromedriver": "^87.0.5",
+    "cross-var": "^1.1.0",
+    "selenium-side-runner": "^3.17.0"
+  }
+}
