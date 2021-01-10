@@ -1,14 +1,10 @@
 using System;
 using General;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Logging;
-using Microsoft.IdentityModel.Tokens;
-using Schedule.API.Auth;
 using Schedule.API.Infrastructure.Database;
 using Schedule.API.Infrastructure.Repositories.Procedures;
 using Schedule.API.Infrastructure.Repositories.Procedures.Interfaces;

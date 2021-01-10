@@ -146,7 +146,7 @@
     },
     
     {
-      "DownstreamPathTemplate": "/schedule/{everything}",
+      "DownstreamPathTemplate": "/schedule/diagnosis",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -154,12 +154,97 @@
           "Port": $PSW_SCHEDULE_SERVICE_PORT
         }
       ],
-      "UpstreamPathTemplate": "/api/schedule/{everything}",
+      "UpstreamPathTemplate": "/api/schedule/diagnosis",
       "UpstreamHttpMethod": [ "Get","Post" ],
       "RouteClaimsRequirement" : 
         {
-            "Role" : "Patient"
+            "Role" : "Doctor, Admin"
         }
+    },
+
+    {
+      "DownstreamPathTemplate": "/schedule/diagnosis/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "$PSW_SCHEDULE_SERVICE_HOST",
+          "Port": $PSW_SCHEDULE_SERVICE_PORT
+        }
+      ],
+      "UpstreamPathTemplate": "/api/schedule/diagnosis/{everything}",
+      "UpstreamHttpMethod": [ "Get","Post" ],
+      "RouteClaimsRequirement" :
+      {
+        "Role" : "Doctor, Admin"
+      }
+    },
+
+    {
+      "DownstreamPathTemplate": "/schedule/available/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "$PSW_SCHEDULE_SERVICE_HOST",
+          "Port": $PSW_SCHEDULE_SERVICE_PORT
+        }
+      ],
+      "UpstreamPathTemplate": "/api/schedule/available/{everything}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "RouteClaimsRequirement" :
+      {
+        "Role" : "Patient, Admin"
+      }
+    },
+
+    {
+      "DownstreamPathTemplate": "/schedule/examination",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "$PSW_SCHEDULE_SERVICE_HOST",
+          "Port": $PSW_SCHEDULE_SERVICE_PORT
+        }
+      ],
+      "UpstreamPathTemplate": "/api/schedule/examination",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "RouteClaimsRequirement" :
+      {
+        "Role" : "Patient"
+      }
+    },
+
+    {
+      "DownstreamPathTemplate": "/schedule/examination/cancel/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "$PSW_SCHEDULE_SERVICE_HOST",
+          "Port": $PSW_SCHEDULE_SERVICE_PORT
+        }
+      ],
+      "UpstreamPathTemplate": "/api/schedule/examination/cancel/{everything}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "RouteClaimsRequirement" :
+      {
+        "Role" : "Patient, Admin"
+      }
+    },
+
+    {
+      "DownstreamPathTemplate": "/schedule/examination/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "$PSW_SCHEDULE_SERVICE_HOST",
+          "Port": $PSW_SCHEDULE_SERVICE_PORT
+        }
+      ],
+      "UpstreamPathTemplate": "/api/schedule/examination/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "RouteClaimsRequirement" :
+      {
+        "Role" : "Patient"
+      }
     },
     
     {

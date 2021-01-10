@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net;
 using General.Auth;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
-using RestSharp;
 using User.API.Mappers;
 using User.API.Model.Users.UserAccounts.Registration;
 using User.API.Services.PatientService;

@@ -7,7 +7,7 @@ namespace Schedule.API.Controllers
 {
     [ApiController]
     [Route("schedule/available")]
-    public class AvailabilityController:ControllerBase
+    public class AvailabilityController : ControllerBase
     {
         private readonly DoctorAvailabilityService doctorAvailabilityService;
 
@@ -24,6 +24,7 @@ namespace Schedule.API.Controllers
                 .ObjectToDto(doctorAvailabilityService.GetAvailableByDay(date));
             return Ok(doctorDtos);
         }
+        
         [Route("interval")]
         [HttpGet]
         public IActionResult GetAvailableIntervals([FromQuery] DateTime date, [FromQuery] int doctorId)
