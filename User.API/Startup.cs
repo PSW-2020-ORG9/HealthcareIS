@@ -103,7 +103,7 @@ namespace User.API
 
             // Auth
             var userAccountRepository = new UserAccountSqlRepository(GetContextFactory());
-            var credentialService = new CredentialsService(userAccountRepository);
+            var credentialService = new CredentialsService(userAccountRepository, GetJwtSecretFromEnvironment());
             
             // Advertisement
             var advertisementRepository = new AdvertisementSqlRepository(GetContextFactory());
@@ -140,6 +140,13 @@ namespace User.API
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+        }
+
+        private string GetJwtSecretFromEnvironment()
+        {
+            string jwtSecret = Environment.GetEnvironmentVariable("PSW_JWT_SECRET");
+            if (jwtSecret == default) throw new ApplicationException("JWT secret environment variable not set.");
+            return jwtSecret;
         }
     }
 }

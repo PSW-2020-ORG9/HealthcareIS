@@ -12,12 +12,13 @@ namespace User.API.Services.CredentialsService
     public class CredentialsService
     {
         private readonly RepositoryWrapper<IUserAccountRepository> _accountWrapper;
-        private readonly JwtManager _jwtManager = new JwtManager();
+        private readonly JwtManager _jwtManager;
 
         public CredentialsService(
-            IUserAccountRepository accountRepository
+            IUserAccountRepository accountRepository, string jwtSecret
         )
         {
+            _jwtManager = new JwtManager(jwtSecret);
             _accountWrapper = new RepositoryWrapper<IUserAccountRepository>(accountRepository);
         }
 
