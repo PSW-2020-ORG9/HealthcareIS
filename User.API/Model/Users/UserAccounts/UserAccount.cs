@@ -4,7 +4,7 @@ using User.API.Infrastructure.Exceptions;
 
 namespace User.API.Model.Users.UserAccounts
 {
-    public abstract class UserAccount : Entity<int>
+    public class UserAccount : Entity<int>
     {
         public Credentials Credentials { get; set; }
         public string Role { get; set; }

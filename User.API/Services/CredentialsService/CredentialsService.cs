@@ -3,6 +3,7 @@ using System.Linq;
 using General.Auth;
 using General.Repository;
 using User.API.DTOs;
+using User.API.Infrastructure.Exceptions;
 using User.API.Infrastructure.Repositories.Users.UserAccounts;
 using User.API.Model.Users.UserAccounts;
 
@@ -30,6 +31,7 @@ namespace User.API.Services.CredentialsService
 
             if (userAccount != default)
             {
+                if (!userAccount.IsActivated) throw new BadRequestException("Account not activated.");
                 return _jwtManager.Encode(MapAccountToUserToken(userAccount));
             }
 

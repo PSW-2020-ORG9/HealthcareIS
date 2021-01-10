@@ -3,6 +3,7 @@ using General.Auth;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using User.API.DTOs;
+using User.API.Infrastructure.Exceptions;
 using User.API.Services.CredentialsService;
 
 namespace User.API.Controllers
@@ -22,7 +23,15 @@ namespace User.API.Controllers
         [Route("login")]
         public IActionResult Login(LoginCredentials credentials)
         {
-            string authToken = _credentialsService.Login(credentials);
+            string authToken;
+            try
+            {
+                authToken = _credentialsService.Login(credentials);
+            } catch(BadRequestException e)
+            {
+                return BadRequest(e.Message);
+            }
+           
             if (authToken != default)
             {
                 AttackAuthTokenToResponse(HttpContext.Response, authToken);

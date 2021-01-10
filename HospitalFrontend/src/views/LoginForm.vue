@@ -39,11 +39,11 @@ export default {
             })
             .then(response => {
                 setUser(this)
-                if (this.$store.state.user.role == 'Admin')
+                if (this.$store.state.user && this.$store.state.user.role == 'Admin')
                     this.$router.push('/feedbacks')
                 else this.$router.push('/')
             })
-            .catch(error => this.toastError(error))
+            .catch(error => this.toastError(error.response.data))
         },
         toastError: function (errorMsg) {
             Toastify({

@@ -14,7 +14,7 @@ export function setUser(app) {
             let userToken = parseJwt(document.cookie.split('=')[1])
             if (userToken) {
                 if (userToken.role == 'Patient') {
-                    axios.get(api.patient + '/username/' + userToken.username)
+                    axios.get(api.patient + '/username')
                     .then(response => {
                         app.$store.commit('setUser', {
                             name: response.data.person.name,
