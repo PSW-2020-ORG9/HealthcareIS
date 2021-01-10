@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using General.Auth;
 using Microsoft.AspNetCore.Http;
+using Ocelot.Authorisation;
 using Ocelot.Middleware;
 
 namespace OcelotApiGateway.Auth
@@ -15,22 +18,27 @@ namespace OcelotApiGateway.Auth
             {
                 HttpContext httpContext = downStreamContext.HttpContext;
                 var token = httpContext.Request.Cookies[JwtManager.AuthorizationTokenKey];
-                if (token != null)
-                    AuthorizeIfValidToken(downStreamContext, token);
-
-                await next.Invoke();
+                if (token != null && AuthorizeIfValidToken(downStreamContext, token))
+                {
+                    await next.Invoke();
+                }
+                else
+                {
+                    downStreamContext.DownstreamResponse =
+                        new DownstreamResponse(new HttpResponseMessage(HttpStatusCode.Unauthorized));
+                }
             };
         
-        private static void AuthorizeIfValidToken(DownstreamContext downstreamContext, string jwtToken)
+        private static bool AuthorizeIfValidToken(DownstreamContext downStreamContext, string jwtToken)
         {
             IIdentityProvider decodedObject = new JwtManager().Decode<UserToken>(jwtToken);
             if (decodedObject != null)
             {
-                downstreamContext.HttpContext.User.AddIdentity(new ClaimsIdentity(new []
-                {
-                    new Claim("Role", decodedObject.GetRole())
-                }));
+                return downStreamContext.DownstreamReRoute.RouteClaimsRequirement["Role"]
+                    .Contains(decodedObject.GetRole());
             }
+
+            return false;
         }
     }
 }

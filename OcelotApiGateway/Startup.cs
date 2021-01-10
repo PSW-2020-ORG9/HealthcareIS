@@ -45,7 +45,7 @@ namespace OcelotApiGateway
 
             var config = new OcelotPipelineConfiguration
             {
-                PreAuthenticationMiddleware 
+                AuthorisationMiddleware 
                     = async (downStreamContext, next) =>
                     await OcelotJwtMiddleware.CreateAuthorizationFilter(downStreamContext, next)
             };

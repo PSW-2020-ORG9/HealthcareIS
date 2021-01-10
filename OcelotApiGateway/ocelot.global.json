@@ -1,6 +1,18 @@
 {
   "ReRoutes": [
     {
+      "DownstreamPathTemplate": "/user/auth/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "$PSW_USER_SERVICE_HOST",
+          "Port": $PSW_USER_SERVICE_PORT
+        }
+      ],
+      "UpstreamPathTemplate": "/api/user/auth/{everything}",
+      "UpstreamHttpMethod": ["Get","Post"]
+    },
+    {
       "DownstreamPathTemplate": "/user/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -10,7 +22,11 @@
         }
       ],
       "UpstreamPathTemplate": "/api/user/{everything}",
-      "UpstreamHttpMethod": ["Get","Post"]
+      "UpstreamHttpMethod": ["Get","Post"],
+      "RouteClaimsRequirement" :
+      {
+        "Role" : "Patient, Admin"
+      }
     }
     ,
     {
@@ -53,7 +69,11 @@
         }
       ],
       "UpstreamPathTemplate": "/api/hospital/{everything}",
-      "UpstreamHttpMethod": [ "Get","Post" ]
+      "UpstreamHttpMethod": [ "Get","Post" ],
+      "RouteClaimsRequirement" :
+      {
+        "Role" : "Secretary"
+      }
     }
   ]
 }
