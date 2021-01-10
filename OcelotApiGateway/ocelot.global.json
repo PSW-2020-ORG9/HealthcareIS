@@ -118,6 +118,19 @@
         "Role" : "Patient, Admin"
       }
     },
+
+    {
+      "DownstreamPathTemplate": "/user/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "$PSW_USER_SERVICE_HOST",
+          "Port": $PSW_USER_SERVICE_PORT
+        }
+      ],
+      "UpstreamPathTemplate": "/api/user/{everything}",
+      "UpstreamHttpMethod": ["Get", "Post"]
+    },
     
     {
       "DownstreamPathTemplate": "/feedbacks/{everything}",
