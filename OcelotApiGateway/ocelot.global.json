@@ -18,7 +18,7 @@
     },
 
     {
-      "DownstreamPathTemplate": "/user/doctor/specialty/ids/{everything}",
+      "DownstreamPathTemplate": "/user/doctor",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -26,11 +26,11 @@
           "Port": $PSW_USER_SERVICE_PORT
         }
       ],
-      "UpstreamPathTemplate": "/api/user/doctor/specialty/ids/{everything}",
-      "UpstreamHttpMethod": ["Get"],
+      "UpstreamPathTemplate": "/api/user/doctor/",
+      "UpstreamHttpMethod": ["Get","Post"],
       "RouteClaimsRequirement" :
       {
-        "Role" : "Forbidden"
+        "Role" : "Patient, Admin"
       }
     },
 

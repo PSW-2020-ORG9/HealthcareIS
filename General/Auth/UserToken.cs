@@ -8,6 +8,7 @@ namespace General.Auth
         public string Role { get; set; }
         public long Gen { get; set; }
         public long Exp { get; set; }
+        public int UserId { get; set; }
 
         public IDictionary<string, object> GetEncryptionAttributes()
         {
@@ -17,6 +18,7 @@ namespace General.Auth
                 new KeyValuePair<string, object>("gen", Gen),
                 new KeyValuePair<string, object>("exp", Exp),
                 new KeyValuePair<string, object>("role", Role), 
+                new KeyValuePair<string, object>("userId", UserId), 
             });
         }
 
@@ -28,6 +30,11 @@ namespace General.Auth
         public string GetRole()
         {
             return Role;
+        }
+
+        public int GetUserId()
+        {
+            return UserId;
         }
     }
 }

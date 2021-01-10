@@ -1,4 +1,5 @@
-﻿using General.Auth;
+﻿using System;
+using General.Auth;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using User.API.DTOs;
@@ -33,7 +34,7 @@ namespace User.API.Controllers
 
         public void AttackAuthTokenToResponse(HttpResponse httpResponse, string authToken)
         {
-            httpResponse.Cookies.Append(JwtManager.AuthorizationTokenKey, authToken);
+            httpResponse.Cookies.Append(Constants.AuthorizationTokenKey, authToken);
         }
     }
 }

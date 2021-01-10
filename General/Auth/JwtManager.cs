@@ -11,7 +11,6 @@ namespace General.Auth
         private readonly IJwtAlgorithm _algorithm;
 
         private const string _secret = "2fe177d2576b17e19e8a906d2ffcef87b84d8ad6cd8472917eab55a6508f5471659aacd2887d2a0c3b7be3253665391f";
-        public static readonly string AuthorizationTokenKey = "Authorization";
         
         public JwtManager()
         {

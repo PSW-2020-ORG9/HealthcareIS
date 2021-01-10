@@ -13,5 +13,7 @@ namespace General.Auth
         public long GetExpirationTicks();
 
         public string GetRole();
+
+        public int GetUserId();
     }
 }

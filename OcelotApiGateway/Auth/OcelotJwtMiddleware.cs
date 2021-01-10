@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using General.Auth;
 using Microsoft.AspNetCore.Http;
 using Ocelot.Middleware;
+using Ocelot.Request.Middleware;
 
 namespace OcelotApiGateway.Auth
 {
@@ -17,8 +18,8 @@ namespace OcelotApiGateway.Auth
             => async (downStreamContext, next) =>
             {
                 HttpContext httpContext = downStreamContext.HttpContext;
-                var token = httpContext.Request.Cookies[JwtManager.AuthorizationTokenKey];
-                if (AuthorizeIfValidToken(downStreamContext, token))
+                string jwtToken = httpContext.Request.Cookies[Constants.AuthorizationTokenKey];
+                if (TryAuthorizeWithToken(downStreamContext, jwtToken))
                 {
                     await next.Invoke();
                 }
@@ -29,12 +30,14 @@ namespace OcelotApiGateway.Auth
                 }
             };
         
-        private static bool AuthorizeIfValidToken(DownstreamContext downStreamContext, string jwtToken)
+        private static bool TryAuthorizeWithToken(DownstreamContext downStreamContext, string jwtToken)
         {
             downStreamContext.DownstreamReRoute.RouteClaimsRequirement
-                .TryGetValue("Role", out string allowedRoles);
+                .TryGetValue(Constants.AuthorizationAttributeKey, out string allowedRoles);
             if (allowedRoles == null)
+            {
                 return true;
+            }
 
             if (jwtToken == null)
                 return false;
@@ -42,12 +45,21 @@ namespace OcelotApiGateway.Auth
             IIdentityProvider decodedObject = new JwtManager().Decode<UserToken>(jwtToken);
             if (decodedObject != null)
             {
-                return allowedRoles
+                if (allowedRoles
                     .Split(RoleSeparator)
-                    .FirstOrDefault(role => role.Trim() == decodedObject.GetRole()) != default;
+                    .FirstOrDefault(role => role.Trim() == decodedObject.GetRole()) != default)
+                {
+                    AppendUserIdToRequest(downStreamContext.DownstreamRequest, decodedObject.GetUserId());
+                    return true;
+                }
             }
 
             return false;
+        }
+
+        private static void AppendUserIdToRequest(DownstreamRequest request, int userId)
+        {
+            request.Headers.Add(Constants.UserIdHeaderKey, userId.ToString());
         }
     }
 }

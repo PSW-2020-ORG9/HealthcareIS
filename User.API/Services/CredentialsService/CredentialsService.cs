@@ -43,7 +43,8 @@ namespace User.API.Services.CredentialsService
                 Gen = DateTime.Now.Ticks,
                 Exp = DateTime.Now.AddHours(1).Ticks,
                 Username = userAccount.Credentials.Username,
-                Role = userAccount.Role
+                Role = userAccount.Role,
+                UserId = userAccount.Id
             };
         }
     }
