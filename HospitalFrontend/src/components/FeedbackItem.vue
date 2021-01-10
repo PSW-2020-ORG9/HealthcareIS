@@ -12,7 +12,7 @@
         <button v-if="$store.state.user && $store.state.user.role=='Admin' 
         & !feedback.feedbackVisibility.isPublished 
         & feedback.feedbackVisibility.isPublic" 
-        @click="publishFeedback" type="button" class="btn btn-success float-right">Publish</button>
+        @click="publishFeedback" type="button" class="btn btn-success float-right" v-bind:id="'publish' + feedback.id">Publish</button>
     </div>
   </div>
 

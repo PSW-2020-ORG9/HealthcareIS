@@ -11,7 +11,7 @@
                 <input type="password" name="password" v-model="password" placeholder="Password"/>
             </div>
         </div>
-        <input type="button" class="action-button" @click="login" value="Login"/><br/>
+        <input type="button" class="action-button" @click="login" value="Login" name="login"/><br/>
         <router-link to="/register">Register here.</router-link>
     </fieldset>
     </transition>
