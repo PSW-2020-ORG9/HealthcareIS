@@ -9,7 +9,9 @@
   "author": "Igor Šikuljak",
   "license": "MIT",
   "dependencies": {
+    "chrome": "^0.1.0",
     "chromedriver": "^87.0.5",
+    "chromium": "^3.0.2",
     "cross-var": "^1.1.0",
     "selenium-side-runner": "^3.17.0"
   }
