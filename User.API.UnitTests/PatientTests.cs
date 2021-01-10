@@ -17,7 +17,7 @@ namespace User.API.UnitTests
         public void Patient_has_allergies()
         {
             PrepareStubs();
-            var patientService = new PatientService(_stubPatientRepository.Object);
+            var patientService = new PatientService(_stubPatientRepository.Object, null);
 
             var p = patientService.GetByID(1);
 
