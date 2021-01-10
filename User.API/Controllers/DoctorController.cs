@@ -4,6 +4,7 @@ using System.Linq;
 using General.Auth;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
+using RestSharp;
 using User.API.DTOs;
 using User.API.Mappers;
 using User.API.Services.EmployeeService;
@@ -62,17 +63,8 @@ namespace User.API.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            string userId;
-            try
-            {
-                userId = Request.Headers[Constants.UserIdHeaderKey];
-            }
-            catch
-            {
-                userId = default;
-            }
-            
-            Console.WriteLine(userId);
+            string userId = HttpIdentityHandler.GetUserIdFromRequest(HttpContext.Request);
+            Console.WriteLine($"User id = [{userId}]");
             
             var doctors = _doctorService.GetAll();
             if (doctors != null) return Ok(doctors);

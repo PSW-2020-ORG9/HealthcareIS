@@ -17,44 +17,48 @@ namespace OcelotApiGateway.Auth
         public static Func<DownstreamContext, Func<Task>, Task> CreateAuthorizationFilter 
             => async (downStreamContext, next) =>
             {
-                HttpContext httpContext = downStreamContext.HttpContext;
-                string jwtToken = httpContext.Request.Cookies[Constants.AuthorizationTokenKey];
-                if (TryAuthorizeWithToken(downStreamContext, jwtToken))
+                string jwtToken = HttpIdentityHandler.GetJwtFromRequest(downStreamContext.HttpContext.Request);
+                try
                 {
+                    TryAuthorizeWithToken(downStreamContext, jwtToken);
                     await next.Invoke();
                 }
-                else
+                catch (UnauthorizedAccessException)
                 {
                     downStreamContext.DownstreamResponse =
                         new DownstreamResponse(new HttpResponseMessage(HttpStatusCode.Unauthorized));
                 }
             };
         
-        private static bool TryAuthorizeWithToken(DownstreamContext downStreamContext, string jwtToken)
+        private static void TryAuthorizeWithToken(DownstreamContext downStreamContext, string jwtToken)
         {
-            downStreamContext.DownstreamReRoute.RouteClaimsRequirement
-                .TryGetValue(Constants.AuthorizationAttributeKey, out string allowedRoles);
-            if (allowedRoles == null)
-            {
-                return true;
-            }
+            var allowedRoles = GetAllowedRolesForCurrentRoute(downStreamContext);
 
-            if (jwtToken == null)
-                return false;
+            if (allowedRoles == null) return;
+            if (jwtToken == null) throw new UnauthorizedAccessException();
             
-            IIdentityProvider decodedObject = new JwtManager().Decode<UserToken>(jwtToken);
-            if (decodedObject != null)
+            IIdentityProvider identityProvider = new JwtManager().Decode<UserToken>(jwtToken);
+            if (identityProvider != null && IsIdentityRoleAllowed(allowedRoles, identityProvider))
             {
-                if (allowedRoles
-                    .Split(RoleSeparator)
-                    .FirstOrDefault(role => role.Trim() == decodedObject.GetRole()) != default)
-                {
-                    AppendUserIdToRequest(downStreamContext.DownstreamRequest, decodedObject.GetUserId());
-                    return true;
-                }
+                AppendUserIdToRequest(downStreamContext.DownstreamRequest, identityProvider.GetUserId());
+                return;
             }
 
-            return false;
+            throw new UnauthorizedAccessException();
+        }
+
+        private static string GetAllowedRolesForCurrentRoute(DownstreamContext downstreamContext)
+        {
+            downstreamContext.DownstreamReRoute.RouteClaimsRequirement
+                .TryGetValue(Constants.AuthorizationAttributeKey, out string allowedRoles);
+            return allowedRoles;
+        }
+
+        private static bool IsIdentityRoleAllowed(string allowedRoles, IIdentityProvider identityProvider)
+        {
+            return allowedRoles
+                .Split(RoleSeparator)
+                .FirstOrDefault(role => role.Trim() == identityProvider.GetRole()) != default;
         }
 
         private static void AppendUserIdToRequest(DownstreamRequest request, int userId)
