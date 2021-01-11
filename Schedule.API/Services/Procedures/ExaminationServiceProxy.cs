@@ -97,7 +97,6 @@ namespace Schedule.API.Services.Procedures
             }
             catch (SerializationException)
             {
-                Console.WriteLine("Failed to attach doctors to examinations. Connection failed.");
                 return;
             }
             
@@ -123,7 +122,6 @@ namespace Schedule.API.Services.Procedures
             }
             catch (SerializationException)
             {
-                Console.WriteLine("Failed to attach rooms to examinations. Connection failed.");
                 return;
             }
             
@@ -149,7 +147,6 @@ namespace Schedule.API.Services.Procedures
             }
             catch (SerializationException)
             {
-                Console.WriteLine("Failed to attach patients to examinations. Connection failed.");
                 return;
             }
             

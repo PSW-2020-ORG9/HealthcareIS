@@ -1,5 +1,6 @@
 using System;
 using MySql.Data.MySqlClient;
+using WebApp.E2ETests.Pages;
 
 namespace WebApp.E2ETests
 {
@@ -38,6 +39,22 @@ namespace WebApp.E2ETests
         {
             _connection.Open();
             var command = new MySqlCommand("delete from feedback.UserFeedbacks where UserComment='1z7rfxeyqh333kt4sidfsr36y424gqvg'", _connection);
+            command.ExecuteNonQuery();
+            _connection.Close();
+        }
+
+        public void EnsureExaminationNotCancelled()
+        {
+            _connection.Open();
+            var command = new MySqlCommand($"update schedule.examinations set iscanceled=false where id={ExaminationsPage.examinationId};", _connection);
+            command.ExecuteNonQuery();
+            _connection.Close();
+        }
+
+        public void RestoreTestChangesForExaminations()
+        {
+            _connection.Open();
+            var command = new MySqlCommand($"update schedule.examinations set iscanceled=false where id={ExaminationsPage.examinationId};", _connection);
             command.ExecuteNonQuery();
             _connection.Close();
         }

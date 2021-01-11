@@ -7,7 +7,6 @@
             <div v-if="imageUrl">
                 <img class="image-preview rounded p-1 border border-light m-2" v-bind:src="imageUrl" alt=""/>
             </div>
-            <!--UPLOAD-->
             <form enctype="multipart/form-data">
                 <div class="custom-file">
                     <input type="file" single name="profile-picture" id="profile-picture" class="custom-file-input" :disabled="isSaving" @change="fileChange($event.target.files)" accept="image/*">
@@ -100,10 +99,6 @@ export default {
       }
       ,
       registerPatient:function(){
-        // if(!this.isImageUrlPresent()){
-        //     this.toastError('Upload your profile picture!')
-        //     return
-        // }
         this.postPatientAccount()
         
       }

@@ -38,7 +38,7 @@
                 </tr>
             </tbody>
         </table>
-        <button class="btn btn-info col" v-on:click="cancelAppointment(examination.id)" v-if="isCancelable()">Cancel appointment</button>
+        <button class="btn btn-info col" v-bind:id="getCancelButtonId()" v-on:click="cancelAppointment(examination.id)" v-if="isCancelable()">Cancel appointment</button>
         <div class="col text-danger lead font-weight-bold d-flex justify-content-center" v-else-if="examination.isCanceled">
             <h3 class="align-self-center">Canceled</h3>
         </div>
@@ -127,6 +127,9 @@ export default {
                 position: 'center',
                 backgroundColor: "linear-gradient(to right, #C37D92, #d89a9e)"
             }).showToast()
+        },
+        getCancelButtonId: function() {
+            return "cancelButton-" + this.examination.id;
         },
         mounted() {
             
