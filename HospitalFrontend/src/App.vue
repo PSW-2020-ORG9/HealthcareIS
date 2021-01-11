@@ -1,21 +1,58 @@
 <template>
 <body>
-  <div class="bg-image">
-  <div id="nav" style="background-color:rgb(177, 255, 177); margin-bottom: 50px;">
-    <router-link to="/" style="margin-right: 5px; margin-left: 5px;"> Home page </router-link> &middot;
-    <router-link to="/feedbacks" style="margin-right: 5px; margin-left: 5px;">Observe feedback</router-link> &middot;
-    <router-link to="/create-feedback" style="margin-right: 5px; margin-left: 5px;">Create feedback</router-link> &middot;
-    <router-link to="/survey-preview" style="margin-right: 5px; margin-left: 5px;">Survey preview</router-link> &middot;
-    <router-link to="/medical-record" style="margin-right: 5px; margin-left: 5px;"> Observe medical record </router-link> &middot;
-    <router-link to="/doc-search" style="margin-right: 5px; margin-left: 5px;">Search medical documentation </router-link> &middot;
-    <router-link to="/register" style="margin-right: 5px; margin-left: 5px;">Patient registration </router-link> &middot;
-    <router-link to="/examinations" style="margin-right: 5px; margin-left: 5px;">Patient examinations </router-link> &middot;
-    <router-link to="/scheduling-type" style="margin-right: 5px; margin-left: 5px;">Schedule Appointment </router-link>
-  </div>
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color:#d1ffbd">
+    <a class="navbar-brand"><router-link to="/">HealthcareIS</router-link></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar-content">
+      <ul v-if="$store.state.user" class="navbar-nav mr-auto">
+        <li v-if="$store.state.user.role == 'Patient'" class="nav-item active">
+          <router-link class="nav-link" to="/scheduling-type">Schedule Appointment</router-link>
+        </li>
+        <li class="nav-item active">
+          <router-link class="nav-link" to="/feedbacks">Feedbacks</router-link>
+        </li>
+        <li class="nav-item active">
+          <router-link class="nav-link" to="/survey-preview">Surveys</router-link>
+        </li>
+      </ul>
+      <li class="navbar-nav nav-item dropdown">
+        <a v-if="$store.state.user" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{$store.state.user.name + " " + $store.state.user.surname}}
+        </a>
+        <router-link v-else to="/login" class="nav-link">Login</router-link>
+        <div v-if="$store.state.user" class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+          <div v-if="$store.state.user.role == 'Patient'">
+            <router-link to="/medical-record" class="dropdown-item">Profile</router-link>
+            <router-link to="/examinations" class="dropdown-item">Examinations</router-link>
+            <router-link to="/doc-search" class="dropdown-item">Documentation </router-link>
+            <div class="dropdown-divider"></div>
+          </div>
+          <a class="dropdown-item" href="#" @click="logout">Log out</a>
+        </div>
+      </li>
+    </div>
+  </nav>
   <router-view/>
-  </div>
 </body>
 </template>
+
+<script>
+import { setUser } from './jwt.js'
+export default {
+  methods: {
+    logout: function () {
+      document.cookie = "Authorization=; expires=" + new Date().toGMTString();
+      this.$store.commit('setUser', null)
+      this.$router.push('/login')
+    }
+  },
+  mounted: function () {
+    setUser(this)
+  }
+}
+</script>
 
 <style lang="scss">
 body {

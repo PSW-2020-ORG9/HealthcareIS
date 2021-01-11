@@ -4,10 +4,12 @@
 // Purpose: Definition of Class PatientService
 
 using General.Repository;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using User.API.Infrastructure.Repositories;
 using User.API.Infrastructure.Repositories.Users.Patients.Interfaces;
+using User.API.Infrastructure.Repositories.Users.UserAccounts;
 using User.API.Model.Users.Patients;
 
 namespace User.API.Services.PatientService
@@ -15,10 +17,12 @@ namespace User.API.Services.PatientService
     public class PatientService
     {
         private readonly RepositoryWrapper<IPatientRepository> _patientRepository;
+        private readonly RepositoryWrapper<IPatientAccountRepository> _patientAccountRepository;
 
-        public PatientService(IPatientRepository patientRepository)
+        public PatientService(IPatientRepository patientRepository, IPatientAccountRepository patientAccountRepository)
         {
             _patientRepository = new RepositoryWrapper<IPatientRepository>(patientRepository);
+            _patientAccountRepository = new RepositoryWrapper<IPatientAccountRepository>(patientAccountRepository);
         }
 
         public Patient GetByID(int id)
@@ -29,5 +33,12 @@ namespace User.API.Services.PatientService
 
         public IEnumerable<Patient> Find(IEnumerable<int> patientIds)
             => _patientRepository.Repository.GetMatching(patient => patientIds.Contains(patient.Id));
+
+        public Patient GetByUsername(string username)
+        {
+            var patientAccount = _patientAccountRepository.Repository.GetMatching(account => account.Credentials.Username == username).FirstOrDefault();
+            if (patientAccount == null) return null;
+            return _patientRepository.Repository.GetByID(patientAccount.PatientId);
+        }
     }
 }

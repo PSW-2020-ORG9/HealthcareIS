@@ -91,7 +91,7 @@ namespace Schedule.API
             services.Add(new ServiceDescriptor(typeof(ExaminationServiceProxy), examinationServiceProxy));
             services.Add(new ServiceDescriptor(typeof(RecommendationService), recommendationService));
             services.Add(new ServiceDescriptor(typeof(DoctorAvailabilityService),availabilityService));
-            
+
             services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
         }
 
@@ -103,10 +103,11 @@ namespace Schedule.API
             }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
 
             app.UseAuthorization();
+
+            //app.UseMiddleware<JwtMiddleware>();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }

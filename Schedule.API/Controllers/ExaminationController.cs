@@ -1,4 +1,5 @@
 ﻿using System;
+using General.Auth;
 using Microsoft.AspNetCore.Mvc;
 using Schedule.API.DTOs;
 using Schedule.API.Mappers;
@@ -28,13 +29,9 @@ namespace Schedule.API.Controllers
 
         [HttpGet]
         public IActionResult GetAll()
-            => Ok(_examinationService.GetByPatientId(1));
-
-        [HttpGet]
-        [Route("patient/{patientId}")]
-        public IActionResult GetExaminationsForPatient(int patientId)
         {
-            return Ok(_examinationService.GetByPatientId(patientId));
+            string userId = HttpIdentityHandler.GetUserIdFromRequest(HttpContext.Request);
+            return Ok(_examinationService.GetByPatientId(Int32.Parse(userId)));
         }
 
         [HttpGet]
@@ -52,6 +49,7 @@ namespace Schedule.API.Controllers
         [HttpPost]
         public IActionResult ScheduleExamination(ScheduledExaminationDTO dto)
         {
+            dto.PatientId = Int32.Parse(HttpIdentityHandler.GetUserIdFromRequest(HttpContext.Request));
             var examination = ExaminationMapper.DtoToObject(dto);
             try
             {
@@ -82,13 +80,17 @@ namespace Schedule.API.Controllers
         [Route("search/simple")]
         public IActionResult SimpleSearch(ExaminationSimpleFilterDto dto)
         {
+            dto.PatientId = Int32.Parse(HttpIdentityHandler.GetUserIdFromRequest(HttpContext.Request));
             return Ok(_examinationService.Search(dto));
         }
 
         [HttpPost]
         [Route("search/advanced")]
         public IActionResult AdvancedSearch(ExaminationAdvancedFilterDto dto)
-            => Ok(_examinationService.Search(dto));
+        {
+            dto.PatientId = Int32.Parse(HttpIdentityHandler.GetUserIdFromRequest(HttpContext.Request));
+            return Ok(_examinationService.Search(dto));
+        }
 
         [HttpPost]
         [Route("check-rooms")]

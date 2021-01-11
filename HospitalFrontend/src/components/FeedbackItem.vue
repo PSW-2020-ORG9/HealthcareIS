@@ -9,7 +9,7 @@
     </div>
     <div class="card-body">           
         <div class="text-left">{{feedback.userComment}}</div>
-        <button v-if="user=='admin' 
+        <button v-if="$store.state.user && $store.state.user.role=='Admin' 
         & !feedback.feedbackVisibility.isPublished 
         & feedback.feedbackVisibility.isPublic" 
         @click="publishFeedback" type="button" class="btn btn-success float-right">Publish</button>

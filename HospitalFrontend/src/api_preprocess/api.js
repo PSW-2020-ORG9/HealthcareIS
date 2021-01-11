@@ -20,7 +20,7 @@ let specialtyUrl = userService + '/specialty'
 let patientExaminationsUrl = scheduleService + '/examination'
 let patientUrl = userService + '/patient'
 let registrationUrl = patientUrl + '/register'
-let doctorAvailabilityUrl = userService + '/available/'
+let doctorAvailabilityUrl = scheduleService + '/available/'
 let citiesByCountryId = userService + '/city/by-country/'
 let countriesUrl= userService +'/country'
 let patientAccountUrl = userService + '/patient/account'
@@ -34,6 +34,8 @@ let surveyPreviewUrl = feedbackService + '/survey/preview/admin/1'
 let imageUploadUrl = 'https://api.imgur.com/3/image'
 let clientId = '9a86c8e89e7d2ea'
 let examinationRecommendationUrl = patientExaminationsUrl + '/recommend'
+
+let loginUrl = userService + '/auth/login'
 
 
 export default{
@@ -70,6 +72,8 @@ export default{
     patientExaminationsSurveyResponsesUrl: patientExaminationsSurveyResponsesUrl,
 
     room : roomUrl,
+
+    loginUrl : loginUrl,
 
     availableDoctorUrl:function(date){
         return doctorAvailabilityUrl + 'doctor?date=' + date

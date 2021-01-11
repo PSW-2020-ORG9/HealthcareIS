@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -12,6 +14,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
+using OcelotApiGateway.Auth;
 
 namespace OcelotApiGateway
 {
@@ -40,6 +43,13 @@ namespace OcelotApiGateway
                 app.UseDeveloperExceptionPage();
             }
 
+            var config = new OcelotPipelineConfiguration
+            {
+                AuthorisationMiddleware 
+                    = async (downStreamContext, next) =>
+                    await OcelotJwtMiddleware.CreateAuthorizationFilter(downStreamContext, next)
+            };
+            
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -50,8 +60,9 @@ namespace OcelotApiGateway
                 .AllowCredentials());
             
             app.UseAuthorization();
+            
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
-            app.UseOcelot().Wait();
+            app.UseOcelot(config).Wait();
         }
     }
 }

@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using General.Auth;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Primitives;
+using RestSharp;
 using User.API.DTOs;
 using User.API.Mappers;
 using User.API.Services.EmployeeService;
