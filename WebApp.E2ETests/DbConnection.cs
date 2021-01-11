@@ -16,17 +16,15 @@ namespace WebApp.E2ETests
         {
             string server = Environment.GetEnvironmentVariable("DB_PSW_SERVER");
             string port = Environment.GetEnvironmentVariable("DB_PSW_PORT");
-            string database = Environment.GetEnvironmentVariable("DB_PSW_FEEDBACK_DATABASE");
             string user = Environment.GetEnvironmentVariable("DB_PSW_USER");
             string password = Environment.GetEnvironmentVariable("DB_PSW_PASSWORD");
             if (server == null
                 || port == null
-                || database == null
                 || user == null
                 || password == null)
                 return null;
 
-            return $"server={server};port={port};database={database};user={user};password={password};";
+            return $"server={server};port={port};user={user};password={password};";
         }
         public void EnsureFeedbackNotPublished()
         {
