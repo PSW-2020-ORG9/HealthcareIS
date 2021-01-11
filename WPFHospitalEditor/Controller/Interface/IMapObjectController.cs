@@ -3,7 +3,7 @@ using WPFHospitalEditor.MapObjectModel;
 
 namespace WPFHospitalEditor.Controller
 {
-    interface IMapObjectController
+    public interface IMapObjectController
     {
         List<MapObject> GetAllMapObjects();
         MapObject Update(MapObject mapObject);

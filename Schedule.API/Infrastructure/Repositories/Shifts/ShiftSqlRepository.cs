@@ -54,5 +54,7 @@ namespace Schedule.API.Infrastructure.Repositories.Shifts
             if (!shifts.Any()) return -1;
             return shifts.First().AssignedExamRoomId;
         }
+
+
     }
 }

@@ -8,5 +8,6 @@ namespace WPFHospitalEditor.Service.Interface
         IEnumerable<EquipmentDto> GetEquipmentByRoomId(int roomId);
 
         IEnumerable<EquipmentDto> GetEquipmentByType(string equipmentType);
+        bool RelocateEquipment(EquipmentRelocationDto eqRealDto);
     }
 }

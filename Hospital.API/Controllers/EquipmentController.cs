@@ -33,5 +33,13 @@ namespace Hospital.API.Controllers
             if (eqDtos != null) return Ok(eqDtos);
             return BadRequest("Equipment not found.");
         }
+
+        [HttpPost]
+        public IActionResult RelocateEquipment(EquipmentRelocationDto equipmentRelocationDto) 
+        {
+            bool RetVal = _equipmentService.RelocateEquipment(equipmentRelocationDto);
+            if (RetVal != false) return Ok(RetVal);
+            return BadRequest("Relocation can not be proceeded.");
+        }
     }
 }

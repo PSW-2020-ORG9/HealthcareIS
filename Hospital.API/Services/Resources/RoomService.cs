@@ -4,7 +4,6 @@ using Hospital.API.Model.Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Hospital.API.Services.Resources
 {
@@ -22,5 +21,9 @@ namespace Hospital.API.Services.Resources
 
         public Room GetById(int id)
             => _roomRepository.Repository.GetByID(id);
+
+        public IEnumerable<Room> getByEquipmentType(string equipmentTypeName)
+            => _roomRepository.Repository
+                .GetMatching(r => r.Equipment.Select(r => r.EquipmentType.Name).Contains(equipmentTypeName));
     }
 }

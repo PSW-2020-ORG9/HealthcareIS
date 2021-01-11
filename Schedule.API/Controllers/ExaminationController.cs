@@ -1,12 +1,14 @@
 ﻿using System;
 using General.Auth;
 using Microsoft.AspNetCore.Mvc;
+using Schedule.API.DTOs;
 using Schedule.API.Mappers;
 using Schedule.API.Model.Exceptions;
 using Schedule.API.Model.Filters;
 using Schedule.API.Model.Procedures.DTOs;
 using Schedule.API.Model.Recommendations;
 using Schedule.API.Services.Procedures;
+using Schedule.API.Services.Procedures.Interface;
 
 namespace Schedule.API.Controllers
 {
@@ -16,11 +18,13 @@ namespace Schedule.API.Controllers
     {
         private readonly ExaminationServiceProxy _examinationService;
         private readonly RecommendationService _recommendationService;
-        
-        public ExaminationController(ExaminationServiceProxy examinationService, RecommendationService recommendationService)
+        private readonly IEquipmentRelocationSchedulingService _equipmentRelocationSchedulingService;
+
+        public ExaminationController(ExaminationServiceProxy examinationService, RecommendationService recommendationService, IEquipmentRelocationSchedulingService equipmentRelocationSchedulingService)
         {
             _examinationService = examinationService;
             _recommendationService = recommendationService;
+            _equipmentRelocationSchedulingService = equipmentRelocationSchedulingService;
         }
 
         [HttpGet]
@@ -86,6 +90,20 @@ namespace Schedule.API.Controllers
         {
             dto.PatientId = Int32.Parse(HttpIdentityHandler.GetUserIdFromRequest(HttpContext.Request));
             return Ok(_examinationService.Search(dto));
+        }
+
+        [HttpPost]
+        [Route("check-rooms")]
+        public IActionResult GetUnavailableRooms(EquipmentRelocationDto dto)
+        {
+            return Ok(_equipmentRelocationSchedulingService.GetUnavailableRooms(dto));
+        }
+
+        [HttpPost]
+        [Route("get-doctors")]
+        public IActionResult GetDoctorsByRoomsAndShifts(EquipmentRelocationDto dto)
+        {
+            return Ok(_equipmentRelocationSchedulingService.GetDoctorsByRoomsAndShifts(dto));
         }
     }
 }

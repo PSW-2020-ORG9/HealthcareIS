@@ -14,6 +14,6 @@ namespace Hospital.API.Services.Resources
         void DeleteByType(EquipmentType equipmentType);
         IEnumerable<EquipmentDto> GetEquipmentWithQuantityByRoomId(int roomId);
         IEnumerable<EquipmentDto> GetEquipmentWithQuantityByType(string equipmentType);
-
+        bool RelocateEquipment(EquipmentRelocationDto equipmentRelocationDto);
     }
 }

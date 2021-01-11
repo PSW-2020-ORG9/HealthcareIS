@@ -1,4 +1,5 @@
-﻿using RestSharp;
+using Newtonsoft.Json;
+using RestSharp;
 using System.Collections.Generic;
 using WPFHospitalEditor.DTOs;
 using WPFHospitalEditor.Service.Interface;
@@ -23,5 +24,13 @@ namespace WPFHospitalEditor.Service
             return response.Data;
         }
 
+        public bool RelocateEquipment(EquipmentRelocationDto eqRealDto)
+        {
+            var client = new RestClient(AllConstants.ConnectionUrl);
+            var request = new RestRequest("/api/hospital/equipment/Equipment/", Method.POST);
+            request.AddJsonBody(JsonConvert.SerializeObject(eqRealDto));
+            var response = client.Post<bool>(request);
+            return response.Data;
+        }
     }
 }

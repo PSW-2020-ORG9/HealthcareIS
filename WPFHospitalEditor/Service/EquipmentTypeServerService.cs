@@ -1,6 +1,7 @@
 ﻿using RestSharp;
 using System.Collections.Generic;
 using System.Linq;
+using WPFHospitalEditor.Controller;
 using WPFHospitalEditor.DTOs;
 using WPFHospitalEditor.Service.Interface;
 

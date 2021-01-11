@@ -22,5 +22,6 @@ namespace WPFHospitalEditor.Service
         {
             return JsonConvert.SerializeObject(recDto);
         }
+
     }
 }

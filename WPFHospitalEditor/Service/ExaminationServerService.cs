@@ -23,5 +23,7 @@ namespace WPFHospitalEditor.Service
             var response = client.Post<Examination>(request);
             return response.Data;
         }
+
+
     }
 }

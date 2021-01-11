@@ -101,6 +101,13 @@ namespace Hospital.API.Services.Resources
             );
         }
 
+        private IEnumerable<EquipmentUnit> GetEquipmentByRoomIdAndType(int roomId, string equipmentType)
+        {
+            return _equipmentUnitRepository.Repository.GetMatching(
+                condition: equipment => equipment.CurrentLocationId == roomId && equipment.EquipmentType.Name == equipmentType
+            );
+        }
+
         public IEnumerable<EquipmentDto> GetEquipmentWithQuantityByType(string equipmentType)
         {
             Dictionary<int, EquipmentDto> allEquipment = new Dictionary<int, EquipmentDto>();
@@ -114,6 +121,40 @@ namespace Hospital.API.Services.Resources
                 allEquipment[equipment.RoomId].Quantity += 1;
             }
             return allEquipment.Values.ToList();
+        }
+
+        public bool RelocateEquipment(EquipmentRelocationDto eqRealDto)
+        {
+            List<EquipmentUnit> equipmentsInRoom = GetEquipmentByRoomIdAndType(eqRealDto.SourceRoomId, eqRealDto.EquipmentType).ToList();
+            if (CheckAmount(eqRealDto.Amount, eqRealDto.SourceRoomId, eqRealDto.EquipmentType))
+            {
+                MoveEquipmentUnits(eqRealDto, equipmentsInRoom);
+                return true;
+            }
+            return false;
+        }
+
+        private void MoveEquipmentUnits(EquipmentRelocationDto eqRealDto, List<EquipmentUnit> equipmentsInRoom)
+        {
+            for (int i = 0; i < eqRealDto.Amount; i++)
+            {
+                equipmentsInRoom[i].CurrentLocation = null;
+                equipmentsInRoom[i].CurrentLocationId = eqRealDto.DestinationRoomId;
+                _equipmentUnitRepository.Repository.Update(equipmentsInRoom[i]);
+            }
+        }
+
+        private bool CheckAmount(int amount, int sourceRoomId, string equipmentType)
+        {
+            foreach(EquipmentDto eqDto in GetEquipmentWithQuantityByRoomId(sourceRoomId))
+            {
+                if(eqDto.Name.Equals(equipmentType))
+                {
+                    if (eqDto.Quantity >= amount) return true;
+                    return false;
+                }
+            }
+            return false;
         }
     }
 }
