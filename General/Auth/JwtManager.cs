@@ -47,7 +47,6 @@ namespace General.Auth
             }
             catch (SignatureVerificationException)
             {
-                Console.WriteLine("JWT verification failed.");
                 return default;
             }
             catch (JsonReaderException)
@@ -56,7 +55,6 @@ namespace General.Auth
             }
             catch (JwtExpiredException)
             {
-                Console.WriteLine("Token expired.");
                 return default;
             }
         }

@@ -10,7 +10,7 @@
         <li v-if="$store.state.user.role == 'Patient'" class="nav-item active">
           <router-link class="nav-link" to="/scheduling-type">Schedule Appointment</router-link>
         </li>
-        <li class="nav-item active">
+        <li class="nav-item active" id='feedbacks'>
           <router-link class="nav-link" to="/feedbacks">Feedbacks</router-link>
         </li>
         <li class="nav-item active">
