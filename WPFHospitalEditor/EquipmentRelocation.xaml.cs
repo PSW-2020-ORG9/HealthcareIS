@@ -16,9 +16,10 @@ namespace WPFHospitalEditor
     public partial class EquipmentRelocation : Window
     {
         private IRoomServerController roomServerController = new RoomServerController();
+        private IDoctorServerController doctorServerController = new DoctorServerController();
         private IEquipmentServerController equipmentServerController = new EquipmentServerController();
         private IExaminationServerController examinationServerController = new ExaminationServerController();
-        public ObservableCollection<RoomsWithChosenEquipmentAmount> roomsWithEquipmentAmount { get; set; }
+        public ObservableCollection<RoomWithChosenEquipmentAmount> roomsWithEquipmentAmount { get; set; }
         private HospitalMap hospitalMap;
         private int destinationRoomId;
         private string relocationEquipmentName;
@@ -65,14 +66,15 @@ namespace WPFHospitalEditor
 
             if (AmountIsValid() && !timeInterval.IsValid())
             {
-                List<int> unavailableRooms = GetUnavailableRoomsIds(timeInterval);
+                EquipmentRelocationDto eqRelDto = CreateEquipmentRelocationDto(timeInterval);
+                List<int> unavailableRooms = roomServerController.GetUnavailableRoomsIdsInTimeInterval(eqRelDto).ToList();
                 if (unavailableRooms.Count > 0)
                 {
                     ShowAlternativeRelocationAppointments(unavailableRooms);
                 }
                 else
                 {
-                    ScheduleRelocation();
+                    ScheduleRelocation(eqRelDto);
                 }
             }
 
@@ -85,18 +87,24 @@ namespace WPFHospitalEditor
             newWindow.Show();
         }
 
-        private void ScheduleRelocation()
+        private void ScheduleRelocation(EquipmentRelocationDto eqRelDto)
         {
-            while (startDate < endDate)
+
+            List<int> doctors = doctorServerController.GetDoctorsByRoomsAndShifts(eqRelDto).ToList();
+            foreach(int doctorId in doctors)
             {
-                examinationServerController.ScheduleExamination(startDate, 1, 2);
-                startDate = startDate.AddMinutes(30);
+                startDate = eqRelDto.TimeInterval.Start;
+                while (startDate < endDate)
+                {
+                    examinationServerController.ScheduleExamination(startDate, doctorId, 2);
+                    startDate = startDate.AddMinutes(30);
+                }
             }
             MessageBox.Show("Relocation is successfully scheduled!", "");
             this.Close();
         }
 
-        private List<int> GetUnavailableRoomsIds(TimeInterval timeInterval)
+        private EquipmentRelocationDto CreateEquipmentRelocationDto(TimeInterval timeInterval)
         {
             EquipmentRelocationDto equipmentRelocationDto = new EquipmentRelocationDto()
             {
@@ -107,12 +115,12 @@ namespace WPFHospitalEditor
                 TimeInterval = timeInterval
 
             };
-            return roomServerController.GetUnavailableRoomsIdsInTimeInterval(equipmentRelocationDto).ToList();
+            return equipmentRelocationDto;
         }
 
         private void FillObservableCollection()
         {
-            roomsWithEquipmentAmount = new ObservableCollection<RoomsWithChosenEquipmentAmount>();
+            roomsWithEquipmentAmount = new ObservableCollection<RoomWithChosenEquipmentAmount>();
             List<Room> rooms = roomServerController.getRoomsByEquipmentType(relocationEquipmentName).ToList();
             List<EquipmentDto> equipments = equipmentServerController.GetEquipmentByType(relocationEquipmentName).ToList();
             foreach (Room room in rooms)
@@ -121,7 +129,7 @@ namespace WPFHospitalEditor
                 {
                     if (eqdto.RoomId == room.Id && room.Id != destinationRoomId)
                     {
-                        roomsWithEquipmentAmount.Add(new RoomsWithChosenEquipmentAmount(room.Id, room.Name, eqdto.Quantity));
+                        roomsWithEquipmentAmount.Add(new RoomWithChosenEquipmentAmount(room.Id, room.Name, eqdto.Quantity));
                     }
                 }
             }
@@ -129,7 +137,7 @@ namespace WPFHospitalEditor
 
         private int GetEquipmentAmountByRoomId(int id)
         {
-            foreach(RoomsWithChosenEquipmentAmount roomWithEquipment in roomsWithEquipmentAmount)
+            foreach(RoomWithChosenEquipmentAmount roomWithEquipment in roomsWithEquipmentAmount)
             {
                 if (roomWithEquipment.RoomId == id)
                 {

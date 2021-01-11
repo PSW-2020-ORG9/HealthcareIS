@@ -1,12 +1,12 @@
 ﻿namespace WPFHospitalEditor.Model
 {
-    public class RoomsWithChosenEquipmentAmount
+    public class RoomWithChosenEquipmentAmount
     {
         public int RoomId { get; set; }
         public string RoomName { get; set; }
         public int EquipmentAmount { get; set; }
 
-        public RoomsWithChosenEquipmentAmount(int id, string name, int amount)
+        public RoomWithChosenEquipmentAmount(int id, string name, int amount)
         {
             this.RoomId = id;
             this.RoomName = name;

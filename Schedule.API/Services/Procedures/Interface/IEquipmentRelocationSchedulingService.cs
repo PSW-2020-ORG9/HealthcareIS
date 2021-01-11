@@ -1,5 +1,5 @@
 ﻿using Schedule.API.DTOs;
-using Schedule.API.Model.Dependencies;
+using System;
 using System.Collections.Generic;
 
 namespace Schedule.API.Services.Procedures.Interface
@@ -7,5 +7,7 @@ namespace Schedule.API.Services.Procedures.Interface
     public interface IEquipmentRelocationSchedulingService
     {
         IEnumerable<int> GetUnavailableRooms(EquipmentRelocationDto eqRealDto);
+        IEnumerable<int> GetDoctorsByRoomsAndShifts(EquipmentRelocationDto eqRealDto);
+
     }
 }

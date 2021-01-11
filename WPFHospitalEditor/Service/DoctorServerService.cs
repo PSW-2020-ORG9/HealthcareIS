@@ -1,4 +1,6 @@
-﻿using RestSharp;
+﻿using Newtonsoft.Json;
+using RestSharp;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using WPFHospitalEditor.DTOs;
@@ -45,6 +47,15 @@ namespace WPFHospitalEditor.Service
             return FilterDoctors(allDoctors, name);
         }
 
+        public IEnumerable<int> GetDoctorsByRoomsAndShifts(EquipmentRelocationDto dto)
+        {
+            var client = new RestClient(AllConstants.ConnectionUrl);
+            var request = new RestRequest("/api/schedule/examination/get-doctors", Method.POST);
+            request.AddJsonBody(EquipmentRelocationDtoToJson(dto));
+            var response = client.Post<List<int>>(request);
+            return response.Data;
+        }
+
         private bool CompareInput(DoctorDto doctorDto, string name)
         {
             if (doctorDto.Name.ToLower().Contains(name.ToLower()) || doctorDto.Surname.ToLower().Contains(name.ToLower())) 
@@ -62,6 +73,11 @@ namespace WPFHospitalEditor.Service
                     doctors.Add(doctorDto);
             }
             return doctors;
+        }
+
+        private String EquipmentRelocationDtoToJson(EquipmentRelocationDto eqRelDto)
+        {
+            return JsonConvert.SerializeObject(eqRelDto);
         }
     }
 }

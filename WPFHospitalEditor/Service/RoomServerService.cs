@@ -18,7 +18,7 @@ namespace WPFHospitalEditor.Service
             return response.Data;
         }
 
-        public List<int> GetUnavailableRoomsIdsInTimeInterval(EquipmentRelocationDto eqRelDto)
+        public IEnumerable<int> GetUnavailableRoomsIdsInTimeInterval(EquipmentRelocationDto eqRelDto)
         {
             var client = new RestClient(AllConstants.ConnectionUrl);
             var request = new RestRequest("/api/schedule/examination/check-rooms", Method.POST);

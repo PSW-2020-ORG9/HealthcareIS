@@ -20,7 +20,7 @@
         <StackPanel x:Name="appointmentSearchStackPanel" Orientation="Vertical" HorizontalAlignment="Stretch" Background="#FFC6F5F8">
             <TextBlock x:Name="equipmentName" Text="Relocation of equipment: " FontSize="20" Margin="20,10,0,0"></TextBlock>
             <ScrollViewer x:Name="scrollViewer" Height="250" Grid.Row="1" Grid.ColumnSpan="4" Background="#FFC6F5F8" Margin="20,10,20,0">
-                <DataGrid x:Name="roomList" ItemsSource="{Binding roomsWithEquipmenAmount}" AutoGenerateColumns="False">
+                <DataGrid x:Name="roomList" ItemsSource="{Binding roomsWithEquipmentAmount}" AutoGenerateColumns="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding RoomId}" Width="100" Header="Room id" ></DataGridTextColumn>
                         <DataGridTextColumn Binding="{Binding RoomName}" Width="200" Header="Room name" ></DataGridTextColumn>

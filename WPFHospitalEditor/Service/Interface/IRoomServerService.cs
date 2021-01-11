@@ -7,6 +7,6 @@ namespace WPFHospitalEditor.Service.Interface
     public interface IRoomServerService
     {
         IEnumerable<Room> GetRoomsByEquipmentType(string equipmentType);
-        List<int> GetUnavailableRoomsIdsInTimeInterval(EquipmentRelocationDto eqRelDto);
+        IEnumerable<int> GetUnavailableRoomsIdsInTimeInterval(EquipmentRelocationDto eqRelDto);
     }
 }
