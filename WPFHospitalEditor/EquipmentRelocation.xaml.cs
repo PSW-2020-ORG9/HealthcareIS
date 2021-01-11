@@ -18,7 +18,7 @@ namespace WPFHospitalEditor
         private IRoomServerController roomServerController = new RoomServerController();
         private IEquipmentServerController equipmentServerController = new EquipmentServerController();
         private IExaminationServerController examinationServerController = new ExaminationServerController();
-        public ObservableCollection<RoomsWithChosenEquipmentAmount> roomsWithEquipmenAmount { get; set; }
+        public ObservableCollection<RoomsWithChosenEquipmentAmount> roomsWithEquipmentAmount { get; set; }
         private HospitalMap hospitalMap;
         private int destinationRoomId;
         private string relocationEquipmentName;
@@ -33,8 +33,7 @@ namespace WPFHospitalEditor
             this.destinationRoomId = roomId;
             this.relocationEquipmentName = relocationEquipmentName;
             this.hospitalMap = hospitalMap;
-            roomsWithEquipmenAmount = new ObservableCollection<RoomsWithChosenEquipmentAmount>();
-            GetRoomsWithGivenEquipmentAmount();
+            FillObservableCollection();
             SetRoomsComboBox();
             this.DataContext = this;
         }
@@ -57,15 +56,16 @@ namespace WPFHospitalEditor
         private void RelocateEquipment(object sender, RoutedEventArgs e)
         {
             startDate =
-                        DateTime.ParseExact(startDatePicker.SelectedDate.Value.ToString("MM/dd/yyyy")
-                        + " " + StartTime.Text, "MM/dd/yyyy HH:mm", null);
+                DateTime.ParseExact(startDatePicker.SelectedDate.Value.ToString("MM/dd/yyyy")
+                + " " + StartTime.Text, "MM/dd/yyyy HH:mm", null);
             endDate =
                 DateTime.ParseExact(startDatePicker.SelectedDate.Value.ToString("MM/dd/yyyy")
                 + " " + EndTime.Text, "MM/dd/yyyy HH:mm", null);
+            TimeInterval timeInterval = new TimeInterval(startDate, endDate);
 
-            if (CheckAmount() && !CheckIfDatesAreEqual(new TimeInterval(startDate, endDate)))
+            if (AmountIsValid() && !timeInterval.IsValid())
             {
-                List<int> unavailableRooms = checkRoomsAvailability();
+                List<int> unavailableRooms = GetUnavailableRoomsIds(timeInterval);
                 if (unavailableRooms.Count > 0)
                 {
                     ShowAlternativeRelocationAppointments(unavailableRooms);
@@ -96,23 +96,8 @@ namespace WPFHospitalEditor
             this.Close();
         }
 
-        private bool CheckIfDatesAreEqual(TimeInterval timeInterval)
+        private List<int> GetUnavailableRoomsIds(TimeInterval timeInterval)
         {
-            if (timeInterval.Start >= timeInterval.End) 
-            {
-                MessageBox.Show("End time must be after start time!", "");
-                return true;
-            }
-            return false;
-        }
-
-        private List<int> checkRoomsAvailability()
-        {
-            DateTime startDate = DateTime.ParseExact(startDatePicker.SelectedDate.Value.ToString("MM/dd/yyyy") + " " + StartTime.Text, "MM/dd/yyyy HH:mm", null);
-            DateTime endDate = DateTime.ParseExact(startDatePicker.SelectedDate.Value.ToString("MM/dd/yyyy") + " " + EndTime.Text, "MM/dd/yyyy HH:mm", null);
-
-            TimeInterval timeInterval = new TimeInterval(startDate, endDate);
-
             EquipmentRelocationDto equipmentRelocationDto = new EquipmentRelocationDto()
             {
                 SourceRoomId = (int)roomSearchComboBox.SelectedItem,
@@ -125,22 +110,18 @@ namespace WPFHospitalEditor
             return roomServerController.GetUnavailableRoomsIdsInTimeInterval(equipmentRelocationDto).ToList();
         }
 
-        private void GetRoomsWithGivenEquipmentAmount()
+        private void FillObservableCollection()
         {
+            roomsWithEquipmentAmount = new ObservableCollection<RoomsWithChosenEquipmentAmount>();
             List<Room> rooms = roomServerController.getRoomsByEquipmentType(relocationEquipmentName).ToList();
             List<EquipmentDto> equipments = equipmentServerController.GetEquipmentByType(relocationEquipmentName).ToList();
-            FillObservableCollection(rooms, equipments);
-        }
-
-        private void FillObservableCollection(List<Room> rooms, List<EquipmentDto> equipments)
-        {
             foreach (Room room in rooms)
             {
                 foreach (EquipmentDto eqdto in equipments)
                 {
                     if (eqdto.RoomId == room.Id && room.Id != destinationRoomId)
                     {
-                        roomsWithEquipmenAmount.Add(new RoomsWithChosenEquipmentAmount(room.Id, room.Name, eqdto.Quantity));
+                        roomsWithEquipmentAmount.Add(new RoomsWithChosenEquipmentAmount(room.Id, room.Name, eqdto.Quantity));
                     }
                 }
             }
@@ -148,7 +129,7 @@ namespace WPFHospitalEditor
 
         private int GetEquipmentAmountByRoomId(int id)
         {
-            foreach(RoomsWithChosenEquipmentAmount roomWithEquipment in roomsWithEquipmenAmount)
+            foreach(RoomsWithChosenEquipmentAmount roomWithEquipment in roomsWithEquipmentAmount)
             {
                 if (roomWithEquipment.RoomId == id)
                 {
@@ -158,7 +139,7 @@ namespace WPFHospitalEditor
             return 0;
         }
 
-        private bool CheckAmount()
+        private bool AmountIsValid()
         {
             int number;
             if (int.TryParse(equipmentAmount.Text, out number))

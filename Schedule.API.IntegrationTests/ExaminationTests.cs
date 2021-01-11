@@ -113,7 +113,7 @@ namespace Schedule.API.IntegrationTests
             var response = await client.PostAsync("schedule/examination/check-rooms", content);
             string responseString = await response.Content.ReadAsStringAsync();
 
-            Assert.Contains("", responseString);
+            Assert.True(responseString.Equals("[]"));
         }
     }
 }

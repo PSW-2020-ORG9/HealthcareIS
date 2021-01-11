@@ -92,9 +92,9 @@ namespace Schedule.API.Controllers
 
         [HttpPost]
         [Route("check-rooms")]
-        public IActionResult CheckRoomsAvailability(EquipmentRelocationDto dto)
+        public IActionResult GetUnavailableRooms(EquipmentRelocationDto dto)
         {
-            return Ok(_equipmentRelocationSchedulingService.CheckRoomsAvailability(dto));
+            return Ok(_equipmentRelocationSchedulingService.GetUnavailableRooms(dto));
         }
     }
 }

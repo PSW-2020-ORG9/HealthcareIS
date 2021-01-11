@@ -15,12 +15,10 @@ namespace WPFHospitalEditor
         private IEquipmentTypeServerController equipmentTypeServerController = new EquipmentTypeServerController();
         int mapObjectId;
         HospitalMap hospitalMap;
-        Role user;
         public EquipmentAndMedicationWindow(String[] contentRows, int mapObjectId, HospitalMap hospitalMap)
         {
             InitializeComponent();
-            user = HospitalMap.role;
-            if (user != Role.Director) RelocationStackPanel.Visibility = Visibility.Hidden;
+            if (HospitalMap.role != Role.Director) RelocationStackPanel.Visibility = Visibility.Hidden;
             this.mapObjectId = mapObjectId;
             this.hospitalMap = hospitalMap;
             SetEquipmentTypeComboBox();

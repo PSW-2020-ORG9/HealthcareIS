@@ -27,7 +27,7 @@ namespace WPFHospitalEditor.Service
         public bool RelocateEquipment(EquipmentRelocationDto eqRealDto)
         {
             var client = new RestClient(AllConstants.ConnectionUrl);
-            var request = new RestRequest("Equipment/", Method.POST);
+            var request = new RestRequest("/api/hospital/equipment/Equipment/", Method.POST);
             request.AddJsonBody(JsonConvert.SerializeObject(eqRealDto));
             var response = client.Post<bool>(request);
             return response.Data;

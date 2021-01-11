@@ -6,6 +6,6 @@ namespace Schedule.API.Services.Procedures.Interface
 {
     public interface IEquipmentRelocationSchedulingService
     {
-        IEnumerable<int> CheckRoomsAvailability(EquipmentRelocationDto eqRealDto);
+        IEnumerable<int> GetUnavailableRooms(EquipmentRelocationDto eqRealDto);
     }
 }

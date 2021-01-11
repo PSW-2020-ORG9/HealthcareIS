@@ -18,9 +18,9 @@ namespace Schedule.API.Services.Procedures
 
         }
 
-        public IEnumerable<int> CheckRoomsAvailability(EquipmentRelocationDto eqRealDto)
+        public IEnumerable<int> GetUnavailableRooms(EquipmentRelocationDto eqRealDto)
         {
-            List<int> unavailableRoomsIds = new List<int>();
+            HashSet<int> unavailableRoomsIds = new HashSet<int>();
             List<Examination> relocationRoomsExaminations = _examinationWrapper.Repository
                 .GetMatching(e => e.RoomId == eqRealDto.SourceRoomId || e.RoomId == eqRealDto.DestinationRoomId).ToList();
 

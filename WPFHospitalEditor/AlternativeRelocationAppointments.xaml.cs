@@ -13,7 +13,6 @@ namespace WPFHospitalEditor
         public IMapObjectController mapObjectController = new MapObjectController();
         public IRoomServerController roomServerController = new RoomServerController();
 
-        MapObject mapObject = null;
         int roomId;
         HospitalMap hospitalMap;
         EquipmentRelocation er;
@@ -24,7 +23,7 @@ namespace WPFHospitalEditor
             this.er = er;
             this.hospitalMap = hospitalMap;
             this.roomId = roomId;
-            givenRoom.Text += roomId.ToString();
+            givenRoom.Text = "Room with id: " + roomId.ToString() + " is unavailable in given time interval. Click 'Show on map' to see that room.";
         }
 
         private void CloseClick(object sender, RoutedEventArgs e)
@@ -34,6 +33,7 @@ namespace WPFHospitalEditor
 
         private void ShowRoomOnMap(object sender, RoutedEventArgs e)
         {
+            MapObject mapObject = null;
             mapObject = mapObjectController.GetMapObjectById(roomId);
             SearchResultDialog.selectedObjectId = roomId;
             mapObjectController.Update(mapObject);

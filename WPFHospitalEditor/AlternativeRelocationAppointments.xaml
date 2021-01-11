@@ -8,8 +8,7 @@
         Title="AlternativeRelocationAppointments" Height="150" Width="340" WindowStartupLocation="CenterScreen">
     <StackPanel HorizontalAlignment="Stretch">
         <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" Height="50" Margin="10,10,10,0" >
-            <TextBlock x:Name="givenRoom" TextAlignment="Center" HorizontalAlignment="Center">Room with id: </TextBlock>
-            <TextBlock HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="WrapWithOverflow">is unavailable in given time interval. Click 'Show on map' to see that room.</TextBlock>
+            <TextBlock x:Name="givenRoom" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center"></TextBlock>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="20,20,20,0">
