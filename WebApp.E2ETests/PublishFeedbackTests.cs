@@ -12,7 +12,8 @@ namespace WebApp.E2ETests
         private readonly IWebDriver driver;
         private LoginPage loginPage;
         private ObserveFeedbackPage feedbackPage;
-        
+        private DbConnection dbConnection;
+
 
         public PublishFeedbackTests()
         {
@@ -26,7 +27,9 @@ namespace WebApp.E2ETests
             driver = new ChromeDriver(options);
             feedbackPage = new ObserveFeedbackPage(driver);
             loginPage = new LoginPage(driver);
-            EnsureFeedbackNotPublished();
+            dbConnection = new DbConnection();
+            
+            dbConnection.EnsureFeedbackNotPublished();
 
             loginPage.Navigate();
             loginPage.EnsurePageIsDisplayed();
@@ -45,33 +48,6 @@ namespace WebApp.E2ETests
             feedbackPage.EnsureSuccessToastIsDisplayed();
             Dispose();
         }
-
-        private void EnsureFeedbackNotPublished()
-        {
-            var connection = new MySqlConnection(CreateConnectionStringFromEnvironment());
-            connection.Open();
-            MySqlCommand command = new MySqlCommand("update feedback.userfeedbacks set FeedbackVisibility_IsPublished=false where id=1;", connection);
-            command.ExecuteNonQuery();
-            connection.Close();
-        }
-
-        private string CreateConnectionStringFromEnvironment()
-        {
-            string server = Environment.GetEnvironmentVariable("DB_PSW_SERVER");
-            string port = Environment.GetEnvironmentVariable("DB_PSW_PORT");
-            string database = Environment.GetEnvironmentVariable("DB_PSW_FEEDBACK_DATABASE");
-            string user = Environment.GetEnvironmentVariable("DB_PSW_USER");
-            string password = Environment.GetEnvironmentVariable("DB_PSW_PASSWORD");
-            if (server == null
-                || port == null
-                || database == null
-                || user == null
-                || password == null)
-                return null;
-
-            return $"server={server};port={port};database={database};user={user};password={password};";
-        }
-
         public void Dispose()
         {
             driver.Quit();

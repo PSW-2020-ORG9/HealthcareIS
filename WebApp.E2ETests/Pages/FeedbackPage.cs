@@ -66,7 +66,7 @@ namespace WebApp.E2ETests.Pages
 
         public void FillForm()
         {
-            FeedbackTextArea.SendKeys("Najbolja klinika");
+            FeedbackTextArea.SendKeys("1z7rfxeyqh333kt4sidfsr36y424gqvg");
             PublicCheckBox.Click();
             AnonymousCheckBox.Click();
         }

@@ -7,24 +7,26 @@ namespace WebApp.E2ETests
 {
     public class CreateFeedbackTests
     {
-        private readonly IWebDriver driver;
+        private readonly IWebDriver _driver;
         private LoginPage _loginPage;
         private FeedbackPage _feedbackPage;
         private PatientsHomePage _patientsHomePage;
+        private DbConnection _dbConnection;
 
         public CreateFeedbackTests()
         {
             var options = new ChromeOptions();
             ConfigureChromeOptions(options);
-            driver = new ChromeDriver(options);
+            _driver = new ChromeDriver(options);
+            _dbConnection = new DbConnection();
             SetupPages();
         }
 
         private void SetupPages()
         {
-            _loginPage = new LoginPage(driver);
-            _feedbackPage = new FeedbackPage(driver);
-            _patientsHomePage = new PatientsHomePage(driver);
+            _loginPage = new LoginPage(_driver);
+            _feedbackPage = new FeedbackPage(_driver);
+            _patientsHomePage = new PatientsHomePage(_driver);
         }
 
         private static void ConfigureChromeOptions(ChromeOptions options)
@@ -49,6 +51,7 @@ namespace WebApp.E2ETests
             _feedbackPage.FillForm();
             _feedbackPage.SubmitFeedback();
             _feedbackPage.NotificationSuccess();
+            _dbConnection.EnsureFeedbackIsDeletedAfterTest();
             
             Dispose();
         }
@@ -70,8 +73,8 @@ namespace WebApp.E2ETests
         }
         public void Dispose()
         {
-            driver.Quit();
-            driver.Dispose();
+            _driver.Quit();
+            _driver.Dispose();
         }
     }
 }
