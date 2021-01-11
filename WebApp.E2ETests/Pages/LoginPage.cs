@@ -19,6 +19,7 @@ namespace WebApp.E2ETests.Pages
         private IWebElement EmailField => _driver.FindElement(By.Name("email"));
         private IWebElement PasswordField => _driver.FindElement(By.Name("password"));
         private IWebElement LoginButton => _driver.FindElement(By.Name("login"));
+        
         public void EnsurePageIsDisplayed()
         {
             var wait = new WebDriverWait(_driver, new TimeSpan(0, 0, 20));
@@ -26,7 +27,7 @@ namespace WebApp.E2ETests.Pages
             {
                 try
                 {
-                    return LoginForm.Displayed;
+                    return PageIsFormed();
                 }
                 catch (StaleElementReferenceException)
                 {
@@ -39,19 +40,29 @@ namespace WebApp.E2ETests.Pages
             });
         }
 
-        public void Login()
+        private bool PageIsFormed()
+        {
+            return LoginForm.Displayed && EmailField.Displayed && PasswordField.Displayed && LoginButton.Displayed;
+        }
+
+        public void LoginAsAdmin()
         {
             EmailField.SendKeys("admin@mail.com");
             PasswordField.SendKeys("123456");
             LoginButton.Click();
-            Thread.Sleep(500);
-            Assert.True(true);
+
+        }
+
+        public void LoginAsPatient()
+        {
+            EmailField.SendKeys("nikola@mail.com");
+            PasswordField.SendKeys("123456");
+            LoginButton.Click();
         }
 
         public bool EmailDisplayed() => EmailField.Displayed;
         public bool PasswordDisplayed() => PasswordField.Displayed;
         public bool LoginButtonDisplayed() => LoginButton.Displayed;
-
         public void Navigate() => _driver.Navigate().GoToUrl(URI);
     }
 }

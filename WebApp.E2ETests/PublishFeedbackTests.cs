@@ -29,10 +29,9 @@ namespace WebApp.E2ETests
         [Fact]
         public void Publishes_feedback()
         {
-            loginPage.Login();
+            loginPage.LoginAsAdmin();
         }
-
-        [Fact]
+        
         public void Dispose()
         {
             driver.Quit();
