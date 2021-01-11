@@ -1,4 +1,5 @@
-﻿using Hospital.API.Model.Medication;
+﻿using Hospital.API.Model.ESProjection;
+using Hospital.API.Model.Medication;
 using Hospital.API.Model.Resources;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,6 +30,9 @@ namespace Hospital.API.Infrastructure
         public DbSet<MedicalConsumableType> MedicalConsumableTypes { get; set; }
         public DbSet<Renovation> Renovations { get; set; }
         public DbSet<Room> Rooms { get; set; }
+
+        //ES - Projection
+        public DbSet<Projection> Projection { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
