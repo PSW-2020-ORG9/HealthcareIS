@@ -3,7 +3,7 @@
   <CreateFeedback/>
   <h1>User Feedbacks</h1>
   <div id="feedbackList" class="list-group container w-50" >
-       <FeedbackItem name="feedback" v-for="feedback in feedbacks" v-bind:key="feedback.Id" v-bind:feedback="feedback" v-on:update-feedbacks="getAllFeedbacks"></FeedbackItem>
+       <FeedbackItem v-for="feedback in feedbacks" v-bind:key="feedback.Id" v-bind:feedback="feedback" v-on:update-feedbacks="getAllFeedbacks"></FeedbackItem>
   </div>
 </template>
 
