@@ -50,7 +50,7 @@ export default {
     },
     methods: {
         getExaminations() {
-            axios.get(api.patientExaminations + '/patient/1')
+            axios.get(api.patientExaminations)
             .then(response => {
                 this.examinations = response.data
                 this.sortAppointments(this.examinations)

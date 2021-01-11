@@ -21,6 +21,9 @@ import AppointmentPreferences from '../views/scheduling/recommendation/Appointme
 import ChooseRecommended from '../views/scheduling/recommendation/ChooseRecommended.vue'
 import ObservePatientExaminations from '../views/ObservePatientExaminations.vue'
 import HomePage from '../views/HomePage.vue'
+import LoginForm from '../views/LoginForm.vue'
+import { parseJwt } from '../jwt.js'
+
 const routes = [
   {
     path: '/feedbacks',
@@ -148,12 +151,48 @@ const routes = [
     path: '/',
     name: 'HomePage',
     component: HomePage
+  },
+  {
+    path: '/login',
+    name: 'LoginForm',
+    component: LoginForm
   }
 ]
 
 const router = createRouter({
   history: createWebHashHistory(),
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.name === 'LoginForm' 
+    || to.name === 'personalInformation'
+    || to.name === 'healthStatus'
+    || to.name === 'accountDetails'
+    || to.name === 'profilePicture') {
+    next()
+  } else {
+    let authCookie = document.cookie
+    let user = null
+    let cookieValid = true
+    if (!authCookie) {
+      cookieValid = false
+    } else {
+      user = parseJwt(document.cookie.split('=')[1]);
+      let epochMicrotimeDiff = Math.abs(new Date(0, 0, 1).setFullYear(1));
+
+      if (new Date() > new Date(user.exp / 10000 - epochMicrotimeDiff)) {
+        cookieValid = false
+      }
+    }
+    
+    if (!cookieValid) next({name: 'LoginForm'})
+    else if (!(to.name == 'HomePage' || to.name == 'ObserveFeedback' || to.name == 'SurveyPreview') && user.role == 'Admin') {
+      next({ name: 'ObserveFeedback' })
+    } else {
+      next()
+    }
+  }
 })
 
 export default router

@@ -100,10 +100,10 @@ export default {
       }
       ,
       registerPatient:function(){
-        if(!this.isImageUrlPresent()){
-            this.toastError('Upload your profile picture!')
-            return
-        }
+        // if(!this.isImageUrlPresent()){
+        //     this.toastError('Upload your profile picture!')
+        //     return
+        // }
         this.postPatientAccount()
         
       }

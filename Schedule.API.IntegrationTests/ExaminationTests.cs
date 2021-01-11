@@ -20,7 +20,8 @@ namespace Schedule.API.IntegrationTests
         public async void Finds_examinations_for_patient()
         {
             var client = _factory.CreateClient();
-            var response = await client.GetAsync("schedule/examination/patient/1");
+            client.DefaultRequestHeaders.Add("UserId", "1");
+            var response = await client.GetAsync("schedule/examination");
             string responseString = await response.Content.ReadAsStringAsync();
 
             Assert.Contains("\"patientId\":1", responseString);
@@ -42,9 +43,9 @@ namespace Schedule.API.IntegrationTests
             var content = JsonContent.Create(new ScheduledExaminationDTO
             {
                 DoctorId = 1,
-                PatientId = 1,
                 StartTime = new DateTime(2022, 3, 3, 8, 0, 0)
             });
+            content.Headers.Add("UserId", "1");
             var response = await client.PostAsync("schedule/examination", content);
 
             response.EnsureSuccessStatusCode();

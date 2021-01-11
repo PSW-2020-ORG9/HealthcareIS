@@ -20,6 +20,7 @@ namespace User.API.Mappers
                     Password = dto.Password,
                     Username = dto.Username
                 },
+                Role = "Patient",
                 UserGuid = Guid.NewGuid(),
                 IsActivated = false,
                 RespondedToSurvey = false,

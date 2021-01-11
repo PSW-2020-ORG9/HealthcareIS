@@ -11,6 +11,7 @@ using User.API.Infrastructure.Repositories.Promotions;
 using User.API.Infrastructure.Repositories.Users.Employees;
 using User.API.Infrastructure.Repositories.Users.Patients;
 using User.API.Infrastructure.Repositories.Users.UserAccounts;
+using User.API.Services.CredentialsService;
 using User.API.Services.EmployeeService;
 using User.API.Services.LocaleServices;
 using User.API.Services.PatientService;
@@ -95,14 +96,20 @@ namespace User.API
             var patientAccountService = new PatientAccountService(patientAccountRepository);
             var patientRegistrationService = new PatientRegistrationService(patientAccountService, registrationNotifier);
                 
-            var patientService = new PatientService(patientRepository);
+            var patientService = new PatientService(patientRepository, patientAccountRepository);
             
             var specialtyRepository = new SpecialtySqlRepository(GetContextFactory());
             var specialtyService = new SpecialtyService(specialtyRepository);
+
+            // Auth
+            var userAccountRepository = new UserAccountSqlRepository(GetContextFactory());
+            var credentialService = new CredentialsService(userAccountRepository, GetJwtSecretFromEnvironment());
             
+            // Advertisement
             var advertisementRepository = new AdvertisementSqlRepository(GetContextFactory());
             var advertisementService = new AdvertisementService(advertisementRepository);
-            
+
+            services.Add(new ServiceDescriptor(typeof(CredentialsService), credentialService));
             services.Add(new ServiceDescriptor(typeof(IPatientAccountService), patientAccountService));
             services.Add(new ServiceDescriptor(typeof(IPatientRegistrationService), patientRegistrationService));
             services.Add(new ServiceDescriptor(typeof(PatientService), patientService));
@@ -133,6 +140,13 @@ namespace User.API
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+        }
+
+        private string GetJwtSecretFromEnvironment()
+        {
+            string jwtSecret = Environment.GetEnvironmentVariable("PSW_JWT_SECRET");
+            if (jwtSecret == default) throw new ApplicationException("JWT secret environment variable not set.");
+            return jwtSecret;
         }
     }
 }

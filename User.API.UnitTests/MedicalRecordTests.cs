@@ -31,7 +31,8 @@ namespace User.API.UnitTests
             PrepareStubs();
             PatientService service = new PatientService
                 (
-                _patientStubRepository.Object
+                _patientStubRepository.Object,
+                null
                 );
 
             Patient result = service.GetByID(1);
@@ -44,7 +45,8 @@ namespace User.API.UnitTests
             PrepareStubs();
             PatientService service = new PatientService
                 (
-                _patientStubRepository.Object
+                _patientStubRepository.Object,
+                null
                 );
             Patient result = service.GetByID(2);
             Assert.Null(result);
