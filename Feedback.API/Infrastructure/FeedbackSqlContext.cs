@@ -1,4 +1,5 @@
-﻿using Feedback.API.Model.Feedback;
+﻿using Feedback.API.Model.ESProjection;
+using Feedback.API.Model.Feedback;
 using Feedback.API.Model.Survey;
 using Feedback.API.Model.Survey.SurveyEntry;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +28,9 @@ namespace Feedback.API.Infrastructure
         public DbSet<RatedSurveySection> RatedSurveySections { get; set; }
         public DbSet<RatedSurveyQuestion> RatedSurveyQuestions { get; set; }
         public DbSet<DoctorSurveySection> DoctorSurveySections { get; set; }
+
+        //ES - Projection
+        public DbSet<Projection> Projection { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

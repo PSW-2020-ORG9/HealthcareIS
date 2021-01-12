@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using User.API.Model.ESProjection;
 using User.API.Model.Generalities;
 using User.API.Model.Locale;
 using User.API.Model.Promotions;
@@ -54,7 +55,10 @@ namespace User.API.Infrastructure
 
         public DbSet<UserAccount> UserAccounts { get; set; }
         public DbSet<PatientAccount> PatientAccounts { get; set; }
-        
+
+        //ES - Projection
+        public DbSet<Projection> Projection { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             SetCompositeKeys(modelBuilder);

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Schedule.API.Model.Dependencies;
+using Schedule.API.Model.ESProjection;
 using Schedule.API.Model.Procedures;
 using Schedule.API.Model.Shifts;
 using System;
@@ -47,6 +48,9 @@ namespace Schedule.API.Infrastructure.Database
         public DbSet<ExaminationReport> ExaminationReports { get; set; }
         public DbSet<Surgery> Surgeries { get; set; }
         public DbSet<Shift> Shifts { get; set; }
+
+        //ES - Projection
+        public DbSet<Projection> Projection { get; set; }
     }
     
     
