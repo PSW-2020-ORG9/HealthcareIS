@@ -81,17 +81,6 @@
         ["xpath=//fieldset/input", "xpath:position"]
       ],
       "value": ""
-    }, {
-      "id": "6b3f32b4-e3a6-45cf-83fc-7f6b1ce54c6a",
-      "comment": "",
-      "command": "click",
-      "target": "css=.toast-close",
-      "targets": [
-        ["css=.toast-close", "css:finder"],
-        ["xpath=//span", "xpath:position"],
-        ["xpath=//span[contains(.,'✖')]", "xpath:innerText"]
-      ],
-      "value": ""
     }]
   }],
   "suites": [{
