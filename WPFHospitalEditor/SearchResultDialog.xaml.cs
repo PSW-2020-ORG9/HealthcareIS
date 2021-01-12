@@ -17,6 +17,7 @@ namespace WPFHospitalEditor
     public partial class SearchResultDialog : Window
     {
         private MapObjectController mapObjectController = new MapObjectController();
+        private EquipmentServerController equipmentServer = new EquipmentServerController();
 
         private List<Button> advancedSearchButtons = new List<Button>();
         private List<Button> scheduleButtons = new List<Button>();
@@ -29,6 +30,7 @@ namespace WPFHospitalEditor
         private String[] contentRows;
         private Grid DynamicGrid;
         private const int STORAGEROOM_ID = 17;
+        private string equipmentName;
 
         public SearchResultDialog(HospitalMap hospitalMap, SearchType searchType)
         {
@@ -38,6 +40,20 @@ namespace WPFHospitalEditor
             this.scheduleBtnRow = new Dictionary<int, RecommendationDto>();
             this.Height = AllConstants.SearchDialogHeight;
             this.hospitalMap = hospitalMap;
+            ShowDynamicGrid(searchType);
+            SetContentRowsAndColumnsNumber(searchType);
+            DefineDynamicGrid();
+        }
+
+        public SearchResultDialog(HospitalMap hospitalMap, SearchType searchType, string equipmentName)
+        {
+            InitializeComponent();
+            this.searchType = searchType;
+            this.displayBtnRow = new Dictionary<int, MapObject>();
+            this.scheduleBtnRow = new Dictionary<int, RecommendationDto>();
+            this.Height = AllConstants.SearchDialogHeight;
+            this.hospitalMap = hospitalMap;
+            this.equipmentName = equipmentName;
             ShowDynamicGrid(searchType);
             SetContentRowsAndColumnsNumber(searchType);
             DefineDynamicGrid();
@@ -61,6 +77,11 @@ namespace WPFHospitalEditor
                 AppointmentGrid.Visibility = Visibility.Visible;
                 DynamicGrid = DynamicAppointmentGrid;
             }
+            else if (searchType == SearchType.AlternativeEquipmentRelocation)
+            {
+                AlternativeEquipmentRelocationGrid.Visibility = Visibility.Visible;
+                DynamicGrid = DynamicAlternativeEquipmentRelocationGrid;
+            }
             else
             {
                 return;
@@ -82,7 +103,7 @@ namespace WPFHospitalEditor
         {
             AddLabels(oneRowContents);
             AddAdvancedSearchButton();
-            if (searchType == SearchType.AppointmentSearch)
+            if (searchType == SearchType.AppointmentSearch || searchType == SearchType.AlternativeEquipmentRelocation)
             {
                 AddScheduleButton();
             }
@@ -247,6 +268,9 @@ namespace WPFHospitalEditor
                 case SearchType.AppointmentSearch:
                     contentRows = AppointmentToContentRows();
                     break;
+                case SearchType.AlternativeEquipmentRelocation:
+                    contentRows = AlternativeEquipmentRelocationToContentRows();
+                    break;
                 default:
                     break;
             }
@@ -317,6 +341,34 @@ namespace WPFHospitalEditor
                 scheduleBtnRow.Add(i, recommendationDto);
             }
             return appointmentContentRows;
+        }
+
+        private string [] AlternativeEquipmentRelocationToContentRows()
+        {
+            string[] alternativeEquipmentRelocationContentRows = new string[EquipmentRelocation.alternativeEquipmentAppointmentsSearch.Count()];
+            for (int i = 0; i < EquipmentRelocation.alternativeEquipmentAppointmentsSearch.Count(); i++)
+            {
+                RecommendationDto recommendationDto = EquipmentRelocation.alternativeEquipmentAppointmentsSearch.ElementAt(i);
+                MapObject mo = mapObjectController.GetMapObjectById(recommendationDto.RoomId);
+                string doctor = recommendationDto.Doctor.Person.Name + " " + recommendationDto.Doctor.Person.Surname;
+                string timeInterval = recommendationDto.TimeInterval.Start.ToString() + "-" + recommendationDto.TimeInterval.End.ToString();
+                IEnumerable<EquipmentDto> equipment = equipmentServer.GetEquipmentByRoomId(recommendationDto.RoomId);
+                string amount = "0";
+                
+                foreach(EquipmentDto equipmentDto in equipment)
+                {
+                    if (equipmentDto.Name.Equals(equipmentName))
+                    {
+                        amount = equipmentDto.Quantity.ToString();
+                    }
+                }
+                alternativeEquipmentRelocationContentRows[i] = mo.Name
+                                + AllConstants.ContentSeparator + amount
+                                 + AllConstants.ContentSeparator + timeInterval;
+                displayBtnRow.Add(i, mo);
+                scheduleBtnRow.Add(i, recommendationDto);
+            }
+            return alternativeEquipmentRelocationContentRows;
         }
     }
 }

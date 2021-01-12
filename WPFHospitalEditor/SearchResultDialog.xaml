@@ -95,6 +95,35 @@
                         </Grid>
                     </ScrollViewer>
                 </Grid>
+
+
+                <Grid x:Name="AlternativeEquipmentRelocationGrid" Visibility="Hidden">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="70"/>
+                        <ColumnDefinition Width="60"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Content="Room" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold"></Label>
+                    <Label Content="Amount" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold"></Label>
+                    <Label Content="Time interval" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold"></Label>
+                    <ScrollViewer Grid.Row="1" Grid.ColumnSpan="5" Background="#FFC6F5F8">
+                        <Grid x:Name="DynamicAlternativeEquipmentRelocationGrid">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition Width="40"/>
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                    </ScrollViewer>
+                </Grid>
             </Grid>
         </Grid>
     </Border>

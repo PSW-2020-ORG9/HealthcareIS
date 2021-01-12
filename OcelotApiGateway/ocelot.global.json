@@ -10,11 +10,8 @@
         }
       ],
       "UpstreamPathTemplate": "/api/user/doctor/{everything}",
-      "UpstreamHttpMethod": ["Get","Post"],
-      "RouteClaimsRequirement" :
-      {
-        "Role" : "Patient, Admin"
-      }
+      "UpstreamHttpMethod": ["Get","Post"]
+      
     },
 
     {
@@ -27,11 +24,8 @@
         }
       ],
       "UpstreamPathTemplate": "/api/user/doctor/",
-      "UpstreamHttpMethod": ["Get","Post"],
-      "RouteClaimsRequirement" :
-      {
-        "Role" : "Patient, Admin"
-      }
+      "UpstreamHttpMethod": ["Get","Post"]
+      
     },
 
     {
@@ -44,11 +38,8 @@
         }
       ],
       "UpstreamPathTemplate": "/api/user/specialty/{everything}",
-      "UpstreamHttpMethod": ["Get","Post"],
-      "RouteClaimsRequirement" :
-      {
-        "Role" : "Patient, Admin"
-      }
+      "UpstreamHttpMethod": ["Get","Post"]
+      
     },
 
     {
@@ -61,11 +52,8 @@
         }
       ],
       "UpstreamPathTemplate": "/api/user/patient",
-      "UpstreamHttpMethod": ["Get", "Post"],
-      "RouteClaimsRequirement" :
-      {
-        "Role" : "Patient, Admin"
-      }
+      "UpstreamHttpMethod": ["Get", "Post"]
+      
     },
 
     {
@@ -78,11 +66,8 @@
         }
       ],
       "UpstreamPathTemplate": "/api/user/patient/accounts",
-      "UpstreamHttpMethod": ["Post"],
-      "RouteClaimsRequirement" :
-      {
-        "Role" : "Admin"
-      }
+      "UpstreamHttpMethod": ["Post"]
+      
     },
     
     {
@@ -95,11 +80,8 @@
         }
       ],
       "UpstreamPathTemplate": "/api/user/patient/{everything}",
-      "UpstreamHttpMethod": ["Get","Post"],
-      "RouteClaimsRequirement" :
-      {
-        "Role" : "Patient, Admin"
-      }
+      "UpstreamHttpMethod": ["Get","Post"]
+      
     },
 
     {
@@ -112,11 +94,8 @@
         }
       ],
       "UpstreamPathTemplate": "/api/user/specialty",
-      "UpstreamHttpMethod": ["Get"],
-      "RouteClaimsRequirement" :
-      {
-        "Role" : "Patient, Admin"
-      }
+      "UpstreamHttpMethod": ["Get"]
+      
     },
 
     {
@@ -155,11 +134,8 @@
         }
       ],
       "UpstreamPathTemplate": "/api/schedule/diagnosis",
-      "UpstreamHttpMethod": [ "Get","Post" ],
-      "RouteClaimsRequirement" : 
-        {
-            "Role" : "Doctor, Admin"
-        }
+      "UpstreamHttpMethod": [ "Get","Post" ]
+      
     },
 
     {
@@ -172,11 +148,8 @@
         }
       ],
       "UpstreamPathTemplate": "/api/schedule/diagnosis/{everything}",
-      "UpstreamHttpMethod": [ "Get","Post" ],
-      "RouteClaimsRequirement" :
-      {
-        "Role" : "Doctor, Admin"
-      }
+      "UpstreamHttpMethod": [ "Get","Post" ]
+      
     },
 
     {
@@ -189,11 +162,8 @@
         }
       ],
       "UpstreamPathTemplate": "/api/schedule/available/{everything}",
-      "UpstreamHttpMethod": [ "Get" ],
-      "RouteClaimsRequirement" :
-      {
-        "Role" : "Patient, Admin"
-      }
+      "UpstreamHttpMethod": [ "Get" ]
+      
     },
 
     {
@@ -206,11 +176,8 @@
         }
       ],
       "UpstreamPathTemplate": "/api/schedule/examination",
-      "UpstreamHttpMethod": [ "Get", "Post" ],
-      "RouteClaimsRequirement" :
-      {
-        "Role" : "Patient"
-      }
+      "UpstreamHttpMethod": [ "Get", "Post" ]
+      
     },
 
     {
@@ -223,11 +190,8 @@
         }
       ],
       "UpstreamPathTemplate": "/api/schedule/examination/cancel/{everything}",
-      "UpstreamHttpMethod": [ "Get" ],
-      "RouteClaimsRequirement" :
-      {
-        "Role" : "Patient, Admin"
-      }
+      "UpstreamHttpMethod": [ "Get" ]
+     
     },
 
     {
@@ -240,11 +204,8 @@
         }
       ],
       "UpstreamPathTemplate": "/api/schedule/examination/{everything}",
-      "UpstreamHttpMethod": [ "Get", "Post" ],
-      "RouteClaimsRequirement" :
-      {
-        "Role" : "Patient"
-      }
+      "UpstreamHttpMethod": [ "Get", "Post" ]
+      
     },
 
     {
@@ -257,28 +218,22 @@
         }
       ],
       "UpstreamPathTemplate": "/api/hospital/docsearch/prescription",
-      "UpstreamHttpMethod": [ "Get" ],
-      "RouteClaimsRequirement" :
-      {
-        "Role" : "Patient, Admin"
-      }
+      "UpstreamHttpMethod": [ "Get" ]
+      
     },
-    
+
     {
       "DownstreamPathTemplate": "/hospital/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "$PSW_HOSPITAL_SERVICE_HOST",
-          "Port": $PSW_HOSPITAL_SERVICE_PORT
+          "Port": "$PSW_HOSPITAL_SERVICE_PORT"
         }
       ],
       "UpstreamPathTemplate": "/api/hospital/{everything}",
-      "UpstreamHttpMethod": [ "Get","Post" ],
-      "RouteClaimsRequirement" :
-      {
-        "Role" : "Secretary"
-      }
+      "UpstreamHttpMethod": [ "Get", "Post" ]
+      
     }
   ]
 }

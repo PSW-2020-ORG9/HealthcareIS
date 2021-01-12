@@ -19,12 +19,14 @@ namespace WPFHospitalEditor
         private IDoctorServerController doctorServerController = new DoctorServerController();
         private IEquipmentServerController equipmentServerController = new EquipmentServerController();
         private IExaminationServerController examinationServerController = new ExaminationServerController();
+        private ISchedulingServerController shchedulingServerController = new SchedulingServerController();
         public ObservableCollection<RoomWithChosenEquipmentAmount> roomsWithEquipmentAmount { get; set; }
         private HospitalMap hospitalMap;
         private int destinationRoomId;
         private string relocationEquipmentName;
         private DateTime startDate;
         private DateTime endDate;
+        public static List<RecommendationDto> alternativeEquipmentAppointmentsSearch;
 
         public EquipmentRelocation(string relocationEquipmentName, int roomId, HospitalMap hospitalMap)
         {
@@ -78,6 +80,17 @@ namespace WPFHospitalEditor
                 }
             }
 
+            RecommendationRequestDto recommendationRequestDto = new RecommendationRequestDto()
+            {
+                DoctorId = 1,
+                SpecialtyId = 1,
+                TimeInterval = timeInterval,
+                Preference = RecommendationPreference.Time
+            };
+
+            alternativeEquipmentAppointmentsSearch = shchedulingServerController.GetAppointments(recommendationRequestDto);
+            SearchResultDialog alternativeEquipmentRelocation = new SearchResultDialog(hospitalMap, SearchType.AlternativeEquipmentRelocation, relocationEquipmentName);
+            alternativeEquipmentRelocation.Show();
         }
 
         private void ShowAlternativeRelocationAppointments(List<int> unavailableRooms)
@@ -113,7 +126,6 @@ namespace WPFHospitalEditor
                 Amount = int.Parse(equipmentAmount.Text),
                 EquipmentType = relocationEquipmentName,
                 TimeInterval = timeInterval
-
             };
             return equipmentRelocationDto;
         }
