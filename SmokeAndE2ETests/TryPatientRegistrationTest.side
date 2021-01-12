@@ -7,36 +7,36 @@
     "id": "8c9eace0-50ee-4cb2-b790-fc4e9430af22",
     "name": "TryPatientRegistrationTest",
     "commands": [{
-      "id": "bce062b3-add2-476e-a5fa-36127739be95",
+      "id": "cd794a38-a4f9-4bc7-bcbb-e1aa1bfa48b1",
       "comment": "",
       "command": "open",
-      "target": "https://eu-healthcareis.herokuapp.com/#/",
+      "target": "https://eu-healthcareis.herokuapp.com/#/login",
       "targets": [],
       "value": ""
     }, {
-      "id": "3e55be45-1333-43df-8ec6-d3e30e2c2703",
+      "id": "81694f78-c094-4207-b509-02739e1284cb",
       "comment": "",
       "command": "setWindowSize",
       "target": "1936x1056",
       "targets": [],
       "value": ""
     }, {
-      "id": "b715ed7e-7515-4fae-add0-701cce95ee7b",
+      "id": "8d05513d-2ef7-4104-b868-f7fe427cddc7",
       "comment": "",
       "command": "click",
-      "target": "linkText=Patient registration",
+      "target": "linkText=Register here.",
       "targets": [
-        ["linkText=Patient registration", "linkText"],
-        ["css=a:nth-child(7)", "css:finder"],
-        ["xpath=//a[contains(text(),'Patient registration')]", "xpath:link"],
-        ["xpath=//div[@id='nav']/a[7]", "xpath:idRelative"],
+        ["linkText=Register here.", "linkText"],
+        ["css=a:nth-child(6)", "css:finder"],
+        ["xpath=//a[contains(text(),'Register here.')]", "xpath:link"],
+        ["xpath=//form[@id='msform']/fieldset/a", "xpath:idRelative"],
         ["xpath=//a[contains(@href, '#/register')]", "xpath:href"],
-        ["xpath=//a[7]", "xpath:position"],
-        ["xpath=//a[contains(.,'Patient registration ')]", "xpath:innerText"]
+        ["xpath=//fieldset/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Register here.')]", "xpath:innerText"]
       ],
       "value": ""
     }, {
-      "id": "9b15b404-f867-4c52-a223-3b572a65f240",
+      "id": "631715cb-3894-4d41-842c-6761544b4eca",
       "comment": "",
       "command": "click",
       "target": "name=rescountry",
@@ -49,14 +49,14 @@
       ],
       "value": ""
     }, {
-      "id": "ebaaabdd-d57d-41d5-9342-183d1a89fb3b",
+      "id": "3365bc82-6e95-4304-9031-85968bf34386",
       "comment": "",
       "command": "select",
       "target": "name=rescountry",
       "targets": [],
       "value": "label=Srbija"
     }, {
-      "id": "784d6a26-e7bc-4101-bd66-0dbae3ef6444",
+      "id": "8a4db626-ece2-45fa-95d3-029afd021645",
       "comment": "",
       "command": "click",
       "target": "name=rescountry",
@@ -69,7 +69,7 @@
       ],
       "value": ""
     }, {
-      "id": "265d7f73-66d0-4d49-a950-c3da0788ad09",
+      "id": "1ef92cea-d64a-414b-9a15-025ec84c1f75",
       "comment": "",
       "command": "click",
       "target": "name=next",
@@ -79,6 +79,17 @@
         ["xpath=//input[@name='next']", "xpath:attributes"],
         ["xpath=//form[@id='msform']/fieldset/input", "xpath:idRelative"],
         ["xpath=//fieldset/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6b3f32b4-e3a6-45cf-83fc-7f6b1ce54c6a",
+      "comment": "",
+      "command": "click",
+      "target": "css=.toast-close",
+      "targets": [
+        ["css=.toast-close", "css:finder"],
+        ["xpath=//span", "xpath:position"],
+        ["xpath=//span[contains(.,'✖')]", "xpath:innerText"]
       ],
       "value": ""
     }]
