@@ -1,11 +1,14 @@
 <template>
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
-  <div class="container">
+  <div class="container" id="feedback-form">
     <div class="col-sm-5 mx-auto shadow-lg p-3 mb-5 bg-white rounded feedback">
       <div class="feedback-text">
         <div class="form-group d-flex justify-content-start md-4">
-          <textarea class="form-control input-feedback" rows=5 placeholder="Enter your feedback" v-model="feedbackContent" required></textarea>
+          <textarea class="form-control input-feedback" rows=5
+           placeholder="Enter your feedback"
+           id="feedback-textarea"
+            v-model="feedbackContent" required></textarea>
         </div>
       </div>
       <div class="col-sm offset-md-1 d-flex justify-content-start">
@@ -20,7 +23,7 @@
           <label class="form-check-label" for="anon-feedback" >Send anonimously</label>
         </div>
       </div>
-      <button :disabled="!feedbackContent" type="submit" class="btn submit-btn" @click="onSubmit()" >Submit</button>
+      <button :disabled="!feedbackContent" id="submit-btn" type="submit" class="btn submit-btn" @click="onSubmit()" >Submit</button>
     </div>
   </div>
   

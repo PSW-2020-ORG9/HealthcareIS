@@ -67,7 +67,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Schedule.API.UnitTests", "S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventStore.API", "EventStore.API\EventStore.API.csproj", "{01D5283C-1AD2-4885-9A5A-F34A3BBD34BD}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EventStore", "EventStore", "{DFA50C80-EDA0-4B74-B005-058D1DAF389B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp.E2ETests", "WebApp.E2ETests\WebApp.E2ETests.csproj", "{B4212372-2B2C-4F5C-AA10-1130A43AB5AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -163,6 +163,10 @@ Global
 		{01D5283C-1AD2-4885-9A5A-F34A3BBD34BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01D5283C-1AD2-4885-9A5A-F34A3BBD34BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01D5283C-1AD2-4885-9A5A-F34A3BBD34BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4212372-2B2C-4F5C-AA10-1130A43AB5AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4212372-2B2C-4F5C-AA10-1130A43AB5AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4212372-2B2C-4F5C-AA10-1130A43AB5AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4212372-2B2C-4F5C-AA10-1130A43AB5AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

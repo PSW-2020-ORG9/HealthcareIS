@@ -1,13 +1,15 @@
 import requests
+import sys
+import os
 
 
-HEROKU_TIMEOUT = 20
+REQUEST_TIMEOUT = 30
 
 
 def smoke(url, arch_node):
     print("Testing: " + url)
     try:
-        response = requests.get(url, timeout=HEROKU_TIMEOUT)
+        response = requests.get(url, timeout=REQUEST_TIMEOUT)
         if response.ok:
             print(response)
             print("SUCCESS: " + arch_node)
@@ -20,5 +22,9 @@ def smoke(url, arch_node):
 
 
 if __name__ == "__main__":
-    smoke('https://psw-backend.herokuapp.com/city/by-country/1', "backend (asp.net) with database")
-    smoke('https://psw-front.herokuapp.com/', "frontend")
+    smoke(os.environ['ASPNET_PROTOCOL'] + '://' + os.environ['PSW_FEEDBACK_SERVICE_HOST'] + ((':' + os.environ['PSW_FEEDBACK_SERVICE_PORT']) if 'PSW_FEEDBACK_SERVICE_PORT' in os.environ.keys() else '') + '/feedbacks/feedback/published', "feedback microservice")
+    smoke(os.environ['ASPNET_PROTOCOL'] + '://' + os.environ['PSW_HOSPITAL_SERVICE_HOST'] + ((':' + os.environ['PSW_HOSPITAL_SERVICE_PORT']) if 'PSW_HOSPITAL_SERVICE_PORT' in os.environ.keys() else '') + '/hospital/medication/', "hospital microservice")
+    smoke(os.environ['ASPNET_PROTOCOL'] + '://' + os.environ['PSW_SCHEDULE_SERVICE_HOST'] + ((':' + os.environ['PSW_SCHEDULE_SERVICE_PORT']) if 'PSW_SCHEDULE_SERVICE_PORT' in os.environ.keys() else '') + '/schedule/available/doctor', "schedule microservice")
+    smoke(os.environ['ASPNET_PROTOCOL'] + '://' + os.environ['PSW_USER_SERVICE_HOST'] + ((':' + os.environ['PSW_USER_SERVICE_PORT']) if 'PSW_USER_SERVICE_PORT' in os.environ.keys() else '') + '/user/country', "user microservice")
+    smoke(os.environ['ASPNET_PROTOCOL'] + '://' + os.environ['PSW_API_GATEWAY_HOST'] + ((':' + os.environ['PSW_API_GATEWAY_PORT']) if 'PSW_API_GATEWAY_PORT' in os.environ.keys() else '') + '/api/user/city/by-country/1', "ocelot (asp.net) with database")
+    smoke(os.environ['ASPNET_PROTOCOL'] + '://' + os.environ['PSW_WEB_FRONTEND_PUBLISH_HOST'] + ((':' + os.environ['PSW_WEB_FRONTEND_PUBLISH_PORT']) if 'PSW_WEB_FRONTEND_PUBLISH_PORT' in os.environ.keys() else '') + '/', "frontend")

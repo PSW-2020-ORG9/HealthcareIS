@@ -1,7 +1,7 @@
 <template>
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
-  <div class="item card">
+  <div class="item card" name="feedback">
     <div class="d-flex justify-content-between bg-info">
       <h5 v-if="!feedback.feedbackVisibility.isAnonymous" class="card-header text-left  text-white">{{feedback.patientAccount.credentials.username}}</h5>
       <h5 v-else class="card-header text-left  text-white">Anonymous</h5>
@@ -9,10 +9,10 @@
     </div>
     <div class="card-body">           
         <div class="text-left">{{feedback.userComment}}</div>
-        <button v-if="user=='admin' 
+        <button v-if="$store.state.user && $store.state.user.role=='Admin' 
         & !feedback.feedbackVisibility.isPublished 
         & feedback.feedbackVisibility.isPublic" 
-        @click="publishFeedback" type="button" class="btn btn-success float-right">Publish</button>
+        @click="publishFeedback" type="button" class="btn btn-success float-right" v-bind:id="'publish' + feedback.id">Publish</button>
     </div>
   </div>
 

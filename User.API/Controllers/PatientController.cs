@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net;
+using General.Auth;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
 using User.API.Mappers;
@@ -41,6 +41,29 @@ namespace User.API.Controllers
             return BadRequest("Patient not found.");
         }
 
+        [HttpGet]
+        public IActionResult FindPatient()
+        {
+            string userId = HttpIdentityHandler.GetUserIdFromRequest(HttpContext.Request);
+            if (userId != default)
+            {
+                return Ok(_patientService.GetByID(Int32.Parse(userId)));
+            }
+
+            return BadRequest();
+        }
+
+        [HttpGet]
+        [Route("username")]
+        public IActionResult FindPatientByUsername()
+        {
+            var patient = _patientService
+                .GetByUsername(HttpIdentityHandler.GetUsernameFromRequest(HttpContext.Request));
+            if (patient != null) return Ok(patient);
+            return BadRequest("Patient not found.");
+        }
+
+
         [HttpPost]
         [Route("register")]
         public IActionResult RegisterPatient(PatientRegistrationDTO dto)
@@ -60,16 +83,18 @@ namespace User.API.Controllers
         }
 
         [HttpGet]
-        [Route("account/{id}")]
-        public IActionResult FindPatientAccount(int id)
+        [Route("account")]
+        public IActionResult FindPatientAccount()
         {
-            var patientAccount = _patientAccountService.GetAccount(id);
+            var patientAccount = _patientAccountService
+                .GetAccount(Int32.Parse(HttpIdentityHandler.GetUserIdFromRequest(HttpContext.Request)));
             if(patientAccount != null) return Ok(patientAccount);
             return BadRequest("Patient account not found.");
 
         }
 
         [HttpGet]
+        [Route("all")]
         public IActionResult GetAllPatients()
         {
             var patients = _patientService.GetAllActive();

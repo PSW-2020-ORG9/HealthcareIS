@@ -13,7 +13,5 @@ namespace User.API.Model.Users.UserAccounts
         public int PatientId { get; set; }
         public Patient Patient { get; set; }
         public bool RespondedToSurvey { get; set; }
-
-
     }
 }

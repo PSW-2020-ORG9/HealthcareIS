@@ -9,9 +9,11 @@ namespace Schedule.API.Model.Filters
         public IEnumerable<int> DoctorIds { get; set; }
         public string DoctorName { get; set; }
         public string DoctorSurname { get; set; }
+        public int PatientId { get; set; }
         protected override void ConfigureFilter()
         {
             AddExpressionFunction(examination => DoctorIds.Contains(examination.DoctorId));
+            AddExpressionFunction(examination => examination.PatientId == PatientId);
         }
     }
 }
