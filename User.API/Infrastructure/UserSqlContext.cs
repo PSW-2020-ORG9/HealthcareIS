@@ -55,7 +55,6 @@ namespace User.API.Infrastructure
 
         public DbSet<UserAccount> UserAccounts { get; set; }
         public DbSet<PatientAccount> PatientAccounts { get; set; }
-        public DbSet<DoctorAccount> DoctorAccounts { get; set; }
 
         //ES - Projection
         public DbSet<Projection> Projection { get; set; }
