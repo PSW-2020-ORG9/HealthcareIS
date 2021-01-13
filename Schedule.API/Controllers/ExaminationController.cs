@@ -45,7 +45,10 @@ namespace Schedule.API.Controllers
         [HttpPost]
         public IActionResult ScheduleExamination(ScheduledExaminationDTO dto)
         {
-            dto.PatientId = Int32.Parse(HttpIdentityHandler.GetUserIdFromRequest(HttpContext.Request));
+            if (dto.PatientId == 0)
+            {
+                dto.PatientId = Int32.Parse(HttpIdentityHandler.GetUserIdFromRequest(HttpContext.Request));
+            }
             var examination = ExaminationMapper.DtoToObject(dto);
             try
             {
