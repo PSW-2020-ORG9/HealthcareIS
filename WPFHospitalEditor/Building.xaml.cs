@@ -8,6 +8,7 @@ using WPFHospitalEditor.MapObjectModel;
 using WPFHospitalEditor.Controller;
 using WPFHospitalEditor.Service;
 using System.Windows.Media;
+using WPFHospitalEditor.Pages;
 
 namespace WPFHospitalEditor
 {
@@ -66,7 +67,7 @@ namespace WPFHospitalEditor
         {
             ClearAll();           
             this.Close();
-            CanvasService.AddObjectToCanvas(mapObjectController.GetOutterMapObjects(), HospitalMap.canvasHospitalMap);
+            CanvasService.AddObjectToCanvas(mapObjectController.GetOutterMapObjects(), HospitalMapPage.canvasHospitalMap);
             Owner.Show();
         }
 

@@ -12,12 +12,12 @@ using WPFHospitalEditor.Repository;
 using WPFHospitalEditor.DTOs;
 using WPFHospitalEditor.Model;
 
-namespace WPFHospitalEditor
+namespace WPFHospitalEditor.Pages
 {
     /// <summary>
-    /// Interaction logic for HospitalMap.xaml
+    /// Interaction logic for HospitalMapPage.xaml
     /// </summary>
-    public partial class HospitalMap : Window
+    public partial class HospitalMapPage : Page
     {
         IEquipmentServerController equipmentServerController = new EquipmentServerController();
         IMapObjectController mapObjectController = new MapObjectController();
@@ -27,31 +27,29 @@ namespace WPFHospitalEditor
         ISchedulingServerController schedulingController = new SchedulingServerController();
 
         public static Canvas canvasHospitalMap;
-        public static Role role;
         public static List<MapObject> searchResult = new List<MapObject>();
         public static List<EquipmentDto> equipmentSearchResult = new List<EquipmentDto>();
         public static List<MedicationDto> medicationSearchResult = new List<MedicationDto>();
         public static List<RecommendationDto> appointmentSearchResult = new List<RecommendationDto>();
 
-        public HospitalMap(List<MapObject> allMapObjects, Role role)
+        public HospitalMapPage()
         {
             InitializeComponent();
             SetMapObjectTypeComboBox();
             SetNonSelectedComboBoxItem(emptyMapObjectComboBox);
             CanvasService.AddObjectToCanvas(mapObjectController.GetOutterMapObjects(), canvas);
             canvasHospitalMap = canvas;
-            HospitalMap.role = role;
-            SetComponentsVisibility();         
+            SetComponentsVisibility();
         }
 
         private void SetComponentsVisibility()
         {
-            if (role == Role.Patient)
+            if (HospitalMainWindow.role == Role.Patient)
             {
                 EquipmentSearchTab.Visibility = Visibility.Hidden;
                 MedicationSearchTab.Visibility = Visibility.Hidden;
             }
-            if (role != Role.Secretary)
+            if (HospitalMainWindow.role != Role.Secretary)
             {
                 AppointmentSearchTab.Visibility = Visibility.Hidden;
                 SpecialistAppointmentSearchTab.Visibility = Visibility.Hidden;
@@ -65,8 +63,8 @@ namespace WPFHospitalEditor
             {
                 canvas.Children.Clear();
                 Building building = new Building(chosenBuilding.Id);
-                building.Owner = this;
-                this.Hide();
+                //building.Owner = this;
+               // this.Hide();
                 building.ShowDialog();
             }
         }
@@ -80,7 +78,7 @@ namespace WPFHospitalEditor
                 MessageBox.Show("There is nothing we could find.");
                 return;
             }
-            SearchResultDialog searchResultDialog = new SearchResultDialog(this, SearchType.MapObjectSearch);
+            SearchResultDialog searchResultDialog = new SearchResultDialog(/*this,*/ SearchType.MapObjectSearch);
             searchResultDialog.ShowDialog();
         }
 
@@ -103,7 +101,7 @@ namespace WPFHospitalEditor
             }
 
             equipmentSearchResult = equipmentServerController.GetEquipmentByType(equipmentSearchComboBox.Text).ToList();
-            SearchResultDialog equipmentDialog = new SearchResultDialog(this, SearchType.EquipmentSearch);
+            SearchResultDialog equipmentDialog = new SearchResultDialog(/*this,*/ SearchType.EquipmentSearch);
             equipmentDialog.ShowDialog();
 
         }
@@ -117,7 +115,7 @@ namespace WPFHospitalEditor
                 return;
             }
             medicationSearchResult = medicationServerController.GetAllMedicationByName(medicationSearchComboBox.Text).ToList();
-            SearchResultDialog medicationDialog = new SearchResultDialog(this, SearchType.MedicationSearch);
+            SearchResultDialog medicationDialog = new SearchResultDialog(/*this, */SearchType.MedicationSearch);
             medicationDialog.ShowDialog();
         }
 
@@ -149,7 +147,7 @@ namespace WPFHospitalEditor
                 return;
             }
 
-            SearchResultDialog appointmentDialog = new SearchResultDialog(this, SearchType.AppointmentSearch);
+            SearchResultDialog appointmentDialog = new SearchResultDialog(/*this, */SearchType.AppointmentSearch);
             appointmentDialog.ShowDialog();
 
         }
@@ -187,7 +185,7 @@ namespace WPFHospitalEditor
                 return;
             }
 
-            SearchResultDialog appointmentDialog = new SearchResultDialog(this, SearchType.AppointmentSearch);
+            SearchResultDialog appointmentDialog = new SearchResultDialog(/*this, */SearchType.AppointmentSearch);
             appointmentDialog.ShowDialog();
         }
 
@@ -286,7 +284,7 @@ namespace WPFHospitalEditor
 
         private Boolean NoMedicationNameIsPicked()
         {
-            return medicationSearchComboBox.Text.Equals(AllConstants.EmptyComboBox) ;
+            return medicationSearchComboBox.Text.Equals(AllConstants.EmptyComboBox);
         }
         private void SetNonSelectedComboBoxItem(ComboBoxItem comboBoxItem)
         {
@@ -295,19 +293,19 @@ namespace WPFHospitalEditor
 
         private bool InvalidInputForAppointment()
         {
-            return doctorsComboBox.Text.Equals(AllConstants.EmptyComboBox) || startDatePicker.Text.Equals("") || endDatePicker.Text.Equals("") || InvalidDateInput() ;
+            return doctorsComboBox.Text.Equals(AllConstants.EmptyComboBox) || startDatePicker.Text.Equals("") || endDatePicker.Text.Equals("") || InvalidDateInput();
         }
 
         private bool InvalidInputForSpecialistAppointment()
         {
             return specialistComboBox.Text.Equals(AllConstants.EmptyComboBox) || startDatePickerSpecApp.Text.Equals("")
                 || endDatePickerSpecApp.Text.Equals("") || specialistEquipmentAppSearchComboBox.Text.Equals(AllConstants.EmptyComboBox)
-                || specialistPriorityComboBox.Text.Equals("") ;
+                || specialistPriorityComboBox.Text.Equals("");
         }
 
         private bool InvalidDateInput()
         {
-            return endDatePicker.SelectedDate < startDatePicker.SelectedDate ;
+            return endDatePicker.SelectedDate < startDatePicker.SelectedDate;
         }
 
         private RecommendationPreference GetRecommendationPreference(ComboBox comboBox)
@@ -318,13 +316,13 @@ namespace WPFHospitalEditor
 
         private bool CheckEquipmentExistance()
         {
-            for (int i = 0; i < HospitalMap.appointmentSearchResult.Count; i++)
-            {
-                int roomId = HospitalMap.appointmentSearchResult[i].RoomId;
-                List<EquipmentDto> equipmentDtos = equipmentServerController.GetEquipmentByRoomId(roomId).ToList();
-                if (CheckEquipmentInRoomExistance(equipmentDtos))
-                    return true;
-            }
+            /* for (int i = 0; i < HospitalMap.appointmentSearchResult.Count; i++)
+             {
+                 int roomId = HospitalMap.appointmentSearchResult[i].RoomId;
+                 List<EquipmentDto> equipmentDtos = equipmentServerController.GetEquipmentByRoomId(roomId).ToList();
+                 if (CheckEquipmentInRoomExistance(equipmentDtos))
+                     return true;
+             }*/
             return false;
         }
 

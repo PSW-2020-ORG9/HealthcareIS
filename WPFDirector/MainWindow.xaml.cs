@@ -18,11 +18,9 @@ namespace WPFDirector
 
         private void hospitalMapPressed(object sender, RoutedEventArgs e)
         {
-            MapObjectController mapObjectController = new MapObjectController();
-            List<MapObject> allMapObjects = mapObjectController.GetAllMapObjects();
-            HospitalMap hospMap = new HospitalMap(allMapObjects, Role.Director);
+            HospitalMainWindow window = new HospitalMainWindow(Role.Director);
             this.Close();
-            hospMap.ShowDialog();
+            window.ShowDialog();
         }
     }
 }

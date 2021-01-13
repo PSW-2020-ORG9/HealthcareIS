@@ -68,7 +68,7 @@ namespace WPFHospitalEditor
         private void InitializeTitle()
         {
             Title.Text = mapObject.Name;
-            if (HospitalMap.role.Equals(Role.Patient))
+            if (HospitalMainWindow.role.Equals(Role.Patient))
                 Title.IsReadOnly = true;
         }
 
@@ -93,7 +93,7 @@ namespace WPFHospitalEditor
 
         private Boolean IsPatientLogged()
         {
-            return (HospitalMap.role == Role.Patient);
+            return (HospitalMainWindow.role == Role.Patient);
         }
     }
 }

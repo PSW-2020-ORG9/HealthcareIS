@@ -18,11 +18,9 @@ namespace WPFSecretary
 
         private void hospitalMapPressed(object sender, RoutedEventArgs e)
         {
-            MapObjectController mapObjectController = new MapObjectController();
-            List<MapObject> allMapObjects = mapObjectController.GetAllMapObjects();
-            HospitalMap hospMap = new HospitalMap(allMapObjects, Role.Secretary);
+            HospitalMainWindow window = new HospitalMainWindow(Role.Secretary);
             this.Close();
-            hospMap.ShowDialog();
+            window.ShowDialog();
         }
     }
 }
