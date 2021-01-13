@@ -187,19 +187,18 @@ namespace WPFHospitalEditor.Pages
 
         private void EquipmentTextInputChanged(object sender, EventArgs e)
         {
-            SetComboBoxDefaultValues(equipmentSearchComboBox);
             SetEquipmentTypeComboBox();
         }
 
         private void SetEquipmentTypeComboBox()
         {
+            SetComboBoxDefaultValues(equipmentSearchComboBox);
             foreach (EquipmentTypeDto eqTypeDto in equipmentTypeServerController.SearchEquipmentTypes(EquipmentSearchInput.Text))
                 equipmentSearchComboBox.Items.Add(eqTypeDto.Name);
         }
 
         private void MedicationTextInputChanged(object sender, EventArgs e)
         {
-            SetComboBoxDefaultValues(medicationSearchComboBox);
             SetMedicationNameComboBox();
         }
 
@@ -211,48 +210,50 @@ namespace WPFHospitalEditor.Pages
         }
         private void SetMedicationNameComboBox()
         {
+            SetComboBoxDefaultValues(medicationSearchComboBox);
             foreach (MedicationDto medDto in medicationServerController.SearchMedications(MedicationSearchInput.Text))
                 medicationSearchComboBox.Items.Add(medDto.Name);
         }
 
         private void DoctorTextInputChanged(object sender, EventArgs e)
         {
-            SetComboBoxDefaultValues(doctorsComboBox);
             SetDoctorNameComboBox();
         }
 
         private void SetDoctorNameComboBox()
         {
+            SetComboBoxDefaultValues(doctorsComboBox);
             foreach (DoctorDto docDto in doctorServerController.SearchDoctors(DoctorSearchInput.Text))
                 doctorsComboBox.Items.Add(docDto.DoctorId + " " + docDto.Name + " " + docDto.Surname);
         }
 
         private void SpecialistTextInputChanged(object sender, EventArgs e)
         {
-            SetComboBoxDefaultValues(specialistComboBox);
             SetSpecialistNameComboBox();
         }
 
         private void SetSpecialistNameComboBox()
         {
+            SetComboBoxDefaultValues(specialistComboBox);
             foreach (DoctorDto docDto in doctorServerController.SearchSpecialists(SpecialistSearchInput.Text))
                 specialistComboBox.Items.Add(docDto.DoctorId.ToString() + " " + docDto.Name + " " + docDto.Surname + " [" + docDto.DepartmentName + "]");
         }
 
         private void SpecialistEquipmentTextInputChanged(object sender, EventArgs e)
         {
-            SetComboBoxDefaultValues(specialistEquipmentAppSearchComboBox);
             SetSpecialistEquipmentComboBox();
         }
 
         private void SetSpecialistEquipmentComboBox()
         {
+            SetComboBoxDefaultValues(specialistEquipmentAppSearchComboBox);
             foreach (EquipmentTypeDto eqTypeDto in equipmentTypeServerController.SearchEquipmentTypes(EquipmentForSpecialistAppSearchInput.Text))
                 specialistEquipmentAppSearchComboBox.Items.Add(eqTypeDto.Name);
         }
 
         private void SetMapObjectTypeComboBox()
         {
+            SetComboBoxDefaultValues(searchInputComboBox);
             foreach (MapObjectType mapObjectType in Enum.GetValues(typeof(MapObjectType)))
             {
                 if (!IsNoNameObject(mapObjectType) && CompareInput(mapObjectType, searchInputTB.Text))
@@ -334,7 +335,6 @@ namespace WPFHospitalEditor.Pages
 
         private void MapObjectTextInputChanged(object sender, TextChangedEventArgs e)
         {
-            SetComboBoxDefaultValues(searchInputComboBox);
             SetMapObjectTypeComboBox();
         }
 
@@ -345,28 +345,22 @@ namespace WPFHospitalEditor.Pages
                 switch (tabControl.SelectedIndex)
                 {
                     case 0:
-                        SetComboBoxDefaultValues(searchInputComboBox);
                         SetMapObjectTypeComboBox();
                         SetNonSelectedComboBoxItem(emptySpecialistEquipmentAppComboBox);
                         break;
                     case 1:
-                        SetComboBoxDefaultValues(medicationSearchComboBox);
                         SetMedicationNameComboBox();
                         SetNonSelectedComboBoxItem(emptyMedicationComboBox);
                         break;
                     case 2:
-                        SetComboBoxDefaultValues(equipmentSearchComboBox);
                         SetEquipmentTypeComboBox();
                         SetNonSelectedComboBoxItem(emptyEquipmentComboBox);
                         break;
                     case 3:
-                        SetComboBoxDefaultValues(doctorsComboBox);
                         SetDoctorNameComboBox();
                         SetNonSelectedComboBoxItem(emptyDoctorComboBox);
                         break;
                     case 4:
-                        SetComboBoxDefaultValues(specialistComboBox);
-                        SetComboBoxDefaultValues(specialistEquipmentAppSearchComboBox);
                         SetSpecialistNameComboBox();
                         SetNonSelectedComboBoxItem(emptySpecialistComboBox);
                         SetSpecialistEquipmentComboBox();
