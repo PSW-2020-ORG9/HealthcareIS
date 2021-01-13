@@ -8,6 +8,7 @@ using System.Linq;
 using System;
 using WPFHospitalEditor.Controller.Interface;
 using WPFHospitalEditor.StrategyPattern;
+using WPFHospitalEditor.Pages;
 
 namespace WPFHospitalEditor
 {
@@ -18,10 +19,10 @@ namespace WPFHospitalEditor
     {
 
         private MapObject mapObject;
-        private Building building;
+        private BuildingPage building;
         private DynamicGridControl dynamicGridControl;
 
-        public AdditionalInformation(MapObject mapObject, Building building)
+        public AdditionalInformation(MapObject mapObject, BuildingPage building)
         {
             InitializeComponent();
             this.mapObject = mapObject;

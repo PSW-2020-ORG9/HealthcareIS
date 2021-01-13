@@ -8,6 +8,7 @@ using WPFHospitalEditor.Controller;
 using WPFHospitalEditor.Service;
 using System.Linq;
 using WPFHospitalEditor.DTOs;
+using WPFHospitalEditor.Pages;
 
 namespace WPFHospitalEditor
 {
@@ -163,9 +164,9 @@ namespace WPFHospitalEditor
 
         public void DisplayBuildingAndFloorBasedOnSelectedObject(int floorNumber, int buildingId)
         {
-            Building searchedBuilding = new Building(buildingId, floorNumber);
+            BuildingPage searchedBuilding = new BuildingPage(buildingId, floorNumber);
             //searchedBuilding.Owner = hospitalMap;
-            searchedBuilding.Show();
+            //searchedBuilding.Show();
         }
 
         private static void SetAdvancedSearchButtonProperties(Button advancedSearch)

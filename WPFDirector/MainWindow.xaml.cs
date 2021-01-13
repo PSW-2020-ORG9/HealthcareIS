@@ -18,7 +18,7 @@ namespace WPFDirector
 
         private void hospitalMapPressed(object sender, RoutedEventArgs e)
         {
-            HospitalMainWindow window = new HospitalMainWindow(Role.Director);
+            HospitalMainWindow window = HospitalMainWindow.GetInstance(Role.Director);
             this.Close();
             window.ShowDialog();
         }

@@ -10,7 +10,7 @@
     <StackPanel Orientation="Vertical">
         <StackPanel>
             <TextBlock HorizontalAlignment="Left" Margin="30,10,0,5" TextWrapping="Wrap" Text="Hospital map" VerticalAlignment="Top" FontSize="26" FontWeight="Bold"/>
-            <TabControl x:Name="tabControl" SelectedItem="Map" Background="#FFC6F5F8" SelectionChanged="TabControlSelectionChanged">
+            <TabControl x:Name="tabControl" SelectedItem="Map" Background="#FFC6F5F8" SelectionChanged="TabControlSelectionChanged" SelectedIndex="0">
                 <TabItem x:Name="MapObjectSearchTab" Header="Map objects search" Background="SkyBlue">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                         <Label Content="Enter map object:" FontSize="14" VerticalAlignment="Center" Margin="35,0,0,0"></Label>

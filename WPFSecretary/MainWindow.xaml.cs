@@ -18,7 +18,7 @@ namespace WPFSecretary
 
         private void hospitalMapPressed(object sender, RoutedEventArgs e)
         {
-            HospitalMainWindow window = new HospitalMainWindow(Role.Secretary);
+            HospitalMainWindow window = HospitalMainWindow.GetInstance(Role.Secretary);
             this.Close();
             window.ShowDialog();
         }

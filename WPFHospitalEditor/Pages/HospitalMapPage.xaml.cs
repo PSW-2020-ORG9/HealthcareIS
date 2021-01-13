@@ -35,8 +35,6 @@ namespace WPFHospitalEditor.Pages
         public HospitalMapPage()
         {
             InitializeComponent();
-            SetMapObjectTypeComboBox();
-            SetNonSelectedComboBoxItem(emptyMapObjectComboBox);
             CanvasService.AddObjectToCanvas(mapObjectController.GetOutterMapObjects(), canvas);
             canvasHospitalMap = canvas;
             SetComponentsVisibility();
@@ -62,10 +60,8 @@ namespace WPFHospitalEditor.Pages
             if (chosenBuilding != null && chosenBuilding.MapObjectType == MapObjectType.Building)
             {
                 canvas.Children.Clear();
-                Building building = new Building(chosenBuilding.Id);
-                //building.Owner = this;
-               // this.Hide();
-                building.ShowDialog();
+                HospitalMainWindow window = HospitalMainWindow.GetInstance(HospitalMainWindow.role);
+                window.ChangePage(new BuildingPage(chosenBuilding.Id));
             }
         }
 

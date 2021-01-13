@@ -20,20 +20,27 @@ namespace WPFHospitalEditor
     public partial class HospitalMainWindow : Window
     {
         public static Role role;
+        public static HospitalMainWindow instance = null;
 
-        public HospitalMainWindow(Role role)
+        private HospitalMainWindow(Role role)
         {
             InitializeComponent();
             HospitalMainWindow.role = role;
-            ChangePage(1);
+            ChangePage(new HospitalMapPage());
         }
 
-        public void ChangePage(int pageId)
+        public static HospitalMainWindow GetInstance(Role role)
         {
-            if (pageId == 1)
+            if (instance == null)
             {
-                MainFrame.Content = new HospitalMapPage();
+                instance = new HospitalMainWindow(role);
             }
+            return instance;
+        }
+
+        public void ChangePage(Page page)
+        {
+            MainFrame.Content = page;
         }
     }
 }

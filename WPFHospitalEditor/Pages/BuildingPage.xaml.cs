@@ -10,24 +10,24 @@ using WPFHospitalEditor.Service;
 using System.Windows.Media;
 using WPFHospitalEditor.Pages;
 
-namespace WPFHospitalEditor
+namespace WPFHospitalEditor.Pages
 {
     /// <summary>
-    /// Interaction logic for Building.xaml
+    /// Interaction logic for BuildingPage.xaml
     /// </summary>
-    public partial class Building : Window
+    public partial class BuildingPage : Page
     {
         private Dictionary<int, Floor> buildingFloors = new Dictionary<int, Floor>();
         MapObjectController mapObjectController = new MapObjectController();
         public static Canvas canvasBuilding;
         private int id;
 
-        public Building(int id, int selectedFloor = 0)
+        public BuildingPage(int id, int selectedFloor = 0)
         {
             InitializeComponent();
             ClearAll();
             this.id = id;
-            PopulateBuildingFloors();            
+            PopulateBuildingFloors();
             SetFloorComboBox();
             floor.SelectedIndex = selectedFloor;
             canvasBuilding = canvas;
@@ -60,15 +60,15 @@ namespace WPFHospitalEditor
         private void SetFloorComboBox()
         {
             for (int i = 0; i < buildingFloors.Count; i++)
-                floor.Items.Add( i + ". floor");
+                floor.Items.Add(i + ". floor");
         }
 
         private void BackClick(object sender, RoutedEventArgs e)
         {
-            ClearAll();           
-            this.Close();
+            ClearAll();
             CanvasService.AddObjectToCanvas(mapObjectController.GetOutterMapObjects(), HospitalMapPage.canvasHospitalMap);
-            Owner.Show();
+            HospitalMainWindow window = HospitalMainWindow.GetInstance(HospitalMainWindow.role);
+            window.ChangePage(new HospitalMapPage());
         }
 
         private void FloorSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -92,9 +92,10 @@ namespace WPFHospitalEditor
             if (legend == null) return;
             HashSet<MapObjectType> mapObjectTypes = FindAllMapObjectTypesOnFloor(displayedMapObjects);
             AddingRowsToGrid(mapObjectTypes);
-            
+
             int index = 0;
-            foreach (MapObjectType mapObjectType in mapObjectTypes) {
+            foreach (MapObjectType mapObjectType in mapObjectTypes)
+            {
                 OrganiseLegend(mapObjectType, index);
                 index++;
             }
@@ -105,7 +106,7 @@ namespace WPFHospitalEditor
             HashSet<MapObjectType> mapObjectTypes = new HashSet<MapObjectType>();
             for (int i = 0; i < displayedMapObjects.Count; i++)
                 mapObjectTypes.Add(displayedMapObjects[i].MapObjectType);
-            
+
             return mapObjectTypes;
         }
 
@@ -115,7 +116,7 @@ namespace WPFHospitalEditor
             for (int i = 0; i < numberOfRows; i++)
                 legend.RowDefinitions.Add(new RowDefinition() { });
         }
-  
+
         private void OrganiseLegend(MapObjectType mapObjectType, int index)
         {
             Rectangle rectangle = CreateRectangleInLegend(mapObjectType);
@@ -163,12 +164,12 @@ namespace WPFHospitalEditor
             if (chosenMapObject != null)
                 OpenAdditionalInformationDialog(chosenMapObject);
         }
-        
+
         private void OpenAdditionalInformationDialog(MapObject mapObject)
         {
             AdditionalInformation additionalInformation = new AdditionalInformation(mapObject, this);
-            additionalInformation.Owner = this;
-            additionalInformation.ShowDialog(); 
-        }                     
+            //additionalInformation.Owner = this;
+            additionalInformation.ShowDialog();
+        }
     }
 }

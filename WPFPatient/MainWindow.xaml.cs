@@ -18,7 +18,7 @@ namespace WPFPatient
 
         private void hospitalMapPressed(object sender, RoutedEventArgs e)
         {
-            HospitalMainWindow window = new HospitalMainWindow(Role.Patient);
+            HospitalMainWindow window = HospitalMainWindow.GetInstance(Role.Patient);
             this.Close();
             window.ShowDialog();
         }
