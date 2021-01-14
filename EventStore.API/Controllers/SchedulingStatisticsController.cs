@@ -26,5 +26,12 @@ namespace EventStore.API.Controllers
         {
             return Ok(_schedulingStatisticsService.GetStepsStatistics());
         }
+
+        [HttpGet]
+        [Route("success")]
+        public IActionResult GetSuccessStatistics()
+        {
+            return Ok(_schedulingStatisticsService.GetSuccessStatistics());
+        }
     }
 }

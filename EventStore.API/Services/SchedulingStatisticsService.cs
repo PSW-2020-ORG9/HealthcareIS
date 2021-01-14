@@ -32,20 +32,25 @@ namespace EventStore.API.Services
         private List<int> GetSessionSteps(IEnumerable<SchedulingEvent> events)
         {
             var sessionSteps = new List<int>();
-            foreach (Guid guid in events.Select(e => e.SchedulingSessionId).Distinct())
+            foreach (Guid guid in GetSuccessfulSessionIds(events))
             {
                 var session = events.Where(e => e.SchedulingSessionId == guid);
-                if (IsSchedulingSessionSuccessful(session))
-                {
-                    sessionSteps.Add(session.Count());
-                }
+                sessionSteps.Add(session.Count());
             }
             return sessionSteps;
         }
 
         public SuccessStatisticsDto GetSuccessStatistics()
         {
-            throw new NotImplementedException();
+            var events = _schedulingEventRepository.Repository.GetAll();
+            var sessionIds = events.Select(e => e.SchedulingSessionId).Distinct();
+            var successfulSessionIds = GetSuccessfulSessionIds(events);
+
+            return new SuccessStatisticsDto
+            {
+                SuccessCount = successfulSessionIds.Count(),
+                FailureCount = sessionIds.Count() - successfulSessionIds.Count()
+            };
         }
 
         public IDictionary<int, TimeSpan> GetAgeStatistics()
@@ -67,14 +72,10 @@ namespace EventStore.API.Services
         private TimeSpan GetAverageTimeByAge(IEnumerable<SchedulingEvent> events, int age)
         {
             var timesSpent = new List<TimeSpan>();
-            var sessionIds = events.Where(e => e.UserAge == age).Select(e => e.SchedulingSessionId).Distinct();
-            foreach (Guid guid in sessionIds)
+            foreach (Guid guid in GetSuccessfulSessionIds(events.Where(e => e.UserAge == age)))
             {
                 var session = events.Where(e => e.SchedulingSessionId == guid);
-                if (IsSchedulingSessionSuccessful(session))
-                {
-                    timesSpent.Add(GetTimeSpentInSession(session));
-                }
+                timesSpent.Add(GetTimeSpentInSession(session));
             }
             return GetAverageTimeSpent(timesSpent);
         }
@@ -91,5 +92,18 @@ namespace EventStore.API.Services
         private bool IsSchedulingSessionSuccessful(IEnumerable<SchedulingEvent> events)
             => events.Select(e => e.EventType).Contains(SchedulingEventType.FINISHED);
 
+        private IEnumerable<Guid> GetSuccessfulSessionIds(IEnumerable<SchedulingEvent> events)
+        {
+            var successfulSessionIds = new List<Guid>();
+            foreach (Guid sessionId in events.Select(e => e.SchedulingSessionId).Distinct())
+            {
+                var session = events.Where(e => e.SchedulingSessionId == sessionId);
+                if (IsSchedulingSessionSuccessful(session))
+                {
+                    successfulSessionIds.Add(sessionId);
+                }
+            }
+            return successfulSessionIds;
+        }
     }
 }
