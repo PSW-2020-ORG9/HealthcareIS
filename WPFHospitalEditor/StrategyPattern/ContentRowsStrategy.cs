@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using WPFHospitalEditor.Controller;
 using WPFHospitalEditor.Controller.Interface;
 using WPFHospitalEditor.DTOs;
@@ -13,11 +11,10 @@ namespace WPFHospitalEditor.StrategyPattern
         string[] GetContentRows();
     }
 
-    class ContentRowsStrategy: IContentRowsStrategy
+    class ContentRowsStrategy : IContentRowsStrategy
     {
         private IContentRowsStrategy strategy;
 
-        public ContentRowsStrategy() { }
         public ContentRowsStrategy(IContentRowsStrategy strategy)
         {
             this.strategy = strategy;

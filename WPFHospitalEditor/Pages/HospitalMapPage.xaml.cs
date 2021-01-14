@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -7,8 +8,6 @@ using WPFHospitalEditor.MapObjectModel;
 using WPFHospitalEditor.Service;
 using WPFHospitalEditor.Controller;
 using WPFHospitalEditor.Controller.Interface;
-using System.Linq;
-using WPFHospitalEditor.Repository;
 using WPFHospitalEditor.DTOs;
 using WPFHospitalEditor.Model;
 using WPFHospitalEditor.StrategyPattern;
@@ -20,15 +19,14 @@ namespace WPFHospitalEditor.Pages
     /// </summary>
     public partial class HospitalMapPage : Page
     {
-        IEquipmentServerController equipmentServerController = new EquipmentServerController();
-        IMapObjectController mapObjectController = new MapObjectController();
-        IEquipmentTypeServerController equipmentTypeServerController = new EquipmentTypeServerController();
-        IMedicationServerController medicationServerController = new MedicationServerController();
-        IDoctorServerController doctorServerController = new DoctorServerController();
-        ISchedulingServerController schedulingController = new SchedulingServerController();
+        private readonly IEquipmentServerController equipmentServerController = new EquipmentServerController();
+        private readonly IMapObjectController mapObjectController = new MapObjectController();
+        private readonly IEquipmentTypeServerController equipmentTypeServerController = new EquipmentTypeServerController();
+        private readonly IMedicationServerController medicationServerController = new MedicationServerController();
+        private readonly IDoctorServerController doctorServerController = new DoctorServerController();
+        private readonly ISchedulingServerController schedulingController = new SchedulingServerController();
 
         public static Canvas canvasHospitalMap;
-        //public static List<RecommendationDto> appointmentSearchResult = new List<RecommendationDto>();
 
         public HospitalMapPage()
         {
@@ -72,8 +70,8 @@ namespace WPFHospitalEditor.Pages
                 MessageBox.Show("There is nothing we could find.");
                 return;
             }
-            ISearchResultStrategy strategy = new SearchResultStrategy(new MapObjectSearchContentRows(searchResults));
-            SearchResultDialog searchResultDialog = new SearchResultDialog(strategy.GetContentRows(), SearchType.MapObjectSearch);
+            ISearchResultStrategy strategy = new SearchResultStrategy(new MapObjectSearchResult(searchResults));
+            SearchResultDialog searchResultDialog = new SearchResultDialog(strategy.GetSearhResult(), SearchType.MapObjectSearch);
             searchResultDialog.ShowDialog();
         }
 
@@ -94,8 +92,8 @@ namespace WPFHospitalEditor.Pages
                 MessageBox.Show("No equipment is picked.");
                 return;
             }
-            ISearchResultStrategy strategy = new SearchResultStrategy(new EquipmentSearchContentRows(equipmentSearchComboBox.Text));
-            SearchResultDialog equipmentDialog = new SearchResultDialog(strategy.GetContentRows(), SearchType.EquipmentSearch);
+            ISearchResultStrategy strategy = new SearchResultStrategy(new EquipmentSearchResult(equipmentSearchComboBox.Text));
+            SearchResultDialog equipmentDialog = new SearchResultDialog(strategy.GetSearhResult(), SearchType.EquipmentSearch);
             equipmentDialog.ShowDialog();
         }
 
@@ -107,79 +105,77 @@ namespace WPFHospitalEditor.Pages
                 MessageBox.Show("No medication is picked.");
                 return;
             }
-            ISearchResultStrategy strategy = new SearchResultStrategy(new MedicationSearchContentRows(medicationSearchComboBox.Text));
-            SearchResultDialog medicationDialog = new SearchResultDialog(strategy.GetContentRows(), SearchType.MedicationSearch);
+            ISearchResultStrategy strategy = new SearchResultStrategy(new MedicationSearchResult(medicationSearchComboBox.Text));
+            SearchResultDialog medicationDialog = new SearchResultDialog(strategy.GetSearhResult(), SearchType.MedicationSearch);
             medicationDialog.ShowDialog();
         }
 
         public void AppointmentSearch_Click(object sender, RoutedEventArgs e)
         {
-            ClearAllResults();
-            if (InvalidInputForAppointment())
-            {
-                MessageBox.Show("Invalid input.");
-                return;
-            }
-
-            int DoctorId = int.Parse(doctorsComboBox.SelectedItem.ToString().Split(" ")[0]);
-            DateTime startDate = DateTime.ParseExact(startDatePicker.SelectedDate.Value.ToString("MM/dd/yyyy") + AllConstants.DayStart, "MM/dd/yyyy HH:mm", null);
-            DateTime endDate = DateTime.ParseExact(endDatePicker.SelectedDate.Value.ToString("MM/dd/yyyy") + AllConstants.DayEnd, "MM/dd/yyyy HH:mm", null);
-
-            RecommendationRequestDto recommendationRequestDto = new RecommendationRequestDto()
-            {
-                DoctorId = DoctorId,
-                SpecialtyId = AllConstants.RegularExaminationDepartment,
-                TimeInterval = new TimeInterval(startDate, endDate),
-                Preference = GetRecommendationPreference(PriorityComboBox)
-            };
-
-            /*appointmentSearchResult = schedulingController.GetAppointments(recommendationRequestDto);
-            if (appointmentSearchResult == null)
-            {
-                MessageBox.Show("There are no available appointments for chosen period!");
-                return;
-            }
-
-            SearchResultDialog appointmentDialog = new SearchResultDialog(SearchType.AppointmentSearch);
-            appointmentDialog.ShowDialog();*/
-
+            DoSearch(false);
         }
 
         private void SpecialistAppointmentSearch_Click(object sender, RoutedEventArgs e)
         {
-            ClearAllResults();
+            DoSearch(true);
+        }
 
-            if (InvalidInputForSpecialistAppointment())
+        private void DoSearch(bool isSpecialistSearch)
+        {
+            ClearAllResults();
+            if (isSpecialistSearch ? InvalidInputForSpecialistAppointment() : InvalidInputForAppointment())
             {
                 MessageBox.Show("Invalid input.");
                 return;
             }
 
-            String specialist = specialistComboBox.SelectedItem.ToString();
-            Doctor chosenDoctor = doctorServerController.GetDoctorById(int.Parse(specialist.Split(" ")[0]));
-            DateTime startDate = DateTime.ParseExact(startDatePickerSpecApp.SelectedDate.Value.ToString("MM/dd/yyyy") + AllConstants.DayStart, "MM/dd/yyyy HH:mm", null);
-            DateTime endDate = DateTime.ParseExact(endDatePickerSpecApp.SelectedDate.Value.ToString("MM/dd/yyyy") + AllConstants.DayEnd, "MM/dd/yyyy HH:mm", null);
+            DateTime startDate = DateTime.ParseExact(GetStartDatePicker(isSpecialistSearch).SelectedDate.Value.ToString("MM/dd/yyyy") + AllConstants.DayStart, "MM/dd/yyyy HH:mm", null);
+            DateTime endDate = DateTime.ParseExact(GetEndDatePicker(isSpecialistSearch).SelectedDate.Value.ToString("MM/dd/yyyy") + AllConstants.DayEnd, "MM/dd/yyyy HH:mm", null);
 
-            TimeInterval timeInterval = new TimeInterval(startDate, endDate);
-
+            Doctor chosenDoctor = GetChosenDoctor(isSpecialistSearch);
             RecommendationRequestDto recommendationRequestDto = new RecommendationRequestDto()
             {
                 DoctorId = chosenDoctor.Id,
                 SpecialtyId = chosenDoctor.DepartmentId,
-                TimeInterval = timeInterval,
-                Preference = GetRecommendationPreference(specialistPriorityComboBox)
+                TimeInterval = new TimeInterval(startDate, endDate),
+                Preference = GetRecommendationPreference(isSpecialistSearch ? specialistPriorityComboBox : PriorityComboBox)
             };
+            List<RecommendationDto> searchResults = schedulingController.GetAppointments(recommendationRequestDto);
 
-            /*appointmentSearchResult = schedulingController.GetAppointments(recommendationRequestDto);
-
-            if (!CheckEquipmentExistance())
+            if (!IsValidRequest(isSpecialistSearch, searchResults))
             {
-                MessageBox.Show("There is no room with required equipment!");
+                MessageBox.Show(isSpecialistSearch ? "There is no room with required equipment!" : "There are no available appointments for chosen period!");
                 return;
             }
 
-            SearchResultDialog appointmentDialog = new SearchResultDialog(SearchType.AppointmentSearch);
-            appointmentDialog.ShowDialog();*/
+            ISearchResultStrategy strategy = new SearchResultStrategy(new AppointmentSearchResult(searchResults));
+            SearchResultDialog appointmentDialog = new SearchResultDialog(strategy.GetSearhResult(), SearchType.AppointmentSearch);
+            appointmentDialog.ShowDialog();
+        }
+
+        private bool IsValidRequest(bool isSpecialistSearch, List<RecommendationDto> searchResults)
+        {
+            return !(searchResults == null || (isSpecialistSearch && CheckEquipmentExistance(searchResults)));
+        }
+
+        private DatePicker GetStartDatePicker(bool isSpecialistSearch)
+        {
+            return isSpecialistSearch ? startDatePickerSpecApp : startDatePicker;
+        }
+
+        private DatePicker GetEndDatePicker(bool isSpecialistSearch)
+        {
+            return isSpecialistSearch ? endDatePickerSpecApp : endDatePicker;
+        }
+
+        private Doctor GetChosenDoctor(bool isSpecialistSearch)
+        {
+            if (isSpecialistSearch)
+            {
+                String specialist = specialistComboBox.SelectedItem.ToString();
+                return doctorServerController.GetDoctorById(int.Parse(specialist.Split(" ")[0]));
+            }
+            return doctorServerController.GetDoctorById(int.Parse(doctorsComboBox.SelectedItem.ToString().Split(" ")[0]));
         }
 
         private void EquipmentTextInputChanged(object sender, EventArgs e)
@@ -301,15 +297,15 @@ namespace WPFHospitalEditor.Pages
             return RecommendationPreference.Time;
         }
 
-        private bool CheckEquipmentExistance()
+        private bool CheckEquipmentExistance(List<RecommendationDto> searchResults)
         {
-            /* for (int i = 0; i < HospitalMap.appointmentSearchResult.Count; i++)
+            for (int i = 0; i < searchResults.Count; i++)
              {
-                 int roomId = HospitalMap.appointmentSearchResult[i].RoomId;
+                 int roomId = searchResults[i].RoomId;
                  List<EquipmentDto> equipmentDtos = equipmentServerController.GetEquipmentByRoomId(roomId).ToList();
                  if (CheckEquipmentInRoomExistance(equipmentDtos))
                      return true;
-             }*/
+             }
             return false;
         }
 

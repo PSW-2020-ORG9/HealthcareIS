@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using WPFHospitalEditor.Controller;
 using WPFHospitalEditor.Controller.Interface;
 using WPFHospitalEditor.DTOs;
@@ -11,41 +9,45 @@ namespace WPFHospitalEditor.StrategyPattern
 {
     interface ISearchResultStrategy
     {
-        Dictionary<int, string> GetContentRows();
+        List<SearchResultDTO> GetSearhResult();
     }
 
     class SearchResultStrategy : ISearchResultStrategy
     {
-        private ISearchResultStrategy strategy;
+        private readonly ISearchResultStrategy strategy;
 
-        public SearchResultStrategy() { }
         public SearchResultStrategy(ISearchResultStrategy strategy)
         {
             this.strategy = strategy;
         }
 
-        public Dictionary<int, string> GetContentRows()
+        public List<SearchResultDTO> GetSearhResult()
         {
-            return strategy.GetContentRows();
+            return strategy.GetSearhResult();
         }
     }
 
-    class MapObjectSearchContentRows : ISearchResultStrategy
+    class MapObjectSearchResult : ISearchResultStrategy
     {
-        private List<MapObject> searchResults;
-        public MapObjectSearchContentRows(List<MapObject> searchResults)
+        private readonly List<MapObject> searchResults;
+
+        public MapObjectSearchResult(List<MapObject> searchResults)
         {
             this.searchResults = searchResults;
         }
-        public Dictionary<int, string> GetContentRows()
+        public List<SearchResultDTO> GetSearhResult()
         {
-            IMapObjectController mapObjectController = new MapObjectController();
-            Dictionary<int, string> retVal = new Dictionary<int, string>();
+            List<SearchResultDTO> retVal = new List<SearchResultDTO>();
             
             for (int i = 0; i < searchResults.Count(); i++)
             {
                 MapObject mo = searchResults.ElementAt(i);
-                retVal[mo.Id] = MapObjectToRow(mo);
+                SearchResultDTO searchResultDTO = new SearchResultDTO()
+                {
+                    MapObjectId = mo.Id,
+                    Content = MapObjectToRow(mo)
+                };
+                retVal.Add(searchResultDTO);
             }
             return retVal;
         }
@@ -59,51 +61,92 @@ namespace WPFHospitalEditor.StrategyPattern
         }
     }
 
-    class MedicationSearchContentRows : ISearchResultStrategy
+    class MedicationSearchResult : ISearchResultStrategy
     {
-        private string name;
+        private readonly string name;
 
-        public MedicationSearchContentRows(string name)
+        public MedicationSearchResult(string name)
         {
             this.name = name;
         }
-        public Dictionary<int, string> GetContentRows()
+        public List<SearchResultDTO> GetSearhResult()
         {
             IMedicationServerController medicationServerController = new MedicationServerController();
             IMapObjectController mapObjectController = new MapObjectController();
             List<MedicationDto> searchResults = medicationServerController.GetAllMedicationByName(name).ToList();
-            Dictionary<int, string> retVal = new Dictionary<int, string>();
+            List<SearchResultDTO> retVal = new List<SearchResultDTO>();
 
             MapObject mo = mapObjectController.GetMapObjectById(AllConstants.StorageRoomId);
             for (int i = 0; i < searchResults.Count(); i++)
             {
                 MedicationDto medicationDto = searchResults.ElementAt(i);
-                retVal[mo.Id] = medicationDto.Quantity + AllConstants.ContentSeparator + MapObjectSearchContentRows.MapObjectToRow(mo);
+                SearchResultDTO searchResultDTO = new SearchResultDTO()
+                {
+                    MapObjectId = mo.Id,
+                    Content = medicationDto.Quantity + AllConstants.ContentSeparator + MapObjectSearchResult.MapObjectToRow(mo)
+                };
+                retVal.Add(searchResultDTO);
             }
             return retVal;
         }
     }
 
-    class EquipmentSearchContentRows : ISearchResultStrategy
+    class EquipmentSearchResult : ISearchResultStrategy
     {
-        private string type;
+        private readonly string type;
 
-        public EquipmentSearchContentRows(string type)
+        public EquipmentSearchResult(string type)
         {
             this.type = type;
         }
-        public Dictionary<int, string> GetContentRows()
+        public List<SearchResultDTO> GetSearhResult()
         {
             IEquipmentServerController equipmentServerController = new EquipmentServerController();
             IMapObjectController mapObjectController = new MapObjectController();
             List<EquipmentDto> searchResult = equipmentServerController.GetEquipmentByType(type).ToList();
-            Dictionary<int, string> retVal = new Dictionary<int, string>();
+            List<SearchResultDTO> retVal = new List<SearchResultDTO>();
 
             for (int i = 0; i < searchResult.Count(); i++)
             {
                 EquipmentDto equipmentDto = searchResult.ElementAt(i);
                 MapObject mo = mapObjectController.GetMapObjectById(equipmentDto.RoomId);
-                retVal[mo.Id] = equipmentDto.Quantity + AllConstants.ContentSeparator + MapObjectSearchContentRows.MapObjectToRow(mo);
+                SearchResultDTO searchResultDTO = new SearchResultDTO()
+                {
+                    MapObjectId = mo.Id,
+                    Content = equipmentDto.Quantity + AllConstants.ContentSeparator + MapObjectSearchResult.MapObjectToRow(mo)
+                };
+                retVal.Add(searchResultDTO);
+            }
+            return retVal;
+        }
+    }
+
+    class AppointmentSearchResult : ISearchResultStrategy
+    {
+        private readonly List<RecommendationDto> searchResult;
+
+        public AppointmentSearchResult(List<RecommendationDto> searchResult)
+        {
+            this.searchResult = searchResult;
+        }
+        public List<SearchResultDTO> GetSearhResult()
+        {
+            IMapObjectController mapObjectController = new MapObjectController();
+            List<SearchResultDTO> retVal = new List<SearchResultDTO>();
+
+            for (int i = 0; i < searchResult.Count(); i++)
+            {
+                RecommendationDto recommendationDto = searchResult.ElementAt(i);
+                MapObject mo = mapObjectController.GetMapObjectById(recommendationDto.RoomId);
+                string doctor = recommendationDto.Doctor.Person.Name + " " + recommendationDto.Doctor.Person.Surname;
+                string timeInterval = recommendationDto.TimeInterval.Start.ToString() + "-" + recommendationDto.TimeInterval.End.ToString();
+                AppointmentSearchResultDTO searchResultDTO = new AppointmentSearchResultDTO()
+                {
+                    MapObjectId = mo.Id,
+                    Content = mo.Name + AllConstants.ContentSeparator + doctor + AllConstants.ContentSeparator + timeInterval,
+                    RecommendationDto = recommendationDto
+                };
+                retVal.Add(searchResultDTO);
             }
             return retVal;
         }
