@@ -71,7 +71,7 @@ namespace WPFHospitalEditor.Pages
                 return;
             }
             ISearchResultStrategy strategy = new SearchResultStrategy(new MapObjectSearchResult(searchResults));
-            SearchResultDialog searchResultDialog = new SearchResultDialog(strategy.GetSearhResult(), SearchType.MapObjectSearch);
+            SearchResultDialog searchResultDialog = new SearchResultDialog(strategy.GetSearchResult(), SearchType.MapObjectSearch);
             searchResultDialog.ShowDialog();
         }
 
@@ -93,7 +93,7 @@ namespace WPFHospitalEditor.Pages
                 return;
             }
             ISearchResultStrategy strategy = new SearchResultStrategy(new EquipmentSearchResult(equipmentSearchComboBox.Text));
-            SearchResultDialog equipmentDialog = new SearchResultDialog(strategy.GetSearhResult(), SearchType.EquipmentSearch);
+            SearchResultDialog equipmentDialog = new SearchResultDialog(strategy.GetSearchResult(), SearchType.EquipmentSearch);
             equipmentDialog.ShowDialog();
         }
 
@@ -106,7 +106,7 @@ namespace WPFHospitalEditor.Pages
                 return;
             }
             ISearchResultStrategy strategy = new SearchResultStrategy(new MedicationSearchResult(medicationSearchComboBox.Text));
-            SearchResultDialog medicationDialog = new SearchResultDialog(strategy.GetSearhResult(), SearchType.MedicationSearch);
+            SearchResultDialog medicationDialog = new SearchResultDialog(strategy.GetSearchResult(), SearchType.MedicationSearch);
             medicationDialog.ShowDialog();
         }
 
@@ -149,7 +149,7 @@ namespace WPFHospitalEditor.Pages
             }
 
             ISearchResultStrategy strategy = new SearchResultStrategy(new AppointmentSearchResult(searchResults));
-            SearchResultDialog appointmentDialog = new SearchResultDialog(strategy.GetSearhResult(), SearchType.AppointmentSearch);
+            SearchResultDialog appointmentDialog = new SearchResultDialog(strategy.GetSearchResult(), SearchType.AppointmentSearch);
             appointmentDialog.ShowDialog();
         }
 

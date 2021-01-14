@@ -9,7 +9,7 @@ namespace WPFHospitalEditor.StrategyPattern
 {
     interface ISearchResultStrategy
     {
-        List<SearchResultDTO> GetSearhResult();
+        List<SearchResultDTO> GetSearchResult();
     }
 
     class SearchResultStrategy : ISearchResultStrategy
@@ -21,9 +21,9 @@ namespace WPFHospitalEditor.StrategyPattern
             this.strategy = strategy;
         }
 
-        public List<SearchResultDTO> GetSearhResult()
+        public List<SearchResultDTO> GetSearchResult()
         {
-            return strategy.GetSearhResult();
+            return strategy.GetSearchResult();
         }
     }
 
@@ -35,7 +35,7 @@ namespace WPFHospitalEditor.StrategyPattern
         {
             this.searchResults = searchResults;
         }
-        public List<SearchResultDTO> GetSearhResult()
+        public List<SearchResultDTO> GetSearchResult()
         {
             List<SearchResultDTO> retVal = new List<SearchResultDTO>();
             
@@ -69,7 +69,7 @@ namespace WPFHospitalEditor.StrategyPattern
         {
             this.name = name;
         }
-        public List<SearchResultDTO> GetSearhResult()
+        public List<SearchResultDTO> GetSearchResult()
         {
             IMedicationServerController medicationServerController = new MedicationServerController();
             IMapObjectController mapObjectController = new MapObjectController();
@@ -99,7 +99,7 @@ namespace WPFHospitalEditor.StrategyPattern
         {
             this.type = type;
         }
-        public List<SearchResultDTO> GetSearhResult()
+        public List<SearchResultDTO> GetSearchResult()
         {
             IEquipmentServerController equipmentServerController = new EquipmentServerController();
             IMapObjectController mapObjectController = new MapObjectController();
@@ -129,7 +129,7 @@ namespace WPFHospitalEditor.StrategyPattern
         {
             this.searchResult = searchResult;
         }
-        public List<SearchResultDTO> GetSearhResult()
+        public List<SearchResultDTO> GetSearchResult()
         {
             IMapObjectController mapObjectController = new MapObjectController();
             List<SearchResultDTO> retVal = new List<SearchResultDTO>();
