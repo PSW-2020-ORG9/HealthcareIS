@@ -1,5 +1,5 @@
+using Feedback.API.Feeback.Domain.AggregatesModel.FeedbackAggregate;
 using Feedback.API.Infrastructure;
-using Feedback.API.Model.User;
 using General;
 using System;
 using System.Collections.Generic;

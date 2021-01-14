@@ -1,4 +1,4 @@
-using Feedback.API.Model.User;
+using Feedback.API.Feedback.Domain.AggregatesModel.SurveyAggregate.User;
 
 namespace Feedback.API.Model.Survey.SurveyEntry
 {

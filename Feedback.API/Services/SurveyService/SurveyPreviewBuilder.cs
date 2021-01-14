@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Feedback.API.DTOs;
+using Feedback.API.Feedback.Domain.AggregatesModel.SurveyAggregate.User;
 using Feedback.API.Model.Survey;
-using Feedback.API.Model.User;
 using Feedback.API.Services.SurveyService.SurveyEntry;
 using General;
 
