@@ -263,7 +263,6 @@
         "Role" : "Patient, Admin"
       }
     },
-    
     {
       "DownstreamPathTemplate": "/hospital/{everything}",
       "DownstreamScheme": "http",
@@ -280,5 +279,24 @@
         "Role" : "Secretary"
       }
     }
+    ,
+    {
+      "DownstreamPathTemplate": "/event/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "$PSW_EVENT_STORE_SERVICE_HOST",
+          "Port": $PSW_EVENT_STORE_SERVICE_PORT
+        }
+      ],
+      "UpstreamPathTemplate": "/api/event/{everything}",
+      "UpstreamHttpMethod": [ "Get","Post" ],
+      "RouteClaimsRequirement" :
+      {
+        "Role" : "Patient"
+      }
+    }
+    
+    
   ]
 }

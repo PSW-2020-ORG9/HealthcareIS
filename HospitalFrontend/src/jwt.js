@@ -19,6 +19,7 @@ export function setUser(app) {
                         app.$store.commit('setUser', {
                             name: response.data.person.name,
                             surname: response.data.person.surname,
+                            age: response.data.person.age,
                             role: 'Patient'
                         })
                     })

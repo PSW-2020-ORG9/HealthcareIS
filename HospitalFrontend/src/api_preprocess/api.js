@@ -6,6 +6,7 @@ let userService = api + '/user'
 let scheduleService = api + '/schedule'
 let feedbackService = api + '/feedbacks'
 let hospitalService = api + '/hospital'
+let eventStore = api + '/event'
 
 let examinationUrl = scheduleService + '/examination'
 let examinationSearchUrl = scheduleService + '/examination/search'
@@ -36,6 +37,8 @@ let clientId = '9a86c8e89e7d2ea'
 let examinationRecommendationUrl = patientExaminationsUrl + '/recommend'
 
 let loginUrl = userService + '/auth/login'
+
+let schedulingEventUrl = eventStore + '/scheduling'
 
 
 export default{
@@ -74,6 +77,8 @@ export default{
     room : roomUrl,
 
     loginUrl : loginUrl,
+
+    schedulingEventUrl : schedulingEventUrl,
 
     availableDoctorUrl:function(date){
         return doctorAvailabilityUrl + 'doctor?date=' + date

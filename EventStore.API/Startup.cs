@@ -1,20 +1,15 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using EventStore.API.Infrastructure;
+using EventStore.API.Infrastructure.Repositories;
+using EventStore.API.Services;
 using General;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Http;
-using EventStore.Model.Infrastructure;
 
-namespace EventStore
+namespace EventStore.API
 {
     public class Startup
     {
@@ -67,7 +62,9 @@ namespace EventStore
 
         private void AddServices(IServiceCollection services)
         {
-            
+            var schedulingEventRepository = new SchedulingEventSqlRepository(GetContextFactory());
+            var schedulingEventService = new SchedulingEventService(schedulingEventRepository);
+            services.Add(new ServiceDescriptor(typeof(SchedulingEventService),schedulingEventService));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

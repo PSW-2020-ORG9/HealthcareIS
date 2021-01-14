@@ -33,6 +33,7 @@ export default createStore({
     user: {
       name: '',
       surname: '',
+      age:0
     },
     availableDoctors:[]
     ,

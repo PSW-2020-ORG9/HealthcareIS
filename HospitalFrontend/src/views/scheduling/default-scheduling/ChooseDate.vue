@@ -15,6 +15,7 @@ import Toastify from 'toastify-js'
 import moment from 'moment'
 import Datepicker from 'vue3-datepicker'
 import 'vue3-datepicker/dist/vue3-datepicker.css'
+import { publishSchedulingEvent } from '../../../services/eventPublisher.js'
 
 export default {
     name:"ChooseDate",
@@ -25,6 +26,12 @@ export default {
     }
     ,
     components:{Datepicker}
+    ,
+    beforeRouteEnter (to, from, next) {
+        next(vm=>{
+            vm.publishEvent()
+        })
+    }
     ,
     methods:{
         getAvailableDoctors:function(){
@@ -62,6 +69,13 @@ export default {
         getMinDate:function(){       
             return moment().add(1, 'days').toDate()
         }
+        ,
+        publishEvent:function(){
+			publishSchedulingEvent({
+				"eventType" : "STEP_1",
+				"userAge" : this.$store.state.user.age
+			})
+		}
     },
     mounted() {
         let previoslySelectedDate=this.$store.state.selectedDate
