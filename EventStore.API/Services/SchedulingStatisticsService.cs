@@ -19,7 +19,28 @@ namespace EventStore.API.Services
 
         public StepsStatisticsDto GetStepsStatistics()
         {
-            throw new NotImplementedException();
+            var sessionSteps = GetSessionSteps(_schedulingEventRepository.Repository.GetAll());
+            
+            return new StepsStatisticsDto
+            {
+                MinSteps = sessionSteps.Min(),
+                AvgSteps = sessionSteps.Average(),
+                MaxSteps = sessionSteps.Max()
+            };
+        }
+
+        private List<int> GetSessionSteps(IEnumerable<SchedulingEvent> events)
+        {
+            var sessionSteps = new List<int>();
+            foreach (Guid guid in events.Select(e => e.SchedulingSessionId).Distinct())
+            {
+                var session = events.Where(e => e.SchedulingSessionId == guid);
+                if (IsSchedulingSessionSuccessful(session))
+                {
+                    sessionSteps.Add(session.Count());
+                }
+            }
+            return sessionSteps;
         }
 
         public SuccessStatisticsDto GetSuccessStatistics()
