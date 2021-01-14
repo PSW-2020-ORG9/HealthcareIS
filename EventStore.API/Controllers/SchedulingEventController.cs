@@ -11,9 +11,9 @@ namespace EventStore.API.Controllers
     [Route("event/scheduling")]
     public class SchedulingEventController : ControllerBase
     {
-        private readonly SchedulingEventService _schedulingEventService;
+        private readonly ISchedulingEventService _schedulingEventService;
 
-        public SchedulingEventController(SchedulingEventService schedulingEventService)
+        public SchedulingEventController(ISchedulingEventService schedulingEventService)
         {
             _schedulingEventService = schedulingEventService;
         }

@@ -64,7 +64,9 @@ namespace EventStore.API
         {
             var schedulingEventRepository = new SchedulingEventSqlRepository(GetContextFactory());
             var schedulingEventService = new SchedulingEventService(schedulingEventRepository);
-            services.Add(new ServiceDescriptor(typeof(SchedulingEventService),schedulingEventService));
+            var schedulingStatisticsService = new SchedulingStatisticsService(schedulingEventRepository);
+            services.Add(new ServiceDescriptor(typeof(ISchedulingEventService),schedulingEventService));
+            services.Add(new ServiceDescriptor(typeof(ISchedulingStatisticsService), schedulingStatisticsService));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
