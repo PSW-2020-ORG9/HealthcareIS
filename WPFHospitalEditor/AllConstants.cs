@@ -2,7 +2,6 @@
 
 namespace WPFHospitalEditor
 {
-
     public static class AllConstants
     {
         public const double DoorWidth = 30;
@@ -19,5 +18,6 @@ namespace WPFHospitalEditor
         public const string DayStart = " 00:00";
         public const string DayEnd = " 23:59";
         public const int RegularExaminationDepartment = 1;
+        public const int StorageRoomId = 17;
     }
 }

@@ -18,11 +18,9 @@ namespace WPFDoctor
 
         private void hospitalMapPressed(object sender, RoutedEventArgs e)
         {
-            MapObjectController mapObjectController = new MapObjectController();
-            List<MapObject> allMapObjects = mapObjectController.GetAllMapObjects();
-            HospitalMap hospMap = new HospitalMap(allMapObjects, Role.Doctor);
+            HospitalMainWindow window = HospitalMainWindow.GetInstance(Role.Doctor);
             this.Close();
-            hospMap.ShowDialog();
+            window.ShowDialog();
         }
     }
 }

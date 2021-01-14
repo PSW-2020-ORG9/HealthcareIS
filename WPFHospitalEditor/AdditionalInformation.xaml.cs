@@ -8,6 +8,7 @@ using System.Linq;
 using System;
 using WPFHospitalEditor.Controller.Interface;
 using WPFHospitalEditor.StrategyPattern;
+using WPFHospitalEditor.Pages;
 
 namespace WPFHospitalEditor
 {
@@ -18,10 +19,10 @@ namespace WPFHospitalEditor
     {
 
         private MapObject mapObject;
-        private Building building;
+        private BuildingPage building;
         private DynamicGridControl dynamicGridControl;
 
-        public AdditionalInformation(MapObject mapObject, Building building)
+        public AdditionalInformation(MapObject mapObject, BuildingPage building)
         {
             InitializeComponent();
             this.mapObject = mapObject;
@@ -68,19 +69,19 @@ namespace WPFHospitalEditor
         private void InitializeTitle()
         {
             Title.Text = mapObject.Name;
-            if (HospitalMap.role.Equals(Role.Patient))
+            if (HospitalMainWindow.role.Equals(Role.Patient))
                 Title.IsReadOnly = true;
         }
 
         private void BtnEquipment_Click(object sender, RoutedEventArgs e)
         {
-            ContentRowsStrategy strategy = new ContentRowsStrategy(new EquipmentContentRows(mapObject.Id));
+            IContentRowsStrategy strategy = new ContentRowsStrategy(new EquipmentContentRows(mapObject.Id));
             EquipmentAndMedicationWindow equipment = new EquipmentAndMedicationWindow(strategy.GetContentRows());
             equipment.ShowDialog();
         }
         private void BtnMedications_Click(object sender, RoutedEventArgs e)
         {
-            ContentRowsStrategy strategy = new ContentRowsStrategy(new MedicationContentRows(mapObject.Id));
+            IContentRowsStrategy strategy = new ContentRowsStrategy(new MedicationContentRows(mapObject.Id));
             EquipmentAndMedicationWindow medications = new EquipmentAndMedicationWindow(strategy.GetContentRows());
             medications.ShowDialog();
         }
@@ -93,7 +94,7 @@ namespace WPFHospitalEditor
 
         private Boolean IsPatientLogged()
         {
-            return (HospitalMap.role == Role.Patient);
+            return (HospitalMainWindow.role == Role.Patient);
         }
     }
 }
