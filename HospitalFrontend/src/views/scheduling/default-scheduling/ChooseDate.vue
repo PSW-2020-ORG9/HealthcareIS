@@ -28,7 +28,10 @@ export default {
     components:{Datepicker}
     ,
     beforeRouteEnter (to, from, next) {
+        
         next(vm=>{
+            if(from.name !== 'chooseDoctor' && from.name !== undefined)
+                vm.$store.commit('generateUuid')
             vm.publishEvent()
         })
     }
@@ -73,7 +76,8 @@ export default {
         publishEvent:function(){
 			publishSchedulingEvent({
 				"eventType" : "STEP_1",
-				"userAge" : this.$store.state.user.age
+                "userAge" : this.$store.state.user.age,
+                "schedulingSessionId": this.$store.state.schedulingSessionUuid
 			})
 		}
     },

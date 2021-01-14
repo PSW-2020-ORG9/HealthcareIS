@@ -5,7 +5,6 @@ namespace EventStore.API.Model.EventStore
         STEP_1,
         STEP_2,
         STEP_3,
-        LEFT,
         FINISHED
     }
 }

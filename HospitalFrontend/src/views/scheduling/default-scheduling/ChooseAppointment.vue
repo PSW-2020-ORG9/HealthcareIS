@@ -19,6 +19,7 @@ import api from '../../../constant/api.js'
 import axios from 'axios'
 import moment from 'moment'
 import Toastify from 'toastify-js'
+import { publishSchedulingEvent } from '../../../services/eventPublisher.js'
 
 export default {
     name:"ChooseAppointment",
@@ -31,7 +32,9 @@ export default {
     ,
     beforeRouteEnter (to, from, next) {
         next(vm=>{
+            vm.publishEvent('STEP_3')
             vm.availableAppointments = vm.$store.state.availableAppointments
+            
         })
     }
     ,
@@ -71,10 +74,18 @@ export default {
 
             axios.post(api.examination,appointmentDto).then(response=>{
                 this.toastSuccess('Appointment on '+this.formAppointmentString(selectedAppointment)+' succesfully scheduled!')
+                this.publishEvent('FINISHED')
                 this.$store.commit('clearAppointmentInfo')
                 this.$router.push('/scheduling-type')
          })
-        }
+        },
+        publishEvent:function(eventType){
+			publishSchedulingEvent({
+				"eventType" : eventType,
+                "userAge" : this.$store.state.user.age,
+                "schedulingSessionId": this.$store.state.schedulingSessionUuid
+			})
+		}
     },
 }
 </script>

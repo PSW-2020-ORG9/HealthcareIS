@@ -21,7 +21,6 @@ namespace EventStore.API.Controllers
         [HttpPost]
         public IActionResult Record(SchedulingEventDto schedulingEventDto)
         {
-            Console.WriteLine(HttpIdentityHandler.GetUserIdFromRequest(HttpContext.Request));
             schedulingEventDto.UserId = Int32.Parse(HttpIdentityHandler.GetUserIdFromRequest(HttpContext.Request));
             return Ok(_schedulingEventService.Record(new SchedulingEvent(schedulingEventDto)));
         }
