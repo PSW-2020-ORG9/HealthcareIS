@@ -32,31 +32,25 @@ namespace WPFHospitalEditor
         public SearchResultDialog(Dictionary<int, string> resultsWithMapObjectIds, SearchType searchType)
         {
             InitializeComponent();
-            PopulateContentRows(resultsWithMapObjectIds);
-            CreateMapObjectButtons(resultsWithMapObjectIds.Keys);
+            
             this.searchType = searchType;
             this.scheduleBtnRow = new Dictionary<int, RecommendationDto>();
             this.Height = AllConstants.SearchDialogHeight;
+            PopulateContentRows(resultsWithMapObjectIds);
             ShowDynamicGrid(searchType);
-            DefineDynamicGrid();
         }
 
         private void PopulateContentRows(Dictionary<int, string> dict)
         {
-            this.contentRows = new string[dict.Values.Count];
             int index = 0;
             foreach (int key in dict.Keys)
             {
-                contentRows[index++] = dict[key];
-            }
-        }
-
-        private void CreateMapObjectButtons(ICollection<int> mapObjectIds)
-        {
-            this.displayBtnRow = new Dictionary<int, int>();
-            for (int i = 0; i < mapObjectIds.Count; i++)
-            {
-                displayBtnRow.Add(i, mapObjectIds.ElementAt(i));
+                contentRows[index] = dict[key];
+                displayBtnRow.Add(index, key);
+                CreateOneRow(50);
+                string[] oneRowContents = contentRows[index].Split(AllConstants.ContentSeparator);
+                CreateRowData(oneRowContents);
+                index++;
             }
         }
 
@@ -82,16 +76,6 @@ namespace WPFHospitalEditor
                 return;
             }
             scrollViewer.Content = DynamicGrid;
-        }
-
-        private void DefineDynamicGrid()
-        {
-            CreateRows();
-            foreach (string oneRow in contentRows)
-            {
-                string[] oneRowContents = oneRow.Split(AllConstants.ContentSeparator);
-                CreateRowData(oneRowContents);
-            }
         }
 
         private void CreateRowData(string[] oneRowContents)
@@ -232,13 +216,6 @@ namespace WPFHospitalEditor
             DynamicGrid.RowDefinitions.Add(gridRow);
         }
 
-        private void CreateRows()
-        {
-            for (int i = 0; i < contentRows.Count(); i++)
-            {
-                CreateOneRow(50);
-            }
-        }
 
         private void Close_Click(object sender, RoutedEventArgs e)
         {
