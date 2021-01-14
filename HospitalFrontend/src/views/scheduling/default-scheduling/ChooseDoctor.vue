@@ -42,6 +42,10 @@ export default {
     ,
     beforeRouteEnter (to, from, next) {
         next(vm=>{
+            if(from.name===undefined){
+                vm.$router.push('/scheduling-type')
+                return
+            }
             vm.availableDoctors = vm.$store.state.availableDoctors
             vm.publishEvent()
         })

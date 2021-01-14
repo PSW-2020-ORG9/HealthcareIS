@@ -28,10 +28,14 @@ export default {
     components:{Datepicker}
     ,
     beforeRouteEnter (to, from, next) {
-        
         next(vm=>{
-            if(from.name !== 'chooseDoctor' && from.name !== undefined)
+            if(from.name===undefined){
+                vm.$router.push('/scheduling-type')
+                return
+            }
+            else if(from.name !== 'chooseDoctor')
                 vm.$store.commit('generateUuid')
+
             vm.publishEvent()
         })
     }

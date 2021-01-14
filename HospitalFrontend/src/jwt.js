@@ -31,6 +31,7 @@ export function setUser(app) {
                     })
                 }
             }
+            
         } else {
             app.$store.commit('setUser', null)
         }
