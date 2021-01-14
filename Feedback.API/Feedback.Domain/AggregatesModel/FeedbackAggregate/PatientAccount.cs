@@ -1,4 +1,4 @@
-﻿namespace Feedback.API.Model.User
+﻿namespace Feedback.API.Feeback.Domain.AggregatesModel.FeedbackAggregate
 {
     public class PatientAccount
     {

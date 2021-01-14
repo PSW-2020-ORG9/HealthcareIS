@@ -1,22 +1,29 @@
-using Feedback.API.Infrastructure.Exceptions;
+using Feedback.API.Feedback.Domain.Exceptions;
 
-namespace Feedback.API.Model.Feedback
+namespace Feedback.API.Feeback.Domain.AggregatesModel.FeedbackAggregate
 {
-    //[Owned]
     public class FeedbackVisibility
     {
-        public bool IsPublic { get; set; }
-        public bool IsAnonymous { get; set; }
-        public bool IsPublished { get; set; }
+        public bool IsPublic { get; private set; }
+        public bool IsAnonymous { get; private set; }
+        public bool IsPublished { get; private set; }
 
         public FeedbackVisibility() {}
 
-        private FeedbackVisibility(bool isPublic, bool isAnonymous, bool isPublished)
+        public FeedbackVisibility(bool isPublic, bool isAnonymous, bool isPublished)
         {
+            Validate(isPublic, isPublished);
             IsPublic = isPublic;
             IsAnonymous = isAnonymous;
             IsPublished = isPublished;
         }
+
+        private void Validate(bool isPublic, bool isPublished)
+        {
+            if (isPublished && !isPublic)
+                throw new ValidationException("Feedback cannot be published when its visibility is restricted.");
+        }
+
         public FeedbackVisibility Publish()
         {
             ValidateForPublishing();

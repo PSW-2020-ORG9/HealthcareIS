@@ -1,6 +1,6 @@
 using System;
 
-namespace Feedback.API.Infrastructure.Exceptions
+namespace Feedback.API.Feedback.Domain.Exceptions
 {
     public class ValidationException : Exception
     {

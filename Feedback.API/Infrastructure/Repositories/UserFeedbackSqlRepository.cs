@@ -1,4 +1,4 @@
-﻿using Feedback.API.Model.Feedback;
+﻿using Feedback.API.Feeback.Domain.AggregatesModel.FeedbackAggregate;
 using General;
 using General.Repository;
 using System.Linq;

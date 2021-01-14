@@ -1,5 +1,5 @@
 using Feedback.API.DTOs;
-using Feedback.API.Model.Feedback;
+using Feedback.API.Feeback.Domain.AggregatesModel.FeedbackAggregate;
 using System;
 
 namespace Feedback.API.Mappers
@@ -8,18 +8,8 @@ namespace Feedback.API.Mappers
     {
         public static UserFeedback DtoToObject(UserFeedbackDTO dto)
         {
-            return new UserFeedback
-            {
-                Date = DateTime.Now,
-                FeedbackVisibility = new FeedbackVisibility
-                {
-                    IsAnonymous = dto.IsAnonymous,
-                    IsPublic = dto.IsPublic,
-                    IsPublished = dto.IsPublished
-                },
-                UserComment = dto.UserComment,
-                PatientAccountId = dto.UserId
-            };
+            FeedbackVisibility fv = new FeedbackVisibility(dto.IsAnonymous, dto.IsPublic, dto.IsPublished);
+            return new UserFeedback(DateTime.Now, dto.UserComment, fv, dto.UserId);
         }
     }
 }

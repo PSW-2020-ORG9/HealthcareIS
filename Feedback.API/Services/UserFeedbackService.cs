@@ -1,10 +1,7 @@
+using Feedback.API.Feeback.Domain.AggregatesModel.FeedbackAggregate;
 using Feedback.API.Infrastructure.Repositories;
-using Feedback.API.Model.Feedback;
-using Feedback.API.Model.User;
 using General;
 using General.Repository;
-using RestSharp;
-using RestSharp.Serialization.Json;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -40,25 +37,13 @@ namespace Feedback.API.Services
             return _userFeedbackRepository.Repository.Update(userFeedback);
         }
 
-        /// <summary>
-        ///     Publishes a <see cref="UserFeedback"/> with a given id.
-        /// </summary>
-        /// <param name="id">Id of the <see cref="UserFeedback"/> to be published.</param>
-        /// <returns>
-        ///     True if publishing succeeds. False if a UserFeedback with the given ID cannot be found,
-        ///     if it is already published, or if Feedback is not set to public.
-        /// </returns>
         public void Publish(int id)
         {
             var userFeedback = _userFeedbackRepository.Repository.GetByID(id);
-            userFeedback.FeedbackVisibility = userFeedback.FeedbackVisibility.Publish();
+            //userFeedback.FeedbackVisibility = userFeedback.FeedbackVisibility.Publish();
+            userFeedback.PublishFeedback();
             _userFeedbackRepository.Repository.Update(userFeedback);
         }
-
-        /// <summary>
-        ///     Gets a list of all UserFeedbacks where <see cref="UserFeedback.IsPublished"/> is True.
-        /// </summary>
-        /// <returns>List of Feedbacks</returns>
         public IEnumerable<UserFeedback> GetAllPublished()
         {
             var feedbacks = _userFeedbackRepository.Repository.GetMatching(feedback => feedback.FeedbackVisibility.IsPublished);
@@ -74,12 +59,12 @@ namespace Feedback.API.Services
             
             foreach (var feedback in feedbacks)
             {
-                patientAccountIds.Add(feedback.PatientAccountId);
+                patientAccountIds.Add(feedback.GetPatientAccountId());
             }
             List<PatientAccount> patientAccounts = FindPatientAccounts(patientAccountIds);
             foreach (var feedback in feedbacks)
             {
-                feedback.PatientAccount = patientAccounts.Where(pa => pa.Id == feedback.PatientAccountId).FirstOrDefault();
+                feedback.PatientAccount = patientAccounts.Where(pa => pa.Id == feedback.GetPatientAccountId()).FirstOrDefault();
             }
         }
 

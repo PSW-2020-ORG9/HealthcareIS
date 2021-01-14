@@ -1,7 +1,7 @@
 ﻿using Feedback.API.Infrastructure;
 using General;
 
-namespace Feedback.API.Model.User
+namespace Feedback.API.Feedback.Domain.AggregatesModel.SurveyAggregate.User
 {
     public class Doctor : Entity<string>
     {

@@ -1,4 +1,4 @@
-﻿namespace Feedback.API.Model.User
+﻿namespace Feedback.API.Feedback.Domain.AggregatesModel.SurveyAggregate.User
 {
     public class Person
     {
