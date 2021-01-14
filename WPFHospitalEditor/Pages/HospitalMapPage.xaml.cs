@@ -11,6 +11,7 @@ using System.Linq;
 using WPFHospitalEditor.Repository;
 using WPFHospitalEditor.DTOs;
 using WPFHospitalEditor.Model;
+using WPFHospitalEditor.StrategyPattern;
 
 namespace WPFHospitalEditor.Pages
 {
@@ -27,10 +28,7 @@ namespace WPFHospitalEditor.Pages
         ISchedulingServerController schedulingController = new SchedulingServerController();
 
         public static Canvas canvasHospitalMap;
-        public static List<MapObject> searchResult = new List<MapObject>();
-        public static List<EquipmentDto> equipmentSearchResult = new List<EquipmentDto>();
-        public static List<MedicationDto> medicationSearchResult = new List<MedicationDto>();
-        public static List<RecommendationDto> appointmentSearchResult = new List<RecommendationDto>();
+        //public static List<RecommendationDto> appointmentSearchResult = new List<RecommendationDto>();
 
         public HospitalMapPage()
         {
@@ -68,13 +66,14 @@ namespace WPFHospitalEditor.Pages
         private void Basic_Search(object sender, RoutedEventArgs e)
         {
             ClearAllResults();
-            searchResult = mapObjectController.SearchMapObjects(searchInputTB.Text, searchInputComboBox.Text);
-            if (searchResult.Count == 0)
+            List<MapObject> searchResults = mapObjectController.SearchMapObjects(searchInputTB.Text, searchInputComboBox.Text);
+            if (searchResults.Count == 0)
             {
                 MessageBox.Show("There is nothing we could find.");
                 return;
             }
-            SearchResultDialog searchResultDialog = new SearchResultDialog(/*this,*/ SearchType.MapObjectSearch);
+            ISearchResultStrategy strategy = new SearchResultStrategy(new MapObjectSearchContentRows(searchResults));
+            SearchResultDialog searchResultDialog = new SearchResultDialog(strategy.GetContentRows(), SearchType.MapObjectSearch);
             searchResultDialog.ShowDialog();
         }
 
@@ -95,11 +94,9 @@ namespace WPFHospitalEditor.Pages
                 MessageBox.Show("No equipment is picked.");
                 return;
             }
-
-            equipmentSearchResult = equipmentServerController.GetEquipmentByType(equipmentSearchComboBox.Text).ToList();
-            SearchResultDialog equipmentDialog = new SearchResultDialog(/*this,*/ SearchType.EquipmentSearch);
+            ISearchResultStrategy strategy = new SearchResultStrategy(new EquipmentSearchContentRows(equipmentSearchComboBox.Text));
+            SearchResultDialog equipmentDialog = new SearchResultDialog(strategy.GetContentRows(), SearchType.EquipmentSearch);
             equipmentDialog.ShowDialog();
-
         }
 
         public void Medication_Search(object sender, RoutedEventArgs e)
@@ -110,8 +107,8 @@ namespace WPFHospitalEditor.Pages
                 MessageBox.Show("No medication is picked.");
                 return;
             }
-            medicationSearchResult = medicationServerController.GetAllMedicationByName(medicationSearchComboBox.Text).ToList();
-            SearchResultDialog medicationDialog = new SearchResultDialog(/*this, */SearchType.MedicationSearch);
+            ISearchResultStrategy strategy = new SearchResultStrategy(new MedicationSearchContentRows(medicationSearchComboBox.Text));
+            SearchResultDialog medicationDialog = new SearchResultDialog(strategy.GetContentRows(), SearchType.MedicationSearch);
             medicationDialog.ShowDialog();
         }
 
@@ -136,15 +133,15 @@ namespace WPFHospitalEditor.Pages
                 Preference = GetRecommendationPreference(PriorityComboBox)
             };
 
-            appointmentSearchResult = schedulingController.GetAppointments(recommendationRequestDto);
+            /*appointmentSearchResult = schedulingController.GetAppointments(recommendationRequestDto);
             if (appointmentSearchResult == null)
             {
                 MessageBox.Show("There are no available appointments for chosen period!");
                 return;
             }
 
-            SearchResultDialog appointmentDialog = new SearchResultDialog(/*this, */SearchType.AppointmentSearch);
-            appointmentDialog.ShowDialog();
+            SearchResultDialog appointmentDialog = new SearchResultDialog(SearchType.AppointmentSearch);
+            appointmentDialog.ShowDialog();*/
 
         }
 
@@ -173,7 +170,7 @@ namespace WPFHospitalEditor.Pages
                 Preference = GetRecommendationPreference(specialistPriorityComboBox)
             };
 
-            appointmentSearchResult = schedulingController.GetAppointments(recommendationRequestDto);
+            /*appointmentSearchResult = schedulingController.GetAppointments(recommendationRequestDto);
 
             if (!CheckEquipmentExistance())
             {
@@ -181,8 +178,8 @@ namespace WPFHospitalEditor.Pages
                 return;
             }
 
-            SearchResultDialog appointmentDialog = new SearchResultDialog(/*this, */SearchType.AppointmentSearch);
-            appointmentDialog.ShowDialog();
+            SearchResultDialog appointmentDialog = new SearchResultDialog(SearchType.AppointmentSearch);
+            appointmentDialog.ShowDialog();*/
         }
 
         private void EquipmentTextInputChanged(object sender, EventArgs e)
@@ -268,9 +265,6 @@ namespace WPFHospitalEditor.Pages
 
         private void ClearAllResults()
         {
-            searchResult.Clear();
-            equipmentSearchResult.Clear();
-            medicationSearchResult.Clear();
             SearchResultDialog.selectedObjectId = -1;
         }
 
@@ -282,10 +276,6 @@ namespace WPFHospitalEditor.Pages
         private Boolean NoMedicationNameIsPicked()
         {
             return medicationSearchComboBox.Text.Equals(AllConstants.EmptyComboBox);
-        }
-        private void SetNonSelectedComboBoxItem(ComboBoxItem comboBoxItem)
-        {
-            comboBoxItem.Content = AllConstants.EmptyComboBox;
         }
 
         private bool InvalidInputForAppointment()
@@ -346,25 +336,19 @@ namespace WPFHospitalEditor.Pages
                 {
                     case 0:
                         SetMapObjectTypeComboBox();
-                        SetNonSelectedComboBoxItem(emptySpecialistEquipmentAppComboBox);
                         break;
                     case 1:
                         SetMedicationNameComboBox();
-                        SetNonSelectedComboBoxItem(emptyMedicationComboBox);
                         break;
                     case 2:
                         SetEquipmentTypeComboBox();
-                        SetNonSelectedComboBoxItem(emptyEquipmentComboBox);
                         break;
                     case 3:
                         SetDoctorNameComboBox();
-                        SetNonSelectedComboBoxItem(emptyDoctorComboBox);
                         break;
                     case 4:
                         SetSpecialistNameComboBox();
-                        SetNonSelectedComboBoxItem(emptySpecialistComboBox);
                         SetSpecialistEquipmentComboBox();
-                        SetNonSelectedComboBoxItem(emptySpecialistEquipmentAppComboBox);
                         break;
                     default:
                         return;

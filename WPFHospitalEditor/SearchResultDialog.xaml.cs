@@ -21,26 +21,43 @@ namespace WPFHospitalEditor
 
         private List<Button> advancedSearchButtons = new List<Button>();
         private List<Button> scheduleButtons = new List<Button>();
-        private Dictionary<int, MapObject> displayBtnRow;
+        private Dictionary<int, int> displayBtnRow;
         private Dictionary<int, RecommendationDto> scheduleBtnRow;
         private SearchType searchType;
         private int firstContentRowNumber = 0;
         public static int selectedObjectId = -1;
-        private String[] contentRows;
+        private string[] contentRows;
         private Grid DynamicGrid;
-        private const int STORAGEROOM_ID = 17;
 
-        public SearchResultDialog(/*HospitalMap hospitalMap, */SearchType searchType)
+        public SearchResultDialog(Dictionary<int, string> resultsWithMapObjectIds, SearchType searchType)
         {
             InitializeComponent();
+            PopulateContentRows(resultsWithMapObjectIds);
+            CreateMapObjectButtons(resultsWithMapObjectIds.Keys);
             this.searchType = searchType;
-            this.displayBtnRow = new Dictionary<int, MapObject>();
             this.scheduleBtnRow = new Dictionary<int, RecommendationDto>();
             this.Height = AllConstants.SearchDialogHeight;
-            //this.hospitalMap = hospitalMap;
             ShowDynamicGrid(searchType);
-            SetContentRowsAndColumnsNumber(searchType);
             DefineDynamicGrid();
+        }
+
+        private void PopulateContentRows(Dictionary<int, string> dict)
+        {
+            this.contentRows = new string[dict.Values.Count];
+            int index = 0;
+            foreach (int key in dict.Keys)
+            {
+                contentRows[index++] = dict[key];
+            }
+        }
+
+        private void CreateMapObjectButtons(ICollection<int> mapObjectIds)
+        {
+            this.displayBtnRow = new Dictionary<int, int>();
+            for (int i = 0; i < mapObjectIds.Count; i++)
+            {
+                displayBtnRow.Add(i, mapObjectIds.ElementAt(i));
+            }
         }
 
         private void ShowDynamicGrid(SearchType searchType)
@@ -54,7 +71,6 @@ namespace WPFHospitalEditor
             {
                 EquipmentAndMedicationGrid.Visibility = Visibility.Visible;
                 DynamicGrid = DynamicEquipmentAndMedicationGrid;
-
             }
             else if (searchType == SearchType.AppointmentSearch)
             {
@@ -71,9 +87,9 @@ namespace WPFHospitalEditor
         private void DefineDynamicGrid()
         {
             CreateRows();
-            foreach (String oneRow in contentRows)
+            foreach (string oneRow in contentRows)
             {
-                String[] oneRowContents = oneRow.Split(AllConstants.ContentSeparator);
+                string[] oneRowContents = oneRow.Split(AllConstants.ContentSeparator);
                 CreateRowData(oneRowContents);
             }
         }
@@ -120,7 +136,8 @@ namespace WPFHospitalEditor
             {
                 if (displayBtnRow.ContainsKey(Grid.GetRow(advancedSearchBtn)))
                 {
-                    MapObject chosenMapObject = displayBtnRow[Grid.GetRow(advancedSearchBtn)];
+                    //MapObject chosenMapObject = displayBtnRow[Grid.GetRow(advancedSearchBtn)];
+                    MapObject chosenMapObject = mapObjectController.GetMapObjectById(displayBtnRow[Grid.GetRow(advancedSearchBtn)]);
                     selectedObjectId = chosenMapObject.Id;
                     mapObjectController.Update(chosenMapObject);
 
@@ -132,7 +149,6 @@ namespace WPFHospitalEditor
                     else
                     {
                         DisplayBuildingAndFloorBasedOnSelectedObject(chosenMapObject.MapObjectDescription.FloorNumber, chosenMapObject.MapObjectDescription.BuildingId);
-
                         //hospitalMap.Hide();
                         this.Close();
                     }
@@ -165,8 +181,8 @@ namespace WPFHospitalEditor
         public void DisplayBuildingAndFloorBasedOnSelectedObject(int floorNumber, int buildingId)
         {
             BuildingPage searchedBuilding = new BuildingPage(buildingId, floorNumber);
-            //searchedBuilding.Owner = hospitalMap;
-            //searchedBuilding.Show();
+            HospitalMainWindow window = HospitalMainWindow.GetInstance(HospitalMainWindow.role);
+            window.ChangePage(searchedBuilding);
         }
 
         private static void SetAdvancedSearchButtonProperties(Button advancedSearch)
@@ -235,73 +251,12 @@ namespace WPFHospitalEditor
         {
             switch (searchType)
             {
-                case SearchType.MapObjectSearch:
-                    contentRows = MapObjectToContentRows();
-                    break;
-                case SearchType.EquipmentSearch:
-                    contentRows = EquipmentToContentRows();
-                    break;
-                case SearchType.MedicationSearch:
-                    contentRows = MedicationToContentRows();
-                    break;
                 case SearchType.AppointmentSearch:
                     contentRows = AppointmentToContentRows();
                     break;
                 default:
                     break;
             }
-        }
-
-        private string[] EquipmentToContentRows()
-        {
-            /* string[] equipmentContentRows = new string[HospitalMap.equipmentSearchResult.Count()];
-             for (int i = 0; i < HospitalMap.equipmentSearchResult.Count(); i++)
-             {
-                 EquipmentDto equipmentDto = HospitalMap.equipmentSearchResult.ElementAt(i);
-                 MapObject mo = mapObjectController.GetMapObjectById(equipmentDto.RoomId);
-                 equipmentContentRows[i] = equipmentDto.Quantity
-                                  + AllConstants.ContentSeparator +
-                                  MapObjectToRow(mo);
-                 displayBtnRow.Add(i, mo);
-             }
-             return equipmentContentRows;*/
-            return null;
-        }
-        private string[] MedicationToContentRows()
-        {
-            /*string[] medicationContentRows = new string[HospitalMap.medicationSearchResult.Count()];
-            MapObject mo = mapObjectController.GetMapObjectById(STORAGEROOM_ID);
-            for (int i = 0; i < HospitalMap.medicationSearchResult.Count(); i++)
-            {
-                MedicationDto medicationDto = HospitalMap.medicationSearchResult.ElementAt(i);
-                medicationContentRows[i] = medicationDto.Quantity
-                                 + AllConstants.ContentSeparator +
-                                 MapObjectToRow(mo);
-                displayBtnRow.Add(i, mo);
-            }
-            return medicationContentRows;*/
-            return null;
-        }
-
-        private string MapObjectToRow(MapObject mo)
-        {
-            string result = mo.Name + AllConstants.ContentSeparator
-                            + mo.MapObjectDescription.BuildingId
-                            + AllConstants.ContentSeparator + mo.MapObjectDescription.FloorNumber;
-            return result;
-        }
-
-        private string[] MapObjectToContentRows()
-        {
-            /*string[] mapObjectContentRows = new string[HospitalMap.searchResult.Count()];
-            for (int i = 0; i < HospitalMap.searchResult.Count(); i++)
-            {
-                MapObject mo = HospitalMap.searchResult.ElementAt(i);
-                mapObjectContentRows[i] = MapObjectToRow(mo);
-                displayBtnRow.Add(i, mo);
-            }
-            return mapObjectContentRows;*/
-            return null;
         }
 
         private string[] AppointmentToContentRows()
