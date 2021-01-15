@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.Windows;
+﻿using System.Windows;
 using WPFHospitalEditor;
 using WPFHospitalEditor.DTOs;
 using WPFHospitalEditor.Model;
@@ -20,7 +19,6 @@ namespace WPFSecretary
         {
             LoginCredentials loginCredentials = new LoginCredentials(emailTextBox.Text, passwordTextBox.Password);
             string cookie = loginCredentials.Login(loginCredentials);
-            Debug.WriteLine(cookie + "aaa");
             if (cookie != null)
             {
                 LoggedUser loggedUser = new LoggedUser(loginCredentials, Role.Secretary, cookie);
