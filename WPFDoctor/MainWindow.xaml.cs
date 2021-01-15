@@ -2,7 +2,9 @@
 using System.Windows;
 using WPFHospitalEditor;
 using WPFHospitalEditor.Controller;
+using WPFHospitalEditor.Controller.Interface;
 using WPFHospitalEditor.MapObjectModel;
+using WPFHospitalEditor.Model;
 
 namespace WPFDoctor
 {
@@ -11,16 +13,28 @@ namespace WPFDoctor
     /// </summary>
     public partial class MainWindow : Window
     {
+        IUserServerController userServerController = new UserServerController();
+
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        private void hospitalMapPressed(object sender, RoutedEventArgs e)
+        private void LoginClick(object sender, RoutedEventArgs e)
         {
-            HospitalMainWindow window = HospitalMainWindow.GetInstance(Role.Doctor);
-            this.Close();
-            window.ShowDialog();
+            LoggedUser user = new LoggedUser(emailTextBox.Text, passwordTextBox.Password);
+            LoggedUser.Role = Role.Doctor;
+            string loginStatus = userServerController.Login(user.Credentials);
+            HospitalMainWindow window = HospitalMainWindow.GetInstance();
+            if (!loginStatus.Equals("BadRequest"))
+            {
+                this.Close();
+                window.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("You have enetered wrong email or password!");
+            }
         }
     }
 }

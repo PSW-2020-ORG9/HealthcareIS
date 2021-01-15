@@ -19,21 +19,19 @@ namespace WPFHospitalEditor
     /// </summary>
     public partial class HospitalMainWindow : Window
     {
-        public static Role role;
         public static HospitalMainWindow instance = null;
 
-        private HospitalMainWindow(Role role)
+        private HospitalMainWindow()
         {
             InitializeComponent();
-            HospitalMainWindow.role = role;
             ChangePage(new HospitalMapPage());
         }
 
-        public static HospitalMainWindow GetInstance(Role role)
+        public static HospitalMainWindow GetInstance()
         {
             if (instance == null)
             {
-                instance = new HospitalMainWindow(role);
+                instance = new HospitalMainWindow();
             }
             return instance;
         }

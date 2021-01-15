@@ -38,12 +38,12 @@ namespace WPFHospitalEditor.Pages
 
         private void SetComponentsVisibility()
         {
-            if (HospitalMainWindow.role == Role.Patient)
+            if (LoggedUser.Role.Equals(Role.Patient))
             {
                 EquipmentSearchTab.Visibility = Visibility.Hidden;
                 MedicationSearchTab.Visibility = Visibility.Hidden;
             }
-            if (HospitalMainWindow.role != Role.Secretary)
+            if (!LoggedUser.Role.Equals(Role.Secretary))
             {
                 AppointmentSearchTab.Visibility = Visibility.Hidden;
                 SpecialistAppointmentSearchTab.Visibility = Visibility.Hidden;
@@ -56,7 +56,7 @@ namespace WPFHospitalEditor.Pages
             if (chosenBuilding != null && chosenBuilding.MapObjectType == MapObjectType.Building)
             {
                 canvas.Children.Clear();
-                HospitalMainWindow window = HospitalMainWindow.GetInstance(HospitalMainWindow.role);
+                HospitalMainWindow window = HospitalMainWindow.GetInstance();
                 window.ChangePage(new BuildingPage(chosenBuilding.Id));
             }
         }

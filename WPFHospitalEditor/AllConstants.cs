@@ -19,5 +19,6 @@ namespace WPFHospitalEditor
         public const string DayEnd = " 23:59";
         public const int RegularExaminationDepartment = 1;
         public const int StorageRoomId = 17;
+        public const string AuthorizationTokenKey = "Authorization";
     }
 }

@@ -9,6 +9,7 @@ using System;
 using WPFHospitalEditor.Controller.Interface;
 using WPFHospitalEditor.StrategyPattern;
 using WPFHospitalEditor.Pages;
+using WPFHospitalEditor.Model;
 
 namespace WPFHospitalEditor
 {
@@ -69,7 +70,7 @@ namespace WPFHospitalEditor
         private void InitializeTitle()
         {
             Title.Text = mapObject.Name;
-            if (HospitalMainWindow.role.Equals(Role.Patient))
+            if (LoggedUser.Role.Equals(Role.Patient))
                 Title.IsReadOnly = true;
         }
 
@@ -94,7 +95,7 @@ namespace WPFHospitalEditor
 
         private Boolean IsPatientLogged()
         {
-            return (HospitalMainWindow.role == Role.Patient);
+            return (LoggedUser.Role.Equals(Role.Patient));
         }
     }
 }

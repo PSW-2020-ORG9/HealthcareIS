@@ -19,6 +19,7 @@ namespace WPFHospitalEditor.Service
             };
             var client = new RestClient(AllConstants.ConnectionUrl);
             var request = new RestRequest("/api/schedule/examination", Method.POST);
+            request.AddParameter(AllConstants.AuthorizationTokenKey, LoggedUser.Cookie, ParameterType.Cookie);
             request.AddJsonBody(JsonConvert.SerializeObject(examinationDTO));
             var response = client.Post<Examination>(request);
             return response.Data;

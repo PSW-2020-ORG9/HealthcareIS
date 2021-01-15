@@ -1,7 +1,9 @@
 ﻿using RestSharp;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using WPFHospitalEditor.DTOs;
+using WPFHospitalEditor.Model;
 
 namespace WPFHospitalEditor.Service
 {
@@ -11,7 +13,9 @@ namespace WPFHospitalEditor.Service
         {
             var client = new RestClient(AllConstants.ConnectionUrl);
             var request = new RestRequest("/api/hospital/medication", Method.GET);
+            request.AddParameter(AllConstants.AuthorizationTokenKey, LoggedUser.Cookie, ParameterType.Cookie);
             var response = client.Get<IEnumerable<MedicationDto>>(request);
+            Debug.WriteLine(response.Content + "odg");
             return response.Data;
         }
 
@@ -19,7 +23,9 @@ namespace WPFHospitalEditor.Service
         {
             var client = new RestClient(AllConstants.ConnectionUrl);
             var request = new RestRequest("/api/hospital/medication/by-name/" + name, Method.GET);
+            request.AddParameter(AllConstants.AuthorizationTokenKey, LoggedUser.Cookie, ParameterType.Cookie);
             var response = client.Get<IEnumerable<MedicationDto>>(request);
+            Debug.WriteLine(response.Content + "odg");
             return response.Data;
         }
 

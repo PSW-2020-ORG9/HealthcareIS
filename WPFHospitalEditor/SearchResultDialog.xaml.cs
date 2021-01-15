@@ -10,6 +10,7 @@ using System.Linq;
 using WPFHospitalEditor.DTOs;
 using WPFHospitalEditor.Pages;
 using WPFHospitalEditor.StrategyPattern;
+using WPFHospitalEditor.Model;
 
 namespace WPFHospitalEditor
 {
@@ -160,7 +161,7 @@ namespace WPFHospitalEditor
         public void DisplayBuildingAndFloorBasedOnSelectedObject(int floorNumber, int buildingId)
         {
             BuildingPage searchedBuilding = new BuildingPage(buildingId, floorNumber);
-            HospitalMainWindow window = HospitalMainWindow.GetInstance(HospitalMainWindow.role);
+            HospitalMainWindow window = HospitalMainWindow.GetInstance();
             window.ChangePage(searchedBuilding);
         }
 
