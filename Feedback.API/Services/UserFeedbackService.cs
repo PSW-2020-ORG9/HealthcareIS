@@ -40,7 +40,6 @@ namespace Feedback.API.Services
         public void Publish(int id)
         {
             var userFeedback = _userFeedbackRepository.Repository.GetByID(id);
-            //userFeedback.FeedbackVisibility = userFeedback.FeedbackVisibility.Publish();
             userFeedback.PublishFeedback();
             _userFeedbackRepository.Repository.Update(userFeedback);
         }
@@ -59,12 +58,12 @@ namespace Feedback.API.Services
             
             foreach (var feedback in feedbacks)
             {
-                patientAccountIds.Add(feedback.GetPatientAccountId());
+                patientAccountIds.Add(feedback.PatientAccountId);
             }
             List<PatientAccount> patientAccounts = FindPatientAccounts(patientAccountIds);
             foreach (var feedback in feedbacks)
             {
-                feedback.PatientAccount = patientAccounts.Where(pa => pa.Id == feedback.GetPatientAccountId()).FirstOrDefault();
+                feedback.PatientAccount = patientAccounts.Where(pa => pa.Id == feedback.PatientAccountId).FirstOrDefault();
             }
         }
 

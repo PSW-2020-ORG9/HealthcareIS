@@ -5,11 +5,10 @@ namespace Feedback.API.Feeback.Domain.AggregatesModel.FeedbackAggregate
 {
     public class UserFeedback : Entity<int>
     {
-        private DateTime _date;
-        private string _userComment;
-        public FeedbackVisibility FeedbackVisibility { get; private set; }
-        private int _patientAccountId;
-
+        public DateTime Date { get; set; }
+        public string UserComment { get; set; }
+        public FeedbackVisibility FeedbackVisibility { get; set; }
+        public int PatientAccountId { get; set; }
         public PatientAccount PatientAccount { get; set; }
 
         protected UserFeedback() { }
@@ -18,15 +17,11 @@ namespace Feedback.API.Feeback.Domain.AggregatesModel.FeedbackAggregate
 
             ValidateCommentNotEmpty(userComment);
             ValidateCommentLength(userComment);
-            _date = date;
-            _userComment = userComment;
+            Date = date;
+            UserComment = userComment;
             FeedbackVisibility = feedbackVisibility;
-            _patientAccountId = patientAccountId;
+            PatientAccountId = patientAccountId;
         }
-
-        public DateTime GetDate() { return _date; }
-        public string GetUserComment() { return _userComment; }
-        public int GetPatientAccountId() { return _patientAccountId; }
 
         public void PublishFeedback()
         {

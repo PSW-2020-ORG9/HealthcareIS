@@ -32,10 +32,6 @@ namespace Feedback.API.Infrastructure
         {
             modelBuilder.Entity<UserFeedback>()
                  .HasKey(uf => uf.Id);
-            //modelBuilder.Entity<UserFeedback>()
-            //    .Property(uf => uf.Date)
-            //    .HasField("_date")
-            //    .UsePropertyAccessMode(PropertyAccessMode.PreferProperty); 
             modelBuilder.Entity<UserFeedback>()
                 .OwnsOne(uf => uf.FeedbackVisibility);
             modelBuilder.Entity<UserFeedback>()
