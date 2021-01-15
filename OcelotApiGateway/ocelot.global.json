@@ -293,7 +293,7 @@
       "UpstreamHttpMethod": [ "Get","Post" ],
       "RouteClaimsRequirement" :
       {
-        "Role" : "Patient"
+        "Role" : "Patient, Admin"
       }
     }
     

@@ -39,6 +39,10 @@ let examinationRecommendationUrl = patientExaminationsUrl + '/recommend'
 let loginUrl = userService + '/auth/login'
 
 let schedulingEventUrl = eventStore + '/scheduling'
+let schedulingAgeStatisticsUrl = eventStore + '/statistics/age'
+let schedulingStepsStatisticsUrl = eventStore + '/statistics/steps'
+let schedulingStepDurationStatisticsUrl = eventStore + '/statistics/step-duration'
+let schedulingSuccessRateUrl = eventStore + '/statistics/success'
 
 
 export default{
@@ -79,6 +83,12 @@ export default{
     loginUrl : loginUrl,
 
     schedulingEventUrl : schedulingEventUrl,
+
+    schedulingAgeStatistics : schedulingAgeStatisticsUrl,
+    schedulingStepsStatistics : schedulingStepsStatisticsUrl,
+    schedulingStepDurationStatistics : schedulingStepDurationStatisticsUrl,
+    schedulingSuccessRate : schedulingSuccessRateUrl,
+
 
     availableDoctorUrl:function(date){
         return doctorAvailabilityUrl + 'doctor?date=' + date

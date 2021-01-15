@@ -9,5 +9,6 @@ namespace EventStore.API.Services
         StepsStatisticsDto GetStepsStatistics();
         IDictionary<int, TimeSpan> GetAgeStatistics();
         SuccessStatisticsDto GetSuccessStatistics();
+        IDictionary<int, TimeSpan> GetStepDurationStatistics();
     }
 }

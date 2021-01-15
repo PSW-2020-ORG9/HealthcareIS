@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace EventStore.API.Controllers
 {
     [ApiController]
-    [Route("statistics")]
+    [Route("event/statistics")]
     public class SchedulingStatisticsController : ControllerBase
     {
         private readonly ISchedulingStatisticsService _schedulingStatisticsService;
@@ -25,6 +25,13 @@ namespace EventStore.API.Controllers
         public IActionResult GetStepsStatistics()
         {
             return Ok(_schedulingStatisticsService.GetStepsStatistics());
+        }
+        
+        [HttpGet]
+        [Route("step-duration")]
+        public IActionResult GetStepDurationStatistics()
+        {
+            return Ok(_schedulingStatisticsService.GetStepDurationStatistics());
         }
 
         [HttpGet]

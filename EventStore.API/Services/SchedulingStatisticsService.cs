@@ -3,6 +3,7 @@ using EventStore.API.Infrastructure.Repositories;
 using EventStore.API.Model.EventStore;
 using General.Repository;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -53,6 +54,57 @@ namespace EventStore.API.Services
             };
         }
 
+        public IDictionary<int, TimeSpan> GetStepDurationStatistics()
+        {
+            var events = _schedulingEventRepository.Repository.GetAll();
+            return GetAvgStepDuration(events);
+        }
+
+        private IDictionary<int, TimeSpan> GetAvgStepDuration(IEnumerable<SchedulingEvent> events) 
+            => AverageStepDuration(events, SchedulingSteps());
+
+        private static IEnumerable<SchedulingEventType> SchedulingSteps() =>
+                Enum
+                .GetValues(typeof(SchedulingEventType))
+                .Cast<SchedulingEventType>()
+                .Where(e => e != SchedulingEventType.FINISHED);
+
+        private IDictionary<int, TimeSpan> AverageStepDuration(IEnumerable<SchedulingEvent> events, IEnumerable<SchedulingEventType> schedulingSteps)
+        {
+            var averageStepDuration = new Dictionary<int, TimeSpan>();
+
+            foreach (var schedulingStep in schedulingSteps)
+                averageStepDuration[(int) schedulingStep]
+                    = GetAverageTimeSpent(GetTimesSpendOnStep(events, schedulingStep));
+
+            return averageStepDuration;
+        }
+
+        private static List<TimeSpan> GetTimesSpendOnStep(IEnumerable<SchedulingEvent> events, SchedulingEventType schedulingStep)
+        {
+            var stepDuration = new List<TimeSpan>();
+
+            foreach (var schedulingEvent in events.Where(e =>
+                e.EventType.Equals(schedulingStep)))
+            {
+                var nextStep = NextStep(events, schedulingEvent);
+                
+                if (nextStep != null)
+                    stepDuration.Add(nextStep.TimeStamp - schedulingEvent.TimeStamp);
+            }
+
+            return stepDuration;
+        }
+
+        private static SchedulingEvent NextStep(IEnumerable<SchedulingEvent> events, SchedulingEvent schedulingEvent)
+        {
+            return events
+                .Where(e => e.SchedulingSessionId.Equals(schedulingEvent.SchedulingSessionId)
+                            && e.EventType.Equals(schedulingEvent.EventType + 1)
+                            && e.Id > schedulingEvent.Id)
+                .OrderBy(e => e.TimeStamp).FirstOrDefault();
+        }
+
         public IDictionary<int, TimeSpan> GetAgeStatistics()
         {
             var events = _schedulingEventRepository.Repository.GetAll();
@@ -64,7 +116,9 @@ namespace EventStore.API.Services
             var times = new Dictionary<int, TimeSpan>();
             foreach (int distinctAge in events.Select(e => e.UserAge).Distinct())
             {
-                times[distinctAge] = GetAverageTimeByAge(events, distinctAge);
+                var averageTime = GetAverageTimeByAge(events, distinctAge);
+                if(averageTime.Ticks!=0)
+                    times[distinctAge] = averageTime;
             }
             return times;
         }
@@ -77,7 +131,8 @@ namespace EventStore.API.Services
                 var session = events.Where(e => e.SchedulingSessionId == guid);
                 timesSpent.Add(GetTimeSpentInSession(session));
             }
-            return GetAverageTimeSpent(timesSpent);
+
+            return timesSpent.Count == 0 ? new TimeSpan(0) : GetAverageTimeSpent(timesSpent);
         }
 
         private TimeSpan GetAverageTimeSpent(List<TimeSpan> timesSpent)
