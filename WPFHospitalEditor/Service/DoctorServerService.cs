@@ -1,4 +1,6 @@
-﻿using RestSharp;
+﻿using Newtonsoft.Json;
+using RestSharp;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using WPFHospitalEditor.DTOs;
@@ -62,6 +64,20 @@ namespace WPFHospitalEditor.Service
                     doctors.Add(doctorDto);
             }
             return doctors;
+        }
+
+        public IEnumerable<int> GetDoctorsByRoomsAndShifts(EquipmentRelocationDto dto)
+        {
+            var client = new RestClient(AllConstants.ConnectionUrl);
+            var request = new RestRequest("/api/schedule/examination/get-doctors", Method.POST);
+            request.AddJsonBody(EquipmentRelocationDtoToJson(dto));
+            var response = client.Post<List<int>>(request);
+            return response.Data;
+        }
+
+        private String EquipmentRelocationDtoToJson(EquipmentRelocationDto eqRelDto)
+        {
+            return JsonConvert.SerializeObject(eqRelDto);
         }
     }
 }
