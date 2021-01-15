@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 
 namespace WPFHospitalEditor.Model
 {
@@ -11,6 +12,13 @@ namespace WPFHospitalEditor.Model
         {
             Start = startDate;
             End = endDate;
+        }
+
+        public bool IsValid()
+        {
+            if (Start < End) return true;
+            MessageBox.Show("End time must be after start time!", "");
+            return false;
         }
     }
 }

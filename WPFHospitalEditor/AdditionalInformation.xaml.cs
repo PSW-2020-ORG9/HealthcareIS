@@ -76,13 +76,13 @@ namespace WPFHospitalEditor
         private void BtnEquipment_Click(object sender, RoutedEventArgs e)
         {
             IContentRowsStrategy strategy = new ContentRowsStrategy(new EquipmentContentRows(mapObject.Id));
-            EquipmentAndMedicationWindow equipment = new EquipmentAndMedicationWindow(strategy.GetContentRows());
+            EquipmentAndMedicationWindow equipment = new EquipmentAndMedicationWindow(strategy.GetContentRows(), mapObject.Id);
             equipment.ShowDialog();
         }
         private void BtnMedications_Click(object sender, RoutedEventArgs e)
         {
             IContentRowsStrategy strategy = new ContentRowsStrategy(new MedicationContentRows(mapObject.Id));
-            EquipmentAndMedicationWindow medications = new EquipmentAndMedicationWindow(strategy.GetContentRows());
+            EquipmentAndMedicationWindow medications = new EquipmentAndMedicationWindow(strategy.GetContentRows(), mapObject.Id);
             medications.ShowDialog();
         }
 
