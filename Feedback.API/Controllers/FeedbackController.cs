@@ -1,7 +1,6 @@
 ﻿using Feedback.API.DTOs;
 using Feedback.API.Mappers;
 using Feedback.API.Services;
-using Feedback.API.Validators;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -33,8 +32,6 @@ namespace Feedback.API.Controllers
         {
             try
             {
-                // TODO Anonymous user logic
-                UserFeedbackValidator.Validate(userFeedbackDto);
                 var userFeedback = UserFeedbackMapper.DtoToObject(userFeedbackDto);
                 return Ok(_userFeedbackService.Create(userFeedback));
             }

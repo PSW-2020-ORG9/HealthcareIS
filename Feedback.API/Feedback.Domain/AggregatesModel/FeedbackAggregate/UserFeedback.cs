@@ -1,3 +1,4 @@
+using Feedback.API.DTOs;
 using General;
 using System;
 
@@ -11,7 +12,7 @@ namespace Feedback.API.Feeback.Domain.AggregatesModel.FeedbackAggregate
         public int PatientAccountId { get; set; }
         public PatientAccount PatientAccount { get; set; }
 
-        protected UserFeedback() { }
+        public UserFeedback() { }
 
         public UserFeedback(DateTime date, string userComment, FeedbackVisibility feedbackVisibility, int patientAccountId) {
 
@@ -21,6 +22,17 @@ namespace Feedback.API.Feeback.Domain.AggregatesModel.FeedbackAggregate
             UserComment = userComment;
             FeedbackVisibility = feedbackVisibility;
             PatientAccountId = patientAccountId;
+        }
+
+        public UserFeedback(UserFeedbackDTO dto)
+        {
+            ValidateCommentNotEmpty(dto.UserComment);
+            ValidateCommentLength(dto.UserComment);
+            FeedbackVisibility fv = new FeedbackVisibility(dto.IsPublic, dto.IsAnonymous, dto.IsPublished);
+            Date = DateTime.Now;
+            UserComment = dto.UserComment;
+            FeedbackVisibility = fv;
+            PatientAccountId = dto.UserId;
         }
 
         public void PublishFeedback()

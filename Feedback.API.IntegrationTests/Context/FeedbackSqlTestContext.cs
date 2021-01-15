@@ -12,7 +12,7 @@ namespace Feedback.API.IntegrationTests.Context
         public FeedbackSqlTestContext(string connectionString) : base(connectionString) { }
 
         protected override void SeedData(ModelBuilder modelBuilder)
-        {/*
+        {
             modelBuilder.Entity<UserFeedback>(
                 uf =>
                 {
@@ -30,7 +30,7 @@ namespace Feedback.API.IntegrationTests.Context
                         IsPublished = true,
                         IsAnonymous = false
                     });
-                });*/
+                });
         }
     }
 }
