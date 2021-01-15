@@ -21,9 +21,10 @@ namespace WPFHospitalEditor.Service
             var response = client.Execute(request);
             if(!response.StatusCode.ToString().Equals("BadRequest"))
             { 
-                LoggedUser.Cookie = response.Cookies.First().Value;
+                return response.Cookies.First().Value;
+
             }
-            return response.StatusCode.ToString();
+            return null;
         }
     }
 }

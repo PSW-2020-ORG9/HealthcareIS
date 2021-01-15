@@ -1,20 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using WPFHospitalEditor.Controller;
+using WPFHospitalEditor.Controller.Interface;
 using WPFHospitalEditor.DTOs;
 
 namespace WPFHospitalEditor.Model
 {
     public class LoggedUser
     {
-        public LoginCredentials Credentials { get; set; }
-        public static Role Role { get; set; }
-        public static String Cookie { get; set; }
+        private LoginCredentials Credentials { get; set; }
+        public static Role Role { get; private set; }
+        public static String Cookie { get; private set; }
 
-        public LoggedUser(String email, String password)
+        public LoggedUser(LoginCredentials loginCredentials, Role role, String cookie)
         {
-            Credentials = new LoginCredentials { Email = email, Password = password };
+            Credentials = loginCredentials;
+            Role = role;
+            Cookie = cookie;
         }
-
     }
 }

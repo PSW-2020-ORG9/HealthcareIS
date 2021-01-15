@@ -15,7 +15,6 @@ namespace WPFHospitalEditor.Service
             var request = new RestRequest("/api/hospital/medication", Method.GET);
             request.AddParameter(AllConstants.AuthorizationTokenKey, LoggedUser.Cookie, ParameterType.Cookie);
             var response = client.Get<IEnumerable<MedicationDto>>(request);
-            Debug.WriteLine(response.Content + "odg");
             return response.Data;
         }
 
@@ -25,7 +24,6 @@ namespace WPFHospitalEditor.Service
             var request = new RestRequest("/api/hospital/medication/by-name/" + name, Method.GET);
             request.AddParameter(AllConstants.AuthorizationTokenKey, LoggedUser.Cookie, ParameterType.Cookie);
             var response = client.Get<IEnumerable<MedicationDto>>(request);
-            Debug.WriteLine(response.Content + "odg");
             return response.Data;
         }
 

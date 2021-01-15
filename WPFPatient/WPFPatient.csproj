@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="MainWindow.xaml.cs~RF37c2f0c.TMP" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\WPFHospitalEditor\WPFHospitalEditor.csproj" />
   </ItemGroup>
 

@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Windows;
+﻿using System.Windows;
 using WPFHospitalEditor;
-using WPFHospitalEditor.Controller;
-using WPFHospitalEditor.Controller.Interface;
-using WPFHospitalEditor.MapObjectModel;
+using WPFHospitalEditor.DTOs;
 using WPFHospitalEditor.Model;
 
 namespace WPFPatient
@@ -13,8 +10,6 @@ namespace WPFPatient
     /// </summary>
     public partial class MainWindow : Window
     {
-        IUserServerController userServerController = new UserServerController();
-
         public MainWindow()
         {
             InitializeComponent();
@@ -22,12 +17,12 @@ namespace WPFPatient
 
         private void LoginClick(object sender, RoutedEventArgs e)
         {
-            LoggedUser user = new LoggedUser(emailTextBox.Text, passwordTextBox.Password);
-            LoggedUser.Role = Role.Patient;
-            string loginStatus = userServerController.Login(user.Credentials);
+            LoginCredentials loginCredentials = new LoginCredentials(emailTextBox.Text, passwordTextBox.Password);
             HospitalMainWindow window = HospitalMainWindow.GetInstance();
-            if (!loginStatus.Equals("BadRequest"))
+            string cookie = loginCredentials.Login(loginCredentials);
+            if (cookie != null)
             {
+                LoggedUser loggedUser = new LoggedUser(loginCredentials, Role.Patient, cookie);
                 this.Close();
                 window.ShowDialog();
             }
