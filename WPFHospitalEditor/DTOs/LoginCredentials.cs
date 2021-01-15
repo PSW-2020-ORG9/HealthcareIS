@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using WPFHospitalEditor.Controller;
 using WPFHospitalEditor.Controller.Interface;
@@ -8,8 +9,8 @@ namespace WPFHospitalEditor.DTOs
 {
     public class LoginCredentials
     {
-        private string Email { get; set; }
-        private string Password { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
         IUserServerController userServerController = new UserServerController();
 
         public LoginCredentials(string email, string password)

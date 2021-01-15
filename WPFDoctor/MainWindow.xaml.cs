@@ -18,10 +18,10 @@ namespace WPFDoctor
         private void LoginClick(object sender, RoutedEventArgs e)
         {
             LoginCredentials loginCredentials = new LoginCredentials(emailTextBox.Text, passwordTextBox.Password);
-            HospitalMainWindow window = HospitalMainWindow.GetInstance();
             string cookie = loginCredentials.Login(loginCredentials);
             if (cookie!= null) {
                 LoggedUser loggedUser = new LoggedUser(loginCredentials, Role.Doctor, cookie);
+                HospitalMainWindow window = HospitalMainWindow.GetInstance();
                 this.Close();
                 window.ShowDialog();
             }

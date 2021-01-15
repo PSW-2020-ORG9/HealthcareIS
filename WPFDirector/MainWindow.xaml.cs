@@ -17,12 +17,12 @@ namespace WPFDirector
 
         private void LoginClick(object sender, RoutedEventArgs e)
         {
-            LoginCredentials loginCredentials = new LoginCredentials(emailTextBox.Text, passwordTextBox.Password);
-            HospitalMainWindow window = HospitalMainWindow.GetInstance();
+            LoginCredentials loginCredentials = new LoginCredentials(emailTextBox.Text, passwordTextBox.Password);           
             string cookie = loginCredentials.Login(loginCredentials);
             if (cookie != null)
             {
                 LoggedUser loggedUser = new LoggedUser(loginCredentials, Role.Director, cookie);
+                HospitalMainWindow window = HospitalMainWindow.GetInstance();
                 this.Close();
                 window.ShowDialog();
             }

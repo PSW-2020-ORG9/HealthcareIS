@@ -18,11 +18,11 @@ namespace WPFPatient
         private void LoginClick(object sender, RoutedEventArgs e)
         {
             LoginCredentials loginCredentials = new LoginCredentials(emailTextBox.Text, passwordTextBox.Password);
-            HospitalMainWindow window = HospitalMainWindow.GetInstance();
             string cookie = loginCredentials.Login(loginCredentials);
             if (cookie != null)
             {
                 LoggedUser loggedUser = new LoggedUser(loginCredentials, Role.Patient, cookie);
+                HospitalMainWindow window = HospitalMainWindow.GetInstance();
                 this.Close();
                 window.ShowDialog();
             }
