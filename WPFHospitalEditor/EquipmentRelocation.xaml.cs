@@ -80,7 +80,9 @@ namespace WPFHospitalEditor
 
         private void ShowAlternativeRelocationAppointments(List<int> unavailableRooms)
         {
-            
+            AlternativeRelocationAppointments newWindow =
+            new AlternativeRelocationAppointments(unavailableRooms[0], this);
+            newWindow.Show();
         }
 
         private void ScheduleRelocation(EquipmentRelocationDto eqRelDto)

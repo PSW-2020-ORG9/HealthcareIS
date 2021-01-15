@@ -4,6 +4,7 @@ using System.Windows;
 using WPFHospitalEditor.Controller;
 using WPFHospitalEditor.Controller.Interface;
 using WPFHospitalEditor.DTOs;
+using WPFHospitalEditor.Model;
 
 namespace WPFHospitalEditor
 {
@@ -18,7 +19,7 @@ namespace WPFHospitalEditor
         public EquipmentAndMedicationWindow(String[] contentRows, int mapObjectId)
         {
             InitializeComponent();
-            if (HospitalMainWindow.role != Role.Director) RelocationStackPanel.Visibility = Visibility.Hidden;
+            if (LoggedUser.Role != Role.Director) RelocationStackPanel.Visibility = Visibility.Hidden;
             this.mapObjectId = mapObjectId;
             SetEquipmentTypeComboBox();
             DynamicGridControl dynamicGridControl = new DynamicGridControl(contentRows, true);
