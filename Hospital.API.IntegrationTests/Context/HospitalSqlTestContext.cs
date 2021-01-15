@@ -18,7 +18,7 @@ namespace Hospital.API.IntegrationTests.Context
             modelBuilder.Entity<Room>().HasData(new Room
             {
                 Id = 1,
-                DepartmentId = 1
+                DepartmentId = 1,
             });
             modelBuilder.Entity<Medication>().HasData(new Medication
             {
@@ -36,6 +36,18 @@ namespace Hospital.API.IntegrationTests.Context
                 ExaminationReportId = 1,
                 InstructionsId = 1,
                 MedicationId = 1
+            });
+            modelBuilder.Entity<EquipmentType>().HasData(new EquipmentType
+            {
+                Id = 1,
+                Name = "Chair",
+                Purpose = "sitting"
+            });
+            modelBuilder.Entity<EquipmentUnit>().HasData(new EquipmentUnit
+            {
+                Id = 1,
+                CurrentLocationId = 1,
+                EquipmentTypeId = 1
             });
         }
     }
