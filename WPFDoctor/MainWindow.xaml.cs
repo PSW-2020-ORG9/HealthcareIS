@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Windows;
+﻿using System.Windows;
 using WPFHospitalEditor;
-using WPFHospitalEditor.Controller;
-using WPFHospitalEditor.MapObjectModel;
+using WPFHospitalEditor.DTOs;
+using WPFHospitalEditor.Model;
 
 namespace WPFDoctor
 {
@@ -16,11 +15,20 @@ namespace WPFDoctor
             InitializeComponent();
         }
 
-        private void hospitalMapPressed(object sender, RoutedEventArgs e)
+        private void LoginClick(object sender, RoutedEventArgs e)
         {
-            HospitalMainWindow window = HospitalMainWindow.GetInstance(Role.Doctor);
-            this.Close();
-            window.ShowDialog();
+            LoginCredentials loginCredentials = new LoginCredentials(emailTextBox.Text, passwordTextBox.Password);
+            string cookie = loginCredentials.Login(loginCredentials);
+            if (cookie!= null) {
+                LoggedUser loggedUser = new LoggedUser(loginCredentials, Role.Doctor, cookie);
+                HospitalMainWindow window = HospitalMainWindow.GetInstance();
+                this.Close();
+                window.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("You have enetered wrong email or password!");
+            }
         }
     }
 }

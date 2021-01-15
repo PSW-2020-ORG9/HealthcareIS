@@ -15,6 +15,7 @@ namespace WPFHospitalEditor.Service
         {
             var client = new RestClient(AllConstants.ConnectionUrl);
             var request = new RestRequest("/api/user/doctor/departments/" + departmentId, Method.GET);
+            request.AddParameter(AllConstants.AuthorizationTokenKey, LoggedUser.Cookie, ParameterType.Cookie);
             var response = client.Get<IEnumerable<DoctorDto>>(request);
             return response.Data;
         }
@@ -23,6 +24,7 @@ namespace WPFHospitalEditor.Service
         {
             var client = new RestClient(AllConstants.ConnectionUrl);
             var request = new RestRequest("/api/user/doctor/" + doctorId, Method.GET);
+            request.AddParameter(AllConstants.AuthorizationTokenKey, LoggedUser.Cookie, ParameterType.Cookie);
             var response = client.Get<Doctor>(request);
             return response.Data;
         }
@@ -31,6 +33,7 @@ namespace WPFHospitalEditor.Service
         {
             var client = new RestClient(AllConstants.ConnectionUrl);
             var request = new RestRequest("/api/user/doctor/specialists", Method.GET);
+            request.AddParameter(AllConstants.AuthorizationTokenKey, LoggedUser.Cookie, ParameterType.Cookie);
             var response = client.Get<IEnumerable<DoctorDto>>(request);
             return response.Data;
         }
