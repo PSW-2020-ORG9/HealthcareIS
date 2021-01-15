@@ -12,6 +12,7 @@ namespace WPFHospitalEditor.Service
         {
             var client = new RestClient(AllConstants.ConnectionUrl);
             var request = new RestRequest("/api/user/patient/all", Method.GET);
+            request.AddParameter(AllConstants.AuthorizationTokenKey, LoggedUser.Cookie, ParameterType.Cookie);
             var response = client.Get<IEnumerable<Patient>>(request);
             return response.Data;
         }

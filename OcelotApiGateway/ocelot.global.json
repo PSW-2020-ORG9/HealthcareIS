@@ -321,9 +321,8 @@
       ],
       "UpstreamPathTemplate": "/api/hospital/{everything}",
       "UpstreamHttpMethod": [ "Get","Post" ],
-      "RouteClaimsRequirement" :
-      {
-        "Role" : "Secretary"
+      "RouteClaimsRequirement": {
+        "Role": "Admin"
       }
     }
   ]
