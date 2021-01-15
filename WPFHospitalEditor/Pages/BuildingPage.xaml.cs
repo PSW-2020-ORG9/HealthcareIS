@@ -10,6 +10,7 @@ using WPFHospitalEditor.Service;
 using System.Windows.Media;
 using WPFHospitalEditor.Pages;
 using WPFHospitalEditor.Model;
+using WPFHospitalEditor.UserControls;
 
 namespace WPFHospitalEditor.Pages
 {
@@ -78,7 +79,7 @@ namespace WPFHospitalEditor.Pages
             int index = floor.SelectedIndex;
             if (buildingFloors.Count == 0) return;
             CanvasService.AddObjectToCanvas(buildingFloors[index].GetAllFloorMapObjects(), canvas);
-            DisplayLegend(buildingFloors[index].GetAllFloorMapObjects());
+            legend.Children.Add(new LegendUC(buildingFloors[index].GetAllFloorMapObjects()));
         }
 
         private void ClearAll()
@@ -86,76 +87,6 @@ namespace WPFHospitalEditor.Pages
             if (legend == null) return;
             canvas.Children.Clear();
             legend.Children.Clear();
-        }
-
-        private void DisplayLegend(List<MapObject> displayedMapObjects)
-        {
-            if (legend == null) return;
-            HashSet<MapObjectType> mapObjectTypes = FindAllMapObjectTypesOnFloor(displayedMapObjects);
-            AddingRowsToGrid(mapObjectTypes);
-
-            int index = 0;
-            foreach (MapObjectType mapObjectType in mapObjectTypes)
-            {
-                OrganiseLegend(mapObjectType, index);
-                index++;
-            }
-        }
-
-        private HashSet<MapObjectType> FindAllMapObjectTypesOnFloor(List<MapObject> displayedMapObjects)
-        {
-            HashSet<MapObjectType> mapObjectTypes = new HashSet<MapObjectType>();
-            for (int i = 0; i < displayedMapObjects.Count; i++)
-                mapObjectTypes.Add(displayedMapObjects[i].MapObjectType);
-
-            return mapObjectTypes;
-        }
-
-        private void AddingRowsToGrid(HashSet<MapObjectType> mapObjectTypes)
-        {
-            int numberOfRows = (mapObjectTypes.Count / legend.ColumnDefinitions.Count) + 1;
-            for (int i = 0; i < numberOfRows; i++)
-                legend.RowDefinitions.Add(new RowDefinition() { });
-        }
-
-        private void OrganiseLegend(MapObjectType mapObjectType, int index)
-        {
-            Rectangle rectangle = CreateRectangleInLegend(mapObjectType);
-            TextBlock textblock = CreateTextBlockInLegend(mapObjectType);
-            SettingPosition(index, rectangle, textblock);
-            AddToLegend(rectangle, textblock);
-        }
-
-        private Rectangle CreateRectangleInLegend(MapObjectType mapObjectType)
-        {
-            Rectangle rectangle = new Rectangle();
-            rectangle.Fill = MapObjectColors.getInstance().getColor(mapObjectType);
-            rectangle.Width = 25;
-            rectangle.Height = 25;
-            return rectangle;
-        }
-
-        private TextBlock CreateTextBlockInLegend(MapObjectType mapObjectType)
-        {
-            TextBlock textblock = new TextBlock();
-            textblock.Text = mapObjectType.ToString() + "-  ";
-            return textblock;
-        }
-
-        private void SettingPosition(int index, Rectangle rectangle, TextBlock textblock)
-        {
-            int row = (index / legend.ColumnDefinitions.Count);
-            int column = index - row * legend.ColumnDefinitions.Count;
-            rectangle.SetValue(Grid.ColumnProperty, column);
-            rectangle.SetValue(Grid.RowProperty, row);
-            textblock.SetValue(Grid.ColumnProperty, column);
-            textblock.SetValue(Grid.RowProperty, row);
-        }
-
-        private void AddToLegend(Rectangle rectangle, TextBlock textblock)
-        {
-            legend.Children.Add(rectangle);
-            legend.Children.Add(textblock);
         }
 
         private void SelectMapObject(object sender, MouseButtonEventArgs e)
