@@ -3,6 +3,7 @@ using Schedule.API.DTOs;
 using Schedule.API.Infrastructure.Repositories.Procedures.Interfaces;
 using Schedule.API.Infrastructure.Repositories.Shifts;
 using Schedule.API.Model.Procedures;
+using Schedule.API.Model.Shifts;
 using Schedule.API.Services.Procedures.Interface;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +38,23 @@ namespace Schedule.API.Services.Procedures
                 }
             }
             return unavailableRoomsIds;
+        }
+
+        public IEnumerable<int> GetDoctorsByRoomsAndShifts(EquipmentRelocationDto eqRealDto)
+        {
+            HashSet<int> doctors = new HashSet<int>();
+            List<Shift> shifts = _shiftsWrapper.Repository
+                .GetMatching(s => s.AssignedExamRoomId == eqRealDto.SourceRoomId
+                || s.AssignedExamRoomId == eqRealDto.DestinationRoomId).ToList();
+
+            foreach (Shift shift in shifts)
+            {
+                if (shift.TimeInterval.Start.Date == eqRealDto.TimeInterval.Start.Date)
+                {
+                    doctors.Add(shift.DoctorId);
+                }
+            }
+            return doctors.ToList();
         }
     }
 }
