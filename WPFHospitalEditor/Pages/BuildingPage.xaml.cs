@@ -74,9 +74,9 @@ namespace WPFHospitalEditor.Pages
             }
         }
 
-        private void SetFloorLegend()
+        private void SetFloorLegend(int columns=4)
         {
-            legend.Children.Add(new LegendUC(floor.GetAllFloorMapObjects()));
+            legend.Children.Add(new LegendUC(floor.GetAllFloorMapObjects(),columns));
         }
 
         private void BackClick(object sender, RoutedEventArgs e)
