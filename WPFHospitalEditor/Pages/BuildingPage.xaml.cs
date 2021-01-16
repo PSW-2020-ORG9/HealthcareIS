@@ -7,10 +7,9 @@ using System.Windows.Shapes;
 using WPFHospitalEditor.MapObjectModel;
 using WPFHospitalEditor.Controller;
 using WPFHospitalEditor.Service;
-using System.Windows.Media;
-using WPFHospitalEditor.Pages;
-using WPFHospitalEditor.Model;
 using WPFHospitalEditor.UserControls;
+using System.Diagnostics;
+using System.Windows.Media;
 
 namespace WPFHospitalEditor.Pages
 {
@@ -19,38 +18,34 @@ namespace WPFHospitalEditor.Pages
     /// </summary>
     public partial class BuildingPage : Page
     {
-        private Dictionary<int, Floor> buildingFloors = new Dictionary<int, Floor>();
-        MapObjectController mapObjectController = new MapObjectController();
-        public static Canvas canvasBuilding;
-        private int id;
+        private Floor floor = new Floor();
+        private readonly int id;
+        private int selectedFloor; 
 
         public BuildingPage(int id, int selectedFloor = 0)
         {
             InitializeComponent();
-            ClearAll();
             this.id = id;
-            PopulateBuildingFloors();
-            SetFloorComboBox();
-            floor.SelectedIndex = selectedFloor;
-            canvasBuilding = canvas;
+            this.selectedFloor = selectedFloor;
+            List<MapObject> mapObjectsInBuilding = new MapObjectController().GetAllBuildingMapObjects(id);
+
+            InsertMapObjectsToFloor(mapObjectsInBuilding);
+            SetFloorComboBox(mapObjectsInBuilding);
+            SetFloorLegend();
+            CanvasService.AddObjectToCanvas(floor.GetAllFloorMapObjects(), canvas);
         }
 
-        public Floor GetBuildingFloor(int floorNumber)
+        private void InsertMapObjectsToFloor(List<MapObject> mapObjectsInBuidling)
         {
-            return buildingFloors[floorNumber];
-        }
-        private void PopulateBuildingFloors()
-        {
-            foreach (MapObject mapObject in mapObjectController.GetAllBuildingMapObjects(id))
+            foreach (MapObject mapObject in mapObjectsInBuidling)
             {
-                int index = mapObject.MapObjectDescription.FloorNumber;
-                if (!buildingFloors.ContainsKey(index))
-                    buildingFloors.Add(index, new Floor());
+                int floorNumber = mapObject.MapObjectDescription.FloorNumber;
+                if (floorNumber != selectedFloor) continue;
 
                 if (IsMapObjectSelected(mapObject.Id))
                     mapObject.rectangle.Fill = Brushes.Red;
-
-                buildingFloors[index].AddMapObject(mapObject);
+                
+                floor.AddMapObject(mapObject);    
             }
         }
 
@@ -59,40 +54,48 @@ namespace WPFHospitalEditor.Pages
             return SearchResultDialog.selectedObjectId == id;
         }
 
-        private void SetFloorComboBox()
+        private void SetFloorComboBox(List<MapObject> mapObjectsInBuidling)
         {
-            for (int i = 0; i < buildingFloors.Count; i++)
-                floor.Items.Add(i + ". floor");
+            InsertFloorsInFloorCmb(mapObjectsInBuidling);
+            floorCmb.SelectedIndex = selectedFloor;
+        }
+
+        private void InsertFloorsInFloorCmb(List<MapObject> mapObjectsInBuidling)
+        {
+            HashSet<int> floorNumbers = new HashSet<int>();
+            foreach (MapObject mapObject in mapObjectsInBuidling)
+            {
+                int floorNum = mapObject.MapObjectDescription.FloorNumber;
+                if (!floorNumbers.Contains(floorNum))
+                {
+                    floorNumbers.Add(floorNum);
+                    floorCmb.Items.Add(floorNum + ". floor");
+                }
+            }
+        }
+
+        private void SetFloorLegend()
+        {
+            legend.Children.Add(new LegendUC(floor.GetAllFloorMapObjects()));
         }
 
         private void BackClick(object sender, RoutedEventArgs e)
         {
-            ClearAll();
-            CanvasService.AddObjectToCanvas(mapObjectController.GetOutterMapObjects(), HospitalMapPage.canvasHospitalMap);
             HospitalMainWindow window = HospitalMainWindow.GetInstance();
             window.ChangePage(new HospitalMapPage());
         }
 
         private void FloorSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ClearAll();
-            int index = floor.SelectedIndex;
-            if (buildingFloors.Count == 0) return;
-            CanvasService.AddObjectToCanvas(buildingFloors[index].GetAllFloorMapObjects(), canvas);
-            legend.Children.Add(new LegendUC(buildingFloors[index].GetAllFloorMapObjects()));
+            if (floorCmb.SelectedIndex == selectedFloor) return;
+            
+            HospitalMainWindow window = HospitalMainWindow.GetInstance();
+            window.ChangePage(new BuildingPage(id, floorCmb.SelectedIndex));
+                     
         }
-
-        private void ClearAll()
-        {
-            if (legend == null) return;
-            canvas.Children.Clear();
-            legend.Children.Clear();
-        }
-
         private void SelectMapObject(object sender, MouseButtonEventArgs e)
         {
-            int index = floor.SelectedIndex;
-            MapObject chosenMapObject = CanvasService.CheckWhichObjectIsClicked(e, buildingFloors[index].GetAllFloorMapObjects(), this.canvas);
+            MapObject chosenMapObject = CanvasService.CheckWhichObjectIsClicked(e, floor.GetAllFloorMapObjects(), this.canvas);
             if (chosenMapObject != null)
                 OpenAdditionalInformationDialog(chosenMapObject);
         }
