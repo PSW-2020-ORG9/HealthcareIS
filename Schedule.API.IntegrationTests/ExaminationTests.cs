@@ -89,7 +89,7 @@ namespace Schedule.API.IntegrationTests
                 Amount = 5,
                 EquipmentType = "Chair"
             });
-            var response = await client.PostAsync("schedule/examination/check-rooms", content);
+            var response = await client.PostAsync("schedule/examination/unavailable-rooms", content);
             string responseString = await response.Content.ReadAsStringAsync();
 
             Assert.Contains("1", responseString);

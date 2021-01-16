@@ -27,13 +27,15 @@ namespace Schedule.API.Services.Procedures
         {
             HashSet<int> unavailableRoomsIds = new HashSet<int>();
             List<Examination> relocationRoomsExaminations = _examinationWrapper.Repository
-                .GetMatching(e => (e.RoomId == eqRealDto.SourceRoomId
-                || e.RoomId == eqRealDto.DestinationRoomId) && e.TimeInterval.Overlaps(eqRealDto.TimeInterval)).ToList();
+                .GetMatching(e => (e.RoomId == eqRealDto.SourceRoomId) 
+                || e.RoomId == eqRealDto.DestinationRoomId).ToList();
 
             foreach (Examination examination in relocationRoomsExaminations)
             {
-                unavailableRoomsIds.Add(examination.RoomId);
-
+                if(examination.TimeInterval.Overlaps(eqRealDto.TimeInterval))
+                {
+                    unavailableRoomsIds.Add(examination.RoomId);
+                }
             }
             return unavailableRoomsIds;
         }
