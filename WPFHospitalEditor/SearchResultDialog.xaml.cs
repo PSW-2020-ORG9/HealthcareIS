@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using WPFHospitalEditor.MapObjectModel;
 using WPFHospitalEditor.Controller;
 using WPFHospitalEditor.Service;
-using System.Linq;
 using WPFHospitalEditor.DTOs;
 using WPFHospitalEditor.Pages;
 using WPFHospitalEditor.StrategyPattern;
-using WPFHospitalEditor.Model;
 
 namespace WPFHospitalEditor
 {

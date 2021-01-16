@@ -1,5 +1,4 @@
-﻿using Hospital.API.Infrastructure.Repositories.Resources;
-using Hospital.API.Model.Resources;
+﻿using Hospital.API.Model.Resources;
 using System.Collections.Generic;
 
 namespace Hospital.API.Services.Resources
@@ -8,5 +7,6 @@ namespace Hospital.API.Services.Resources
     {
         IEnumerable<Room> GetRoomsByIds(IEnumerable<int> ids);
         public Room GetById(int id);
+        IEnumerable<Room> getByEquipmentType(string equipmentTypeName);
     }
 }

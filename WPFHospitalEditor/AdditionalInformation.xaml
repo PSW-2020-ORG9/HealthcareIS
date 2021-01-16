@@ -35,10 +35,10 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Button x:Name="Equipment" Click="BtnEquipment_Click" Content="Equipment" Grid.Column="0" Grid.Row="0" Margin="0,5,0,0"/>
-                <Button x:Name="Medication" Click="BtnMedications_Click" Content="Medication" Grid.Column="2" Grid.Row="0" Margin="0,5,0,0"/>
-                <Button x:Name="Cancel" Click="Cancel_Click" Content="Cancel" Grid.Column="0" Grid.Row="1" Margin="0,5,0,0"/>
-                <Button  x:Name="Ok" Content="Ok" Click="Done_Click" Grid.Column="2"  Grid.Row="1" Margin="0,5,0,0"/>
+                <Button x:Name="Equipment" Click="BtnEquipmentClick" Content="Equipment" Grid.Column="0" Grid.Row="0" Margin="0,5,0,0"/>
+                <Button x:Name="Medication" Click="BtnMedicationsClick" Content="Medication" Grid.Column="2" Grid.Row="0" Margin="0,5,0,0"/>
+                <Button x:Name="Cancel" Click="CancelClick" Content="Cancel" Grid.Column="0" Grid.Row="1" Margin="0,5,0,0"/>
+                <Button  x:Name="Ok" Content="Ok" Click="DoneClick" Grid.Column="2"  Grid.Row="1" Margin="0,5,0,0"/>
             </Grid>
         </StackPanel>
     </Border>

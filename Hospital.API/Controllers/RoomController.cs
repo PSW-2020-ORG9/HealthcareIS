@@ -23,5 +23,10 @@ namespace Hospital.API.Controllers
         [Route("{id}")]
         public IActionResult Get(int id)
             => Ok(_roomService.GetById(id));
+
+        [HttpGet]
+        [Route("equipment-type/{equipmentTypeName}")]
+        public IActionResult GetByEquipmentType(string equipmentTypeName)
+            => Ok(_roomService.getByEquipmentType(equipmentTypeName));
     }
 }
