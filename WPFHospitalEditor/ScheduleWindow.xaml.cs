@@ -16,10 +16,11 @@ namespace WPFHospitalEditor
         IPatientServerController patientServerController = new PatientServerController();
         IExaminationServerController examinationServerController = new ExaminationServerController();
 
-        public ScheduleWindow(RecommendationDto recommendationDto)
+        public ScheduleWindow(RecommendationDto recommendationDto, Window Owner)
         {
             InitializeComponent();
             this.recommendationDto = recommendationDto;
+            this.Owner = Owner;
             SetAppointmentInfoContent();
             SetPatientNameComboBox();
         }
@@ -42,6 +43,7 @@ namespace WPFHospitalEditor
                 if (examination!= null)
                 {
                     MessageBox.Show("Examination has been scheduled successfuly!");
+                    Owner.Close();
                 }
                 else
                 {

@@ -5,13 +5,14 @@ namespace WPFHospitalEditor.Model
 {
     public class TimeInterval
     {
-        public DateTime Start { get; internal set; }
-        public DateTime End { get; internal set; }
+        public DateTime Start { get; set; }
+        public DateTime End { get; set; }
 
-        public TimeInterval(DateTime startDate, DateTime endDate)
+        public TimeInterval() { }
+        public TimeInterval(DateTime start, DateTime end)
         {
-            Start = startDate;
-            End = endDate;
+            Start = start;
+            End = end;
         }
 
         public bool IsValid()

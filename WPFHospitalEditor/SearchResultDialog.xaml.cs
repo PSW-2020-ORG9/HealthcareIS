@@ -43,9 +43,8 @@ namespace WPFHospitalEditor
             int index = 0;
             foreach (SearchResultDTO result in searchResults)
             {
-                if (this.searchType != SearchType.AppointmentSearch)
-                    displayBtnRow.Add(index++, result.MapObjectId);
-                else
+                displayBtnRow.Add(index, result.MapObjectId);
+                if(this.searchType == SearchType.AppointmentSearch)
                     scheduleBtnRow.Add(index++, ((AppointmentSearchResultDTO)result).RecommendationDto);
                 CreateOneRow(50);
                 string[] oneRowContents = result.Content.Split(AllConstants.ContentSeparator);
@@ -151,9 +150,8 @@ namespace WPFHospitalEditor
                 if (scheduleBtnRow.ContainsKey(Grid.GetRow(scheduleBtn)))
                 {
                     RecommendationDto chosenRecommendation = scheduleBtnRow[Grid.GetRow(scheduleBtn)];
-                    ScheduleWindow scheduleWindow = new ScheduleWindow(chosenRecommendation);
+                    ScheduleWindow scheduleWindow = new ScheduleWindow(chosenRecommendation, this);
                     scheduleWindow.ShowDialog();
-                    this.Close();
                 }
             };
         }
