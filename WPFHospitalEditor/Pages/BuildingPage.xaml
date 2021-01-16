@@ -11,8 +11,7 @@
         <StackPanel Orientation="Horizontal">
             <Button Background="#BDE7D8" Height="30" Width="100" Name="back" Content="Back" Margin="20,0,20,30" HorizontalAlignment="Left" Click="BackClick"/>
             <TextBlock FontSize="16">Change floor:</TextBlock>
-            <ComboBox x:Name="floor" Width="154" Height="30" Margin="10,-30,0,0" SelectionChanged="FloorSelectionChanged">
-            </ComboBox>
+            <ComboBox x:Name="floorCmb" Width="154" Height="30" Margin="10,-30,0,0" SelectionChanged="FloorSelectionChanged"/>
         </StackPanel>
         <Grid x:Name="legend" />
     </StackPanel>

@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shapes;
+using WPFHospitalEditor.Exceptions;
 using WPFHospitalEditor.MapObjectModel;
 
 namespace WPFHospitalEditor.UserControls
@@ -13,11 +14,16 @@ namespace WPFHospitalEditor.UserControls
     {
         public LegendUC(List<MapObject> mapObjects, int columns=4)
         {
+            Validate(columns);
             InitializeComponent();
             DefineColumns(columns);
             FillLegend(GetUniqueTypes(mapObjects), columns);
         }
 
+        private void Validate(int columns)
+        {
+            if (columns < 1) throw new ValidationException("Number of columns must be greater than 0");
+        }
         private void DefineColumns(int columns)
         {
             for(int i = 0; i < columns; i++) 
@@ -35,7 +41,7 @@ namespace WPFHospitalEditor.UserControls
 
         private void FillLegend(List<MapObjectType> mapObjectTypes, int columns)
         {
-            int row = -1; // it will always increment in the first pass
+            int row = -1; // it will always increment in the first iteration
             for(int i=0; i < mapObjectTypes.Count; i++)
             {
                 int col = i % columns;

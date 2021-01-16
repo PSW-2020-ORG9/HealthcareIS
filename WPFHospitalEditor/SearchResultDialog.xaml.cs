@@ -44,11 +44,12 @@ namespace WPFHospitalEditor
             foreach (SearchResultDTO result in searchResults)
             {
                 displayBtnRow.Add(index, result.MapObjectId);
-                if(this.searchType == SearchType.AppointmentSearch)
-                    scheduleBtnRow.Add(index++, ((AppointmentSearchResultDTO)result).RecommendationDto);
+                if (this.searchType == SearchType.AppointmentSearch)
+                    scheduleBtnRow.Add(index, ((AppointmentSearchResultDTO)result).RecommendationDto);
                 CreateOneRow(50);
                 string[] oneRowContents = result.Content.Split(AllConstants.ContentSeparator);
                 CreateRowData(oneRowContents);
+                index++;
             }
         }
 
