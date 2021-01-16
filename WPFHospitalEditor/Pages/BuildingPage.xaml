@@ -14,16 +14,6 @@
             <ComboBox x:Name="floor" Width="154" Height="30" Margin="10,-30,0,0" SelectionChanged="FloorSelectionChanged">
             </ComboBox>
         </StackPanel>
-        <Grid x:Name="legend">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-
-            </Grid.RowDefinitions>
-        </Grid>
+        <Grid x:Name="legend" />
     </StackPanel>
 </Page>
