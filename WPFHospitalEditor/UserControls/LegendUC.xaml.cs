@@ -22,43 +22,93 @@ namespace WPFHospitalEditor.UserControls
         public LegendUC(List<MapObject> mapObjects, int columns=4)
         {
             InitializeComponent();
+            DefineColumns(columns);
             List <MapObjectType> mapObjectTypes = getUniqueTypes(mapObjects);
             FillLegend(mapObjectTypes, columns);
         }
 
+
+
+        private void DefineColumns(int columns)
+        {
+            for(int i = 0; i < columns; i++) 
+                Legend.ColumnDefinitions.Add(new ColumnDefinition());
+        }
+
+        private List<MapObjectType> getUniqueTypes(List<MapObject> mapObjects)
+        {
+            HashSet<MapObjectType> mapObjectTypes = new HashSet<MapObjectType>();
+            foreach (MapObject mo in mapObjects)
+                mapObjectTypes.Add(mo.MapObjectType);
+
+            return new List<MapObjectType>(mapObjectTypes);
+        }
+
         private void FillLegend(List<MapObjectType> mapObjectTypes, int columns)
         {
-            int row = 0;
+            int row = -1;
             for(int i=0; i < mapObjectTypes.Count; i++)
             {
+                
                 int col = i % columns;
                 if (col == 0)
                 {
-                    Legend.RowDefinitions.Add(new RowDefinition());
+                    CreateGridRow();
                     row++;
                 }
                 InsertValueToCell(mapObjectTypes[i], row, col);
             }
         }
 
+        private void CreateGridRow()
+        {
+            RowDefinition rowDefinition = new RowDefinition();
+            rowDefinition.Height = new GridLength(35);
+            Legend.RowDefinitions.Add(rowDefinition);
+        }
+
         private void InsertValueToCell(MapObjectType mapObjectType, int row, int column)
         {
-            DockPanel dp = CreateLegendCell(mapObjectType);
-            dp.SetValue(Grid.ColumnProperty, column);
-            dp.SetValue(Grid.RowProperty, row);
-            Legend.Children.Add(dp);
+            Grid cell = CreateLegendCell(row, column);
+
+            InsertRectangleToCell(mapObjectType, cell);
+            InsertTextToCell(mapObjectType, cell);
+
+            Legend.Children.Add(cell);
+
         }
 
-        private DockPanel CreateLegendCell(MapObjectType mapObjectType)
+        private void InsertTextToCell(MapObjectType mapObjectType, Grid cell)
+        {
+            TextBlock textblock = CreateTextBlock(mapObjectType);
+            textblock.SetValue(Grid.ColumnProperty, 1);
+            textblock.VerticalAlignment = VerticalAlignment.Center;
+            cell.Children.Add(textblock);
+        }
+
+        private void InsertRectangleToCell(MapObjectType mapObjectType, Grid cell)
         {
             Rectangle rectangle = CreateRectangle(mapObjectType);
-            TextBlock textblock = CreateTextBlock(mapObjectType);
-            DockPanel dp = new DockPanel();
-            DockPanel.SetDock(rectangle, Dock.Right);
-            DockPanel.SetDock(textblock, Dock.Left);
-            return dp;
+            rectangle.SetValue(Grid.ColumnProperty, 0);
+            rectangle.VerticalAlignment = VerticalAlignment.Center;
+            cell.Children.Add(rectangle);
         }
 
+        private Grid CreateLegendCell(int row,int column)
+        {
+            Grid grid = new Grid();
+            
+            ColumnDefinition column2 = new ColumnDefinition();
+            column2.Width = new GridLength(30);
+            grid.ColumnDefinitions.Add(column2);
+            grid.ColumnDefinitions.Add(new ColumnDefinition());
+
+            grid.SetValue(Grid.ColumnProperty, column);
+            grid.SetValue(Grid.RowProperty, row);
+
+            return grid;
+
+        }
         private TextBlock CreateTextBlock(MapObjectType mapObjectType)
         {
             TextBlock textblock = new TextBlock();
@@ -75,13 +125,6 @@ namespace WPFHospitalEditor.UserControls
             return rectangle;
         }
 
-        private List<MapObjectType> getUniqueTypes(List<MapObject> mapObjects)
-        {
-            HashSet<MapObjectType> mapObjectTypes = new HashSet<MapObjectType>();
-            foreach (MapObject mo in mapObjects)
-                mapObjectTypes.Add(mo.MapObjectType);
-
-            return new List<MapObjectType>(mapObjectTypes);
-        }
+        
     }
 }
