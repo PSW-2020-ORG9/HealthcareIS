@@ -24,7 +24,7 @@ namespace WPFHospitalEditor
             SetEquipmentTypeComboBox();
             DynamicGridControl dynamicGridControl = new DynamicGridControl(contentRows, true);
             DynamicGrid.Children.Add(dynamicGridControl);
-            this.Height = (contentRows.Count() + 1) * 50 + 30;
+            this.Height = (contentRows.Count() + 1) * 50 + 40;
         }
 
         private void Close_Click(object sender, RoutedEventArgs e)

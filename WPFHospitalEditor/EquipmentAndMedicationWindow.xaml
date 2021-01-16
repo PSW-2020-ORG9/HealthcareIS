@@ -18,7 +18,7 @@
     </Window.Resources>
     <Border BorderThickness="10" BorderBrush="#FF8BD9E0" x:Name="Border">
         <Grid x:Name="DynamicGrid" Background="#FFC6F5F8">
-            <StackPanel x:Name="RelocationStackPanel" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,50">
+            <StackPanel x:Name="RelocationStackPanel" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,20,0,40">
                 <ComboBox x:Name="relocationEquipmentComboBox" x:FieldModifier="public" HorizontalAlignment="Right" Height="30" Width="120" Margin="20,0,20,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" SelectedIndex="0">
                     <ComboBoxItem Name="emptyEquipmentComboBox"></ComboBoxItem>
                 </ComboBox>

@@ -79,6 +79,7 @@ namespace WPFHospitalEditor
             IContentRowsStrategy strategy = new ContentRowsStrategy(new EquipmentContentRows(mapObject.Id));
             EquipmentAndMedicationWindow equipment = new EquipmentAndMedicationWindow(strategy.GetContentRows(), mapObject.Id);
             equipment.ShowDialog();
+            this.Close();
         }
         private void BtnMedications_Click(object sender, RoutedEventArgs e)
         {

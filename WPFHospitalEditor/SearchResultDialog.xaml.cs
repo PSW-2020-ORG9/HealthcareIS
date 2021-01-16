@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using WPFHospitalEditor.MapObjectModel;
 using WPFHospitalEditor.Controller;
 using WPFHospitalEditor.Service;
-using System.Linq;
 using WPFHospitalEditor.DTOs;
 using WPFHospitalEditor.Pages;
 using WPFHospitalEditor.StrategyPattern;
-using WPFHospitalEditor.Model;
 
 namespace WPFHospitalEditor
 {
@@ -45,10 +42,11 @@ namespace WPFHospitalEditor
             {
                 displayBtnRow.Add(index, result.MapObjectId);
                 if(this.searchType == SearchType.AppointmentSearch)
-                    scheduleBtnRow.Add(index++, ((AppointmentSearchResultDTO)result).RecommendationDto);
+                    scheduleBtnRow.Add(index, ((AppointmentSearchResultDTO)result).RecommendationDto);
                 CreateOneRow(50);
                 string[] oneRowContents = result.Content.Split(AllConstants.ContentSeparator);
                 CreateRowData(oneRowContents);
+                index++;
             }
         }
 
