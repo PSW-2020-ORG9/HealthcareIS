@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WPFHospitalEditor.MapObjectModel;
 
@@ -23,11 +15,8 @@ namespace WPFHospitalEditor.UserControls
         {
             InitializeComponent();
             DefineColumns(columns);
-            List <MapObjectType> mapObjectTypes = getUniqueTypes(mapObjects);
-            FillLegend(mapObjectTypes, columns);
+            FillLegend(GetUniqueTypes(mapObjects), columns);
         }
-
-
 
         private void DefineColumns(int columns)
         {
@@ -35,7 +24,7 @@ namespace WPFHospitalEditor.UserControls
                 Legend.ColumnDefinitions.Add(new ColumnDefinition());
         }
 
-        private List<MapObjectType> getUniqueTypes(List<MapObject> mapObjects)
+        private List<MapObjectType> GetUniqueTypes(List<MapObject> mapObjects)
         {
             HashSet<MapObjectType> mapObjectTypes = new HashSet<MapObjectType>();
             foreach (MapObject mo in mapObjects)
@@ -46,10 +35,9 @@ namespace WPFHospitalEditor.UserControls
 
         private void FillLegend(List<MapObjectType> mapObjectTypes, int columns)
         {
-            int row = -1;
+            int row = -1; // it will always increment in the first pass
             for(int i=0; i < mapObjectTypes.Count; i++)
             {
-                
                 int col = i % columns;
                 if (col == 0)
                 {
@@ -75,17 +63,22 @@ namespace WPFHospitalEditor.UserControls
             InsertTextToCell(mapObjectType, cell);
 
             Legend.Children.Add(cell);
-
         }
-
-        private void InsertTextToCell(MapObjectType mapObjectType, Grid cell)
+        private Grid CreateLegendCell(int row, int column)
         {
-            TextBlock textblock = CreateTextBlock(mapObjectType);
-            textblock.SetValue(Grid.ColumnProperty, 1);
-            textblock.VerticalAlignment = VerticalAlignment.Center;
-            cell.Children.Add(textblock);
-        }
+            Grid grid = new Grid();
 
+            ColumnDefinition columnDefinition = new ColumnDefinition();
+            columnDefinition.Width = new GridLength(30);
+
+            grid.ColumnDefinitions.Add(columnDefinition);
+            grid.ColumnDefinitions.Add(new ColumnDefinition());
+
+            grid.SetValue(Grid.ColumnProperty, column);
+            grid.SetValue(Grid.RowProperty, row);
+
+            return grid;
+        }
         private void InsertRectangleToCell(MapObjectType mapObjectType, Grid cell)
         {
             Rectangle rectangle = CreateRectangle(mapObjectType);
@@ -93,29 +86,13 @@ namespace WPFHospitalEditor.UserControls
             rectangle.VerticalAlignment = VerticalAlignment.Center;
             cell.Children.Add(rectangle);
         }
-
-        private Grid CreateLegendCell(int row,int column)
+        private void InsertTextToCell(MapObjectType mapObjectType, Grid cell)
         {
-            Grid grid = new Grid();
-            
-            ColumnDefinition column2 = new ColumnDefinition();
-            column2.Width = new GridLength(30);
-            grid.ColumnDefinitions.Add(column2);
-            grid.ColumnDefinitions.Add(new ColumnDefinition());
-
-            grid.SetValue(Grid.ColumnProperty, column);
-            grid.SetValue(Grid.RowProperty, row);
-
-            return grid;
-
+            TextBlock textblock = CreateTextBlock(mapObjectType);
+            textblock.SetValue(Grid.ColumnProperty, 1);
+            textblock.VerticalAlignment = VerticalAlignment.Center;
+            cell.Children.Add(textblock);
         }
-        private TextBlock CreateTextBlock(MapObjectType mapObjectType)
-        {
-            TextBlock textblock = new TextBlock();
-            textblock.Text = mapObjectType.ToString();
-            return textblock;
-        }
-
         private Rectangle CreateRectangle(MapObjectType mapObjectType)
         {
             Rectangle rectangle = new Rectangle();
@@ -125,6 +102,12 @@ namespace WPFHospitalEditor.UserControls
             return rectangle;
         }
 
-        
+        private TextBlock CreateTextBlock(MapObjectType mapObjectType)
+        {
+            TextBlock textblock = new TextBlock();
+            textblock.Text = mapObjectType.ToString();
+            return textblock;
+        }
+ 
     }
 }
