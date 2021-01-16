@@ -53,18 +53,11 @@ namespace WPFHospitalEditor
             this.Close();
         }
 
-        private void RefreshMap()
-        {
-            building.canvas.Children.Clear();
-            Floor floor = building.GetBuildingFloor(mapObject.MapObjectDescription.FloorNumber);
-            CanvasService.AddObjectToCanvas(floor.GetAllFloorMapObjects(), building.canvas);
-        }      
-
         private void UpdateAdditionalInformation()
         {
             IMapObjectController mapObjectController = new MapObjectController();
             mapObjectController.Update(mapObject);
-            RefreshMap();
+            
         }
 
         private void InitializeTitle()
