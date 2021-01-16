@@ -32,7 +32,7 @@ namespace WPFHospitalEditor
 
         private void ShowRoomOnMap(object sender, RoutedEventArgs e)
         {
-            MapObject mapObject = null;
+            MapObject mapObject;
             mapObject = mapObjectController.GetMapObjectById(roomId);
             SearchResultDialog.selectedObjectId = roomId;
             mapObjectController.Update(mapObject);
@@ -41,7 +41,7 @@ namespace WPFHospitalEditor
             er.Close();
         }
 
-        public void DisplayBuildingAndFloorBasedOnSelectedObject(int floorNumber, int buildingId)
+        private void DisplayBuildingAndFloorBasedOnSelectedObject(int floorNumber, int buildingId)
         {
             BuildingPage searchedBuilding = new BuildingPage(buildingId, floorNumber);
             HospitalMainWindow.GetInstance().ChangePage(searchedBuilding);

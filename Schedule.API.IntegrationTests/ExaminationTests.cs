@@ -74,7 +74,7 @@ namespace Schedule.API.IntegrationTests
         }
 
         [Fact]
-        public async void Check_rooms_availability_with_overlaps()
+        public async void Check_rooms_availability()
         {
             var client = _factory.CreateClient();
             var content = JsonContent.Create(new EquipmentRelocationDto
@@ -93,28 +93,6 @@ namespace Schedule.API.IntegrationTests
             string responseString = await response.Content.ReadAsStringAsync();
 
             Assert.Contains("1", responseString);
-        }
-
-        [Fact]
-        public async void Check_rooms_availability_without_overlaps()
-        {
-            var client = _factory.CreateClient();
-            var content = JsonContent.Create(new EquipmentRelocationDto
-            {
-                SourceRoomId = 2,
-                DestinationRoomId = 1,
-                TimeInterval = new TimeInterval
-                {
-                    Start = new DateTime(2022, 11, 11, 9, 0, 0),
-                    End = new DateTime(2022, 11, 11, 11, 30, 0)
-                },
-                Amount = 5,
-                EquipmentType = "Chair"
-            });
-            var response = await client.PostAsync("schedule/examination/check-rooms", content);
-            string responseString = await response.Content.ReadAsStringAsync();
-
-            Assert.True(responseString.Equals("[]"));
         }
     }
 }

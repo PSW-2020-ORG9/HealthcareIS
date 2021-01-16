@@ -251,7 +251,7 @@
     },
 
     {
-      "DownstreamPathTemplate": "/schedule/examination/check-rooms",
+      "DownstreamPathTemplate": "/schedule/examination/unavailable-rooms",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -259,12 +259,12 @@
           "Port": "$PSW_SCHEDULE_SERVICE_PORT"
         }
       ],
-      "UpstreamPathTemplate": "/api/schedule/examination/check-rooms",
+      "UpstreamPathTemplate": "/api/schedule/examination/unavailable-rooms",
       "UpstreamHttpMethod": [ "Post" ]
     },
 
     {
-      "DownstreamPathTemplate": "/schedule/examination/get-doctors",
+      "DownstreamPathTemplate": "/schedule/examination/get-doctors-by-rooms-and-shifts",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -272,7 +272,7 @@
           "Port": "$PSW_SCHEDULE_SERVICE_PORT"
         }
       ],
-      "UpstreamPathTemplate": "/api/schedule/examination/get-doctors",
+      "UpstreamPathTemplate": "/api/schedule/examination/get-doctors-by-rooms-and-shifts",
       "UpstreamHttpMethod": [ "Post" ]
     },
 

@@ -2,8 +2,8 @@
 {
     public class EquipmentDto
     {
-        public int RoomId { get; internal set; }
-        public int Quantity { get; internal set; }
-        public string Name { get; internal set; }
+        public int RoomId { get; set; }
+        public int Quantity { get; set; }
+        public string Name { get; set; }
     }
 }

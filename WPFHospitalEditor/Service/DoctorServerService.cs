@@ -72,7 +72,7 @@ namespace WPFHospitalEditor.Service
         public IEnumerable<int> GetDoctorsByRoomsAndShifts(EquipmentRelocationDto dto)
         {
             var client = new RestClient(AllConstants.ConnectionUrl);
-            var request = new RestRequest("/api/schedule/examination/get-doctors", Method.POST);
+            var request = new RestRequest("/api/schedule/examination/get-doctors-by-rooms-and-shifts", Method.POST);
             request.AddParameter(AllConstants.AuthorizationTokenKey, LoggedUser.Cookie, ParameterType.Cookie);
             request.AddJsonBody(EquipmentRelocationDtoToJson(dto));
             var response = client.Post<List<int>>(request);

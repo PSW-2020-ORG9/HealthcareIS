@@ -39,12 +39,12 @@ namespace WPFHospitalEditor
             DynamicGrid.Children.Add(this.dynamicGridControl);
         }
 
-        private void Cancel_Click(object sender, RoutedEventArgs e)
+        private void CancelClick(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
-        private void Done_Click(object sender, RoutedEventArgs e)
+        private void DoneClick(object sender, RoutedEventArgs e)
         {
             mapObject.MapObjectDescription.Information = dynamicGridControl.GetAllContent();
             mapObject.Name = this.Title.Text;
@@ -67,18 +67,19 @@ namespace WPFHospitalEditor
                 Title.IsReadOnly = true;
         }
 
-        private void BtnEquipment_Click(object sender, RoutedEventArgs e)
+        private void BtnEquipmentClick(object sender, RoutedEventArgs e)
         {
             IContentRowsStrategy strategy = new ContentRowsStrategy(new EquipmentContentRows(mapObject.Id));
             EquipmentAndMedicationWindow equipment = new EquipmentAndMedicationWindow(strategy.GetContentRows(), mapObject.Id);
             equipment.ShowDialog();
             this.Close();
         }
-        private void BtnMedications_Click(object sender, RoutedEventArgs e)
+        private void BtnMedicationsClick(object sender, RoutedEventArgs e)
         {
             IContentRowsStrategy strategy = new ContentRowsStrategy(new MedicationContentRows(mapObject.Id));
             EquipmentAndMedicationWindow medications = new EquipmentAndMedicationWindow(strategy.GetContentRows(), mapObject.Id);
             medications.ShowDialog();
+            this.Close();
         }
 
         private void SetButtonsVisibility()

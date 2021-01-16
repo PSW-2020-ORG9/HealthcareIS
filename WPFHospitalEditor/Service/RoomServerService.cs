@@ -22,7 +22,7 @@ namespace WPFHospitalEditor.Service
         public IEnumerable<int> GetUnavailableRoomsIdsInTimeInterval(EquipmentRelocationDto eqRelDto)
         {
             var client = new RestClient(AllConstants.ConnectionUrl);
-            var request = new RestRequest("/api/schedule/examination/check-rooms", Method.POST);
+            var request = new RestRequest("/api/schedule/examination/unavailable-rooms", Method.POST);
             request.AddParameter(AllConstants.AuthorizationTokenKey, LoggedUser.Cookie, ParameterType.Cookie);
             request.AddJsonBody(EquipmentRelocationDtoToJson(eqRelDto));
             var response = client.Post<List<int>>(request);

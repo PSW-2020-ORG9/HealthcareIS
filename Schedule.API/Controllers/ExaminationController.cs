@@ -98,14 +98,14 @@ namespace Schedule.API.Controllers
         }
 
         [HttpPost]
-        [Route("check-rooms")]
+        [Route("unavailable-rooms")]
         public IActionResult GetUnavailableRooms(EquipmentRelocationDto dto)
         {
             return Ok(_equipmentRelocationSchedulingService.GetUnavailableRooms(dto));
         }
 
         [HttpPost]
-        [Route("get-doctors")]
+        [Route("get-doctors-by-rooms-and-shifts")]
         public IActionResult GetDoctorsByRoomsAndShifts(EquipmentRelocationDto dto)
         {
             return Ok(_equipmentRelocationSchedulingService.GetDoctorsByRoomsAndShifts(dto));
