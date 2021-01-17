@@ -244,6 +244,38 @@ namespace WPFHospitalEditor.Pages
                 specialistEquipmentAppSearchComboBox.Items.Add(eqTypeDto.Name);
         }
 
+        private void SetEmergencyEquipmentComboBox()
+        {
+            SetComboBoxDefaultValues(emergencyEquipmentCmb);
+            foreach (EquipmentTypeDto eqTypeDto in equipmentTypeServerController.SearchEquipmentTypes(EquipmentForSpecialistAppSearchInput.Text))
+                emergencyEquipmentCmb.Items.Add(eqTypeDto.Name);
+        }
+
+        private void SetEmergencyEmergencyExaminationTypeComboBox()
+        {
+            SetComboBoxDefaultValues(emergencyExamTypeCmb);
+            emergencyExamTypeCmb.Items.Add("Type: Regular");
+            emergencyExamTypeCmb.Items.Add("Type: Specialist");
+        }
+
+        private void SetEmergencySpecialistTypeComboBox()
+        {
+            SetComboBoxDefaultValues(emergencySpecialistTypeCmb);
+        }
+
+        private void EmergencyExamTypeSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (emergencyExamTypeCmb.SelectedIndex == 2) 
+                SpecialistEmergencyTab.Visibility = Visibility.Visible;
+            else
+                SpecialistEmergencyTab.Visibility = Visibility.Hidden;
+        }
+
+        private void EmergencyExamination_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         private void SetMapObjectTypeComboBox()
         {
             SetComboBoxDefaultValues(searchInputComboBox);
@@ -345,6 +377,11 @@ namespace WPFHospitalEditor.Pages
                     case 4:
                         SetSpecialistNameComboBox();
                         SetSpecialistEquipmentComboBox();
+                        break;
+                    case 5:
+                        SetEmergencyEquipmentComboBox();
+                        SetEmergencyEmergencyExaminationTypeComboBox();
+                        SetEmergencySpecialistTypeComboBox();
                         break;
                     default:
                         return;
