@@ -54,14 +54,75 @@ namespace EventStore.API.Services
             };
         }
 
-        public IDictionary<int, TimeSpan> GetStepDurationStatistics()
+        public SchedulingTimeDto GetSchedulingTimeStatistics()
         {
             var events = _schedulingEventRepository.Repository.GetAll();
-            return GetAvgStepDuration(events);
+            var timeNeededForEachScheduling = TimeNeededForEachScheduling(events);
+            return new SchedulingTimeDto
+            {
+                MinSchedulingTime = timeNeededForEachScheduling.Min(),
+                AvgSchedulingTime = new TimeSpan(Convert.ToInt32
+                                    (timeNeededForEachScheduling.Average(e=>e.Ticks))),
+                MaxSchedulingTime = timeNeededForEachScheduling.Max()
+            };
         }
 
-        private IDictionary<int, TimeSpan> GetAvgStepDuration(IEnumerable<SchedulingEvent> events) 
-            => AverageStepDuration(events, SchedulingSteps());
+        private IEnumerable<TimeSpan> TimeNeededForEachScheduling(IEnumerable<SchedulingEvent> events)
+        {
+            var timings = new List<TimeSpan>();
+            foreach (var sessionGuid in events.Select(e => e.SchedulingSessionId))
+            {
+                var sessionEvents = events
+                    .Where(e => e.SchedulingSessionId.Equals(sessionGuid));
+                if (!IsSessionFinished(sessionEvents))
+                    timings.Add(GetTimeSpentInSession(sessionEvents));
+                    
+            }
+            return timings;
+
+        }
+
+        public IDictionary<int, int> GetStepLeavingRate()
+        {
+            return StepLeavingRate(_schedulingEventRepository.Repository.GetAll());
+        }
+
+        private IDictionary<int, int> StepLeavingRate(IEnumerable<SchedulingEvent> events)
+        {
+            var leavingRate = InitStepsDictionary();
+            foreach (var sessionGuid in events.Select(e => e.SchedulingSessionId))
+            {
+                var sessionEvents = events
+                    .Where(e => e.SchedulingSessionId.Equals(sessionGuid));
+                
+                if (IsSessionFinished(sessionEvents))
+                    leavingRate[(int) GetLastEventType(sessionEvents)] += 1;
+            }
+
+            return leavingRate;
+        }
+
+        private static bool IsSessionFinished(IEnumerable<SchedulingEvent> sessionEvents)
+        {
+            return sessionEvents.All(e => e.EventType != SchedulingEventType.FINISHED);
+        }
+
+        private IDictionary<int, int> InitStepsDictionary()
+        {
+            var stepsDictionary = new Dictionary<int,int>();
+            foreach (var schedulingStep in SchedulingSteps())
+                stepsDictionary[(int) schedulingStep] = 0;
+            return stepsDictionary;
+        }
+        private static SchedulingEventType GetLastEventType(IEnumerable<SchedulingEvent> sessionEvents)
+           => sessionEvents.OrderBy(e => e.TimeStamp)
+               .Last().EventType;
+        
+
+        public IDictionary<int, TimeSpan> GetStepDurationStatistics()
+            => AverageStepDuration(_schedulingEventRepository.Repository.GetAll(),
+                SchedulingSteps());
+        
 
         private static IEnumerable<SchedulingEventType> SchedulingSteps() =>
                 Enum
