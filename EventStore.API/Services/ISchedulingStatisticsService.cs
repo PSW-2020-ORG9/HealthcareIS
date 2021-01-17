@@ -6,9 +6,6 @@ namespace EventStore.API.Services
 {
     public interface ISchedulingStatisticsService
     {
-        StepsStatisticsDto GetStepsStatistics();
-        IDictionary<int, TimeSpan> GetAgeStatistics();
-        SuccessStatisticsDto GetSuccessStatistics();
-        IDictionary<int, TimeSpan> GetStepDurationStatistics();
+        public SchedulingStatisticsDto GetStatistics();
     }
 }

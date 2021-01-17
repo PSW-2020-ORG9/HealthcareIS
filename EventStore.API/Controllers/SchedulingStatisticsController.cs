@@ -14,31 +14,10 @@ namespace EventStore.API.Controllers
         }
 
         [HttpGet]
-        [Route("age")]
-        public IActionResult GetAgeStatistics()
+        public IActionResult GetStatistics()
         {
-            return Ok(_schedulingStatisticsService.GetAgeStatistics());
+            return Ok(_schedulingStatisticsService.GetStatistics());
         }
 
-        [HttpGet]
-        [Route("steps")]
-        public IActionResult GetStepsStatistics()
-        {
-            return Ok(_schedulingStatisticsService.GetStepsStatistics());
-        }
-        
-        [HttpGet]
-        [Route("step-duration")]
-        public IActionResult GetStepDurationStatistics()
-        {
-            return Ok(_schedulingStatisticsService.GetStepDurationStatistics());
-        }
-
-        [HttpGet]
-        [Route("success")]
-        public IActionResult GetSuccessStatistics()
-        {
-            return Ok(_schedulingStatisticsService.GetSuccessStatistics());
-        }
     }
 }
