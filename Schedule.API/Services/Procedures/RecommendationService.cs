@@ -41,6 +41,14 @@ namespace Schedule.API.Services.Procedures
             return dto.Preference == RecommendationPreference.Time ? RecommendWithTime(dto) : RecommendWithDoctor(dto);
         }
 
+        public IEnumerable<RecommendationDto> RecommendEmergency(RecommendationRequestDto dto)
+        {
+            if (dto.TimeInterval == null) return null;
+            List<RecommendationDto> recommendations = new List<RecommendationDto>();
+            recommendations.AddRange(RecommendEmergencyInTimeInterval(dto, GetRemainingSlots(recommendations)));
+            return recommendations;
+        }
+
         private List<RecommendationDto> RecommendWithTime(RecommendationRequestDto dto)
         {
             List<RecommendationDto> recommendations = new List<RecommendationDto>();
@@ -100,6 +108,24 @@ namespace Schedule.API.Services.Procedures
                 }
             );
             return FindRecommendationsInShifts(selectedDoctorShifts, remainingSlots);
+        }
+
+        private List<RecommendationDto> RecommendEmergencyInTimeInterval(RecommendationRequestDto dto, int remainingSlots)
+        {
+            if (remainingSlots == 0) return new List<RecommendationDto>();
+            IEnumerable<int> doctorIds =
+                _doctorConnection.Get<IEnumerable<int>>($"specialty/ids/{dto.SpecialtyId}");
+
+            IEnumerable<Shift> allShifts = _shiftWrapper.Repository
+                .GetMatching(shift =>
+                    doctorIds.Contains(shift.DoctorId)
+                    && shift.TimeInterval.Start.Date >= dto.TimeInterval.Start.Date
+                    && shift.TimeInterval.Start.Date <= dto.TimeInterval.End.Date
+                    && shift.TimeInterval.Start.Hour >= dto.TimeInterval.Start.Hour
+                    && shift.TimeInterval.Start.Hour <= dto.TimeInterval.End.Hour
+                );
+
+            return FindRecommendationsInShifts(allShifts, remainingSlots);
         }
 
         /// <summary>

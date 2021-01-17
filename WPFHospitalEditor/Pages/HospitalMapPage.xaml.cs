@@ -11,6 +11,7 @@ using WPFHospitalEditor.Controller.Interface;
 using WPFHospitalEditor.DTOs;
 using WPFHospitalEditor.Model;
 using WPFHospitalEditor.StrategyPattern;
+using System.Diagnostics;
 
 namespace WPFHospitalEditor.Pages
 {
@@ -25,6 +26,7 @@ namespace WPFHospitalEditor.Pages
         private readonly IMedicationServerController medicationServerController = new MedicationServerController();
         private readonly IDoctorServerController doctorServerController = new DoctorServerController();
         private readonly ISchedulingServerController schedulingController = new SchedulingServerController();
+        private readonly ISpecialtyServerController specialtyServerController = new   SpecialtyServerController();
 
         public static Canvas canvasHospitalMap;
 
@@ -178,6 +180,16 @@ namespace WPFHospitalEditor.Pages
             return doctorServerController.GetDoctorById(int.Parse(doctorsComboBox.SelectedItem.ToString().Split(" ")[0]));
         }
 
+        private int GetChosenSpecialtyId()
+        {
+            if (emergencyExamTypeCmb.SelectedIndex == 2)
+            {
+                String specialty = emergencySpecialistTypeCmb.SelectedItem.ToString();
+                return int.Parse(specialty.Split(" ")[0]);
+            }
+            return AllConstants.RegularSpecialtyId;
+        }
+
         private void EquipmentTextInputChanged(object sender, EventArgs e)
         {
             SetEquipmentTypeComboBox();
@@ -261,6 +273,8 @@ namespace WPFHospitalEditor.Pages
         private void SetEmergencySpecialistTypeComboBox()
         {
             SetComboBoxDefaultValues(emergencySpecialistTypeCmb);
+            foreach (Specialty specialty in specialtyServerController.GetAllSpecialties())
+                emergencySpecialistTypeCmb.Items.Add(specialty.Id.ToString() +" " + specialty.Name);
         }
 
         private void EmergencyExamTypeSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -273,7 +287,45 @@ namespace WPFHospitalEditor.Pages
 
         private void EmergencyExamination_Click(object sender, RoutedEventArgs e)
         {
+            if (InvalidInputForEmergencyAppointment())
+            {
+                MessageBox.Show("Invalid input.");
+                return;
+            }
 
+            bool isSpecialistSearch = false;
+            if (emergencyExamTypeCmb.SelectedIndex == 2)
+                isSpecialistSearch = true;
+
+            int specialtyId = GetChosenSpecialtyId();
+            Doctor chosenDoctor = doctorServerController.GetDoctorsBySpecialty(specialtyId).ElementAt(0);
+
+            DateTime startDate = DateTime.Now;
+            DateTime endDate = startDate.AddHours(1);
+
+            RecommendationRequestDto recommendationRequestDto = new RecommendationRequestDto()
+            {
+                DoctorId = chosenDoctor.Id,
+                SpecialtyId = specialtyId,
+                TimeInterval = new TimeInterval(startDate, endDate),
+                Preference = RecommendationPreference.Time
+            };
+            List<RecommendationDto> searchResults = schedulingController.GetEmergencyAppointments(recommendationRequestDto);
+            if (!IsValidRequest(isSpecialistSearch, searchResults))
+            {
+                MessageBox.Show(isSpecialistSearch ? "There is no room with required equipment!" : "There are no available appointments for chosen period!");
+                return;
+            }
+            if (searchResults.Count != 0)
+            {
+                ScheduleWindow scheduleWindow = new ScheduleWindow(searchResults.ElementAt(0), null);
+                scheduleWindow.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Appointment analysis is needed!");
+            }
+            
         }
 
         private void SetMapObjectTypeComboBox()
@@ -316,6 +368,15 @@ namespace WPFHospitalEditor.Pages
             return specialistComboBox.Text.Equals(AllConstants.EmptyComboBox) || startDatePickerSpecApp.Text.Equals("")
                 || endDatePickerSpecApp.Text.Equals("") || specialistEquipmentAppSearchComboBox.Text.Equals(AllConstants.EmptyComboBox)
                 || specialistPriorityComboBox.Text.Equals("");
+        }
+
+        private bool InvalidInputForEmergencyAppointment()
+        {
+            if (emergencyExamTypeCmb.Text.Equals(AllConstants.EmptyComboBox))
+                return true;
+            if (emergencyExamTypeCmb.SelectedIndex == 2 && (emergencyEquipmentCmb.Text.Equals(AllConstants.EmptyComboBox) || emergencySpecialistTypeCmb.Text.Equals(AllConstants.EmptyComboBox)))
+                return true;
+            return false;
         }
 
         private bool InvalidDateInput()

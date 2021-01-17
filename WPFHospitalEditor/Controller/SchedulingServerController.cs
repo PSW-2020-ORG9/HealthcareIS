@@ -13,5 +13,10 @@ namespace WPFHospitalEditor.Controller
         {
             return schedulingServerService.GetAppointments(recommendationRequestDto);
         }
+
+        public List<RecommendationDto> GetEmergencyAppointments(RecommendationRequestDto recommendationRequestDto)
+        {
+            return schedulingServerService.GetEmergencyAppointments(recommendationRequestDto);
+        }
     }
 }

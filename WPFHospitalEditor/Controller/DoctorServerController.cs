@@ -39,5 +39,10 @@ namespace WPFHospitalEditor.Controller
         {
             return doctorServerService.GetDoctorsByRoomsAndShifts(dto);
         }
+
+        public IEnumerable<Doctor> GetDoctorsBySpecialty(int specialtyId)
+        {
+            return doctorServerService.GetDoctorsBySpecialty(specialtyId);
+        }
     }
 }
