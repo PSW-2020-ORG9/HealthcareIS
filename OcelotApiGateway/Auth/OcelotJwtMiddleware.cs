@@ -32,21 +32,20 @@ namespace OcelotApiGateway.Auth
         
         private static void TryAuthorizeWithToken(DownstreamContext downStreamContext, string jwtToken)
         {
-            var allowedRoles = GetAllowedRolesForCurrentRoute(downStreamContext);
-
-            if (allowedRoles == null) return;
-            if (jwtToken == null) throw new UnauthorizedAccessException();
-
-            JwtManager jwtManager = new JwtManager(GetJwtSecretFromEnvironment());
-
-            IIdentityProvider identityProvider = jwtManager.Decode<UserToken>(jwtToken);
-            if (identityProvider != null && IsIdentityRoleAllowed(allowedRoles, identityProvider))
+            IIdentityProvider identityProvider = null;
+            if (jwtToken != null)
             {
-                AppendUserInfoToRequest(downStreamContext.DownstreamRequest, identityProvider);
-                return;
+                JwtManager jwtManager = new JwtManager(GetJwtSecretFromEnvironment());
+                identityProvider = jwtManager.Decode<UserToken>(jwtToken);
+                if (identityProvider != null)
+                    AppendUserInfoToRequest(downStreamContext.DownstreamRequest, identityProvider);
             }
 
-            throw new UnauthorizedAccessException();
+            var allowedRoles = GetAllowedRolesForCurrentRoute(downStreamContext);
+            if (allowedRoles == null)
+                return;
+            else if (identityProvider == null || !IsIdentityRoleAllowed(allowedRoles, identityProvider))
+                throw new UnauthorizedAccessException();
         }
 
         private static string GetJwtSecretFromEnvironment()
