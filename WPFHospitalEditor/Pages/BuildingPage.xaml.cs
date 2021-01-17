@@ -102,7 +102,7 @@ namespace WPFHospitalEditor.Pages
 
         private void OpenAdditionalInformationDialog(MapObject mapObject)
         {
-            AdditionalInformation additionalInformation = new AdditionalInformation(mapObject, this);
+            AdditionalInformation additionalInformation = new AdditionalInformation(mapObject);
             additionalInformation.ShowDialog();
         }
     }
