@@ -40,12 +40,12 @@ namespace WPFHospitalEditor.Pages
 
         private void SetComponentsVisibility()
         {
-            if (LoggedUser.Role.Equals(Role.Patient))
+            if (LoggedUser.RoleEquals(Role.Patient))
             {
                 EquipmentSearchTab.Visibility = Visibility.Hidden;
                 MedicationSearchTab.Visibility = Visibility.Hidden;
             }
-            if (!LoggedUser.Role.Equals(Role.Secretary))
+            if (!LoggedUser.RoleEquals(Role.Secretary))
             {
                 AppointmentSearchTab.Visibility = Visibility.Hidden;
                 SpecialistAppointmentSearchTab.Visibility = Visibility.Hidden;

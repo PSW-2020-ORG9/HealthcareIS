@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFHospitalEditor"
         mc:Ignorable="d"
-        Title="SearchResultDialog" Width="750" Height="400" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen">
+        Title="SearchResultDialog" Width="750" Height="350" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen">
     <Border BorderThickness="10" BorderBrush="#FF8BD9E0" x:Name="Border">
         <Grid Background="#FFC6F5F8">
             <Grid.ColumnDefinitions>
