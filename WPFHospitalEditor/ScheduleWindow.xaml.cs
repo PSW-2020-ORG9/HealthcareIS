@@ -67,7 +67,6 @@ namespace WPFHospitalEditor
             if (examination != null)
             {
                 MessageBox.Show("Examination has been scheduled successfuly!");
-                Owner.Close();
             }
             else
             {

@@ -300,8 +300,8 @@ namespace WPFHospitalEditor.Pages
             int specialtyId = GetChosenSpecialtyId();
             Doctor chosenDoctor = doctorServerController.GetDoctorsBySpecialty(specialtyId).ElementAt(0);
 
-            DateTime startDate = DateTime.Now;
-            DateTime endDate = startDate.AddHours(1);
+            DateTime startDate = DateTime.Now.AddHours(1);
+            DateTime endDate = startDate.AddHours(3);
 
             RecommendationRequestDto recommendationRequestDto = new RecommendationRequestDto()
             {

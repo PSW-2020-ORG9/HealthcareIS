@@ -18,7 +18,6 @@ namespace User.API.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            Console.WriteLine("TUUUUUUUSAMMMM");
             return Ok(specialtyService.GetAll());
         }
     }
