@@ -102,7 +102,7 @@ namespace WPFHospitalEditor
                 startDate = eqRelDto.TimeInterval.Start;
                 while (startDate < endDate)
                 {
-                    examinationServerController.ScheduleExamination(startDate, doctorId, AllConstants.RelocationId);
+                    examinationServerController.ScheduleExamination(startDate, doctorId, AllConstants.PatientIdForRelocation);
                     startDate = startDate.AddMinutes(30);
                 }
             }

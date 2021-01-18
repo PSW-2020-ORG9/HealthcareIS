@@ -15,13 +15,10 @@ namespace WPFHospitalEditor
     public partial class AlternativeRelocationAppointments : Window
     {
         private readonly IMapObjectController mapObjectController = new MapObjectController();
-        private readonly IRoomServerController roomServerController = new RoomServerController();
-        private ISchedulingServerController schedulingServerController = new SchedulingServerController();
-        private EquipmentRecommendationRequestDto eqRequest;
-        private string equipmentName;
-
-        int roomId;
-        EquipmentRelocation er;
+        private readonly EquipmentRecommendationRequestDto eqRequest;
+        private readonly string equipmentName;
+        private readonly int roomId;
+        private readonly EquipmentRelocation er;
 
         public AlternativeRelocationAppointments(int roomId, EquipmentRelocation er, EquipmentRecommendationRequestDto eqRequest, string equipmentName)
         {
@@ -59,8 +56,7 @@ namespace WPFHospitalEditor
 
         private void ShowAppointments(object sender, RoutedEventArgs e)
         {
-            List<EquipmentRelocationDto> searchResult = schedulingServerController.GetEquipmentRelocationAppointments(eqRequest);
-            ISearchResultStrategy strategy = new SearchResultStrategy(new EquipmentRelocationSearchResult(searchResult, equipmentName));
+            ISearchResultStrategy strategy = new SearchResultStrategy(new EquipmentRelocationSearchResult(eqRequest, equipmentName));
             SearchResultDialog equipmentRelocationDialog = new SearchResultDialog(strategy.GetSearchResult(), SearchType.EquipmentRelocationSearch);
             equipmentRelocationDialog.ShowDialog();
         }

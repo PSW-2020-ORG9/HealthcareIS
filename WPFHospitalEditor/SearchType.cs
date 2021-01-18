@@ -6,7 +6,6 @@
         EquipmentSearch,
         MedicationSearch,
         AppointmentSearch,
-        SpecialistAppointmentSearch,
         EquipmentRelocationSearch
     }
 }

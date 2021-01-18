@@ -19,18 +19,9 @@ namespace WPFHospitalEditor
     /// </summary>
     public partial class SearchResultDialog : Window
     {
-        private readonly MapObjectController mapObjectController = new MapObjectController();
-        private readonly List<Button> advancedSearchButtons = new List<Button>();
-        private readonly List<Button> scheduleButtons = new List<Button>();
-        private readonly Dictionary<int, int> displayBtnRow = new Dictionary<int, int>();
-        private readonly Dictionary<int, RecommendationDto> scheduleBtnRow = new Dictionary<int, RecommendationDto>();
-        private readonly Dictionary<int, EquipmentRelocationDto> scheduleEquipmentRelocationBtnRow = new Dictionary<int, EquipmentRelocationDto>();
         private readonly SearchType searchType;
         public static int selectedObjectId = -1;
         private Grid DynamicGrid;
-
-        private IDoctorServerController doctorServerController = new DoctorServerController();
-        private IExaminationServerController examinationServerController = new ExaminationServerController();
 
         public SearchResultDialog(List<SearchResultDTO> searchResults, SearchType searchType)
         {
@@ -57,7 +48,7 @@ namespace WPFHospitalEditor
                 AppointmentGrid.Visibility = Visibility.Visible;
                 DynamicGrid = DynamicAppointmentGrid;
             }
-            else if (this.searchType == SearchType.EquipmentRelocationSearch)
+            else if (searchType == SearchType.EquipmentRelocationSearch)
             {
                 EquipmentRelocationGrid.Visibility = Visibility.Visible;
                 DynamicGrid = DynamicEquipmentRelocationGrid;
@@ -97,28 +88,28 @@ namespace WPFHospitalEditor
             string[] labels = rowContent.Content.Split(AllConstants.ContentSeparator);
             for (int col = 0; col < labels.Length; col++)
             {
-            Label label = CreateLabel(row, col, labels[col]);
-            DynamicGrid.Children.Add(label);
+                Label label = CreateLabel(row, col, labels[col]);
+                DynamicGrid.Children.Add(label);
             }
         }
 
 
         private void InsertButtons(int row, SearchResultDTO rowContent)
         {
-            if (searchType != SearchType.EquipmentRelocationSearch)
-                AddAdvancedSearchButton(row, rowContent.MapObjectId);
-
-            if (searchType == SearchType.AppointmentSearch)
-            {
-                AppointmentSearchResultDTO appointment = (AppointmentSearchResultDTO)rowContent;
-                AddScheduleExaminationButton(row, appointment.RecommendationDto);
-            }
-            else if (searchType == SearchType.EquipmentRelocationSearch)
+            if(searchType == SearchType.EquipmentRelocationSearch)
             {
                 EquipmentRelocationSearchResultDTO equipmentRelocation = (EquipmentRelocationSearchResultDTO)rowContent;
                 AddScheduleRelocationButton(row, equipmentRelocation.EquipmentRelocationDto);
             }
-
+            else
+            {
+                AddAdvancedSearchButton(row, rowContent.MapObjectId);
+                if (searchType == SearchType.AppointmentSearch)
+                {
+                    AppointmentSearchResultDTO appointment = (AppointmentSearchResultDTO)rowContent;
+                    AddScheduleExaminationButton(row, appointment.RecommendationDto);
+                }
+            }
         }
         private void AddAdvancedSearchButton(int row, int mapObjectId)
         {
@@ -167,10 +158,11 @@ namespace WPFHospitalEditor
 
             scheduleBtn.Click += (s, e) =>
             {
-                List<int> doctors = doctorServerController.GetDoctorsByRoomsAndShifts(relocation).ToList();
+                List<int> doctors = new DoctorServerController().GetDoctorsByRoomsAndShifts(relocation).ToList();
+                IExaminationServerController examinationServerController = new ExaminationServerController();
                 foreach (int doctorId in doctors)
                 {
-                    examinationServerController.ScheduleExamination(relocation.TimeInterval.Start, doctorId, 100);
+                    examinationServerController.ScheduleExamination(relocation.TimeInterval.Start, doctorId, AllConstants.PatientIdForRelocation);
                 }
                 MessageBox.Show("Relocation is successfully scheduled!", "");
                 this.Close();

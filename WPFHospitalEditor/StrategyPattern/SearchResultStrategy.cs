@@ -154,17 +154,18 @@ namespace WPFHospitalEditor.StrategyPattern
 
     class EquipmentRelocationSearchResult : ISearchResultStrategy
     {
-        private readonly List<EquipmentRelocationDto> searchResult;
-        private string equipment;
+        private readonly EquipmentRecommendationRequestDto eqRequest;
+        private readonly string equipment;
 
-        public EquipmentRelocationSearchResult(List<EquipmentRelocationDto> searchResult, string equipment)
+        public EquipmentRelocationSearchResult(EquipmentRecommendationRequestDto eqRequest, string equipment)
         {
-            this.searchResult = searchResult;
+            this.eqRequest = eqRequest;
             this.equipment = equipment;
         }
 
         public List<SearchResultDTO> GetSearchResult()
         {
+            List<EquipmentRelocationDto> searchResult = new SchedulingServerController().GetEquipmentRelocationAppointments(eqRequest);
             IMapObjectController mapObjectController = new MapObjectController();
             List<SearchResultDTO> retVal = new List<SearchResultDTO>();
             IEquipmentServerController equipmentServerController = new EquipmentServerController();
@@ -180,6 +181,7 @@ namespace WPFHospitalEditor.StrategyPattern
                     if (eq.Name.Equals(equipment))
                     {
                         amount = eq.Quantity.ToString();
+                        break;
                     }
                 }
                 string timeInterval = equipmentRelocationDto.TimeInterval.Start.ToString() + "-" + equipmentRelocationDto.TimeInterval.End.ToString();
