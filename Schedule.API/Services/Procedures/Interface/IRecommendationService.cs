@@ -5,7 +5,7 @@ namespace Schedule.API.Services.Procedures.Interface
 {
     public interface IRecommendationService
     {
-        public IEnumerable<RecommendationDto> Recommend(RecommendationRequestDto dto);
-        public IEnumerable<RecommendationDto> RecommendEmergency(RecommendationRequestDto dto);
+        IEnumerable<RecommendationDto> Recommend(RecommendationRequestDto dto);
+        IEnumerable<RecommendationDto> RecommendEmergency(RecommendationRequestDto dto);
     }
 }
