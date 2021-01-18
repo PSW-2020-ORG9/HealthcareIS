@@ -95,6 +95,38 @@
                         </Grid>
                     </ScrollViewer>
                 </Grid>
+
+                <Grid x:Name="EquipmentRelocationGrid" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="105"/>
+                        <ColumnDefinition Width="140"/>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="70"/>
+                        <ColumnDefinition Width="1"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Content="Source Room" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"></Label>
+                    <Label Content="Destination Room" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"></Label>
+                    <Label Content="Amount" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"></Label>
+                    <Label Content="Time Interval" Grid.Row="0" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"></Label>
+                    <ScrollViewer Grid.Row="1" Grid.ColumnSpan="5" Background="#FFC6F5F8">
+                        <Grid x:Name="DynamicEquipmentRelocationGrid">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="105"/>
+                                <ColumnDefinition Width="140"/>
+                                <ColumnDefinition Width="80"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition Width="1"/>
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                    </ScrollViewer>
+                </Grid>
+
             </Grid>
         </Grid>
     </Border>

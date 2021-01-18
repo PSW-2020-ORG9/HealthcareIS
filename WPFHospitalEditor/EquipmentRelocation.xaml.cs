@@ -7,6 +7,7 @@ using WPFHospitalEditor.Controller;
 using WPFHospitalEditor.Controller.Interface;
 using WPFHospitalEditor.DTOs;
 using WPFHospitalEditor.Model;
+using WPFHospitalEditor.StrategyPattern;
 
 namespace WPFHospitalEditor
 {
@@ -68,7 +69,7 @@ namespace WPFHospitalEditor
                 List<int> unavailableRooms = roomServerController.GetUnavailableRoomsIdsInTimeInterval(eqRelDto).ToList();
                 if (unavailableRooms.Count > 0)
                 {
-                    ShowAlternativeRelocationAppointments(unavailableRooms);
+                    ShowAlternativeRelocationAppointments(unavailableRooms, eqRelDto);
                 }
                 else
                 {
@@ -78,10 +79,17 @@ namespace WPFHospitalEditor
 
         }
 
-        private void ShowAlternativeRelocationAppointments(List<int> unavailableRooms)
+        private void ShowAlternativeRelocationAppointments(List<int> unavailableRooms, EquipmentRelocationDto equipmentRelocationDto)
         {
+            EquipmentRecommendationRequestDto eqRequest = new EquipmentRecommendationRequestDto()
+            {
+                SourceRoomId = equipmentRelocationDto.SourceRoomId,
+                DestinationRoomId = equipmentRelocationDto.DestinationRoomId,
+                TimeInterval = equipmentRelocationDto.TimeInterval
+            };
+            
             AlternativeRelocationAppointments newWindow =
-            new AlternativeRelocationAppointments(unavailableRooms[0], this);
+            new AlternativeRelocationAppointments(unavailableRooms[0], this, eqRequest, relocationEquipmentName);
             newWindow.Show();
         }
 
@@ -94,7 +102,7 @@ namespace WPFHospitalEditor
                 startDate = eqRelDto.TimeInterval.Start;
                 while (startDate < endDate)
                 {
-                    examinationServerController.ScheduleExamination(startDate, doctorId, AllConstants.RelocationId);
+                    examinationServerController.ScheduleExamination(startDate, doctorId, AllConstants.PatientIdForRelocation);
                     startDate = startDate.AddMinutes(30);
                 }
             }

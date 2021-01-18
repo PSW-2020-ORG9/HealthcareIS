@@ -20,6 +20,15 @@ namespace WPFHospitalEditor.Service
             return response.Data;
         }
 
+        public List<EquipmentRelocationDto> GetEquipmentRelocationAppointments(EquipmentRecommendationRequestDto equipmentRecommendationRequestDto)
+        {
+            var client = new RestClient(AllConstants.ConnectionUrl);
+            var request = new RestRequest("/api/schedule/examination/recommend-equipment-relocation", Method.POST);
+            request.AddParameter(AllConstants.AuthorizationTokenKey, LoggedUser.Cookie, ParameterType.Cookie);
+            request.AddJsonBody(RecommendationEquipmentRelocationDtoToJson(equipmentRecommendationRequestDto));
+            var response = client.Post<List<EquipmentRelocationDto>>(request);
+            return response.Data;
+        }
         public List<RecommendationDto> GetEmergencyAppointments(RecommendationRequestDto recDto)
         {
             var client = new RestClient(AllConstants.ConnectionUrl);
@@ -33,6 +42,11 @@ namespace WPFHospitalEditor.Service
         private String RecommendationDtoToJson(RecommendationRequestDto recDto)
         {
             return JsonConvert.SerializeObject(recDto);
+        }
+
+        private String RecommendationEquipmentRelocationDtoToJson(EquipmentRecommendationRequestDto equipmentRecomendationRequestDto)
+        {
+            return JsonConvert.SerializeObject(equipmentRecomendationRequestDto);
         }
     }
 }

@@ -140,5 +140,12 @@ namespace Schedule.API.Controllers
         {
             return Ok(_equipmentRelocationSchedulingService.GetDoctorsByRoomsAndShifts(dto));
         }
+
+        [HttpPost]
+        [Route("recommend-equipment-relocation")]
+        public IActionResult GetEquipmentRelocationAppointments(EquipmentRecommendationRequestDto dto)
+        {
+            return Ok(_recommendationService.RecommendEquipmentRelocation(dto));
+        }
     }
 }

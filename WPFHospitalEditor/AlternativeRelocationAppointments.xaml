@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFHospitalEditor"
         mc:Ignorable="d"
-        Title="AlternativeRelocationAppointments" Height="150" Width="340" WindowStartupLocation="CenterScreen">
+        Title="AlternativeRelocationAppointments" Height="150" Width="470" WindowStartupLocation="CenterScreen">
     <StackPanel HorizontalAlignment="Stretch">
         <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" Height="50" Margin="10,10,10,0" >
             <TextBlock x:Name="givenRoom" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center"></TextBlock>
@@ -13,7 +13,8 @@
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="20,20,20,0">
             <Button Width="80" x:Name="close" HorizontalAlignment="Left" Margin="10,0,50,0" Click="CloseClick">Close</Button>
-            <Button Width="80" x:Name="showOnMap" HorizontalAlignment="Right" Margin="60,0,0,0" Click="ShowRoomOnMap">Show on map</Button>
+            <Button Width="120" x:Name="showAppointments" HorizontalAlignment="Left" Click="ShowAppointments">Show appointments</Button>
+            <Button Width="80" x:Name="showOnMap" HorizontalAlignment="Right" Margin="70,0,0,0" Click="ShowRoomOnMap">Show on map</Button>
         </StackPanel>
     </StackPanel>
 </Window>
