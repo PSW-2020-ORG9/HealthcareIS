@@ -6,8 +6,8 @@ namespace Schedule.API.Services.Procedures.Interface
 {
     public interface IExaminationService : IProcedureService<Examination>
     {
-        public IEnumerable<Examination> Search(AbstractExaminationFilter filterDto);
-        public IEnumerable<Examination> GetByPatientId(int patientId);
-        public bool Cancel(int examinationId);
+        IEnumerable<Examination> Search(AbstractExaminationFilter filterDto);
+        IEnumerable<Examination> GetByPatientId(int patientId);
+        bool Cancel(int examinationId);
     }
 }

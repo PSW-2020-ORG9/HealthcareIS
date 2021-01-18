@@ -4,7 +4,8 @@ namespace Schedule.API.Services.Procedures.Interface
 {
     public interface IProcedureService<T> where T: Procedure
     {
-        public T GetByID(int id);
-        public T Schedule(T procedure);
+        T GetByID(int id);
+        T Schedule(T procedure);
+        T ScheduleEmergency(T procedure);
     }
 }

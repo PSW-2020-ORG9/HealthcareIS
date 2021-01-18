@@ -7,5 +7,6 @@ namespace WPFHospitalEditor.Controller.Interface
     {
         List<RecommendationDto> GetAppointments(RecommendationRequestDto recommendationRequestDto);
         List<EquipmentRelocationDto> GetEquipmentRelocationAppointments(EquipmentRecommendationRequestDto equipmentRecomendationRequestDto);
+        List<RecommendationDto> GetEmergencyAppointments(RecommendationRequestDto recDto);
     }
 }

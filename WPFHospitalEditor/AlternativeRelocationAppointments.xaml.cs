@@ -14,8 +14,8 @@ namespace WPFHospitalEditor
     /// </summary>
     public partial class AlternativeRelocationAppointments : Window
     {
-        public IMapObjectController mapObjectController = new MapObjectController();
-        public IRoomServerController roomServerController = new RoomServerController();
+        private readonly IMapObjectController mapObjectController = new MapObjectController();
+        private readonly IRoomServerController roomServerController = new RoomServerController();
         private ISchedulingServerController schedulingServerController = new SchedulingServerController();
         private EquipmentRecommendationRequestDto eqRequest;
         private string equipmentName;
