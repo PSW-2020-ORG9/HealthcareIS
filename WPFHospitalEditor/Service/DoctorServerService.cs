@@ -83,5 +83,14 @@ namespace WPFHospitalEditor.Service
         {
             return JsonConvert.SerializeObject(eqRelDto);
         }
+
+        public IEnumerable<Doctor> GetDoctorsBySpecialty(int specialtyId)
+        {
+            var client = new RestClient(AllConstants.ConnectionUrl);
+            var request = new RestRequest("/api/user/doctor/specialty/" + specialtyId, Method.GET);
+            request.AddParameter(AllConstants.AuthorizationTokenKey, LoggedUser.Cookie, ParameterType.Cookie);
+            var response = client.Get<IEnumerable<Doctor>>(request);
+            return response.Data;
+        }
     }
 }
