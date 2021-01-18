@@ -8,6 +8,8 @@ using WPFHospitalEditor.Service;
 using WPFHospitalEditor.DTOs;
 using WPFHospitalEditor.Pages;
 using WPFHospitalEditor.StrategyPattern;
+using WPFHospitalEditor.Controller.Interface;
+using System.Linq;
 
 namespace WPFHospitalEditor
 {
@@ -21,10 +23,14 @@ namespace WPFHospitalEditor
         private readonly List<Button> scheduleButtons = new List<Button>();
         private readonly Dictionary<int, int> displayBtnRow = new Dictionary<int, int>();
         private readonly Dictionary<int, RecommendationDto> scheduleBtnRow = new Dictionary<int, RecommendationDto>();
+        private readonly Dictionary<int, EquipmentRelocationDto> scheduleEquipmentRelocationBtnRow = new Dictionary<int, EquipmentRelocationDto>();
         private readonly SearchType searchType;
         private int firstContentRowNumber = 0;
         public static int selectedObjectId = -1;
         private Grid DynamicGrid;
+
+        private IDoctorServerController doctorServerController = new DoctorServerController();
+        private IExaminationServerController examinationServerController = new ExaminationServerController();
 
         public SearchResultDialog(List<SearchResultDTO> searchResults, SearchType searchType)
         {
@@ -43,6 +49,8 @@ namespace WPFHospitalEditor
                 displayBtnRow.Add(index, result.MapObjectId);
                 if (this.searchType == SearchType.AppointmentSearch)
                     scheduleBtnRow.Add(index, ((AppointmentSearchResultDTO)result).RecommendationDto);
+                else if (this.searchType == SearchType.EquipmentRelocationSearch)
+                    scheduleEquipmentRelocationBtnRow.Add(index, ((EquipmentRelocationSearchResultDTO)result).EquipmentRelocationDto);
                 CreateOneRow(50);
                 string[] oneRowContents = result.Content.Split(AllConstants.ContentSeparator);
                 CreateRowData(oneRowContents);
@@ -67,6 +75,11 @@ namespace WPFHospitalEditor
                 AppointmentGrid.Visibility = Visibility.Visible;
                 DynamicGrid = DynamicAppointmentGrid;
             }
+            else if (this.searchType == SearchType.EquipmentRelocationSearch)
+            {
+                EquipmentRelocationGrid.Visibility = Visibility.Visible;
+                DynamicGrid = DynamicEquipmentRelocationGrid;
+            }
             else
             {
                 return;
@@ -77,11 +90,10 @@ namespace WPFHospitalEditor
         private void CreateRowData(string[] oneRowContents)
         {
             AddLabels(oneRowContents);
-            AddAdvancedSearchButton();
-            if (searchType == SearchType.AppointmentSearch)
-            {
+            if (searchType != SearchType.EquipmentRelocationSearch)
+                AddAdvancedSearchButton();
+            if (searchType == SearchType.AppointmentSearch || searchType == SearchType.EquipmentRelocationSearch)
                 AddScheduleButton();
-            }
 
             AddSeparator();
             firstContentRowNumber++;
@@ -145,11 +157,29 @@ namespace WPFHospitalEditor
 
             scheduleBtn.Click += (s, e) =>
             {
-                if (scheduleBtnRow.ContainsKey(Grid.GetRow(scheduleBtn)))
+                if (searchType == SearchType.AppointmentSearch)
                 {
-                    RecommendationDto chosenRecommendation = scheduleBtnRow[Grid.GetRow(scheduleBtn)];
-                    ScheduleWindow scheduleWindow = new ScheduleWindow(chosenRecommendation, this);
-                    scheduleWindow.ShowDialog();
+                    if (scheduleBtnRow.ContainsKey(Grid.GetRow(scheduleBtn)))
+                    {
+                        RecommendationDto chosenRecommendation = scheduleBtnRow[Grid.GetRow(scheduleBtn)];
+                        ScheduleWindow scheduleWindow = new ScheduleWindow(chosenRecommendation, this);
+                        scheduleWindow.ShowDialog();
+                    }
+                }
+                else if (searchType == SearchType.EquipmentRelocationSearch)
+                {
+                    if (scheduleEquipmentRelocationBtnRow.ContainsKey(Grid.GetRow(scheduleBtn)))
+                    {
+                        EquipmentRelocationDto equipmentRelocationDto = scheduleEquipmentRelocationBtnRow[Grid.GetRow(scheduleBtn)];
+
+                        List<int> doctors = doctorServerController.GetDoctorsByRoomsAndShifts(equipmentRelocationDto).ToList();
+                        foreach (int doctorId in doctors)
+                        {
+                            examinationServerController.ScheduleExamination(equipmentRelocationDto.TimeInterval.Start, doctorId, 100);
+                        }
+                        MessageBox.Show("Relocation is successfully scheduled!", "");
+                        this.Close();
+                    }
                 }
             };
         }
