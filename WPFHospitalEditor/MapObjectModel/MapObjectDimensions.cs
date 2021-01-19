@@ -4,20 +4,20 @@ namespace WPFHospitalEditor.MapObjectModel
 {
     public class MapObjectDimensions
     {
-        public double Width { get; set; }
-        public double Height { get; set; }
+        public double Width { get; }
+        public double Height { get; }
 
-        public MapObjectDimensions(double Width, double Height)
+        public MapObjectDimensions(double width, double height)
         {
-            if(Validate(Width, Height))
-            this.Width = Width;
-            this.Height = Height;
+            Validate(width, height);
+            Width = width;
+            Height = height;
         }
 
-        private bool Validate(double Width, double Height)
+        private void Validate(double Width, double Height)
         {
-            if (Height < 0 || Width < 0) throw new ValidationException("Width and must be greater then zero");
-            return true;
+            if (Height < 0 || Width < 0) 
+                throw new ValidationException("Width and must be greater then zero");
         }
     }
 }

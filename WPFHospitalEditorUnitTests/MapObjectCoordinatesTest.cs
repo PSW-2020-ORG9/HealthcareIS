@@ -1,8 +1,9 @@
 ﻿using Shouldly;
+using WPFHospitalEditor.Exceptions;
 using WPFHospitalEditor.MapObjectModel;
 using Xunit;
 
-namespace WPFHospitalEditorUnitTests.ValueObjectTests
+namespace WPFHospitalEditorUnitTests
 {
     public class MapObjectCoordinatesTest
     {
@@ -16,10 +17,7 @@ namespace WPFHospitalEditorUnitTests.ValueObjectTests
             {
                 mapObjectCoordinates = new MapObjectCoordinates(x, y);
             }
-            catch
-            {
-
-            }
+            catch { }
             mapObjectCoordinates.ShouldNotBeNull();
         }
 
@@ -28,16 +26,7 @@ namespace WPFHospitalEditorUnitTests.ValueObjectTests
         {
             double x = -5;
             double y = 4;
-            MapObjectCoordinates mapObjectCoordinates = null;
-            try
-            {
-                mapObjectCoordinates = new MapObjectCoordinates(x, y);
-            }
-            catch
-            {
-
-            }
-            mapObjectCoordinates.ShouldBeNull();
+            Assert.Throws<ValidationException>(() => { new MapObjectCoordinates(x, y); });
         }
     }
 }

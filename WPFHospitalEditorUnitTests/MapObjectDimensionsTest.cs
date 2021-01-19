@@ -1,11 +1,9 @@
 ﻿using Shouldly;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using WPFHospitalEditor.Exceptions;
 using WPFHospitalEditor.MapObjectModel;
 using Xunit;
 
-namespace WPFHospitalEditorUnitTests.ValueObjectTests
+namespace WPFHospitalEditorUnitTests
 {
     public class MapObjectDimensionsTest
     {
@@ -19,27 +17,16 @@ namespace WPFHospitalEditorUnitTests.ValueObjectTests
             {
                 mapObjectDimensions = new MapObjectDimensions(height, width);
             }
-            catch
-            {
-
-            }
+            catch { }
             mapObjectDimensions.ShouldNotBeNull();
         }
 
+        [StaFact]
         public void Create_invalid_object()
         {
             double height = 50;
             double width = -40;
-            MapObjectDimensions mapObjectDimensions = null;
-            try
-            {
-                mapObjectDimensions = new MapObjectDimensions(height, width);
-            }
-            catch
-            {
-
-            }
-            mapObjectDimensions.ShouldBeNull();
+            Assert.Throws<ValidationException>(() => { new MapObjectDimensions(height, width); });
         }
     }
 }

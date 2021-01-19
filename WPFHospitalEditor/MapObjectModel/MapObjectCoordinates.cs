@@ -1,5 +1,4 @@
-﻿
-using WPFHospitalEditor.Exceptions;
+﻿using WPFHospitalEditor.Exceptions;
 
 namespace WPFHospitalEditor.MapObjectModel
 {
@@ -8,19 +7,17 @@ namespace WPFHospitalEditor.MapObjectModel
         public double X { get; }
         public double Y { get; }
 
-        public MapObjectCoordinates(double X, double Y)
+        public MapObjectCoordinates(double x, double y)
         {
-            if(Validate(X, Y))
-            {
-                this.X = X;
-                this.Y = Y;
-            }
+            Validate(x, y);
+            X = x;
+            Y = y;
         }
 
-        public bool Validate(double x, double y)
+        public void Validate(double x, double y)
         {
-            if (x < 0 || y < 0) throw new ValidationException("X and Y must be greater then zero");
-            return true;
+            if (x < 0 || y < 0)
+                throw new ValidationException("X and Y must be greater then zero");
         }
     }
 }

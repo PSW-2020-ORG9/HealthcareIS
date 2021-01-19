@@ -2,8 +2,9 @@
 using Shouldly;
 using WPFHospitalEditor.Model;
 using Xunit;
+using WPFHospitalEditor.Exceptions;
 
-namespace WPFHospitalEditorUnitTests.ValueObjectTests
+namespace WPFHospitalEditorUnitTests
 {
     public class TimeIntervalTest
     {
@@ -16,10 +17,8 @@ namespace WPFHospitalEditorUnitTests.ValueObjectTests
             try
             {
                 timeInterval = new TimeInterval(start, end);
-            } catch
-            {
-
             }
+            catch { }
             timeInterval.ShouldNotBeNull();
         }
 
@@ -28,16 +27,7 @@ namespace WPFHospitalEditorUnitTests.ValueObjectTests
         {
             DateTime start = new DateTime(2022, 5, 18, 9, 0, 0);
             DateTime end = new DateTime(2022, 5, 18, 9, 0, 0);
-            TimeInterval timeInterval = null;
-            try
-            {
-                timeInterval = new TimeInterval(start, end);
-            }
-            catch
-            {
-
-            }
-            timeInterval.ShouldBeNull();
+            Assert.Throws<ValidationException>(() => { new TimeInterval(start, end); });
         }
     }
 }
