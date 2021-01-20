@@ -8,6 +8,7 @@ namespace Schedule.API.Services.Procedures.Interface
     {
         IEnumerable<Examination> Search(AbstractExaminationFilter filterDto);
         IEnumerable<Examination> GetByPatientId(int patientId);
+        IEnumerable<Examination> GetBySpecialtyId(int patientId);
         bool Cancel(int examinationId);
     }
 }

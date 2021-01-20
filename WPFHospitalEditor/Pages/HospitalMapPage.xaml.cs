@@ -11,7 +11,6 @@ using WPFHospitalEditor.Controller.Interface;
 using WPFHospitalEditor.DTOs;
 using WPFHospitalEditor.Model;
 using WPFHospitalEditor.StrategyPattern;
-using System.Diagnostics;
 
 namespace WPFHospitalEditor.Pages
 {
@@ -49,6 +48,7 @@ namespace WPFHospitalEditor.Pages
             {
                 AppointmentSearchTab.Visibility = Visibility.Hidden;
                 SpecialistAppointmentSearchTab.Visibility = Visibility.Hidden;
+                EmergencyExaminationTab.Visibility = Visibility.Hidden;
             }
         }
 
@@ -293,10 +293,6 @@ namespace WPFHospitalEditor.Pages
                 return;
             }
 
-            bool isSpecialistSearch = false;
-            if (emergencyExamTypeCmb.SelectedIndex == 2)
-                isSpecialistSearch = true;
-
             int specialtyId = GetChosenSpecialtyId();
             Doctor chosenDoctor = doctorServerController.GetDoctorsBySpecialty(specialtyId).ElementAt(0);
 
@@ -310,13 +306,9 @@ namespace WPFHospitalEditor.Pages
                 TimeInterval = new TimeInterval(startDate, endDate),
                 Preference = RecommendationPreference.Time
             };
+
             List<RecommendationDto> searchResults = schedulingController.GetEmergencyAppointments(recommendationRequestDto);
-            if (!IsValidRequest(isSpecialistSearch, searchResults))
-            {
-                MessageBox.Show(isSpecialistSearch ? "There is no room with required equipment!" : "There are no available appointments for chosen period!");
-                return;
-            }
-            if (searchResults.Count != 0)
+            if (searchResults.Count() != 0)
             {
                 ScheduleWindow scheduleWindow = new ScheduleWindow(searchResults.ElementAt(0), null);
                 scheduleWindow.ShowDialog();
@@ -324,8 +316,10 @@ namespace WPFHospitalEditor.Pages
             else
             {
                 MessageBox.Show("Appointment analysis is needed!");
+                AppointmentAnalysisWindow appointmentAnalysisWindow = new AppointmentAnalysisWindow(recommendationRequestDto.SpecialtyId);
+                appointmentAnalysisWindow.ShowDialog();
             }
-            
+           
         }
 
         private void SetMapObjectTypeComboBox()
