@@ -22,6 +22,7 @@ namespace WPFHospitalEditor
             SetDynamicGrid();
             InitializeTitle();
             SetButtonsVisibility();
+            if (!LoggedUser.RoleEquals(Role.Director)) Renovation.Visibility = Visibility.Hidden;
         }
 
         private void SetDynamicGrid()
@@ -70,6 +71,13 @@ namespace WPFHospitalEditor
             IContentRowsStrategy strategy = new ContentRowsStrategy(new MedicationContentRows(mapObject.Id));
             EquipmentAndMedicationDialog medications = new EquipmentAndMedicationDialog(strategy.GetContentRows());
             medications.ShowDialog();
+            this.Close();
+        }
+
+        private void BtnRenovationClick(object sender, RoutedEventArgs e)
+        {
+            RoomRenovation roomRenovationWindow = new RoomRenovation(mapObject.Id);
+            roomRenovationWindow.ShowDialog();
             this.Close();
         }
 

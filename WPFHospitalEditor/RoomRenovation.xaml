@@ -1,0 +1,51 @@
+﻿<Window x:Class="WPFHospitalEditor.RoomRenovation"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFHospitalEditor"
+        mc:Ignorable="d"
+        Title="RoomRenovation" Height="350" Width="600" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Background" Value="SkyBlue"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+    </Window.Resources>
+    <Border BorderThickness="10" BorderBrush="#FF8BD9E0" x:Name="Border">
+        <StackPanel x:Name="appointmentSearchStackPanel" Orientation="Vertical" HorizontalAlignment="Stretch" Background="#FFC6F5F8">
+            <TextBlock Text="Room renovation" FontSize="20" Margin="20,10,0,0"></TextBlock>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,0">
+                <Label Content="Pick renovation type:" FontSize="14" VerticalAlignment="Center" Margin="20,0,0,0"></Label>
+                <ComboBox x:Name="RenovationType" x:FieldModifier="public" HorizontalAlignment="Left" Height="30" Width="100" Margin="5,0,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" SelectedIndex="0">
+                    <ComboBoxItem>Basic</ComboBoxItem>
+                    <ComboBoxItem>Complex</ComboBoxItem>
+                </ComboBox>
+                <Label Content="Pick date:" FontSize="14" VerticalAlignment="Center" Margin="30,0,0,0"></Label>
+                <DatePicker Height="30" Width="150" x:FieldModifier="public" Margin="0,0,0,0" Name="startDatePicker" ></DatePicker>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,10,0,0">
+                <Label Content="Pick start hour[hh:mm]:" FontSize="14" VerticalAlignment="Center" Margin="20,0,0,0"></Label>
+                <TextBox x:Name="StartTime" Height="30" Width="100"></TextBox>
+                <Label Content="Pick end hour[hh:mm]:" FontSize="14" VerticalAlignment="Center" Margin="20,0,0,0"></Label>
+                <TextBox x:Name="EndTime" Height="30" Width="100"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,10,0,0">
+                <Label Content="Enter renovation description:" FontSize="14" VerticalAlignment="Center" Margin="20,0,0,0"></Label>
+                <TextBox Width="335" Height="50" TextWrapping="Wrap" TextAlignment="Left"></TextBox>
+            </StackPanel>
+            <Grid>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,30,0,0">
+                    <Button Click="CloseClick" Margin="20,0,0,0">Cancel</Button>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,30,20,0">
+                    <Button x:Name="Schedule" Margin="20,0,0,0" Click="ScheduleRenovation">Relocate</Button>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+    </Border>
+</Window>
