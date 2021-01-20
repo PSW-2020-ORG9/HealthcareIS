@@ -67,26 +67,35 @@ namespace WPFHospitalEditor.Service
 
         public List<MapObject> GetNeigbourMapObjects(int roomId)
         {
+            MapObject mapObject = GetMapObjectById(roomId);
+            return FillListWithNeighbourMapObjects(mapObject);
+        }
+
+        private List<MapObject> FillListWithNeighbourMapObjects(MapObject mapObject)
+        {
             List<MapObject> neigbourMapObjects = new List<MapObject>();
             List<MapObject> allMapObjects = GetAllMapObjects();
-            MapObject mapObject = GetMapObjectById(roomId);
-            foreach(MapObject mo in allMapObjects)
+            foreach (MapObject mo in allMapObjects)
             {
-                if(mo.MapObjectDescription.FloorNumber == mapObject.MapObjectDescription.FloorNumber
+                if (mo.MapObjectDescription.FloorNumber == mapObject.MapObjectDescription.FloorNumber
                     && mo.Id != mapObject.Id)
                 {
-                    if(Math.Abs(mapObject.MapObjectMetrics.MapObjectCoordinates.X
-                        - (mo.MapObjectMetrics.MapObjectCoordinates.X
-                        + mo.MapObjectMetrics.MapObjectDimensions.Width)) < 50
-                        || Math.Abs((mapObject.MapObjectMetrics.MapObjectCoordinates.X
-                        + mapObject.MapObjectMetrics.MapObjectDimensions.Width)
-                        - mo.MapObjectMetrics.MapObjectCoordinates.X) < 50)
-                    {
+                    if(CheckIfTwoMapObjectsAreNeighbours(mapObject, mo))
                         neigbourMapObjects.Add(mo);
-                    }
                 }
             }
             return neigbourMapObjects;
+        }
+
+        private bool CheckIfTwoMapObjectsAreNeighbours(MapObject mapObject1, MapObject mapObject2)
+        {
+            if (Math.Abs(mapObject1.MapObjectMetrics.MapObjectCoordinates.X
+                - (mapObject2.MapObjectMetrics.MapObjectCoordinates.X
+                + mapObject2.MapObjectMetrics.MapObjectDimensions.Width)) < 50
+                || Math.Abs((mapObject1.MapObjectMetrics.MapObjectCoordinates.X
+                + mapObject1.MapObjectMetrics.MapObjectDimensions.Width)
+                - mapObject2.MapObjectMetrics.MapObjectCoordinates.X) < 50) return true;
+            return false;
         }
     }
 }
