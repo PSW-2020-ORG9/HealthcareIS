@@ -319,7 +319,6 @@ namespace WPFHospitalEditor.Pages
                 AppointmentAnalysisWindow appointmentAnalysisWindow = new AppointmentAnalysisWindow(recommendationRequestDto.SpecialtyId);
                 appointmentAnalysisWindow.ShowDialog();
             }
-           
         }
 
         private void SetMapObjectTypeComboBox()

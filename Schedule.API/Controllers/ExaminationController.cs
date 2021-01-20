@@ -43,7 +43,6 @@ namespace Schedule.API.Controllers
             return Ok(_examinationService.GetByPatientId(Int32.Parse(userId)));
         }
 
-
         [HttpGet]
         [Route("cancel/{examinationId}")]
         public IActionResult Cancel(int examinationId)
