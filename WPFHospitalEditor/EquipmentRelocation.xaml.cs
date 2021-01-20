@@ -61,23 +61,26 @@ namespace WPFHospitalEditor
             endDate =
                 DateTime.ParseExact(startDatePicker.SelectedDate.Value.ToString("MM/dd/yyyy")
                 + " " + EndTime.Text, "MM/dd/yyyy HH:mm", null);
-            TimeInterval timeInterval = new TimeInterval(startDate, endDate);
-
-            if (AmountIsValid() && timeInterval.IsValid())
+            try{
+                TimeInterval timeInterval = new TimeInterval(startDate, endDate);
+                if (AmountIsValid())
+                {
+                    EquipmentRelocationDto eqRelDto = CreateEquipmentRelocationDto(timeInterval);
+                    SchedulingDto schDto = eqRelDto.toSchedulingDto();
+                    List<int> unavailableRooms = roomServerController.GetUnavailableRooms(schDto).ToList();
+                    if (unavailableRooms.Count > 0)
+                    {
+                        ShowAlternativeRelocationAppointments(unavailableRooms, eqRelDto);
+                    }
+                    else
+                    {
+                        ScheduleRelocation(schDto);
+                    }
+                }
+            } catch
             {
-                EquipmentRelocationDto eqRelDto = CreateEquipmentRelocationDto(timeInterval);
-                SchedulingDto schDto = eqRelDto.toSchedulingDto();
-                List<int> unavailableRooms = roomServerController.GetUnavailableRooms(schDto).ToList();
-                if (unavailableRooms.Count > 0)
-                {
-                    ShowAlternativeRelocationAppointments(unavailableRooms, eqRelDto);
-                }
-                else
-                {
-                    ScheduleRelocation(schDto);
-                }
+                MessageBox.Show("End time must be after start time!", "");
             }
-
         }
 
         private void ShowAlternativeRelocationAppointments(List<int> unavailableRooms, EquipmentRelocationDto equipmentRelocationDto)
