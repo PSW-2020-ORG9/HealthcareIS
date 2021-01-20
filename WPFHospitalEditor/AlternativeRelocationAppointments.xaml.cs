@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Windows;
+﻿using System.Windows;
 using WPFHospitalEditor.Controller;
-using WPFHospitalEditor.Controller.Interface;
 using WPFHospitalEditor.DTOs;
 using WPFHospitalEditor.MapObjectModel;
 using WPFHospitalEditor.Pages;
