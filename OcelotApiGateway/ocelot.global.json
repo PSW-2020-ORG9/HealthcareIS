@@ -278,7 +278,7 @@
     },
 
     {
-      "DownstreamPathTemplate": "/schedule/examination/unavailable-rooms",
+      "DownstreamPathTemplate": "/schedule/examination/unavailable-rooms-relocation",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -286,12 +286,12 @@
           "Port": "$PSW_SCHEDULE_SERVICE_PORT"
         }
       ],
-      "UpstreamPathTemplate": "/api/schedule/examination/unavailable-rooms",
+      "UpstreamPathTemplate": "/api/schedule/examination/unavailable-rooms-relocation",
       "UpstreamHttpMethod": [ "Post" ]
     },
 
     {
-      "DownstreamPathTemplate": "/schedule/examination/get-doctors-by-rooms-and-shifts",
+      "DownstreamPathTemplate": "/schedule/examination/unavailable-rooms-renovation",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -299,7 +299,33 @@
           "Port": "$PSW_SCHEDULE_SERVICE_PORT"
         }
       ],
-      "UpstreamPathTemplate": "/api/schedule/examination/get-doctors-by-rooms-and-shifts",
+      "UpstreamPathTemplate": "/api/schedule/examination/unavailable-rooms-renovation",
+      "UpstreamHttpMethod": [ "Post" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/schedule/examination/get-doctors-by-rooms-and-shifts-relocation",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "$PSW_SCHEDULE_SERVICE_HOST",
+          "Port": "$PSW_SCHEDULE_SERVICE_PORT"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/schedule/examination/get-doctors-by-rooms-and-shifts-relocation",
+      "UpstreamHttpMethod": [ "Post" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/schedule/examination/get-doctors-by-rooms-and-shifts-renovation",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "$PSW_SCHEDULE_SERVICE_HOST",
+          "Port": "$PSW_SCHEDULE_SERVICE_PORT"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/schedule/examination/get-doctors-by-rooms-and-shifts-renovation",
       "UpstreamHttpMethod": [ "Post" ]
     },
 

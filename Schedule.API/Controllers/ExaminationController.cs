@@ -18,15 +18,15 @@ namespace Schedule.API.Controllers
     {
         private readonly ExaminationServiceProxy _examinationService;
         private readonly RecommendationService _recommendationService;
-        private readonly IEquipmentRelocationSchedulingService _equipmentRelocationSchedulingService;
+        private readonly IExaminationSchedulingService _examinationSchedulingService;
 
 
         public ExaminationController(ExaminationServiceProxy examinationService, RecommendationService recommendationService,
-            IEquipmentRelocationSchedulingService equipmentRelocationSchedulingService)
+            IExaminationSchedulingService examinationSchedulingService)
         {
             _examinationService = examinationService;
             _recommendationService = recommendationService;
-            _equipmentRelocationSchedulingService = equipmentRelocationSchedulingService;
+            _examinationSchedulingService = examinationSchedulingService;
         }
 
         [HttpGet]
@@ -128,17 +128,31 @@ namespace Schedule.API.Controllers
         }
 
         [HttpPost]
-        [Route("unavailable-rooms")]
-        public IActionResult GetUnavailableRooms(EquipmentRelocationDto dto)
+        [Route("unavailable-rooms-relocation")]
+        public IActionResult GetUnavailableRoomsRelocation(EquipmentRelocationDto dto)
         {
-            return Ok(_equipmentRelocationSchedulingService.GetUnavailableRooms(dto));
+            return Ok(_examinationSchedulingService.GetUnavailableRooms(dto.SourceRoomId, dto.DestinationRoomId, dto.TimeInterval));
         }
 
         [HttpPost]
-        [Route("get-doctors-by-rooms-and-shifts")]
+        [Route("unavailable-rooms-renovation")]
+        public IActionResult GetUnavailableRoomsRenovation(RoomRenovationDto dto)
+        {
+            return Ok(_examinationSchedulingService.GetUnavailableRooms(dto.FirstRoomId, dto.SecondRoomId, dto.TimeInterval));
+        }
+
+        [HttpPost]
+        [Route("get-doctors-by-rooms-and-shifts-relocation")]
         public IActionResult GetDoctorsByRoomsAndShifts(EquipmentRelocationDto dto)
         {
-            return Ok(_equipmentRelocationSchedulingService.GetDoctorsByRoomsAndShifts(dto));
+            return Ok(_examinationSchedulingService.GetDoctorsByRoomsAndShifts(dto.SourceRoomId, dto.DestinationRoomId, dto.TimeInterval));
+        }
+
+        [HttpPost]
+        [Route("get-doctors-by-rooms-and-shifts-renovation")]
+        public IActionResult GetDoctorsByRoomsAndShifts(RoomRenovationDto dto)
+        {
+            return Ok(_examinationSchedulingService.GetDoctorsByRoomsAndShifts(dto.FirstRoomId, dto.SecondRoomId, dto.TimeInterval));
         }
 
         [HttpPost]
