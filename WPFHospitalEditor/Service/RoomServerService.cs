@@ -19,19 +19,19 @@ namespace WPFHospitalEditor.Service
             return response.Data;
         }
 
-        public IEnumerable<int> GetUnavailableRoomsIdsInTimeInterval(EquipmentRelocationDto eqRelDto)
+        public IEnumerable<int> GetUnavailableRooms(SchedulingDto schedulingDto)
         {
             var client = new RestClient(AllConstants.ConnectionUrl);
             var request = new RestRequest("/api/schedule/examination/unavailable-rooms", Method.POST);
             request.AddParameter(AllConstants.AuthorizationTokenKey, LoggedUser.Cookie, ParameterType.Cookie);
-            request.AddJsonBody(EquipmentRelocationDtoToJson(eqRelDto));
+            request.AddJsonBody(SchedulingDtoToJson(schedulingDto));
             var response = client.Post<List<int>>(request);
             return response.Data;
         }
 
-        private String EquipmentRelocationDtoToJson(EquipmentRelocationDto eqRelDto)
+        private String SchedulingDtoToJson(SchedulingDto schedulingDto)
         {
-            return JsonConvert.SerializeObject(eqRelDto);
+            return JsonConvert.SerializeObject(schedulingDto);
         }
     }
 }

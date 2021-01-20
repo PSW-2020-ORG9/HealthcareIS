@@ -1,4 +1,5 @@
 ﻿using General.Repository;
+using Schedule.API.DTOs;
 using Schedule.API.Infrastructure.Repositories.Procedures.Interfaces;
 using Schedule.API.Infrastructure.Repositories.Shifts;
 using Schedule.API.Model.Procedures;
@@ -23,16 +24,16 @@ namespace Schedule.API.Services.Procedures
 
         }
 
-        public IEnumerable<int> GetUnavailableRooms(int firstRoom, int secondRoom, TimeInterval timeInterval)
+        public IEnumerable<int> GetUnavailableRooms(SchedulingDto schDto)
         {
             HashSet<int> unavailableRoomsIds = new HashSet<int>();
             List<Examination> relocationRoomsExaminations = _examinationWrapper.Repository
-                .GetMatching(e => (e.RoomId == firstRoom) 
-                || e.RoomId == secondRoom).ToList();
+                .GetMatching(e => (e.RoomId == schDto.FirstRoomId) 
+                || e.RoomId == schDto.SecondRoomId).ToList();
 
             foreach (Examination examination in relocationRoomsExaminations)
             {
-                if(examination.TimeInterval.Overlaps(timeInterval))
+                if(examination.TimeInterval.Overlaps(schDto.TimeInterval))
                 {
                     unavailableRoomsIds.Add(examination.RoomId);
                 }
@@ -40,13 +41,13 @@ namespace Schedule.API.Services.Procedures
             return unavailableRoomsIds;
         }
 
-        public IEnumerable<int> GetDoctorsByRoomsAndShifts(int firstRoom, int secondRoom, TimeInterval timeInterval)
+        public IEnumerable<int> GetDoctorsByRoomsAndShifts(SchedulingDto schDto)
         {
             HashSet<int> doctors = new HashSet<int>();
             List<Shift> shifts = _shiftsWrapper.Repository
-                .GetMatching(s => (s.AssignedExamRoomId == firstRoom
-                || s.AssignedExamRoomId == secondRoom) 
-                && s.TimeInterval.Start.Date == timeInterval.Start.Date).ToList();
+                .GetMatching(s => (s.AssignedExamRoomId == schDto.FirstRoomId
+                || s.AssignedExamRoomId == schDto.SecondRoomId) 
+                && s.TimeInterval.Start.Date == schDto.TimeInterval.Start.Date).ToList();
 
             foreach (Shift shift in shifts)
             {

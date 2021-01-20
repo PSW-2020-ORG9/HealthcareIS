@@ -128,31 +128,17 @@ namespace Schedule.API.Controllers
         }
 
         [HttpPost]
-        [Route("unavailable-rooms-relocation")]
-        public IActionResult GetUnavailableRoomsRelocation(EquipmentRelocationDto dto)
+        [Route("unavailable-rooms")]
+        public IActionResult GetUnavailableRoomsRelocation(SchedulingDto dto)
         {
-            return Ok(_examinationSchedulingService.GetUnavailableRooms(dto.SourceRoomId, dto.DestinationRoomId, dto.TimeInterval));
+            return Ok(_examinationSchedulingService.GetUnavailableRooms(dto));
         }
 
         [HttpPost]
-        [Route("unavailable-rooms-renovation")]
-        public IActionResult GetUnavailableRoomsRenovation(RoomRenovationDto dto)
+        [Route("get-doctors-by-rooms-and-shifts")]
+        public IActionResult GetDoctorsByRoomsAndShifts(SchedulingDto dto)
         {
-            return Ok(_examinationSchedulingService.GetUnavailableRooms(dto.FirstRoomId, dto.SecondRoomId, dto.TimeInterval));
-        }
-
-        [HttpPost]
-        [Route("get-doctors-by-rooms-and-shifts-relocation")]
-        public IActionResult GetDoctorsByRoomsAndShifts(EquipmentRelocationDto dto)
-        {
-            return Ok(_examinationSchedulingService.GetDoctorsByRoomsAndShifts(dto.SourceRoomId, dto.DestinationRoomId, dto.TimeInterval));
-        }
-
-        [HttpPost]
-        [Route("get-doctors-by-rooms-and-shifts-renovation")]
-        public IActionResult GetDoctorsByRoomsAndShifts(RoomRenovationDto dto)
-        {
-            return Ok(_examinationSchedulingService.GetDoctorsByRoomsAndShifts(dto.FirstRoomId, dto.SecondRoomId, dto.TimeInterval));
+            return Ok(_examinationSchedulingService.GetDoctorsByRoomsAndShifts(dto));
         }
 
         [HttpPost]

@@ -9,5 +9,17 @@ namespace WPFHospitalEditor.DTOs
         public int DestinationRoomId { get; set; }
         public int Amount { get; set; }
         public TimeInterval TimeInterval { get; set; }
+
+        public SchedulingDto toSchedulingDto()
+        {
+            SchedulingDto schedulingDto = new SchedulingDto()
+            {
+                FirstRoomId = SourceRoomId,
+                SecondRoomId = DestinationRoomId,
+                TimeInterval = this.TimeInterval
+
+            };
+            return schedulingDto;
+        }
     }
 }

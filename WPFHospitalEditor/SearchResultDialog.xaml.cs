@@ -158,7 +158,7 @@ namespace WPFHospitalEditor
 
             scheduleBtn.Click += (s, e) =>
             {
-                List<int> doctors = new DoctorServerController().GetDoctorsByRoomsAndShifts(relocation).ToList();
+                List<int> doctors = new DoctorServerController().GetDoctorsByRoomsAndShifts(relocation.toSchedulingDto()).ToList();
                 IExaminationServerController examinationServerController = new ExaminationServerController();
                 foreach (int doctorId in doctors)
                 {

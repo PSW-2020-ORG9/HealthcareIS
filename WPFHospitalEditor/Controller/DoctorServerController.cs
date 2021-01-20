@@ -35,7 +35,7 @@ namespace WPFHospitalEditor.Controller
             return doctorServerService.SearchSpecialists(name);
         }
 
-        public IEnumerable<int> GetDoctorsByRoomsAndShifts(EquipmentRelocationDto dto)
+        public IEnumerable<int> GetDoctorsByRoomsAndShifts(SchedulingDto dto)
         {
             return doctorServerService.GetDoctorsByRoomsAndShifts(dto);
         }
