@@ -74,32 +74,10 @@ namespace Schedule.API.IntegrationTests
         }
 
         [Fact]
-        public async void Check_rooms_availability_for_relocation()
+        public async void Check_rooms_availability()
         {
             var client = _factory.CreateClient();
-            var content = JsonContent.Create(new EquipmentRelocationDto
-            {
-                SourceRoomId = 2,
-                DestinationRoomId = 1,
-                TimeInterval = new TimeInterval
-                {
-                    Start = new DateTime(2022, 3, 3, 9, 0, 0),
-                    End = new DateTime(2022, 3, 3, 10, 30, 0)
-                },
-                Amount = 5,
-                EquipmentType = "Chair"
-            });
-            var response = await client.PostAsync("schedule/examination/unavailable-rooms-relocation", content);
-            string responseString = await response.Content.ReadAsStringAsync();
-
-            Assert.Contains("1", responseString);
-        }
-
-        [Fact]
-        public async void Check_rooms_availability_for_renovation()
-        {
-            var client = _factory.CreateClient();
-            var content = JsonContent.Create(new RoomRenovationDto
+            var content = JsonContent.Create(new SchedulingDto
             {
                 FirstRoomId = 2,
                 SecondRoomId = 1,
@@ -109,7 +87,7 @@ namespace Schedule.API.IntegrationTests
                     End = new DateTime(2022, 3, 3, 10, 30, 0)
                 }
             });
-            var response = await client.PostAsync("schedule/examination/unavailable-rooms-renovation", content);
+            var response = await client.PostAsync("schedule/examination/unavailable-rooms", content);
             string responseString = await response.Content.ReadAsStringAsync();
 
             Assert.Contains("1", responseString);
