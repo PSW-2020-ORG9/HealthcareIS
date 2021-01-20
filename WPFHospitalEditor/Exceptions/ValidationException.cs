@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace WPFHospitalEditor.Exceptions
 {
-    class ValidationException : Exception
+    public class ValidationException : Exception
     {
 
         public ValidationException() { }
