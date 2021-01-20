@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using WPFHospitalEditor.Controller;
 using WPFHospitalEditor.Controller.Interface;
 using WPFHospitalEditor.DTOs;
@@ -26,13 +27,17 @@ namespace WPFHospitalEditor
         public RoomRenovation(int mapObjectId)
         {
             InitializeComponent();
-            ComplexStackPanel.Visibility = Visibility.Hidden;
             this.mapObjectId = mapObjectId;
         }
 
         private void CloseClick(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void SetRoomsComboBox()
+        {
+            
         }
 
         private void RenovateRoom(object sender, RoutedEventArgs e)
@@ -80,7 +85,7 @@ namespace WPFHospitalEditor
                 startDate = schDto.TimeInterval.Start;
                 while (startDate < endDate)
                 {
-                    examinationServerController.ScheduleExamination(startDate, doctorId, AllConstants.PatientIdForRelocation);
+                    examinationServerController.ScheduleExamination(startDate, doctorId, AllConstants.PatientIdForRenovation);
                     startDate = startDate.AddMinutes(30);
                 }
             }
@@ -98,6 +103,36 @@ namespace WPFHospitalEditor
 
             };
             return renovationDto;
+        }
+
+        private void RenovationTypeSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(ComplexStackPanel != null)
+            {
+                if (RenovationTypeComboBox.SelectedIndex == 1)
+                {
+                    ComplexStackPanel.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    ComplexStackPanel.Visibility = Visibility.Hidden;
+                }
+            }
+        }
+
+        private void ComplexRenovationTypeSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(RoomStackPanel != null)
+            {
+                if (ComplexRenovationTypeComboBox.SelectedIndex == 1)
+                {
+                    RoomStackPanel.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    RoomStackPanel.Visibility = Visibility.Hidden;
+                }
+            }
         }
     }
 }

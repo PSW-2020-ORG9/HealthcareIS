@@ -18,6 +18,7 @@ namespace WPFHospitalEditor
         public const int StorageRoomId = 17;
         public const string AuthorizationTokenKey = "Authorization";
         public const int PatientIdForRelocation = 100;
+        public const int PatientIdForRenovation = 101;
         public const int RegularSpecialtyId = 2;
 
     }

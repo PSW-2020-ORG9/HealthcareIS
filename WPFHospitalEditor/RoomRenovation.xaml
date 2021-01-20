@@ -21,7 +21,7 @@
             <TextBlock Text="Room renovation" FontSize="20" Margin="20,10,0,0"></TextBlock>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,0">
                 <Label Content="Pick renovation type:" FontSize="14" VerticalAlignment="Center" Margin="20,0,0,0"></Label>
-                <ComboBox x:Name="RenovationType" x:FieldModifier="public" HorizontalAlignment="Left" Height="30" Width="100" Margin="5,0,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" SelectedIndex="0">
+                <ComboBox x:Name="RenovationTypeComboBox" x:FieldModifier="public" HorizontalAlignment="Left" Height="30" Width="100" Margin="5,0,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" SelectedIndex="0" SelectionChanged="RenovationTypeSelectionChanged">
                     <ComboBoxItem>Basic</ComboBoxItem>
                     <ComboBoxItem>Complex</ComboBoxItem>
                 </ComboBox>
@@ -38,16 +38,18 @@
                 <Label Content="Enter renovation description:" FontSize="14" VerticalAlignment="Center" Margin="20,0,0,0"></Label>
                 <TextBox Width="335" Height="50" TextWrapping="Wrap" TextAlignment="Left"></TextBox>
             </StackPanel>
-            <StackPanel x:Name="ComplexStackPanel" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,10,0,0">
+            <StackPanel x:Name="ComplexStackPanel" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,10,0,0" Visibility="Hidden">
                 <Label Content="Pick complex renovation type:" FontSize="14" VerticalAlignment="Center" Margin="20,0,0,0"></Label>
-                <ComboBox x:Name="ComplexRenovationTypeComboBox" x:FieldModifier="public" Height="30" Width="110" Margin="5,0,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" SelectedIndex="0">
+                <ComboBox x:Name="ComplexRenovationTypeComboBox" x:FieldModifier="public" Height="30" Width="110" Margin="5,0,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" SelectedIndex="0"  SelectionChanged="ComplexRenovationTypeSelectionChanged">
                     <ComboBoxItem>Separate room</ComboBoxItem>
                     <ComboBoxItem>Join rooms</ComboBoxItem>
                 </ComboBox>
-                <Label Content="Pick room id:" FontSize="14" VerticalAlignment="Center" Margin="20,0,0,0"></Label>
-                <ComboBox x:Name="SecondRoomComboBox" x:FieldModifier="public" HorizontalAlignment="Left" Height="30" Width="100" Margin="5,0,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
-                    <ComboBoxItem Name="emptyRoomComboBox">None</ComboBoxItem>
-                </ComboBox>
+                <StackPanel x:Name="RoomStackPanel" Orientation="Horizontal" Visibility="Hidden">
+                    <Label Content="Pick room id:" FontSize="14" VerticalAlignment="Center" Margin="20,0,0,0"></Label>
+                    <ComboBox x:Name="SecondRoomComboBox" x:FieldModifier="public" HorizontalAlignment="Left" Height="30" Width="100" Margin="5,0,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" SelectedIndex="0" >
+                        <ComboBoxItem Name="emptyRoomComboBox">None</ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
             </StackPanel>
             <Grid>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,30,0,0">

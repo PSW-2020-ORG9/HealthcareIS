@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows.Media;
 using WPFHospitalEditor.MapObjectModel;
 using WPFHospitalEditor.Repository;
@@ -62,6 +63,30 @@ namespace WPFHospitalEditor.Service
         public List<MapObject> GetAllBuildingMapObjects(int id)
         {
             return iMapObjectRepository.GetAllBuildingMapObjects(id);
+        }
+
+        public List<MapObject> GetNeigbourMapObjects(int roomId)
+        {
+            List<MapObject> neigbourMapObjects = new List<MapObject>();
+            List<MapObject> allMapObjects = GetAllMapObjects();
+            MapObject mapObject = GetMapObjectById(roomId);
+            foreach(MapObject mo in allMapObjects)
+            {
+                if(mo.MapObjectDescription.FloorNumber == mapObject.MapObjectDescription.FloorNumber
+                    && mo.Id != mapObject.Id)
+                {
+                    if(Math.Abs(mapObject.MapObjectMetrics.MapObjectCoordinates.X
+                        - (mo.MapObjectMetrics.MapObjectCoordinates.X
+                        + mo.MapObjectMetrics.MapObjectDimensions.Width)) < 50
+                        || Math.Abs((mapObject.MapObjectMetrics.MapObjectCoordinates.X
+                        + mapObject.MapObjectMetrics.MapObjectDimensions.Width)
+                        - mo.MapObjectMetrics.MapObjectCoordinates.X) < 50)
+                    {
+                        neigbourMapObjects.Add(mo);
+                    }
+                }
+            }
+            return neigbourMapObjects;
         }
     }
 }
