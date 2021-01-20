@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using WPFHospitalEditor.Controller;
 using WPFHospitalEditor.Controller.Interface;
 using WPFHospitalEditor.DTOs;
+using WPFHospitalEditor.MapObjectModel;
 using WPFHospitalEditor.Model;
 
 namespace WPFHospitalEditor
@@ -16,6 +17,7 @@ namespace WPFHospitalEditor
     public partial class RoomRenovation : Window
     {
         private IRoomServerController roomServerController = new RoomServerController();
+        private IMapObjectController mapObjectController = new MapObjectController();
         private IDoctorServerController doctorServerController = new DoctorServerController();
         private IExaminationServerController examinationServerController = new ExaminationServerController();
 
@@ -28,6 +30,7 @@ namespace WPFHospitalEditor
         {
             InitializeComponent();
             this.mapObjectId = mapObjectId;
+            SetRoomsComboBox();
         }
 
         private void CloseClick(object sender, RoutedEventArgs e)
@@ -37,17 +40,17 @@ namespace WPFHospitalEditor
 
         private void SetRoomsComboBox()
         {
-            
+            List<MapObject> mapObjects = mapObjectController.GetNeigbourMapObjects(mapObjectId);
+            foreach (MapObject mo in mapObjects)
+            {
+                SecondRoomComboBox.Items.Add(mo.Id);
+            }
         }
 
         private void RenovateRoom(object sender, RoutedEventArgs e)
         {
-            startDate =
-                DateTime.ParseExact(startDatePicker.SelectedDate.Value.ToString("MM/dd/yyyy")
-                + " " + StartTime.Text, "MM/dd/yyyy HH:mm", null);
-            endDate =
-                DateTime.ParseExact(startDatePicker.SelectedDate.Value.ToString("MM/dd/yyyy")
-                + " " + EndTime.Text, "MM/dd/yyyy HH:mm", null);
+            setSecondRoomId();
+            setDates();
             try
             {
                 TimeInterval timeInterval = new TimeInterval(startDate, endDate);
@@ -67,6 +70,22 @@ namespace WPFHospitalEditor
             {
                 MessageBox.Show("End time must be after start time!", "");
             }
+        }
+
+        private void setSecondRoomId()
+        {
+            if (SecondRoomComboBox.SelectedIndex != 0)
+                neighbourMapObjectId = int.Parse(SecondRoomComboBox.SelectedItem.ToString());
+        }
+
+        private void setDates()
+        {
+            startDate =
+                DateTime.ParseExact(startDatePicker.SelectedDate.Value.ToString("MM/dd/yyyy")
+                + " " + StartTime.Text, "MM/dd/yyyy HH:mm", null);
+            endDate =
+                DateTime.ParseExact(startDatePicker.SelectedDate.Value.ToString("MM/dd/yyyy")
+                + " " + EndTime.Text, "MM/dd/yyyy HH:mm", null);
         }
 
         private void ShowAlternativeRenovationAppointments(List<int> unavailableRooms, RenovationDto renovationDto)
