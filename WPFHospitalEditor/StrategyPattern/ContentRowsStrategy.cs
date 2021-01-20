@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using WPFHospitalEditor.Controller;
 using WPFHospitalEditor.Controller.Interface;
 using WPFHospitalEditor.DTOs;
@@ -10,32 +8,31 @@ namespace WPFHospitalEditor.StrategyPattern
 {
     interface IContentRowsStrategy
     {
-        string[] GetContentRows();
+        AdditionalInformationDTO GetContentRows();
     }
 
-    class ContentRowsStrategy: IContentRowsStrategy
+    class ContentRowsStrategy : IContentRowsStrategy
     {
-        private IContentRowsStrategy strategy;
+        private readonly IContentRowsStrategy strategy;
 
-        public ContentRowsStrategy() { }
         public ContentRowsStrategy(IContentRowsStrategy strategy)
         {
             this.strategy = strategy;
         }
 
-        public string[] GetContentRows()
+        public AdditionalInformationDTO GetContentRows()
         {
             return strategy.GetContentRows();
         }
     }
     class MedicationContentRows : IContentRowsStrategy
     {
-        private int id;
+        private readonly int id;
         public MedicationContentRows(int id)
         {
             this.id = id;
         }
-        public string[] GetContentRows()
+        public AdditionalInformationDTO GetContentRows()
         {
             IMedicationServerController medicationServerController = new MedicationServerController();
             IEnumerable<MedicationDto> allMedications = medicationServerController.GetAllMedication();
@@ -45,19 +42,23 @@ namespace WPFHospitalEditor.StrategyPattern
             {
                 medicationContentRows[i] = allMedications.ElementAt(i).Name + AllConstants.ContentSeparator + allMedications.ElementAt(i).Quantity;
             }
-            return medicationContentRows;
+            return new AdditionalInformationDTO()
+            {
+                MapObjectId = id,
+                ContentRows = medicationContentRows
+            };
         }
     }
 
     class EquipmentContentRows : IContentRowsStrategy
     {
-        private int id;
+        private readonly int id;
 
         public EquipmentContentRows(int id)
         {
             this.id = id;
         }
-        public string[] GetContentRows()
+        public AdditionalInformationDTO GetContentRows()
         {
             IEquipmentServerController equipmentServerController = new EquipmentServerController();
             IEnumerable<EquipmentDto> allEquipment = equipmentServerController.GetEquipmentByRoomId(id);
@@ -68,7 +69,11 @@ namespace WPFHospitalEditor.StrategyPattern
             {
                 equipmentContentRows[i] = allEquipment.ElementAt(i).Name + AllConstants.ContentSeparator + allEquipment.ElementAt(i).Quantity;
             }
-            return equipmentContentRows;
+            return new AdditionalInformationDTO()
+            {
+                MapObjectId = id,
+                ContentRows = equipmentContentRows
+            };
         }
     }
 }

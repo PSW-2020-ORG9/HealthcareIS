@@ -2,6 +2,6 @@
 {
     public enum RecommendationPreference
     {
-        Doctor, Time
+        Time, Doctor
     }
 }

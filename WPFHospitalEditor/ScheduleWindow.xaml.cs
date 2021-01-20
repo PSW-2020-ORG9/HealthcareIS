@@ -16,10 +16,11 @@ namespace WPFHospitalEditor
         IPatientServerController patientServerController = new PatientServerController();
         IExaminationServerController examinationServerController = new ExaminationServerController();
 
-        public ScheduleWindow(RecommendationDto recommendationDto)
+        public ScheduleWindow(RecommendationDto recommendationDto, Window Owner)
         {
             InitializeComponent();
             this.recommendationDto = recommendationDto;
+            this.Owner = Owner;
             SetAppointmentInfoContent();
             SetPatientNameComboBox();
         }
@@ -35,19 +36,41 @@ namespace WPFHospitalEditor
             {
                 MessageBox.Show("You must select a patient!");
             }
-            else { 
-                String patient = patientsComboBox.SelectedItem.ToString();
-                int patientID = int.Parse(patient.Split(" ")[0]);
-                Examination examination = examinationServerController.ScheduleExamination(recommendationDto.TimeInterval.Start, recommendationDto.Doctor.Id, patientID);
-                if (examination!= null)
+            else {
+                if (this.Owner == null)
                 {
-                    MessageBox.Show("Examination has been scheduled successfuly!");
+                    ScheduleEmergencyExamination();
                 }
-                else
-                {
-                    MessageBox.Show("An error has occured, examination is NOT scheduled!");
+                else { 
+                    String patient = patientsComboBox.SelectedItem.ToString();
+                    int patientID = int.Parse(patient.Split(" ")[0]);
+                    Examination examination = examinationServerController.ScheduleExamination(recommendationDto.TimeInterval.Start, recommendationDto.Doctor.Id, patientID);
+                    if (examination!= null)
+                    {
+                        MessageBox.Show("Examination has been scheduled successfuly!");
+                        Owner.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("An error has occured, examination is NOT scheduled!");
+                    }
                 }
-            this.Close();
+                this.Close();
+            }
+        }
+
+        private void ScheduleEmergencyExamination()
+        {
+            String patient = patientsComboBox.SelectedItem.ToString();
+            int patientID = int.Parse(patient.Split(" ")[0]);
+            Examination examination = examinationServerController.ScheduleEmergencyExamination(recommendationDto.TimeInterval.Start, recommendationDto.Doctor.Id, patientID);
+            if (examination != null)
+            {
+                MessageBox.Show("Examination has been scheduled successfuly!");
+            }
+            else
+            {
+                MessageBox.Show("An error has occured, examination is NOT scheduled!");
             }
         }
 

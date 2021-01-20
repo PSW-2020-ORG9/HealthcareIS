@@ -22,5 +22,9 @@ namespace Hospital.API.Services.Resources
 
         public Room GetById(int id)
             => _roomRepository.Repository.GetByID(id);
+
+        public IEnumerable<Room> getByEquipmentType(string equipmentTypeName)
+            => _roomRepository.Repository
+            .GetMatching(r => r.Equipment.Select(r => r.EquipmentType.Name).Contains(equipmentTypeName));
     }
 }

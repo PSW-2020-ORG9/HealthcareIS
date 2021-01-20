@@ -1,4 +1,6 @@
-﻿using RestSharp;
+﻿using Newtonsoft.Json;
+using RestSharp;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using WPFHospitalEditor.DTOs;
@@ -13,6 +15,7 @@ namespace WPFHospitalEditor.Service
         {
             var client = new RestClient(AllConstants.ConnectionUrl);
             var request = new RestRequest("/api/user/doctor/departments/" + departmentId, Method.GET);
+            request.AddParameter(AllConstants.AuthorizationTokenKey, LoggedUser.Cookie, ParameterType.Cookie);
             var response = client.Get<IEnumerable<DoctorDto>>(request);
             return response.Data;
         }
@@ -21,6 +24,7 @@ namespace WPFHospitalEditor.Service
         {
             var client = new RestClient(AllConstants.ConnectionUrl);
             var request = new RestRequest("/api/user/doctor/" + doctorId, Method.GET);
+            request.AddParameter(AllConstants.AuthorizationTokenKey, LoggedUser.Cookie, ParameterType.Cookie);
             var response = client.Get<Doctor>(request);
             return response.Data;
         }
@@ -29,6 +33,7 @@ namespace WPFHospitalEditor.Service
         {
             var client = new RestClient(AllConstants.ConnectionUrl);
             var request = new RestRequest("/api/user/doctor/specialists", Method.GET);
+            request.AddParameter(AllConstants.AuthorizationTokenKey, LoggedUser.Cookie, ParameterType.Cookie);
             var response = client.Get<IEnumerable<DoctorDto>>(request);
             return response.Data;
         }
@@ -62,6 +67,30 @@ namespace WPFHospitalEditor.Service
                     doctors.Add(doctorDto);
             }
             return doctors;
+        }
+
+        public IEnumerable<int> GetDoctorsByRoomsAndShifts(EquipmentRelocationDto dto)
+        {
+            var client = new RestClient(AllConstants.ConnectionUrl);
+            var request = new RestRequest("/api/schedule/examination/get-doctors-by-rooms-and-shifts", Method.POST);
+            request.AddParameter(AllConstants.AuthorizationTokenKey, LoggedUser.Cookie, ParameterType.Cookie);
+            request.AddJsonBody(EquipmentRelocationDtoToJson(dto));
+            var response = client.Post<List<int>>(request);
+            return response.Data;
+        }
+
+        private String EquipmentRelocationDtoToJson(EquipmentRelocationDto eqRelDto)
+        {
+            return JsonConvert.SerializeObject(eqRelDto);
+        }
+
+        public IEnumerable<Doctor> GetDoctorsBySpecialty(int specialtyId)
+        {
+            var client = new RestClient(AllConstants.ConnectionUrl);
+            var request = new RestRequest("/api/user/doctor/specialty/" + specialtyId, Method.GET);
+            request.AddParameter(AllConstants.AuthorizationTokenKey, LoggedUser.Cookie, ParameterType.Cookie);
+            var response = client.Get<IEnumerable<Doctor>>(request);
+            return response.Data;
         }
     }
 }

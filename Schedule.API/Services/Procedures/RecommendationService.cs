@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using General;
 using General.Repository;
+using Schedule.API.DTOs;
 using Schedule.API.Infrastructure.Repositories.Procedures.Interfaces;
 using Schedule.API.Infrastructure.Repositories.Shifts;
 using Schedule.API.Model.Dependencies;
@@ -39,6 +40,14 @@ namespace Schedule.API.Services.Procedures
             if (dto.TimeInterval.Start < DateTime.Now) return null;
             
             return dto.Preference == RecommendationPreference.Time ? RecommendWithTime(dto) : RecommendWithDoctor(dto);
+        }
+
+        public IEnumerable<RecommendationDto> RecommendEmergency(RecommendationRequestDto dto)
+        {
+            if (dto.TimeInterval == null) return null;
+            List<RecommendationDto> recommendations = new List<RecommendationDto>();
+            recommendations.AddRange(RecommendEmergencyInTimeInterval(dto, GetRemainingSlots(recommendations)));
+            return recommendations;
         }
 
         private List<RecommendationDto> RecommendWithTime(RecommendationRequestDto dto)
@@ -100,6 +109,24 @@ namespace Schedule.API.Services.Procedures
                 }
             );
             return FindRecommendationsInShifts(selectedDoctorShifts, remainingSlots);
+        }
+
+        private List<RecommendationDto> RecommendEmergencyInTimeInterval(RecommendationRequestDto dto, int remainingSlots)
+        {
+            if (remainingSlots == 0) return new List<RecommendationDto>();
+            IEnumerable<int> doctorIds =
+                _doctorConnection.Get<IEnumerable<int>>($"specialty/ids/{dto.SpecialtyId}");
+
+            IEnumerable<Shift> allShifts = _shiftWrapper.Repository
+                .GetMatching(shift =>
+                    doctorIds.Contains(shift.DoctorId)
+                    && shift.TimeInterval.Start.Date >= dto.TimeInterval.Start.Date
+                    && shift.TimeInterval.Start.Date <= dto.TimeInterval.End.Date
+                    && shift.TimeInterval.Start.Hour >= dto.TimeInterval.Start.Hour
+                    && shift.TimeInterval.Start.Hour <= dto.TimeInterval.End.Hour
+                );
+
+            return FindRecommendationsInShifts(allShifts, remainingSlots);
         }
 
         /// <summary>
@@ -186,6 +213,46 @@ namespace Schedule.API.Services.Procedures
             }
             
             return intervals;
+        }
+
+        public IEnumerable<EquipmentRelocationDto> RecommendEquipmentRelocation(EquipmentRecommendationRequestDto dto)
+        {
+            IEnumerable<Shift> shiftsForDestinationRoom = _shiftWrapper.Repository.GetByTimeInterval
+                (dto.TimeInterval).Where(shift => shift.AssignedExamRoomId == dto.DestinationRoomId);
+
+            IEnumerable<Shift> shiftsForSourceRoom = _shiftWrapper.Repository.GetByTimeInterval
+                (dto.TimeInterval).Where(shift => shift.AssignedExamRoomId == dto.SourceRoomId);
+
+            IEnumerable<RecommendationDto> recommendationsSourceRoom = FindRecommendationsInShifts(shiftsForSourceRoom, 20);
+            IEnumerable<RecommendationDto> recommendationsDestinationRoom = FindRecommendationsInShifts(shiftsForDestinationRoom, 20);
+
+            return FindCommonEquipmentRelocationAppointments(dto, recommendationsSourceRoom, recommendationsDestinationRoom);
+
+        }
+
+        private IEnumerable<EquipmentRelocationDto> FindCommonEquipmentRelocationAppointments(EquipmentRecommendationRequestDto dto, IEnumerable<RecommendationDto> recsDestinationRoom, IEnumerable<RecommendationDto> recsSourceRoom)
+        {
+            List<EquipmentRelocationDto> equipmentRelocationDtos = new List<EquipmentRelocationDto>();
+
+            foreach (RecommendationDto recDestination in recsDestinationRoom)
+            {
+                foreach (RecommendationDto recSource in recsSourceRoom)
+                {
+                    if (recDestination.TimeInterval.Start == recSource.TimeInterval.Start && recDestination.TimeInterval.End == recSource.TimeInterval.End)
+                    {
+                        EquipmentRelocationDto eqDto = new EquipmentRelocationDto()
+                        {
+                            SourceRoomId = dto.SourceRoomId,
+                            DestinationRoomId = dto.DestinationRoomId,
+                            Amount = 0,
+                            TimeInterval = recDestination.TimeInterval
+                        };
+                        equipmentRelocationDtos.Add(eqDto);
+                    }
+                    if (equipmentRelocationDtos.Count == 5) return equipmentRelocationDtos;
+                }
+            }
+            return equipmentRelocationDtos;
         }
     }
 }

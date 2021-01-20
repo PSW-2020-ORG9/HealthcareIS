@@ -1,18 +1,24 @@
 ﻿using System;
+using WPFHospitalEditor.Exceptions;
 
 namespace WPFHospitalEditor.Model
 {
     public class TimeInterval
     {
-        public TimeInterval(DateTime startDate, DateTime endDate)
+        public DateTime Start { get; }
+        public DateTime End { get; }
+
+        public TimeInterval(DateTime start, DateTime end)
         {
-            StartDate = startDate;
-            EndDate = endDate;
+            Validate(start, end);
+            Start = start;
+            End = end;
         }
 
-        public DateTime StartDate { get; }
-        public DateTime EndDate { get; }
-        public DateTime Start { get; internal set; }
-        public DateTime End { get; internal set; }
+        public void Validate(DateTime start, DateTime end)
+        {
+            if (start >= end)
+                throw new ValidationException("End time must be after start time!");
+        }
     }
 }

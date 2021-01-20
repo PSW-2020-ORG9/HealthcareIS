@@ -1,20 +1,29 @@
 {
   "ReRoutes": [
     {
-      "DownstreamPathTemplate": "/user/doctor/{everything}",
+      "DownstreamPathTemplate": "/user/doctor/departments",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "$PSW_USER_SERVICE_HOST",
-          "Port": $PSW_USER_SERVICE_PORT
+          "Port": "$PSW_USER_SERVICE_PORT"
         }
       ],
-      "UpstreamPathTemplate": "/api/user/doctor/{everything}",
-      "UpstreamHttpMethod": ["Get","Post"],
-      "RouteClaimsRequirement" :
-      {
-        "Role" : "Patient, Admin"
-      }
+      "UpstreamPathTemplate": "/api/user/doctor/departments",
+      "UpstreamHttpMethod": [ "Get", "Post" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/user/doctor/specialists",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "$PSW_USER_SERVICE_HOST",
+          "Port": "$PSW_USER_SERVICE_PORT"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/user/doctor/specialists",
+      "UpstreamHttpMethod": [ "Get", "Post" ]
     },
 
     {
@@ -23,16 +32,43 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "$PSW_USER_SERVICE_HOST",
-          "Port": $PSW_USER_SERVICE_PORT
+          "Port": "$PSW_USER_SERVICE_PORT"
         }
       ],
       "UpstreamPathTemplate": "/api/user/doctor/",
-      "UpstreamHttpMethod": ["Get","Post"],
-      "RouteClaimsRequirement" :
-      {
-        "Role" : "Patient, Admin"
+      "UpstreamHttpMethod": [ "Get", "Post" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/user/patient/all",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "$PSW_USER_SERVICE_HOST",
+          "Port": "$PSW_USER_SERVICE_PORT"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/user/patient/all",
+      "UpstreamHttpMethod": [ "Get", "Post" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/user/doctor/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "$PSW_USER_SERVICE_HOST",
+          "Port": "$PSW_USER_SERVICE_PORT"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/user/doctor/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "RouteClaimsRequirement": {
+        "Role": "Patient, Admin"
       }
     },
+
+
 
     {
       "DownstreamPathTemplate": "/user/specialty/{everything}",
@@ -40,14 +76,13 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "$PSW_USER_SERVICE_HOST",
-          "Port": $PSW_USER_SERVICE_PORT
+          "Port": "$PSW_USER_SERVICE_PORT"
         }
       ],
       "UpstreamPathTemplate": "/api/user/specialty/{everything}",
-      "UpstreamHttpMethod": ["Get","Post"],
-      "RouteClaimsRequirement" :
-      {
-        "Role" : "Patient, Admin"
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "RouteClaimsRequirement": {
+        "Role": "Patient, Admin"
       }
     },
 
@@ -57,14 +92,13 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "$PSW_USER_SERVICE_HOST",
-          "Port": $PSW_USER_SERVICE_PORT
+          "Port": "$PSW_USER_SERVICE_PORT"
         }
       ],
       "UpstreamPathTemplate": "/api/user/patient",
-      "UpstreamHttpMethod": ["Get", "Post"],
-      "RouteClaimsRequirement" :
-      {
-        "Role" : "Patient, Admin"
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "RouteClaimsRequirement": {
+        "Role": "Patient, Admin"
       }
     },
 
@@ -74,31 +108,29 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "$PSW_USER_SERVICE_HOST",
-          "Port": $PSW_USER_SERVICE_PORT
+          "Port": "$PSW_USER_SERVICE_PORT"
         }
       ],
       "UpstreamPathTemplate": "/api/user/patient/accounts",
-      "UpstreamHttpMethod": ["Post"],
-      "RouteClaimsRequirement" :
-      {
-        "Role" : "Admin"
+      "UpstreamHttpMethod": [ "Post" ],
+      "RouteClaimsRequirement": {
+        "Role": "Admin"
       }
     },
-    
+
     {
       "DownstreamPathTemplate": "/user/patient/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "$PSW_USER_SERVICE_HOST",
-          "Port": $PSW_USER_SERVICE_PORT
+          "Port": "$PSW_USER_SERVICE_PORT"
         }
       ],
       "UpstreamPathTemplate": "/api/user/patient/{everything}",
-      "UpstreamHttpMethod": ["Get","Post"],
-      "RouteClaimsRequirement" :
-      {
-        "Role" : "Patient, Admin"
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "RouteClaimsRequirement": {
+        "Role": "Patient, Admin"
       }
     },
 
@@ -108,14 +140,13 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "$PSW_USER_SERVICE_HOST",
-          "Port": $PSW_USER_SERVICE_PORT
+          "Port": "$PSW_USER_SERVICE_PORT"
         }
       ],
       "UpstreamPathTemplate": "/api/user/specialty",
-      "UpstreamHttpMethod": ["Get"],
-      "RouteClaimsRequirement" :
-      {
-        "Role" : "Patient, Admin"
+      "UpstreamHttpMethod": [ "Get" ],
+      "RouteClaimsRequirement": {
+        "Role": "Patient, Admin"
       }
     },
 
@@ -125,41 +156,40 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "$PSW_USER_SERVICE_HOST",
-          "Port": $PSW_USER_SERVICE_PORT
+          "Port": "$PSW_USER_SERVICE_PORT"
         }
       ],
       "UpstreamPathTemplate": "/api/user/{everything}",
-      "UpstreamHttpMethod": ["Get", "Post"]
+      "UpstreamHttpMethod": [ "Get", "Post" ]
     },
-    
+
     {
       "DownstreamPathTemplate": "/feedbacks/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "$PSW_FEEDBACK_SERVICE_HOST",
-          "Port": $PSW_FEEDBACK_SERVICE_PORT
+          "Port": "$PSW_FEEDBACK_SERVICE_PORT"
         }
       ],
       "UpstreamPathTemplate": "/api/feedbacks/{everything}",
-      "UpstreamHttpMethod": [ "Get","Post" ]
+      "UpstreamHttpMethod": [ "Get", "Post" ]
     },
-    
+
     {
       "DownstreamPathTemplate": "/schedule/diagnosis",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "$PSW_SCHEDULE_SERVICE_HOST",
-          "Port": $PSW_SCHEDULE_SERVICE_PORT
+          "Port": "$PSW_SCHEDULE_SERVICE_PORT"
         }
       ],
       "UpstreamPathTemplate": "/api/schedule/diagnosis",
-      "UpstreamHttpMethod": [ "Get","Post" ],
-      "RouteClaimsRequirement" : 
-        {
-            "Role" : "Doctor, Admin"
-        }
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "RouteClaimsRequirement": {
+        "Role": "Doctor, Admin"
+      }
     },
 
     {
@@ -168,14 +198,13 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "$PSW_SCHEDULE_SERVICE_HOST",
-          "Port": $PSW_SCHEDULE_SERVICE_PORT
+          "Port": "$PSW_SCHEDULE_SERVICE_PORT"
         }
       ],
       "UpstreamPathTemplate": "/api/schedule/diagnosis/{everything}",
-      "UpstreamHttpMethod": [ "Get","Post" ],
-      "RouteClaimsRequirement" :
-      {
-        "Role" : "Doctor, Admin"
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "RouteClaimsRequirement": {
+        "Role": "Doctor, Admin"
       }
     },
 
@@ -185,14 +214,13 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "$PSW_SCHEDULE_SERVICE_HOST",
-          "Port": $PSW_SCHEDULE_SERVICE_PORT
+          "Port": "$PSW_SCHEDULE_SERVICE_PORT"
         }
       ],
       "UpstreamPathTemplate": "/api/schedule/available/{everything}",
       "UpstreamHttpMethod": [ "Get" ],
-      "RouteClaimsRequirement" :
-      {
-        "Role" : "Patient, Admin"
+      "RouteClaimsRequirement": {
+        "Role": "Patient, Admin"
       }
     },
 
@@ -202,15 +230,77 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "$PSW_SCHEDULE_SERVICE_HOST",
-          "Port": $PSW_SCHEDULE_SERVICE_PORT
+          "Port": "$PSW_SCHEDULE_SERVICE_PORT"
         }
       ],
       "UpstreamPathTemplate": "/api/schedule/examination",
-      "UpstreamHttpMethod": [ "Get", "Post" ],
-      "RouteClaimsRequirement" :
-      {
-        "Role" : "Patient"
-      }
+      "UpstreamHttpMethod": [ "Get", "Post" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/schedule/examination/recommend",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "$PSW_SCHEDULE_SERVICE_HOST",
+          "Port": "$PSW_SCHEDULE_SERVICE_PORT"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/schedule/examination/recommend",
+      "UpstreamHttpMethod": [ "Get", "Post" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/schedule/examination/schedule-emergency",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "$PSW_SCHEDULE_SERVICE_HOST",
+          "Port": "$PSW_SCHEDULE_SERVICE_PORT"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/schedule/examination/schedule-emergency",
+      "UpstreamHttpMethod": [ "Get", "Post" ]
+    },
+
+
+    {
+      "DownstreamPathTemplate": "/schedule/examination/recommend-equipment-relocation",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "$PSW_SCHEDULE_SERVICE_HOST",
+          "Port": "$PSW_SCHEDULE_SERVICE_PORT"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/schedule/examination/recommend-equipment-relocation",
+      "UpstreamHttpMethod": [ "Get", "Post" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/schedule/examination/unavailable-rooms",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "$PSW_SCHEDULE_SERVICE_HOST",
+          "Port": "$PSW_SCHEDULE_SERVICE_PORT"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/schedule/examination/unavailable-rooms",
+      "UpstreamHttpMethod": [ "Post" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/schedule/examination/get-doctors-by-rooms-and-shifts",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "$PSW_SCHEDULE_SERVICE_HOST",
+          "Port": "$PSW_SCHEDULE_SERVICE_PORT"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/schedule/examination/get-doctors-by-rooms-and-shifts",
+      "UpstreamHttpMethod": [ "Post" ]
     },
 
     {
@@ -219,14 +309,13 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "$PSW_SCHEDULE_SERVICE_HOST",
-          "Port": $PSW_SCHEDULE_SERVICE_PORT
+          "Port": "$PSW_SCHEDULE_SERVICE_PORT"
         }
       ],
       "UpstreamPathTemplate": "/api/schedule/examination/cancel/{everything}",
       "UpstreamHttpMethod": [ "Get" ],
-      "RouteClaimsRequirement" :
-      {
-        "Role" : "Patient, Admin"
+      "RouteClaimsRequirement": {
+        "Role": "Patient, Admin"
       }
     },
 
@@ -236,16 +325,16 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "$PSW_SCHEDULE_SERVICE_HOST",
-          "Port": $PSW_SCHEDULE_SERVICE_PORT
+          "Port": "$PSW_SCHEDULE_SERVICE_PORT"
         }
       ],
       "UpstreamPathTemplate": "/api/schedule/examination/{everything}",
       "UpstreamHttpMethod": [ "Get", "Post" ],
-      "RouteClaimsRequirement" :
-      {
-        "Role" : "Patient"
+      "RouteClaimsRequirement": {
+        "Role": "Patient"
       }
     },
+
 
     {
       "DownstreamPathTemplate": "/hospital/docsearch/prescription",
@@ -253,14 +342,13 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "$PSW_HOSPITAL_SERVICE_HOST",
-          "Port": $PSW_HOSPITAL_SERVICE_PORT
+          "Port": "$PSW_HOSPITAL_SERVICE_PORT"
         }
       ],
       "UpstreamPathTemplate": "/api/hospital/docsearch/prescription",
       "UpstreamHttpMethod": [ "Get" ],
-      "RouteClaimsRequirement" :
-      {
-        "Role" : "Patient, Admin"
+      "RouteClaimsRequirement": {
+        "Role": "Patient, Admin"
       }
     },
     {
@@ -269,14 +357,13 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "$PSW_HOSPITAL_SERVICE_HOST",
-          "Port": $PSW_HOSPITAL_SERVICE_PORT
+          "Port": "$PSW_HOSPITAL_SERVICE_PORT"
         }
       ],
       "UpstreamPathTemplate": "/api/hospital/{everything}",
-      "UpstreamHttpMethod": [ "Get","Post" ],
-      "RouteClaimsRequirement" :
-      {
-        "Role" : "Secretary"
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "RouteClaimsRequirement": {
+        "Role": "Admin"
       }
     }
     ,

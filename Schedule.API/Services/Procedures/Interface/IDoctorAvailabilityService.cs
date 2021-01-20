@@ -6,6 +6,6 @@ namespace Schedule.API.Services.Procedures.Interface
 {
     public interface IDoctorAvailabilityService
     {
-        public IEnumerable<Doctor> GetAvailableByDay(DateTime date);
+        IEnumerable<Doctor> GetAvailableByDay(DateTime date);
     }
 }
