@@ -1,11 +1,38 @@
 <template>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <div class="modal fade" id="modal" role="dialog" aria-labelledby="modal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Examination Report</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-left" v-if="selectedExamination && selectedExamination.examinationReport">
+                    <b>Anamnesis:</b> {{selectedExamination.examinationReport.anamnesis}}<br/><hr>
+                    <b>Diagnosis:</b> {{selectedExamination.examinationReport.diagnoses[0].name}}<br/><hr>
+                    <b>Diagnosis description:</b> {{selectedExamination.examinationReport.diagnoses[0].description}}<br/><hr>
+                    <b>Start:</b> {{formatDate(selectedExamination.timeInterval.start)}}<br/><hr>
+                    <b>End:</b> {{formatDate(selectedExamination.timeInterval.end)}}<br/><hr>
+                    <b>Doctor:</b> Dr. {{selectedExamination.doctor.person.name}} {{selectedExamination.doctor.person.surname}}<br/><hr>
+                    <b>Examined in:</b> {{selectedExamination.room.name}}, {{selectedExamination.room.department.description}}
+                </div>
+                <div v-else>
+                    <b>This examination has no additional information.</b>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div>
         <h1>Your appointments</h1>
         <div class="container w-50" v-if="loaded">
             <div name="passed" class="container bg-light border border-gray">
                 <div class="text-left text-dark lead">Past appointments</div>
-                <ExaminationItem v-for="(examination, index) in getPastAppointments()"
+                <ExaminationItem v-for="(examination, index) in getPastAppointments()" style="cursor: pointer;" data-toggle="modal" data-target="#modal" @click="selectedExamination = examination"
                                  v-bind:key="examination.id" v-bind:examination="examination"
                                  v-bind:surveyCompleted="surveyStatuses[index]"></ExaminationItem>
             </div>
@@ -39,7 +66,8 @@ export default {
         return {
             examinations: [],
             surveyStatuses: [],
-            loaded: false
+            loaded: false,
+            selectedExamination: null
         }
     },
     components: {
@@ -104,6 +132,9 @@ export default {
         },
         sortAppointments: function (appointments) {
             return appointments.sort((a1, a2) => new Date(a1.timeInterval.start) - new Date(a2.timeInterval.start))
+        },
+        formatDate: function (date) {
+            return moment(date).format("hh:mm D.M.YYYY.")
         }
     }
 }
