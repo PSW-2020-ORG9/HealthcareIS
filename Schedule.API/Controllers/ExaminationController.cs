@@ -75,10 +75,40 @@ namespace Schedule.API.Controllers
         }
 
         [HttpPost]
+        [Route("schedule-emergency")]
+        public IActionResult ScheduleEmergencyExamination(ScheduledExaminationDTO dto)
+        {
+            var examination = ExaminationMapper.DtoToObject(dto);
+            try
+            {
+                return Ok(_examinationService.ScheduleEmergency(examination));
+            }
+            catch (NullReferenceException)
+            {
+                return BadRequest("Examination cannot be null.");
+            }
+            catch (ScheduleViolationException e)
+            {
+                return BadRequest(e.Message);
+            }
+            catch (ArgumentException e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPost]
         [Route("recommend")]
         public IActionResult RecommendExamination(RecommendationRequestDto dto)
         {
             return Ok(_recommendationService.Recommend(dto));
+        }
+
+        [HttpPost]
+        [Route("emergency")]
+        public IActionResult RecommendEmergencyExamination(RecommendationRequestDto dto)
+        {
+            return Ok(_recommendationService.RecommendEmergency(dto));
         }
 
         [HttpPost]
@@ -109,6 +139,13 @@ namespace Schedule.API.Controllers
         public IActionResult GetDoctorsByRoomsAndShifts(EquipmentRelocationDto dto)
         {
             return Ok(_equipmentRelocationSchedulingService.GetDoctorsByRoomsAndShifts(dto));
+        }
+
+        [HttpPost]
+        [Route("recommend-equipment-relocation")]
+        public IActionResult GetEquipmentRelocationAppointments(EquipmentRecommendationRequestDto dto)
+        {
+            return Ok(_recommendationService.RecommendEquipmentRelocation(dto));
         }
     }
 }

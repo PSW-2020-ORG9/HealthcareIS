@@ -1,14 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Media;
+﻿using System.Windows;
 using WPFHospitalEditor.MapObjectModel;
-using WPFHospitalEditor.Service;
 using WPFHospitalEditor.Controller;
-using System.Linq;
 using System;
-using WPFHospitalEditor.Controller.Interface;
 using WPFHospitalEditor.StrategyPattern;
-using WPFHospitalEditor.Pages;
 using WPFHospitalEditor.Model;
 
 namespace WPFHospitalEditor
@@ -18,16 +12,13 @@ namespace WPFHospitalEditor
     /// </summary>
     public partial class AdditionalInformation : Window
     {
-
-        private MapObject mapObject;
-        private BuildingPage building;
+        private readonly MapObject mapObject;
         private DynamicGridControl dynamicGridControl;
 
-        public AdditionalInformation(MapObject mapObject, BuildingPage building)
+        public AdditionalInformation(MapObject mapObject)
         {
             InitializeComponent();
             this.mapObject = mapObject;
-            this.building = building;
             SetDynamicGrid();
             InitializeTitle();
             SetButtonsVisibility();
@@ -63,21 +54,21 @@ namespace WPFHospitalEditor
         private void InitializeTitle()
         {
             Title.Text = mapObject.Name;
-            if (LoggedUser.Role.Equals(Role.Patient))
+            if (IsPatientLogged())
                 Title.IsReadOnly = true;
         }
 
         private void BtnEquipmentClick(object sender, RoutedEventArgs e)
         {
             IContentRowsStrategy strategy = new ContentRowsStrategy(new EquipmentContentRows(mapObject.Id));
-            EquipmentAndMedicationWindow equipment = new EquipmentAndMedicationWindow(strategy.GetContentRows(), mapObject.Id);
+            EquipmentAndMedicationDialog equipment = new EquipmentAndMedicationDialog(strategy.GetContentRows());
             equipment.ShowDialog();
             this.Close();
         }
         private void BtnMedicationsClick(object sender, RoutedEventArgs e)
         {
             IContentRowsStrategy strategy = new ContentRowsStrategy(new MedicationContentRows(mapObject.Id));
-            EquipmentAndMedicationWindow medications = new EquipmentAndMedicationWindow(strategy.GetContentRows(), mapObject.Id);
+            EquipmentAndMedicationDialog medications = new EquipmentAndMedicationDialog(strategy.GetContentRows());
             medications.ShowDialog();
             this.Close();
         }
@@ -90,7 +81,7 @@ namespace WPFHospitalEditor
 
         private Boolean IsPatientLogged()
         {
-            return (LoggedUser.Role.Equals(Role.Patient));
+            return LoggedUser.RoleEquals(Role.Patient);
         }
     }
 }

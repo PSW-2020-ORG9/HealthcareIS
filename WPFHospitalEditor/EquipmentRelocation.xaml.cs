@@ -7,6 +7,7 @@ using WPFHospitalEditor.Controller;
 using WPFHospitalEditor.Controller.Interface;
 using WPFHospitalEditor.DTOs;
 using WPFHospitalEditor.Model;
+using WPFHospitalEditor.StrategyPattern;
 
 namespace WPFHospitalEditor
 {
@@ -60,28 +61,38 @@ namespace WPFHospitalEditor
             endDate =
                 DateTime.ParseExact(startDatePicker.SelectedDate.Value.ToString("MM/dd/yyyy")
                 + " " + EndTime.Text, "MM/dd/yyyy HH:mm", null);
-            TimeInterval timeInterval = new TimeInterval(startDate, endDate);
-
-            if (AmountIsValid() && timeInterval.IsValid())
+            try{
+                TimeInterval timeInterval = new TimeInterval(startDate, endDate);
+                if (AmountIsValid())
+                {
+                    EquipmentRelocationDto eqRelDto = CreateEquipmentRelocationDto(timeInterval);
+                    List<int> unavailableRooms = roomServerController.GetUnavailableRoomsIdsInTimeInterval(eqRelDto).ToList();
+                    if (unavailableRooms.Count > 0)
+                    {
+                        ShowAlternativeRelocationAppointments(unavailableRooms, eqRelDto);
+                    }
+                    else
+                    {
+                        ScheduleRelocation(eqRelDto);
+                    }
+                }
+            } catch
             {
-                EquipmentRelocationDto eqRelDto = CreateEquipmentRelocationDto(timeInterval);
-                List<int> unavailableRooms = roomServerController.GetUnavailableRoomsIdsInTimeInterval(eqRelDto).ToList();
-                if (unavailableRooms.Count > 0)
-                {
-                    ShowAlternativeRelocationAppointments(unavailableRooms);
-                }
-                else
-                {
-                    ScheduleRelocation(eqRelDto);
-                }
+                MessageBox.Show("End time must be after start time!", "");
             }
-
         }
 
-        private void ShowAlternativeRelocationAppointments(List<int> unavailableRooms)
+        private void ShowAlternativeRelocationAppointments(List<int> unavailableRooms, EquipmentRelocationDto equipmentRelocationDto)
         {
+            EquipmentRecommendationRequestDto eqRequest = new EquipmentRecommendationRequestDto()
+            {
+                SourceRoomId = equipmentRelocationDto.SourceRoomId,
+                DestinationRoomId = equipmentRelocationDto.DestinationRoomId,
+                TimeInterval = equipmentRelocationDto.TimeInterval
+            };
+            
             AlternativeRelocationAppointments newWindow =
-            new AlternativeRelocationAppointments(unavailableRooms[0], this);
+            new AlternativeRelocationAppointments(unavailableRooms[0], this, eqRequest, relocationEquipmentName);
             newWindow.Show();
         }
 
@@ -94,7 +105,7 @@ namespace WPFHospitalEditor
                 startDate = eqRelDto.TimeInterval.Start;
                 while (startDate < endDate)
                 {
-                    examinationServerController.ScheduleExamination(startDate, doctorId, AllConstants.RelocationId);
+                    examinationServerController.ScheduleExamination(startDate, doctorId, AllConstants.PatientIdForRelocation);
                     startDate = startDate.AddMinutes(30);
                 }
             }

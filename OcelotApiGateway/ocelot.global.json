@@ -254,6 +254,33 @@
     },
 
     {
+      "DownstreamPathTemplate": "/schedule/examination/schedule-emergency",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "$PSW_SCHEDULE_SERVICE_HOST",
+          "Port": "$PSW_SCHEDULE_SERVICE_PORT"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/schedule/examination/schedule-emergency",
+      "UpstreamHttpMethod": [ "Get", "Post" ]
+    },
+
+
+    {
+      "DownstreamPathTemplate": "/schedule/examination/recommend-equipment-relocation",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "$PSW_SCHEDULE_SERVICE_HOST",
+          "Port": "$PSW_SCHEDULE_SERVICE_PORT"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/schedule/examination/recommend-equipment-relocation",
+      "UpstreamHttpMethod": [ "Get", "Post" ]
+    },
+
+    {
       "DownstreamPathTemplate": "/schedule/examination/unavailable-rooms",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [

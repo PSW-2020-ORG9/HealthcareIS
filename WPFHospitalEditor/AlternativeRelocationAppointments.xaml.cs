@@ -1,8 +1,11 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Windows;
 using WPFHospitalEditor.Controller;
 using WPFHospitalEditor.Controller.Interface;
+using WPFHospitalEditor.DTOs;
 using WPFHospitalEditor.MapObjectModel;
 using WPFHospitalEditor.Pages;
+using WPFHospitalEditor.StrategyPattern;
 
 namespace WPFHospitalEditor
 {
@@ -11,18 +14,22 @@ namespace WPFHospitalEditor
     /// </summary>
     public partial class AlternativeRelocationAppointments : Window
     {
-        public IMapObjectController mapObjectController = new MapObjectController();
-        public IRoomServerController roomServerController = new RoomServerController();
+        private readonly IMapObjectController mapObjectController = new MapObjectController();
+        private readonly EquipmentRecommendationRequestDto eqRequest;
+        private readonly string equipmentName;
+        private readonly int roomId;
+        private readonly EquipmentRelocation er;
 
-        int roomId;
-        EquipmentRelocation er;
-
-        public AlternativeRelocationAppointments(int roomId, EquipmentRelocation er)
+        public AlternativeRelocationAppointments(int roomId, EquipmentRelocation er, EquipmentRecommendationRequestDto eqRequest, string equipmentName)
         {
             InitializeComponent();
+            this.equipmentName = equipmentName;
+            this.eqRequest = eqRequest;
             this.er = er;
             this.roomId = roomId;
-            givenRoom.Text = "Room with id: " + roomId.ToString() + " is unavailable in given time interval. Click 'Show on map' to see that room.";
+            givenRoom.Text = "Room with id: " + roomId.ToString() + " is unavailable in given time interval. " +
+                "Click 'Show on map' to see that room and click on 'Show appointments' " +
+                "to see available appointments for relocation";
         }
 
         private void CloseClick(object sender, RoutedEventArgs e)
@@ -47,5 +54,11 @@ namespace WPFHospitalEditor
             HospitalMainWindow.GetInstance().ChangePage(searchedBuilding);
         }
 
+        private void ShowAppointments(object sender, RoutedEventArgs e)
+        {
+            ISearchResultStrategy strategy = new SearchResultStrategy(new EquipmentRelocationSearchResult(eqRequest, equipmentName));
+            SearchResultDialog equipmentRelocationDialog = new SearchResultDialog(strategy.GetSearchResult(), SearchType.EquipmentRelocationSearch);
+            equipmentRelocationDialog.ShowDialog();
+        }
     }
 }
