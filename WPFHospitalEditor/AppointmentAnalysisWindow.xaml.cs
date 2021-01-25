@@ -75,6 +75,7 @@ namespace WPFHospitalEditor
             foreach (ExaminationWithAvailableReschedulingDto exam in examinationWithAvailableRescheduling) {
                 if (exam.ExaminationId == examinationId) {
                     examForScheduling = exam;
+                    break;
                 }
             }
             RescheduleExamination(examForScheduling);
