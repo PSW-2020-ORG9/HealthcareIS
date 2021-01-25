@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using WPFHospitalEditor.DTOs;
+using WPFHospitalEditor.Model;
 
-namespace WPFHospitalEditor.Model
+namespace WPFHospitalEditor.DTOs
 {
-    public class ExaminationWithAvailableRescheduling
+    public class ExaminationWithAvailableReschedulingDto
     {
         public int ExaminationId { get; set; }  
         public int PatientId { get; set; }
@@ -15,7 +13,7 @@ namespace WPFHospitalEditor.Model
         public DateTime ReschedulingDate { get; set; }
         public int RequiredSpecialtyId { get; set; }
 
-        public ExaminationWithAvailableRescheduling(int examinationId, int patientId, int doctorId, ProcedurePriority priority, DateTime startDate, DateTime reschedulingDate, int requiredSpecialtyId)
+        public ExaminationWithAvailableReschedulingDto(int examinationId, int patientId, int doctorId, ProcedurePriority priority, DateTime startDate, DateTime reschedulingDate, int requiredSpecialtyId)
         {
             ExaminationId = examinationId;
             PatientId = patientId;

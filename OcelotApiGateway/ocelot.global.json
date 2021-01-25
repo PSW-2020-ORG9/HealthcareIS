@@ -256,7 +256,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "$PSW_SCHEDULE_SERVICE_HOST",
-          "Port": "$PSW_SCHEDULE_SERVICE_PORT"
+          "Port": $PSW_SCHEDULE_SERVICE_PORT
         }
       ],
       "UpstreamPathTemplate": "/api/schedule/examination/emergency",
@@ -281,7 +281,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "$PSW_SCHEDULE_SERVICE_HOST",
-          "Port": "$PSW_SCHEDULE_SERVICE_PORT"
+          "Port": $PSW_SCHEDULE_SERVICE_PORT
         }
       ],
       "UpstreamPathTemplate": "/api/schedule/examination/by-specialty/{everything}",

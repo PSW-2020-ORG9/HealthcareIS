@@ -26,7 +26,7 @@ namespace WPFHospitalEditor
     {
         private readonly IExaminationServerController examinationServerController = new ExaminationServerController();
         private readonly ISchedulingServerController schedulingController = new SchedulingServerController();
-        public ObservableCollection<ExaminationWithAvailableRescheduling> examinationWithAvailableRescheduling { get; set; }
+        public ObservableCollection<ExaminationWithAvailableReschedulingDto> examinationWithAvailableRescheduling { get; set; }
         public AppointmentAnalysisWindow(int specialtyId)
         {
             InitializeComponent();
@@ -36,15 +36,15 @@ namespace WPFHospitalEditor
 
         private void FillObservableCollection(int specialtyId)
         {
-            examinationWithAvailableRescheduling = new ObservableCollection<ExaminationWithAvailableRescheduling>();
+            examinationWithAvailableRescheduling = new ObservableCollection<ExaminationWithAvailableReschedulingDto>();
             List<Examination> examinations = examinationServerController.GetBySpecialtyId(specialtyId).ToList();
             foreach (Examination exam in examinations) {
-                ExaminationWithAvailableRescheduling examination = new ExaminationWithAvailableRescheduling(exam.Id,exam.PatientId, exam.DoctorId, exam.Priority, exam.TimeInterval.Start, DateTime.Now, exam.RequiredSpecialtyId);
+                ExaminationWithAvailableReschedulingDto examination = new ExaminationWithAvailableReschedulingDto(exam.Id,exam.PatientId, exam.DoctorId, exam.Priority, exam.TimeInterval.Start, DateTime.Now, exam.RequiredSpecialtyId);
                 examinationWithAvailableRescheduling.Add(examination);
                 examinationSearchComboBox.Items.Add(exam.Id);
             }
 
-            foreach (ExaminationWithAvailableRescheduling exam in examinationWithAvailableRescheduling) {
+            foreach (ExaminationWithAvailableReschedulingDto exam in examinationWithAvailableRescheduling) {
                 RecommendationRequestDto recommendationRequestDto = new RecommendationRequestDto {
                     DoctorId = exam.DoctorId,
                     Preference = RecommendationPreference.Time,
@@ -71,8 +71,8 @@ namespace WPFHospitalEditor
             else {
                 MessageBox.Show("Examination cannot be CANCELED!");
             }
-            ExaminationWithAvailableRescheduling examForScheduling = null;
-            foreach (ExaminationWithAvailableRescheduling exam in examinationWithAvailableRescheduling) {
+            ExaminationWithAvailableReschedulingDto examForScheduling = null;
+            foreach (ExaminationWithAvailableReschedulingDto exam in examinationWithAvailableRescheduling) {
                 if (exam.ExaminationId == examinationId) {
                     examForScheduling = exam;
                 }
@@ -80,14 +80,14 @@ namespace WPFHospitalEditor
             RescheduleExamination(examForScheduling);
         }
 
-        private void RescheduleExamination(ExaminationWithAvailableRescheduling exam) {
+        private void RescheduleExamination(ExaminationWithAvailableReschedulingDto exam) {
             Examination examination = examinationServerController.ScheduleEmergencyExamination(exam.ReschedulingDate, exam.DoctorId, exam.PatientId);
             if (examination != null)
             {
                 MessageBox.Show("Examination is successfuly SCHEDULED!");
             }
             else {
-                MessageBox.Show("Examination is successfuly SCHEDULED!");
+                MessageBox.Show("Examination CANNOT be scheduled!");
             }
         }
     }
