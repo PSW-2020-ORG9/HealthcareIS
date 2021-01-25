@@ -82,10 +82,10 @@ namespace WPFHospitalEditor
         {
             startDate =
                 DateTime.ParseExact(startDatePicker.SelectedDate.Value.ToString("MM/dd/yyyy")
-                + " " + StartTime.Text, "MM/dd/yyyy HH:mm", null);
+                + AllConstants.ShiftStart, "MM/dd/yyyy HH:mm", null);
             endDate =
-                DateTime.ParseExact(startDatePicker.SelectedDate.Value.ToString("MM/dd/yyyy")
-                + " " + EndTime.Text, "MM/dd/yyyy HH:mm", null);
+                DateTime.ParseExact(endDatePicker.SelectedDate.Value.ToString("MM/dd/yyyy")
+                + AllConstants.ShiftEnd, "MM/dd/yyyy HH:mm", null);
         }
 
         private void ShowAlternativeRenovationAppointments(List<int> unavailableRooms, RenovationDto renovationDto)
@@ -106,9 +106,13 @@ namespace WPFHospitalEditor
                 {
                     examinationServerController.ScheduleExamination(startDate, doctorId, AllConstants.PatientIdForRenovation);
                     startDate = startDate.AddMinutes(30);
+                    if(startDate.Hour == AllConstants.ShiftEndHour)
+                    {
+                        startDate = startDate.AddHours(16);
+                    }
                 }
             }
-            MessageBox.Show("Relocation is successfully scheduled!", "");
+            MessageBox.Show("Renovation is successfully scheduled!", "");
             this.Close();
         }
 
@@ -135,6 +139,7 @@ namespace WPFHospitalEditor
                 else
                 {
                     ComplexStackPanel.Visibility = Visibility.Hidden;
+                    SecondRoomComboBox.SelectedIndex = 0;
                 }
             }
         }
