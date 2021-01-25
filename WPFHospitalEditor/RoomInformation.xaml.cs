@@ -24,6 +24,7 @@ namespace WPFHospitalEditor
 
         private void RenovationTypeSelection(object sender, SelectionChangedEventArgs e)
         {
+            /*
             foreach (Window window in Application.Current.Windows)
             {
                 if (window.GetType() == typeof(RoomRenovation))
@@ -40,6 +41,12 @@ namespace WPFHospitalEditor
                     }
                 }
             }
+            */
+        }
+
+        private void CloseClick(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }
