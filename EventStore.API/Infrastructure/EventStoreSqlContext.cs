@@ -1,4 +1,5 @@
 ﻿using EventStore.API.Model.EventStore;
+using EventStore.API.Model.EventStore.WPFActionEvents;
 using Microsoft.EntityFrameworkCore;
 
 namespace EventStore.API.Infrastructure
@@ -25,6 +26,10 @@ namespace EventStore.API.Infrastructure
 
         //Event Store
         public DbSet<SchedulingEvent> SchedulingEvents { get; set; }
+        public DbSet<WPFActionEvent> WPFActionEvents { get; set; }
+        public DbSet<EquipmentLookupActionEvent> EquipmentLookupActionEvents { get; set; }
+        public DbSet<FloorChangeActionEvent> FloorChangeActionEvents { get; set; }
+        public DbSet<MedicationLookupActionEvent> MedicationLookupActionEvents { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

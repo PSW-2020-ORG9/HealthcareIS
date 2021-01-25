@@ -10,6 +10,8 @@ using WPFHospitalEditor.Service;
 using WPFHospitalEditor.UserControls;
 using System.Diagnostics;
 using System.Windows.Media;
+using WPFHospitalEditor.Controller.Interface;
+using WPFHospitalEditor.DTOs;
 
 namespace WPFHospitalEditor.Pages
 {
@@ -20,7 +22,8 @@ namespace WPFHospitalEditor.Pages
     {
         private Floor floor = new Floor();
         private readonly int id;
-        private int selectedFloor; 
+        private int selectedFloor;
+        private readonly IEventStoreServerController eventStoreServerController = new EventStoreServerController();
 
         public BuildingPage(int id, int selectedFloor = 0)
         {
@@ -87,8 +90,8 @@ namespace WPFHospitalEditor.Pages
 
         private void FloorSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            FloorChangeEventStore(id, floorCmb.SelectedIndex);
             if (floorCmb.SelectedIndex == selectedFloor) return;
-            
             HospitalMainWindow window = HospitalMainWindow.GetInstance();
             window.ChangePage(new BuildingPage(id, floorCmb.SelectedIndex));
                      
@@ -104,6 +107,17 @@ namespace WPFHospitalEditor.Pages
         {
             AdditionalInformation additionalInformation = new AdditionalInformation(mapObject);
             additionalInformation.ShowDialog();
+        }
+
+        private void FloorChangeEventStore(int buildingId, int floorId)
+        {
+            FloorChangeDto floorChangeDto = new FloorChangeDto()
+            {
+                UserId = 1,
+                BuildingId = buildingId,
+                FloorId = floorId
+            };
+            eventStoreServerController.RecordFloorChange(floorChangeDto);
         }
     }
 }
