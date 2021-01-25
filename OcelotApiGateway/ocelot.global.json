@@ -254,6 +254,19 @@
     },
 
     {
+      "DownstreamPathTemplate": "/schedule/examination/emergency",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "$PSW_SCHEDULE_SERVICE_HOST",
+          "Port": $PSW_SCHEDULE_SERVICE_PORT
+        }
+      ],
+      "UpstreamPathTemplate": "/api/schedule/examination/emergency",
+      "UpstreamHttpMethod": [ "Get", "Post" ]
+    },
+
+    {
       "DownstreamPathTemplate": "/schedule/examination/schedule-emergency",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -265,7 +278,18 @@
       "UpstreamPathTemplate": "/api/schedule/examination/schedule-emergency",
       "UpstreamHttpMethod": [ "Get", "Post" ]
     },
-
+    {
+      "DownstreamPathTemplate": "/schedule/examination/by-specialty/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "$PSW_SCHEDULE_SERVICE_HOST",
+          "Port": $PSW_SCHEDULE_SERVICE_PORT
+        }
+      ],
+      "UpstreamPathTemplate": "/api/schedule/examination/by-specialty/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post" ]
+    },
 
     {
       "DownstreamPathTemplate": "/schedule/examination/recommend-equipment-relocation",
