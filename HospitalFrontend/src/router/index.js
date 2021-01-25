@@ -4,6 +4,7 @@ import ObserveFeedback from '../views/ObserveFeedback.vue'
 import ObserveMedicalRecord from '../views/ObserveMedicalRecord.vue'
 import DocSearch from '../views/DocSearch.vue'
 import SurveyPreview from '../views/SurveyPreview.vue'
+import SchedulingStatistics from '../views/SchedulingStatistics.vue'
 import RegisterPatient from '../views/registration/RegisterPatient.vue'
 import PersonalInfromation from '../views/registration/PersonalInformation.vue'
 import HealthStatus from '../views/registration/HealthStatus.vue'
@@ -57,7 +58,15 @@ const routes = [
     path:'/survey-preview',
     name:'SurveyPreview',
     component: SurveyPreview
-  },
+  }
+  ,
+  {
+    path:'/scheduling-statistics',
+    name:'SchedulingStatistics',
+    component: SchedulingStatistics
+
+  }
+  ,
   {
     path:'/register',
     component: RegisterPatient,
@@ -193,8 +202,8 @@ router.beforeEach((to, from, next) => {
       }
     }
     
-    if (!cookieValid) next({name: 'LandingPage'})
-    else if (!(to.name == 'HomePage' || to.name == 'ObserveFeedback' || to.name == 'SurveyPreview') && user.role == 'Admin') {
+    if (!cookieValid) next({name: 'LoginForm'})
+    else if (!(to.name == 'HomePage' || to.name == 'ObserveFeedback' || to.name == 'SurveyPreview' || to.name == 'SchedulingStatistics') && user.role == 'Admin') {
       next({ name: 'ObserveFeedback' })
     } else {
       next()

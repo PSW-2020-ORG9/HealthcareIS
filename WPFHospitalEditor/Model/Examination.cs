@@ -1,6 +1,8 @@
-﻿namespace WPFHospitalEditor.Model
+﻿using WPFHospitalEditor.DTOs;
+
+namespace WPFHospitalEditor.Model
 {
-    public class Examination
+    public class Examination : Procedure
     {
     }
 }

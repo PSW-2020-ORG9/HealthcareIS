@@ -54,6 +54,12 @@ namespace Schedule.API.Services.Procedures
             return examinations;
         }
 
+        public IEnumerable<Examination> GetBySpecialtyId(int specialtyId)
+        {
+            IEnumerable<Examination> examinations = _examinationService.GetBySpecialtyId(specialtyId).ToList();
+            return examinations;
+        }
+
         public bool Cancel(int examinationId)
         {
             return _examinationService.Cancel(examinationId);

@@ -102,14 +102,5 @@ namespace Schedule.API.UnitTests
             Assert.False(cancelResult);
         }
         
-        [Fact]
-        public void Cancel_patient_examination_fail_too_late()
-        {
-            PrepareStubs();
-            var examinationService = new ExaminationService(_examinationRepository.Object, _shiftRepository.Object);
-
-            bool cancelResult = examinationService.Cancel(12);
-            Assert.False(cancelResult);
-        }
     }
 }

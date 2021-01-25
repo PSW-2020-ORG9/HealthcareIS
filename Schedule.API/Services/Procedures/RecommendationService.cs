@@ -116,7 +116,6 @@ namespace Schedule.API.Services.Procedures
             if (remainingSlots == 0) return new List<RecommendationDto>();
             IEnumerable<int> doctorIds =
                 _doctorConnection.Get<IEnumerable<int>>($"specialty/ids/{dto.SpecialtyId}");
-
             IEnumerable<Shift> allShifts = _shiftWrapper.Repository
                 .GetMatching(shift =>
                     doctorIds.Contains(shift.DoctorId)

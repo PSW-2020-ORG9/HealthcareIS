@@ -30,6 +30,13 @@ namespace Schedule.API.Controllers
         }
 
         [HttpGet]
+        [Route("by-specialty/{specialtyId}")]
+        public IActionResult GetBySpecialtyId(int specialtyId)
+        {
+            return Ok(_examinationService.GetBySpecialtyId(specialtyId));
+        }
+
+        [HttpGet]
         public IActionResult GetAll()
         {
             string userId = HttpIdentityHandler.GetUserIdFromRequest(HttpContext.Request);
