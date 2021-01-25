@@ -8,15 +8,23 @@ namespace Feedback.API.Feedback.Domain.AggregatesModel.SurveyAggregate
 {
     public class RateRange
     {
-        public const int MinRating = 1;
-        public const int MaxRating = 5;
+        public int MinRating { get; }
+        public int MaxRating { get; }
 
-        public RateRange() { }
-
-        public void InRange(int rate)
+        public RateRange(int min,int max) 
         {
-            if (!(rate >= MinRating && rate <= MaxRating))
-                throw new ValidationException(message: $"Rate must be between {MinRating} and {MaxRating}.");
+            Validate(min, max);
+        }
+
+        private void Validate(int min, int max)
+        {
+            if (max <= min)
+                throw new ValidationException(message: $"max rate range must be greater than min");
+        }
+
+        public bool InRange(int rate)
+        {
+            return rate >= MinRating && rate <= MaxRating;
         }
     }
 }
