@@ -1,3 +1,4 @@
+using Feedback.API.DTOs;
 using Feedback.API.Feeback.Domain.AggregatesModel.FeedbackAggregate;
 using Feedback.API.Infrastructure;
 using General;
@@ -17,5 +18,17 @@ namespace Feedback.API.Model.Survey.SurveyEntry
         public DoctorSurveySection DoctorSurveySection { get; set; }
         public int PatientAccountId { get; set; }
         public PatientAccount PatientAccount { get; set; }
+
+        public SurveyResponse() { }
+        public SurveyResponse(SurveyResponseDTO dto) {
+            SubmittedAt = DateTime.Now;
+            SurveyId = dto.SurveyId;
+            RatedSurveySections = dto.RatedSurveySections;
+            DoctorSurveySection = dto.DoctorSurveySection;
+            PatientAccountId = dto.PatientAccountId;
+            ExaminationId = dto.ExaminationId;
+        }
+
+        
     }
 }

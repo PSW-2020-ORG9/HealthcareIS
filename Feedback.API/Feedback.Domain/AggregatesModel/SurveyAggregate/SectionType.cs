@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Feedback.API.Feedback.Domain.AggregatesModel.FeedbackAggregate
+namespace Feedback.API.Feedback.Domain.AggregatesModel.SurveyAggregate
 {
-    public class FeedbackAggregateRoot
+    public class SectionType
     {
     }
 }

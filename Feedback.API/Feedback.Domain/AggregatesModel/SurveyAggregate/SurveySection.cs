@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using Feedback.API.Infrastructure;
 using General;
 
 namespace Feedback.API.Model.Survey
@@ -10,5 +8,13 @@ namespace Feedback.API.Model.Survey
         public string SectionName { get; set; }
         public bool IsDoctorSection { get; set; }
         public IEnumerable<SurveyQuestion> SurveyQuestions { get; set; }
+
+        public SurveySection() { }
+
+        public SurveySection(string sectionName, bool isDoctorSection)
+        {
+            SectionName = sectionName;
+            IsDoctorSection = isDoctorSection;
+        }
     }
 }

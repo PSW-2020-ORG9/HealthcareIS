@@ -1,4 +1,3 @@
-using Feedback.API.Infrastructure;
 using General;
 
 namespace Feedback.API.Model.Survey

@@ -14,16 +14,6 @@ namespace Feedback.API.Feeback.Domain.AggregatesModel.FeedbackAggregate
 
         public UserFeedback() { }
 
-        public UserFeedback(DateTime date, string userComment, FeedbackVisibility feedbackVisibility, int patientAccountId) {
-
-            ValidateCommentNotEmpty(userComment);
-            ValidateCommentLength(userComment);
-            Date = date;
-            UserComment = userComment;
-            FeedbackVisibility = feedbackVisibility;
-            PatientAccountId = patientAccountId;
-        }
-
         public UserFeedback(UserFeedbackDTO dto)
         {
             ValidateCommentNotEmpty(dto.UserComment);
@@ -37,7 +27,7 @@ namespace Feedback.API.Feeback.Domain.AggregatesModel.FeedbackAggregate
 
         public void PublishFeedback()
         {
-            FeedbackVisibility.Publish();
+           FeedbackVisibility =  FeedbackVisibility.Publish();
         }
 
         private static void ValidateCommentNotEmpty(string comment)

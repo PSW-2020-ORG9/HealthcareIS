@@ -12,11 +12,6 @@ namespace Feedback.API.Services.SurveyService
         {
             surveyRepository = new RepositoryWrapper<ISurveyRepository>(repository);
         }
-        /// <summary>
-        /// Gets predefinded survey object according to passed surveyId.
-        /// </summary>
-        /// <param name="surveyId"></param>
-        /// <returns></returns>
         public Survey GetById(int surveyId) => surveyRepository.Repository.GetByID(surveyId);
     }
 }
