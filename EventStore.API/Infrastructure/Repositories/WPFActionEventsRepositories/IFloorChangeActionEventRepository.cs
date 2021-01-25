@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EventStore.API.Infrastructure.Repositories.WPFActionEventsRepositories
 {
-    interface IFloorChangeActionEventRepository : IWrappableRepository<FloorChangeActionEvent, int>
+    public interface IFloorChangeActionEventRepository : IWrappableRepository<FloorChangeActionEvent, int>
     {
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EventStore.API.Infrastructure.Repositories
 {
-    interface IEquipmentLookupActionEventRepository : IWrappableRepository<EquipmentLookupActionEvent, int>
+    public interface IEquipmentLookupActionEventRepository : IWrappableRepository<EquipmentLookupActionEvent, int>
     {
     }
 }

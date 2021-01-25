@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EventStore.API.Infrastructure.Repositories.WPFActionEventsRepositories
 {
-    interface IMedicationLookupActionEventRepository : IWrappableRepository<MedicationLookupActionEvent, int>
+    public interface IMedicationLookupActionEventRepository : IWrappableRepository<MedicationLookupActionEvent, int>
     {
     }
 }
