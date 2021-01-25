@@ -1,4 +1,5 @@
 import {createStore} from 'vuex'
+import {v4 as uuid} from 'uuid'
 
 export default createStore({
   state: {
@@ -33,6 +34,7 @@ export default createStore({
     user: {
       name: '',
       surname: '',
+      age:0
     },
     availableDoctors:[]
     ,
@@ -40,7 +42,8 @@ export default createStore({
     ,
     availableAppointments:[]
     ,
-    recommendationDto:null
+    recommendationDto:null,
+    schedulingSessionUuid:null 
   },
   mutations: {
     setPersonalInformation(state,payload){
@@ -94,7 +97,7 @@ export default createStore({
           Username:'',
           Password:'',
           Email:'',
-        }      
+        }    
       }
     }
     ,
@@ -103,6 +106,9 @@ export default createStore({
     },
     setUser(state, payload) {
       state.user = payload
+    },
+    generateUuid(state){
+      state.schedulingSessionUuid = uuid()
     }
   },
   actions: {

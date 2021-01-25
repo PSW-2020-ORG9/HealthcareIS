@@ -1,7 +1,7 @@
 ﻿using General;
 using Microsoft.EntityFrameworkCore;
 
-namespace EventStore.Model.Infrastructure
+namespace EventStore.API.Infrastructure
 {
     public class EventStoreSqlContextFactory : IContextFactory
     {

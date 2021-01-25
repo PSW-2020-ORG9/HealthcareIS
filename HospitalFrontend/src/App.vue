@@ -16,6 +16,9 @@
         <li class="nav-item active">
           <router-link class="nav-link" to="/survey-preview">Surveys</router-link>
         </li>
+        <li v-if="$store.state.user.role == 'Admin'" class="nav-item active">
+          <router-link class="nav-link" to="/scheduling-statistics">Scheduling Statistics</router-link>
+        </li>
       </ul>
       <li class="navbar-nav nav-item dropdown">
         <a v-if="$store.state.user" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

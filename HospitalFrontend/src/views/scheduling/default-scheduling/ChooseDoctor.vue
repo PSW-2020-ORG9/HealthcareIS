@@ -25,6 +25,7 @@ import api from '../../../constant/api.js'
 import axios from 'axios'
 import Toastify from 'toastify-js'
 import moment from 'moment'
+import { publishSchedulingEvent } from '../../../services/eventPublisher.js'
 
 export default {
     name:"ChooseDoctor",
@@ -41,7 +42,12 @@ export default {
     ,
     beforeRouteEnter (to, from, next) {
         next(vm=>{
+            if(from.name===undefined){
+                vm.$router.push('/scheduling-type')
+                return
+            }
             vm.availableDoctors = vm.$store.state.availableDoctors
+            vm.publishEvent()
         })
         
     }
@@ -102,6 +108,14 @@ export default {
                 this.doctorsFetched = true
             })
         }
+        ,
+         publishEvent:function(){
+			publishSchedulingEvent({
+				"eventType" : "STEP_2",
+                "userAge" : this.$store.state.user.age,
+                "schedulingSessionId": this.$store.state.schedulingSessionUuid
+			})
+		}
         
     }
     ,

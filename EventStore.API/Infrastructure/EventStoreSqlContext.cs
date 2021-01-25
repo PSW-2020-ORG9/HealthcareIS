@@ -1,14 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
-using EventStore.Model.EventStore;
-using System;
+﻿using EventStore.API.Model.EventStore;
+using Microsoft.EntityFrameworkCore;
 
-namespace EventStore.Model.Infrastructure
+namespace EventStore.API.Infrastructure
 {
     public class EventStoreSqlContext : DbContext
     {
         private readonly string _connectionString;
-        private readonly string db = "psw";
-        private readonly string pass = "password";
+        private readonly string db = "";
+        private readonly string pass = "";
         
         public EventStoreSqlContext()
         {
@@ -25,7 +24,7 @@ namespace EventStore.Model.Infrastructure
         }
 
         //Event Store
-        public DbSet<EventES> EventES { get; set; }
+        public DbSet<SchedulingEvent> SchedulingEvents { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
