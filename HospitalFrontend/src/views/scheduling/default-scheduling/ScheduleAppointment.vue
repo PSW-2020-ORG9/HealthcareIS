@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import { publishSchedulingEvent } from '../../../services/eventPublisher.js'
 export default {
 	name:"ScheduleAppointment",
 	methods:{
@@ -28,6 +29,7 @@ export default {
 			return this.$route.name === 'chooseAppointment'
 		}
 	}
+	
 }
 
 </script>
