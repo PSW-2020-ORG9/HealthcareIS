@@ -11,6 +11,7 @@ using WPFHospitalEditor.StrategyPattern;
 using WPFHospitalEditor.Controller.Interface;
 using System.Linq;
 using System;
+using WPFHospitalEditor.Model;
 
 namespace WPFHospitalEditor
 {
@@ -22,7 +23,10 @@ namespace WPFHospitalEditor
         private readonly SearchType searchType;
         public static int selectedObjectId = -1;
         private Grid DynamicGrid;
-
+        private IDoctorServerController doctorServerController = new DoctorServerController();
+        private IExaminationServerController examinationServerController = new ExaminationServerController();
+        private IRenovationServerController renovationServerController = new RenovationServerController();
+        private TimeInterval timeInterval;
         public SearchResultDialog(List<SearchResultDTO> searchResults, SearchType searchType)
         {
             InitializeComponent();
@@ -52,6 +56,16 @@ namespace WPFHospitalEditor
             {
                 EquipmentRelocationGrid.Visibility = Visibility.Visible;
                 DynamicGrid = DynamicEquipmentRelocationGrid;
+            }
+            else if (searchType == SearchType.RoomRenovationSearch)
+            {
+                RenovationAppointmentsGrid.Visibility = Visibility.Visible;
+                DynamicGrid = DynamicRenovationAppointmentsGrid;
+            }
+            else if (searchType == SearchType.BasicRoomRenovationSearch)
+            {
+                BasicRenovationAppointmentsGrid.Visibility = Visibility.Visible;
+                DynamicGrid = DynamicBasicRenovationAppointmentsGrid;
             }
             else
             {
@@ -100,6 +114,11 @@ namespace WPFHospitalEditor
             {
                 EquipmentRelocationSearchResultDTO equipmentRelocation = (EquipmentRelocationSearchResultDTO)rowContent;
                 AddScheduleRelocationButton(row, equipmentRelocation.EquipmentRelocationDto);
+            }
+            else if(searchType == SearchType.RoomRenovationSearch || searchType == SearchType.BasicRoomRenovationSearch)
+            {
+                RenovationSearchResultDTO renovationAppointments = (RenovationSearchResultDTO)rowContent;
+                AddScheduleRenovationButton(row, renovationAppointments.RenovationDto);
             }
             else
             {
@@ -158,18 +177,38 @@ namespace WPFHospitalEditor
 
             scheduleBtn.Click += (s, e) =>
             {
-                List<int> doctors = new DoctorServerController().GetDoctorsByRoomsAndShifts(relocation).ToList();
+                List<int> doctors = new DoctorServerController().GetDoctorsByRoomsAndShifts(relocation.toSchedulingDto()).ToList();
                 IExaminationServerController examinationServerController = new ExaminationServerController();
                 foreach (int doctorId in doctors)
                 {
                     examinationServerController.ScheduleExamination(relocation.TimeInterval.Start, doctorId, AllConstants.PatientIdForRelocation);
                 }
-                MessageBox.Show("Relocation is successfully scheduled!", "");
+                MessageBox.Show("Relocation is successfully scheduled!");
                 this.Close();
             };
         }
 
+        private void AddScheduleRenovationButton(int row, RenovationDto renovation)
+        {
+            Button scheduleBtn = CreateScheduleButton();
+            Grid.SetRow(scheduleBtn, row);
+            Grid.SetColumn(scheduleBtn, DynamicGrid.ColumnDefinitions.Count - 2);
+            DynamicGrid.Children.Add(scheduleBtn);
 
+            SchedulingDto schDto = renovation.toSchedulingDto();
+            timeInterval = new TimeInterval(schDto.TimeInterval.Start, schDto.TimeInterval.End);
+
+            scheduleBtn.Click += (s, e) =>
+            {
+                List<int> doctors = doctorServerController.GetDoctorsByRoomsAndShifts(schDto).ToList();
+                foreach (int doctorId in doctors)
+                {
+                    renovationServerController.ScheduleRenovation(renovation.TimeInterval, doctorId, AllConstants.PatientIdForRenovation);
+                }
+                MessageBox.Show("Renovation is successfully scheduled!");
+                this.Close();
+            };
+        }
 
         public void ShowBuildingPage(int floorNumber, int buildingId)
         {

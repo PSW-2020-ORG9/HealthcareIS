@@ -40,5 +40,10 @@ namespace WPFHospitalEditor.Controller
         {
             throw new NotImplementedException();
         }
+
+        public List<MapObject> GetNeighborMapObjects(int roomId)
+        {
+            return IMapObjectService.GetNeighborMapObjects(roomId);
+        }
     }
 }

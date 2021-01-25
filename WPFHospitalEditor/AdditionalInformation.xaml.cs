@@ -4,6 +4,8 @@ using WPFHospitalEditor.Controller;
 using System;
 using WPFHospitalEditor.StrategyPattern;
 using WPFHospitalEditor.Model;
+using WPFHospitalEditor.Controller.Interface;
+using WPFHospitalEditor.DTOs;
 
 namespace WPFHospitalEditor
 {
@@ -14,6 +16,7 @@ namespace WPFHospitalEditor
     {
         private readonly MapObject mapObject;
         private DynamicGridControl dynamicGridControl;
+        private readonly IEventStoreServerController eventStoreServerController = new EventStoreServerController();
 
         public AdditionalInformation(MapObject mapObject)
         {
@@ -22,6 +25,7 @@ namespace WPFHospitalEditor
             SetDynamicGrid();
             InitializeTitle();
             SetButtonsVisibility();
+            if (!LoggedUser.RoleEquals(Role.Director)) Renovation.Visibility = Visibility.Hidden;
         }
 
         private void SetDynamicGrid()
@@ -60,6 +64,7 @@ namespace WPFHospitalEditor
 
         private void BtnEquipmentClick(object sender, RoutedEventArgs e)
         {
+            EquipmentLookupEventStore(mapObject.Id);
             IContentRowsStrategy strategy = new ContentRowsStrategy(new EquipmentContentRows(mapObject.Id));
             EquipmentAndMedicationDialog equipment = new EquipmentAndMedicationDialog(strategy.GetContentRows());
             equipment.ShowDialog();
@@ -67,9 +72,17 @@ namespace WPFHospitalEditor
         }
         private void BtnMedicationsClick(object sender, RoutedEventArgs e)
         {
+            MedicationLookupEventStore(mapObject.Id);
             IContentRowsStrategy strategy = new ContentRowsStrategy(new MedicationContentRows(mapObject.Id));
             EquipmentAndMedicationDialog medications = new EquipmentAndMedicationDialog(strategy.GetContentRows());
             medications.ShowDialog();
+            this.Close();
+        }
+
+        private void BtnRenovationClick(object sender, RoutedEventArgs e)
+        {
+            RoomRenovation roomRenovationWindow = new RoomRenovation(mapObject.Id);
+            roomRenovationWindow.ShowDialog();
             this.Close();
         }
 
@@ -82,6 +95,26 @@ namespace WPFHospitalEditor
         private Boolean IsPatientLogged()
         {
             return LoggedUser.RoleEquals(Role.Patient);
+        }
+
+        private void EquipmentLookupEventStore(int roomId)
+        {
+            EquipmentLookupDto equipmentLookupDto= new EquipmentLookupDto()
+            {
+                UserId = 1,
+                RoomId = roomId
+            };
+            eventStoreServerController.RecordEquipmentLookup(equipmentLookupDto);
+        }
+
+        private void MedicationLookupEventStore(int roomId)
+        {
+            MedicationLookupDto medicationLookupDto = new MedicationLookupDto()
+            {
+                UserId = 1,
+                RoomId = roomId
+            };
+            eventStoreServerController.RecordMedicationLookup(medicationLookupDto);
         }
     }
 }

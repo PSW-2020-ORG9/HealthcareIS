@@ -1,7 +1,9 @@
 using System;
 using EventStore.API.Infrastructure;
 using EventStore.API.Infrastructure.Repositories;
+using EventStore.API.Infrastructure.Repositories.WPFActionEventsRepositories;
 using EventStore.API.Services;
+using EventStore.API.Services.WPFActionEvents;
 using General;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -67,6 +69,15 @@ namespace EventStore.API
             var schedulingStatisticsService = new SchedulingStatisticsService(schedulingEventRepository);
             services.Add(new ServiceDescriptor(typeof(ISchedulingEventService),schedulingEventService));
             services.Add(new ServiceDescriptor(typeof(ISchedulingStatisticsService), schedulingStatisticsService));
+            var medicationLookupActionEventRepository = new MedicationLookupActionEventSqlRepository(GetContextFactory());
+            var medicationLookupActionEventService = new MedicationLookupActionEventService(medicationLookupActionEventRepository);
+            services.Add(new ServiceDescriptor(typeof(IMedicationLookupActionEventService), medicationLookupActionEventService));
+            var equipmentLookupActionEventRepository = new EquipmentLookupActionEventSqlRepository(GetContextFactory());
+            var equipmentLookupActionEventService = new EquipmentLookupActionEventService(equipmentLookupActionEventRepository);
+            services.Add(new ServiceDescriptor(typeof(IEquipmentLookupActionEventService), equipmentLookupActionEventService));
+            var floorChangeActionEventRepository = new FloorChangeActionEventSqlRepository(GetContextFactory());
+            var floorChangeActionEventEventService = new FloorChangeActionEventService(floorChangeActionEventRepository);
+            services.Add(new ServiceDescriptor(typeof(IFloorChangeActionEventService), floorChangeActionEventEventService));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Windows;
+﻿using System.Windows;
 using WPFHospitalEditor.Controller;
-using WPFHospitalEditor.Controller.Interface;
 using WPFHospitalEditor.DTOs;
 using WPFHospitalEditor.MapObjectModel;
 using WPFHospitalEditor.Pages;
@@ -15,12 +13,12 @@ namespace WPFHospitalEditor
     public partial class AlternativeRelocationAppointments : Window
     {
         private readonly IMapObjectController mapObjectController = new MapObjectController();
-        private readonly EquipmentRecommendationRequestDto eqRequest;
+        private readonly SchedulingDto eqRequest;
         private readonly string equipmentName;
         private readonly int roomId;
         private readonly EquipmentRelocation er;
 
-        public AlternativeRelocationAppointments(int roomId, EquipmentRelocation er, EquipmentRecommendationRequestDto eqRequest, string equipmentName)
+        public AlternativeRelocationAppointments(int roomId, EquipmentRelocation er, SchedulingDto eqRequest, string equipmentName)
         {
             InitializeComponent();
             this.equipmentName = equipmentName;

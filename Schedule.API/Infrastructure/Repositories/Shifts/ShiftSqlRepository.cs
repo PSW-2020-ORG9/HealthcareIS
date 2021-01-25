@@ -54,5 +54,11 @@ namespace Schedule.API.Infrastructure.Repositories.Shifts
             if (!shifts.Any()) return -1;
             return shifts.First().AssignedExamRoomId;
         }
+
+        public IEnumerable<Shift> GetShiftsByRoomID(int id)
+        {
+            IEnumerable<Shift> shifts = GetMatching(shift => shift.AssignedExamRoomId == id && shift.TimeInterval.Start >= DateTime.Now).ToList();
+            return shifts;
+        }
     }
 }

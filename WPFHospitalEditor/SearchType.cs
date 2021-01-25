@@ -6,6 +6,8 @@
         EquipmentSearch,
         MedicationSearch,
         AppointmentSearch,
-        EquipmentRelocationSearch
+        EquipmentRelocationSearch,
+        RoomRenovationSearch,
+        BasicRoomRenovationSearch
     }
 }

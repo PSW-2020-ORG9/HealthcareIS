@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows.Media;
 using WPFHospitalEditor.MapObjectModel;
 using WPFHospitalEditor.Repository;
@@ -62,6 +63,43 @@ namespace WPFHospitalEditor.Service
         public List<MapObject> GetAllBuildingMapObjects(int id)
         {
             return iMapObjectRepository.GetAllBuildingMapObjects(id);
+        }
+
+        public List<MapObject> GetNeighborMapObjects(int roomId)
+        {
+            MapObject mapObject = GetMapObjectById(roomId);
+            return FillListWithNeighbourMapObjects(mapObject);
+        }
+
+        private List<MapObject> FillListWithNeighbourMapObjects(MapObject mapObject)
+        {
+            List<MapObject> neigbourMapObjects = new List<MapObject>();
+            List<MapObject> allMapObjects = GetAllMapObjects();
+            foreach (MapObject mo in allMapObjects)
+            {
+                if (mo.MapObjectDescription == null) continue;
+                if (mo.MapObjectDescription.FloorNumber == mapObject.MapObjectDescription.FloorNumber
+                    && mo.Id != mapObject.Id
+                    && mo.MapObjectDescription.BuildingId == mapObject.MapObjectDescription.BuildingId)
+                {
+                    if(CheckIfTwoMapObjectsAreNeighbours(mapObject, mo))
+                        neigbourMapObjects.Add(mo);
+                }
+            }
+            return neigbourMapObjects;
+        }
+
+        private bool CheckIfTwoMapObjectsAreNeighbours(MapObject mapObject1, MapObject mapObject2)
+        {
+            if ((Math.Abs(mapObject1.MapObjectMetrics.MapObjectCoordinates.X
+                - (mapObject2.MapObjectMetrics.MapObjectCoordinates.X
+                + mapObject2.MapObjectMetrics.MapObjectDimensions.Width)) < 50
+                || Math.Abs((mapObject1.MapObjectMetrics.MapObjectCoordinates.X
+                + mapObject1.MapObjectMetrics.MapObjectDimensions.Width)
+                - mapObject2.MapObjectMetrics.MapObjectCoordinates.X) < 50)
+                && mapObject1.MapObjectMetrics.MapObjectCoordinates.Y == mapObject2.MapObjectMetrics.MapObjectCoordinates.Y)
+                return true;
+            return false;
         }
     }
 }
