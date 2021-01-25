@@ -24,6 +24,7 @@ namespace WPFHospitalEditor
         private Grid DynamicGrid;
         private IDoctorServerController doctorServerController = new DoctorServerController();
         private IExaminationServerController examinationServerController = new ExaminationServerController();
+        private IRenovationServerController renovationServerController = new RenovationServerController();
         private DateTime startDate;
         private DateTime endDate;
 
@@ -205,12 +206,7 @@ namespace WPFHospitalEditor
                 List<int> doctors = doctorServerController.GetDoctorsByRoomsAndShifts(schDto).ToList();
                 foreach (int doctorId in doctors)
                 {
-                    startDate = schDto.TimeInterval.Start;
-                    while (startDate < endDate)
-                    {
-                        examinationServerController.ScheduleExamination(startDate, doctorId, AllConstants.PatientIdForRenovation);
-                        startDate = startDate.AddMinutes(30);
-                    }
+                    renovationServerController.ScheduleRenovation(startDate, endDate, doctorId, AllConstants.PatientIdForRenovation);
                 }
                 MessageBox.Show("Renovation is successfully scheduled!", "");
                 this.Close();

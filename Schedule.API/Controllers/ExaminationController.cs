@@ -154,5 +154,28 @@ namespace Schedule.API.Controllers
         {
             return Ok(_recommendationService.RecommendRenovationAppointments(dto));
         }
+
+        [HttpPost]
+        [Route("schedule-renovation")]
+        public IActionResult ScheduleRenovation(ScheduledRenovationDTO dto)
+        {
+            var examination = RenovationMapper.DtoToObject(dto);
+            try
+            {
+                return Ok(_examinationService.ScheduleRenovation(examination));
+            }
+            catch (NullReferenceException)
+            {
+                return BadRequest("Examination cannot be null.");
+            }
+            catch (ScheduleViolationException e)
+            {
+                return BadRequest(e.Message);
+            }
+            catch (ArgumentException e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
     }
 }

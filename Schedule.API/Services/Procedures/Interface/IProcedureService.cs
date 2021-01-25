@@ -7,5 +7,6 @@ namespace Schedule.API.Services.Procedures.Interface
         T GetByID(int id);
         T Schedule(T procedure);
         T ScheduleEmergency(T procedure);
+        T ScheduleRenovation(T procedure);
     }
 }
