@@ -281,7 +281,6 @@
 
     {
       "DownstreamPathTemplate": "/schedule/examination/schedule-renovation",
-      //"DownstreamPathTemplate": "/schedule/examination/by-specialty/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {

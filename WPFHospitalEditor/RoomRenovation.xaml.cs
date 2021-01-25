@@ -22,8 +22,6 @@ namespace WPFHospitalEditor
         private IRenovationServerController renovationServerController = new RenovationServerController();
 
         int mapObjectId;
-        DateTime startDate;
-        DateTime endDate;
         TimeInterval timeInterval;
         int neighbourMapObjectId = -1;
 
@@ -54,7 +52,6 @@ namespace WPFHospitalEditor
             setDates();
             try
             {
-                TimeInterval timeInterval = new TimeInterval(startDate, endDate);
                 RenovationDto renovationDto = CreateRenovationDto(timeInterval);
                 SchedulingDto schDto = renovationDto.toSchedulingDto();
                 List<int> unavailableRooms = roomServerController.GetUnavailableRooms(schDto).ToList();
@@ -81,10 +78,10 @@ namespace WPFHospitalEditor
 
         private void setDates()
         {
-            startDate =
+            DateTime startDate =
                 DateTime.ParseExact(startDatePicker.SelectedDate.Value.ToString("MM/dd/yyyy")
                 + AllConstants.ShiftStart, "MM/dd/yyyy HH:mm", null);
-            endDate =
+            DateTime endDate =
                 DateTime.ParseExact(endDatePicker.SelectedDate.Value.ToString("MM/dd/yyyy")
                 + AllConstants.ShiftEnd, "MM/dd/yyyy HH:mm", null);
 
