@@ -154,5 +154,12 @@ namespace Schedule.API.Controllers
         {
             return Ok(_recommendationService.RecommendEquipmentRelocation(dto));
         }
+
+        [HttpGet]
+        [Route("by-roomId/{roomId}")]
+        public IActionResult GetByRoomId(int roomId)
+        {
+            return Ok(_examinationService.GetByRoomId(roomId));
+        }
     }
 }

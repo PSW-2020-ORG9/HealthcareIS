@@ -10,5 +10,6 @@ namespace Schedule.API.Services.Procedures.Interface
         IEnumerable<Examination> GetByPatientId(int patientId);
         IEnumerable<Examination> GetBySpecialtyId(int patientId);
         bool Cancel(int examinationId);
+        IEnumerable<Examination> GetByRoomId(int roomId);
     }
 }
