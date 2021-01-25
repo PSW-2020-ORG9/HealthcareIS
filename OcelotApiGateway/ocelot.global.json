@@ -6,7 +6,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "$PSW_USER_SERVICE_HOST",
-          "Port": "$PSW_USER_SERVICE_PORT"
+          "Port": $PSW_USER_SERVICE_PORT
         }
       ],
       "UpstreamPathTemplate": "/api/user/doctor/departments",
@@ -19,7 +19,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "$PSW_USER_SERVICE_HOST",
-          "Port": "$PSW_USER_SERVICE_PORT"
+          "Port": $PSW_USER_SERVICE_PORT
         }
       ],
       "UpstreamPathTemplate": "/api/user/doctor/specialists",
@@ -32,7 +32,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "$PSW_USER_SERVICE_HOST",
-          "Port": "$PSW_USER_SERVICE_PORT"
+          "Port": $PSW_USER_SERVICE_PORT
         }
       ],
       "UpstreamPathTemplate": "/api/user/doctor/",
@@ -45,7 +45,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "$PSW_USER_SERVICE_HOST",
-          "Port": "$PSW_USER_SERVICE_PORT"
+          "Port": $PSW_USER_SERVICE_PORT
         }
       ],
       "UpstreamPathTemplate": "/api/user/patient/all",
@@ -58,7 +58,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "$PSW_USER_SERVICE_HOST",
-          "Port": "$PSW_USER_SERVICE_PORT"
+          "Port": $PSW_USER_SERVICE_PORT
         }
       ],
       "UpstreamPathTemplate": "/api/user/doctor/{everything}",
@@ -76,7 +76,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "$PSW_USER_SERVICE_HOST",
-          "Port": "$PSW_USER_SERVICE_PORT"
+          "Port": $PSW_USER_SERVICE_PORT
         }
       ],
       "UpstreamPathTemplate": "/api/user/specialty/{everything}",
@@ -92,7 +92,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "$PSW_USER_SERVICE_HOST",
-          "Port": "$PSW_USER_SERVICE_PORT"
+          "Port": $PSW_USER_SERVICE_PORT
         }
       ],
       "UpstreamPathTemplate": "/api/user/patient",
@@ -108,7 +108,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "$PSW_USER_SERVICE_HOST",
-          "Port": "$PSW_USER_SERVICE_PORT"
+          "Port": $PSW_USER_SERVICE_PORT
         }
       ],
       "UpstreamPathTemplate": "/api/user/patient/accounts",
@@ -124,7 +124,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "$PSW_USER_SERVICE_HOST",
-          "Port": "$PSW_USER_SERVICE_PORT"
+          "Port": $PSW_USER_SERVICE_PORT
         }
       ],
       "UpstreamPathTemplate": "/api/user/patient/{everything}",
@@ -140,7 +140,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "$PSW_USER_SERVICE_HOST",
-          "Port": "$PSW_USER_SERVICE_PORT"
+          "Port": $PSW_USER_SERVICE_PORT
         }
       ],
       "UpstreamPathTemplate": "/api/user/specialty",
@@ -156,7 +156,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "$PSW_USER_SERVICE_HOST",
-          "Port": "$PSW_USER_SERVICE_PORT"
+          "Port": $PSW_USER_SERVICE_PORT
         }
       ],
       "UpstreamPathTemplate": "/api/user/{everything}",
@@ -169,7 +169,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "$PSW_FEEDBACK_SERVICE_HOST",
-          "Port": "$PSW_FEEDBACK_SERVICE_PORT"
+          "Port": $PSW_FEEDBACK_SERVICE_PORT
         }
       ],
       "UpstreamPathTemplate": "/api/feedbacks/{everything}",
@@ -182,7 +182,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "$PSW_SCHEDULE_SERVICE_HOST",
-          "Port": "$PSW_SCHEDULE_SERVICE_PORT"
+          "Port": $PSW_SCHEDULE_SERVICE_PORT
         }
       ],
       "UpstreamPathTemplate": "/api/schedule/diagnosis",
@@ -198,7 +198,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "$PSW_SCHEDULE_SERVICE_HOST",
-          "Port": "$PSW_SCHEDULE_SERVICE_PORT"
+          "Port": $PSW_SCHEDULE_SERVICE_PORT
         }
       ],
       "UpstreamPathTemplate": "/api/schedule/diagnosis/{everything}",
@@ -214,7 +214,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "$PSW_SCHEDULE_SERVICE_HOST",
-          "Port": "$PSW_SCHEDULE_SERVICE_PORT"
+          "Port": $PSW_SCHEDULE_SERVICE_PORT
         }
       ],
       "UpstreamPathTemplate": "/api/schedule/available/{everything}",
@@ -230,11 +230,14 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "$PSW_SCHEDULE_SERVICE_HOST",
-          "Port": "$PSW_SCHEDULE_SERVICE_PORT"
+          "Port": $PSW_SCHEDULE_SERVICE_PORT
         }
       ],
       "UpstreamPathTemplate": "/api/schedule/examination",
-      "UpstreamHttpMethod": [ "Get", "Post" ]
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "RouteClaimsRequirement": {
+        "Role":  "Patient, Admin"
+      }
     },
 
     {
@@ -243,10 +246,23 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "$PSW_SCHEDULE_SERVICE_HOST",
-          "Port": "$PSW_SCHEDULE_SERVICE_PORT"
+          "Port": $PSW_SCHEDULE_SERVICE_PORT
         }
       ],
       "UpstreamPathTemplate": "/api/schedule/examination/recommend",
+      "UpstreamHttpMethod": [ "Get", "Post" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/schedule/examination/emergency",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "$PSW_SCHEDULE_SERVICE_HOST",
+          "Port": $PSW_SCHEDULE_SERVICE_PORT
+        }
+      ],
+      "UpstreamPathTemplate": "/api/schedule/examination/emergency",
       "UpstreamHttpMethod": [ "Get", "Post" ]
     },
 
@@ -256,19 +272,25 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "$PSW_SCHEDULE_SERVICE_HOST",
-          "Port": "$PSW_SCHEDULE_SERVICE_PORT"
+          "Port": $PSW_SCHEDULE_SERVICE_PORT
         }
       ],
       "UpstreamPathTemplate": "/api/schedule/examination/schedule-emergency",
       "UpstreamHttpMethod": [ "Get", "Post" ]
     },
+<<<<<<< HEAD
 
     {
       "DownstreamPathTemplate": "/schedule/examination/schedule-renovation",
+=======
+    {
+      "DownstreamPathTemplate": "/schedule/examination/by-specialty/{everything}",
+>>>>>>> master
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "$PSW_SCHEDULE_SERVICE_HOST",
+<<<<<<< HEAD
           "Port": "$PSW_SCHEDULE_SERVICE_PORT"
         }
       ],
@@ -286,6 +308,12 @@
         }
       ],
       "UpstreamPathTemplate": "/api/schedule/examination/recommend-renovation-appointment",
+=======
+          "Port": $PSW_SCHEDULE_SERVICE_PORT
+        }
+      ],
+      "UpstreamPathTemplate": "/api/schedule/examination/by-specialty/{everything}",
+>>>>>>> master
       "UpstreamHttpMethod": [ "Get", "Post" ]
     },
 
@@ -295,7 +323,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "$PSW_SCHEDULE_SERVICE_HOST",
-          "Port": "$PSW_SCHEDULE_SERVICE_PORT"
+          "Port": $PSW_SCHEDULE_SERVICE_PORT
         }
       ],
       "UpstreamPathTemplate": "/api/schedule/examination/recommend-equipment-relocation",
@@ -308,7 +336,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "$PSW_SCHEDULE_SERVICE_HOST",
-          "Port": "$PSW_SCHEDULE_SERVICE_PORT"
+          "Port": $PSW_SCHEDULE_SERVICE_PORT
         }
       ],
       "UpstreamPathTemplate": "/api/schedule/examination/unavailable-rooms",
@@ -321,7 +349,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "$PSW_SCHEDULE_SERVICE_HOST",
-          "Port": "$PSW_SCHEDULE_SERVICE_PORT"
+          "Port": $PSW_SCHEDULE_SERVICE_PORT
         }
       ],
       "UpstreamPathTemplate": "/api/schedule/examination/get-doctors-by-rooms-and-shifts",
@@ -334,7 +362,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "$PSW_SCHEDULE_SERVICE_HOST",
-          "Port": "$PSW_SCHEDULE_SERVICE_PORT"
+          "Port": $PSW_SCHEDULE_SERVICE_PORT
         }
       ],
       "UpstreamPathTemplate": "/api/schedule/examination/cancel/{everything}",
@@ -350,7 +378,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "$PSW_SCHEDULE_SERVICE_HOST",
-          "Port": "$PSW_SCHEDULE_SERVICE_PORT"
+          "Port": $PSW_SCHEDULE_SERVICE_PORT
         }
       ],
       "UpstreamPathTemplate": "/api/schedule/examination/{everything}",
@@ -367,7 +395,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "$PSW_HOSPITAL_SERVICE_HOST",
-          "Port": "$PSW_HOSPITAL_SERVICE_PORT"
+          "Port": $PSW_HOSPITAL_SERVICE_PORT
         }
       ],
       "UpstreamPathTemplate": "/api/hospital/docsearch/prescription",
@@ -376,14 +404,13 @@
         "Role": "Patient, Admin"
       }
     },
-
     {
       "DownstreamPathTemplate": "/hospital/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "$PSW_HOSPITAL_SERVICE_HOST",
-          "Port": "$PSW_HOSPITAL_SERVICE_PORT"
+          "Port": $PSW_HOSPITAL_SERVICE_PORT
         }
       ],
       "UpstreamPathTemplate": "/api/hospital/{everything}",
@@ -392,5 +419,24 @@
         "Role": "Admin"
       }
     }
+    ,
+    {
+      "DownstreamPathTemplate": "/event/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "$PSW_EVENT_STORE_SERVICE_HOST",
+          "Port": $PSW_EVENT_STORE_SERVICE_PORT
+        }
+      ],
+      "UpstreamPathTemplate": "/api/event/{everything}",
+      "UpstreamHttpMethod": [ "Get","Post" ],
+      "RouteClaimsRequirement" :
+      {
+        "Role" : "Patient, Admin"
+      }
+    }
+    
+    
   ]
 }

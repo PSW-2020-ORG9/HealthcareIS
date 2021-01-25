@@ -4,6 +4,7 @@ import ObserveFeedback from '../views/ObserveFeedback.vue'
 import ObserveMedicalRecord from '../views/ObserveMedicalRecord.vue'
 import DocSearch from '../views/DocSearch.vue'
 import SurveyPreview from '../views/SurveyPreview.vue'
+import SchedulingStatistics from '../views/SchedulingStatistics.vue'
 import RegisterPatient from '../views/registration/RegisterPatient.vue'
 import PersonalInfromation from '../views/registration/PersonalInformation.vue'
 import HealthStatus from '../views/registration/HealthStatus.vue'
@@ -22,6 +23,7 @@ import ChooseRecommended from '../views/scheduling/recommendation/ChooseRecommen
 import ObservePatientExaminations from '../views/ObservePatientExaminations.vue'
 import HomePage from '../views/HomePage.vue'
 import LoginForm from '../views/LoginForm.vue'
+import LandingPage from '../views/LandingPage.vue'
 import { parseJwt } from '../jwt.js'
 
 const routes = [
@@ -56,7 +58,15 @@ const routes = [
     path:'/survey-preview',
     name:'SurveyPreview',
     component: SurveyPreview
-  },
+  }
+  ,
+  {
+    path:'/scheduling-statistics',
+    name:'SchedulingStatistics',
+    component: SchedulingStatistics
+
+  }
+  ,
   {
     path:'/register',
     component: RegisterPatient,
@@ -156,6 +166,11 @@ const routes = [
     path: '/login',
     name: 'LoginForm',
     component: LoginForm
+  },
+  {
+    path: '/welcome',
+    name: 'LandingPage',
+    component: LandingPage
   }
 ]
 
@@ -169,7 +184,8 @@ router.beforeEach((to, from, next) => {
     || to.name === 'personalInformation'
     || to.name === 'healthStatus'
     || to.name === 'accountDetails'
-    || to.name === 'profilePicture') {
+    || to.name === 'profilePicture'
+    || to.name === 'LandingPage') {
     next()
   } else {
     let authCookie = document.cookie
@@ -187,7 +203,7 @@ router.beforeEach((to, from, next) => {
     }
     
     if (!cookieValid) next({name: 'LoginForm'})
-    else if (!(to.name == 'HomePage' || to.name == 'ObserveFeedback' || to.name == 'SurveyPreview') && user.role == 'Admin') {
+    else if (!(to.name == 'HomePage' || to.name == 'ObserveFeedback' || to.name == 'SurveyPreview' || to.name == 'SchedulingStatistics') && user.role == 'Admin') {
       next({ name: 'ObserveFeedback' })
     } else {
       next()
