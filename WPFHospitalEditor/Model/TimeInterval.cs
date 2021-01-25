@@ -5,8 +5,10 @@ namespace WPFHospitalEditor.Model
 {
     public class TimeInterval
     {
-        public DateTime Start { get; }
-        public DateTime End { get; }
+        public DateTime Start { get; set; }
+        public DateTime End { get; set; }
+
+        public TimeInterval() { }
 
         public TimeInterval(DateTime start, DateTime end)
         {
@@ -20,5 +22,6 @@ namespace WPFHospitalEditor.Model
             if (start >= end)
                 throw new ValidationException("End time must be after start time!");
         }
+
     }
 }

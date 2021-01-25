@@ -69,7 +69,7 @@ namespace WPFHospitalEditor.Service
             return doctors;
         }
 
-        public IEnumerable<int> GetDoctorsByRoomsAndShifts(EquipmentRelocationDto dto)
+        public IEnumerable<int> GetDoctorsByRoomsAndShifts(SchedulingDto dto)
         {
             var client = new RestClient(AllConstants.ConnectionUrl);
             var request = new RestRequest("/api/schedule/examination/get-doctors-by-rooms-and-shifts", Method.POST);
@@ -79,9 +79,9 @@ namespace WPFHospitalEditor.Service
             return response.Data;
         }
 
-        private String EquipmentRelocationDtoToJson(EquipmentRelocationDto eqRelDto)
+        private String EquipmentRelocationDtoToJson(SchedulingDto dto)
         {
-            return JsonConvert.SerializeObject(eqRelDto);
+            return JsonConvert.SerializeObject(dto);
         }
 
         public IEnumerable<Doctor> GetDoctorsBySpecialty(int specialtyId)

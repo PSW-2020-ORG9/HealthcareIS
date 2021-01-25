@@ -37,6 +37,14 @@ namespace Schedule.API.Services.Procedures
             return createdProcedure;
         }
 
+        public T ScheduleRenovation(T procedure)
+        {
+            ValidateProcedure(procedure);
+            LinkRoomToProcedure(procedure);
+            var createdProcedure = Create(procedure);
+            return createdProcedure;
+        }
+
         protected abstract T Create(T procedure);
         protected abstract T Update(T procedure);
         protected abstract void ValidateProcedure(T procedure);

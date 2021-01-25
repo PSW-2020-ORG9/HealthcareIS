@@ -77,7 +77,7 @@ namespace Schedule.API.IntegrationTests
         public async void Check_rooms_availability()
         {
             var client = _factory.CreateClient();
-            var content = JsonContent.Create(new EquipmentRelocationDto
+            var content = JsonContent.Create(new SchedulingDto
             {
                 SourceRoomId = 2,
                 DestinationRoomId = 1,
@@ -85,9 +85,7 @@ namespace Schedule.API.IntegrationTests
                 {
                     Start = new DateTime(2022, 3, 3, 9, 0, 0),
                     End = new DateTime(2022, 3, 3, 10, 30, 0)
-                },
-                Amount = 5,
-                EquipmentType = "Chair"
+                }
             });
             var response = await client.PostAsync("schedule/examination/unavailable-rooms", content);
             string responseString = await response.Content.ReadAsStringAsync();

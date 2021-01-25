@@ -14,10 +14,14 @@ namespace WPFHospitalEditor
         public const string EmptyComboBox = "None";
         public const string DayStart = " 00:00";
         public const string DayEnd = " 23:59";
+        public const string ShiftStart = " 08:00";
+        public const string ShiftEnd = " 16:00";
+        public const int ShiftEndHour = 16;
         public const int RegularExaminationDepartment = 1;
         public const int StorageRoomId = 17;
         public const string AuthorizationTokenKey = "Authorization";
         public const int PatientIdForRelocation = 100;
+        public const int PatientIdForRenovation = 101;
         public const int RegularSpecialtyId = 2;
 
     }

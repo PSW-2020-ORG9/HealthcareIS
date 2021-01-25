@@ -18,15 +18,15 @@ namespace Schedule.API.Controllers
     {
         private readonly ExaminationServiceProxy _examinationService;
         private readonly RecommendationService _recommendationService;
-        private readonly IEquipmentRelocationSchedulingService _equipmentRelocationSchedulingService;
+        private readonly IExaminationSchedulingService _examinationSchedulingService;
 
 
         public ExaminationController(ExaminationServiceProxy examinationService, RecommendationService recommendationService,
-            IEquipmentRelocationSchedulingService equipmentRelocationSchedulingService)
+            IExaminationSchedulingService examinationSchedulingService)
         {
             _examinationService = examinationService;
             _recommendationService = recommendationService;
-            _equipmentRelocationSchedulingService = equipmentRelocationSchedulingService;
+            _examinationSchedulingService = examinationSchedulingService;
         }
 
         [HttpGet]
@@ -136,23 +136,53 @@ namespace Schedule.API.Controllers
 
         [HttpPost]
         [Route("unavailable-rooms")]
-        public IActionResult GetUnavailableRooms(EquipmentRelocationDto dto)
+        public IActionResult GetUnavailableRoomsRelocation(SchedulingDto dto)
         {
-            return Ok(_equipmentRelocationSchedulingService.GetUnavailableRooms(dto));
+            return Ok(_examinationSchedulingService.GetUnavailableRooms(dto));
         }
 
         [HttpPost]
         [Route("get-doctors-by-rooms-and-shifts")]
-        public IActionResult GetDoctorsByRoomsAndShifts(EquipmentRelocationDto dto)
+        public IActionResult GetDoctorsByRoomsAndShifts(SchedulingDto dto)
         {
-            return Ok(_equipmentRelocationSchedulingService.GetDoctorsByRoomsAndShifts(dto));
+            return Ok(_examinationSchedulingService.GetDoctorsByRoomsAndShifts(dto));
         }
 
         [HttpPost]
         [Route("recommend-equipment-relocation")]
-        public IActionResult GetEquipmentRelocationAppointments(EquipmentRecommendationRequestDto dto)
+        public IActionResult GetEquipmentRelocationAppointments(SchedulingDto dto)
         {
             return Ok(_recommendationService.RecommendEquipmentRelocation(dto));
+        }
+
+        [HttpPost]
+        [Route("recommend-renovation-appointment")]
+        public IActionResult GetRenovationAppointments(SchedulingDto dto)
+        {
+            return Ok(_recommendationService.RecommendRenovationAppointments(dto));
+        }
+
+        [HttpPost]
+        [Route("schedule-renovation")]
+        public IActionResult ScheduleRenovation(ScheduledRenovationDTO dto)
+        {
+            var examination = RenovationMapper.DtoToObject(dto);
+            try
+            {
+                return Ok(_examinationService.ScheduleRenovation(examination));
+            }
+            catch (NullReferenceException)
+            {
+                return BadRequest("Examination cannot be null.");
+            }
+            catch (ScheduleViolationException e)
+            {
+                return BadRequest(e.Message);
+            }
+            catch (ArgumentException e)
+            {
+                return BadRequest(e.Message);
+            }
         }
     }
 }

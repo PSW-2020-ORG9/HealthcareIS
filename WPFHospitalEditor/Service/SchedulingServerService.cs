@@ -2,6 +2,7 @@
 using RestSharp;
 using System;
 using System.Collections.Generic;
+using System.Windows;
 using WPFHospitalEditor.DTOs;
 using WPFHospitalEditor.Model;
 using WPFHospitalEditor.Service.Interface;
@@ -20,12 +21,12 @@ namespace WPFHospitalEditor.Service
             return response.Data;
         }
 
-        public List<EquipmentRelocationDto> GetEquipmentRelocationAppointments(EquipmentRecommendationRequestDto equipmentRecommendationRequestDto)
+        public List<EquipmentRelocationDto> GetEquipmentRelocationAppointments(SchedulingDto scheduleDto)
         {
             var client = new RestClient(AllConstants.ConnectionUrl);
             var request = new RestRequest("/api/schedule/examination/recommend-equipment-relocation", Method.POST);
             request.AddParameter(AllConstants.AuthorizationTokenKey, LoggedUser.Cookie, ParameterType.Cookie);
-            request.AddJsonBody(RecommendationEquipmentRelocationDtoToJson(equipmentRecommendationRequestDto));
+            request.AddJsonBody(RecommendationEquipmentRelocationDtoToJson(scheduleDto));
             var response = client.Post<List<EquipmentRelocationDto>>(request);
             return response.Data;
         }
@@ -39,12 +40,22 @@ namespace WPFHospitalEditor.Service
             return response.Data;
         }
 
+        public List<RenovationDto> GetRenovationAppointments(SchedulingDto scheduleDto)
+        {
+            var client = new RestClient(AllConstants.ConnectionUrl);
+            var request = new RestRequest("/api/schedule/examination/recommend-renovation-appointment", Method.POST);
+            request.AddParameter(AllConstants.AuthorizationTokenKey, LoggedUser.Cookie, ParameterType.Cookie);
+            request.AddJsonBody(RecommendationEquipmentRelocationDtoToJson(scheduleDto));
+            var response = client.Post<List<RenovationDto>>(request);
+            return response.Data;
+        }
+
         private String RecommendationDtoToJson(RecommendationRequestDto recDto)
         {
             return JsonConvert.SerializeObject(recDto);
         }
 
-        private String RecommendationEquipmentRelocationDtoToJson(EquipmentRecommendationRequestDto equipmentRecomendationRequestDto)
+        private String RecommendationEquipmentRelocationDtoToJson(SchedulingDto equipmentRecomendationRequestDto)
         {
             return JsonConvert.SerializeObject(equipmentRecomendationRequestDto);
         }

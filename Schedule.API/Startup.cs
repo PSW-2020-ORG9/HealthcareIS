@@ -65,8 +65,8 @@ namespace Schedule.API
             // Examinations
             IExaminationRepository examinationRepository = new ExaminationSqlRepository(GetContextFactory());
             IShiftRepository shiftRepository = new ShiftSqlRepository(GetContextFactory());
-            IEquipmentRelocationSchedulingService equipmentRelocationService = 
-                new EquipmentRelocationSchedulingService(examinationRepository, shiftRepository);
+            IExaminationSchedulingService examinationSchedulingService = 
+                new ExaminationSchedulingService(examinationRepository, shiftRepository);
 
             DoctorAvailabilityService availabilityService = new DoctorAvailabilityService(shiftRepository,examinationRepository);
             ExaminationService examinationService = new ExaminationService(examinationRepository, shiftRepository);
@@ -91,7 +91,7 @@ namespace Schedule.API
             services.Add(new ServiceDescriptor(typeof(ExaminationServiceProxy), examinationServiceProxy));
             services.Add(new ServiceDescriptor(typeof(RecommendationService), recommendationService));
             services.Add(new ServiceDescriptor(typeof(DoctorAvailabilityService),availabilityService));
-            services.Add(new ServiceDescriptor(typeof(IEquipmentRelocationSchedulingService), equipmentRelocationService));
+            services.Add(new ServiceDescriptor(typeof(IExaminationSchedulingService), examinationSchedulingService));
 
             services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
         }

@@ -1,21 +1,23 @@
-﻿using WPFHospitalEditor.Model;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using WPFHospitalEditor.Model;
 
 namespace WPFHospitalEditor.DTOs
 {
-    public class EquipmentRelocationDto
+    public class RenovationDto
     {
-        public string EquipmentType { get; set; }
         public int SourceRoomId { get; set; }
         public int DestinationRoomId { get; set; }
-        public int Amount { get; set; }
         public TimeInterval TimeInterval { get; set; }
+        string Description { get; set; }
 
         public SchedulingDto toSchedulingDto()
         {
             SchedulingDto schedulingDto = new SchedulingDto()
             {
-                SourceRoomId = SourceRoomId,
-                DestinationRoomId = DestinationRoomId,
+                SourceRoomId = this.SourceRoomId,
+                DestinationRoomId = this.DestinationRoomId,
                 TimeInterval = this.TimeInterval
 
             };
