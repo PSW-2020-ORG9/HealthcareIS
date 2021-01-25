@@ -22,6 +22,7 @@ import ChooseRecommended from '../views/scheduling/recommendation/ChooseRecommen
 import ObservePatientExaminations from '../views/ObservePatientExaminations.vue'
 import HomePage from '../views/HomePage.vue'
 import LoginForm from '../views/LoginForm.vue'
+import LandingPage from '../views/LandingPage.vue'
 import { parseJwt } from '../jwt.js'
 
 const routes = [
@@ -156,6 +157,11 @@ const routes = [
     path: '/login',
     name: 'LoginForm',
     component: LoginForm
+  },
+  {
+    path: '/welcome',
+    name: 'LandingPage',
+    component: LandingPage
   }
 ]
 
@@ -169,7 +175,8 @@ router.beforeEach((to, from, next) => {
     || to.name === 'personalInformation'
     || to.name === 'healthStatus'
     || to.name === 'accountDetails'
-    || to.name === 'profilePicture') {
+    || to.name === 'profilePicture'
+    || to.name === 'LandingPage') {
     next()
   } else {
     let authCookie = document.cookie
@@ -186,7 +193,7 @@ router.beforeEach((to, from, next) => {
       }
     }
     
-    if (!cookieValid) next({name: 'LoginForm'})
+    if (!cookieValid) next({name: 'LandingPage'})
     else if (!(to.name == 'HomePage' || to.name == 'ObserveFeedback' || to.name == 'SurveyPreview') && user.role == 'Admin') {
       next({ name: 'ObserveFeedback' })
     } else {
