@@ -1,0 +1,75 @@
+﻿<Window x:Class="WPFHospitalEditor.RoomScheduledExaminations"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFHospitalEditor"
+        mc:Ignorable="d"
+        Title="RoomScheduledExaminations" Height="550" Width="800" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Background" Value="SkyBlue"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+    </Window.Resources>
+    <Border BorderThickness="10" BorderBrush="#FF8BD9E0" x:Name="Border">
+        <StackPanel x:Name="appointmentSearchStackPanel" Orientation="Vertical" HorizontalAlignment="Stretch" Background="#FFC6F5F8">
+            <TextBlock x:Name="roomExaminations" Text="Room scheduled appointments: " FontSize="20" Margin="20,10,0,0"></TextBlock>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,10,0,0">
+                <Label Content="Pick type:" FontSize="14" VerticalAlignment="Center" Margin="20,0,0,0"></Label>
+                <ComboBox x:Name="roomSearchComboBox" x:FieldModifier="public" HorizontalAlignment="Left" Height="30" Width="100" Margin="5,0,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" SelectedIndex="0">
+                    <ComboBoxItem Name="regularEx">Examinations</ComboBoxItem>
+                    <ComboBoxItem Name="renovations">Renovations</ComboBoxItem>
+                    <ComboBoxItem Name="relocations">Relocations</ComboBoxItem>
+                </ComboBox>
+            </StackPanel>
+            <ScrollViewer x:Name="scrollViewer1" MaxHeight="250" Grid.Row="1" Grid.ColumnSpan="4" Background="#FFC6F5F8" Margin="20,10,20,0">
+                <DataGrid x:Name="examinationList" ItemsSource="{Binding roomsWithEquipmentAmount}" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding RoomId}" Width="auto" Header="Appointment id" ></DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding RoomName}" Width="auto" Header="Start time" ></DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding EquipmentAmount}" Width="auto" Header="End time" ></DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding EquipmentAmount}" Width="auto" Header="Doctor" ></DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding EquipmentAmount}" Width="auto" Header="Patient" ></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </ScrollViewer>
+            <ScrollViewer x:Name="scrollViewer2" MaxHeight="250" Grid.Row="1" Grid.ColumnSpan="4" Background="#FFC6F5F8" Margin="20,10,20,0">
+                <DataGrid x:Name="relocationlist" ItemsSource="{Binding roomsWithEquipmentAmount}" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding RoomId}" Width="auto" Header="Appointment Id" ></DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding RoomName}" Width="auto" Header="Start time" ></DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding EquipmentAmount}" Width="auto" Header="End time" ></DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding EquipmentAmount}" Width="auto" Header="Description" ></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </ScrollViewer>
+            <ScrollViewer x:Name="scrollViewer3" MaxHeight="250" Grid.Row="1" Grid.ColumnSpan="4" Background="#FFC6F5F8" Margin="20,10,20,0">
+                <DataGrid x:Name="renovationList" ItemsSource="{Binding roomsWithEquipmentAmount}" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding RoomId}" Width="auto" Header="Appointment id" ></DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding RoomName}" Width="auto" Header="Start time" ></DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding EquipmentAmount}" Width="auto" Header="End time" ></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </ScrollViewer>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,20,0,0">
+                <Label Content="Pick appointment id to delete:" FontSize="14" VerticalAlignment="Center" Margin="20,0,0,0"></Label>
+                <ComboBox x:Name="apppointmentDelet" x:FieldModifier="public" HorizontalAlignment="Left" Height="30" Width="100" Margin="5,0,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" SelectedIndex="0">
+                    <ComboBoxItem Name="emptyAppToDelete">None</ComboBoxItem>
+                </ComboBox>
+                <Button x:Name="cancel" Margin="20,0,0,0" Click="CancelAppointment" Width="120">Cancel appointment</Button>
+
+            </StackPanel>
+            <Grid>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,30,0,0">
+                    <Button Click="CloseClick" Margin="20,0,0,0">Cancel</Button>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+    </Border>
+</Window>

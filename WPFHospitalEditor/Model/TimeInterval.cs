@@ -8,6 +8,10 @@ namespace WPFHospitalEditor.Model
         public DateTime Start { get; }
         public DateTime End { get; }
 
+        public TimeInterval()
+        {
+
+        }
         public TimeInterval(DateTime start, DateTime end)
         {
             Validate(start, end);
