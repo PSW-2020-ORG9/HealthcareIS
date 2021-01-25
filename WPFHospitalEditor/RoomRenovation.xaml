@@ -44,7 +44,7 @@
                 </ComboBox>
                 <StackPanel x:Name="RoomStackPanel" Orientation="Horizontal" Visibility="Hidden">
                     <Label Content="Pick room id:" FontSize="14" VerticalAlignment="Center" Margin="20,0,0,0"></Label>
-                    <ComboBox x:Name="SecondRoomComboBox" x:FieldModifier="public" HorizontalAlignment="Left" Height="30" Width="100" Margin="5,0,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" SelectedIndex="0" >
+                    <ComboBox x:Name="DestinationRoomComboBox" x:FieldModifier="public" HorizontalAlignment="Left" Height="30" Width="100" Margin="5,0,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" SelectedIndex="0" >
                         <ComboBoxItem Name="emptyRoomComboBox">None</ComboBoxItem>
                     </ComboBox>
                 </StackPanel>

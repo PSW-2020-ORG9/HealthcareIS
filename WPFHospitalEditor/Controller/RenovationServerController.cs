@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using WPFHospitalEditor.Controller.Interface;
+using WPFHospitalEditor.Model;
 using WPFHospitalEditor.Service;
 using WPFHospitalEditor.Service.Interface;
 
@@ -11,9 +12,9 @@ namespace WPFHospitalEditor.Controller
     {
         private readonly IRenovationServerService renovationServerService = new RenovationServerService();
 
-        public string ScheduleRenovation(DateTime startDate, DateTime endDate, int doctorId, int patientId)
+        public string ScheduleRenovation(TimeInterval timeInterval, int doctorId, int patientId)
         {
-            return renovationServerService.ScheduleRenovation(startDate, endDate, doctorId, patientId);
+            return renovationServerService.ScheduleRenovation(timeInterval, doctorId, patientId);
         }
     }
 }

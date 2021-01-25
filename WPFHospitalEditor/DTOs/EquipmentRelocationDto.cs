@@ -14,8 +14,8 @@ namespace WPFHospitalEditor.DTOs
         {
             SchedulingDto schedulingDto = new SchedulingDto()
             {
-                FirstRoomId = SourceRoomId,
-                SecondRoomId = DestinationRoomId,
+                SourceRoomId = SourceRoomId,
+                DestinationRoomId = DestinationRoomId,
                 TimeInterval = this.TimeInterval
 
             };

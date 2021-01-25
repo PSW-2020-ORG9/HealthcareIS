@@ -28,8 +28,8 @@ namespace Schedule.API.Services.Procedures
         {
             HashSet<int> unavailableRoomsIds = new HashSet<int>();
             List<Examination> relocationRoomsExaminations = _examinationWrapper.Repository
-                .GetMatching(e => (e.RoomId == schDto.FirstRoomId) 
-                || e.RoomId == schDto.SecondRoomId).ToList();
+                .GetMatching(e => (e.RoomId == schDto.SourceRoomId) 
+                || e.RoomId == schDto.DestinationRoomId).ToList();
 
             foreach (Examination examination in relocationRoomsExaminations)
             {
@@ -45,8 +45,8 @@ namespace Schedule.API.Services.Procedures
         {
             HashSet<int> doctors = new HashSet<int>();
             List<Shift> shifts = _shiftsWrapper.Repository
-                .GetMatching(s => (s.AssignedExamRoomId == schDto.FirstRoomId
-                || s.AssignedExamRoomId == schDto.SecondRoomId) 
+                .GetMatching(s => (s.AssignedExamRoomId == schDto.SourceRoomId
+                || s.AssignedExamRoomId == schDto.DestinationRoomId) 
                 && s.TimeInterval.Start.Date == schDto.TimeInterval.Start.Date).ToList();
 
             foreach (Shift shift in shifts)

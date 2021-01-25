@@ -11,14 +11,14 @@ namespace WPFHospitalEditor
     {
 
         private readonly int roomId;
-        private readonly RoomRenovation rr;
+        private readonly RoomRenovation roomRenovation;
         private readonly SchedulingDto schedulingDto;
 
-        public AlternativeRenovationAppointments(int roomId, RoomRenovation rr, SchedulingDto schedulingDto)
+        public AlternativeRenovationAppointments(int roomId, RoomRenovation roomRenovation, SchedulingDto schedulingDto)
         {
             InitializeComponent();
             this.roomId = roomId;
-            this.rr = rr;
+            this.roomRenovation = roomRenovation;
             this.roomId = roomId;
             this.schedulingDto = schedulingDto;
             givenRoom.Text = "Room with id: " + roomId.ToString() + " is unavailable in given time interval. " +
@@ -33,7 +33,7 @@ namespace WPFHospitalEditor
 
         private void ShowAppointments(object sender, RoutedEventArgs e)
         {
-            if (schedulingDto.SecondRoomId == -1)
+            if (schedulingDto.DestinationRoomId == -1)
             {
                 ISearchResultStrategy strategy = new SearchResultStrategy(new BasicRenovationaAppointmentsSearchResult(schedulingDto));
                 SearchResultDialog equipmentRelocationDialog = new SearchResultDialog(strategy.GetSearchResult(), SearchType.BasicRoomRenovationSearch);

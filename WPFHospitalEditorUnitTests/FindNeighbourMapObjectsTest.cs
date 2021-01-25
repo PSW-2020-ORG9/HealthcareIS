@@ -15,7 +15,7 @@ namespace WPFHospitalEditorUnitTests
         {
             MapObjectService mapObjectService = new MapObjectService(CreateStubRepository());
 
-            List<MapObject> mapObjects = mapObjectService.GetNeigbourMapObjects(11);
+            List<MapObject> mapObjects = mapObjectService.GetNeighborMapObjects(11);
 
             mapObjects.ShouldNotBeEmpty();
         }

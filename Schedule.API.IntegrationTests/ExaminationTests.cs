@@ -79,8 +79,8 @@ namespace Schedule.API.IntegrationTests
             var client = _factory.CreateClient();
             var content = JsonContent.Create(new SchedulingDto
             {
-                FirstRoomId = 2,
-                SecondRoomId = 1,
+                SourceRoomId = 2,
+                DestinationRoomId = 1,
                 TimeInterval = new TimeInterval
                 {
                     Start = new DateTime(2022, 3, 3, 9, 0, 0),

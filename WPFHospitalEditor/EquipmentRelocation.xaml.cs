@@ -87,8 +87,8 @@ namespace WPFHospitalEditor
         {
             SchedulingDto eqRequest = new SchedulingDto()
             {
-                FirstRoomId = equipmentRelocationDto.SourceRoomId,
-                SecondRoomId = equipmentRelocationDto.DestinationRoomId,
+                SourceRoomId = equipmentRelocationDto.SourceRoomId,
+                DestinationRoomId = equipmentRelocationDto.DestinationRoomId,
                 TimeInterval = equipmentRelocationDto.TimeInterval
             };
             

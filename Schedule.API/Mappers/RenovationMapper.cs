@@ -15,7 +15,7 @@ namespace Schedule.API.Mappers
             return new Examination
             {
                 DoctorId = dto.DoctorId,
-                TimeInterval = new TimeInterval(dto.StartDate, dto.EndDate),
+                TimeInterval = dto.TimeInterval,
                 PatientId = dto.PatientId,
                 IsCanceled = false,
                 Priority = ProcedurePriority.Low,

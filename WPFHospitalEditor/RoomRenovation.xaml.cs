@@ -24,6 +24,7 @@ namespace WPFHospitalEditor
         int mapObjectId;
         DateTime startDate;
         DateTime endDate;
+        TimeInterval timeInterval;
         int neighbourMapObjectId = -1;
 
         public RoomRenovation(int mapObjectId)
@@ -40,16 +41,16 @@ namespace WPFHospitalEditor
 
         private void SetRoomsComboBox()
         {
-            List<MapObject> mapObjects = mapObjectController.GetNeigbourMapObjects(mapObjectId);
-            foreach (MapObject mo in mapObjects)
+            List<MapObject> neighborMapObjects = mapObjectController.GetNeighborMapObjects(mapObjectId);
+            foreach (MapObject mo in neighborMapObjects)
             {
-                SecondRoomComboBox.Items.Add(mo.Id);
+                DestinationRoomComboBox.Items.Add(mo.Id);
             }
         }
 
         private void RenovateRoom(object sender, RoutedEventArgs e)
         {
-            setSecondRoomId();
+            setDestinationRoomId();
             setDates();
             try
             {
@@ -72,10 +73,10 @@ namespace WPFHospitalEditor
             }
         }
 
-        private void setSecondRoomId()
+        private void setDestinationRoomId()
         {
-            if (SecondRoomComboBox.SelectedIndex != 0)
-                neighbourMapObjectId = int.Parse(SecondRoomComboBox.SelectedItem.ToString());
+            if (DestinationRoomComboBox.SelectedIndex != 0)
+                neighbourMapObjectId = int.Parse(DestinationRoomComboBox.SelectedItem.ToString());
         }
 
         private void setDates()
@@ -86,6 +87,8 @@ namespace WPFHospitalEditor
             endDate =
                 DateTime.ParseExact(endDatePicker.SelectedDate.Value.ToString("MM/dd/yyyy")
                 + AllConstants.ShiftEnd, "MM/dd/yyyy HH:mm", null);
+
+            timeInterval = new TimeInterval(startDate, endDate);
         }
 
         private void ShowAlternativeRenovationAppointments(List<int> unavailableRooms, RenovationDto renovationDto)
@@ -102,7 +105,7 @@ namespace WPFHospitalEditor
             List<int> doctors = doctorServerController.GetDoctorsByRoomsAndShifts(schDto).ToList();
             foreach (int doctorId in doctors)
             {
-                renovationServerController.ScheduleRenovation(startDate, endDate,doctorId, AllConstants.PatientIdForRenovation);                
+                renovationServerController.ScheduleRenovation(timeInterval, doctorId, AllConstants.PatientIdForRenovation);                
             }
             MessageBox.Show("Renovation is successfully scheduled!", "");
             this.Close();
@@ -112,8 +115,8 @@ namespace WPFHospitalEditor
         {
             RenovationDto renovationDto = new RenovationDto()
             {
-                FirstRoomId = mapObjectId,
-                SecondRoomId = neighbourMapObjectId,
+                SourceRoomId = mapObjectId,
+                DestinationRoomId = neighbourMapObjectId,
                 TimeInterval = timeInterval
 
             };
@@ -124,14 +127,14 @@ namespace WPFHospitalEditor
         {
             if(ComplexStackPanel != null)
             {
-                if (RenovationTypeComboBox.SelectedIndex == 1)
+                if (RenovationTypeComboBox.Text.Equals("Basic"))
                 {
                     ComplexStackPanel.Visibility = Visibility.Visible;
                 }
-                else
+                else if(RenovationTypeComboBox.Text.Equals("Complex"))
                 {
                     ComplexStackPanel.Visibility = Visibility.Hidden;
-                    SecondRoomComboBox.SelectedIndex = 0;
+                    DestinationRoomComboBox.SelectedIndex = 0;
                 }
             }
         }

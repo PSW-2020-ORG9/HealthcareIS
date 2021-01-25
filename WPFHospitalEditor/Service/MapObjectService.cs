@@ -65,7 +65,7 @@ namespace WPFHospitalEditor.Service
             return iMapObjectRepository.GetAllBuildingMapObjects(id);
         }
 
-        public List<MapObject> GetNeigbourMapObjects(int roomId)
+        public List<MapObject> GetNeighborMapObjects(int roomId)
         {
             MapObject mapObject = GetMapObjectById(roomId);
             return FillListWithNeighbourMapObjects(mapObject);

@@ -4,8 +4,8 @@ namespace Schedule.API.DTOs
 {
     public class RoomRenovationDto
     {
-        public int FirstRoomId { get; set; }
-        public int SecondRoomId { get; set; }
+        public int SourceRoomId { get; set; }
+        public int DestinationRoomId { get; set; }
         public TimeInterval TimeInterval { get; set; }
 
     }

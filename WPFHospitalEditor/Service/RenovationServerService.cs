@@ -11,12 +11,11 @@ namespace WPFHospitalEditor.Service
 {
     public class RenovationServerService : IRenovationServerService
     {
-        public string ScheduleRenovation(DateTime startDate, DateTime endDate, int doctorId, int patientId)
+        public string ScheduleRenovation(TimeInterval timeInterval, int doctorId, int patientId)
         {
             ScheduleRenovationDTO scheduleRenovationDTO = new ScheduleRenovationDTO()
             {
-                StartDate = startDate,
-                EndDate = endDate,
+                TimeInterval = new TimeInterval(timeInterval.Start, timeInterval.End),
                 DoctorId = doctorId,
                 PatientId = patientId
             };

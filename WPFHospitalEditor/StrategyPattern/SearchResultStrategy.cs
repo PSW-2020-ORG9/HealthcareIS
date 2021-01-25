@@ -216,12 +216,12 @@ namespace WPFHospitalEditor.StrategyPattern
             for (int i = 0; i < searchResult.Count(); i++)
             {
                 RenovationDto renovationDto = searchResult.ElementAt(i);
-                MapObject mo = mapObjectController.GetMapObjectById(renovationDto.FirstRoomId);
+                MapObject mo = mapObjectController.GetMapObjectById(renovationDto.SourceRoomId);
                 string timeInterval = renovationDto.TimeInterval.Start.ToString() + "-" + renovationDto.TimeInterval.End.ToString();
                 RenovationSearchResultDTO searchResultDTO = new RenovationSearchResultDTO()
                 {
-                    Content = renovationDto.FirstRoomId.ToString() + AllConstants.ContentSeparator
-                    + renovationDto.SecondRoomId.ToString() + AllConstants.ContentSeparator
+                    Content = renovationDto.SourceRoomId.ToString() + AllConstants.ContentSeparator
+                    + renovationDto.DestinationRoomId.ToString() + AllConstants.ContentSeparator
                     + timeInterval,
                     RenovationDto = renovationDto
                 };
@@ -248,11 +248,11 @@ namespace WPFHospitalEditor.StrategyPattern
             for (int i = 0; i < searchResult.Count(); i++)
             {
                 RenovationDto renovationDto = searchResult.ElementAt(i);
-                MapObject mo = mapObjectController.GetMapObjectById(renovationDto.FirstRoomId);
+                MapObject mo = mapObjectController.GetMapObjectById(renovationDto.SourceRoomId);
                 string timeInterval = renovationDto.TimeInterval.Start.ToString() + "-" + renovationDto.TimeInterval.End.ToString();
                 RenovationSearchResultDTO searchResultDTO = new RenovationSearchResultDTO()
                 {
-                    Content = renovationDto.FirstRoomId.ToString() + AllConstants.ContentSeparator
+                    Content = renovationDto.SourceRoomId.ToString() + AllConstants.ContentSeparator
                     + timeInterval,
                     RenovationDto = renovationDto
                 };

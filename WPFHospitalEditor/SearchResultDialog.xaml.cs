@@ -11,6 +11,7 @@ using WPFHospitalEditor.StrategyPattern;
 using WPFHospitalEditor.Controller.Interface;
 using System.Linq;
 using System;
+using WPFHospitalEditor.Model;
 
 namespace WPFHospitalEditor
 {
@@ -25,9 +26,7 @@ namespace WPFHospitalEditor
         private IDoctorServerController doctorServerController = new DoctorServerController();
         private IExaminationServerController examinationServerController = new ExaminationServerController();
         private IRenovationServerController renovationServerController = new RenovationServerController();
-        private DateTime startDate;
-        private DateTime endDate;
-
+        private TimeInterval timeInterval;
         public SearchResultDialog(List<SearchResultDTO> searchResults, SearchType searchType)
         {
             InitializeComponent();
@@ -184,7 +183,7 @@ namespace WPFHospitalEditor
                 {
                     examinationServerController.ScheduleExamination(relocation.TimeInterval.Start, doctorId, AllConstants.PatientIdForRelocation);
                 }
-                MessageBox.Show("Relocation is successfully scheduled!", "");
+                MessageBox.Show("Relocation is successfully scheduled!");
                 this.Close();
             };
         }
@@ -197,18 +196,16 @@ namespace WPFHospitalEditor
             DynamicGrid.Children.Add(scheduleBtn);
 
             SchedulingDto schDto = renovation.toSchedulingDto();
-
-            startDate = schDto.TimeInterval.Start;
-            endDate = schDto.TimeInterval.End;
+            timeInterval = new TimeInterval(schDto.TimeInterval.Start, schDto.TimeInterval.End);
 
             scheduleBtn.Click += (s, e) =>
             {
                 List<int> doctors = doctorServerController.GetDoctorsByRoomsAndShifts(schDto).ToList();
                 foreach (int doctorId in doctors)
                 {
-                    renovationServerController.ScheduleRenovation(startDate, endDate, doctorId, AllConstants.PatientIdForRenovation);
+                    renovationServerController.ScheduleRenovation(renovation.TimeInterval, doctorId, AllConstants.PatientIdForRenovation);
                 }
-                MessageBox.Show("Renovation is successfully scheduled!", "");
+                MessageBox.Show("Renovation is successfully scheduled!");
                 this.Close();
             };
         }

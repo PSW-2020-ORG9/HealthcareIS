@@ -11,6 +11,6 @@ namespace WPFHospitalEditor.Controller
         MapObject GetMapObjectById(int id);
         List<MapObject> SearchMapObjects(string name, string type);
         List<MapObject> GetAllBuildingMapObjects(int id);
-        List<MapObject> GetNeigbourMapObjects(int roomId);
+        List<MapObject> GetNeighborMapObjects(int roomId);
     }
 }

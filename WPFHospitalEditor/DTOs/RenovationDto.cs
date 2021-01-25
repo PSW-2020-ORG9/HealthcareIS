@@ -7,8 +7,8 @@ namespace WPFHospitalEditor.DTOs
 {
     public class RenovationDto
     {
-        public int FirstRoomId { get; set; }
-        public int SecondRoomId { get; set; }
+        public int SourceRoomId { get; set; }
+        public int DestinationRoomId { get; set; }
         public TimeInterval TimeInterval { get; set; }
         string Description { get; set; }
 
@@ -16,8 +16,8 @@ namespace WPFHospitalEditor.DTOs
         {
             SchedulingDto schedulingDto = new SchedulingDto()
             {
-                FirstRoomId = this.FirstRoomId,
-                SecondRoomId = this.SecondRoomId,
+                SourceRoomId = this.SourceRoomId,
+                DestinationRoomId = this.DestinationRoomId,
                 TimeInterval = this.TimeInterval
 
             };

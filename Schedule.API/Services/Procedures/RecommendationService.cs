@@ -20,6 +20,7 @@ namespace Schedule.API.Services.Procedures
         private readonly RepositoryWrapper<IExaminationRepository> _examinationWrapper;
         private readonly RepositoryWrapper<IShiftRepository> _shiftWrapper;
         private readonly IConnection _doctorConnection;
+        private const int MaximumAppointmentsInShift = 16;
 
         public RecommendationService(
             IExaminationRepository examinationRepository,
@@ -218,10 +219,10 @@ namespace Schedule.API.Services.Procedures
         {
             int dateInterval = dto.TimeInterval.End.Day - dto.TimeInterval.Start.Day;
             IEnumerable<Shift> shiftsForDestinationRoom = _shiftWrapper.Repository.GetByTimeInterval
-                (dto.TimeInterval).Where(shift => shift.AssignedExamRoomId == dto.SecondRoomId);
+                (dto.TimeInterval).Where(shift => shift.AssignedExamRoomId == dto.DestinationRoomId);
 
             IEnumerable<Shift> shiftsForSourceRoom = _shiftWrapper.Repository.GetByTimeInterval
-                (dto.TimeInterval).Where(shift => shift.AssignedExamRoomId == dto.FirstRoomId);
+                (dto.TimeInterval).Where(shift => shift.AssignedExamRoomId == dto.SourceRoomId);
 
             IEnumerable<RecommendationDto> recommendationsSourceRoom = FindRecommendationsInShifts(shiftsForSourceRoom, 20 * dateInterval);
             IEnumerable<RecommendationDto> recommendationsDestinationRoom = FindRecommendationsInShifts(shiftsForDestinationRoom, 20 * dateInterval);
@@ -242,8 +243,8 @@ namespace Schedule.API.Services.Procedures
                     {
                         EquipmentRelocationDto eqDto = new EquipmentRelocationDto()
                         {
-                            SourceRoomId = dto.FirstRoomId,
-                            DestinationRoomId = dto.SecondRoomId,
+                            SourceRoomId = dto.SourceRoomId,
+                            DestinationRoomId = dto.DestinationRoomId,
                             Amount = 0,
                             TimeInterval = recDestination.TimeInterval
                         };
@@ -257,7 +258,7 @@ namespace Schedule.API.Services.Procedures
 
         public IEnumerable<RoomRenovationDto> RecommendRenovationAppointments(SchedulingDto dto)
         {
-            if(dto.SecondRoomId == -1)
+            if(dto.DestinationRoomId == -1)
                 return BasicRenovationSearch(dto);
             else
                 return ComplexRenovationSearch(dto);            
@@ -267,13 +268,13 @@ namespace Schedule.API.Services.Procedures
         {
             List<RoomRenovationDto> appointments = new List<RoomRenovationDto>();
             List<Shift> availableShiftsSource = new List<Shift>();
-            IEnumerable<Shift> shiftsForSourceRoom = _shiftWrapper.Repository.GetShiftsByRoomID(dto.FirstRoomId);
+            IEnumerable<Shift> shiftsForSourceRoom = _shiftWrapper.Repository.GetShiftsByRoomID(dto.SourceRoomId);
             foreach (Shift shift in shiftsForSourceRoom)
             {
                 List<Shift> shiftList = new List<Shift>();
                 shiftList.Add(shift);
-                IEnumerable<RecommendationDto> recommendationsSourceRoom = FindRecommendationsInShifts(shiftList, 16);
-                if (recommendationsSourceRoom.Count() == 16)
+                IEnumerable<RecommendationDto> recommendationsSourceRoom = FindRecommendationsInShifts(shiftList, MaximumAppointmentsInShift);
+                if (recommendationsSourceRoom.Count() == MaximumAppointmentsInShift)
                 {
                     availableShiftsSource.Add(shift);
                 }
@@ -283,8 +284,8 @@ namespace Schedule.API.Services.Procedures
             {
                 RoomRenovationDto roomRenovationDto = new RoomRenovationDto()
                 {
-                    FirstRoomId = dto.FirstRoomId,
-                    SecondRoomId = dto.SecondRoomId,
+                    SourceRoomId = dto.SourceRoomId,
+                    DestinationRoomId = dto.DestinationRoomId,
                     TimeInterval = shift.TimeInterval
                 };
                 appointments.Add(roomRenovationDto);
@@ -297,14 +298,14 @@ namespace Schedule.API.Services.Procedures
             List<RoomRenovationDto> appointments = new List<RoomRenovationDto>();
             List<Shift> availableShiftsSource = new List<Shift>();
             List<Shift> availableShiftsDestination = new List<Shift>();
-            IEnumerable<Shift> shiftsForDestinationRoom = _shiftWrapper.Repository.GetShiftsByRoomID(dto.SecondRoomId);
-            IEnumerable<Shift> shiftsForSourceRoom = _shiftWrapper.Repository.GetShiftsByRoomID(dto.FirstRoomId);
+            IEnumerable<Shift> shiftsForDestinationRoom = _shiftWrapper.Repository.GetShiftsByRoomID(dto.DestinationRoomId);
+            IEnumerable<Shift> shiftsForSourceRoom = _shiftWrapper.Repository.GetShiftsByRoomID(dto.SourceRoomId);
             foreach (Shift shift in shiftsForSourceRoom)
             {
                 List<Shift> shiftList = new List<Shift>();
                 shiftList.Add(shift);
-                IEnumerable<RecommendationDto> recommendationsSourceRoom = FindRecommendationsInShifts(shiftList, 16);
-                if (recommendationsSourceRoom.Count() == 16)
+                IEnumerable<RecommendationDto> recommendationsSourceRoom = FindRecommendationsInShifts(shiftList, MaximumAppointmentsInShift);
+                if (recommendationsSourceRoom.Count() == MaximumAppointmentsInShift)
                 {
                     availableShiftsSource.Add(shift);
                 }
@@ -313,8 +314,8 @@ namespace Schedule.API.Services.Procedures
             {
                 List<Shift> shiftList = new List<Shift>();
                 shiftList.Add(shift);
-                IEnumerable<RecommendationDto> recommendationsDestinationRoom = FindRecommendationsInShifts(shiftList, 16);
-                if (recommendationsDestinationRoom.Count() == 16)
+                IEnumerable<RecommendationDto> recommendationsDestinationRoom = FindRecommendationsInShifts(shiftList, MaximumAppointmentsInShift);
+                if (recommendationsDestinationRoom.Count() == MaximumAppointmentsInShift)
                 {
                     availableShiftsDestination.Add(shift);
                 }
@@ -325,7 +326,7 @@ namespace Schedule.API.Services.Procedures
             {
                 foreach (Shift shiftDest in availableShiftsDestination)
                 {
-                    if (shiftDest.TimeInterval.Start == shiftSource.TimeInterval.Start && shiftDest.TimeInterval.End == shiftSource.TimeInterval.End)
+                    if (shiftDest.TimeInterval.Start.Date == shiftSource.TimeInterval.Start.Date && shiftDest.TimeInterval.End.Date == shiftSource.TimeInterval.End.Date)
                     {
                         availableTimeIntervals.Add(shiftDest.TimeInterval);
                     }
@@ -335,8 +336,8 @@ namespace Schedule.API.Services.Procedures
             {
                 RoomRenovationDto roomRenovationDto = new RoomRenovationDto()
                 {
-                    FirstRoomId = dto.FirstRoomId,
-                    SecondRoomId = dto.SecondRoomId,
+                    SourceRoomId = dto.SourceRoomId,
+                    DestinationRoomId = dto.DestinationRoomId,
                     TimeInterval = timeInterval
                 };
                 appointments.Add(roomRenovationDto);
