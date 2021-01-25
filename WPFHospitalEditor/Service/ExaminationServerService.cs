@@ -59,5 +59,14 @@ namespace WPFHospitalEditor.Service
             var response = client.Post<Examination>(request);
             return response.Data;
         }
+
+        public IEnumerable<Examination> GetByRoomId(int roomId)
+        {
+            var client = new RestClient(AllConstants.ConnectionUrl);
+            var request = new RestRequest("/api/schedule/examination/by-roomId/" + roomId, Method.GET);
+            request.AddParameter(AllConstants.AuthorizationTokenKey, LoggedUser.Cookie, ParameterType.Cookie);
+            var response = client.Get< IEnumerable<Examination>>(request);
+            return response.Data;
+        }
     }
 }

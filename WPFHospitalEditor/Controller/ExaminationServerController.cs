@@ -30,5 +30,10 @@ namespace WPFHospitalEditor.Controller
         {
            return examinationServerService.ScheduleExamination(startTime, doctorId, patientId);
         }
+
+        public IEnumerable<Examination> getByRoomId(int roomId)
+        {
+            return examinationServerService.GetByRoomId(roomId);
+        }
     }
 }
