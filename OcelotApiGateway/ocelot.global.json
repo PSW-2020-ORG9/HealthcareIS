@@ -290,9 +290,8 @@
       "UpstreamPathTemplate": "/api/schedule/examination/by-specialty/{everything}",
       "UpstreamHttpMethod": [ "Get", "Post" ]
     },
-
     {
-      "DownstreamPathTemplate": "/schedule/examination/by-roomId/{everything}",
+      "DownstreamPathTemplate": "/schedule/examination/by-room/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -300,7 +299,7 @@
           "Port": $PSW_SCHEDULE_SERVICE_PORT
         }
       ],
-      "UpstreamPathTemplate": "/api/schedule/examination/by-roomId/{everything}",
+      "UpstreamPathTemplate": "/api/schedule/examination/by-room/{everything}",
       "UpstreamHttpMethod": [ "Get", "Post" ]
     },
 
@@ -405,8 +404,7 @@
       "RouteClaimsRequirement": {
         "Role": "Admin"
       }
-    }
-    ,
+    },
     {
       "DownstreamPathTemplate": "/event/{everything}",
       "DownstreamScheme": "http",

@@ -99,7 +99,7 @@ namespace Schedule.API.IntegrationTests
         public async void Gets_examinations_by_roomId()
         {
             var client = _factory.CreateClient();
-            var response = await client.GetAsync("schedule/examination/by-roomId/1");
+            var response = await client.GetAsync("schedule/examination/by-room/1");
             string responseString = await response.Content.ReadAsStringAsync();
 
             Assert.Contains("\"roomId\":1", responseString);

@@ -156,7 +156,7 @@ namespace Schedule.API.Controllers
         }
 
         [HttpGet]
-        [Route("by-roomId/{roomId}")]
+        [Route("by-room/{roomId}")]
         public IActionResult GetByRoomId(int roomId)
         {
             return Ok(_examinationService.GetByRoomId(roomId));
