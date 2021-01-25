@@ -66,14 +66,15 @@ namespace WPFHospitalEditor
                 if (AmountIsValid())
                 {
                     EquipmentRelocationDto eqRelDto = CreateEquipmentRelocationDto(timeInterval);
-                    List<int> unavailableRooms = roomServerController.GetUnavailableRoomsIdsInTimeInterval(eqRelDto).ToList();
+                    SchedulingDto schDto = eqRelDto.toSchedulingDto();
+                    List<int> unavailableRooms = roomServerController.GetUnavailableRooms(schDto).ToList();
                     if (unavailableRooms.Count > 0)
                     {
                         ShowAlternativeRelocationAppointments(unavailableRooms, eqRelDto);
                     }
                     else
                     {
-                        ScheduleRelocation(eqRelDto);
+                        ScheduleRelocation(schDto);
                     }
                 }
             } catch
@@ -84,7 +85,7 @@ namespace WPFHospitalEditor
 
         private void ShowAlternativeRelocationAppointments(List<int> unavailableRooms, EquipmentRelocationDto equipmentRelocationDto)
         {
-            EquipmentRecommendationRequestDto eqRequest = new EquipmentRecommendationRequestDto()
+            SchedulingDto eqRequest = new SchedulingDto()
             {
                 SourceRoomId = equipmentRelocationDto.SourceRoomId,
                 DestinationRoomId = equipmentRelocationDto.DestinationRoomId,
@@ -96,13 +97,13 @@ namespace WPFHospitalEditor
             newWindow.Show();
         }
 
-        private void ScheduleRelocation(EquipmentRelocationDto eqRelDto)
+        private void ScheduleRelocation(SchedulingDto schDto)
         {
 
-            List<int> doctors = doctorServerController.GetDoctorsByRoomsAndShifts(eqRelDto).ToList();
+            List<int> doctors = doctorServerController.GetDoctorsByRoomsAndShifts(schDto).ToList();
             foreach (int doctorId in doctors)
             {
-                startDate = eqRelDto.TimeInterval.Start;
+                startDate = schDto.TimeInterval.Start;
                 while (startDate < endDate)
                 {
                     examinationServerController.ScheduleExamination(startDate, doctorId, AllConstants.PatientIdForRelocation);

@@ -14,6 +14,8 @@ namespace Schedule.API.Infrastructure.Repositories.Shifts
     public interface IShiftRepository : IWrappableRepository<Shift, int>
     {
         IEnumerable<Shift> GetByTimeInterval(TimeInterval interval);
+        IEnumerable<Shift> GetShiftsByRoomID(int id);
+
         IEnumerable<Shift> GetByDoctorAndShiftStart(int doctorId, DateTime shiftStart);
         IEnumerable<Shift> GetByShiftStart(DateTime shiftStart);
         public IEnumerable<Shift> GetByDoctorIdAndTimeInterval(int doctorId, TimeInterval interval);

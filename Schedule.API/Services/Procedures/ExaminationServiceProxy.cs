@@ -84,6 +84,12 @@ namespace Schedule.API.Services.Procedures
             return _examinationService.ScheduleEmergency(procedure);
         }
 
+        public Examination ScheduleRenovation(Examination procedure)
+        {
+            AttachMissingReferences(new[] { procedure });
+            return _examinationService.ScheduleRenovation(procedure);
+        }
+
         // Data reassembly methods
         private void AttachMissingReferences(IEnumerable<Examination> examinations)
         {

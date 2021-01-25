@@ -16,9 +16,9 @@ namespace WPFHospitalEditor.Controller
             return roomTypeServerService.GetRoomsByEquipmentType(equipmentType);
         }
 
-        public IEnumerable<int> GetUnavailableRoomsIdsInTimeInterval(EquipmentRelocationDto eqRelDto)
+        public IEnumerable<int> GetUnavailableRooms(SchedulingDto dto)
         {
-            return roomTypeServerService.GetUnavailableRoomsIdsInTimeInterval(eqRelDto);
+            return roomTypeServerService.GetUnavailableRooms(dto);
         }
     }
 }

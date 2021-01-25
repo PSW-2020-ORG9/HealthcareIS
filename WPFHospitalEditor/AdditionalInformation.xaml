@@ -36,7 +36,8 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Button x:Name="ShowAppointments" Click="BtnScheduledAppointments" Content="Show scheduled" Grid.Column="2" Grid.Row="0" Margin="0,5,0,0"/>
+                <Button x:Name="ShowAppointments" Click="BtnScheduledAppointments" Content="Appointments" Grid.Column="2" Grid.Row="0" Margin="0,5,0,0"/>
+                <Button x:Name="Renovation" Click="BtnRenovationClick" Content="Renovation" Grid.Column="0" Grid.Row="0" Margin="0,5,0,0"/>
                 <Button x:Name="Equipment" Click="BtnEquipmentClick" Content="Equipment" Grid.Column="0" Grid.Row="1" Margin="0,5,0,0"/>
                 <Button x:Name="Medication" Click="BtnMedicationsClick" Content="Medication" Grid.Column="2" Grid.Row="1" Margin="0,5,0,0"/>
                 <Button x:Name="Cancel" Click="CancelClick" Content="Cancel" Grid.Column="0" Grid.Row="2" Margin="0,5,0,0"/>

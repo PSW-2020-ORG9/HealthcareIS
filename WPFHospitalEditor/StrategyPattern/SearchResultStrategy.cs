@@ -154,10 +154,10 @@ namespace WPFHospitalEditor.StrategyPattern
 
     class EquipmentRelocationSearchResult : ISearchResultStrategy
     {
-        private readonly EquipmentRecommendationRequestDto eqRequest;
+        private readonly SchedulingDto eqRequest;
         private readonly string equipment;
 
-        public EquipmentRelocationSearchResult(EquipmentRecommendationRequestDto eqRequest, string equipment)
+        public EquipmentRelocationSearchResult(SchedulingDto eqRequest, string equipment)
         {
             this.eqRequest = eqRequest;
             this.equipment = equipment;
@@ -192,6 +192,69 @@ namespace WPFHospitalEditor.StrategyPattern
                     + amount + AllConstants.ContentSeparator
                     + timeInterval,
                     EquipmentRelocationDto = equipmentRelocationDto
+                };
+                retVal.Add(searchResultDTO);
+            }
+            return retVal;
+        }
+    }
+
+    class RenovationaAppointmentsSearchResult : ISearchResultStrategy
+    {
+        private readonly SchedulingDto scheduling;
+
+        public RenovationaAppointmentsSearchResult(SchedulingDto schedulingDto)
+        {
+            this.scheduling = schedulingDto;
+        }
+        public List<SearchResultDTO> GetSearchResult()
+        {
+            List<RenovationDto> searchResult = new SchedulingServerController().GetRenovationAppointments(scheduling);
+            IMapObjectController mapObjectController = new MapObjectController();
+            List<SearchResultDTO> retVal = new List<SearchResultDTO>();
+
+            for (int i = 0; i < searchResult.Count(); i++)
+            {
+                RenovationDto renovationDto = searchResult.ElementAt(i);
+                MapObject mo = mapObjectController.GetMapObjectById(renovationDto.SourceRoomId);
+                string timeInterval = renovationDto.TimeInterval.Start.ToString() + "-" + renovationDto.TimeInterval.End.ToString();
+                RenovationSearchResultDTO searchResultDTO = new RenovationSearchResultDTO()
+                {
+                    Content = renovationDto.SourceRoomId.ToString() + AllConstants.ContentSeparator
+                    + renovationDto.DestinationRoomId.ToString() + AllConstants.ContentSeparator
+                    + timeInterval,
+                    RenovationDto = renovationDto
+                };
+                retVal.Add(searchResultDTO);
+            }
+            return retVal;
+        }
+    }
+
+    class BasicRenovationaAppointmentsSearchResult : ISearchResultStrategy
+    {
+        private readonly SchedulingDto scheduling;
+
+        public BasicRenovationaAppointmentsSearchResult(SchedulingDto scheduling)
+        {
+            this.scheduling = scheduling;
+        }
+        public List<SearchResultDTO> GetSearchResult()
+        {
+            List<RenovationDto> searchResult = new SchedulingServerController().GetRenovationAppointments(scheduling);
+            IMapObjectController mapObjectController = new MapObjectController();
+            List<SearchResultDTO> retVal = new List<SearchResultDTO>();
+
+            for (int i = 0; i < searchResult.Count(); i++)
+            {
+                RenovationDto renovationDto = searchResult.ElementAt(i);
+                MapObject mo = mapObjectController.GetMapObjectById(renovationDto.SourceRoomId);
+                string timeInterval = renovationDto.TimeInterval.Start.ToString() + "-" + renovationDto.TimeInterval.End.ToString();
+                RenovationSearchResultDTO searchResultDTO = new RenovationSearchResultDTO()
+                {
+                    Content = renovationDto.SourceRoomId.ToString() + AllConstants.ContentSeparator
+                    + timeInterval,
+                    RenovationDto = renovationDto
                 };
                 retVal.Add(searchResultDTO);
             }

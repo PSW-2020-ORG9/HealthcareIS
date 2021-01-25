@@ -12,6 +12,6 @@ namespace WPFHospitalEditor.Controller.Interface
         IEnumerable<DoctorDto> SearchDoctors(string name);
         IEnumerable<DoctorDto> GetAllSpecialists();
         IEnumerable<DoctorDto> SearchSpecialists(string name);
-        IEnumerable<int> GetDoctorsByRoomsAndShifts(EquipmentRelocationDto dto);
+        IEnumerable<int> GetDoctorsByRoomsAndShifts(SchedulingDto dto);
     }
 }

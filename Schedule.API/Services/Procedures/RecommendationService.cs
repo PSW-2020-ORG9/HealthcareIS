@@ -20,6 +20,7 @@ namespace Schedule.API.Services.Procedures
         private readonly RepositoryWrapper<IExaminationRepository> _examinationWrapper;
         private readonly RepositoryWrapper<IShiftRepository> _shiftWrapper;
         private readonly IConnection _doctorConnection;
+        private const int MaximumAppointmentsInShift = 16;
 
         public RecommendationService(
             IExaminationRepository examinationRepository,
@@ -214,22 +215,23 @@ namespace Schedule.API.Services.Procedures
             return intervals;
         }
 
-        public IEnumerable<EquipmentRelocationDto> RecommendEquipmentRelocation(EquipmentRecommendationRequestDto dto)
+        public IEnumerable<EquipmentRelocationDto> RecommendEquipmentRelocation(SchedulingDto dto)
         {
+            int dateInterval = dto.TimeInterval.End.Day - dto.TimeInterval.Start.Day;
             IEnumerable<Shift> shiftsForDestinationRoom = _shiftWrapper.Repository.GetByTimeInterval
                 (dto.TimeInterval).Where(shift => shift.AssignedExamRoomId == dto.DestinationRoomId);
 
             IEnumerable<Shift> shiftsForSourceRoom = _shiftWrapper.Repository.GetByTimeInterval
                 (dto.TimeInterval).Where(shift => shift.AssignedExamRoomId == dto.SourceRoomId);
 
-            IEnumerable<RecommendationDto> recommendationsSourceRoom = FindRecommendationsInShifts(shiftsForSourceRoom, 20);
-            IEnumerable<RecommendationDto> recommendationsDestinationRoom = FindRecommendationsInShifts(shiftsForDestinationRoom, 20);
+            IEnumerable<RecommendationDto> recommendationsSourceRoom = FindRecommendationsInShifts(shiftsForSourceRoom, 20 * dateInterval);
+            IEnumerable<RecommendationDto> recommendationsDestinationRoom = FindRecommendationsInShifts(shiftsForDestinationRoom, 20 * dateInterval);
 
             return FindCommonEquipmentRelocationAppointments(dto, recommendationsSourceRoom, recommendationsDestinationRoom);
 
         }
 
-        private IEnumerable<EquipmentRelocationDto> FindCommonEquipmentRelocationAppointments(EquipmentRecommendationRequestDto dto, IEnumerable<RecommendationDto> recsDestinationRoom, IEnumerable<RecommendationDto> recsSourceRoom)
+        private IEnumerable<EquipmentRelocationDto> FindCommonEquipmentRelocationAppointments(SchedulingDto dto, IEnumerable<RecommendationDto> recsDestinationRoom, IEnumerable<RecommendationDto> recsSourceRoom)
         {
             List<EquipmentRelocationDto> equipmentRelocationDtos = new List<EquipmentRelocationDto>();
 
@@ -252,6 +254,95 @@ namespace Schedule.API.Services.Procedures
                 }
             }
             return equipmentRelocationDtos;
+        }
+
+        public IEnumerable<RoomRenovationDto> RecommendRenovationAppointments(SchedulingDto dto)
+        {
+            if(dto.DestinationRoomId == -1)
+                return BasicRenovationSearch(dto);
+            else
+                return ComplexRenovationSearch(dto);            
+        }
+
+        private IEnumerable<RoomRenovationDto> BasicRenovationSearch(SchedulingDto dto)
+        {
+            List<RoomRenovationDto> appointments = new List<RoomRenovationDto>();
+            List<Shift> availableShiftsSource = new List<Shift>();
+            IEnumerable<Shift> shiftsForSourceRoom = _shiftWrapper.Repository.GetShiftsByRoomID(dto.SourceRoomId);
+            foreach (Shift shift in shiftsForSourceRoom)
+            {
+                List<Shift> shiftList = new List<Shift>();
+                shiftList.Add(shift);
+                IEnumerable<RecommendationDto> recommendationsSourceRoom = FindRecommendationsInShifts(shiftList, MaximumAppointmentsInShift);
+                if (recommendationsSourceRoom.Count() == MaximumAppointmentsInShift)
+                {
+                    availableShiftsSource.Add(shift);
+                }
+            }
+            
+            foreach (Shift shift in availableShiftsSource)
+            {
+                RoomRenovationDto roomRenovationDto = new RoomRenovationDto()
+                {
+                    SourceRoomId = dto.SourceRoomId,
+                    DestinationRoomId = dto.DestinationRoomId,
+                    TimeInterval = shift.TimeInterval
+                };
+                appointments.Add(roomRenovationDto);
+            }
+            return appointments;
+        }
+
+        private IEnumerable<RoomRenovationDto> ComplexRenovationSearch(SchedulingDto dto)
+        {
+            List<RoomRenovationDto> appointments = new List<RoomRenovationDto>();
+            List<Shift> availableShiftsSource = new List<Shift>();
+            List<Shift> availableShiftsDestination = new List<Shift>();
+            IEnumerable<Shift> shiftsForDestinationRoom = _shiftWrapper.Repository.GetShiftsByRoomID(dto.DestinationRoomId);
+            IEnumerable<Shift> shiftsForSourceRoom = _shiftWrapper.Repository.GetShiftsByRoomID(dto.SourceRoomId);
+            foreach (Shift shift in shiftsForSourceRoom)
+            {
+                List<Shift> shiftList = new List<Shift>();
+                shiftList.Add(shift);
+                IEnumerable<RecommendationDto> recommendationsSourceRoom = FindRecommendationsInShifts(shiftList, MaximumAppointmentsInShift);
+                if (recommendationsSourceRoom.Count() == MaximumAppointmentsInShift)
+                {
+                    availableShiftsSource.Add(shift);
+                }
+            }
+            foreach (Shift shift in shiftsForDestinationRoom)
+            {
+                List<Shift> shiftList = new List<Shift>();
+                shiftList.Add(shift);
+                IEnumerable<RecommendationDto> recommendationsDestinationRoom = FindRecommendationsInShifts(shiftList, MaximumAppointmentsInShift);
+                if (recommendationsDestinationRoom.Count() == MaximumAppointmentsInShift)
+                {
+                    availableShiftsDestination.Add(shift);
+                }
+            }
+
+            List<TimeInterval> availableTimeIntervals = new List<TimeInterval>();
+            foreach (Shift shiftSource in availableShiftsSource)
+            {
+                foreach (Shift shiftDest in availableShiftsDestination)
+                {
+                    if (shiftDest.TimeInterval.Start.Date == shiftSource.TimeInterval.Start.Date && shiftDest.TimeInterval.End.Date == shiftSource.TimeInterval.End.Date)
+                    {
+                        availableTimeIntervals.Add(shiftDest.TimeInterval);
+                    }
+                }
+            }
+            foreach (TimeInterval timeInterval in availableTimeIntervals)
+            {
+                RoomRenovationDto roomRenovationDto = new RoomRenovationDto()
+                {
+                    SourceRoomId = dto.SourceRoomId,
+                    DestinationRoomId = dto.DestinationRoomId,
+                    TimeInterval = timeInterval
+                };
+                appointments.Add(roomRenovationDto);
+            }
+            return appointments;
         }
     }
 }
