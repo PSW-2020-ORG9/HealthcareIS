@@ -12,7 +12,7 @@ namespace WPFHospitalEditor.Service
         public string RecordEquipmentLookup(EquipmentLookupDto equipmentLookupDto)
         {
             var client = new RestClient(AllConstants.ConnectionUrl);
-            var request = new RestRequest("/api/event/floorchange", Method.POST);
+            var request = new RestRequest("/api/event/equipmentlookup", Method.POST);
             request.AddParameter(AllConstants.AuthorizationTokenKey, LoggedUser.Cookie, ParameterType.Cookie);
             request.AddJsonBody(JsonConvert.SerializeObject(equipmentLookupDto));
             var response = client.Execute(request);
@@ -22,7 +22,7 @@ namespace WPFHospitalEditor.Service
         public string RecordFloorChange(FloorChangeDto floorChangeDto)
         {
             var client = new RestClient(AllConstants.ConnectionUrl);
-            var request = new RestRequest("/api/event/equipmentlookup", Method.POST);
+            var request = new RestRequest("/api/event/floorchange", Method.POST);
             request.AddParameter(AllConstants.AuthorizationTokenKey, LoggedUser.Cookie, ParameterType.Cookie);
             request.AddJsonBody(JsonConvert.SerializeObject(floorChangeDto));
             var response = client.Execute(request);
