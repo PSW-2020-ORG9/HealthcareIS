@@ -234,7 +234,10 @@
         }
       ],
       "UpstreamPathTemplate": "/api/schedule/examination",
-      "UpstreamHttpMethod": [ "Get", "Post" ]
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "RouteClaimsRequirement": {
+        "Role":  "Patient, Admin"
+      }
     },
 
     {
