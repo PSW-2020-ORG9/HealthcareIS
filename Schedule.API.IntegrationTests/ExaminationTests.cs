@@ -94,5 +94,15 @@ namespace Schedule.API.IntegrationTests
 
             Assert.Contains("1", responseString);
         }
+
+        [Fact]
+        public async void Gets_examinations_by_roomId()
+        {
+            var client = _factory.CreateClient();
+            var response = await client.GetAsync("schedule/examination/by-roomId/1");
+            string responseString = await response.Content.ReadAsStringAsync();
+
+            Assert.Contains("\"roomId\":1", responseString);
+        }
     }
 }
