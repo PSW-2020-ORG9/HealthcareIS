@@ -1,4 +1,6 @@
 ﻿using System.Windows;
+using WPFHospitalEditor.DTOs;
+using WPFHospitalEditor.StrategyPattern;
 
 namespace WPFHospitalEditor
 {
@@ -10,13 +12,15 @@ namespace WPFHospitalEditor
 
         private readonly int roomId;
         private readonly RoomRenovation rr;
+        private readonly SchedulingDto schedulingDto;
 
-        public AlternativeRenovationAppointments(int roomId, RoomRenovation rr)
+        public AlternativeRenovationAppointments(int roomId, RoomRenovation rr, SchedulingDto schedulingDto)
         {
             InitializeComponent();
             this.roomId = roomId;
             this.rr = rr;
             this.roomId = roomId;
+            this.schedulingDto = schedulingDto;
             givenRoom.Text = "Room with id: " + roomId.ToString() + " is unavailable in given time interval. " +
                 "Click on 'Show appointments' " +
                 "to see available appointments for renovation";
@@ -29,7 +33,18 @@ namespace WPFHospitalEditor
 
         private void ShowAppointments(object sender, RoutedEventArgs e)
         {
-
+            if (schedulingDto.SecondRoomId == -1)
+            {
+                ISearchResultStrategy strategy = new SearchResultStrategy(new BasicRenovationaAppointmentsSearchResult(schedulingDto));
+                SearchResultDialog equipmentRelocationDialog = new SearchResultDialog(strategy.GetSearchResult(), SearchType.BasicRoomRenovationSearch);
+                equipmentRelocationDialog.ShowDialog();
+            }
+            else
+            {
+                ISearchResultStrategy strategy = new SearchResultStrategy(new RenovationaAppointmentsSearchResult(schedulingDto));
+                SearchResultDialog equipmentRelocationDialog = new SearchResultDialog(strategy.GetSearchResult(), SearchType.RoomRenovationSearch);
+                equipmentRelocationDialog.ShowDialog();
+            }
         }
     }
 }

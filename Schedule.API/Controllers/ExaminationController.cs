@@ -143,9 +143,16 @@ namespace Schedule.API.Controllers
 
         [HttpPost]
         [Route("recommend-equipment-relocation")]
-        public IActionResult GetEquipmentRelocationAppointments(EquipmentRecommendationRequestDto dto)
+        public IActionResult GetEquipmentRelocationAppointments(SchedulingDto dto)
         {
             return Ok(_recommendationService.RecommendEquipmentRelocation(dto));
+        }
+
+        [HttpPost]
+        [Route("recommend-renovation-appointment")]
+        public IActionResult GetRenovationAppointments(SchedulingDto dto)
+        {
+            return Ok(_recommendationService.RecommendRenovationAppointments(dto));
         }
     }
 }

@@ -85,10 +85,10 @@ namespace WPFHospitalEditor
 
         private void ShowAlternativeRelocationAppointments(List<int> unavailableRooms, EquipmentRelocationDto equipmentRelocationDto)
         {
-            EquipmentRecommendationRequestDto eqRequest = new EquipmentRecommendationRequestDto()
+            SchedulingDto eqRequest = new SchedulingDto()
             {
-                SourceRoomId = equipmentRelocationDto.SourceRoomId,
-                DestinationRoomId = equipmentRelocationDto.DestinationRoomId,
+                FirstRoomId = equipmentRelocationDto.SourceRoomId,
+                SecondRoomId = equipmentRelocationDto.DestinationRoomId,
                 TimeInterval = equipmentRelocationDto.TimeInterval
             };
             

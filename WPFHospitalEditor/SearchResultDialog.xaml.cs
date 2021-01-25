@@ -22,6 +22,10 @@ namespace WPFHospitalEditor
         private readonly SearchType searchType;
         public static int selectedObjectId = -1;
         private Grid DynamicGrid;
+        private IDoctorServerController doctorServerController = new DoctorServerController();
+        private IExaminationServerController examinationServerController = new ExaminationServerController();
+        private DateTime startDate;
+        private DateTime endDate;
 
         public SearchResultDialog(List<SearchResultDTO> searchResults, SearchType searchType)
         {
@@ -52,6 +56,16 @@ namespace WPFHospitalEditor
             {
                 EquipmentRelocationGrid.Visibility = Visibility.Visible;
                 DynamicGrid = DynamicEquipmentRelocationGrid;
+            }
+            else if (searchType == SearchType.RoomRenovationSearch)
+            {
+                RenovationAppointmentsGrid.Visibility = Visibility.Visible;
+                DynamicGrid = DynamicRenovationAppointmentsGrid;
+            }
+            else if (searchType == SearchType.BasicRoomRenovationSearch)
+            {
+                BasicRenovationAppointmentsGrid.Visibility = Visibility.Visible;
+                DynamicGrid = DynamicBasicRenovationAppointmentsGrid;
             }
             else
             {
@@ -100,6 +114,11 @@ namespace WPFHospitalEditor
             {
                 EquipmentRelocationSearchResultDTO equipmentRelocation = (EquipmentRelocationSearchResultDTO)rowContent;
                 AddScheduleRelocationButton(row, equipmentRelocation.EquipmentRelocationDto);
+            }
+            else if(searchType == SearchType.RoomRenovationSearch || searchType == SearchType.BasicRoomRenovationSearch)
+            {
+                RenovationSearchResultDTO renovationAppointments = (RenovationSearchResultDTO)rowContent;
+                AddScheduleRenovationButton(row, renovationAppointments.RenovationDto);
             }
             else
             {
@@ -169,7 +188,34 @@ namespace WPFHospitalEditor
             };
         }
 
+        private void AddScheduleRenovationButton(int row, RenovationDto renovation)
+        {
+            Button scheduleBtn = CreateScheduleButton();
+            Grid.SetRow(scheduleBtn, row);
+            Grid.SetColumn(scheduleBtn, DynamicGrid.ColumnDefinitions.Count - 2);
+            DynamicGrid.Children.Add(scheduleBtn);
 
+            SchedulingDto schDto = renovation.toSchedulingDto();
+
+            startDate = schDto.TimeInterval.Start;
+            endDate = schDto.TimeInterval.End;
+
+            scheduleBtn.Click += (s, e) =>
+            {
+                List<int> doctors = doctorServerController.GetDoctorsByRoomsAndShifts(schDto).ToList();
+                foreach (int doctorId in doctors)
+                {
+                    startDate = schDto.TimeInterval.Start;
+                    while (startDate < endDate)
+                    {
+                        examinationServerController.ScheduleExamination(startDate, doctorId, AllConstants.PatientIdForRenovation);
+                        startDate = startDate.AddMinutes(30);
+                    }
+                }
+                MessageBox.Show("Renovation is successfully scheduled!", "");
+                this.Close();
+            };
+        }
 
         public void ShowBuildingPage(int floorNumber, int buildingId)
         {

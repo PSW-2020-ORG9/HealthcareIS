@@ -90,8 +90,9 @@ namespace WPFHospitalEditor
 
         private void ShowAlternativeRenovationAppointments(List<int> unavailableRooms, RenovationDto renovationDto)
         {
+            SchedulingDto dto = renovationDto.toSchedulingDto();
             AlternativeRenovationAppointments newWindow =
-            new AlternativeRenovationAppointments(unavailableRooms[0], this);
+            new AlternativeRenovationAppointments(unavailableRooms[0], this, dto);
             newWindow.Show();
         }
 
