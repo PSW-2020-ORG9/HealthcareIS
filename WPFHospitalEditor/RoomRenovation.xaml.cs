@@ -116,12 +116,18 @@ namespace WPFHospitalEditor
                 {
                     roomInformation.MergingStackPanel.Visibility = Visibility.Hidden;
                     roomInformation.DividingStackPanel.Visibility = Visibility.Visible;
+                    roomInformation.Room1Name.Text = mapObjectController.GetMapObjectById(mapObjectId).Name;
+                    int workTime = mapObjectController.GetMapObjectById(mapObjectId).MapObjectDescription.Information.Split("=")[1].Length;
+                    roomInformation.WorkTime1.Text = mapObjectController.GetMapObjectById(mapObjectId).MapObjectDescription.Information.Split("=")[1].Substring(0, workTime - 1);
 
                 }
                 else if (ComplexRenovationTypeComboBox.Text.Equals("Join rooms"))
                 {
                     roomInformation.DividingStackPanel.Visibility = Visibility.Hidden;
                     roomInformation.MergingStackPanel.Visibility = Visibility.Visible;
+                    roomInformation.RoomName.Text = mapObjectController.GetMapObjectById(mapObjectId).Name;
+                    int workTime = mapObjectController.GetMapObjectById(mapObjectId).MapObjectDescription.Information.Split("=")[1].Length;
+                    roomInformation.WorkTime.Text = mapObjectController.GetMapObjectById(mapObjectId).MapObjectDescription.Information.Split("=")[1].Substring(0, workTime - 1);
                     List<int> doctors1 = doctorServerController.GetDoctorsByRoomsAndShifts(schDto).ToList();
                     foreach (int doctorId in doctors1)
                     {
@@ -130,8 +136,7 @@ namespace WPFHospitalEditor
                     }
 
                 }
-                roomInformation.Room1Name.Text = mapObjectController.GetMapObjectById(mapObjectId).Name;
-                roomInformation.WorkTime1.Text = mapObjectController.GetMapObjectById(mapObjectId).MapObjectDescription.Information.Split("=")[1];
+                
                 roomInformation.ShowDialog();
                 
             }
