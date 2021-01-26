@@ -58,7 +58,7 @@
             </ScrollViewer>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,20,0,0">
                 <Label Content="Pick appointment id to delete:" FontSize="14" VerticalAlignment="Center" Margin="20,0,0,0"></Label>
-                <ComboBox x:Name="apppointmentDelet" x:FieldModifier="public" HorizontalAlignment="Left" Height="30" Width="100" Margin="5,0,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" SelectedIndex="0">
+                <ComboBox x:Name="appointmentCancelComboBox" x:FieldModifier="public" HorizontalAlignment="Left" Height="30" Width="100" Margin="5,0,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" SelectedIndex="0">
                     <ComboBoxItem Name="emptyAppToDelete">None</ComboBoxItem>
                 </ComboBox>
                 <Button x:Name="cancel" Margin="20,0,0,0" Click="CancelAppointment" Width="120">Cancel appointment</Button>
