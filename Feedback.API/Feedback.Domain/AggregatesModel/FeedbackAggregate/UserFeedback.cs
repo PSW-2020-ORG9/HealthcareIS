@@ -10,10 +10,7 @@ namespace Feedback.API.Feeback.Domain.AggregatesModel.FeedbackAggregate
         public string UserComment { get; private set; }
         public FeedbackVisibility FeedbackVisibility { get; private set; }
         public int PatientAccountId { get; private set; }
-        public PatientAccount PatientAccount { get; private set; }
-
-        public UserFeedback() { }
-
+        
         public UserFeedback(UserFeedbackDTO dto)
         {
             ValidateCommentNotEmpty(dto.UserComment);
@@ -30,13 +27,13 @@ namespace Feedback.API.Feeback.Domain.AggregatesModel.FeedbackAggregate
            FeedbackVisibility =  FeedbackVisibility.Publish();
         }
 
-        private static void ValidateCommentNotEmpty(string comment)
+        private void ValidateCommentNotEmpty(string comment)
         {
             if (comment.Trim().Equals(""))
                 throw new ArgumentException("User comment cannot be empty.");
         }
 
-        private static void ValidateCommentLength(string comment)
+        private void ValidateCommentLength(string comment)
         {
             const int COMMENT_MAX_LEN = 300;
             if (comment.Length > COMMENT_MAX_LEN)

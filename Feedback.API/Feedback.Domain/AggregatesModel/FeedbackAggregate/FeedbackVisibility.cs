@@ -8,7 +8,6 @@ namespace Feedback.API.Feeback.Domain.AggregatesModel.FeedbackAggregate
         public bool IsAnonymous { get; private set; }
         public bool IsPublished { get; private set; }
 
-        public FeedbackVisibility() {}
 
         public FeedbackVisibility(bool isPublic, bool isAnonymous, bool isPublished)
         {
