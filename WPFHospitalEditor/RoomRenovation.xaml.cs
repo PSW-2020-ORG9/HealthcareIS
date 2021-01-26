@@ -20,10 +20,13 @@ namespace WPFHospitalEditor
         private IMapObjectController mapObjectController = new MapObjectController();
         private IDoctorServerController doctorServerController = new DoctorServerController();
         private IRenovationServerController renovationServerController = new RenovationServerController();
+        private IExaminationServerController examinationServerController = new ExaminationServerController();
 
         int mapObjectId;
         TimeInterval timeInterval;
         int neighbourMapObjectId = -1;
+        DateTime startDate;
+        DateTime endDate;
 
         public RoomRenovation(int mapObjectId)
         {
@@ -102,9 +105,36 @@ namespace WPFHospitalEditor
             List<int> doctors = doctorServerController.GetDoctorsByRoomsAndShifts(schDto).ToList();
             foreach (int doctorId in doctors)
             {
-                renovationServerController.ScheduleRenovation(timeInterval, doctorId, AllConstants.PatientIdForRenovation);                
+                renovationServerController.ScheduleRenovation(timeInterval, doctorId, AllConstants.PatientIdForRenovation);
             }
             MessageBox.Show("Renovation is successfully scheduled!", "");
+            if (RenovationTypeComboBox.Text.Equals("Complex"))
+            {
+                RoomInformation roomInformation = new RoomInformation();
+
+                if (ComplexRenovationTypeComboBox.Text.Equals("Separate room"))
+                {
+                    roomInformation.MergingStackPanel.Visibility = Visibility.Hidden;
+                    roomInformation.DividingStackPanel.Visibility = Visibility.Visible;
+
+                }
+                else if (ComplexRenovationTypeComboBox.Text.Equals("Join rooms"))
+                {
+                    roomInformation.DividingStackPanel.Visibility = Visibility.Hidden;
+                    roomInformation.MergingStackPanel.Visibility = Visibility.Visible;
+                    List<int> doctors1 = doctorServerController.GetDoctorsByRoomsAndShifts(schDto).ToList();
+                    foreach (int doctorId in doctors1)
+                    {
+                        startDate = schDto.TimeInterval.Start.AddDays(1);
+                        examinationServerController.ScheduleExamination(startDate, doctorId, AllConstants.PatientIdForRelocation);
+                    }
+
+                }
+                roomInformation.Room1Name.Text = mapObjectController.GetMapObjectById(mapObjectId).Name;
+                roomInformation.WorkTime1.Text = mapObjectController.GetMapObjectById(mapObjectId).MapObjectDescription.Information.Split("=")[1];
+                roomInformation.ShowDialog();
+                
+            }
             this.Close();
         }
 
@@ -131,7 +161,6 @@ namespace WPFHospitalEditor
                 else if(RenovationTypeComboBox.Text.Equals("Complex"))
                 {
                     ComplexStackPanel.Visibility = Visibility.Hidden;
-                    DestinationRoomComboBox.SelectedIndex = 0;
                 }
             }
         }
@@ -140,11 +169,11 @@ namespace WPFHospitalEditor
         {
             if(RoomStackPanel != null)
             {
-                if (ComplexRenovationTypeComboBox.SelectedIndex == 1)
+                if (ComplexRenovationTypeComboBox.Text.Equals("Separate room"))
                 {
                     RoomStackPanel.Visibility = Visibility.Visible;
                 }
-                else
+                else if (ComplexRenovationTypeComboBox.Text.Equals("Join rooms"))
                 {
                     RoomStackPanel.Visibility = Visibility.Hidden;
                 }

@@ -206,6 +206,30 @@ namespace WPFHospitalEditor
                     renovationServerController.ScheduleRenovation(renovation.TimeInterval, doctorId, AllConstants.PatientIdForRenovation);
                 }
                 MessageBox.Show("Renovation is successfully scheduled!");
+                foreach (Window window in Application.Current.Windows)
+                {
+                    if (window.GetType() == typeof(RoomRenovation))
+                    {
+
+                        if ((window as RoomRenovation).RenovationTypeComboBox.Text.Equals("Complex"))
+                        {
+                            RoomInformation roomInformation = new RoomInformation();
+
+                            if ((window as RoomRenovation).ComplexRenovationTypeComboBox.Text.Equals("Separate room"))
+                            {
+                                roomInformation.MergingStackPanel.Visibility = Visibility.Hidden;
+                                roomInformation.DividingStackPanel.Visibility = Visibility.Visible;
+                            }
+                            else if ((window as RoomRenovation).ComplexRenovationTypeComboBox.Text.Equals("Join rooms"))
+                            {
+                                roomInformation.DividingStackPanel.Visibility = Visibility.Hidden;
+                                roomInformation.MergingStackPanel.Visibility = Visibility.Visible;
+
+                            }
+                            roomInformation.ShowDialog();
+                        }
+                    }
+                }
                 this.Close();
             };
         }

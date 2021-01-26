@@ -10,6 +10,26 @@ namespace WPFHospitalEditor.Service
 {
     public class RoomServerService : IRoomServerService
     {
+        public bool CreateRoom(CreateRoomDto createRoomDto)
+        {
+            var client = new RestClient(AllConstants.ConnectionUrl);
+            var request = new RestRequest("/api/hospital/room/create-room", Method.POST);
+            request.AddParameter(AllConstants.AuthorizationTokenKey, LoggedUser.Cookie, ParameterType.Cookie);
+            request.AddJsonBody(JsonConvert.SerializeObject(createRoomDto));
+            var response = client.Post<bool>(request);
+            return response.Data;
+        }
+
+        public IEnumerable<Room> GetAllRooms()
+        {
+            var client = new RestClient(AllConstants.ConnectionUrl);
+            var request = new RestRequest("/api/hospital/room/get-all", Method.GET);
+            request.AddParameter(AllConstants.AuthorizationTokenKey, LoggedUser.Cookie, ParameterType.Cookie);
+
+            var response = client.Get<IEnumerable<Room>>(request);
+            return response.Data;
+        }
+
         public IEnumerable<Room> GetRoomsByEquipmentType(string equipmentType)
         {
             var client = new RestClient(AllConstants.ConnectionUrl);

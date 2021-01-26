@@ -11,7 +11,7 @@ namespace WPFHospitalEditorUnitTests
     public class FindNeighbourMapObjectsTest
     {
         [StaFact]
-        public void Find_non_existing_object()
+        public void Find_existing_object()
         {
             MapObjectService mapObjectService = new MapObjectService(CreateStubRepository());
 

@@ -1,4 +1,5 @@
-﻿using Hospital.API.Services.Resources;
+﻿using Hospital.API.DTOs;
+using Hospital.API.Services.Resources;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
@@ -28,5 +29,15 @@ namespace Hospital.API.Controllers
         [Route("equipment-type/{equipmentTypeName}")]
         public IActionResult GetByEquipmentType(string equipmentTypeName)
             => Ok(_roomService.getByEquipmentType(equipmentTypeName));
+
+        [HttpPost]
+        [Route("create-room")]
+        public IActionResult CreateRoom(CreateRoomDto dto)
+            => Ok(_roomService.CreateRoom(dto));
+
+        [HttpGet]
+        [Route("get-all")]
+        public IActionResult GetAll()       
+            => Ok(_roomService.GetAll());
     }
 }

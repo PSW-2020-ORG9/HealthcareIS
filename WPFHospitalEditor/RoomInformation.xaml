@@ -55,7 +55,7 @@
                     <Label x:Name="appointmentInfo" HorizontalAlignment="Center" VerticalAlignment="Bottom"></Label>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
                         <Button x:Name="closeBtn" Content="Close" Click="CloseClick" HorizontalAlignment="Left" Margin="5"/>
-                        <Button x:Name="okBtn" Content="OK" HorizontalAlignment="Right" Margin="5"/>
+                        <Button x:Name="okBtn" Content="OK" Click="OkBtnClick" HorizontalAlignment="Right" Margin="5"/>
                     </StackPanel>
                 </StackPanel>
             </Grid>

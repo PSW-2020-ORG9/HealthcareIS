@@ -8,5 +8,8 @@ namespace WPFHospitalEditor.Service.Interface
     {
         IEnumerable<Room> GetRoomsByEquipmentType(string equipmentType);
         IEnumerable<int> GetUnavailableRooms(SchedulingDto schedulingDto);
+        bool CreateRoom(CreateRoomDto createRoomDto);
+        public IEnumerable<Room> GetAllRooms();
+
     }
 }
