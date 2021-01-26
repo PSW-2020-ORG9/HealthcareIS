@@ -128,3 +128,9 @@ steps:
   inputs:
     PathtoPublish: OcelotApiGateway/bin/Release/netcoreapp3.1/publish
     ArtifactName: dropocelot
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish event store'
+  inputs:
+    PathtoPublish: EventStore.API/bin/Release/netcoreapp3.1/publish
+    ArtifactName: dropes
