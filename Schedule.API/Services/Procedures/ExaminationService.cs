@@ -81,5 +81,9 @@ namespace Schedule.API.Services.Procedures
             if(examinations.Count() != 0)
                 throw new ScheduleViolationException("Examination for this doctor and interval already exists.");
         }
+
+        public IEnumerable<Examination> GetByRoomId(int roomId)
+            => _examinationWrapper.Repository.GetMatching(e => e.RoomId == roomId);
+
     }
 }

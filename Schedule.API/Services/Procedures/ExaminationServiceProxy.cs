@@ -173,5 +173,8 @@ namespace Schedule.API.Services.Procedures
                 examination.Patient = patients.FirstOrDefault(patient => patient.Id == examination.PatientId);
             }
         }
+
+        public IEnumerable<Examination> GetByRoomId(int roomId)
+            => _examinationService.GetByRoomId(roomId);
     }
 }

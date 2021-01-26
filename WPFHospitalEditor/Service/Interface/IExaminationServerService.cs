@@ -10,5 +10,6 @@ namespace WPFHospitalEditor.Service.Interface
         Examination ScheduleEmergencyExamination(DateTime startTime, int doctorId, int patientId);
         IEnumerable<Examination> GetBySpecialtyId(int specialtyId);
         string Cancel(int examinationId);
+        IEnumerable<Examination> GetByRoomId(int roomId);
     }
 }

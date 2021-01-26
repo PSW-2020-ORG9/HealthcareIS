@@ -61,6 +61,12 @@ namespace WPFHospitalEditor
             if (IsPatientLogged())
                 Title.IsReadOnly = true;
         }
+        private void BtnScheduledAppointments(object sender, RoutedEventArgs e)
+        {
+            RoomScheduledExaminations romScheduledAppointments = new RoomScheduledExaminations(mapObject.Id);
+            romScheduledAppointments.ShowDialog();
+            this.Close();
+        }
 
         private void BtnEquipmentClick(object sender, RoutedEventArgs e)
         {
