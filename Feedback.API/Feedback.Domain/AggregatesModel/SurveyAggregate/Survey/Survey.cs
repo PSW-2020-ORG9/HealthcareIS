@@ -1,10 +1,8 @@
-using Feedback.API.DTOs;
-using Feedback.API.Model.Survey.SurveyEntry;
 using General;
 using System;
 using System.Collections.Generic;
 
-namespace Feedback.API.Model.Survey
+namespace Feedback.API.Model.Feedback.Domain.AggregatesModel.SurveyAggregate.Survey
 {
     public class Survey : Entity<int>
     {

@@ -1,11 +1,9 @@
 using Feedback.API.DTOs;
-using Feedback.API.Feeback.Domain.AggregatesModel.FeedbackAggregate;
-using Feedback.API.Infrastructure;
 using General;
 using System;
 using System.Collections.Generic;
 
-namespace Feedback.API.Model.Survey.SurveyEntry
+namespace Feedback.API.Model.Feedback.Domain.AggregatesModel.SurveyAggregate.RatedSurvey
 {
     public class RatedSurvey : Entity<int>
     {
@@ -15,12 +13,12 @@ namespace Feedback.API.Model.Survey.SurveyEntry
         public int PatientAccountId { get; }
         public List<RatedSurveyQuestion> Answers { get; }
 
-        public RatedSurvey(int examinationId, int surveyId, int patientId, List<RatedSurveyQuestion> answers) {
+        public RatedSurvey(RatedSurveyDTO dto) {
             SubmittedAt = DateTime.Now;
-            SurveyId = surveyId;
-            ExaminationId = examinationId;
-            PatientAccountId = patientId;
-            Answers = answers;
+            SurveyId = dto.SurveyId;
+            ExaminationId = dto.ExaminationId;
+            PatientAccountId = dto.PatientAccountId;
+            Answers = dto.Answers;
         }
 
         

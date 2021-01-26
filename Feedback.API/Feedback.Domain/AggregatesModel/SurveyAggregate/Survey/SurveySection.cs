@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Feedback.API.Feedback.Domain.AggregatesModel.SurveyAggregate;
 using General;
 
-namespace Feedback.API.Model.Survey
+namespace Feedback.API.Model.Feedback.Domain.AggregatesModel.SurveyAggregate.Survey
 {
     public class SurveySection : Entity<int>
     {

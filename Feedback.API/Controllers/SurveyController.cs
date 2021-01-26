@@ -44,7 +44,7 @@ namespace Feedback.API.Controllers
 
         [HttpPost]
         [Route("response")]
-        public IActionResult CreateSurveyResponse(SurveyResponseDTO dto)
+        public IActionResult CreateSurveyResponse(RatedSurveyDTO dto)
         {
             return Ok(_surveyResponseService.CreateSurveyResponse(SurveyResponseMapper.DtoToObject(dto)));
         }

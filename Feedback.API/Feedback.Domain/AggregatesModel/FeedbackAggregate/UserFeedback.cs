@@ -6,11 +6,11 @@ namespace Feedback.API.Feeback.Domain.AggregatesModel.FeedbackAggregate
 {
     public class UserFeedback : Entity<int>
     {
-        public DateTime Date { get; set; }
-        public string UserComment { get; set; }
-        public FeedbackVisibility FeedbackVisibility { get; set; }
-        public int PatientAccountId { get; set; }
-        public PatientAccount PatientAccount { get; set; }
+        public DateTime Date { get; private set; }
+        public string UserComment { get; private set; }
+        public FeedbackVisibility FeedbackVisibility { get; private set; }
+        public int PatientAccountId { get; private set; }
+        public PatientAccount PatientAccount { get; private set; }
 
         public UserFeedback() { }
 

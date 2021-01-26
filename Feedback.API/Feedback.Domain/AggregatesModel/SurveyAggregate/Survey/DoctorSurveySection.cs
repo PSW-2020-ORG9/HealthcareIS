@@ -1,7 +1,6 @@
-using Feedback.API.Feedback.Domain.AggregatesModel.SurveyAggregate;
 using System.Collections.Generic;
 
-namespace Feedback.API.Model.Survey.SurveyEntry
+namespace Feedback.API.Model.Feedback.Domain.AggregatesModel.SurveyAggregate.Survey
 {
     public class DoctorSurveySection : SurveySection
     {

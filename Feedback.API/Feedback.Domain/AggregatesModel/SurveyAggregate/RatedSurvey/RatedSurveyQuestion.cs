@@ -1,8 +1,9 @@
 ﻿using Feedback.API.Feedback.Domain.Exceptions;
+using Feedback.API.Model.Feedback.Domain.AggregatesModel.SurveyAggregate.Survey;
 using General;
 using System;
 
-namespace Feedback.API.Model.Survey.SurveyEntry
+namespace Feedback.API.Model.Feedback.Domain.AggregatesModel.SurveyAggregate.RatedSurvey
 {
     public class RatedSurveyQuestion : Entity<int>
     {

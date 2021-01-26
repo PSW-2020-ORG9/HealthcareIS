@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Feedback.API.Model.Survey
+namespace Feedback.API.Model.Feedback.Domain.AggregatesModel.SurveyAggregate.Survey
 {
     public class SurveyQuestion : Entity<int>
     {
