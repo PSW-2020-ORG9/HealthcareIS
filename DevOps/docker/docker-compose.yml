@@ -191,6 +191,8 @@ services:
       - PSW_API_GATEWAY_HOST=ocelot_api_gateway
       - PSW_API_GATEWAY_PORT=${PSW_API_GATEWAY_PORT}
       - PSW_JWT_SECRET=${PSW_JWT_SECRET}
+      - PSW_EVENT_STORE_SERVICE_HOST=event_store_api
+      - PSW_EVENT_STORE_SERVICE_PORT=${PSW_EVENT_STORE_SERVICE_PORT}
     ports:
       - 5000:5000
   
@@ -211,6 +213,7 @@ services:
       - PSW_JWT_SECRET=${PSW_JWT_SECRET}
       - PSW_EVENT_STORE_SERVICE_HOST=event_store_api
       - PSW_EVENT_STORE_SERVICE_PORT=${PSW_EVENT_STORE_SERVICE_PORT}
+      - DB_PSW_EVENT_STORE_DATABASE=${DB_PSW_EVENT_STORE_DATABASE}
     ports:
       - 5005:5005
     depends_on:
