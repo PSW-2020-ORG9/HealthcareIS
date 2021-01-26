@@ -75,6 +75,17 @@ steps:
     tags: 'ocelot'
     addPipelineData: false
 
+- task: Docker@2
+  displayName: 'Docker build pswaspnet event store'
+  inputs:
+    containerRegistry: 'psw'
+    repository: 'fmaster/pswaspnet'
+    command: 'build'
+    Dockerfile: 'DevOps/docker/AspNetDockerfile'
+    buildContext: '$(System.ArtifactsDirectory)/dropes'
+    tags: 'es'
+    addPipelineData: false
+
 
 - task: Docker@2
   displayName: 'Docker push pswaspnet feedback'
@@ -119,4 +130,13 @@ steps:
     repository: 'fmaster/pswaspnet'
     command: 'push'
     tags: 'ocelot'
+    addPipelineData: false
+
+- task: Docker@2
+  displayName: 'Docker push pswaspnet event store'
+  inputs:
+    containerRegistry: 'psw'
+    repository: 'fmaster/pswaspnet'
+    command: 'push'
+    tags: 'es'
     addPipelineData: false
