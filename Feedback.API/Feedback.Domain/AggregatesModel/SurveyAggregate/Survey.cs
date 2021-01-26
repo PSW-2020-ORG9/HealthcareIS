@@ -15,29 +15,5 @@ namespace Feedback.API.Model.Survey
             SurveySections = surveySections;
         }
 
-        public bool AnswerSurvey(List<AnsweredQuestionDTO> answeredQuestions)
-        {
-            List<SurveySection> SurveySectionBackup = new List<SurveySection>(SurveySections);
-            foreach(AnsweredQuestionDTO answer in answeredQuestions)
-            {
-                foreach(SurveySection surveySection in SurveySections)
-                {
-                    if(answer.SurveySectionId == surveySection.Id)
-                    {
-                        if(!surveySection.RateQuestion(answer.QuestionId, answer.Answer))
-                        {
-                            SurveySections = SurveySectionBackup;
-                            return false;
-                        }
-
-                        break;
-                    }
-                }
-            }
-            return true;
-        }
-
-
-
     }
 }

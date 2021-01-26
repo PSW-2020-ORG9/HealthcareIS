@@ -13,12 +13,12 @@ namespace Feedback.API.Services.SurveyService
         {
             _surveyResponseWrapper = new RepositoryWrapper<ISurveyResponseRepository>(surveyResponseRepository);
         }
-        public SurveyResponse CreateSurveyResponse(SurveyResponse response)
+        public RatedSurvey CreateSurveyResponse(RatedSurvey response)
         {
             return _surveyResponseWrapper.Repository.Create(response);
         }
 
-        public SurveyResponse GetByExaminationId(int examinationId)
+        public RatedSurvey GetByExaminationId(int examinationId)
             => _surveyResponseWrapper.Repository
                 .GetMatching(survey => survey.ExaminationId == examinationId)
                 .FirstOrDefault();

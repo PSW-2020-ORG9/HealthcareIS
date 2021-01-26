@@ -23,7 +23,7 @@ namespace Feedback.API.Infrastructure
         public DbSet<Survey> Surveys { get; set; }
         public DbSet<SurveySection> SurveySections { get; set; }
         public DbSet<SurveyQuestion> SurveyQuestions { get; set; }
-        public DbSet<SurveyResponse> SurveyResponses { get; set; }
+        public DbSet<RatedSurvey> SurveyResponses { get; set; }
         public DbSet<RatedSurveySection> RatedSurveySections { get; set; }
         public DbSet<RatedSurveyQuestion> RatedSurveyQuestions { get; set; }
         public DbSet<DoctorSurveySection> DoctorSurveySections { get; set; }
@@ -50,16 +50,16 @@ namespace Feedback.API.Infrastructure
             modelBuilder.Entity<SurveyQuestion>()
                 .HasKey(sq => sq.Id);
 
-            modelBuilder.Entity<SurveyResponse>()
+            modelBuilder.Entity<RatedSurvey>()
                 .HasKey(sr => sr.Id);
 
-            modelBuilder.Entity<SurveyResponse>()
+            modelBuilder.Entity<RatedSurvey>()
                 .HasMany(sr => sr.RatedSurveySections);
-            modelBuilder.Entity<SurveyResponse>()
+            modelBuilder.Entity<RatedSurvey>()
                 .HasOne(sr => sr.Survey);
-            modelBuilder.Entity<SurveyResponse>()
+            modelBuilder.Entity<RatedSurvey>()
                 .HasOne(sr => sr.DoctorSurveySection);
-            modelBuilder.Entity<SurveyResponse>()
+            modelBuilder.Entity<RatedSurvey>()
                 .Ignore(sr => sr.PatientAccount);
 
             modelBuilder.Entity<RatedSurveyQuestion>()

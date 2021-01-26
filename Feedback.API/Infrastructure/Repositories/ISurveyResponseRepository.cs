@@ -3,7 +3,7 @@ using General.Repository;
 
 namespace Feedback.API.Infrastructure.Repositories
 {
-    public interface ISurveyResponseRepository : IWrappableRepository<SurveyResponse, int>
+    public interface ISurveyResponseRepository : IWrappableRepository<RatedSurvey, int>
     {
     }
 }

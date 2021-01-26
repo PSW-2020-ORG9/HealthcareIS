@@ -20,14 +20,6 @@ namespace Feedback.API.Model.Survey
             SurveyQuestions = surveyQuestions;
         }
 
-        public float GetAverageRatePercent()
-        {
-            float sum = 0;
-            foreach (SurveyQuestion question in SurveyQuestions)
-                sum += question.GetAverageRatePercent();
-            return sum / SurveyQuestions.Count;
-        }
-
         private void Validate(string sectionName, int count)
         {
             if (sectionName.Trim() == string.Empty)
@@ -36,16 +28,6 @@ namespace Feedback.API.Model.Survey
                 throw new ValidationException(message: $"section needs at least one question");
         }
 
-        public bool RateQuestion(int questionId,int rate)
-        {
-            foreach(SurveyQuestion question in SurveyQuestions)
-            {
-                if (question.Id == questionId)
-                   return question.Rate(rate);
-            }
-
-            return false;
-        }
 
     }
 }

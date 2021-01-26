@@ -6,9 +6,9 @@ namespace Feedback.API.Mappers
 {
     public static class SurveyResponseMapper
     {
-        public static SurveyResponse DtoToObject(SurveyResponseDTO dto)
+        public static RatedSurvey DtoToObject(SurveyResponseDTO dto)
         {
-            return new SurveyResponse(dto);
+            return new RatedSurvey(dto);
         }
     }
 }
