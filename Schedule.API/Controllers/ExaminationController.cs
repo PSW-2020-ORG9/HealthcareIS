@@ -155,6 +155,13 @@ namespace Schedule.API.Controllers
             return Ok(_recommendationService.RecommendEquipmentRelocation(dto));
         }
 
+        [HttpGet]
+        [Route("by-room/{roomId}")]
+        public IActionResult GetByRoomId(int roomId)
+        {
+            return Ok(_examinationService.GetByRoomId(roomId));
+        }
+
         [HttpPost]
         [Route("recommend-renovation-appointment")]
         public IActionResult GetRenovationAppointments(SchedulingDto dto)
