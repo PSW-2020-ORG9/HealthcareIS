@@ -26,7 +26,6 @@ namespace WPFHospitalEditor
         TimeInterval timeInterval;
         int neighbourMapObjectId = -1;
         DateTime startDate;
-        DateTime endDate;
 
         public RoomRenovation(int mapObjectId)
         {
@@ -51,32 +50,49 @@ namespace WPFHospitalEditor
 
         private void RenovateRoom(object sender, RoutedEventArgs e)
         {
-            setDestinationRoomId();
             setDates();
-            try
+            if (setDestinationRoomId())
             {
-                RenovationDto renovationDto = CreateRenovationDto(timeInterval);
-                SchedulingDto schDto = renovationDto.toSchedulingDto();
-                List<int> unavailableRooms = roomServerController.GetUnavailableRooms(schDto).ToList();
-                if (unavailableRooms.Count > 0)
+                DestinationRoomComboBox.SelectedIndex = 0;
+                try
                 {
-                    ShowAlternativeRenovationAppointments(unavailableRooms, renovationDto);
+                    RenovationDto renovationDto = CreateRenovationDto(timeInterval);
+                    SchedulingDto schDto = renovationDto.toSchedulingDto();
+                    List<int> unavailableRooms = roomServerController.GetUnavailableRooms(schDto).ToList();
+                    if (unavailableRooms.Count > 0)
+                    {
+                        ShowAlternativeRenovationAppointments(unavailableRooms, renovationDto);
+                    }
+                    else
+                    {
+                        ScheduleRenovation(schDto);
+                    }
                 }
-                else
+                catch
                 {
-                    ScheduleRenovation(schDto);
+                    MessageBox.Show("End time must be after start time!", "");
                 }
-            }
-            catch
-            {
-                MessageBox.Show("End time must be after start time!", "");
             }
         }
 
-        private void setDestinationRoomId()
+        private bool setDestinationRoomId()
         {
+            neighbourMapObjectId = -1;
             if (DestinationRoomComboBox.SelectedIndex != 0)
+            {
                 neighbourMapObjectId = int.Parse(DestinationRoomComboBox.SelectedItem.ToString());
+                return true;
+            }
+            else if(RenovationTypeComboBox.Text.Equals("Complex") && ComplexRenovationTypeComboBox.Text.Equals("Join rooms") && DestinationRoomComboBox.SelectedIndex == 0)
+            {
+                MessageBox.Show("Select room id");
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+            
         }
 
         private void setDates()
@@ -107,10 +123,11 @@ namespace WPFHospitalEditor
             {
                 renovationServerController.ScheduleRenovation(timeInterval, doctorId, AllConstants.PatientIdForRenovation);
             }
-            MessageBox.Show("Renovation is successfully scheduled!", "");
+            DestinationRoomComboBox.SelectedIndex = 0;
+            MessageBox.Show("Renovation is successfully scheduled!");
             if (RenovationTypeComboBox.Text.Equals("Complex"))
             {
-                RoomInformation roomInformation = new RoomInformation();
+                RoomInformation roomInformation = new RoomInformation(schDto);
 
                 if (ComplexRenovationTypeComboBox.Text.Equals("Separate room"))
                 {

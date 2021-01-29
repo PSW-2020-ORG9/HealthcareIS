@@ -11,7 +11,7 @@ namespace WPFHospitalEditor.Controller
     {
         private readonly IRoomServerService roomTypeServerService = new RoomServerService();
 
-        public bool CreateRoom(CreateRoomDto createRoomDto)
+        public Room CreateRoom(CreateRoomDto createRoomDto)
         {
             return roomTypeServerService.CreateRoom(createRoomDto);
         }

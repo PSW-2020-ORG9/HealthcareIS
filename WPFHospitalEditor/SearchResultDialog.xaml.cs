@@ -12,6 +12,7 @@ using WPFHospitalEditor.Controller.Interface;
 using System.Linq;
 using System;
 using WPFHospitalEditor.Model;
+using System.DirectoryServices;
 
 namespace WPFHospitalEditor
 {
@@ -20,17 +21,33 @@ namespace WPFHospitalEditor
     /// </summary>
     public partial class SearchResultDialog : Window
     {
+        private int destAmount;
+        private int sourceAmount;
         private readonly SearchType searchType;
         public static int selectedObjectId = -1;
         private Grid DynamicGrid;
+        private IMapObjectController mapObjectController = new MapObjectController();
         private IDoctorServerController doctorServerController = new DoctorServerController();
         private IExaminationServerController examinationServerController = new ExaminationServerController();
         private IRenovationServerController renovationServerController = new RenovationServerController();
         private TimeInterval timeInterval;
+        private DateTime startDate;
+        private SchedulingDto schDto;
+        private List<SearchResultDTO> searchResults;
         public SearchResultDialog(List<SearchResultDTO> searchResults, SearchType searchType)
         {
             InitializeComponent();
             this.searchType = searchType;
+            ShowDynamicGrid();
+            AddContent(searchResults);
+        }
+
+        public SearchResultDialog(List<SearchResultDTO> searchResults, SearchType searchType, SchedulingDto schDto)
+        {
+            InitializeComponent();
+            this.schDto = schDto;
+            this.searchType = searchType;
+            this.searchResults = searchResults;
             ShowDynamicGrid();
             AddContent(searchResults);
         }
@@ -67,6 +84,11 @@ namespace WPFHospitalEditor
                 BasicRenovationAppointmentsGrid.Visibility = Visibility.Visible;
                 DynamicGrid = DynamicBasicRenovationAppointmentsGrid;
             }
+            else if (searchType == SearchType.EquipmentSeparation)
+            {
+                EquipmentSeparationGrid.Visibility = Visibility.Visible;
+                DynamicGrid = DynamicEquipmentSeparationGrid;
+            }
             else
             {
                 return;
@@ -93,8 +115,13 @@ namespace WPFHospitalEditor
         }
         private void SetRowContent(int row, SearchResultDTO rowContent)
         {
-            InsertLabels(row, rowContent);
+            if(searchType == SearchType.EquipmentSeparation)
+                InsertTextBoxesAndLabels(row, rowContent);
+            else
+                InsertLabels(row, rowContent);
+
             InsertButtons(row, rowContent);
+
         }
 
         private void InsertLabels(int row, SearchResultDTO rowContent)
@@ -120,6 +147,12 @@ namespace WPFHospitalEditor
                 RenovationSearchResultDTO renovationAppointments = (RenovationSearchResultDTO)rowContent;
                 AddScheduleRenovationButton(row, renovationAppointments.RenovationDto);
             }
+            else if(searchType == SearchType.EquipmentSeparation)
+            {
+                EquipmentSeparationSearchResultDTO equipmentSeparation = (EquipmentSeparationSearchResultDTO)rowContent;
+                AddMinusButton(row, equipmentSeparation.EquipmentSeparationDto);
+                AddPlusButton(row, equipmentSeparation.EquipmentSeparationDto);
+            }
             else
             {
                 AddAdvancedSearchButton(row, rowContent.MapObjectId);
@@ -130,6 +163,60 @@ namespace WPFHospitalEditor
                 }
             }
         }
+
+        private void InsertTextBoxesAndLabels(int row, SearchResultDTO rowContent)
+        {
+            string[] labels = rowContent.Content.Split(AllConstants.ContentSeparator);
+            for (int col = 0; col < labels.Length; col++)
+            {
+                if (col % 2 == 0)
+                {
+                    Label label = CreateLabel(row, col, labels[col]);
+                    DynamicGrid.Children.Add(label);
+                }
+                else
+                {
+                    TextBox textBox = CreateEquipmentAmountTextBox(row,col,labels[col]);
+                    DynamicGrid.Children.Add(textBox);
+                }
+
+            }
+        }
+
+        private void AddMinusButton(int row, EquipmentSeparationDto equipmentSeparation)
+        {
+            Button minus = CreateMinusButton();
+            Grid.SetRow(minus, row);
+            Grid.SetColumn(minus, DynamicGrid.ColumnDefinitions.Count - 2);
+            DynamicGrid.Children.Add(minus);
+            int column = DynamicGrid.ColumnDefinitions.Count - 2;
+
+            minus.Click += (s, e) =>
+            {
+                equipmentSeparation.DestinationQuantity--;
+                equipmentSeparation.SourceQuantity++;
+                destAmount = equipmentSeparation.DestinationQuantity;
+                sourceAmount = equipmentSeparation.SourceQuantity;
+                
+            };
+        }
+
+        private void AddPlusButton(int row, EquipmentSeparationDto equipmentSeparation)
+        {
+            Button plus = CreatePlusButton();
+            Grid.SetRow(plus, row);
+            Grid.SetColumn(plus, DynamicGrid.ColumnDefinitions.Count - 1);
+            DynamicGrid.Children.Add(plus);
+
+            plus.Click += (s, e) =>
+            {
+                equipmentSeparation.DestinationQuantity++;
+                equipmentSeparation.SourceQuantity--;
+                destAmount = equipmentSeparation.DestinationQuantity;
+                sourceAmount = equipmentSeparation.SourceQuantity;
+            };
+        }
+
         private void AddAdvancedSearchButton(int row, int mapObjectId)
         {
             Button advancedSearchBtn = CreateAdvancedSearchButton();
@@ -175,15 +262,18 @@ namespace WPFHospitalEditor
             Grid.SetColumn(scheduleBtn, DynamicGrid.ColumnDefinitions.Count - 2);
             DynamicGrid.Children.Add(scheduleBtn);
 
+            SchedulingDto schedulingDto = relocation.toSchedulingDto();
+
             scheduleBtn.Click += (s, e) =>
             {
+
                 List<int> doctors = new DoctorServerController().GetDoctorsByRoomsAndShifts(relocation.toSchedulingDto()).ToList();
                 IExaminationServerController examinationServerController = new ExaminationServerController();
                 foreach (int doctorId in doctors)
                 {
                     examinationServerController.ScheduleExamination(relocation.TimeInterval.Start, doctorId, AllConstants.PatientIdForRelocation);
                 }
-                MessageBox.Show("Relocation is successfully scheduled!");
+                MessageBox.Show("Relocation is successfully scheduled!");              
                 this.Close();
             };
         }
@@ -213,17 +303,30 @@ namespace WPFHospitalEditor
 
                         if ((window as RoomRenovation).RenovationTypeComboBox.Text.Equals("Complex"))
                         {
-                            RoomInformation roomInformation = new RoomInformation();
+                            RoomInformation roomInformation = new RoomInformation(schDto);
 
                             if ((window as RoomRenovation).ComplexRenovationTypeComboBox.Text.Equals("Separate room"))
                             {
                                 roomInformation.MergingStackPanel.Visibility = Visibility.Hidden;
                                 roomInformation.DividingStackPanel.Visibility = Visibility.Visible;
+                                roomInformation.Room1Name.Text = mapObjectController.GetMapObjectById(renovation.SourceRoomId).Name;
+                                int workTime = mapObjectController.GetMapObjectById(renovation.SourceRoomId).MapObjectDescription.Information.Split("=")[1].Length;
+                                roomInformation.WorkTime1.Text = mapObjectController.GetMapObjectById(renovation.SourceRoomId).MapObjectDescription.Information.Split("=")[1].Substring(0, workTime - 1);
+
                             }
                             else if ((window as RoomRenovation).ComplexRenovationTypeComboBox.Text.Equals("Join rooms"))
                             {
                                 roomInformation.DividingStackPanel.Visibility = Visibility.Hidden;
                                 roomInformation.MergingStackPanel.Visibility = Visibility.Visible;
+                                roomInformation.RoomName.Text = mapObjectController.GetMapObjectById(renovation.SourceRoomId).Name;
+                                int workTime = mapObjectController.GetMapObjectById(renovation.SourceRoomId).MapObjectDescription.Information.Split("=")[1].Length;
+                                roomInformation.WorkTime.Text = mapObjectController.GetMapObjectById(renovation.SourceRoomId).MapObjectDescription.Information.Split("=")[1].Substring(0, workTime - 1);
+                                List<int> doctors1 = doctorServerController.GetDoctorsByRoomsAndShifts(schDto).ToList();
+                                foreach (int doctorId in doctors1)
+                                {
+                                    startDate = schDto.TimeInterval.Start.AddDays(1);
+                                    examinationServerController.ScheduleExamination(startDate, doctorId, AllConstants.PatientIdForRelocation);
+                                }
 
                             }
                             roomInformation.ShowDialog();
@@ -269,6 +372,44 @@ namespace WPFHospitalEditor
             return btn;
         }
 
+        private Button CreatePlusButton()
+        {
+            Button btn = new Button();
+            btn.Content = "+";
+            btn.FontWeight = FontWeights.UltraBold;
+            btn.FontSize = 35;
+            btn.Height = 35;
+            btn.Width = 35;
+            btn.VerticalContentAlignment = VerticalAlignment.Top;
+            SetCommonButtonProperties(btn);
+            return btn;
+        }
+
+        private Button CreateMinusButton()
+        {
+            Button btn = new Button();
+            btn.Content = "-";
+            btn.FontWeight = FontWeights.UltraBold;
+            btn.FontSize = 35;
+            btn.Height = 35;
+            btn.Width = 35;
+            btn.VerticalContentAlignment = VerticalAlignment.Top;
+            SetCommonButtonProperties(btn);
+            return btn;
+        }
+
+        private TextBox CreateEquipmentAmountTextBox(int row, int col, string content)
+        {
+            TextBox textBox = new TextBox();
+            textBox.Width = 30;
+            textBox.Height = 20;
+            textBox.Text = content;
+            textBox.VerticalContentAlignment = VerticalAlignment.Bottom;
+            Grid.SetRow(textBox, row);
+            Grid.SetColumn(textBox, col);
+            return textBox;
+        }
+
         private Button CreateScheduleButton()
         {
             Button btn = new Button();
@@ -306,6 +447,25 @@ namespace WPFHospitalEditor
         private void Close_Click(object sender, RoutedEventArgs e)
         {
             selectedObjectId = -1;
+            this.Close();
+        }
+
+        private void FinishRelocationClick(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("DTO:\nSource:" + schDto.SourceRoomId + "\nDestination:" + schDto.DestinationRoomId+"\nStart:"+schDto.TimeInterval.Start);
+            foreach(SearchResultDTO searchRes in searchResults)
+            {
+                MessageBox.Show("ULAZI U PRVI FOR");
+                List<int> doctors = doctorServerController.GetDoctorsByRoomsAndShifts(schDto).ToList();
+                int i = 1;
+                foreach (int doctorId in doctors)
+                {
+                    MessageBox.Show("ZAKAZUJE " + i + ". PUT");
+                    examinationServerController.ScheduleExamination(schDto.TimeInterval.Start, doctorId, AllConstants.PatientIdForRelocation);
+                    i++;
+                }
+            }
+            MessageBox.Show("Equipment succesfully relocated");
             this.Close();
         }
     }

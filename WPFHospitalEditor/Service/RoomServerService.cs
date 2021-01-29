@@ -10,13 +10,13 @@ namespace WPFHospitalEditor.Service
 {
     public class RoomServerService : IRoomServerService
     {
-        public bool CreateRoom(CreateRoomDto createRoomDto)
+        public Room CreateRoom(CreateRoomDto createRoomDto)
         {
             var client = new RestClient(AllConstants.ConnectionUrl);
             var request = new RestRequest("/api/hospital/room/create-room", Method.POST);
             request.AddParameter(AllConstants.AuthorizationTokenKey, LoggedUser.Cookie, ParameterType.Cookie);
             request.AddJsonBody(JsonConvert.SerializeObject(createRoomDto));
-            var response = client.Post<bool>(request);
+            var response = client.Post<Room>(request);
             return response.Data;
         }
 

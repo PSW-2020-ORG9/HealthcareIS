@@ -9,7 +9,7 @@ namespace WPFHospitalEditor.Controller.Interface
     {
         IEnumerable<Room> getRoomsByEquipmentType(string equipmentType);
         IEnumerable<int> GetUnavailableRooms(SchedulingDto dto);
-        bool CreateRoom(CreateRoomDto createRoomDto);
+        Room CreateRoom(CreateRoomDto createRoomDto);
         IEnumerable<Room> GetAllRooms();
     }
 }

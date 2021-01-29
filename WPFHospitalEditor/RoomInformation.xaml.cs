@@ -13,6 +13,7 @@ using WPFHospitalEditor.Controller;
 using WPFHospitalEditor.Controller.Interface;
 using WPFHospitalEditor.DTOs;
 using WPFHospitalEditor.Model;
+using WPFHospitalEditor.StrategyPattern;
 
 namespace WPFHospitalEditor
 {
@@ -24,8 +25,12 @@ namespace WPFHospitalEditor
 
         private IRoomServerController roomServerController = new RoomServerController();
         private IMapObjectController mapObjectController = new MapObjectController();
-        public RoomInformation()
+        private SchedulingDto schDto;
+        private Room createdRoom;
+        private bool equipmentRelocated = false;
+        public RoomInformation(SchedulingDto schDto)
         {
+            this.schDto = schDto;
             InitializeComponent();
         }
 
@@ -52,6 +57,7 @@ namespace WPFHospitalEditor
 
         private void CloseClick(object sender, RoutedEventArgs e)
         {
+            MessageBox.Show("Renovation is not succesfully scheduled");
             this.Close();
         }
 
@@ -61,24 +67,25 @@ namespace WPFHospitalEditor
             {
                 if (window.GetType() == typeof(RoomRenovation))
                 {
-                    if ((window as RoomRenovation).ComplexRenovationTypeComboBox.Text.Equals("Separate room"))
+
+                    if ((window as RoomRenovation).ComplexRenovationTypeComboBox.Text.Equals("Separate rooms"))
                     {
-                        int id = FindAvailableId();
-                        CreateRoomDto createRoomDto = new CreateRoomDto()
+                        if (equipmentRelocated)
                         {
-                            id = id,
-                            name = Room2Name.Text
-                        };
-                        roomServerController.CreateRoom(createRoomDto);
-                        MessageBox.Show("Room " + Room2Name.Text + " succesfully created!");
+                            MessageBox.Show("Renovation is succesfully scheduled");
+                            this.Close();
+                        }
+                        else
+                            MessageBox.Show("Relocate equipment first!");
                     }
-                    else if ((window as RoomRenovation).ComplexRenovationTypeComboBox.Text.Equals("Join rooms"))
+                    else
                     {
-                        MessageBox.Show("Relocation is successfully scheduled!");
+                        MessageBox.Show("Renovation is succesfully scheduled");
+                        this.Close();
                     }
+
                 }
             }
-            this.Close();
         }
 
         private int FindAvailableId()
@@ -93,6 +100,30 @@ namespace WPFHospitalEditor
                 }
             }
             return ++maxId;
+        }
+
+        private void SeparateEquipmentClick(object sender, RoutedEventArgs e)
+        {
+            if(Room2Name.Text.Equals("") || WorkTime2.Text.Equals(""))
+            {
+                MessageBox.Show("Enter Room2 data");
+            }
+            else
+            {
+                equipmentRelocated = true;
+                int id = FindAvailableId();
+                CreateRoomDto createRoomDto = new CreateRoomDto()
+                {
+                    id = id,
+                    name = Room2Name.Text
+                };
+                createdRoom = roomServerController.CreateRoom(createRoomDto);
+                MessageBox.Show("ID: " + id);
+                schDto.DestinationRoomId = id;
+                ISearchResultStrategy strategy = new SearchResultStrategy(new EquipmentSeparation(schDto));
+                SearchResultDialog equipmentRelocationDialog = new SearchResultDialog(strategy.GetSearchResult(), SearchType.EquipmentSeparation, schDto);
+                equipmentRelocationDialog.ShowDialog();
+            }           
         }
     }
 }
