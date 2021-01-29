@@ -63,9 +63,9 @@ namespace WPFHospitalEditor
 
         private void RemoveDeletedExamination(int examinationId)
         {
-            if (FindAndDeleteByExaminationId(roomExaminations, examinationId)) return;
+            if (FindAndDeleteByExaminationId(roomRenovations, examinationId)) return;
             if (FindAndDeleteByExaminationId(roomRelocations, examinationId)) return;
-            FindAndDeleteByExaminationId(roomRenovations, examinationId);
+            FindAndDeleteByExaminationId(roomExaminations, examinationId);
         }
 
         private bool FindAndDeleteByExaminationId(ObservableCollection<RoomScheduledAppointmentDto> rsaDtos, int examinationId)
@@ -125,22 +125,19 @@ namespace WPFHospitalEditor
         {
             if(scrollViewer1 != null)
             {
+                scrollViewer1.Visibility = Visibility.Collapsed;
+                scrollViewer2.Visibility = Visibility.Collapsed;
+                scrollViewer3.Visibility = Visibility.Collapsed;
                 if (appointmentTypeComboBox.SelectedIndex == 0)
                 {
                     scrollViewer1.Visibility = Visibility.Visible;
-                    scrollViewer2.Visibility = Visibility.Collapsed;
-                    scrollViewer3.Visibility = Visibility.Collapsed;
                 }
                 else if (appointmentTypeComboBox.SelectedIndex == 1)
                 {
-                    scrollViewer1.Visibility = Visibility.Collapsed;
                     scrollViewer2.Visibility = Visibility.Visible;
-                    scrollViewer3.Visibility = Visibility.Collapsed;
                 }
                 else
                 {
-                    scrollViewer1.Visibility = Visibility.Collapsed;
-                    scrollViewer2.Visibility = Visibility.Collapsed;
                     scrollViewer3.Visibility = Visibility.Visible;
                 }
             }
