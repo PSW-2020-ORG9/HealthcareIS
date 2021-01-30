@@ -118,7 +118,6 @@ namespace WPFHospitalEditor
                     name = Room2Name.Text
                 };
                 createdRoom = roomServerController.CreateRoom(createRoomDto);
-                MessageBox.Show("ID: " + id);
                 schDto.DestinationRoomId = id;
                 ISearchResultStrategy strategy = new SearchResultStrategy(new EquipmentSeparation(schDto));
                 SearchResultDialog equipmentRelocationDialog = new SearchResultDialog(strategy.GetSearchResult(), SearchType.EquipmentSeparation, schDto);

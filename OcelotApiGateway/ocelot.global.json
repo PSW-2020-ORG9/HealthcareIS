@@ -332,6 +332,19 @@
     },
 
     {
+      "DownstreamPathTemplate": "/schedule/examination/by-room/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "$PSW_SCHEDULE_SERVICE_HOST",
+          "Port": $PSW_SCHEDULE_SERVICE_PORT
+        }
+      ],
+      "UpstreamPathTemplate": "/api/schedule/examination/by-room/{everything}",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+
+    {
       "DownstreamPathTemplate": "/schedule/examination/get-doctors-by-rooms-and-shifts",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -370,7 +383,7 @@
         }
       ],
       "UpstreamPathTemplate": "/api/schedule/examination/{everything}",
-      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "UpstreamHttpMethod": [ "Post" ],
       "RouteClaimsRequirement": {
         "Role": "Patient"
       }

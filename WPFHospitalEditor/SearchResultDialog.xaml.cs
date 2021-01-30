@@ -191,13 +191,28 @@ namespace WPFHospitalEditor
             DynamicGrid.Children.Add(minus);
             int column = DynamicGrid.ColumnDefinitions.Count - 2;
 
+
+
             minus.Click += (s, e) =>
             {
-                equipmentSeparation.DestinationQuantity--;
-                equipmentSeparation.SourceQuantity++;
-                destAmount = equipmentSeparation.DestinationQuantity;
-                sourceAmount = equipmentSeparation.SourceQuantity;
+                UIElement firstElement = DynamicEquipmentSeparationGrid.Children
+                .Cast<UIElement>()
+                .First(e => Grid.GetRow(e) == row && Grid.GetColumn(e) == 1);
+                UIElement secondElement = DynamicEquipmentSeparationGrid.Children
+                .Cast<UIElement>()
+                .First(e => Grid.GetRow(e) == row && Grid.GetColumn(e) == 3);
+                TextBox firstTextBox = (TextBox)firstElement;
+                TextBox secondTextBox = (TextBox)secondElement;
                 
+                destAmount = equipmentSeparation.DestinationQuantity - 1;
+                sourceAmount = equipmentSeparation.SourceQuantity + 1;
+                if (destAmount >= 0)
+                {
+                    destAmount = --equipmentSeparation.DestinationQuantity;
+                    sourceAmount = ++equipmentSeparation.SourceQuantity;
+                    firstTextBox.Text = sourceAmount.ToString();
+                    secondTextBox.Text = destAmount.ToString();
+                }
             };
         }
 
@@ -210,10 +225,23 @@ namespace WPFHospitalEditor
 
             plus.Click += (s, e) =>
             {
-                equipmentSeparation.DestinationQuantity++;
-                equipmentSeparation.SourceQuantity--;
-                destAmount = equipmentSeparation.DestinationQuantity;
-                sourceAmount = equipmentSeparation.SourceQuantity;
+                UIElement firstElement = DynamicEquipmentSeparationGrid.Children
+                .Cast<UIElement>()
+                .First(e => Grid.GetRow(e) == row && Grid.GetColumn(e) == 1);
+                UIElement secondElement = DynamicEquipmentSeparationGrid.Children
+                .Cast<UIElement>()
+                .First(e => Grid.GetRow(e) == row && Grid.GetColumn(e) == 3);
+                TextBox firstTextBox = (TextBox)firstElement;
+                TextBox secondTextBox = (TextBox)secondElement;
+                destAmount = equipmentSeparation.DestinationQuantity + 1;
+                sourceAmount = equipmentSeparation.SourceQuantity -1;
+                if (sourceAmount >= 0)
+                {
+                    destAmount = ++equipmentSeparation.DestinationQuantity;
+                    sourceAmount= --equipmentSeparation.SourceQuantity;
+                    firstTextBox.Text = sourceAmount.ToString();
+                    secondTextBox.Text = destAmount.ToString();
+                }
             };
         }
 
@@ -452,18 +480,26 @@ namespace WPFHospitalEditor
 
         private void FinishRelocationClick(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("DTO:\nSource:" + schDto.SourceRoomId + "\nDestination:" + schDto.DestinationRoomId+"\nStart:"+schDto.TimeInterval.Start);
-            foreach(SearchResultDTO searchRes in searchResults)
+            schDto.DestinationRoomId = 16;
+            DateTime newStart;
+            DateTime newEnd;
+            newStart = schDto.TimeInterval.Start.AddDays(1);
+            newEnd = schDto.TimeInterval.End.AddDays(1);
+            schDto.TimeInterval = new TimeInterval(newStart, newEnd);
+            startDate = schDto.TimeInterval.Start;
+
+            foreach (SearchResultDTO searchRes in searchResults)
             {
-                MessageBox.Show("ULAZI U PRVI FOR");
                 List<int> doctors = doctorServerController.GetDoctorsByRoomsAndShifts(schDto).ToList();
                 int i = 1;
                 foreach (int doctorId in doctors)
                 {
-                    MessageBox.Show("ZAKAZUJE " + i + ". PUT");
-                    examinationServerController.ScheduleExamination(schDto.TimeInterval.Start, doctorId, AllConstants.PatientIdForRelocation);
+                    
+                    examinationServerController.ScheduleExamination(startDate, doctorId, AllConstants.PatientIdForRelocation);
                     i++;
                 }
+                startDate = startDate.AddMinutes(30);
+
             }
             MessageBox.Show("Equipment succesfully relocated");
             this.Close();
