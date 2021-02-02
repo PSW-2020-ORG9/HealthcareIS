@@ -11,6 +11,16 @@ namespace WPFHospitalEditor.Controller
     {
         private readonly IRoomServerService roomTypeServerService = new RoomServerService();
 
+        public Room CreateRoom(CreateRoomDto createRoomDto)
+        {
+            return roomTypeServerService.CreateRoom(createRoomDto);
+        }
+
+        public IEnumerable<Room> GetAllRooms()
+        {
+            return roomTypeServerService.GetAllRooms();
+        }
+
         public IEnumerable<Room> getRoomsByEquipmentType(string equipmentType)
         {
             return roomTypeServerService.GetRoomsByEquipmentType(equipmentType);

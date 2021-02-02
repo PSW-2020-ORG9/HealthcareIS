@@ -1,4 +1,5 @@
 ﻿using General.Repository;
+using Hospital.API.DTOs;
 using Hospital.API.Infrastructure.Repositories.Resources;
 using Hospital.API.Model.Resources;
 using System;
@@ -26,5 +27,20 @@ namespace Hospital.API.Services.Resources
         public IEnumerable<Room> getByEquipmentType(string equipmentTypeName)
             => _roomRepository.Repository
             .GetMatching(r => r.Equipment.Select(r => r.EquipmentType.Name).Contains(equipmentTypeName));
+
+        public bool CreateRoom(CreateRoomDto dto)
+        {
+            Room room = new Room();
+            room.Id = dto.id;
+            room.Name = dto.name;
+            room.DepartmentId = 1;
+            _roomRepository.Repository.Create(room);
+            return true;
+        }
+
+        public IEnumerable<Room> GetAll()
+        {
+            return _roomRepository.Repository.GetAll();
+        }
     }
 }

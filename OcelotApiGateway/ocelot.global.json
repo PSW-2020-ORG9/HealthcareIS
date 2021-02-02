@@ -304,18 +304,6 @@
       "UpstreamPathTemplate": "/api/schedule/examination/recommend-renovation-appointment",
       "UpstreamHttpMethod": [ "Get", "Post" ]
     },
-    {
-      "DownstreamPathTemplate": "/schedule/examination/by-room/{everything}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "$PSW_SCHEDULE_SERVICE_HOST",
-          "Port": $PSW_SCHEDULE_SERVICE_PORT
-        }
-      ],
-      "UpstreamPathTemplate": "/api/schedule/examination/by-room/{everything}",
-      "UpstreamHttpMethod": [ "Get", "Post" ]
-    },
 
     {
       "DownstreamPathTemplate": "/schedule/examination/recommend-equipment-relocation",
@@ -341,6 +329,19 @@
       ],
       "UpstreamPathTemplate": "/api/schedule/examination/unavailable-rooms",
       "UpstreamHttpMethod": [ "Post" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/schedule/examination/by-room/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "$PSW_SCHEDULE_SERVICE_HOST",
+          "Port": $PSW_SCHEDULE_SERVICE_PORT
+        }
+      ],
+      "UpstreamPathTemplate": "/api/schedule/examination/by-room/{everything}",
+      "UpstreamHttpMethod": [ "Get" ]
     },
 
     {
@@ -382,7 +383,7 @@
         }
       ],
       "UpstreamPathTemplate": "/api/schedule/examination/{everything}",
-      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "UpstreamHttpMethod": [ "Post" ],
       "RouteClaimsRequirement": {
         "Role": "Patient"
       }
@@ -419,6 +420,39 @@
         "Role": "Admin"
       }
     },
+
+    {
+      "DownstreamPathTemplate": "/hospital/room/get-all",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "$PSW_HOSPITAL_SERVICE_HOST",
+          "Port": $PSW_HOSPITAL_SERVICE_PORT
+        }
+      ],
+      "UpstreamPathTemplate": "/api/hospital/room/get-all",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "RouteClaimsRequirement": {
+        "Role": "Admin"
+      }
+    },
+
+    {
+      "DownstreamPathTemplate": "/hospital/room/create-room",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "$PSW_HOSPITAL_SERVICE_HOST",
+          "Port": $PSW_HOSPITAL_SERVICE_PORT
+        }
+      ],
+      "UpstreamPathTemplate": "/api/hospital/room/create-room",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "RouteClaimsRequirement": {
+        "Role": "Admin"
+      }
+    },
+    
     {
       "DownstreamPathTemplate": "/event/{everything}",
       "DownstreamScheme": "http",
@@ -435,7 +469,5 @@
         "Role" : "Patient, Admin"
       }
     }
-    
-    
   ]
 }

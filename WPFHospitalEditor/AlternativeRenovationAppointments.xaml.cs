@@ -33,16 +33,20 @@ namespace WPFHospitalEditor
 
         private void ShowAppointments(object sender, RoutedEventArgs e)
         {
-            if (schedulingDto.DestinationRoomId == -1)
+            if (roomRenovation.RenovationTypeComboBox.Text.Equals("Basic") || (roomRenovation.RenovationTypeComboBox.Text.Equals("Complex") && schedulingDto.DestinationRoomId==-1))
             {
                 ISearchResultStrategy strategy = new SearchResultStrategy(new BasicRenovationaAppointmentsSearchResult(schedulingDto));
                 SearchResultDialog equipmentRelocationDialog = new SearchResultDialog(strategy.GetSearchResult(), SearchType.BasicRoomRenovationSearch);
+                equipmentRelocationDialog.BasicRenovationAppointmentsGrid.Visibility = Visibility.Visible;
+                equipmentRelocationDialog.RenovationAppointmentsGrid.Visibility = Visibility.Hidden;
                 equipmentRelocationDialog.ShowDialog();
             }
-            else
+            else if(roomRenovation.RenovationTypeComboBox.Text.Equals("Complex"))
             {
                 ISearchResultStrategy strategy = new SearchResultStrategy(new RenovationaAppointmentsSearchResult(schedulingDto));
                 SearchResultDialog equipmentRelocationDialog = new SearchResultDialog(strategy.GetSearchResult(), SearchType.RoomRenovationSearch);
+                equipmentRelocationDialog.BasicRenovationAppointmentsGrid.Visibility = Visibility.Hidden;
+                equipmentRelocationDialog.RenovationAppointmentsGrid.Visibility = Visibility.Visible;
                 equipmentRelocationDialog.ShowDialog();
             }
         }

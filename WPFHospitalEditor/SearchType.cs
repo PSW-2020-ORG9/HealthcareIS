@@ -8,6 +8,7 @@
         AppointmentSearch,
         EquipmentRelocationSearch,
         RoomRenovationSearch,
-        BasicRoomRenovationSearch
+        BasicRoomRenovationSearch,
+        EquipmentSeparation
     }
 }

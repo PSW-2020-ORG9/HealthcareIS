@@ -261,4 +261,45 @@ namespace WPFHospitalEditor.StrategyPattern
             return retVal;
         }
     }
+
+    class EquipmentSeparation : ISearchResultStrategy
+    {
+        private SchedulingDto schedulingDto;
+        public EquipmentSeparation(SchedulingDto schedulingDto)
+        {
+            this.schedulingDto = schedulingDto;
+        }
+        public List<SearchResultDTO> GetSearchResult()
+        {
+            IEnumerable<EquipmentDto> searchResult = new EquipmentServerController().GetEquipmentByRoomId(schedulingDto.SourceRoomId);
+            List<SearchResultDTO> retVal = new List<SearchResultDTO>();
+            IMapObjectController mapObjectController = new MapObjectController();
+            IEquipmentServerController equipmentServerController = new EquipmentServerController();
+
+            for (int i = 0; i < searchResult.Count(); i++)
+            {
+                EquipmentDto equipmentDto = searchResult.ElementAt(i);
+                MapObject mo = mapObjectController.GetMapObjectById(equipmentDto.RoomId);
+                string amount = "0";
+                string timeInterval = schedulingDto.TimeInterval.Start.ToString() + "-" + schedulingDto.TimeInterval.End.ToString();
+                EquipmentSeparationDto equipmentSeparationDto = new EquipmentSeparationDto() {
+                    SourceRoomId  = schedulingDto.SourceRoomId,
+                    SourceQuantity = equipmentDto.Quantity,
+                    DestinationRoomId = schedulingDto.DestinationRoomId,
+                    DestinationQuantity = 0,
+                    Name = equipmentDto.Name
+                };
+                EquipmentSeparationSearchResultDTO searchResultDTO = new EquipmentSeparationSearchResultDTO()
+                {
+                    Content = equipmentDto.Name + AllConstants.ContentSeparator
+                    + equipmentDto.Quantity + AllConstants.ContentSeparator
+                    + equipmentDto.Name + AllConstants.ContentSeparator
+                    + amount,
+                    EquipmentSeparationDto = equipmentSeparationDto
+                };
+                retVal.Add(searchResultDTO);
+            }
+            return retVal;
+        }
+    }
 }

@@ -184,6 +184,41 @@
                     </ScrollViewer>
                 </Grid>
 
+                <Grid x:Name="EquipmentSeparationGrid" Visibility="Hidden">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="70"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="70"/>
+                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition Width="130"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="200"/>
+                        <RowDefinition Height="110"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Content="Room 1" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"></Label>
+                    <Label Content="Amount" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"></Label>
+                    <Label Content="Room 2" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"></Label>
+                    <Label Content="Amount" Grid.Row="0" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"></Label>
+                    <Button x:Name="FinishRelocation" Width="120" Height="20" Margin="0,0,0,40" Grid.Row="2" Grid.Column="2" Click="FinishRelocationClick">Finish</Button>
+                    <ScrollViewer Grid.Row="1" Grid.ColumnSpan="8" Background="#FFC6F5F8">
+                        <Grid x:Name="DynamicEquipmentSeparationGrid">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                    </ScrollViewer>
+                </Grid>
             </Grid>
         </Grid>
     </Border>
